@@ -50,3 +50,6 @@ next-env.d.ts
 # ─── Temporary folders ────────────────────────────
 temp/
 tmp/public/audio/offline.zip
+
+# Large local audio archive
+/public/audio/offline.zip

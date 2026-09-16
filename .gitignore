@@ -49,4 +49,4 @@ next-env.d.ts
 
 # ─── Temporary folders ────────────────────────────
 temp/
-tmp/
+tmp/public/audio/offline.zip

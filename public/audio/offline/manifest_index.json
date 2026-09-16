@@ -1,0 +1,23 @@
+{
+  "languages": {
+    "hy": {
+      "folder": "hy_Ani",
+      "manifest": "manifest_hy_ani.json"
+    },
+    "en": {
+      "folder": "en_female",
+      "manifest": "manifest_en_female.json"
+    },
+    "ru": {
+      "folder": "ru_female",
+      "manifest": "manifest_ru_female.json"
+    }
+  },
+  "dictionary": {
+    "manifest": "offline_dictionary/manifest.json"
+  },
+  "user_dictionary": {
+    "manifest": "offline_user_dictionary/user_manifest.json"
+  },
+  "generated": "2026-08-09T16:22:10.545072"
+}

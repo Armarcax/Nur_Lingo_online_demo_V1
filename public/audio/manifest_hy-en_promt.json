@@ -1,0 +1,15 @@
+{
+  "entries": {
+    "000001": {
+      "text": "Переведи: \"բարև\"",
+      "path": "/audio/offline/hy-en_promt/000001.mp3",
+      "audioId": "000001",
+      "type": "promt",
+      "pair": "hy-en",
+      "language": "hy",
+      "createdAt": "2026-08-30T20:06:07.630Z"
+    }
+  },
+  "totalEntries": 1,
+  "lastUpdated": "2026-08-30T20:06:07.630Z"
+}

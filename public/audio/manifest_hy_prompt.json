@@ -1,0 +1,222 @@
+{
+  "entries": {
+    "000001": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000001.mp3",
+      "audioId": "000001",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:30:25.174Z"
+    },
+    "000002": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000002.mp3",
+      "audioId": "000002",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:30:47.643Z"
+    },
+    "000003": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000003.mp3",
+      "audioId": "000003",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:31:41.850Z"
+    },
+    "000004": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000004.mp3",
+      "audioId": "000004",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:31:42.811Z"
+    },
+    "000005": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000005.mp3",
+      "audioId": "000005",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:31:51.882Z"
+    },
+    "000006": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_prompt/000006.mp3",
+      "audioId": "000006",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:32:56.172Z"
+    },
+    "000007": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000007.mp3",
+      "audioId": "000007",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:33:05.133Z"
+    },
+    "000008": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_prompt/000008.mp3",
+      "audioId": "000008",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:33:37.562Z"
+    },
+    "000009": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_prompt/000009.mp3",
+      "audioId": "000009",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:33:57.142Z"
+    },
+    "000010": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000010.mp3",
+      "audioId": "000010",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:34:11.389Z"
+    },
+    "000011": {
+      "text": "What is \"hi\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000011.mp3",
+      "audioId": "000011",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:34:24.547Z"
+    },
+    "000012": {
+      "text": "hi",
+      "path": "/audio/offline/hy_prompt/000012.mp3",
+      "audioId": "000012",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:14.671Z"
+    },
+    "000013": {
+      "text": "hi",
+      "path": "/audio/offline/hy_prompt/000013.mp3",
+      "audioId": "000013",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:17.952Z"
+    },
+    "000014": {
+      "text": "здравствуй",
+      "path": "/audio/offline/hy_prompt/000014.mp3",
+      "audioId": "000014",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:21.104Z"
+    },
+    "000015": {
+      "text": "доброе утро",
+      "path": "/audio/offline/hy_prompt/000015.mp3",
+      "audioId": "000015",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:25.860Z"
+    },
+    "000016": {
+      "text": "hi",
+      "path": "/audio/offline/hy_prompt/000016.mp3",
+      "audioId": "000016",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:30.797Z"
+    },
+    "000017": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_prompt/000017.mp3",
+      "audioId": "000017",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:41.336Z"
+    },
+    "000018": {
+      "text": "hi",
+      "path": "/audio/offline/hy_prompt/000018.mp3",
+      "audioId": "000018",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:44.368Z"
+    },
+    "000019": {
+      "text": "доброе утро",
+      "path": "/audio/offline/hy_prompt/000019.mp3",
+      "audioId": "000019",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:36:48.754Z"
+    },
+    "000020": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_prompt/000020.mp3",
+      "audioId": "000020",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:37:10.519Z"
+    },
+    "000021": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000021.mp3",
+      "audioId": "000021",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:37:18.083Z"
+    },
+    "000022": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000022.mp3",
+      "audioId": "000022",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:37:53.411Z"
+    },
+    "000023": {
+      "text": "What is \"hi\" in Armenian?",
+      "path": "/audio/offline/hy_prompt/000023.mp3",
+      "audioId": "000023",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:38:07.745Z"
+    },
+    "000024": {
+      "text": "բարի լույս",
+      "path": "/audio/offline/hy_prompt/000024.mp3",
+      "audioId": "000024",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:48:42.842Z"
+    },
+    "000025": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_prompt/000025.mp3",
+      "audioId": "000025",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:49:19.988Z"
+    },
+    "000026": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_prompt/000026.mp3",
+      "audioId": "000026",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:49:29.421Z"
+    },
+    "000027": {
+      "text": "բարի լույս",
+      "path": "/audio/offline/hy_prompt/000027.mp3",
+      "audioId": "000027",
+      "type": "prompt",
+      "language": "hy",
+      "createdAt": "2026-08-29T21:49:56.297Z"
+    }
+  },
+  "totalEntries": 27,
+  "lastUpdated": "2026-08-29T21:49:56.297Z"
+}

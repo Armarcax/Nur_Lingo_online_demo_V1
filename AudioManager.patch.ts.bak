@@ -1,0 +1,36 @@
+// ✅ FIX: HEAD check + console.warn in AudioManager.ts
+
+// ─── PATCH 1: executePlay() ─────────────────────────────────────────
+
+// Find and replace the MP3 provider block:
+if (providerType === AudioProviderType.MP3) {
+  if (!options.id) continue;
+
+  // ✅ FIX: HEAD check before attempting to play
+  const paddedId = String(options.id).padStart(6, "0");
+  const folder = audioManifest.getLanguageFolder(lang);
+  const url = `/audio/${folder}/${paddedId}.mp3`;
+
+  try {
+    const headRes = await fetch(url, { method: "HEAD" });
+    if (!headRes.ok) {
+      console.warn(`[NUR Audio] MP3 not found: ${url} — falling back to TTS`);
+      continue;
+    }
+  } catch {
+    console.warn(`[NUR Audio] HEAD check failed for ${url} — falling back`);
+    continue;
+  }
+}
+
+// ─── PATCH 2: Replace ALL console.error with console.warn ──────────
+
+// Search for:  console.error(
+// Replace with: console.warn("[NUR Audio] ", 
+
+// Example:
+// console.error("Audio playback failed", error) 
+// → console.warn("[NUR Audio] Playback failed", error)
+
+// console.error("Provider error", e)             
+// → console.warn("[NUR Audio] Provider error", e)

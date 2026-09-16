@@ -1,0 +1,150 @@
+{
+  "entries": {
+    "000001": {
+      "text": "բարի լույս",
+      "path": "/audio/offline/hy_answer/000001.mp3",
+      "audioId": "000001",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:43:02.523Z"
+    },
+    "000002": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000002.mp3",
+      "audioId": "000002",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:47:21.837Z"
+    },
+    "000003": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000003.mp3",
+      "audioId": "000003",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:47:47.110Z"
+    },
+    "000004": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000004.mp3",
+      "audioId": "000004",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:52:19.856Z"
+    },
+    "000005": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000005.mp3",
+      "audioId": "000005",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:56:52.866Z"
+    },
+    "000006": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000006.mp3",
+      "audioId": "000006",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:57:23.856Z"
+    },
+    "000007": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000007.mp3",
+      "audioId": "000007",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:57:43.166Z"
+    },
+    "000008": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000008.mp3",
+      "audioId": "000008",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:59:48.931Z"
+    },
+    "000009": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000009.mp3",
+      "audioId": "000009",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:00:05.293Z"
+    },
+    "000010": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000010.mp3",
+      "audioId": "000010",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:02:44.517Z"
+    },
+    "000011": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000011.mp3",
+      "audioId": "000011",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:04:21.523Z"
+    },
+    "000012": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000012.mp3",
+      "audioId": "000012",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:04:34.230Z"
+    },
+    "000013": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000013.mp3",
+      "audioId": "000013",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:20:57.692Z"
+    },
+    "000014": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000014.mp3",
+      "audioId": "000014",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-29T23:21:29.540Z"
+    },
+    "000015": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000015.mp3",
+      "audioId": "000015",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:35:35.208Z"
+    },
+    "000016": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000016.mp3",
+      "audioId": "000016",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:36:02.739Z"
+    },
+    "000017": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_answer/000017.mp3",
+      "audioId": "000017",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:37:17.650Z"
+    },
+    "000018": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_answer/000018.mp3",
+      "audioId": "000018",
+      "type": "answer",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:37:34.313Z"
+    }
+  },
+  "totalEntries": 18,
+  "lastUpdated": "2026-08-30T19:37:34.314Z"
+}

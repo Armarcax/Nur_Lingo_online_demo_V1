@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-08-27T22:10:05.440Z",
+  "dictionaries": {},
+  "mappings": {
+    "audio-mapping.ts": {
+      "exerciseToAudio": 25099,
+      "sample": [
+        "\"greet_hello\": \"000001\"",
+        "\"greet_hi\": \"000002\"",
+        "\"greet_morning\": \"000003\"",
+        "\"greet_day\": \"000004\"",
+        "\"greet_evening\": \"000005\"",
+        "\"greet_night\": \"000006\"",
+        "\"greet_bye\": \"000007\"",
+        "\"greet_seeyou\": \"000008\"",
+        "\"greet_welcome\": \"000009\"",
+        "\"greet_pleasure\": \"000010\""
+      ]
+    }
+  },
+  "audioFiles": {
+    "hy_Ani": {
+      "count": 25121,
+      "sample": [
+        "000001.mp3",
+        "000002.mp3",
+        "000003.mp3",
+        "000004.mp3",
+        "000005.mp3"
+      ]
+    },
+    "en_female": {
+      "count": 25099,
+      "sample": [
+        "000001.mp3",
+        "000002.mp3",
+        "000003.mp3",
+        "000004.mp3",
+        "000005.mp3"
+      ]
+    },
+    "ru_female": {
+      "count": 20627,
+      "sample": [
+        "000001.mp3",
+        "000002.mp3",
+        "000003.mp3",
+        "000004.mp3",
+        "000005.mp3"
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+// public/manifest.json
+{
+  "name": "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
+  "short_name": "NUR Lingo",
+  "description": "Սովորիր հայերեն AI-ի հետ — semantic understanding, HAYQ reward system, interactive lessons",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f6",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait",
+  "categories": ["education", "language"],
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

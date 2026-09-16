@@ -1,0 +1,78 @@
+{
+  "entries": {
+    "000001": {
+      "text": "Выбери перевод \"привет\"",
+      "path": "/audio/offline/ru_prompt/000001.mp3",
+      "audioId": "000001",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:36:44.729Z"
+    },
+    "000002": {
+      "text": "Как «привет» по-армянский?",
+      "path": "/audio/offline/ru_prompt/000002.mp3",
+      "audioId": "000002",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:36:49.621Z"
+    },
+    "000003": {
+      "text": "Как «здравствуй» по-армянский?",
+      "path": "/audio/offline/ru_prompt/000003.mp3",
+      "audioId": "000003",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:37:26.848Z"
+    },
+    "000004": {
+      "text": "Как «доброе утро» по-армянский?",
+      "path": "/audio/offline/ru_prompt/000004.mp3",
+      "audioId": "000004",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:37:35.746Z"
+    },
+    "000005": {
+      "text": "Выбери перевод \"привет\"",
+      "path": "/audio/offline/ru_prompt/000005.mp3",
+      "audioId": "000005",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:38:30.923Z"
+    },
+    "000006": {
+      "text": "Как «привет» по-английский?",
+      "path": "/audio/offline/ru_prompt/000006.mp3",
+      "audioId": "000006",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:38:34.864Z"
+    },
+    "000007": {
+      "text": "Как «здравствуй» по-английский?",
+      "path": "/audio/offline/ru_prompt/000007.mp3",
+      "audioId": "000007",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:38:57.268Z"
+    },
+    "000008": {
+      "text": "Как «привет» по-английский?",
+      "path": "/audio/offline/ru_prompt/000008.mp3",
+      "audioId": "000008",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:43:54.785Z"
+    },
+    "000009": {
+      "text": "Как «привет» по-английский?",
+      "path": "/audio/offline/ru_prompt/000009.mp3",
+      "audioId": "000009",
+      "type": "prompt",
+      "language": "ru",
+      "createdAt": "2026-08-30T19:45:04.464Z"
+    }
+  },
+  "totalEntries": 9,
+  "lastUpdated": "2026-08-30T19:45:04.464Z"
+}

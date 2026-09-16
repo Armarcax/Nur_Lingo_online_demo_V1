@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-08-27T22:14:34.688Z",
+  "mappings": {
+    "total": 25099,
+    "uniqueAudioIds": 25099,
+    "byType": {
+      "w": 24274,
+      "greet": 275,
+      "other": 550
+    },
+    "worlds": {
+      "w1": 1954,
+      "w2": 2790,
+      "w3": 2232,
+      "w4": 1674,
+      "w5": 1674,
+      "w6": 2790,
+      "w7": 2790,
+      "w8": 2790,
+      "w9": 2790,
+      "w10": 2790
+    }
+  },
+  "voices": {
+    "hy_Ani": {
+      "total": 25099,
+      "missing": 0,
+      "extra": 0,
+      "missingSample": [],
+      "extraSample": []
+    },
+    "en_female": {
+      "total": 25099,
+      "missing": 0,
+      "extra": 0,
+      "missingSample": [],
+      "extraSample": []
+    },
+    "ru_female": {
+      "total": 20627,
+      "missing": 4472,
+      "extra": 0,
+      "missingSample": [
+        "000027",
+        "000032",
+        "000037",
+        "000042",
+        "000047",
+        "000052",
+        "000057",
+        "000062",
+        "000067",
+        "000072"
+      ],
+      "extraSample": []
+    }
+  }
+}

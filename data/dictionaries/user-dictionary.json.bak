@@ -1,0 +1,3323 @@
+[
+  {
+    "id": "900001",
+    "hy": "տարիք",
+    "en": "age",
+    "ru": "возраст",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900001.mp3",
+      "en": "/audio/en_user/900001.mp3",
+      "ru": "/audio/ru_user/900001.mp3"
+    }
+  },
+  {
+    "id": "900002",
+    "hy": "օդանավակայան",
+    "en": "airport",
+    "ru": "аэропорт",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900002.mp3",
+      "en": "/audio/en_user/900002.mp3",
+      "ru": "/audio/ru_user/900002.mp3"
+    }
+  },
+  {
+    "id": "900003",
+    "hy": "պատասխան",
+    "en": "answer",
+    "ru": "ответ",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900003.mp3",
+      "en": "/audio/en_user/900003.mp3",
+      "ru": "/audio/ru_user/900003.mp3"
+    }
+  },
+  {
+    "id": "900004",
+    "hy": "խնձոր",
+    "en": "apple",
+    "ru": "яблоко",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900004.mp3",
+      "en": "/audio/en_user/900004.mp3",
+      "ru": "/audio/ru_user/900004.mp3"
+    }
+  },
+  {
+    "id": "900005",
+    "hy": "ապրիլ",
+    "en": "april",
+    "ru": "апрель",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900005.mp3",
+      "en": "/audio/en_user/900005.mp3",
+      "ru": "/audio/ru_user/900005.mp3"
+    }
+  },
+  {
+    "id": "900006",
+    "hy": "բազուկ",
+    "en": "arm",
+    "ru": "рука",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900006.mp3",
+      "en": "/audio/en_user/900006.mp3",
+      "ru": "/audio/ru_user/900006.mp3"
+    }
+  },
+  {
+    "id": "900007",
+    "hy": "արվեստ",
+    "en": "art",
+    "ru": "искусство",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900007.mp3",
+      "en": "/audio/en_user/900007.mp3",
+      "ru": "/audio/ru_user/900007.mp3"
+    }
+  },
+  {
+    "id": "900008",
+    "hy": "նկարիչ",
+    "en": "artist",
+    "ru": "художник",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900008.mp3",
+      "en": "/audio/en_user/900008.mp3",
+      "ru": "/audio/ru_user/900008.mp3"
+    }
+  },
+  {
+    "id": "900009",
+    "hy": "օգոստոս",
+    "en": "august",
+    "ru": "август",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900009.mp3",
+      "en": "/audio/en_user/900009.mp3",
+      "ru": "/audio/ru_user/900009.mp3"
+    }
+  },
+  {
+    "id": "900010",
+    "hy": "աշուն",
+    "en": "autumn",
+    "ru": "осень",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900010.mp3",
+      "en": "/audio/en_user/900010.mp3",
+      "ru": "/audio/ru_user/900010.mp3"
+    }
+  },
+  {
+    "id": "900011",
+    "hy": "մանուկ",
+    "en": "baby",
+    "ru": "младенец",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900011.mp3",
+      "en": "/audio/en_user/900011.mp3",
+      "ru": "/audio/ru_user/900011.mp3"
+    }
+  },
+  {
+    "id": "900012",
+    "hy": "պայուսակ",
+    "en": "bag",
+    "ru": "сумка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900012.mp3",
+      "en": "/audio/en_user/900012.mp3",
+      "ru": "/audio/ru_user/900012.mp3"
+    }
+  },
+  {
+    "id": "900013",
+    "hy": "արջ",
+    "en": "bear",
+    "ru": "медведь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900013.mp3",
+      "en": "/audio/en_user/900013.mp3",
+      "ru": "/audio/ru_user/900013.mp3"
+    }
+  },
+  {
+    "id": "900014",
+    "hy": "հեծանիվ",
+    "en": "bicycle",
+    "ru": "велосипед",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900014.mp3",
+      "en": "/audio/en_user/900014.mp3",
+      "ru": "/audio/ru_user/900014.mp3"
+    }
+  },
+  {
+    "id": "900015",
+    "hy": "թռչուն",
+    "en": "bird",
+    "ru": "птица",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900015.mp3",
+      "en": "/audio/en_user/900015.mp3",
+      "ru": "/audio/ru_user/900015.mp3"
+    }
+  },
+  {
+    "id": "900016",
+    "hy": "հաց",
+    "en": "bread",
+    "ru": "хлеб",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900016.mp3",
+      "en": "/audio/en_user/900016.mp3",
+      "ru": "/audio/ru_user/900016.mp3"
+    }
+  },
+  {
+    "id": "900017",
+    "hy": "կամուրջ",
+    "en": "bridge",
+    "ru": "мост",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900017.mp3",
+      "en": "/audio/en_user/900017.mp3",
+      "ru": "/audio/ru_user/900017.mp3"
+    }
+  },
+  {
+    "id": "900018",
+    "hy": "շագանակագույն",
+    "en": "brown",
+    "ru": "коричневый",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900018.mp3",
+      "en": "/audio/en_user/900018.mp3",
+      "ru": "/audio/ru_user/900018.mp3"
+    }
+  },
+  {
+    "id": "900019",
+    "hy": "ավտոբուս",
+    "en": "bus",
+    "ru": "автобус",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900019.mp3",
+      "en": "/audio/en_user/900019.mp3",
+      "ru": "/audio/ru_user/900019.mp3"
+    }
+  },
+  {
+    "id": "900020",
+    "hy": "յուղ",
+    "en": "oil",
+    "ru": "масло",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900020.mp3",
+      "en": "/audio/en_user/900020.mp3",
+      "ru": "/audio/ru_user/900020.mp3"
+    }
+  },
+  {
+    "id": "900021",
+    "hy": "գնել",
+    "en": "buy",
+    "ru": "купить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900021.mp3",
+      "en": "/audio/en_user/900021.mp3",
+      "ru": "/audio/ru_user/900021.mp3"
+    }
+  },
+  {
+    "id": "900022",
+    "hy": "տեսախցիկ",
+    "en": "camera",
+    "ru": "камера",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900022.mp3",
+      "en": "/audio/en_user/900022.mp3",
+      "ru": "/audio/ru_user/900022.mp3"
+    }
+  },
+  {
+    "id": "900023",
+    "hy": "մեքենա",
+    "en": "car",
+    "ru": "машина",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900023.mp3",
+      "en": "/audio/en_user/900023.mp3",
+      "ru": "/audio/ru_user/900023.mp3"
+    }
+  },
+  {
+    "id": "900024",
+    "hy": "կատու",
+    "en": "cat",
+    "ru": "кот",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900024.mp3",
+      "en": "/audio/en_user/900024.mp3",
+      "ru": "/audio/ru_user/900024.mp3"
+    }
+  },
+  {
+    "id": "900025",
+    "hy": "պանիր",
+    "en": "cheese",
+    "ru": "сыр",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900025.mp3",
+      "en": "/audio/en_user/900025.mp3",
+      "ru": "/audio/ru_user/900025.mp3"
+    }
+  },
+  {
+    "id": "900026",
+    "hy": "խոհարար",
+    "en": "cook",
+    "ru": "повар",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900026.mp3",
+      "en": "/audio/en_user/900026.mp3",
+      "ru": "/audio/ru_user/900026.mp3"
+    }
+  },
+  {
+    "id": "900027",
+    "hy": "եկեղեցի",
+    "en": "church",
+    "ru": "церковь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900027.mp3",
+      "en": "/audio/en_user/900027.mp3",
+      "ru": "/audio/ru_user/900027.mp3"
+    }
+  },
+  {
+    "id": "900028",
+    "hy": "քաղաք",
+    "en": "city",
+    "ru": "город",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900028.mp3",
+      "en": "/audio/en_user/900028.mp3",
+      "ru": "/audio/ru_user/900028.mp3"
+    }
+  },
+  {
+    "id": "900029",
+    "hy": "ամպ",
+    "en": "cloud",
+    "ru": "облако",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900029.mp3",
+      "en": "/audio/en_user/900029.mp3",
+      "ru": "/audio/ru_user/900029.mp3"
+    }
+  },
+  {
+    "id": "900030",
+    "hy": "վերարկու",
+    "en": "coat",
+    "ru": "пальто",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900030.mp3",
+      "en": "/audio/en_user/900030.mp3",
+      "ru": "/audio/ru_user/900030.mp3"
+    }
+  },
+  {
+    "id": "900031",
+    "hy": "սուրճ",
+    "en": "coffee",
+    "ru": "кофе",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900031.mp3",
+      "en": "/audio/en_user/900031.mp3",
+      "ru": "/audio/ru_user/900031.mp3"
+    }
+  },
+  {
+    "id": "900032",
+    "hy": "համակարգիչ",
+    "en": "computer",
+    "ru": "компьютер",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900032.mp3",
+      "en": "/audio/en_user/900032.mp3",
+      "ru": "/audio/ru_user/900032.mp3"
+    }
+  },
+  {
+    "id": "900033",
+    "hy": "երկիր",
+    "en": "country",
+    "ru": "страна",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900033.mp3",
+      "en": "/audio/en_user/900033.mp3",
+      "ru": "/audio/ru_user/900033.mp3"
+    }
+  },
+  {
+    "id": "900034",
+    "hy": "կով",
+    "en": "cow",
+    "ru": "корова",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900034.mp3",
+      "en": "/audio/en_user/900034.mp3",
+      "ru": "/audio/ru_user/900034.mp3"
+    }
+  },
+  {
+    "id": "900035",
+    "hy": "լալ",
+    "en": "cry",
+    "ru": "плакать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900035.mp3",
+      "en": "/audio/en_user/900035.mp3",
+      "ru": "/audio/ru_user/900035.mp3"
+    }
+  },
+  {
+    "id": "900036",
+    "hy": "պարել",
+    "en": "dance",
+    "ru": "танцевать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900036.mp3",
+      "en": "/audio/en_user/900036.mp3",
+      "ru": "/audio/ru_user/900036.mp3"
+    }
+  },
+  {
+    "id": "900037",
+    "hy": "դուստր",
+    "en": "daughter",
+    "ru": "дочь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900037.mp3",
+      "en": "/audio/en_user/900037.mp3",
+      "ru": "/audio/ru_user/900037.mp3"
+    }
+  },
+  {
+    "id": "900038",
+    "hy": "մահ",
+    "en": "death",
+    "ru": "смерть",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900038.mp3",
+      "en": "/audio/en_user/900038.mp3",
+      "ru": "/audio/ru_user/900038.mp3"
+    }
+  },
+  {
+    "id": "900039",
+    "hy": "դեկտեմբեր",
+    "en": "december",
+    "ru": "декабрь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900039.mp3",
+      "en": "/audio/en_user/900039.mp3",
+      "ru": "/audio/ru_user/900039.mp3"
+    }
+  },
+  {
+    "id": "900040",
+    "hy": "մահանալ",
+    "en": "die",
+    "ru": "умереть",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900040.mp3",
+      "en": "/audio/en_user/900040.mp3",
+      "ru": "/audio/ru_user/900040.mp3"
+    }
+  },
+  {
+    "id": "900041",
+    "hy": "դժվար",
+    "en": "difficult",
+    "ru": "трудный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900041.mp3",
+      "en": "/audio/en_user/900041.mp3",
+      "ru": "/audio/ru_user/900041.mp3"
+    }
+  },
+  {
+    "id": "900042",
+    "hy": "բժիշկ",
+    "en": "doctor",
+    "ru": "врач",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900042.mp3",
+      "en": "/audio/en_user/900042.mp3",
+      "ru": "/audio/ru_user/900042.mp3"
+    }
+  },
+  {
+    "id": "900043",
+    "hy": "շուն",
+    "en": "dog",
+    "ru": "собака",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900043.mp3",
+      "en": "/audio/en_user/900043.mp3",
+      "ru": "/audio/ru_user/900043.mp3"
+    }
+  },
+  {
+    "id": "900044",
+    "hy": "երազ",
+    "en": "dream",
+    "ru": "мечта",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900044.mp3",
+      "en": "/audio/en_user/900044.mp3",
+      "ru": "/audio/ru_user/900044.mp3"
+    }
+  },
+  {
+    "id": "900045",
+    "hy": "զգեստ",
+    "en": "dress",
+    "ru": "платье",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900045.mp3",
+      "en": "/audio/en_user/900045.mp3",
+      "ru": "/audio/ru_user/900045.mp3"
+    }
+  },
+  {
+    "id": "900046",
+    "hy": "խմել",
+    "en": "drink",
+    "ru": "пить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900046.mp3",
+      "en": "/audio/en_user/900046.mp3",
+      "ru": "/audio/ru_user/900046.mp3"
+    }
+  },
+  {
+    "id": "900047",
+    "hy": "թեթև",
+    "en": "easy",
+    "ru": "лёгкий",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900047.mp3",
+      "en": "/audio/en_user/900047.mp3",
+      "ru": "/audio/ru_user/900047.mp3"
+    }
+  },
+  {
+    "id": "900048",
+    "hy": "ուտել",
+    "en": "eat",
+    "ru": "есть",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900048.mp3",
+      "en": "/audio/en_user/900048.mp3",
+      "ru": "/audio/ru_user/900048.mp3"
+    }
+  },
+  {
+    "id": "900049",
+    "hy": "ձու",
+    "en": "egg",
+    "ru": "яйцо",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900049.mp3",
+      "en": "/audio/en_user/900049.mp3",
+      "ru": "/audio/ru_user/900049.mp3"
+    }
+  },
+  {
+    "id": "900050",
+    "hy": "փիղ",
+    "en": "elephant",
+    "ru": "слон",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900050.mp3",
+      "en": "/audio/en_user/900050.mp3",
+      "ru": "/audio/ru_user/900050.mp3"
+    }
+  },
+  {
+    "id": "900051",
+    "hy": "ինժեներ",
+    "en": "engineer",
+    "ru": "инженер",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900051.mp3",
+      "en": "/audio/en_user/900051.mp3",
+      "ru": "/audio/ru_user/900051.mp3"
+    }
+  },
+  {
+    "id": "900052",
+    "hy": "քննություն",
+    "en": "exam",
+    "ru": "экзамен",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900052.mp3",
+      "en": "/audio/en_user/900052.mp3",
+      "ru": "/audio/ru_user/900052.mp3"
+    }
+  },
+  {
+    "id": "900053",
+    "hy": "ընտանիք",
+    "en": "family",
+    "ru": "семья",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900053.mp3",
+      "en": "/audio/en_user/900053.mp3",
+      "ru": "/audio/ru_user/900053.mp3"
+    }
+  },
+  {
+    "id": "900054",
+    "hy": "փետրվար",
+    "en": "february",
+    "ru": "февраль",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900054.mp3",
+      "en": "/audio/en_user/900054.mp3",
+      "ru": "/audio/ru_user/900054.mp3"
+    }
+  },
+  {
+    "id": "900055",
+    "hy": "գտնել",
+    "en": "find",
+    "ru": "найти",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900055.mp3",
+      "en": "/audio/en_user/900055.mp3",
+      "ru": "/audio/ru_user/900055.mp3"
+    }
+  },
+  {
+    "id": "900056",
+    "hy": "մատ",
+    "en": "finger",
+    "ru": "палец",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900056.mp3",
+      "en": "/audio/en_user/900056.mp3",
+      "ru": "/audio/ru_user/900056.mp3"
+    }
+  },
+  {
+    "id": "900057",
+    "hy": "ձուկ",
+    "en": "fish",
+    "ru": "рыба",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900057.mp3",
+      "en": "/audio/en_user/900057.mp3",
+      "ru": "/audio/ru_user/900057.mp3"
+    }
+  },
+  {
+    "id": "900058",
+    "hy": "մշուշ",
+    "en": "fog",
+    "ru": "туман",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900058.mp3",
+      "en": "/audio/en_user/900058.mp3",
+      "ru": "/audio/ru_user/900058.mp3"
+    }
+  },
+  {
+    "id": "900059",
+    "hy": "անտառ",
+    "en": "forest",
+    "ru": "лес",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900059.mp3",
+      "en": "/audio/en_user/900059.mp3",
+      "ru": "/audio/ru_user/900059.mp3"
+    }
+  },
+  {
+    "id": "900060",
+    "hy": "անվճար",
+    "en": "free",
+    "ru": "бесплатный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900060.mp3",
+      "en": "/audio/en_user/900060.mp3",
+      "ru": "/audio/ru_user/900060.mp3"
+    }
+  },
+  {
+    "id": "900061",
+    "hy": "ուրբաթ",
+    "en": "friday",
+    "ru": "пятница",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900061.mp3",
+      "en": "/audio/en_user/900061.mp3",
+      "ru": "/audio/ru_user/900061.mp3"
+    }
+  },
+  {
+    "id": "900062",
+    "hy": "խաղ",
+    "en": "game",
+    "ru": "игра",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900062.mp3",
+      "en": "/audio/en_user/900062.mp3",
+      "ru": "/audio/ru_user/900062.mp3"
+    }
+  },
+  {
+    "id": "900063",
+    "hy": "աշխարհագրություն",
+    "en": "geography",
+    "ru": "география",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900063.mp3",
+      "en": "/audio/en_user/900063.mp3",
+      "ru": "/audio/ru_user/900063.mp3"
+    }
+  },
+  {
+    "id": "900064",
+    "hy": "ակնոց",
+    "en": "glasses",
+    "ru": "очки",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900064.mp3",
+      "en": "/audio/en_user/900064.mp3",
+      "ru": "/audio/ru_user/900064.mp3"
+    }
+  },
+  {
+    "id": "900065",
+    "hy": "tsutsаparutyan",
+    "en": "tsutsаparutyan",
+    "ru": "до свидания",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null
+  },
+  {
+    "id": "900066",
+    "hy": "պապիկ",
+    "en": "grandfather",
+    "ru": "дедушка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900066.mp3",
+      "en": "/audio/en_user/900066.mp3",
+      "ru": "/audio/ru_user/900066.mp3"
+    }
+  },
+  {
+    "id": "900067",
+    "hy": "տատիկ",
+    "en": "grandmother",
+    "ru": "бабушка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900067.mp3",
+      "en": "/audio/en_user/900067.mp3",
+      "ru": "/audio/ru_user/900067.mp3"
+    }
+  },
+  {
+    "id": "900068",
+    "hy": "խոտ",
+    "en": "grass",
+    "ru": "трава",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900068.mp3",
+      "en": "/audio/en_user/900068.mp3",
+      "ru": "/audio/ru_user/900068.mp3"
+    }
+  },
+  {
+    "id": "900069",
+    "hy": "մոխրագույն",
+    "en": "gray",
+    "ru": "серый",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900069.mp3",
+      "en": "/audio/en_user/900069.mp3",
+      "ru": "/audio/ru_user/900069.mp3"
+    }
+  },
+  {
+    "id": "900070",
+    "hy": "գլխարկ",
+    "en": "hat",
+    "ru": "шапка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900070.mp3",
+      "en": "/audio/en_user/900070.mp3",
+      "ru": "/audio/ru_user/900070.mp3"
+    }
+  },
+  {
+    "id": "900071",
+    "hy": "առողջություն",
+    "en": "health",
+    "ru": "здоровье",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900071.mp3",
+      "en": "/audio/en_user/900071.mp3",
+      "ru": "/audio/ru_user/900071.mp3"
+    }
+  },
+  {
+    "id": "900072",
+    "hy": "օգնել",
+    "en": "help",
+    "ru": "помочь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900072.mp3",
+      "en": "/audio/en_user/900072.mp3",
+      "ru": "/audio/ru_user/900072.mp3"
+    }
+  },
+  {
+    "id": "900073",
+    "hy": "օգնություն",
+    "en": "help",
+    "ru": "помощь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900073.mp3",
+      "en": "/audio/en_user/900073.mp3",
+      "ru": "/audio/ru_user/900073.mp3"
+    }
+  },
+  {
+    "id": "900074",
+    "hy": "պատմություն",
+    "en": "history",
+    "ru": "история",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900074.mp3",
+      "en": "/audio/en_user/900074.mp3",
+      "ru": "/audio/ru_user/900074.mp3"
+    }
+  },
+  {
+    "id": "900075",
+    "hy": "տնային աշխատանք",
+    "en": "homework",
+    "ru": "домашнее задание",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900075.mp3",
+      "en": "/audio/en_user/900075.mp3",
+      "ru": "/audio/ru_user/900075.mp3"
+    }
+  },
+  {
+    "id": "900076",
+    "hy": "ձի",
+    "en": "horse",
+    "ru": "лошадь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900076.mp3",
+      "en": "/audio/en_user/900076.mp3",
+      "ru": "/audio/ru_user/900076.mp3"
+    }
+  },
+  {
+    "id": "900077",
+    "hy": "հիվանդանոց",
+    "en": "hospital",
+    "ru": "больница",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900077.mp3",
+      "en": "/audio/en_user/900077.mp3",
+      "ru": "/audio/ru_user/900077.mp3"
+    }
+  },
+  {
+    "id": "900078",
+    "hy": "ժամ",
+    "en": "hour",
+    "ru": "час",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900078.mp3",
+      "en": "/audio/en_user/900078.mp3",
+      "ru": "/audio/ru_user/900078.mp3"
+    }
+  },
+  {
+    "id": "900079",
+    "hy": "ամուսին",
+    "en": "husband",
+    "ru": "муж",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900079.mp3",
+      "en": "/audio/en_user/900079.mp3",
+      "ru": "/audio/ru_user/900079.mp3"
+    }
+  },
+  {
+    "id": "900080",
+    "hy": "սառույց",
+    "en": "ice",
+    "ru": "лёд",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900080.mp3",
+      "en": "/audio/en_user/900080.mp3",
+      "ru": "/audio/ru_user/900080.mp3"
+    }
+  },
+  {
+    "id": "900081",
+    "hy": "գաղափար",
+    "en": "idea",
+    "ru": "идея",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900081.mp3",
+      "en": "/audio/en_user/900081.mp3",
+      "ru": "/audio/ru_user/900081.mp3"
+    }
+  },
+  {
+    "id": "900082",
+    "hy": "համացանց",
+    "en": "internet",
+    "ru": "интернет",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900082.mp3",
+      "en": "/audio/en_user/900082.mp3",
+      "ru": "/audio/ru_user/900082.mp3"
+    }
+  },
+  {
+    "id": "900083",
+    "hy": "հունվար",
+    "en": "january",
+    "ru": "январь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900083.mp3",
+      "en": "/audio/en_user/900083.mp3",
+      "ru": "/audio/ru_user/900083.mp3"
+    }
+  },
+  {
+    "id": "900084",
+    "hy": "հյութ",
+    "en": "juice",
+    "ru": "сок",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900084.mp3",
+      "en": "/audio/en_user/900084.mp3",
+      "ru": "/audio/ru_user/900084.mp3"
+    }
+  },
+  {
+    "id": "900085",
+    "hy": "հուլիս",
+    "en": "july",
+    "ru": "июль",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900085.mp3",
+      "en": "/audio/en_user/900085.mp3",
+      "ru": "/audio/ru_user/900085.mp3"
+    }
+  },
+  {
+    "id": "900086",
+    "hy": "հունիս",
+    "en": "june",
+    "ru": "июнь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900086.mp3",
+      "en": "/audio/en_user/900086.mp3",
+      "ru": "/audio/ru_user/900086.mp3"
+    }
+  },
+  {
+    "id": "900087",
+    "hy": "լեզու",
+    "en": "language",
+    "ru": "язык",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900087.mp3",
+      "en": "/audio/en_user/900087.mp3",
+      "ru": "/audio/ru_user/900087.mp3"
+    }
+  },
+  {
+    "id": "900088",
+    "hy": "ծիծաղել",
+    "en": "laugh",
+    "ru": "смеяться",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900088.mp3",
+      "en": "/audio/en_user/900088.mp3",
+      "ru": "/audio/ru_user/900088.mp3"
+    }
+  },
+  {
+    "id": "900089",
+    "hy": "իրավաբան",
+    "en": "lawyer",
+    "ru": "адвокат",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900089.mp3",
+      "en": "/audio/en_user/900089.mp3",
+      "ru": "/audio/ru_user/900089.mp3"
+    }
+  },
+  {
+    "id": "900090",
+    "hy": "սովորել",
+    "en": "learn",
+    "ru": "учиться",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900090.mp3",
+      "en": "/audio/en_user/900090.mp3",
+      "ru": "/audio/ru_user/900090.mp3"
+    }
+  },
+  {
+    "id": "900091",
+    "hy": "ոտք",
+    "en": "leg",
+    "ru": "нога",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900091.mp3",
+      "en": "/audio/en_user/900091.mp3",
+      "ru": "/audio/ru_user/900091.mp3"
+    }
+  },
+  {
+    "id": "900092",
+    "hy": "դաս",
+    "en": "lesson",
+    "ru": "урок",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900092.mp3",
+      "en": "/audio/en_user/900092.mp3",
+      "ru": "/audio/ru_user/900092.mp3"
+    }
+  },
+  {
+    "id": "900093",
+    "hy": "գրադարան",
+    "en": "library",
+    "ru": "библиотека",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900093.mp3",
+      "en": "/audio/en_user/900093.mp3",
+      "ru": "/audio/ru_user/900093.mp3"
+    }
+  },
+  {
+    "id": "900094",
+    "hy": "կյանք",
+    "en": "life",
+    "ru": "жизнь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900094.mp3",
+      "en": "/audio/en_user/900094.mp3",
+      "ru": "/audio/ru_user/900094.mp3"
+    }
+  },
+  {
+    "id": "900095",
+    "hy": "առյուծ",
+    "en": "lion",
+    "ru": "лев",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900095.mp3",
+      "en": "/audio/en_user/900095.mp3",
+      "ru": "/audio/ru_user/900095.mp3"
+    }
+  },
+  {
+    "id": "900096",
+    "hy": "լսել",
+    "en": "listen",
+    "ru": "слушать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900096.mp3",
+      "en": "/audio/en_user/900096.mp3",
+      "ru": "/audio/ru_user/900096.mp3"
+    }
+  },
+  {
+    "id": "900097",
+    "hy": "ապրել",
+    "en": "live",
+    "ru": "жить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900097.mp3",
+      "en": "/audio/en_user/900097.mp3",
+      "ru": "/audio/ru_user/900097.mp3"
+    }
+  },
+  {
+    "id": "900098",
+    "hy": "երկար",
+    "en": "long",
+    "ru": "длинный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900098.mp3",
+      "en": "/audio/en_user/900098.mp3",
+      "ru": "/audio/ru_user/900098.mp3"
+    }
+  },
+  {
+    "id": "900099",
+    "hy": "կորցնել",
+    "en": "lose",
+    "ru": "потерять",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900099.mp3",
+      "en": "/audio/en_user/900099.mp3",
+      "ru": "/audio/ru_user/900099.mp3"
+    }
+  },
+  {
+    "id": "900100",
+    "hy": "սիրել",
+    "en": "love",
+    "ru": "любить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900100.mp3",
+      "en": "/audio/en_user/900100.mp3",
+      "ru": "/audio/ru_user/900100.mp3"
+    }
+  },
+  {
+    "id": "900101",
+    "hy": "մարտ",
+    "en": "march",
+    "ru": "март",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900101.mp3",
+      "en": "/audio/en_user/900101.mp3",
+      "ru": "/audio/ru_user/900101.mp3"
+    }
+  },
+  {
+    "id": "900102",
+    "hy": "շուկա",
+    "en": "market",
+    "ru": "рынок",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900102.mp3",
+      "en": "/audio/en_user/900102.mp3",
+      "ru": "/audio/ru_user/900102.mp3"
+    }
+  },
+  {
+    "id": "900103",
+    "hy": "մաթեմատիկա",
+    "en": "mathematics",
+    "ru": "математика",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900103.mp3",
+      "en": "/audio/en_user/900103.mp3",
+      "ru": "/audio/ru_user/900103.mp3"
+    }
+  },
+  {
+    "id": "900104",
+    "hy": "մայիս",
+    "en": "may",
+    "ru": "май",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900104.mp3",
+      "en": "/audio/en_user/900104.mp3",
+      "ru": "/audio/ru_user/900104.mp3"
+    }
+  },
+  {
+    "id": "900105",
+    "hy": "միս",
+    "en": "meat",
+    "ru": "мясо",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900105.mp3",
+      "en": "/audio/en_user/900105.mp3",
+      "ru": "/audio/ru_user/900105.mp3"
+    }
+  },
+  {
+    "id": "900106",
+    "hy": "հաղորդագրություն",
+    "en": "message",
+    "ru": "сообщение",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900106.mp3",
+      "en": "/audio/en_user/900106.mp3",
+      "ru": "/audio/ru_user/900106.mp3"
+    }
+  },
+  {
+    "id": "900107",
+    "hy": "կաթ",
+    "en": "milk",
+    "ru": "молоко",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900107.mp3",
+      "en": "/audio/en_user/900107.mp3",
+      "ru": "/audio/ru_user/900107.mp3"
+    }
+  },
+  {
+    "id": "900108",
+    "hy": "րոպե",
+    "en": "minute",
+    "ru": "минута",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900108.mp3",
+      "en": "/audio/en_user/900108.mp3",
+      "ru": "/audio/ru_user/900108.mp3"
+    }
+  },
+  {
+    "id": "900109",
+    "hy": "երկուշաբթի",
+    "en": "monday",
+    "ru": "понедельник",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900109.mp3",
+      "en": "/audio/en_user/900109.mp3",
+      "ru": "/audio/ru_user/900109.mp3"
+    }
+  },
+  {
+    "id": "900110",
+    "hy": "փող",
+    "en": "money",
+    "ru": "деньги",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900110.mp3",
+      "en": "/audio/en_user/900110.mp3",
+      "ru": "/audio/ru_user/900110.mp3"
+    }
+  },
+  {
+    "id": "900111",
+    "hy": "լեռ",
+    "en": "mountain",
+    "ru": "гора",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900111.mp3",
+      "en": "/audio/en_user/900111.mp3",
+      "ru": "/audio/ru_user/900111.mp3"
+    }
+  },
+  {
+    "id": "900112",
+    "hy": "ֆիլմ",
+    "en": "movie",
+    "ru": "фильм",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900112.mp3",
+      "en": "/audio/en_user/900112.mp3",
+      "ru": "/audio/ru_user/900112.mp3"
+    }
+  },
+  {
+    "id": "900113",
+    "hy": "երաժշտություն",
+    "en": "music",
+    "ru": "музыка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900113.mp3",
+      "en": "/audio/en_user/900113.mp3",
+      "ru": "/audio/ru_user/900113.mp3"
+    }
+  },
+  {
+    "id": "900114",
+    "hy": "անուն",
+    "en": "name",
+    "ru": "имя",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900114.mp3",
+      "en": "/audio/en_user/900114.mp3",
+      "ru": "/audio/ru_user/900114.mp3"
+    }
+  },
+  {
+    "id": "900115",
+    "hy": "նոյեմբեր",
+    "en": "november",
+    "ru": "ноябрь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900115.mp3",
+      "en": "/audio/en_user/900115.mp3",
+      "ru": "/audio/ru_user/900115.mp3"
+    }
+  },
+  {
+    "id": "900116",
+    "hy": "օվկիանոս",
+    "en": "ocean",
+    "ru": "океан",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900116.mp3",
+      "en": "/audio/en_user/900116.mp3",
+      "ru": "/audio/ru_user/900116.mp3"
+    }
+  },
+  {
+    "id": "900117",
+    "hy": "հոկտեմբեր",
+    "en": "october",
+    "ru": "октябрь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900117.mp3",
+      "en": "/audio/en_user/900117.mp3",
+      "ru": "/audio/ru_user/900117.mp3"
+    }
+  },
+  {
+    "id": "900118",
+    "hy": "յուղ",
+    "en": "oil",
+    "ru": "масло",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900118.mp3",
+      "en": "/audio/en_user/900118.mp3",
+      "ru": "/audio/ru_user/900118.mp3"
+    }
+  },
+  {
+    "id": "900119",
+    "hy": "նարինջ",
+    "en": "orange",
+    "ru": "апельсин",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900119.mp3",
+      "en": "/audio/en_user/900119.mp3",
+      "ru": "/audio/ru_user/900119.mp3"
+    }
+  },
+  {
+    "id": "900120",
+    "hy": "տաբատ",
+    "en": "pants",
+    "ru": "брюки",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900120.mp3",
+      "en": "/audio/en_user/900120.mp3",
+      "ru": "/audio/ru_user/900120.mp3"
+    }
+  },
+  {
+    "id": "900121",
+    "hy": "ծնողներ",
+    "en": "parents",
+    "ru": "родители",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900121.mp3",
+      "en": "/audio/en_user/900121.mp3",
+      "ru": "/audio/ru_user/900121.mp3"
+    }
+  },
+  {
+    "id": "900122",
+    "hy": "պարկ",
+    "en": "park",
+    "ru": "парк",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900122.mp3",
+      "en": "/audio/en_user/900122.mp3",
+      "ru": "/audio/ru_user/900122.mp3"
+    }
+  },
+  {
+    "id": "900123",
+    "hy": "գաղտնաբառ",
+    "en": "password",
+    "ru": "пароль",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900123.mp3",
+      "en": "/audio/en_user/900123.mp3",
+      "ru": "/audio/ru_user/900123.mp3"
+    }
+  },
+  {
+    "id": "900124",
+    "hy": "խաղաղություն",
+    "en": "peace",
+    "ru": "мир",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900124.mp3",
+      "en": "/audio/en_user/900124.mp3",
+      "ru": "/audio/ru_user/900124.mp3"
+    }
+  },
+  {
+    "id": "900125",
+    "hy": "հեռախոս",
+    "en": "phone",
+    "ru": "телефон",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900125.mp3",
+      "en": "/audio/en_user/900125.mp3",
+      "ru": "/audio/ru_user/900125.mp3"
+    }
+  },
+  {
+    "id": "900126",
+    "hy": "խոզ",
+    "en": "pig",
+    "ru": "свинья",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900126.mp3",
+      "en": "/audio/en_user/900126.mp3",
+      "ru": "/audio/ru_user/900126.mp3"
+    }
+  },
+  {
+    "id": "900127",
+    "hy": "օդաչու",
+    "en": "pilot",
+    "ru": "пилот",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900127.mp3",
+      "en": "/audio/en_user/900127.mp3",
+      "ru": "/audio/ru_user/900127.mp3"
+    }
+  },
+  {
+    "id": "900128",
+    "hy": "ինքնաթիռ",
+    "en": "plane",
+    "ru": "самолёт",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900128.mp3",
+      "en": "/audio/en_user/900128.mp3",
+      "ru": "/audio/ru_user/900128.mp3"
+    }
+  },
+  {
+    "id": "900129",
+    "hy": "խաղալ",
+    "en": "play",
+    "ru": "играть",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900129.mp3",
+      "en": "/audio/en_user/900129.mp3",
+      "ru": "/audio/ru_user/900129.mp3"
+    }
+  },
+  {
+    "id": "900130",
+    "hy": "խնդրեմ",
+    "en": "please",
+    "ru": "пожалуйста",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900130.mp3",
+      "en": "/audio/en_user/900130.mp3",
+      "ru": "/audio/ru_user/900130.mp3"
+    }
+  },
+  {
+    "id": "900131",
+    "hy": "ոստիկանություն",
+    "en": "police",
+    "ru": "полиция",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900131.mp3",
+      "en": "/audio/en_user/900131.mp3",
+      "ru": "/audio/ru_user/900131.mp3"
+    }
+  },
+  {
+    "id": "900132",
+    "hy": "աղքատ",
+    "en": "poor",
+    "ru": "бедный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900132.mp3",
+      "en": "/audio/en_user/900132.mp3",
+      "ru": "/audio/ru_user/900132.mp3"
+    }
+  },
+  {
+    "id": "900133",
+    "hy": "նախագահ",
+    "en": "president",
+    "ru": "президент",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900133.mp3",
+      "en": "/audio/en_user/900133.mp3",
+      "ru": "/audio/ru_user/900133.mp3"
+    }
+  },
+  {
+    "id": "900134",
+    "hy": "գին",
+    "en": "price",
+    "ru": "цена",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900134.mp3",
+      "en": "/audio/en_user/900134.mp3",
+      "ru": "/audio/ru_user/900134.mp3"
+    }
+  },
+  {
+    "id": "900135",
+    "hy": "խնդիր",
+    "en": "problem",
+    "ru": "проблема",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900135.mp3",
+      "en": "/audio/en_user/900135.mp3",
+      "ru": "/audio/ru_user/900135.mp3"
+    }
+  },
+  {
+    "id": "900136",
+    "hy": "մանուշակագույն",
+    "en": "purple",
+    "ru": "фиолетовый",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900136.mp3",
+      "en": "/audio/en_user/900136.mp3",
+      "ru": "/audio/ru_user/900136.mp3"
+    }
+  },
+  {
+    "id": "900137",
+    "hy": "հարց",
+    "en": "question",
+    "ru": "вопрос",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900137.mp3",
+      "en": "/audio/en_user/900137.mp3",
+      "ru": "/audio/ru_user/900137.mp3"
+    }
+  },
+  {
+    "id": "900138",
+    "hy": "նապաստակ",
+    "en": "rabbit",
+    "ru": "кролик",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900138.mp3",
+      "en": "/audio/en_user/900138.mp3",
+      "ru": "/audio/ru_user/900138.mp3"
+    }
+  },
+  {
+    "id": "900139",
+    "hy": "անձրև",
+    "en": "rain",
+    "ru": "дождь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900139.mp3",
+      "en": "/audio/en_user/900139.mp3",
+      "ru": "/audio/ru_user/900139.mp3"
+    }
+  },
+  {
+    "id": "900140",
+    "hy": "կարդալ",
+    "en": "read",
+    "ru": "читать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900140.mp3",
+      "en": "/audio/en_user/900140.mp3",
+      "ru": "/audio/ru_user/900140.mp3"
+    }
+  },
+  {
+    "id": "900141",
+    "hy": "բրինձ",
+    "en": "rice",
+    "ru": "рис",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900141.mp3",
+      "en": "/audio/en_user/900141.mp3",
+      "ru": "/audio/ru_user/900141.mp3"
+    }
+  },
+  {
+    "id": "900142",
+    "hy": "հարուստ",
+    "en": "rich",
+    "ru": "богатый",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900142.mp3",
+      "en": "/audio/en_user/900142.mp3",
+      "ru": "/audio/ru_user/900142.mp3"
+    }
+  },
+  {
+    "id": "900143",
+    "hy": "մատանի",
+    "en": "ring",
+    "ru": "кольцо",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900143.mp3",
+      "en": "/audio/en_user/900143.mp3",
+      "ru": "/audio/ru_user/900143.mp3"
+    }
+  },
+  {
+    "id": "900144",
+    "hy": "գետ",
+    "en": "river",
+    "ru": "река",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900144.mp3",
+      "en": "/audio/en_user/900144.mp3",
+      "ru": "/audio/ru_user/900144.mp3"
+    }
+  },
+  {
+    "id": "900145",
+    "hy": "ճանապարհ",
+    "en": "road",
+    "ru": "дорога",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900145.mp3",
+      "en": "/audio/en_user/900145.mp3",
+      "ru": "/audio/ru_user/900145.mp3"
+    }
+  },
+  {
+    "id": "900146",
+    "hy": "սենյակ",
+    "en": "room",
+    "ru": "комната",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900146.mp3",
+      "en": "/audio/en_user/900146.mp3",
+      "ru": "/audio/ru_user/900146.mp3"
+    }
+  },
+  {
+    "id": "900147",
+    "hy": "վազել",
+    "en": "run",
+    "ru": "бегать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900147.mp3",
+      "en": "/audio/en_user/900147.mp3",
+      "ru": "/audio/ru_user/900147.mp3"
+    }
+  },
+  {
+    "id": "900148",
+    "hy": "աղ",
+    "en": "salt",
+    "ru": "соль",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900148.mp3",
+      "en": "/audio/en_user/900148.mp3",
+      "ru": "/audio/ru_user/900148.mp3"
+    }
+  },
+  {
+    "id": "900149",
+    "hy": "ավազ",
+    "en": "sand",
+    "ru": "песок",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900149.mp3",
+      "en": "/audio/en_user/900149.mp3",
+      "ru": "/audio/ru_user/900149.mp3"
+    }
+  },
+  {
+    "id": "900150",
+    "hy": "շաբաթ",
+    "en": "saturday",
+    "ru": "суббота",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900150.mp3",
+      "en": "/audio/en_user/900150.mp3",
+      "ru": "/audio/ru_user/900150.mp3"
+    }
+  },
+  {
+    "id": "900151",
+    "hy": "գիտություն",
+    "en": "science",
+    "ru": "наука",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900151.mp3",
+      "en": "/audio/en_user/900151.mp3",
+      "ru": "/audio/ru_user/900151.mp3"
+    }
+  },
+  {
+    "id": "900152",
+    "hy": "ծով",
+    "en": "sea",
+    "ru": "море",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900152.mp3",
+      "en": "/audio/en_user/900152.mp3",
+      "ru": "/audio/ru_user/900152.mp3"
+    }
+  },
+  {
+    "id": "900153",
+    "hy": "վայրկյան",
+    "en": "second",
+    "ru": "секунда",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900153.mp3",
+      "en": "/audio/en_user/900153.mp3",
+      "ru": "/audio/ru_user/900153.mp3"
+    }
+  },
+  {
+    "id": "900154",
+    "hy": "վաճառել",
+    "en": "sell",
+    "ru": "продавать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900154.mp3",
+      "en": "/audio/en_user/900154.mp3",
+      "ru": "/audio/ru_user/900154.mp3"
+    }
+  },
+  {
+    "id": "900155",
+    "hy": "սեպտեմբեր",
+    "en": "september",
+    "ru": "сентябрь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900155.mp3",
+      "en": "/audio/en_user/900155.mp3",
+      "ru": "/audio/ru_user/900155.mp3"
+    }
+  },
+  {
+    "id": "900156",
+    "hy": "ոչխար",
+    "en": "sheep",
+    "ru": "овца",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900156.mp3",
+      "en": "/audio/en_user/900156.mp3",
+      "ru": "/audio/ru_user/900156.mp3"
+    }
+  },
+  {
+    "id": "900157",
+    "hy": "նավ",
+    "en": "ship",
+    "ru": "корабль",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900157.mp3",
+      "en": "/audio/en_user/900157.mp3",
+      "ru": "/audio/ru_user/900157.mp3"
+    }
+  },
+  {
+    "id": "900158",
+    "hy": "վերնաշապիկ",
+    "en": "shirt",
+    "ru": "рубашка",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900158.mp3",
+      "en": "/audio/en_user/900158.mp3",
+      "ru": "/audio/ru_user/900158.mp3"
+    }
+  },
+  {
+    "id": "900159",
+    "hy": "կոշիկ",
+    "en": "shoes",
+    "ru": "туфли",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900159.mp3",
+      "en": "/audio/en_user/900159.mp3",
+      "ru": "/audio/ru_user/900159.mp3"
+    }
+  },
+  {
+    "id": "900160",
+    "hy": "կարճ",
+    "en": "short",
+    "ru": "короткий",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900160.mp3",
+      "en": "/audio/en_user/900160.mp3",
+      "ru": "/audio/ru_user/900160.mp3"
+    }
+  },
+  {
+    "id": "900161",
+    "hy": "երգել",
+    "en": "sing",
+    "ru": "петь",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900161.mp3",
+      "en": "/audio/en_user/900161.mp3",
+      "ru": "/audio/ru_user/900161.mp3"
+    }
+  },
+  {
+    "id": "900162",
+    "hy": "երգիչ",
+    "en": "singer",
+    "ru": "певец",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900162.mp3",
+      "en": "/audio/en_user/900162.mp3",
+      "ru": "/audio/ru_user/900162.mp3"
+    }
+  },
+  {
+    "id": "900163",
+    "hy": "երկինք",
+    "en": "sky",
+    "ru": "небо",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900163.mp3",
+      "en": "/audio/en_user/900163.mp3",
+      "ru": "/audio/ru_user/900163.mp3"
+    }
+  },
+  {
+    "id": "900164",
+    "hy": "քնել",
+    "en": "sleep",
+    "ru": "спать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900164.mp3",
+      "en": "/audio/en_user/900164.mp3",
+      "ru": "/audio/ru_user/900164.mp3"
+    }
+  },
+  {
+    "id": "900165",
+    "hy": "օձ",
+    "en": "snake",
+    "ru": "змея",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900165.mp3",
+      "en": "/audio/en_user/900165.mp3",
+      "ru": "/audio/ru_user/900165.mp3"
+    }
+  },
+  {
+    "id": "900166",
+    "hy": "ձյուն",
+    "en": "snow",
+    "ru": "снег",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900166.mp3",
+      "en": "/audio/en_user/900166.mp3",
+      "ru": "/audio/ru_user/900166.mp3"
+    }
+  },
+  {
+    "id": "900167",
+    "hy": "զինվոր",
+    "en": "soldier",
+    "ru": "солдат",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900167.mp3",
+      "en": "/audio/en_user/900167.mp3",
+      "ru": "/audio/ru_user/900167.mp3"
+    }
+  },
+  {
+    "id": "900168",
+    "hy": "որդի",
+    "en": "son",
+    "ru": "сын",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900168.mp3",
+      "en": "/audio/en_user/900168.mp3",
+      "ru": "/audio/ru_user/900168.mp3"
+    }
+  },
+  {
+    "id": "900169",
+    "hy": "ներողություն",
+    "en": "sorry",
+    "ru": "извини",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900169.mp3",
+      "en": "/audio/en_user/900169.mp3",
+      "ru": "/audio/ru_user/900169.mp3"
+    }
+  },
+  {
+    "id": "900170",
+    "hy": "ապուր",
+    "en": "soup",
+    "ru": "суп",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900170.mp3",
+      "en": "/audio/en_user/900170.mp3",
+      "ru": "/audio/ru_user/900170.mp3"
+    }
+  },
+  {
+    "id": "900171",
+    "hy": "սպորտ",
+    "en": "sport",
+    "ru": "спорт",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900171.mp3",
+      "en": "/audio/en_user/900171.mp3",
+      "ru": "/audio/ru_user/900171.mp3"
+    }
+  },
+  {
+    "id": "900172",
+    "hy": "գարուն",
+    "en": "spring",
+    "ru": "весна",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900172.mp3",
+      "en": "/audio/en_user/900172.mp3",
+      "ru": "/audio/ru_user/900172.mp3"
+    }
+  },
+  {
+    "id": "900173",
+    "hy": "քար",
+    "en": "stone",
+    "ru": "камень",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900173.mp3",
+      "en": "/audio/en_user/900173.mp3",
+      "ru": "/audio/ru_user/900173.mp3"
+    }
+  },
+  {
+    "id": "900174",
+    "hy": "փոթորիկ",
+    "en": "storm",
+    "ru": "буря",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900174.mp3",
+      "en": "/audio/en_user/900174.mp3",
+      "ru": "/audio/ru_user/900174.mp3"
+    }
+  },
+  {
+    "id": "900175",
+    "hy": "փողոց",
+    "en": "street",
+    "ru": "улица",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900175.mp3",
+      "en": "/audio/en_user/900175.mp3",
+      "ru": "/audio/ru_user/900175.mp3"
+    }
+  },
+  {
+    "id": "900176",
+    "hy": "ուժեղ",
+    "en": "strong",
+    "ru": "сильный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900176.mp3",
+      "en": "/audio/en_user/900176.mp3",
+      "ru": "/audio/ru_user/900176.mp3"
+    }
+  },
+  {
+    "id": "900177",
+    "hy": "ուսանող",
+    "en": "student",
+    "ru": "студент",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900177.mp3",
+      "en": "/audio/en_user/900177.mp3",
+      "ru": "/audio/ru_user/900177.mp3"
+    }
+  },
+  {
+    "id": "900178",
+    "hy": "շաքար",
+    "en": "sugar",
+    "ru": "сахар",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900178.mp3",
+      "en": "/audio/en_user/900178.mp3",
+      "ru": "/audio/ru_user/900178.mp3"
+    }
+  },
+  {
+    "id": "900179",
+    "hy": "ամառ",
+    "en": "summer",
+    "ru": "лето",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900179.mp3",
+      "en": "/audio/en_user/900179.mp3",
+      "ru": "/audio/ru_user/900179.mp3"
+    }
+  },
+  {
+    "id": "900180",
+    "hy": "կիրակի",
+    "en": "sunday",
+    "ru": "воскресенье",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900180.mp3",
+      "en": "/audio/en_user/900180.mp3",
+      "ru": "/audio/ru_user/900180.mp3"
+    }
+  },
+  {
+    "id": "900181",
+    "hy": "խոսել",
+    "en": "talk",
+    "ru": "говорить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900181.mp3",
+      "en": "/audio/en_user/900181.mp3",
+      "ru": "/audio/ru_user/900181.mp3"
+    }
+  },
+  {
+    "id": "900182",
+    "hy": "թեյ",
+    "en": "tea",
+    "ru": "чай",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900182.mp3",
+      "en": "/audio/en_user/900182.mp3",
+      "ru": "/audio/ru_user/900182.mp3"
+    }
+  },
+  {
+    "id": "900183",
+    "hy": "ուսուցանել",
+    "en": "teach",
+    "ru": "учить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900183.mp3",
+      "en": "/audio/en_user/900183.mp3",
+      "ru": "/audio/ru_user/900183.mp3"
+    }
+  },
+  {
+    "id": "900184",
+    "hy": "ուսուցիչ",
+    "en": "teacher",
+    "ru": "учитель",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900184.mp3",
+      "en": "/audio/en_user/900184.mp3",
+      "ru": "/audio/ru_user/900184.mp3"
+    }
+  },
+  {
+    "id": "900185",
+    "hy": "ջերմաստիճան",
+    "en": "temperature",
+    "ru": "температура",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900185.mp3",
+      "en": "/audio/en_user/900185.mp3",
+      "ru": "/audio/ru_user/900185.mp3"
+    }
+  },
+  {
+    "id": "900186",
+    "hy": "տաս",
+    "en": "ten",
+    "ru": "десять",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900186.mp3",
+      "en": "/audio/en_user/900186.mp3",
+      "ru": "/audio/ru_user/900186.mp3"
+    }
+  },
+  {
+    "id": "900187",
+    "hy": "շնորհակալություն",
+    "en": "thank you",
+    "ru": "спасибо",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900187.mp3",
+      "en": "/audio/en_user/900187.mp3",
+      "ru": "/audio/ru_user/900187.mp3"
+    }
+  },
+  {
+    "id": "900188",
+    "hy": "հինգշաբթի",
+    "en": "thursday",
+    "ru": "четверг",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900188.mp3",
+      "en": "/audio/en_user/900188.mp3",
+      "ru": "/audio/ru_user/900188.mp3"
+    }
+  },
+  {
+    "id": "900189",
+    "hy": "վագր",
+    "en": "tiger",
+    "ru": "тигр",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900189.mp3",
+      "en": "/audio/en_user/900189.mp3",
+      "ru": "/audio/ru_user/900189.mp3"
+    }
+  },
+  {
+    "id": "900190",
+    "hy": "գնացք",
+    "en": "train",
+    "ru": "поезд",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900190.mp3",
+      "en": "/audio/en_user/900190.mp3",
+      "ru": "/audio/ru_user/900190.mp3"
+    }
+  },
+  {
+    "id": "900191",
+    "hy": "ճշմարտություն",
+    "en": "truth",
+    "ru": "правда",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900191.mp3",
+      "en": "/audio/en_user/900191.mp3",
+      "ru": "/audio/ru_user/900191.mp3"
+    }
+  },
+  {
+    "id": "900192",
+    "hy": "երեքշաբթի",
+    "en": "tuesday",
+    "ru": "вторник",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900192.mp3",
+      "en": "/audio/en_user/900192.mp3",
+      "ru": "/audio/ru_user/900192.mp3"
+    }
+  },
+  {
+    "id": "900193",
+    "hy": "համալսարան",
+    "en": "university",
+    "ru": "университет",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900193.mp3",
+      "en": "/audio/en_user/900193.mp3",
+      "ru": "/audio/ru_user/900193.mp3"
+    }
+  },
+  {
+    "id": "900194",
+    "hy": "գյուղ",
+    "en": "village",
+    "ru": "деревня",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900194.mp3",
+      "en": "/audio/en_user/900194.mp3",
+      "ru": "/audio/ru_user/900194.mp3"
+    }
+  },
+  {
+    "id": "900195",
+    "hy": "գնալ",
+    "en": "walk",
+    "ru": "ходить",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900195.mp3",
+      "en": "/audio/en_user/900195.mp3",
+      "ru": "/audio/ru_user/900195.mp3"
+    }
+  },
+  {
+    "id": "900196",
+    "hy": "պատերազմ",
+    "en": "war",
+    "ru": "война",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900196.mp3",
+      "en": "/audio/en_user/900196.mp3",
+      "ru": "/audio/ru_user/900196.mp3"
+    }
+  },
+  {
+    "id": "900197",
+    "hy": "թույլ",
+    "en": "weak",
+    "ru": "слабый",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900197.mp3",
+      "en": "/audio/en_user/900197.mp3",
+      "ru": "/audio/ru_user/900197.mp3"
+    }
+  },
+  {
+    "id": "900198",
+    "hy": "եղանակ",
+    "en": "weather",
+    "ru": "погода",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900198.mp3",
+      "en": "/audio/en_user/900198.mp3",
+      "ru": "/audio/ru_user/900198.mp3"
+    }
+  },
+  {
+    "id": "900199",
+    "hy": "չորեքշաբթի",
+    "en": "wednesday",
+    "ru": "среда",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900199.mp3",
+      "en": "/audio/en_user/900199.mp3",
+      "ru": "/audio/ru_user/900199.mp3"
+    }
+  },
+  {
+    "id": "900200",
+    "hy": "կին",
+    "en": "wife",
+    "ru": "жена",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900200.mp3",
+      "en": "/audio/en_user/900200.mp3",
+      "ru": "/audio/ru_user/900200.mp3"
+    }
+  },
+  {
+    "id": "900201",
+    "hy": "քամի",
+    "en": "wind",
+    "ru": "ветер",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900201.mp3",
+      "en": "/audio/en_user/900201.mp3",
+      "ru": "/audio/ru_user/900201.mp3"
+    }
+  },
+  {
+    "id": "900202",
+    "hy": "գինի",
+    "en": "wine",
+    "ru": "вино",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900202.mp3",
+      "en": "/audio/en_user/900202.mp3",
+      "ru": "/audio/ru_user/900202.mp3"
+    }
+  },
+  {
+    "id": "900203",
+    "hy": "ձմեռ",
+    "en": "winter",
+    "ru": "зима",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900203.mp3",
+      "en": "/audio/en_user/900203.mp3",
+      "ru": "/audio/ru_user/900203.mp3"
+    }
+  },
+  {
+    "id": "900204",
+    "hy": "գայլ",
+    "en": "wolf",
+    "ru": "волк",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900204.mp3",
+      "en": "/audio/en_user/900204.mp3",
+      "ru": "/audio/ru_user/900204.mp3"
+    }
+  },
+  {
+    "id": "900205",
+    "hy": "գրել",
+    "en": "write",
+    "ru": "писать",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900205.mp3",
+      "en": "/audio/en_user/900205.mp3",
+      "ru": "/audio/ru_user/900205.mp3"
+    }
+  },
+  {
+    "id": "900206",
+    "hy": "գրող",
+    "en": "writer",
+    "ru": "писатель",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900206.mp3",
+      "en": "/audio/en_user/900206.mp3",
+      "ru": "/audio/ru_user/900206.mp3"
+    }
+  },
+  {
+    "id": "900207",
+    "hy": "սխալ",
+    "en": "wrong",
+    "ru": "неправильный",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900207.mp3",
+      "en": "/audio/en_user/900207.mp3",
+      "ru": "/audio/ru_user/900207.mp3"
+    }
+  },
+  {
+    "id": "900208",
+    "hy": "երիտասարդ",
+    "en": "young",
+    "ru": "молодой",
+    "type": "user",
+    "isUserAdded": true,
+    "original_id": null,
+    "audioGenerated": true,
+    "translationSource": "auto",
+    "audio": {
+      "hy": "/audio/hy_user/900208.mp3",
+      "en": "/audio/en_user/900208.mp3",
+      "ru": "/audio/ru_user/900208.mp3"
+    }
+  }
+]

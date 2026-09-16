@@ -1,0 +1,554 @@
+{
+  "timestamp": "2026-08-27T22:55:25.493Z",
+  "total": 25099,
+  "found": 24274,
+  "missing": 0,
+  "coverage": "96.7%",
+  "byLesson": {
+    "w10_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w10_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l1": {
+      "total": 4,
+      "found": 4,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l2": {
+      "total": 4,
+      "found": 4,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l3": {
+      "total": 4,
+      "found": 4,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l7": {
+      "total": 268,
+      "found": 268,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w1_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w2_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w3_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w4_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w5_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w6_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w7_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w8_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l1": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l10": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l2": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l3": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l4": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l5": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l6": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l7": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l8": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    },
+    "w9_l9": {
+      "total": 279,
+      "found": 279,
+      "missing": 0,
+      "coverage": "100.0%"
+    }
+  },
+  "voiceFiles": {
+    "hy_Ani": 25099,
+    "en_female": 25099,
+    "ru_female": 20627
+  }
+}

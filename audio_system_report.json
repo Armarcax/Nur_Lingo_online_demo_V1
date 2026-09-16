@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "hy_Ani": {
+      "mapped": 25099,
+      "physical": 25099,
+      "missing": 0,
+      "extra": 0
+    },
+    "en_female": {
+      "mapped": 25099,
+      "physical": 25099,
+      "missing": 0,
+      "extra": 0
+    },
+    "ru_female": {
+      "mapped": 20627,
+      "physical": 20627,
+      "missing": 0,
+      "extra": 0
+    }
+  },
+  "issues": {}
+}

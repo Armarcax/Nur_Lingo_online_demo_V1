@@ -1,0 +1,2570 @@
+{
+  "a": {
+    "hy": "մի",
+    "en": "a",
+    "ru": "один",
+    "audioId": "000001"
+  },
+  "about": {
+    "hy": "մասին",
+    "en": "about",
+    "ru": "о",
+    "audioId": "000002"
+  },
+  "above": {
+    "hy": "վերևում",
+    "en": "above",
+    "ru": "над",
+    "audioId": "000003"
+  },
+  "after": {
+    "hy": "հետո",
+    "en": "after",
+    "ru": "после",
+    "audioId": "000004"
+  },
+  "again": {
+    "hy": "նորից",
+    "en": "again",
+    "ru": "снова",
+    "audioId": "000005"
+  },
+  "against": {
+    "hy": "դեմ",
+    "en": "against",
+    "ru": "против",
+    "audioId": "000006"
+  },
+  "age": {
+    "hy": "տարիք",
+    "en": "age",
+    "ru": "возраст",
+    "audioId": "000007"
+  },
+  "air": {
+    "hy": "օդ",
+    "en": "air",
+    "ru": "воздух",
+    "audioId": "000008"
+  },
+  "airport": {
+    "hy": "օդանավակայան",
+    "en": "airport",
+    "ru": "аэропорт",
+    "audioId": "000009"
+  },
+  "all": {
+    "hy": "բոլորը",
+    "en": "all",
+    "ru": "все",
+    "audioId": "000010"
+  },
+  "alone": {
+    "hy": "մենակ",
+    "en": "alone",
+    "ru": "один",
+    "audioId": "000011"
+  },
+  "also": {
+    "hy": "նաև",
+    "en": "also",
+    "ru": "также",
+    "audioId": "000012"
+  },
+  "always": {
+    "hy": "միշտ",
+    "en": "always",
+    "ru": "всегда",
+    "audioId": "000013"
+  },
+  "an": {
+    "hy": "մի",
+    "en": "an",
+    "ru": "один",
+    "audioId": "000014"
+  },
+  "and": {
+    "hy": "և",
+    "en": "and",
+    "ru": "и",
+    "audioId": "000015"
+  },
+  "answer": {
+    "hy": "պատասխան",
+    "en": "answer",
+    "ru": "ответ",
+    "audioId": "000016"
+  },
+  "any": {
+    "hy": "ցանկացած",
+    "en": "any",
+    "ru": "любой",
+    "audioId": "000017"
+  },
+  "apple": {
+    "hy": "խնձոր",
+    "en": "apple",
+    "ru": "яблоко",
+    "audioId": "000018"
+  },
+  "april": {
+    "hy": "ապրիլ",
+    "en": "April",
+    "ru": "апрель",
+    "audioId": "000019"
+  },
+  "arm": {
+    "hy": "բազուկ",
+    "en": "arm",
+    "ru": "рука",
+    "audioId": "000020"
+  },
+  "art": {
+    "hy": "արվեստ",
+    "en": "art",
+    "ru": "искусство",
+    "audioId": "000021"
+  },
+  "artist": {
+    "hy": "նկարիչ",
+    "en": "artist",
+    "ru": "художник",
+    "audioId": "000022"
+  },
+  "as": {
+    "hy": "որպես",
+    "en": "as",
+    "ru": "как",
+    "audioId": "000023"
+  },
+  "at": {
+    "hy": "մոտ",
+    "en": "at",
+    "ru": "в",
+    "audioId": "000024"
+  },
+  "august": {
+    "hy": "օգոստոս",
+    "en": "August",
+    "ru": "август",
+    "audioId": "000025"
+  },
+  "autumn": {
+    "hy": "աշուն",
+    "en": "autumn",
+    "ru": "осень",
+    "audioId": "000026"
+  },
+  "baby": {
+    "hy": "մանուկ",
+    "en": "baby",
+    "ru": "младенец",
+    "audioId": "000027"
+  },
+  "back": {
+    "hy": "հետև",
+    "en": "back",
+    "ru": "зад",
+    "audioId": "000028"
+  },
+  "bad": {
+    "hy": "վատ",
+    "en": "bad",
+    "ru": "плохой",
+    "audioId": "000029"
+  },
+  "bag": {
+    "hy": "պայուսակ",
+    "en": "bag",
+    "ru": "сумка",
+    "audioId": "000030"
+  },
+  "be": {
+    "hy": "լինել",
+    "en": "be",
+    "ru": "быть",
+    "audioId": "000031"
+  },
+  "bear": {
+    "hy": "արջ",
+    "en": "bear",
+    "ru": "медведь",
+    "audioId": "000032"
+  },
+  "beautiful": {
+    "hy": "գեղեցիկ",
+    "en": "beautiful",
+    "ru": "красивый",
+    "audioId": "000033"
+  },
+  "because": {
+    "hy": "որովհետև",
+    "en": "because",
+    "ru": "потому что",
+    "audioId": "000034"
+  },
+  "before": {
+    "hy": "առաջ",
+    "en": "before",
+    "ru": "до",
+    "audioId": "000035"
+  },
+  "below": {
+    "hy": "ներքևում",
+    "en": "below",
+    "ru": "под",
+    "audioId": "000036"
+  },
+  "between": {
+    "hy": "միջև",
+    "en": "between",
+    "ru": "между",
+    "audioId": "000037"
+  },
+  "bicycle": {
+    "hy": "հեծանիվ",
+    "en": "bicycle",
+    "ru": "велосипед",
+    "audioId": "000038"
+  },
+  "big": {
+    "hy": "մեծ",
+    "en": "big",
+    "ru": "большой",
+    "audioId": "000039"
+  },
+  "bird": {
+    "hy": "թռչուն",
+    "en": "bird",
+    "ru": "птица",
+    "audioId": "000040"
+  },
+  "black": {
+    "hy": "սև",
+    "en": "black",
+    "ru": "черный",
+    "audioId": "000041"
+  },
+  "blood": {
+    "hy": "արյուն",
+    "en": "blood",
+    "ru": "кровь",
+    "audioId": "000042"
+  },
+  "blue": {
+    "hy": "կապույտ",
+    "en": "blue",
+    "ru": "синий",
+    "audioId": "000043"
+  },
+  "bone": {
+    "hy": "ոսկոր",
+    "en": "bone",
+    "ru": "кость",
+    "audioId": "000044"
+  },
+  "book": {
+    "hy": "գիրք",
+    "en": "book",
+    "ru": "книга",
+    "audioId": "000045"
+  },
+  "bread": {
+    "hy": "հաց",
+    "en": "bread",
+    "ru": "хлеб",
+    "audioId": "000046"
+  },
+  "bridge": {
+    "hy": "կամուրջ",
+    "en": "bridge",
+    "ru": "мост",
+    "audioId": "000047"
+  },
+  "brother": {
+    "hy": "եղբայր",
+    "en": "brother",
+    "ru": "брат",
+    "audioId": "000048"
+  },
+  "brown": {
+    "hy": "շագանակագույն",
+    "en": "brown",
+    "ru": "коричневый",
+    "audioId": "000049"
+  },
+  "bus": {
+    "hy": "ավտոբուս",
+    "en": "bus",
+    "ru": "автобус",
+    "audioId": "000050"
+  },
+  "but": {
+    "hy": "բայց",
+    "en": "but",
+    "ru": "но",
+    "audioId": "000051"
+  },
+  "butter": {
+    "hy": "կարագ",
+    "en": "butter",
+    "ru": "масло",
+    "audioId": "000052"
+  },
+  "buy": {
+    "hy": "գնել",
+    "en": "buy",
+    "ru": "купить",
+    "audioId": "000053"
+  },
+  "by": {
+    "hy": "կողմից",
+    "en": "by",
+    "ru": "по",
+    "audioId": "000054"
+  },
+  "camera": {
+    "hy": "տեսախցիկ",
+    "en": "camera",
+    "ru": "камера",
+    "audioId": "000055"
+  },
+  "can": {
+    "hy": "կարողանալ",
+    "en": "can",
+    "ru": "мочь",
+    "audioId": "000056"
+  },
+  "car": {
+    "hy": "մեքենա",
+    "en": "car",
+    "ru": "машина",
+    "audioId": "000057"
+  },
+  "cat": {
+    "hy": "կատու",
+    "en": "cat",
+    "ru": "кот",
+    "audioId": "000058"
+  },
+  "cheese": {
+    "hy": "պանիր",
+    "en": "cheese",
+    "ru": "сыр",
+    "audioId": "000059"
+  },
+  "chef": {
+    "hy": "խոհարար",
+    "en": "chef",
+    "ru": "повар",
+    "audioId": "000060"
+  },
+  "child": {
+    "hy": "երեխա",
+    "en": "child",
+    "ru": "ребенок",
+    "audioId": "000061"
+  },
+  "church": {
+    "hy": "եկեղեցի",
+    "en": "church",
+    "ru": "церковь",
+    "audioId": "000062"
+  },
+  "city": {
+    "hy": "քաղաք",
+    "en": "city",
+    "ru": "город",
+    "audioId": "000063"
+  },
+  "clean": {
+    "hy": "մաքուր",
+    "en": "clean",
+    "ru": "чистый",
+    "audioId": "000064"
+  },
+  "close": {
+    "hy": "փակել",
+    "en": "close",
+    "ru": "закрыть",
+    "audioId": "000065"
+  },
+  "cloud": {
+    "hy": "ամպ",
+    "en": "cloud",
+    "ru": "облако",
+    "audioId": "000066"
+  },
+  "coat": {
+    "hy": "վերարկու",
+    "en": "coat",
+    "ru": "пальто",
+    "audioId": "000067"
+  },
+  "coffee": {
+    "hy": "սուրճ",
+    "en": "coffee",
+    "ru": "кофе",
+    "audioId": "000068"
+  },
+  "cold": {
+    "hy": "սառը",
+    "en": "cold",
+    "ru": "холодный",
+    "audioId": "000069"
+  },
+  "come": {
+    "hy": "գալ",
+    "en": "come",
+    "ru": "приходить",
+    "audioId": "000070"
+  },
+  "computer": {
+    "hy": "համակարգիչ",
+    "en": "computer",
+    "ru": "компьютер",
+    "audioId": "000071"
+  },
+  "could": {
+    "hy": "կարող էր",
+    "en": "could",
+    "ru": "мог",
+    "audioId": "000072"
+  },
+  "country": {
+    "hy": "երկիր",
+    "en": "country",
+    "ru": "страна",
+    "audioId": "000073"
+  },
+  "cow": {
+    "hy": "կով",
+    "en": "cow",
+    "ru": "корова",
+    "audioId": "000074"
+  },
+  "cry": {
+    "hy": "լալ",
+    "en": "cry",
+    "ru": "плакать",
+    "audioId": "000075"
+  },
+  "dance": {
+    "hy": "պարել",
+    "en": "dance",
+    "ru": "танцевать",
+    "audioId": "000076"
+  },
+  "dark": {
+    "hy": "մութ",
+    "en": "dark",
+    "ru": "темный",
+    "audioId": "000077"
+  },
+  "daughter": {
+    "hy": "դուստր",
+    "en": "daughter",
+    "ru": "дочь",
+    "audioId": "000078"
+  },
+  "day": {
+    "hy": "օր",
+    "en": "day",
+    "ru": "день",
+    "audioId": "000079"
+  },
+  "death": {
+    "hy": "մահ",
+    "en": "death",
+    "ru": "смерть",
+    "audioId": "000080"
+  },
+  "december": {
+    "hy": "դեկտեմբեր",
+    "en": "December",
+    "ru": "декабрь",
+    "audioId": "000081"
+  },
+  "die": {
+    "hy": "մահանալ",
+    "en": "die",
+    "ru": "умереть",
+    "audioId": "000082"
+  },
+  "difficult": {
+    "hy": "դժվար",
+    "en": "difficult",
+    "ru": "трудный",
+    "audioId": "000083"
+  },
+  "dirty": {
+    "hy": "կեղտոտ",
+    "en": "dirty",
+    "ru": "грязный",
+    "audioId": "000084"
+  },
+  "do": {
+    "hy": "անել",
+    "en": "do",
+    "ru": "делать",
+    "audioId": "000085"
+  },
+  "doctor": {
+    "hy": "բժիշկ",
+    "en": "doctor",
+    "ru": "врач",
+    "audioId": "000086"
+  },
+  "dog": {
+    "hy": "շուն",
+    "en": "dog",
+    "ru": "собака",
+    "audioId": "000087"
+  },
+  "door": {
+    "hy": "դուռ",
+    "en": "door",
+    "ru": "дверь",
+    "audioId": "000088"
+  },
+  "down": {
+    "hy": "ներքև",
+    "en": "down",
+    "ru": "вниз",
+    "audioId": "000089"
+  },
+  "dream": {
+    "hy": "երազ",
+    "en": "dream",
+    "ru": "мечта",
+    "audioId": "000090"
+  },
+  "dress": {
+    "hy": "զգեստ",
+    "en": "dress",
+    "ru": "платье",
+    "audioId": "000091"
+  },
+  "drink": {
+    "hy": "խմել",
+    "en": "drink",
+    "ru": "пить",
+    "audioId": "000092"
+  },
+  "during": {
+    "hy": "ընթացքում",
+    "en": "during",
+    "ru": "во время",
+    "audioId": "000093"
+  },
+  "ear": {
+    "hy": "ականջ",
+    "en": "ear",
+    "ru": "ухо",
+    "audioId": "000094"
+  },
+  "early": {
+    "hy": "վաղ",
+    "en": "early",
+    "ru": "рано",
+    "audioId": "000095"
+  },
+  "earth": {
+    "hy": "երկիր",
+    "en": "earth",
+    "ru": "земля",
+    "audioId": "000096"
+  },
+  "easy": {
+    "hy": "հեշտ",
+    "en": "easy",
+    "ru": "лёгкий",
+    "audioId": "000097"
+  },
+  "eat": {
+    "hy": "ուտել",
+    "en": "eat",
+    "ru": "есть",
+    "audioId": "000098"
+  },
+  "egg": {
+    "hy": "ձու",
+    "en": "egg",
+    "ru": "яйцо",
+    "audioId": "000099"
+  },
+  "eight": {
+    "hy": "ութ",
+    "en": "eight",
+    "ru": "восемь",
+    "audioId": "000100"
+  },
+  "elephant": {
+    "hy": "փիղ",
+    "en": "elephant",
+    "ru": "слон",
+    "audioId": "000101"
+  },
+  "empty": {
+    "hy": "դատարկ",
+    "en": "empty",
+    "ru": "пустой",
+    "audioId": "000102"
+  },
+  "enemy": {
+    "hy": "թշնամի",
+    "en": "enemy",
+    "ru": "враг",
+    "audioId": "000103"
+  },
+  "engineer": {
+    "hy": "ինժեներ",
+    "en": "engineer",
+    "ru": "инженер",
+    "audioId": "000104"
+  },
+  "even": {
+    "hy": "նույնիսկ",
+    "en": "even",
+    "ru": "даже",
+    "audioId": "000105"
+  },
+  "evening": {
+    "hy": "երեկո",
+    "en": "evening",
+    "ru": "вечер",
+    "audioId": "000106"
+  },
+  "exam": {
+    "hy": "քննություն",
+    "en": "exam",
+    "ru": "экзамен",
+    "audioId": "000107"
+  },
+  "eye": {
+    "hy": "աչք",
+    "en": "eye",
+    "ru": "глаз",
+    "audioId": "000108"
+  },
+  "face": {
+    "hy": "դեմք",
+    "en": "face",
+    "ru": "лицо",
+    "audioId": "000109"
+  },
+  "family": {
+    "hy": "ընտանիք",
+    "en": "family",
+    "ru": "семья",
+    "audioId": "000110"
+  },
+  "fast": {
+    "hy": "արագ",
+    "en": "fast",
+    "ru": "быстрый",
+    "audioId": "000111"
+  },
+  "father": {
+    "hy": "հայր",
+    "en": "father",
+    "ru": "отец",
+    "audioId": "000112"
+  },
+  "february": {
+    "hy": "փետրվար",
+    "en": "February",
+    "ru": "февраль",
+    "audioId": "000113"
+  },
+  "find": {
+    "hy": "գտնել",
+    "en": "find",
+    "ru": "найти",
+    "audioId": "000114"
+  },
+  "finger": {
+    "hy": "մատ",
+    "en": "finger",
+    "ru": "палец",
+    "audioId": "000115"
+  },
+  "fire": {
+    "hy": "կրակ",
+    "en": "fire",
+    "ru": "огонь",
+    "audioId": "000116"
+  },
+  "first": {
+    "hy": "առաջին",
+    "en": "first",
+    "ru": "первый",
+    "audioId": "000117"
+  },
+  "fish": {
+    "hy": "ձուկ",
+    "en": "fish",
+    "ru": "рыба",
+    "audioId": "000118"
+  },
+  "five": {
+    "hy": "հինգ",
+    "en": "five",
+    "ru": "пять",
+    "audioId": "000119"
+  },
+  "flower": {
+    "hy": "ծաղիկ",
+    "en": "flower",
+    "ru": "цветок",
+    "audioId": "000120"
+  },
+  "fog": {
+    "hy": "մառախուղ",
+    "en": "fog",
+    "ru": "туман",
+    "audioId": "000121"
+  },
+  "food": {
+    "hy": "ուտելիք",
+    "en": "food",
+    "ru": "еда",
+    "audioId": "000122"
+  },
+  "foot": {
+    "hy": "ոտք",
+    "en": "foot",
+    "ru": "нога",
+    "audioId": "000123"
+  },
+  "for": {
+    "hy": "համար",
+    "en": "for",
+    "ru": "для",
+    "audioId": "000124"
+  },
+  "forest": {
+    "hy": "անտառ",
+    "en": "forest",
+    "ru": "лес",
+    "audioId": "000125"
+  },
+  "four": {
+    "hy": "չորս",
+    "en": "four",
+    "ru": "четыре",
+    "audioId": "000126"
+  },
+  "free": {
+    "hy": "ազատ",
+    "en": "free",
+    "ru": "свободный",
+    "audioId": "000127"
+  },
+  "friday": {
+    "hy": "ուրբաթ",
+    "en": "Friday",
+    "ru": "пятница",
+    "audioId": "000128"
+  },
+  "friend": {
+    "hy": "ընկեր",
+    "en": "friend",
+    "ru": "друг",
+    "audioId": "000129"
+  },
+  "from": {
+    "hy": "ից",
+    "en": "from",
+    "ru": "из",
+    "audioId": "000130"
+  },
+  "front": {
+    "hy": "առջև",
+    "en": "front",
+    "ru": "перед",
+    "audioId": "000131"
+  },
+  "full": {
+    "hy": "լիքը",
+    "en": "full",
+    "ru": "полный",
+    "audioId": "000132"
+  },
+  "game": {
+    "hy": "խաղ",
+    "en": "game",
+    "ru": "игра",
+    "audioId": "000133"
+  },
+  "geography": {
+    "hy": "աշխարհագրություն",
+    "en": "geography",
+    "ru": "география",
+    "audioId": "000134"
+  },
+  "get": {
+    "hy": "ստանալ",
+    "en": "get",
+    "ru": "получить",
+    "audioId": "000135"
+  },
+  "give": {
+    "hy": "տալ",
+    "en": "give",
+    "ru": "давать",
+    "audioId": "000136"
+  },
+  "glasses": {
+    "hy": "ակնոցներ",
+    "en": "glasses",
+    "ru": "очки",
+    "audioId": "000137"
+  },
+  "go": {
+    "hy": "գնալ",
+    "en": "go",
+    "ru": "идти",
+    "audioId": "000138"
+  },
+  "good": {
+    "hy": "լավ",
+    "en": "good",
+    "ru": "хороший",
+    "audioId": "000139"
+  },
+  "goodbye": {
+    "hy": "ցտեսություն",
+    "en": "goodbye",
+    "ru": "до свидания",
+    "audioId": "000140"
+  },
+  "grandfather": {
+    "hy": "պապիկ",
+    "en": "grandfather",
+    "ru": "дедушка",
+    "audioId": "000141"
+  },
+  "grandmother": {
+    "hy": "տատիկ",
+    "en": "grandmother",
+    "ru": "бабушка",
+    "audioId": "000142"
+  },
+  "grass": {
+    "hy": "խոտ",
+    "en": "grass",
+    "ru": "трава",
+    "audioId": "000143"
+  },
+  "gray": {
+    "hy": "մոխրագույն",
+    "en": "gray",
+    "ru": "серый",
+    "audioId": "000144"
+  },
+  "green": {
+    "hy": "կանաչ",
+    "en": "green",
+    "ru": "зеленый",
+    "audioId": "000145"
+  },
+  "hair": {
+    "hy": "մազ",
+    "en": "hair",
+    "ru": "волосы",
+    "audioId": "000146"
+  },
+  "hand": {
+    "hy": "ձեռք",
+    "en": "hand",
+    "ru": "рука",
+    "audioId": "000147"
+  },
+  "happy": {
+    "hy": "ուրախ",
+    "en": "happy",
+    "ru": "счастливый",
+    "audioId": "000148"
+  },
+  "hat": {
+    "hy": "գլխարկ",
+    "en": "hat",
+    "ru": "шапка",
+    "audioId": "000149"
+  },
+  "hate": {
+    "hy": "ատել",
+    "en": "hate",
+    "ru": "ненавидеть",
+    "audioId": "000150"
+  },
+  "have": {
+    "hy": "ունենալ",
+    "en": "have",
+    "ru": "иметь",
+    "audioId": "000151"
+  },
+  "he": {
+    "hy": "նա (արական)",
+    "en": "he",
+    "ru": "он",
+    "audioId": "000152"
+  },
+  "head": {
+    "hy": "գլուխ",
+    "en": "head",
+    "ru": "голова",
+    "audioId": "000153"
+  },
+  "health": {
+    "hy": "առողջություն",
+    "en": "health",
+    "ru": "здоровье",
+    "audioId": "000154"
+  },
+  "heart": {
+    "hy": "սիրտ",
+    "en": "heart",
+    "ru": "сердце",
+    "audioId": "000155"
+  },
+  "hello": {
+    "hy": "բարև",
+    "en": "hello",
+    "ru": "привет",
+    "audioId": "000156"
+  },
+  "help": {
+    "hy": "օգնել",
+    "en": "help",
+    "ru": "помочь",
+    "audioId": "000157"
+  },
+  "help_n": {
+    "hy": "օգնություն",
+    "en": "help",
+    "ru": "помощь",
+    "audioId": "000158"
+  },
+  "her": {
+    "hy": "նրա (իգական)",
+    "en": "her",
+    "ru": "её",
+    "audioId": "000159"
+  },
+  "here": {
+    "hy": "այստեղ",
+    "en": "here",
+    "ru": "здесь",
+    "audioId": "000160"
+  },
+  "him": {
+    "hy": "նրան (արական)",
+    "en": "him",
+    "ru": "его",
+    "audioId": "000161"
+  },
+  "his": {
+    "hy": "նրա (արական)",
+    "en": "his",
+    "ru": "его",
+    "audioId": "000162"
+  },
+  "history": {
+    "hy": "պատմություն",
+    "en": "history",
+    "ru": "история",
+    "audioId": "000163"
+  },
+  "homework": {
+    "hy": "տնային աշխատանք",
+    "en": "homework",
+    "ru": "домашнее задание",
+    "audioId": "000164"
+  },
+  "horse": {
+    "hy": "ձի",
+    "en": "horse",
+    "ru": "лошадь",
+    "audioId": "000165"
+  },
+  "hospital": {
+    "hy": "հիվանդանոց",
+    "en": "hospital",
+    "ru": "больница",
+    "audioId": "000166"
+  },
+  "hot": {
+    "hy": "տաք",
+    "en": "hot",
+    "ru": "горячий",
+    "audioId": "000167"
+  },
+  "hour": {
+    "hy": "ժամ",
+    "en": "hour",
+    "ru": "час",
+    "audioId": "000168"
+  },
+  "house": {
+    "hy": "տուն",
+    "en": "house",
+    "ru": "дом",
+    "audioId": "000169"
+  },
+  "how": {
+    "hy": "ինչպես",
+    "en": "how",
+    "ru": "как",
+    "audioId": "000170"
+  },
+  "hundred": {
+    "hy": "հարյուր",
+    "en": "hundred",
+    "ru": "сто",
+    "audioId": "000171"
+  },
+  "husband": {
+    "hy": "ամուսին",
+    "en": "husband",
+    "ru": "муж",
+    "audioId": "000172"
+  },
+  "i": {
+    "hy": "ես",
+    "en": "I",
+    "ru": "я",
+    "audioId": "000173"
+  },
+  "ice": {
+    "hy": "սառույց",
+    "en": "ice",
+    "ru": "лёд",
+    "audioId": "000174"
+  },
+  "idea": {
+    "hy": "գաղափար",
+    "en": "idea",
+    "ru": "идея",
+    "audioId": "000175"
+  },
+  "if": {
+    "hy": "եթե",
+    "en": "if",
+    "ru": "если",
+    "audioId": "000176"
+  },
+  "in": {
+    "hy": "ներս",
+    "en": "in",
+    "ru": "в",
+    "audioId": "000177"
+  },
+  "inside": {
+    "hy": "ներսում",
+    "en": "inside",
+    "ru": "внутри",
+    "audioId": "000178"
+  },
+  "internet": {
+    "hy": "համացանց",
+    "en": "internet",
+    "ru": "интернет",
+    "audioId": "000179"
+  },
+  "into": {
+    "hy": "ներս",
+    "en": "into",
+    "ru": "в",
+    "audioId": "000180"
+  },
+  "it": {
+    "hy": "այն",
+    "en": "it",
+    "ru": "это",
+    "audioId": "000181"
+  },
+  "its": {
+    "hy": "իր",
+    "en": "its",
+    "ru": "его",
+    "audioId": "000182"
+  },
+  "january": {
+    "hy": "հունվար",
+    "en": "January",
+    "ru": "январь",
+    "audioId": "000183"
+  },
+  "juice": {
+    "hy": "հյութ",
+    "en": "juice",
+    "ru": "сок",
+    "audioId": "000184"
+  },
+  "july": {
+    "hy": "հուլիս",
+    "en": "July",
+    "ru": "июль",
+    "audioId": "000185"
+  },
+  "june": {
+    "hy": "հունիս",
+    "en": "June",
+    "ru": "июнь",
+    "audioId": "000186"
+  },
+  "just": {
+    "hy": "հենց",
+    "en": "just",
+    "ru": "только",
+    "audioId": "000187"
+  },
+  "know": {
+    "hy": "իմանալ",
+    "en": "know",
+    "ru": "знать",
+    "audioId": "000188"
+  },
+  "language": {
+    "hy": "լեզու",
+    "en": "language",
+    "ru": "язык",
+    "audioId": "000189"
+  },
+  "late": {
+    "hy": "ուշ",
+    "en": "late",
+    "ru": "поздно",
+    "audioId": "000190"
+  },
+  "later": {
+    "hy": "հետո",
+    "en": "later",
+    "ru": "позже",
+    "audioId": "000191"
+  },
+  "laugh": {
+    "hy": "ծիծաղել",
+    "en": "laugh",
+    "ru": "смеяться",
+    "audioId": "000192"
+  },
+  "lawyer": {
+    "hy": "իրավաբան",
+    "en": "lawyer",
+    "ru": "адвокат",
+    "audioId": "000193"
+  },
+  "learn": {
+    "hy": "սովորել",
+    "en": "learn",
+    "ru": "учиться",
+    "audioId": "000194"
+  },
+  "left": {
+    "hy": "ձախ",
+    "en": "left",
+    "ru": "левый",
+    "audioId": "000195"
+  },
+  "leg": {
+    "hy": "ոտք",
+    "en": "leg",
+    "ru": "нога",
+    "audioId": "000196"
+  },
+  "lesson": {
+    "hy": "դաս",
+    "en": "lesson",
+    "ru": "урок",
+    "audioId": "000197"
+  },
+  "library": {
+    "hy": "գրադարան",
+    "en": "library",
+    "ru": "библиотека",
+    "audioId": "000198"
+  },
+  "life": {
+    "hy": "կյանք",
+    "en": "life",
+    "ru": "жизнь",
+    "audioId": "000199"
+  },
+  "light": {
+    "hy": "լույս",
+    "en": "light",
+    "ru": "свет",
+    "audioId": "000200"
+  },
+  "like": {
+    "hy": "նման",
+    "en": "like",
+    "ru": "нравиться",
+    "audioId": "000201"
+  },
+  "lion": {
+    "hy": "առյուծ",
+    "en": "lion",
+    "ru": "лев",
+    "audioId": "000202"
+  },
+  "listen": {
+    "hy": "լսել",
+    "en": "listen",
+    "ru": "слушать",
+    "audioId": "000203"
+  },
+  "live": {
+    "hy": "ապրել",
+    "en": "live",
+    "ru": "жить",
+    "audioId": "000204"
+  },
+  "long": {
+    "hy": "երկար",
+    "en": "long",
+    "ru": "длинный",
+    "audioId": "000205"
+  },
+  "look": {
+    "hy": "նայել",
+    "en": "look",
+    "ru": "смотреть",
+    "audioId": "000206"
+  },
+  "lose": {
+    "hy": "կորցնել",
+    "en": "lose",
+    "ru": "потерять",
+    "audioId": "000207"
+  },
+  "love": {
+    "hy": "սեր",
+    "en": "love",
+    "ru": "любовь",
+    "audioId": "000208"
+  },
+  "love_v": {
+    "hy": "սիրել",
+    "en": "love",
+    "ru": "любить",
+    "audioId": "000209"
+  },
+  "make": {
+    "hy": "անել",
+    "en": "make",
+    "ru": "делать",
+    "audioId": "000210"
+  },
+  "man": {
+    "hy": "տղամարդ",
+    "en": "man",
+    "ru": "мужчина",
+    "audioId": "000211"
+  },
+  "march": {
+    "hy": "մարտ",
+    "en": "March",
+    "ru": "март",
+    "audioId": "000212"
+  },
+  "market": {
+    "hy": "շուկա",
+    "en": "market",
+    "ru": "рынок",
+    "audioId": "000213"
+  },
+  "math": {
+    "hy": "մաթեմատիկա",
+    "en": "math",
+    "ru": "математика",
+    "audioId": "000214"
+  },
+  "may": {
+    "hy": "մայիս",
+    "en": "May",
+    "ru": "май",
+    "audioId": "000215"
+  },
+  "maybe": {
+    "hy": "միգուցե",
+    "en": "maybe",
+    "ru": "может быть",
+    "audioId": "000216"
+  },
+  "me": {
+    "hy": "ինձ",
+    "en": "me",
+    "ru": "меня",
+    "audioId": "000217"
+  },
+  "meat": {
+    "hy": "միս",
+    "en": "meat",
+    "ru": "мясо",
+    "audioId": "000218"
+  },
+  "message": {
+    "hy": "հաղորդագրություն",
+    "en": "message",
+    "ru": "сообщение",
+    "audioId": "000219"
+  },
+  "milk": {
+    "hy": "կաթ",
+    "en": "milk",
+    "ru": "молоко",
+    "audioId": "000220"
+  },
+  "minute": {
+    "hy": "րոպե",
+    "en": "minute",
+    "ru": "минута",
+    "audioId": "000221"
+  },
+  "monday": {
+    "hy": "երկուշաբթի",
+    "en": "Monday",
+    "ru": "понедельник",
+    "audioId": "000222"
+  },
+  "money": {
+    "hy": "փող",
+    "en": "money",
+    "ru": "деньги",
+    "audioId": "000223"
+  },
+  "month": {
+    "hy": "ամիս",
+    "en": "month",
+    "ru": "месяц",
+    "audioId": "000224"
+  },
+  "moon": {
+    "hy": "լուսին",
+    "en": "moon",
+    "ru": "луна",
+    "audioId": "000225"
+  },
+  "morning": {
+    "hy": "առավոտ",
+    "en": "morning",
+    "ru": "утро",
+    "audioId": "000226"
+  },
+  "most": {
+    "hy": "ամենաշատ",
+    "en": "most",
+    "ru": "большинство",
+    "audioId": "000227"
+  },
+  "mother": {
+    "hy": "մայր",
+    "en": "mother",
+    "ru": "мать",
+    "audioId": "000228"
+  },
+  "mountain": {
+    "hy": "լեռ",
+    "en": "mountain",
+    "ru": "гора",
+    "audioId": "000229"
+  },
+  "mouth": {
+    "hy": "բերան",
+    "en": "mouth",
+    "ru": "рот",
+    "audioId": "000230"
+  },
+  "movie": {
+    "hy": "ֆիլմ",
+    "en": "movie",
+    "ru": "фильм",
+    "audioId": "000231"
+  },
+  "music": {
+    "hy": "երաժշտություն",
+    "en": "music",
+    "ru": "музыка",
+    "audioId": "000232"
+  },
+  "my": {
+    "hy": "իմ",
+    "en": "my",
+    "ru": "мой",
+    "audioId": "000233"
+  },
+  "name": {
+    "hy": "անուն",
+    "en": "name",
+    "ru": "имя",
+    "audioId": "000234"
+  },
+  "never": {
+    "hy": "երբեք",
+    "en": "never",
+    "ru": "никогда",
+    "audioId": "000235"
+  },
+  "new": {
+    "hy": "նոր",
+    "en": "new",
+    "ru": "новый",
+    "audioId": "000236"
+  },
+  "night": {
+    "hy": "գիշեր",
+    "en": "night",
+    "ru": "ночь",
+    "audioId": "000237"
+  },
+  "nine": {
+    "hy": "ինը",
+    "en": "nine",
+    "ru": "девять",
+    "audioId": "000238"
+  },
+  "no": {
+    "hy": "ոչ",
+    "en": "no",
+    "ru": "нет",
+    "audioId": "000239"
+  },
+  "nose": {
+    "hy": "քիթ",
+    "en": "nose",
+    "ru": "нос",
+    "audioId": "000240"
+  },
+  "not": {
+    "hy": "ոչ",
+    "en": "not",
+    "ru": "не",
+    "audioId": "000241"
+  },
+  "november": {
+    "hy": "նոյեմբեր",
+    "en": "November",
+    "ru": "ноябрь",
+    "audioId": "000242"
+  },
+  "now": {
+    "hy": "հիմա",
+    "en": "now",
+    "ru": "сейчас",
+    "audioId": "000243"
+  },
+  "ocean": {
+    "hy": "օվկիանոս",
+    "en": "ocean",
+    "ru": "океан",
+    "audioId": "000244"
+  },
+  "october": {
+    "hy": "հոկտեմբեր",
+    "en": "October",
+    "ru": "октябрь",
+    "audioId": "000245"
+  },
+  "of": {
+    "hy": "ի",
+    "en": "of",
+    "ru": "из",
+    "audioId": "000246"
+  },
+  "often": {
+    "hy": "հաճախ",
+    "en": "often",
+    "ru": "часто",
+    "audioId": "000247"
+  },
+  "oil": {
+    "hy": "յուղ",
+    "en": "oil",
+    "ru": "масло",
+    "audioId": "000248"
+  },
+  "old": {
+    "hy": "հին",
+    "en": "old",
+    "ru": "старый",
+    "audioId": "000249"
+  },
+  "on": {
+    "hy": "վրա",
+    "en": "on",
+    "ru": "на",
+    "audioId": "000250"
+  },
+  "one": {
+    "hy": "մեկ",
+    "en": "one",
+    "ru": "один",
+    "audioId": "000251"
+  },
+  "only": {
+    "hy": "միայն",
+    "en": "only",
+    "ru": "только",
+    "audioId": "000252"
+  },
+  "open": {
+    "hy": "բացել",
+    "en": "open",
+    "ru": "открыть",
+    "audioId": "000253"
+  },
+  "or": {
+    "hy": "կամ",
+    "en": "or",
+    "ru": "или",
+    "audioId": "000254"
+  },
+  "orange": {
+    "hy": "նարնջագույն",
+    "en": "orange",
+    "ru": "оранжевый",
+    "audioId": "000255"
+  },
+  "orange_fruit": {
+    "hy": "նարինջ",
+    "en": "orange",
+    "ru": "апельсин",
+    "audioId": "000256"
+  },
+  "other": {
+    "hy": "այլ",
+    "en": "other",
+    "ru": "другой",
+    "audioId": "000257"
+  },
+  "our": {
+    "hy": "մեր",
+    "en": "our",
+    "ru": "наш",
+    "audioId": "000258"
+  },
+  "out": {
+    "hy": "դուրս",
+    "en": "out",
+    "ru": "вне",
+    "audioId": "000259"
+  },
+  "outside": {
+    "hy": "դրսում",
+    "en": "outside",
+    "ru": "снаружи",
+    "audioId": "000260"
+  },
+  "over": {
+    "hy": "վրա",
+    "en": "over",
+    "ru": "над",
+    "audioId": "000261"
+  },
+  "pants": {
+    "hy": "տաբատ",
+    "en": "pants",
+    "ru": "брюки",
+    "audioId": "000262"
+  },
+  "parents": {
+    "hy": "ծնողներ",
+    "en": "parents",
+    "ru": "родители",
+    "audioId": "000263"
+  },
+  "park": {
+    "hy": "այգի",
+    "en": "park",
+    "ru": "парк",
+    "audioId": "000264"
+  },
+  "password": {
+    "hy": "գաղտնաբառ",
+    "en": "password",
+    "ru": "пароль",
+    "audioId": "000265"
+  },
+  "peace": {
+    "hy": "խաղաղություն",
+    "en": "peace",
+    "ru": "мир",
+    "audioId": "000266"
+  },
+  "pen": {
+    "hy": "գրիչ",
+    "en": "pen",
+    "ru": "ручка",
+    "audioId": "000267"
+  },
+  "people": {
+    "hy": "մարդիկ",
+    "en": "people",
+    "ru": "люди",
+    "audioId": "000268"
+  },
+  "phone": {
+    "hy": "հեռախոս",
+    "en": "phone",
+    "ru": "телефон",
+    "audioId": "000269"
+  },
+  "pig": {
+    "hy": "խոզ",
+    "en": "pig",
+    "ru": "свинья",
+    "audioId": "000270"
+  },
+  "pilot": {
+    "hy": "օդաչու",
+    "en": "pilot",
+    "ru": "пилот",
+    "audioId": "000271"
+  },
+  "pink": {
+    "hy": "վարդագույն",
+    "en": "pink",
+    "ru": "розовый",
+    "audioId": "000272"
+  },
+  "plane": {
+    "hy": "ինքնաթիռ",
+    "en": "plane",
+    "ru": "самолёт",
+    "audioId": "000273"
+  },
+  "play": {
+    "hy": "խաղալ",
+    "en": "play",
+    "ru": "играть",
+    "audioId": "000274"
+  },
+  "please": {
+    "hy": "խնդրեմ",
+    "en": "please",
+    "ru": "пожалуйста",
+    "audioId": "000275"
+  },
+  "police": {
+    "hy": "ոստիկանություն",
+    "en": "police",
+    "ru": "полиция",
+    "audioId": "000276"
+  },
+  "poor": {
+    "hy": "աղքատ",
+    "en": "poor",
+    "ru": "бедный",
+    "audioId": "000277"
+  },
+  "president": {
+    "hy": "նախագահ",
+    "en": "president",
+    "ru": "президент",
+    "audioId": "000278"
+  },
+  "price": {
+    "hy": "գին",
+    "en": "price",
+    "ru": "цена",
+    "audioId": "000279"
+  },
+  "problem": {
+    "hy": "խնդիր",
+    "en": "problem",
+    "ru": "проблема",
+    "audioId": "000280"
+  },
+  "purple": {
+    "hy": "մանուշակագույն",
+    "en": "purple",
+    "ru": "фиолетовый",
+    "audioId": "000281"
+  },
+  "question": {
+    "hy": "հարց",
+    "en": "question",
+    "ru": "вопрос",
+    "audioId": "000282"
+  },
+  "rabbit": {
+    "hy": "նապաստակ",
+    "en": "rabbit",
+    "ru": "кролик",
+    "audioId": "000283"
+  },
+  "rain": {
+    "hy": "անձրև",
+    "en": "rain",
+    "ru": "дождь",
+    "audioId": "000284"
+  },
+  "read": {
+    "hy": "կարդալ",
+    "en": "read",
+    "ru": "читать",
+    "audioId": "000285"
+  },
+  "red": {
+    "hy": "կարմիր",
+    "en": "red",
+    "ru": "красный",
+    "audioId": "000286"
+  },
+  "rice": {
+    "hy": "բրինձ",
+    "en": "rice",
+    "ru": "рис",
+    "audioId": "000287"
+  },
+  "rich": {
+    "hy": "հարուստ",
+    "en": "rich",
+    "ru": "богатый",
+    "audioId": "000288"
+  },
+  "right": {
+    "hy": "աջ",
+    "en": "right",
+    "ru": "правый",
+    "audioId": "000289"
+  },
+  "ring": {
+    "hy": "մատանի",
+    "en": "ring",
+    "ru": "кольцо",
+    "audioId": "000290"
+  },
+  "river": {
+    "hy": "գետ",
+    "en": "river",
+    "ru": "река",
+    "audioId": "000291"
+  },
+  "road": {
+    "hy": "ճանապարհ",
+    "en": "road",
+    "ru": "дорога",
+    "audioId": "000292"
+  },
+  "room": {
+    "hy": "սենյակ",
+    "en": "room",
+    "ru": "комната",
+    "audioId": "000293"
+  },
+  "run": {
+    "hy": "վազել",
+    "en": "run",
+    "ru": "бегать",
+    "audioId": "000294"
+  },
+  "sad": {
+    "hy": "տխուր",
+    "en": "sad",
+    "ru": "грустный",
+    "audioId": "000295"
+  },
+  "salt": {
+    "hy": "աղ",
+    "en": "salt",
+    "ru": "соль",
+    "audioId": "000296"
+  },
+  "sand": {
+    "hy": "ավազ",
+    "en": "sand",
+    "ru": "песок",
+    "audioId": "000297"
+  },
+  "saturday": {
+    "hy": "շաբաթ",
+    "en": "Saturday",
+    "ru": "суббота",
+    "audioId": "000298"
+  },
+  "say": {
+    "hy": "ասել",
+    "en": "say",
+    "ru": "говорить",
+    "audioId": "000299"
+  },
+  "school": {
+    "hy": "դպրոց",
+    "en": "school",
+    "ru": "школа",
+    "audioId": "000300"
+  },
+  "science": {
+    "hy": "գիտություն",
+    "en": "science",
+    "ru": "наука",
+    "audioId": "000301"
+  },
+  "sea": {
+    "hy": "ծով",
+    "en": "sea",
+    "ru": "море",
+    "audioId": "000302"
+  },
+  "second": {
+    "hy": "վայրկյան",
+    "en": "second",
+    "ru": "секунда",
+    "audioId": "000303"
+  },
+  "see": {
+    "hy": "տեսնել",
+    "en": "see",
+    "ru": "видеть",
+    "audioId": "000304"
+  },
+  "sell": {
+    "hy": "վաճառել",
+    "en": "sell",
+    "ru": "продавать",
+    "audioId": "000305"
+  },
+  "september": {
+    "hy": "սեպտեմբեր",
+    "en": "September",
+    "ru": "сентябрь",
+    "audioId": "000306"
+  },
+  "seven": {
+    "hy": "յոթ",
+    "en": "seven",
+    "ru": "семь",
+    "audioId": "000307"
+  },
+  "she": {
+    "hy": "նա (իգական)",
+    "en": "she",
+    "ru": "она",
+    "audioId": "000308"
+  },
+  "sheep": {
+    "hy": "ոչխար",
+    "en": "sheep",
+    "ru": "овца",
+    "audioId": "000309"
+  },
+  "ship": {
+    "hy": "նավ",
+    "en": "ship",
+    "ru": "корабль",
+    "audioId": "000310"
+  },
+  "shirt": {
+    "hy": "վերնաշապիկ",
+    "en": "shirt",
+    "ru": "рубашка",
+    "audioId": "000311"
+  },
+  "shoes": {
+    "hy": "կոշիկներ",
+    "en": "shoes",
+    "ru": "туфли",
+    "audioId": "000312"
+  },
+  "short": {
+    "hy": "կարճ",
+    "en": "short",
+    "ru": "короткий",
+    "audioId": "000313"
+  },
+  "since": {
+    "hy": "սկսած",
+    "en": "since",
+    "ru": "с",
+    "audioId": "000314"
+  },
+  "sing": {
+    "hy": "երգել",
+    "en": "sing",
+    "ru": "петь",
+    "audioId": "000315"
+  },
+  "singer": {
+    "hy": "երգիչ",
+    "en": "singer",
+    "ru": "певец",
+    "audioId": "000316"
+  },
+  "sister": {
+    "hy": "քույր",
+    "en": "sister",
+    "ru": "сестра",
+    "audioId": "000317"
+  },
+  "six": {
+    "hy": "վեց",
+    "en": "six",
+    "ru": "шесть",
+    "audioId": "000318"
+  },
+  "skin": {
+    "hy": "մաշկ",
+    "en": "skin",
+    "ru": "кожа",
+    "audioId": "000319"
+  },
+  "sky": {
+    "hy": "երկինք",
+    "en": "sky",
+    "ru": "небо",
+    "audioId": "000320"
+  },
+  "sleep": {
+    "hy": "քնել",
+    "en": "sleep",
+    "ru": "спать",
+    "audioId": "000321"
+  },
+  "slow": {
+    "hy": "դանդաղ",
+    "en": "slow",
+    "ru": "медленный",
+    "audioId": "000322"
+  },
+  "small": {
+    "hy": "փոքր",
+    "en": "small",
+    "ru": "маленький",
+    "audioId": "000323"
+  },
+  "snake": {
+    "hy": "օձ",
+    "en": "snake",
+    "ru": "змея",
+    "audioId": "000324"
+  },
+  "snow": {
+    "hy": "ձյուն",
+    "en": "snow",
+    "ru": "снег",
+    "audioId": "000325"
+  },
+  "so": {
+    "hy": "այնպես",
+    "en": "so",
+    "ru": "так",
+    "audioId": "000326"
+  },
+  "soldier": {
+    "hy": "զինվոր",
+    "en": "soldier",
+    "ru": "солдат",
+    "audioId": "000327"
+  },
+  "some": {
+    "hy": "որոշ",
+    "en": "some",
+    "ru": "некоторый",
+    "audioId": "000328"
+  },
+  "sometimes": {
+    "hy": "երբեմն",
+    "en": "sometimes",
+    "ru": "иногда",
+    "audioId": "000329"
+  },
+  "son": {
+    "hy": "որդի",
+    "en": "son",
+    "ru": "сын",
+    "audioId": "000330"
+  },
+  "sorry": {
+    "hy": "ներողություն",
+    "en": "sorry",
+    "ru": "извини",
+    "audioId": "000331"
+  },
+  "soup": {
+    "hy": "ապուր",
+    "en": "soup",
+    "ru": "суп",
+    "audioId": "000332"
+  },
+  "sport": {
+    "hy": "սպորտ",
+    "en": "sport",
+    "ru": "спорт",
+    "audioId": "000333"
+  },
+  "spring": {
+    "hy": "գարուն",
+    "en": "spring",
+    "ru": "весна",
+    "audioId": "000334"
+  },
+  "star": {
+    "hy": "աստղ",
+    "en": "star",
+    "ru": "звезда",
+    "audioId": "000335"
+  },
+  "start": {
+    "hy": "սկսել",
+    "en": "start",
+    "ru": "начать",
+    "audioId": "000336"
+  },
+  "stone": {
+    "hy": "քար",
+    "en": "stone",
+    "ru": "камень",
+    "audioId": "000337"
+  },
+  "stop": {
+    "hy": "կանգնել",
+    "en": "stop",
+    "ru": "остановиться",
+    "audioId": "000338"
+  },
+  "storm": {
+    "hy": "փոթորիկ",
+    "en": "storm",
+    "ru": "буря",
+    "audioId": "000339"
+  },
+  "street": {
+    "hy": "փողոց",
+    "en": "street",
+    "ru": "улица",
+    "audioId": "000340"
+  },
+  "strong": {
+    "hy": "ուժեղ",
+    "en": "strong",
+    "ru": "сильный",
+    "audioId": "000341"
+  },
+  "student": {
+    "hy": "ուսանող",
+    "en": "student",
+    "ru": "студент",
+    "audioId": "000342"
+  },
+  "sugar": {
+    "hy": "շաքար",
+    "en": "sugar",
+    "ru": "сахар",
+    "audioId": "000343"
+  },
+  "summer": {
+    "hy": "ամառ",
+    "en": "summer",
+    "ru": "лето",
+    "audioId": "000344"
+  },
+  "sun": {
+    "hy": "արև",
+    "en": "sun",
+    "ru": "солнце",
+    "audioId": "000345"
+  },
+  "sunday": {
+    "hy": "կիրակի",
+    "en": "Sunday",
+    "ru": "воскресенье",
+    "audioId": "000346"
+  },
+  "take": {
+    "hy": "վերցնել",
+    "en": "take",
+    "ru": "брать",
+    "audioId": "000347"
+  },
+  "talk": {
+    "hy": "խոսել",
+    "en": "talk",
+    "ru": "говорить",
+    "audioId": "000348"
+  },
+  "tea": {
+    "hy": "թեյ",
+    "en": "tea",
+    "ru": "чай",
+    "audioId": "000349"
+  },
+  "teach": {
+    "hy": "ուսուցանել",
+    "en": "teach",
+    "ru": "учить",
+    "audioId": "000350"
+  },
+  "teacher": {
+    "hy": "ուսուցիչ",
+    "en": "teacher",
+    "ru": "учитель",
+    "audioId": "000351"
+  },
+  "temperature": {
+    "hy": "ջերմաստիճան",
+    "en": "temperature",
+    "ru": "температура",
+    "audioId": "000352"
+  },
+  "ten": {
+    "hy": "տասը",
+    "en": "ten",
+    "ru": "десять",
+    "audioId": "000353"
+  },
+  "than": {
+    "hy": "քան",
+    "en": "than",
+    "ru": "чем",
+    "audioId": "000354"
+  },
+  "thanks": {
+    "hy": "շնորհակալություն",
+    "en": "thanks",
+    "ru": "спасибо",
+    "audioId": "000355"
+  },
+  "that": {
+    "hy": "այդ",
+    "en": "that",
+    "ru": "тот",
+    "audioId": "000356"
+  },
+  "the": {
+    "hy": "ը",
+    "en": "the",
+    "ru": "",
+    "audioId": "000357"
+  },
+  "their": {
+    "hy": "նրանց",
+    "en": "their",
+    "ru": "их",
+    "audioId": "000358"
+  },
+  "them": {
+    "hy": "նրանց",
+    "en": "them",
+    "ru": "их",
+    "audioId": "000359"
+  },
+  "then": {
+    "hy": "այդ ժամանակ",
+    "en": "then",
+    "ru": "тогда",
+    "audioId": "000360"
+  },
+  "there": {
+    "hy": "այնտեղ",
+    "en": "there",
+    "ru": "там",
+    "audioId": "000361"
+  },
+  "these": {
+    "hy": "այս",
+    "en": "these",
+    "ru": "эти",
+    "audioId": "000362"
+  },
+  "they": {
+    "hy": "նրանք",
+    "en": "they",
+    "ru": "они",
+    "audioId": "000363"
+  },
+  "think": {
+    "hy": "մտածել",
+    "en": "think",
+    "ru": "думать",
+    "audioId": "000364"
+  },
+  "this": {
+    "hy": "սա",
+    "en": "this",
+    "ru": "этот",
+    "audioId": "000365"
+  },
+  "thousand": {
+    "hy": "հազար",
+    "en": "thousand",
+    "ru": "тысяча",
+    "audioId": "000366"
+  },
+  "three": {
+    "hy": "երեք",
+    "en": "three",
+    "ru": "три",
+    "audioId": "000367"
+  },
+  "thursday": {
+    "hy": "հինգշաբթի",
+    "en": "Thursday",
+    "ru": "четверг",
+    "audioId": "000368"
+  },
+  "tiger": {
+    "hy": "վագր",
+    "en": "tiger",
+    "ru": "тигр",
+    "audioId": "000369"
+  },
+  "time": {
+    "hy": "ժամանակ",
+    "en": "time",
+    "ru": "время",
+    "audioId": "000370"
+  },
+  "to": {
+    "hy": "դեպի",
+    "en": "to",
+    "ru": "к",
+    "audioId": "000371"
+  },
+  "today": {
+    "hy": "այսօր",
+    "en": "today",
+    "ru": "сегодня",
+    "audioId": "000372"
+  },
+  "together": {
+    "hy": "միասին",
+    "en": "together",
+    "ru": "вместе",
+    "audioId": "000373"
+  },
+  "tomorrow": {
+    "hy": "վաղը",
+    "en": "tomorrow",
+    "ru": "завтра",
+    "audioId": "000374"
+  },
+  "train": {
+    "hy": "գնացք",
+    "en": "train",
+    "ru": "поезд",
+    "audioId": "000375"
+  },
+  "tree": {
+    "hy": "ծառ",
+    "en": "tree",
+    "ru": "дерево",
+    "audioId": "000376"
+  },
+  "truth": {
+    "hy": "ճշմարտություն",
+    "en": "truth",
+    "ru": "правда",
+    "audioId": "000377"
+  },
+  "tuesday": {
+    "hy": "երեքշաբթի",
+    "en": "Tuesday",
+    "ru": "вторник",
+    "audioId": "000378"
+  },
+  "two": {
+    "hy": "երկու",
+    "en": "two",
+    "ru": "два",
+    "audioId": "000379"
+  },
+  "ugly": {
+    "hy": "տգեղ",
+    "en": "ugly",
+    "ru": "уродливый",
+    "audioId": "000380"
+  },
+  "university": {
+    "hy": "համալսարան",
+    "en": "university",
+    "ru": "университет",
+    "audioId": "000381"
+  },
+  "until": {
+    "hy": "մինչև",
+    "en": "until",
+    "ru": "до",
+    "audioId": "000382"
+  },
+  "up": {
+    "hy": "վերև",
+    "en": "up",
+    "ru": "вверх",
+    "audioId": "000383"
+  },
+  "us": {
+    "hy": "մեզ",
+    "en": "us",
+    "ru": "нас",
+    "audioId": "000384"
+  },
+  "use": {
+    "hy": "օգտագործել",
+    "en": "use",
+    "ru": "использовать",
+    "audioId": "000385"
+  },
+  "village": {
+    "hy": "գյուղ",
+    "en": "village",
+    "ru": "деревня",
+    "audioId": "000386"
+  },
+  "walk": {
+    "hy": "քայլել",
+    "en": "walk",
+    "ru": "ходить",
+    "audioId": "000387"
+  },
+  "want": {
+    "hy": "ուզել",
+    "en": "want",
+    "ru": "хотеть",
+    "audioId": "000388"
+  },
+  "war": {
+    "hy": "պատերազմ",
+    "en": "war",
+    "ru": "война",
+    "audioId": "000389"
+  },
+  "water": {
+    "hy": "ջուր",
+    "en": "water",
+    "ru": "вода",
+    "audioId": "000390"
+  },
+  "way": {
+    "hy": "ճանապարհ",
+    "en": "way",
+    "ru": "путь",
+    "audioId": "000391"
+  },
+  "we": {
+    "hy": "մենք",
+    "en": "we",
+    "ru": "мы",
+    "audioId": "000392"
+  },
+  "weak": {
+    "hy": "թույլ",
+    "en": "weak",
+    "ru": "слабый",
+    "audioId": "000393"
+  },
+  "weather": {
+    "hy": "եղանակ",
+    "en": "weather",
+    "ru": "погода",
+    "audioId": "000394"
+  },
+  "wednesday": {
+    "hy": "չորեքշաբթի",
+    "en": "Wednesday",
+    "ru": "среда",
+    "audioId": "000395"
+  },
+  "week": {
+    "hy": "շաբաթ",
+    "en": "week",
+    "ru": "неделя",
+    "audioId": "000396"
+  },
+  "well": {
+    "hy": "լավ",
+    "en": "well",
+    "ru": "хорошо",
+    "audioId": "000397"
+  },
+  "what": {
+    "hy": "ինչ",
+    "en": "what",
+    "ru": "что",
+    "audioId": "000398"
+  },
+  "when": {
+    "hy": "երբ",
+    "en": "when",
+    "ru": "когда",
+    "audioId": "000399"
+  },
+  "where": {
+    "hy": "որտեղ",
+    "en": "where",
+    "ru": "где",
+    "audioId": "000400"
+  },
+  "which": {
+    "hy": "որը",
+    "en": "which",
+    "ru": "который",
+    "audioId": "000401"
+  },
+  "white": {
+    "hy": "սպիտակ",
+    "en": "white",
+    "ru": "белый",
+    "audioId": "000402"
+  },
+  "who": {
+    "hy": "ով",
+    "en": "who",
+    "ru": "кто",
+    "audioId": "000403"
+  },
+  "why": {
+    "hy": "ինչու",
+    "en": "why",
+    "ru": "почему",
+    "audioId": "000404"
+  },
+  "wife": {
+    "hy": "կին",
+    "en": "wife",
+    "ru": "жена",
+    "audioId": "000405"
+  },
+  "will": {
+    "hy": "կլինի",
+    "en": "will",
+    "ru": "будет",
+    "audioId": "000406"
+  },
+  "wind": {
+    "hy": "քամի",
+    "en": "wind",
+    "ru": "ветер",
+    "audioId": "000407"
+  },
+  "window": {
+    "hy": "պատուհան",
+    "en": "window",
+    "ru": "окно",
+    "audioId": "000408"
+  },
+  "wine": {
+    "hy": "գինի",
+    "en": "wine",
+    "ru": "вино",
+    "audioId": "000409"
+  },
+  "winter": {
+    "hy": "ձմեռ",
+    "en": "winter",
+    "ru": "зима",
+    "audioId": "000410"
+  },
+  "with": {
+    "hy": "հետ",
+    "en": "with",
+    "ru": "с",
+    "audioId": "000411"
+  },
+  "without": {
+    "hy": "առանց",
+    "en": "without",
+    "ru": "без",
+    "audioId": "000412"
+  },
+  "wolf": {
+    "hy": "գայլ",
+    "en": "wolf",
+    "ru": "волк",
+    "audioId": "000413"
+  },
+  "woman": {
+    "hy": "կին",
+    "en": "woman",
+    "ru": "женщина",
+    "audioId": "000414"
+  },
+  "work": {
+    "hy": "աշխատանք",
+    "en": "work",
+    "ru": "работа",
+    "audioId": "000415"
+  },
+  "world": {
+    "hy": "աշխարհ",
+    "en": "world",
+    "ru": "мир",
+    "audioId": "000416"
+  },
+  "would": {
+    "hy": "կլիներ",
+    "en": "would",
+    "ru": "бы",
+    "audioId": "000417"
+  },
+  "write": {
+    "hy": "գրել",
+    "en": "write",
+    "ru": "писать",
+    "audioId": "000418"
+  },
+  "writer": {
+    "hy": "գրող",
+    "en": "writer",
+    "ru": "писатель",
+    "audioId": "000419"
+  },
+  "wrong": {
+    "hy": "սխալ",
+    "en": "wrong",
+    "ru": "неправильный",
+    "audioId": "000420"
+  },
+  "year": {
+    "hy": "տարի",
+    "en": "year",
+    "ru": "год",
+    "audioId": "000421"
+  },
+  "yellow": {
+    "hy": "դեղին",
+    "en": "yellow",
+    "ru": "желтый",
+    "audioId": "000422"
+  },
+  "yes": {
+    "hy": "այո",
+    "en": "yes",
+    "ru": "да",
+    "audioId": "000423"
+  },
+  "yesterday": {
+    "hy": "երեկ",
+    "en": "yesterday",
+    "ru": "вчера",
+    "audioId": "000424"
+  },
+  "you": {
+    "hy": "դուք",
+    "en": "you",
+    "ru": "вы",
+    "audioId": "000425"
+  },
+  "young": {
+    "hy": "երիտասարդ",
+    "en": "young",
+    "ru": "молодой",
+    "audioId": "000426"
+  },
+  "your": {
+    "hy": "ձեր",
+    "en": "your",
+    "ru": "ваш",
+    "audioId": "000427"
+  },
+  "zero": {
+    "hy": "զրո",
+    "en": "zero",
+    "ru": "ноль",
+    "audioId": "000428"
+  }
+}

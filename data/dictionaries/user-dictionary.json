@@ -1,0 +1,3754 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-08-10T01:50:13.701389",
+  "words": [
+    {
+      "id": "900001",
+      "word": "տարիք",
+      "translations": {
+        "hy": "տարիք",
+        "en": "age",
+        "ru": "возраст"
+      },
+      "audioId": "900001",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900001.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900001.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900001.mp3"
+      }
+    },
+    {
+      "id": "900002",
+      "word": "օդանավակայան",
+      "translations": {
+        "hy": "օդանավակայան",
+        "en": "airport",
+        "ru": "аэропорт"
+      },
+      "audioId": "900002",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900002.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900002.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900002.mp3"
+      }
+    },
+    {
+      "id": "900003",
+      "word": "պատասխան",
+      "translations": {
+        "hy": "պատասխան",
+        "en": "answer",
+        "ru": "ответ"
+      },
+      "audioId": "900003",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900003.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900003.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900003.mp3"
+      }
+    },
+    {
+      "id": "900004",
+      "word": "խնձոր",
+      "translations": {
+        "hy": "խնձոր",
+        "en": "apple",
+        "ru": "яблоко"
+      },
+      "audioId": "900004",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900004.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900004.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900004.mp3"
+      }
+    },
+    {
+      "id": "900005",
+      "word": "ապրիլ",
+      "translations": {
+        "hy": "ապրիլ",
+        "en": "april",
+        "ru": "апрель"
+      },
+      "audioId": "900005",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900005.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900005.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900005.mp3"
+      }
+    },
+    {
+      "id": "900006",
+      "word": "բազուկ",
+      "translations": {
+        "hy": "բազուկ",
+        "en": "arm",
+        "ru": "рука"
+      },
+      "audioId": "900006",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900006.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900006.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900006.mp3"
+      }
+    },
+    {
+      "id": "900007",
+      "word": "արվեստ",
+      "translations": {
+        "hy": "արվեստ",
+        "en": "art",
+        "ru": "искусство"
+      },
+      "audioId": "900007",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900007.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900007.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900007.mp3"
+      }
+    },
+    {
+      "id": "900008",
+      "word": "նկարիչ",
+      "translations": {
+        "hy": "նկարիչ",
+        "en": "artist",
+        "ru": "художник"
+      },
+      "audioId": "900008",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900008.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900008.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900008.mp3"
+      }
+    },
+    {
+      "id": "900009",
+      "word": "օգոստոս",
+      "translations": {
+        "hy": "օգոստոս",
+        "en": "august",
+        "ru": "август"
+      },
+      "audioId": "900009",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900009.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900009.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900009.mp3"
+      }
+    },
+    {
+      "id": "900010",
+      "word": "աշուն",
+      "translations": {
+        "hy": "աշուն",
+        "en": "autumn",
+        "ru": "осень"
+      },
+      "audioId": "900010",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900010.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900010.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900010.mp3"
+      }
+    },
+    {
+      "id": "900011",
+      "word": "մանուկ",
+      "translations": {
+        "hy": "մանուկ",
+        "en": "baby",
+        "ru": "младенец"
+      },
+      "audioId": "900011",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900011.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900011.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900011.mp3"
+      }
+    },
+    {
+      "id": "900012",
+      "word": "պայուսակ",
+      "translations": {
+        "hy": "պայուսակ",
+        "en": "bag",
+        "ru": "сумка"
+      },
+      "audioId": "900012",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900012.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900012.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900012.mp3"
+      }
+    },
+    {
+      "id": "900013",
+      "word": "արջ",
+      "translations": {
+        "hy": "արջ",
+        "en": "bear",
+        "ru": "медведь"
+      },
+      "audioId": "900013",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900013.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900013.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900013.mp3"
+      }
+    },
+    {
+      "id": "900014",
+      "word": "հեծանիվ",
+      "translations": {
+        "hy": "հեծանիվ",
+        "en": "bicycle",
+        "ru": "велосипед"
+      },
+      "audioId": "900014",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900014.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900014.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900014.mp3"
+      }
+    },
+    {
+      "id": "900015",
+      "word": "թռչուն",
+      "translations": {
+        "hy": "թռչուն",
+        "en": "bird",
+        "ru": "птица"
+      },
+      "audioId": "900015",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900015.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900015.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900015.mp3"
+      }
+    },
+    {
+      "id": "900016",
+      "word": "հաց",
+      "translations": {
+        "hy": "հաց",
+        "en": "bread",
+        "ru": "хлеб"
+      },
+      "audioId": "900016",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900016.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900016.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900016.mp3"
+      }
+    },
+    {
+      "id": "900017",
+      "word": "կամուրջ",
+      "translations": {
+        "hy": "կամուրջ",
+        "en": "bridge",
+        "ru": "мост"
+      },
+      "audioId": "900017",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900017.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900017.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900017.mp3"
+      }
+    },
+    {
+      "id": "900018",
+      "word": "շագանակագույն",
+      "translations": {
+        "hy": "շագանակագույն",
+        "en": "brown",
+        "ru": "коричневый"
+      },
+      "audioId": "900018",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900018.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900018.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900018.mp3"
+      }
+    },
+    {
+      "id": "900019",
+      "word": "ավտոբուս",
+      "translations": {
+        "hy": "ավտոբուս",
+        "en": "bus",
+        "ru": "автобус"
+      },
+      "audioId": "900019",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900019.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900019.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900019.mp3"
+      }
+    },
+    {
+      "id": "900020",
+      "word": "յուղ",
+      "translations": {
+        "hy": "յուղ",
+        "en": "oil",
+        "ru": "масло"
+      },
+      "audioId": "900020",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900020.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900020.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900020.mp3"
+      }
+    },
+    {
+      "id": "900021",
+      "word": "գնել",
+      "translations": {
+        "hy": "գնել",
+        "en": "buy",
+        "ru": "купить"
+      },
+      "audioId": "900021",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900021.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900021.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900021.mp3"
+      }
+    },
+    {
+      "id": "900022",
+      "word": "տեսախցիկ",
+      "translations": {
+        "hy": "տեսախցիկ",
+        "en": "camera",
+        "ru": "камера"
+      },
+      "audioId": "900022",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900022.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900022.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900022.mp3"
+      }
+    },
+    {
+      "id": "900023",
+      "word": "մեքենա",
+      "translations": {
+        "hy": "մեքենա",
+        "en": "car",
+        "ru": "машина"
+      },
+      "audioId": "900023",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900023.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900023.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900023.mp3"
+      }
+    },
+    {
+      "id": "900024",
+      "word": "կատու",
+      "translations": {
+        "hy": "կատու",
+        "en": "cat",
+        "ru": "кот"
+      },
+      "audioId": "900024",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900024.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900024.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900024.mp3"
+      }
+    },
+    {
+      "id": "900025",
+      "word": "պանիր",
+      "translations": {
+        "hy": "պանիր",
+        "en": "cheese",
+        "ru": "сыр"
+      },
+      "audioId": "900025",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900025.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900025.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900025.mp3"
+      }
+    },
+    {
+      "id": "900026",
+      "word": "խոհարար",
+      "translations": {
+        "hy": "խոհարար",
+        "en": "cook",
+        "ru": "повар"
+      },
+      "audioId": "900026",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900026.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900026.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900026.mp3"
+      }
+    },
+    {
+      "id": "900027",
+      "word": "եկեղեցի",
+      "translations": {
+        "hy": "եկեղեցի",
+        "en": "church",
+        "ru": "церковь"
+      },
+      "audioId": "900027",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900027.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900027.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900027.mp3"
+      }
+    },
+    {
+      "id": "900028",
+      "word": "քաղաք",
+      "translations": {
+        "hy": "քաղաք",
+        "en": "city",
+        "ru": "город"
+      },
+      "audioId": "900028",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900028.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900028.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900028.mp3"
+      }
+    },
+    {
+      "id": "900029",
+      "word": "ամպ",
+      "translations": {
+        "hy": "ամպ",
+        "en": "cloud",
+        "ru": "облако"
+      },
+      "audioId": "900029",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900029.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900029.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900029.mp3"
+      }
+    },
+    {
+      "id": "900030",
+      "word": "վերարկու",
+      "translations": {
+        "hy": "վերարկու",
+        "en": "coat",
+        "ru": "пальто"
+      },
+      "audioId": "900030",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900030.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900030.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900030.mp3"
+      }
+    },
+    {
+      "id": "900031",
+      "word": "սուրճ",
+      "translations": {
+        "hy": "սուրճ",
+        "en": "coffee",
+        "ru": "кофе"
+      },
+      "audioId": "900031",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900031.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900031.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900031.mp3"
+      }
+    },
+    {
+      "id": "900032",
+      "word": "համակարգիչ",
+      "translations": {
+        "hy": "համակարգիչ",
+        "en": "computer",
+        "ru": "компьютер"
+      },
+      "audioId": "900032",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900032.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900032.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900032.mp3"
+      }
+    },
+    {
+      "id": "900033",
+      "word": "երկիր",
+      "translations": {
+        "hy": "երկիր",
+        "en": "country",
+        "ru": "страна"
+      },
+      "audioId": "900033",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900033.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900033.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900033.mp3"
+      }
+    },
+    {
+      "id": "900034",
+      "word": "կով",
+      "translations": {
+        "hy": "կով",
+        "en": "cow",
+        "ru": "корова"
+      },
+      "audioId": "900034",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900034.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900034.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900034.mp3"
+      }
+    },
+    {
+      "id": "900035",
+      "word": "լալ",
+      "translations": {
+        "hy": "լալ",
+        "en": "cry",
+        "ru": "плакать"
+      },
+      "audioId": "900035",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900035.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900035.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900035.mp3"
+      }
+    },
+    {
+      "id": "900036",
+      "word": "պարել",
+      "translations": {
+        "hy": "պարել",
+        "en": "dance",
+        "ru": "танцевать"
+      },
+      "audioId": "900036",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900036.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900036.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900036.mp3"
+      }
+    },
+    {
+      "id": "900037",
+      "word": "դուստր",
+      "translations": {
+        "hy": "դուստր",
+        "en": "daughter",
+        "ru": "дочь"
+      },
+      "audioId": "900037",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900037.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900037.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900037.mp3"
+      }
+    },
+    {
+      "id": "900038",
+      "word": "մահ",
+      "translations": {
+        "hy": "մահ",
+        "en": "death",
+        "ru": "смерть"
+      },
+      "audioId": "900038",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900038.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900038.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900038.mp3"
+      }
+    },
+    {
+      "id": "900039",
+      "word": "դեկտեմբեր",
+      "translations": {
+        "hy": "դեկտեմբեր",
+        "en": "december",
+        "ru": "декабрь"
+      },
+      "audioId": "900039",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900039.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900039.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900039.mp3"
+      }
+    },
+    {
+      "id": "900040",
+      "word": "մահանալ",
+      "translations": {
+        "hy": "մահանալ",
+        "en": "die",
+        "ru": "умереть"
+      },
+      "audioId": "900040",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900040.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900040.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900040.mp3"
+      }
+    },
+    {
+      "id": "900041",
+      "word": "դժվար",
+      "translations": {
+        "hy": "դժվար",
+        "en": "difficult",
+        "ru": "трудный"
+      },
+      "audioId": "900041",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900041.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900041.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900041.mp3"
+      }
+    },
+    {
+      "id": "900042",
+      "word": "բժիշկ",
+      "translations": {
+        "hy": "բժիշկ",
+        "en": "doctor",
+        "ru": "врач"
+      },
+      "audioId": "900042",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900042.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900042.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900042.mp3"
+      }
+    },
+    {
+      "id": "900043",
+      "word": "շուն",
+      "translations": {
+        "hy": "շուն",
+        "en": "dog",
+        "ru": "собака"
+      },
+      "audioId": "900043",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900043.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900043.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900043.mp3"
+      }
+    },
+    {
+      "id": "900044",
+      "word": "երազ",
+      "translations": {
+        "hy": "երազ",
+        "en": "dream",
+        "ru": "мечта"
+      },
+      "audioId": "900044",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900044.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900044.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900044.mp3"
+      }
+    },
+    {
+      "id": "900045",
+      "word": "զգեստ",
+      "translations": {
+        "hy": "զգեստ",
+        "en": "dress",
+        "ru": "платье"
+      },
+      "audioId": "900045",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900045.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900045.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900045.mp3"
+      }
+    },
+    {
+      "id": "900046",
+      "word": "խմել",
+      "translations": {
+        "hy": "խմել",
+        "en": "drink",
+        "ru": "пить"
+      },
+      "audioId": "900046",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900046.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900046.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900046.mp3"
+      }
+    },
+    {
+      "id": "900047",
+      "word": "թեթև",
+      "translations": {
+        "hy": "թեթև",
+        "en": "easy",
+        "ru": "лёгкий"
+      },
+      "audioId": "900047",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900047.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900047.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900047.mp3"
+      }
+    },
+    {
+      "id": "900048",
+      "word": "ուտել",
+      "translations": {
+        "hy": "ուտել",
+        "en": "eat",
+        "ru": "есть"
+      },
+      "audioId": "900048",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900048.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900048.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900048.mp3"
+      }
+    },
+    {
+      "id": "900049",
+      "word": "ձու",
+      "translations": {
+        "hy": "ձու",
+        "en": "egg",
+        "ru": "яйцо"
+      },
+      "audioId": "900049",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900049.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900049.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900049.mp3"
+      }
+    },
+    {
+      "id": "900050",
+      "word": "փիղ",
+      "translations": {
+        "hy": "փիղ",
+        "en": "elephant",
+        "ru": "слон"
+      },
+      "audioId": "900050",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900050.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900050.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900050.mp3"
+      }
+    },
+    {
+      "id": "900051",
+      "word": "ինժեներ",
+      "translations": {
+        "hy": "ինժեներ",
+        "en": "engineer",
+        "ru": "инженер"
+      },
+      "audioId": "900051",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900051.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900051.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900051.mp3"
+      }
+    },
+    {
+      "id": "900052",
+      "word": "քննություն",
+      "translations": {
+        "hy": "քննություն",
+        "en": "exam",
+        "ru": "экзамен"
+      },
+      "audioId": "900052",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900052.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900052.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900052.mp3"
+      }
+    },
+    {
+      "id": "900053",
+      "word": "ընտանիք",
+      "translations": {
+        "hy": "ընտանիք",
+        "en": "family",
+        "ru": "семья"
+      },
+      "audioId": "900053",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900053.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900053.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900053.mp3"
+      }
+    },
+    {
+      "id": "900054",
+      "word": "փետրվար",
+      "translations": {
+        "hy": "փետրվար",
+        "en": "february",
+        "ru": "февраль"
+      },
+      "audioId": "900054",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900054.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900054.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900054.mp3"
+      }
+    },
+    {
+      "id": "900055",
+      "word": "գտնել",
+      "translations": {
+        "hy": "գտնել",
+        "en": "find",
+        "ru": "найти"
+      },
+      "audioId": "900055",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900055.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900055.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900055.mp3"
+      }
+    },
+    {
+      "id": "900056",
+      "word": "մատ",
+      "translations": {
+        "hy": "մատ",
+        "en": "finger",
+        "ru": "палец"
+      },
+      "audioId": "900056",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900056.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900056.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900056.mp3"
+      }
+    },
+    {
+      "id": "900057",
+      "word": "ձուկ",
+      "translations": {
+        "hy": "ձուկ",
+        "en": "fish",
+        "ru": "рыба"
+      },
+      "audioId": "900057",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900057.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900057.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900057.mp3"
+      }
+    },
+    {
+      "id": "900058",
+      "word": "մշուշ",
+      "translations": {
+        "hy": "մշուշ",
+        "en": "fog",
+        "ru": "туман"
+      },
+      "audioId": "900058",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900058.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900058.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900058.mp3"
+      }
+    },
+    {
+      "id": "900059",
+      "word": "անտառ",
+      "translations": {
+        "hy": "անտառ",
+        "en": "forest",
+        "ru": "лес"
+      },
+      "audioId": "900059",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900059.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900059.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900059.mp3"
+      }
+    },
+    {
+      "id": "900060",
+      "word": "անվճար",
+      "translations": {
+        "hy": "անվճար",
+        "en": "free",
+        "ru": "бесплатный"
+      },
+      "audioId": "900060",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900060.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900060.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900060.mp3"
+      }
+    },
+    {
+      "id": "900061",
+      "word": "ուրբաթ",
+      "translations": {
+        "hy": "ուրբաթ",
+        "en": "friday",
+        "ru": "пятница"
+      },
+      "audioId": "900061",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900061.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900061.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900061.mp3"
+      }
+    },
+    {
+      "id": "900062",
+      "word": "խաղ",
+      "translations": {
+        "hy": "խաղ",
+        "en": "game",
+        "ru": "игра"
+      },
+      "audioId": "900062",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900062.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900062.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900062.mp3"
+      }
+    },
+    {
+      "id": "900063",
+      "word": "աշխարհագրություն",
+      "translations": {
+        "hy": "աշխարհագրություն",
+        "en": "geography",
+        "ru": "география"
+      },
+      "audioId": "900063",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900063.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900063.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900063.mp3"
+      }
+    },
+    {
+      "id": "900064",
+      "word": "ակնոց",
+      "translations": {
+        "hy": "ակնոց",
+        "en": "glasses",
+        "ru": "очки"
+      },
+      "audioId": "900064",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900064.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900064.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900064.mp3"
+      }
+    },
+    {
+      "id": "900065",
+      "word": "tsutsаparutyan",
+      "translations": {
+        "hy": "tsutsаparutyan",
+        "en": "tsutsаparutyan",
+        "ru": "до свидания"
+      },
+      "audioId": "900065",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900065.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900065.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900065.mp3"
+      }
+    },
+    {
+      "id": "900066",
+      "word": "պապիկ",
+      "translations": {
+        "hy": "պապիկ",
+        "en": "grandfather",
+        "ru": "дедушка"
+      },
+      "audioId": "900066",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900066.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900066.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900066.mp3"
+      }
+    },
+    {
+      "id": "900067",
+      "word": "տատիկ",
+      "translations": {
+        "hy": "տատիկ",
+        "en": "grandmother",
+        "ru": "бабушка"
+      },
+      "audioId": "900067",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900067.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900067.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900067.mp3"
+      }
+    },
+    {
+      "id": "900068",
+      "word": "խոտ",
+      "translations": {
+        "hy": "խոտ",
+        "en": "grass",
+        "ru": "трава"
+      },
+      "audioId": "900068",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900068.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900068.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900068.mp3"
+      }
+    },
+    {
+      "id": "900069",
+      "word": "մոխրագույն",
+      "translations": {
+        "hy": "մոխրագույն",
+        "en": "gray",
+        "ru": "серый"
+      },
+      "audioId": "900069",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900069.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900069.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900069.mp3"
+      }
+    },
+    {
+      "id": "900070",
+      "word": "գլխարկ",
+      "translations": {
+        "hy": "գլխարկ",
+        "en": "hat",
+        "ru": "шапка"
+      },
+      "audioId": "900070",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900070.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900070.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900070.mp3"
+      }
+    },
+    {
+      "id": "900071",
+      "word": "առողջություն",
+      "translations": {
+        "hy": "առողջություն",
+        "en": "health",
+        "ru": "здоровье"
+      },
+      "audioId": "900071",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900071.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900071.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900071.mp3"
+      }
+    },
+    {
+      "id": "900072",
+      "word": "օգնել",
+      "translations": {
+        "hy": "օգնել",
+        "en": "help",
+        "ru": "помочь"
+      },
+      "audioId": "900072",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900072.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900072.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900072.mp3"
+      }
+    },
+    {
+      "id": "900073",
+      "word": "օգնություն",
+      "translations": {
+        "hy": "օգնություն",
+        "en": "help",
+        "ru": "помощь"
+      },
+      "audioId": "900073",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900073.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900073.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900073.mp3"
+      }
+    },
+    {
+      "id": "900074",
+      "word": "պատմություն",
+      "translations": {
+        "hy": "պատմություն",
+        "en": "history",
+        "ru": "история"
+      },
+      "audioId": "900074",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900074.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900074.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900074.mp3"
+      }
+    },
+    {
+      "id": "900075",
+      "word": "տնային աշխատանք",
+      "translations": {
+        "hy": "տնային աշխատանք",
+        "en": "homework",
+        "ru": "домашнее задание"
+      },
+      "audioId": "900075",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900075.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900075.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900075.mp3"
+      }
+    },
+    {
+      "id": "900076",
+      "word": "ձի",
+      "translations": {
+        "hy": "ձի",
+        "en": "horse",
+        "ru": "лошадь"
+      },
+      "audioId": "900076",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900076.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900076.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900076.mp3"
+      }
+    },
+    {
+      "id": "900077",
+      "word": "հիվանդանոց",
+      "translations": {
+        "hy": "հիվանդանոց",
+        "en": "hospital",
+        "ru": "больница"
+      },
+      "audioId": "900077",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900077.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900077.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900077.mp3"
+      }
+    },
+    {
+      "id": "900078",
+      "word": "ժամ",
+      "translations": {
+        "hy": "ժամ",
+        "en": "hour",
+        "ru": "час"
+      },
+      "audioId": "900078",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900078.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900078.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900078.mp3"
+      }
+    },
+    {
+      "id": "900079",
+      "word": "ամուսին",
+      "translations": {
+        "hy": "ամուսին",
+        "en": "husband",
+        "ru": "муж"
+      },
+      "audioId": "900079",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900079.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900079.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900079.mp3"
+      }
+    },
+    {
+      "id": "900080",
+      "word": "սառույց",
+      "translations": {
+        "hy": "սառույց",
+        "en": "ice",
+        "ru": "лёд"
+      },
+      "audioId": "900080",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900080.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900080.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900080.mp3"
+      }
+    },
+    {
+      "id": "900081",
+      "word": "գաղափար",
+      "translations": {
+        "hy": "գաղափար",
+        "en": "idea",
+        "ru": "идея"
+      },
+      "audioId": "900081",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900081.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900081.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900081.mp3"
+      }
+    },
+    {
+      "id": "900082",
+      "word": "համացանց",
+      "translations": {
+        "hy": "համացանց",
+        "en": "internet",
+        "ru": "интернет"
+      },
+      "audioId": "900082",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900082.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900082.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900082.mp3"
+      }
+    },
+    {
+      "id": "900083",
+      "word": "հունվար",
+      "translations": {
+        "hy": "հունվար",
+        "en": "january",
+        "ru": "январь"
+      },
+      "audioId": "900083",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900083.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900083.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900083.mp3"
+      }
+    },
+    {
+      "id": "900084",
+      "word": "հյութ",
+      "translations": {
+        "hy": "հյութ",
+        "en": "juice",
+        "ru": "сок"
+      },
+      "audioId": "900084",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900084.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900084.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900084.mp3"
+      }
+    },
+    {
+      "id": "900085",
+      "word": "հուլիս",
+      "translations": {
+        "hy": "հուլիս",
+        "en": "july",
+        "ru": "июль"
+      },
+      "audioId": "900085",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900085.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900085.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900085.mp3"
+      }
+    },
+    {
+      "id": "900086",
+      "word": "հունիս",
+      "translations": {
+        "hy": "հունիս",
+        "en": "june",
+        "ru": "июнь"
+      },
+      "audioId": "900086",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900086.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900086.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900086.mp3"
+      }
+    },
+    {
+      "id": "900087",
+      "word": "լեզու",
+      "translations": {
+        "hy": "լեզու",
+        "en": "language",
+        "ru": "язык"
+      },
+      "audioId": "900087",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900087.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900087.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900087.mp3"
+      }
+    },
+    {
+      "id": "900088",
+      "word": "ծիծաղել",
+      "translations": {
+        "hy": "ծիծաղել",
+        "en": "laugh",
+        "ru": "смеяться"
+      },
+      "audioId": "900088",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900088.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900088.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900088.mp3"
+      }
+    },
+    {
+      "id": "900089",
+      "word": "իրավաբան",
+      "translations": {
+        "hy": "իրավաբան",
+        "en": "lawyer",
+        "ru": "адвокат"
+      },
+      "audioId": "900089",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900089.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900089.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900089.mp3"
+      }
+    },
+    {
+      "id": "900090",
+      "word": "սովորել",
+      "translations": {
+        "hy": "սովորել",
+        "en": "learn",
+        "ru": "учиться"
+      },
+      "audioId": "900090",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900090.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900090.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900090.mp3"
+      }
+    },
+    {
+      "id": "900091",
+      "word": "ոտք",
+      "translations": {
+        "hy": "ոտք",
+        "en": "leg",
+        "ru": "нога"
+      },
+      "audioId": "900091",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900091.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900091.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900091.mp3"
+      }
+    },
+    {
+      "id": "900092",
+      "word": "դաս",
+      "translations": {
+        "hy": "դաս",
+        "en": "lesson",
+        "ru": "урок"
+      },
+      "audioId": "900092",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900092.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900092.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900092.mp3"
+      }
+    },
+    {
+      "id": "900093",
+      "word": "գրադարան",
+      "translations": {
+        "hy": "գրադարան",
+        "en": "library",
+        "ru": "библиотека"
+      },
+      "audioId": "900093",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900093.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900093.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900093.mp3"
+      }
+    },
+    {
+      "id": "900094",
+      "word": "կյանք",
+      "translations": {
+        "hy": "կյանք",
+        "en": "life",
+        "ru": "жизнь"
+      },
+      "audioId": "900094",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900094.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900094.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900094.mp3"
+      }
+    },
+    {
+      "id": "900095",
+      "word": "առյուծ",
+      "translations": {
+        "hy": "առյուծ",
+        "en": "lion",
+        "ru": "лев"
+      },
+      "audioId": "900095",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900095.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900095.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900095.mp3"
+      }
+    },
+    {
+      "id": "900096",
+      "word": "լսել",
+      "translations": {
+        "hy": "լսել",
+        "en": "listen",
+        "ru": "слушать"
+      },
+      "audioId": "900096",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900096.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900096.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900096.mp3"
+      }
+    },
+    {
+      "id": "900097",
+      "word": "ապրել",
+      "translations": {
+        "hy": "ապրել",
+        "en": "live",
+        "ru": "жить"
+      },
+      "audioId": "900097",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900097.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900097.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900097.mp3"
+      }
+    },
+    {
+      "id": "900098",
+      "word": "երկար",
+      "translations": {
+        "hy": "երկար",
+        "en": "long",
+        "ru": "длинный"
+      },
+      "audioId": "900098",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900098.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900098.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900098.mp3"
+      }
+    },
+    {
+      "id": "900099",
+      "word": "կորցնել",
+      "translations": {
+        "hy": "կորցնել",
+        "en": "lose",
+        "ru": "потерять"
+      },
+      "audioId": "900099",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900099.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900099.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900099.mp3"
+      }
+    },
+    {
+      "id": "900100",
+      "word": "սիրել",
+      "translations": {
+        "hy": "սիրել",
+        "en": "love",
+        "ru": "любить"
+      },
+      "audioId": "900100",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900100.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900100.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900100.mp3"
+      }
+    },
+    {
+      "id": "900101",
+      "word": "մարտ",
+      "translations": {
+        "hy": "մարտ",
+        "en": "march",
+        "ru": "март"
+      },
+      "audioId": "900101",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900101.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900101.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900101.mp3"
+      }
+    },
+    {
+      "id": "900102",
+      "word": "շուկա",
+      "translations": {
+        "hy": "շուկա",
+        "en": "market",
+        "ru": "рынок"
+      },
+      "audioId": "900102",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900102.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900102.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900102.mp3"
+      }
+    },
+    {
+      "id": "900103",
+      "word": "մաթեմատիկա",
+      "translations": {
+        "hy": "մաթեմատիկա",
+        "en": "mathematics",
+        "ru": "математика"
+      },
+      "audioId": "900103",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900103.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900103.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900103.mp3"
+      }
+    },
+    {
+      "id": "900104",
+      "word": "մայիս",
+      "translations": {
+        "hy": "մայիս",
+        "en": "may",
+        "ru": "май"
+      },
+      "audioId": "900104",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900104.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900104.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900104.mp3"
+      }
+    },
+    {
+      "id": "900105",
+      "word": "միս",
+      "translations": {
+        "hy": "միս",
+        "en": "meat",
+        "ru": "мясо"
+      },
+      "audioId": "900105",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900105.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900105.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900105.mp3"
+      }
+    },
+    {
+      "id": "900106",
+      "word": "հաղորդագրություն",
+      "translations": {
+        "hy": "հաղորդագրություն",
+        "en": "message",
+        "ru": "сообщение"
+      },
+      "audioId": "900106",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900106.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900106.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900106.mp3"
+      }
+    },
+    {
+      "id": "900107",
+      "word": "կաթ",
+      "translations": {
+        "hy": "կաթ",
+        "en": "milk",
+        "ru": "молоко"
+      },
+      "audioId": "900107",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900107.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900107.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900107.mp3"
+      }
+    },
+    {
+      "id": "900108",
+      "word": "րոպե",
+      "translations": {
+        "hy": "րոպե",
+        "en": "minute",
+        "ru": "минута"
+      },
+      "audioId": "900108",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900108.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900108.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900108.mp3"
+      }
+    },
+    {
+      "id": "900109",
+      "word": "երկուշաբթի",
+      "translations": {
+        "hy": "երկուշաբթի",
+        "en": "monday",
+        "ru": "понедельник"
+      },
+      "audioId": "900109",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900109.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900109.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900109.mp3"
+      }
+    },
+    {
+      "id": "900110",
+      "word": "փող",
+      "translations": {
+        "hy": "փող",
+        "en": "money",
+        "ru": "деньги"
+      },
+      "audioId": "900110",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900110.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900110.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900110.mp3"
+      }
+    },
+    {
+      "id": "900111",
+      "word": "լեռ",
+      "translations": {
+        "hy": "լեռ",
+        "en": "mountain",
+        "ru": "гора"
+      },
+      "audioId": "900111",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900111.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900111.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900111.mp3"
+      }
+    },
+    {
+      "id": "900112",
+      "word": "ֆիլմ",
+      "translations": {
+        "hy": "ֆիլմ",
+        "en": "movie",
+        "ru": "фильм"
+      },
+      "audioId": "900112",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900112.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900112.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900112.mp3"
+      }
+    },
+    {
+      "id": "900113",
+      "word": "երաժշտություն",
+      "translations": {
+        "hy": "երաժշտություն",
+        "en": "music",
+        "ru": "музыка"
+      },
+      "audioId": "900113",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900113.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900113.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900113.mp3"
+      }
+    },
+    {
+      "id": "900114",
+      "word": "անուն",
+      "translations": {
+        "hy": "անուն",
+        "en": "name",
+        "ru": "имя"
+      },
+      "audioId": "900114",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900114.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900114.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900114.mp3"
+      }
+    },
+    {
+      "id": "900115",
+      "word": "նոյեմբեր",
+      "translations": {
+        "hy": "նոյեմբեր",
+        "en": "november",
+        "ru": "ноябрь"
+      },
+      "audioId": "900115",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900115.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900115.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900115.mp3"
+      }
+    },
+    {
+      "id": "900116",
+      "word": "օվկիանոս",
+      "translations": {
+        "hy": "օվկիանոս",
+        "en": "ocean",
+        "ru": "океан"
+      },
+      "audioId": "900116",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900116.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900116.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900116.mp3"
+      }
+    },
+    {
+      "id": "900117",
+      "word": "հոկտեմբեր",
+      "translations": {
+        "hy": "հոկտեմբեր",
+        "en": "october",
+        "ru": "октябрь"
+      },
+      "audioId": "900117",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900117.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900117.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900117.mp3"
+      }
+    },
+    {
+      "id": "900118",
+      "word": "յուղ",
+      "translations": {
+        "hy": "յուղ",
+        "en": "oil",
+        "ru": "масло"
+      },
+      "audioId": "900118",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900118.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900118.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900118.mp3"
+      }
+    },
+    {
+      "id": "900119",
+      "word": "նարինջ",
+      "translations": {
+        "hy": "նարինջ",
+        "en": "orange",
+        "ru": "апельсин"
+      },
+      "audioId": "900119",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900119.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900119.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900119.mp3"
+      }
+    },
+    {
+      "id": "900120",
+      "word": "տաբատ",
+      "translations": {
+        "hy": "տաբատ",
+        "en": "pants",
+        "ru": "брюки"
+      },
+      "audioId": "900120",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900120.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900120.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900120.mp3"
+      }
+    },
+    {
+      "id": "900121",
+      "word": "ծնողներ",
+      "translations": {
+        "hy": "ծնողներ",
+        "en": "parents",
+        "ru": "родители"
+      },
+      "audioId": "900121",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900121.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900121.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900121.mp3"
+      }
+    },
+    {
+      "id": "900122",
+      "word": "պարկ",
+      "translations": {
+        "hy": "պարկ",
+        "en": "park",
+        "ru": "парк"
+      },
+      "audioId": "900122",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900122.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900122.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900122.mp3"
+      }
+    },
+    {
+      "id": "900123",
+      "word": "գաղտնաբառ",
+      "translations": {
+        "hy": "գաղտնաբառ",
+        "en": "password",
+        "ru": "пароль"
+      },
+      "audioId": "900123",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900123.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900123.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900123.mp3"
+      }
+    },
+    {
+      "id": "900124",
+      "word": "խաղաղություն",
+      "translations": {
+        "hy": "խաղաղություն",
+        "en": "peace",
+        "ru": "мир"
+      },
+      "audioId": "900124",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900124.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900124.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900124.mp3"
+      }
+    },
+    {
+      "id": "900125",
+      "word": "հեռախոս",
+      "translations": {
+        "hy": "հեռախոս",
+        "en": "phone",
+        "ru": "телефон"
+      },
+      "audioId": "900125",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900125.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900125.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900125.mp3"
+      }
+    },
+    {
+      "id": "900126",
+      "word": "խոզ",
+      "translations": {
+        "hy": "խոզ",
+        "en": "pig",
+        "ru": "свинья"
+      },
+      "audioId": "900126",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900126.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900126.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900126.mp3"
+      }
+    },
+    {
+      "id": "900127",
+      "word": "օդաչու",
+      "translations": {
+        "hy": "օդաչու",
+        "en": "pilot",
+        "ru": "пилот"
+      },
+      "audioId": "900127",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900127.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900127.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900127.mp3"
+      }
+    },
+    {
+      "id": "900128",
+      "word": "ինքնաթիռ",
+      "translations": {
+        "hy": "ինքնաթիռ",
+        "en": "plane",
+        "ru": "самолёт"
+      },
+      "audioId": "900128",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900128.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900128.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900128.mp3"
+      }
+    },
+    {
+      "id": "900129",
+      "word": "խաղալ",
+      "translations": {
+        "hy": "խաղալ",
+        "en": "play",
+        "ru": "играть"
+      },
+      "audioId": "900129",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900129.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900129.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900129.mp3"
+      }
+    },
+    {
+      "id": "900130",
+      "word": "խնդրեմ",
+      "translations": {
+        "hy": "խնդրեմ",
+        "en": "please",
+        "ru": "пожалуйста"
+      },
+      "audioId": "900130",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900130.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900130.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900130.mp3"
+      }
+    },
+    {
+      "id": "900131",
+      "word": "ոստիկանություն",
+      "translations": {
+        "hy": "ոստիկանություն",
+        "en": "police",
+        "ru": "полиция"
+      },
+      "audioId": "900131",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900131.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900131.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900131.mp3"
+      }
+    },
+    {
+      "id": "900132",
+      "word": "աղքատ",
+      "translations": {
+        "hy": "աղքատ",
+        "en": "poor",
+        "ru": "бедный"
+      },
+      "audioId": "900132",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900132.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900132.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900132.mp3"
+      }
+    },
+    {
+      "id": "900133",
+      "word": "նախագահ",
+      "translations": {
+        "hy": "նախագահ",
+        "en": "president",
+        "ru": "президент"
+      },
+      "audioId": "900133",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900133.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900133.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900133.mp3"
+      }
+    },
+    {
+      "id": "900134",
+      "word": "գին",
+      "translations": {
+        "hy": "գին",
+        "en": "price",
+        "ru": "цена"
+      },
+      "audioId": "900134",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900134.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900134.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900134.mp3"
+      }
+    },
+    {
+      "id": "900135",
+      "word": "խնդիր",
+      "translations": {
+        "hy": "խնդիր",
+        "en": "problem",
+        "ru": "проблема"
+      },
+      "audioId": "900135",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900135.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900135.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900135.mp3"
+      }
+    },
+    {
+      "id": "900136",
+      "word": "մանուշակագույն",
+      "translations": {
+        "hy": "մանուշակագույն",
+        "en": "purple",
+        "ru": "фиолетовый"
+      },
+      "audioId": "900136",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900136.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900136.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900136.mp3"
+      }
+    },
+    {
+      "id": "900137",
+      "word": "հարց",
+      "translations": {
+        "hy": "հարց",
+        "en": "question",
+        "ru": "вопрос"
+      },
+      "audioId": "900137",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900137.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900137.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900137.mp3"
+      }
+    },
+    {
+      "id": "900138",
+      "word": "նապաստակ",
+      "translations": {
+        "hy": "նապաստակ",
+        "en": "rabbit",
+        "ru": "кролик"
+      },
+      "audioId": "900138",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900138.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900138.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900138.mp3"
+      }
+    },
+    {
+      "id": "900139",
+      "word": "անձրև",
+      "translations": {
+        "hy": "անձրև",
+        "en": "rain",
+        "ru": "дождь"
+      },
+      "audioId": "900139",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900139.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900139.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900139.mp3"
+      }
+    },
+    {
+      "id": "900140",
+      "word": "կարդալ",
+      "translations": {
+        "hy": "կարդալ",
+        "en": "read",
+        "ru": "читать"
+      },
+      "audioId": "900140",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900140.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900140.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900140.mp3"
+      }
+    },
+    {
+      "id": "900141",
+      "word": "բրինձ",
+      "translations": {
+        "hy": "բրինձ",
+        "en": "rice",
+        "ru": "рис"
+      },
+      "audioId": "900141",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900141.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900141.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900141.mp3"
+      }
+    },
+    {
+      "id": "900142",
+      "word": "հարուստ",
+      "translations": {
+        "hy": "հարուստ",
+        "en": "rich",
+        "ru": "богатый"
+      },
+      "audioId": "900142",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900142.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900142.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900142.mp3"
+      }
+    },
+    {
+      "id": "900143",
+      "word": "մատանի",
+      "translations": {
+        "hy": "մատանի",
+        "en": "ring",
+        "ru": "кольцо"
+      },
+      "audioId": "900143",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900143.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900143.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900143.mp3"
+      }
+    },
+    {
+      "id": "900144",
+      "word": "գետ",
+      "translations": {
+        "hy": "գետ",
+        "en": "river",
+        "ru": "река"
+      },
+      "audioId": "900144",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900144.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900144.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900144.mp3"
+      }
+    },
+    {
+      "id": "900145",
+      "word": "ճանապարհ",
+      "translations": {
+        "hy": "ճանապարհ",
+        "en": "road",
+        "ru": "дорога"
+      },
+      "audioId": "900145",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900145.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900145.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900145.mp3"
+      }
+    },
+    {
+      "id": "900146",
+      "word": "սենյակ",
+      "translations": {
+        "hy": "սենյակ",
+        "en": "room",
+        "ru": "комната"
+      },
+      "audioId": "900146",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900146.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900146.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900146.mp3"
+      }
+    },
+    {
+      "id": "900147",
+      "word": "վազել",
+      "translations": {
+        "hy": "վազել",
+        "en": "run",
+        "ru": "бегать"
+      },
+      "audioId": "900147",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900147.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900147.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900147.mp3"
+      }
+    },
+    {
+      "id": "900148",
+      "word": "աղ",
+      "translations": {
+        "hy": "աղ",
+        "en": "salt",
+        "ru": "соль"
+      },
+      "audioId": "900148",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900148.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900148.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900148.mp3"
+      }
+    },
+    {
+      "id": "900149",
+      "word": "ավազ",
+      "translations": {
+        "hy": "ավազ",
+        "en": "sand",
+        "ru": "песок"
+      },
+      "audioId": "900149",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900149.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900149.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900149.mp3"
+      }
+    },
+    {
+      "id": "900150",
+      "word": "շաբաթ",
+      "translations": {
+        "hy": "շաբաթ",
+        "en": "saturday",
+        "ru": "суббота"
+      },
+      "audioId": "900150",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900150.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900150.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900150.mp3"
+      }
+    },
+    {
+      "id": "900151",
+      "word": "գիտություն",
+      "translations": {
+        "hy": "գիտություն",
+        "en": "science",
+        "ru": "наука"
+      },
+      "audioId": "900151",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900151.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900151.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900151.mp3"
+      }
+    },
+    {
+      "id": "900152",
+      "word": "ծով",
+      "translations": {
+        "hy": "ծով",
+        "en": "sea",
+        "ru": "море"
+      },
+      "audioId": "900152",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900152.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900152.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900152.mp3"
+      }
+    },
+    {
+      "id": "900153",
+      "word": "վայրկյան",
+      "translations": {
+        "hy": "վայրկյան",
+        "en": "second",
+        "ru": "секунда"
+      },
+      "audioId": "900153",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900153.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900153.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900153.mp3"
+      }
+    },
+    {
+      "id": "900154",
+      "word": "վաճառել",
+      "translations": {
+        "hy": "վաճառել",
+        "en": "sell",
+        "ru": "продавать"
+      },
+      "audioId": "900154",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900154.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900154.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900154.mp3"
+      }
+    },
+    {
+      "id": "900155",
+      "word": "սեպտեմբեր",
+      "translations": {
+        "hy": "սեպտեմբեր",
+        "en": "september",
+        "ru": "сентябрь"
+      },
+      "audioId": "900155",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900155.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900155.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900155.mp3"
+      }
+    },
+    {
+      "id": "900156",
+      "word": "ոչխար",
+      "translations": {
+        "hy": "ոչխար",
+        "en": "sheep",
+        "ru": "овца"
+      },
+      "audioId": "900156",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900156.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900156.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900156.mp3"
+      }
+    },
+    {
+      "id": "900157",
+      "word": "նավ",
+      "translations": {
+        "hy": "նավ",
+        "en": "ship",
+        "ru": "корабль"
+      },
+      "audioId": "900157",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900157.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900157.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900157.mp3"
+      }
+    },
+    {
+      "id": "900158",
+      "word": "վերնաշապիկ",
+      "translations": {
+        "hy": "վերնաշապիկ",
+        "en": "shirt",
+        "ru": "рубашка"
+      },
+      "audioId": "900158",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900158.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900158.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900158.mp3"
+      }
+    },
+    {
+      "id": "900159",
+      "word": "կոշիկ",
+      "translations": {
+        "hy": "կոշիկ",
+        "en": "shoes",
+        "ru": "туфли"
+      },
+      "audioId": "900159",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900159.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900159.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900159.mp3"
+      }
+    },
+    {
+      "id": "900160",
+      "word": "կարճ",
+      "translations": {
+        "hy": "կարճ",
+        "en": "short",
+        "ru": "короткий"
+      },
+      "audioId": "900160",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900160.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900160.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900160.mp3"
+      }
+    },
+    {
+      "id": "900161",
+      "word": "երգել",
+      "translations": {
+        "hy": "երգել",
+        "en": "sing",
+        "ru": "петь"
+      },
+      "audioId": "900161",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900161.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900161.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900161.mp3"
+      }
+    },
+    {
+      "id": "900162",
+      "word": "երգիչ",
+      "translations": {
+        "hy": "երգիչ",
+        "en": "singer",
+        "ru": "певец"
+      },
+      "audioId": "900162",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900162.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900162.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900162.mp3"
+      }
+    },
+    {
+      "id": "900163",
+      "word": "երկինք",
+      "translations": {
+        "hy": "երկինք",
+        "en": "sky",
+        "ru": "небо"
+      },
+      "audioId": "900163",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900163.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900163.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900163.mp3"
+      }
+    },
+    {
+      "id": "900164",
+      "word": "քնել",
+      "translations": {
+        "hy": "քնել",
+        "en": "sleep",
+        "ru": "спать"
+      },
+      "audioId": "900164",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900164.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900164.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900164.mp3"
+      }
+    },
+    {
+      "id": "900165",
+      "word": "օձ",
+      "translations": {
+        "hy": "օձ",
+        "en": "snake",
+        "ru": "змея"
+      },
+      "audioId": "900165",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900165.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900165.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900165.mp3"
+      }
+    },
+    {
+      "id": "900166",
+      "word": "ձյուն",
+      "translations": {
+        "hy": "ձյուն",
+        "en": "snow",
+        "ru": "снег"
+      },
+      "audioId": "900166",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900166.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900166.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900166.mp3"
+      }
+    },
+    {
+      "id": "900167",
+      "word": "զինվոր",
+      "translations": {
+        "hy": "զինվոր",
+        "en": "soldier",
+        "ru": "солдат"
+      },
+      "audioId": "900167",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900167.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900167.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900167.mp3"
+      }
+    },
+    {
+      "id": "900168",
+      "word": "որդի",
+      "translations": {
+        "hy": "որդի",
+        "en": "son",
+        "ru": "сын"
+      },
+      "audioId": "900168",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900168.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900168.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900168.mp3"
+      }
+    },
+    {
+      "id": "900169",
+      "word": "ներողություն",
+      "translations": {
+        "hy": "ներողություն",
+        "en": "sorry",
+        "ru": "извини"
+      },
+      "audioId": "900169",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900169.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900169.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900169.mp3"
+      }
+    },
+    {
+      "id": "900170",
+      "word": "ապուր",
+      "translations": {
+        "hy": "ապուր",
+        "en": "soup",
+        "ru": "суп"
+      },
+      "audioId": "900170",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900170.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900170.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900170.mp3"
+      }
+    },
+    {
+      "id": "900171",
+      "word": "սպորտ",
+      "translations": {
+        "hy": "սպորտ",
+        "en": "sport",
+        "ru": "спорт"
+      },
+      "audioId": "900171",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900171.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900171.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900171.mp3"
+      }
+    },
+    {
+      "id": "900172",
+      "word": "գարուն",
+      "translations": {
+        "hy": "գարուն",
+        "en": "spring",
+        "ru": "весна"
+      },
+      "audioId": "900172",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900172.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900172.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900172.mp3"
+      }
+    },
+    {
+      "id": "900173",
+      "word": "քար",
+      "translations": {
+        "hy": "քար",
+        "en": "stone",
+        "ru": "камень"
+      },
+      "audioId": "900173",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900173.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900173.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900173.mp3"
+      }
+    },
+    {
+      "id": "900174",
+      "word": "փոթորիկ",
+      "translations": {
+        "hy": "փոթորիկ",
+        "en": "storm",
+        "ru": "буря"
+      },
+      "audioId": "900174",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900174.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900174.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900174.mp3"
+      }
+    },
+    {
+      "id": "900175",
+      "word": "փողոց",
+      "translations": {
+        "hy": "փողոց",
+        "en": "street",
+        "ru": "улица"
+      },
+      "audioId": "900175",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900175.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900175.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900175.mp3"
+      }
+    },
+    {
+      "id": "900176",
+      "word": "ուժեղ",
+      "translations": {
+        "hy": "ուժեղ",
+        "en": "strong",
+        "ru": "сильный"
+      },
+      "audioId": "900176",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900176.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900176.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900176.mp3"
+      }
+    },
+    {
+      "id": "900177",
+      "word": "ուսանող",
+      "translations": {
+        "hy": "ուսանող",
+        "en": "student",
+        "ru": "студент"
+      },
+      "audioId": "900177",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900177.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900177.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900177.mp3"
+      }
+    },
+    {
+      "id": "900178",
+      "word": "շաքար",
+      "translations": {
+        "hy": "շաքար",
+        "en": "sugar",
+        "ru": "сахар"
+      },
+      "audioId": "900178",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900178.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900178.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900178.mp3"
+      }
+    },
+    {
+      "id": "900179",
+      "word": "ամառ",
+      "translations": {
+        "hy": "ամառ",
+        "en": "summer",
+        "ru": "лето"
+      },
+      "audioId": "900179",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900179.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900179.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900179.mp3"
+      }
+    },
+    {
+      "id": "900180",
+      "word": "կիրակի",
+      "translations": {
+        "hy": "կիրակի",
+        "en": "sunday",
+        "ru": "воскресенье"
+      },
+      "audioId": "900180",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900180.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900180.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900180.mp3"
+      }
+    },
+    {
+      "id": "900181",
+      "word": "խոսել",
+      "translations": {
+        "hy": "խոսել",
+        "en": "talk",
+        "ru": "говорить"
+      },
+      "audioId": "900181",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900181.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900181.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900181.mp3"
+      }
+    },
+    {
+      "id": "900182",
+      "word": "թեյ",
+      "translations": {
+        "hy": "թեյ",
+        "en": "tea",
+        "ru": "чай"
+      },
+      "audioId": "900182",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900182.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900182.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900182.mp3"
+      }
+    },
+    {
+      "id": "900183",
+      "word": "ուսուցանել",
+      "translations": {
+        "hy": "ուսուցանել",
+        "en": "teach",
+        "ru": "учить"
+      },
+      "audioId": "900183",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900183.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900183.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900183.mp3"
+      }
+    },
+    {
+      "id": "900184",
+      "word": "ուսուցիչ",
+      "translations": {
+        "hy": "ուսուցիչ",
+        "en": "teacher",
+        "ru": "учитель"
+      },
+      "audioId": "900184",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900184.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900184.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900184.mp3"
+      }
+    },
+    {
+      "id": "900185",
+      "word": "ջերմաստիճան",
+      "translations": {
+        "hy": "ջերմաստիճան",
+        "en": "temperature",
+        "ru": "температура"
+      },
+      "audioId": "900185",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900185.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900185.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900185.mp3"
+      }
+    },
+    {
+      "id": "900186",
+      "word": "տաս",
+      "translations": {
+        "hy": "տաս",
+        "en": "ten",
+        "ru": "десять"
+      },
+      "audioId": "900186",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900186.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900186.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900186.mp3"
+      }
+    },
+    {
+      "id": "900187",
+      "word": "շնորհակալություն",
+      "translations": {
+        "hy": "շնորհակալություն",
+        "en": "thank you",
+        "ru": "спасибо"
+      },
+      "audioId": "900187",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900187.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900187.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900187.mp3"
+      }
+    },
+    {
+      "id": "900188",
+      "word": "հինգշաբթի",
+      "translations": {
+        "hy": "հինգշաբթի",
+        "en": "thursday",
+        "ru": "четверг"
+      },
+      "audioId": "900188",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900188.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900188.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900188.mp3"
+      }
+    },
+    {
+      "id": "900189",
+      "word": "վագր",
+      "translations": {
+        "hy": "վագր",
+        "en": "tiger",
+        "ru": "тигр"
+      },
+      "audioId": "900189",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900189.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900189.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900189.mp3"
+      }
+    },
+    {
+      "id": "900190",
+      "word": "գնացք",
+      "translations": {
+        "hy": "գնացք",
+        "en": "train",
+        "ru": "поезд"
+      },
+      "audioId": "900190",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900190.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900190.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900190.mp3"
+      }
+    },
+    {
+      "id": "900191",
+      "word": "ճշմարտություն",
+      "translations": {
+        "hy": "ճշմարտություն",
+        "en": "truth",
+        "ru": "правда"
+      },
+      "audioId": "900191",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900191.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900191.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900191.mp3"
+      }
+    },
+    {
+      "id": "900192",
+      "word": "երեքշաբթի",
+      "translations": {
+        "hy": "երեքշաբթի",
+        "en": "tuesday",
+        "ru": "вторник"
+      },
+      "audioId": "900192",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900192.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900192.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900192.mp3"
+      }
+    },
+    {
+      "id": "900193",
+      "word": "համալսարան",
+      "translations": {
+        "hy": "համալսարան",
+        "en": "university",
+        "ru": "университет"
+      },
+      "audioId": "900193",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900193.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900193.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900193.mp3"
+      }
+    },
+    {
+      "id": "900194",
+      "word": "գյուղ",
+      "translations": {
+        "hy": "գյուղ",
+        "en": "village",
+        "ru": "деревня"
+      },
+      "audioId": "900194",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900194.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900194.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900194.mp3"
+      }
+    },
+    {
+      "id": "900195",
+      "word": "գնալ",
+      "translations": {
+        "hy": "գնալ",
+        "en": "walk",
+        "ru": "ходить"
+      },
+      "audioId": "900195",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900195.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900195.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900195.mp3"
+      }
+    },
+    {
+      "id": "900196",
+      "word": "պատերազմ",
+      "translations": {
+        "hy": "պատերազմ",
+        "en": "war",
+        "ru": "война"
+      },
+      "audioId": "900196",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900196.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900196.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900196.mp3"
+      }
+    },
+    {
+      "id": "900197",
+      "word": "թույլ",
+      "translations": {
+        "hy": "թույլ",
+        "en": "weak",
+        "ru": "слабый"
+      },
+      "audioId": "900197",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900197.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900197.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900197.mp3"
+      }
+    },
+    {
+      "id": "900198",
+      "word": "եղանակ",
+      "translations": {
+        "hy": "եղանակ",
+        "en": "weather",
+        "ru": "погода"
+      },
+      "audioId": "900198",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900198.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900198.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900198.mp3"
+      }
+    },
+    {
+      "id": "900199",
+      "word": "չորեքշաբթի",
+      "translations": {
+        "hy": "չորեքշաբթի",
+        "en": "wednesday",
+        "ru": "среда"
+      },
+      "audioId": "900199",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900199.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900199.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900199.mp3"
+      }
+    },
+    {
+      "id": "900200",
+      "word": "կին",
+      "translations": {
+        "hy": "կին",
+        "en": "wife",
+        "ru": "жена"
+      },
+      "audioId": "900200",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900200.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900200.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900200.mp3"
+      }
+    },
+    {
+      "id": "900201",
+      "word": "քամի",
+      "translations": {
+        "hy": "քամի",
+        "en": "wind",
+        "ru": "ветер"
+      },
+      "audioId": "900201",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900201.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900201.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900201.mp3"
+      }
+    },
+    {
+      "id": "900202",
+      "word": "գինի",
+      "translations": {
+        "hy": "գինի",
+        "en": "wine",
+        "ru": "вино"
+      },
+      "audioId": "900202",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900202.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900202.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900202.mp3"
+      }
+    },
+    {
+      "id": "900203",
+      "word": "ձմեռ",
+      "translations": {
+        "hy": "ձմեռ",
+        "en": "winter",
+        "ru": "зима"
+      },
+      "audioId": "900203",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900203.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900203.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900203.mp3"
+      }
+    },
+    {
+      "id": "900204",
+      "word": "գայլ",
+      "translations": {
+        "hy": "գայլ",
+        "en": "wolf",
+        "ru": "волк"
+      },
+      "audioId": "900204",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900204.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900204.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900204.mp3"
+      }
+    },
+    {
+      "id": "900205",
+      "word": "գրել",
+      "translations": {
+        "hy": "գրել",
+        "en": "write",
+        "ru": "писать"
+      },
+      "audioId": "900205",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900205.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900205.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900205.mp3"
+      }
+    },
+    {
+      "id": "900206",
+      "word": "գրող",
+      "translations": {
+        "hy": "գրող",
+        "en": "writer",
+        "ru": "писатель"
+      },
+      "audioId": "900206",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900206.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900206.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900206.mp3"
+      }
+    },
+    {
+      "id": "900207",
+      "word": "սխալ",
+      "translations": {
+        "hy": "սխալ",
+        "en": "wrong",
+        "ru": "неправильный"
+      },
+      "audioId": "900207",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900207.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900207.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900207.mp3"
+      }
+    },
+    {
+      "id": "900208",
+      "word": "երիտասարդ",
+      "translations": {
+        "hy": "երիտասարդ",
+        "en": "young",
+        "ru": "молодой"
+      },
+      "audioId": "900208",
+      "type": "user",
+      "isUserAdded": true,
+      "audioGenerated": true,
+      "audio": {
+        "hy": "/audio/offline_user_dictionary/hy_user/900208.mp3",
+        "en": "/audio/offline_user_dictionary/en_user/900208.mp3",
+        "ru": "/audio/offline_user_dictionary/ru_user/900208.mp3"
+      }
+    }
+  ],
+  "statistics": {
+    "totalWords": 208,
+    "lastAccessed": "2026-08-10T01:50:13.701389"
+  }
+}

@@ -1,0 +1,30 @@
+NUR LINGO AUDIO DIAGNOSTIC REPORT
+Generated: 2026-08-09 02:43:24
+Root: C:\Users\Armen\Documents\NurLingo\NURLingo-main\nurlingo_integrated_round2
+
+PASS: 42  WARN: 4  FAIL: 4
+Score: 84%
+
+BUGS & WARNINGS:
+
+⚠️  HY offline (hy_Ani): 434 corrupted files
+   └─ 000013.mp3, 000037.mp3, 000042.mp3, 000157.mp3, 000167.mp3
+
+⚠️  RU offline (ru_female): numbering gaps
+   └─ [27, 32, 37, 42, 47]
+
+❌ Dictionary has no audio path references
+   └─ src/lib/lexicon/master-dictionary.fixed.json
+
+❌ AudioManager missing: HEAD check before play
+   └─ AudioManager.ts
+
+❌ AudioManager missing: console.warn (not error)
+   └─ AudioManager.ts
+
+❌ SpeechGen auto generator: email field missing quotes (script will crash)
+   └─ Fix: change to "email": "arcaxa305@gmail.com",
+
+⚠️  SpeechGen auto generator: output directory not detected in code
+
+⚠️  npx not available for TypeScript check

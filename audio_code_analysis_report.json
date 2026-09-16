@@ -1,0 +1,425 @@
+{
+  "stats": {
+    "files_analyzed": 33,
+    "lines_analyzed": 49213,
+    "issues_found": 0
+  },
+  "total_issues": 60,
+  "issues": {
+    "type_errors": [
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 16
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 2
+      },
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 1
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 6
+      },
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 1
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 2
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 2
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 2
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 4
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 1
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 4
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 8
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 1
+      },
+      {
+        "pattern": "as\\s+any\\b",
+        "count": 2
+      },
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 1
+      },
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 2
+      },
+      {
+        "pattern": ":\\s*any\\b",
+        "count": 4
+      }
+    ],
+    "hardcoded_paths": [
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 15
+      },
+      {
+        "path": "[\\'\"]audio/",
+        "count": 2
+      },
+      {
+        "path": "[\\'\"]audio/",
+        "count": 1
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 5
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 5
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 3
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 1
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 8
+      },
+      {
+        "path": "[\\'\"]/audio/",
+        "count": 3
+      }
+    ],
+    "console_logs": [
+      {
+        "count": 28,
+        "types": [
+          "warn",
+          "error",
+          "log"
+        ]
+      },
+      {
+        "count": 7,
+        "types": [
+          "warn",
+          "error",
+          "log"
+        ]
+      },
+      {
+        "count": 2,
+        "types": [
+          "error"
+        ]
+      },
+      {
+        "count": 5,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 3,
+        "types": [
+          "error"
+        ]
+      },
+      {
+        "count": 1,
+        "types": [
+          "log"
+        ]
+      },
+      {
+        "count": 3,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 13,
+        "types": [
+          "warn",
+          "error",
+          "log"
+        ]
+      },
+      {
+        "count": 7,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 13,
+        "types": [
+          "warn",
+          "error",
+          "log"
+        ]
+      },
+      {
+        "count": 3,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 2,
+        "types": [
+          "warn"
+        ]
+      },
+      {
+        "count": 2,
+        "types": [
+          "warn"
+        ]
+      },
+      {
+        "count": 2,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 4,
+        "types": [
+          "error"
+        ]
+      },
+      {
+        "count": 5,
+        "types": [
+          "warn",
+          "log"
+        ]
+      },
+      {
+        "count": 11,
+        "types": [
+          "warn",
+          "error",
+          "log"
+        ]
+      },
+      {
+        "count": 2,
+        "types": [
+          "warn",
+          "log"
+        ]
+      }
+    ],
+    "undefined_variables": [
+      {
+        "line": 8,
+        "variable": "apiUrl"
+      },
+      {
+        "line": 0,
+        "variable": "fallbackPlay"
+      },
+      {
+        "line": 0,
+        "variable": "saveRecordingSimple"
+      },
+      {
+        "line": 314,
+        "variable": "entry"
+      },
+      {
+        "line": 0,
+        "variable": "getSourceBadge"
+      },
+      {
+        "line": 0,
+        "variable": "getSourceLabel"
+      },
+      {
+        "line": 232,
+        "variable": "isOnline"
+      },
+      {
+        "line": 0,
+        "variable": "play"
+      }
+    ],
+    "missing_error_handling": [
+      {
+        "message": "try block without catch"
+      },
+      {
+        "message": "try block without catch"
+      }
+    ],
+    "potential_nulls": [
+      {
+        "pattern": "\\[\\s*\\w+\\s*\\]\\s*[?]\\.",
+        "count": 1
+      },
+      {
+        "pattern": "\\[\\s*\\w+\\s*\\]\\s*[?]\\.",
+        "count": 2
+      },
+      {
+        "pattern": "\\[\\s*\\w+\\s*\\]\\s*[?]\\.",
+        "count": 1
+      },
+      {
+        "pattern": "\\[\\s*\\w+\\s*\\]\\s*[?]\\.",
+        "count": 1
+      }
+    ],
+    "async_issues": [
+      {
+        "message": "async function without await"
+      },
+      {
+        "message": "async function without await"
+      }
+    ]
+  },
+  "file_details": {
+    "src\\lib\\offline\\OfflineAudioEngine.ts": {
+      "type_errors": 2,
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\WavClient.ts": {
+      "undefined_variables": 1,
+      "hardcoded_paths": 1
+    },
+    "src\\lib\\offline\\trilingual-audio-engine.ts": {
+      "type_errors": 2,
+      "console_logs": 1
+    },
+    "src\\lib\\wav-api.js": {
+      "console_logs": 1
+    },
+    "src\\lib\\hooks\\useAudioEngine.ts": {
+      "type_errors": 2,
+      "console_logs": 1
+    },
+    "src\\lib\\offline\\TrilingualAudioPlayer.tsx": {
+      "undefined_variables": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\hooks\\useAudioRecorder.ts": {
+      "undefined_variables": 1,
+      "type_errors": 1,
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\AudioCache.ts": {
+      "undefined_variables": 1
+    },
+    "src\\components\\TrilingualDictionary.tsx": {
+      "undefined_variables": 2,
+      "type_errors": 1,
+      "console_logs": 1
+    },
+    "src\\components\\TrilingualAudioPlayer.tsx": {
+      "type_errors": 1,
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\AudioTypes.ts": {
+      "missing_error_handling": 1
+    },
+    "src\\lib\\hooks\\useLessonAudio.ts": {
+      "undefined_variables": 1,
+      "type_errors": 1,
+      "potential_nulls": 1,
+      "console_logs": 1
+    },
+    "src\\components\\TrilingualLesson.tsx": {
+      "type_errors": 1,
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\content\\audio-mapping-integrated.ts": {
+      "hardcoded_paths": 1
+    },
+    "src\\lib\\hooks\\useAudio.ts": {
+      "type_errors": 1,
+      "potential_nulls": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\AudioManifest.ts": {
+      "type_errors": 1,
+      "potential_nulls": 1,
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\WavASRProvider.ts": {
+      "console_logs": 1,
+      "async_issues": 1
+    },
+    "src\\lib\\content\\audio-ids.ts": {
+      "missing_error_handling": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio-cache.js": {
+      "console_logs": 1,
+      "async_issues": 1
+    },
+    "src\\lib\\hooks\\useAudioManager.ts": {
+      "undefined_variables": 1,
+      "type_errors": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\AudioManager.ts": {
+      "type_errors": 1
+    },
+    "src\\lib\\offline\\OfflineAudioManager.ts": {
+      "hardcoded_paths": 1,
+      "console_logs": 1
+    },
+    "src\\lib\\audio\\LessonAudio.ts": {
+      "type_errors": 1
+    },
+    "src\\lib\\audio\\AudioSettings.ts": {
+      "type_errors": 1
+    },
+    "src\\lib\\audio\\AudioProviders.ts": {
+      "potential_nulls": 1
+    },
+    "src\\lib\\content\\audio-index.ts": {
+      "console_logs": 1
+    },
+    "src\\lib\\content\\audio-mapping.ts": {
+      "hardcoded_paths": 1
+    }
+  }
+}

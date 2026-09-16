@@ -1,0 +1,24 @@
+{
+  "entries": {
+    "000001": {
+      "text": "Выбери перевод \"привет\"",
+      "path": "/audio/offline/ru-en_prompt/000001.mp3",
+      "audioId": "000001",
+      "type": "prompt",
+      "pair": "ru-en",
+      "language": "ru",
+      "createdAt": "2026-08-30T20:26:47.958Z"
+    },
+    "000002": {
+      "text": "Как «привет» по-английский?",
+      "path": "/audio/offline/ru-en_prompt/000002.mp3",
+      "audioId": "000002",
+      "type": "prompt",
+      "pair": "ru-en",
+      "language": "ru",
+      "createdAt": "2026-08-30T20:27:06.374Z"
+    }
+  },
+  "totalEntries": 2,
+  "lastUpdated": "2026-08-30T20:27:06.374Z"
+}

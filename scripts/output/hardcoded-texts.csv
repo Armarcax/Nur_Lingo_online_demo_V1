@@ -1,0 +1,881 @@
+File,Line,Type,Text,Key
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,239,undefined,"Audio Generator",page_audio_generator
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,239,undefined,"Audio Generator",page_audio_generator
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,240,undefined,"Generate Armenian audio using Supabase Edge Functions",page_generate_armenian_audio_using_supabase_edge_functi
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,240,undefined,"Generate Armenian audio using Supabase Edge Functions",page_generate_armenian_audio_using_supabase_edge_functi
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,246,undefined,"Language",page_language
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,246,undefined,"Language",page_language
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,252,undefined,"Armenian (hy)",page_armenian_hy_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,253,undefined,"English (en)",page_english_en_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,254,undefined,"Russian (ru)",page_russian_ru_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,255,undefined,"All Languages",page_all_languages
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,259,undefined,"Batch Size",page_batch_size
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,259,undefined,"Batch Size",page_batch_size
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,286,undefined,"Progress: {progress.processed}/{progress.total}",page_progress_progress_processed_progress_total_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,287,undefined,"✅ {progress.success}",page__progress_success_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,288,undefined,"❌ {progress.failed}",page__progress_failed_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,304,undefined,"How It Works",page_how_it_works
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,304,undefined,"How It Works",page_how_it_works
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,306,undefined,"The Edge Function generates audio using Google Translate TTS (supports Armenian)",page_the_edge_function_generates_audio_using_google_tra
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,307,undefined,"Audio is streamed directly to the browser for playback",page_audio_is_streamed_directly_to_the_browser_for_play
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,308,undefined,"To save files: The generate script in the repo can be run locally with proper network access",page_to_save_files_the_generate_script_in_the_repo_can_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,309,undefined,"The app will fallback to browser TTS if pre-generated MP3s are unavailable",page_the_app_will_fallback_to_browser_tts_if_pre_genera
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,316,undefined,"Sample Texts ({texts.length} entries)",page_sample_texts_texts_length_entries_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,322,undefined,"ID",page_id
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,323,undefined,"Armenian",page_armenian
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,324,undefined,"Actions",page_actions
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,356,undefined,"Logs",page_logs
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,356,undefined,"Logs",page_logs
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,366,undefined,"No logs yet...",page_no_logs_yet_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\audio\page.tsx,366,undefined,"No logs yet...",page_no_logs_yet_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,393,undefined,"📝 Բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,393,undefined,"📝 Բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,435,undefined,"Փնտրել բառեր...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,443,undefined,"Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,458,undefined,"Բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,483,undefined,"Կատեգորիա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,484,undefined,"Տեսակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,485,undefined,"Աղբյուր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,486,undefined,"Գործողություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,527,undefined,"👤 USER",page__user
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,527,undefined,"👤 USER",page__user
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,529,undefined,"📚 MAIN",page__main
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,529,undefined,"📚 MAIN",page__main
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,537,undefined,"Խմբագրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,544,undefined,"Կրկնօրինակել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,551,undefined,"Ջնջել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,578,undefined,"(User word)",page__user_word_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,578,undefined,"(User word)",page__user_word_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,580,undefined,"setEditEntry(null)} className="text-gray-400 hover:text-gray-900 dark:hover:text-white text-2xl">✕",page_seteditentry_null_classname_text_gray_400_hover_te
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,585,undefined,"🇦🇲 Հայերեն *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,585,undefined,"🇦🇲 Հայերեն *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,590,undefined,"Մուտքագրեք բառը...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,596,undefined,"🇬🇧 English *",page__english_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,596,undefined,"🇬🇧 English *",page__english_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,601,undefined,"Enter translation...",page_enter_translation_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,606,undefined,"🇷🇺 Русский *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,606,undefined,"🇷🇺 Русский *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,611,undefined,"Введите перевод...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,617,undefined,"Կատեգորիա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,617,undefined,"Կատեգորիա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,628,undefined,"Տեսակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,628,undefined,"Տեսակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,663,undefined,"Ջնջե՞լ այս բառը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,663,undefined,"Ջնջե՞լ այս բառը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,664,undefined,"Գործողությունը հետ շրջելի չէ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\admin\dictionary\page.tsx,664,undefined,"Գործողությունը հետ շրջելի չէ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\api\validate\route.ts,147,undefined,"= 0.7 && ratio",route__0_7_ratio
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,398,undefined,"📊 Curriculum exported successfully",page__curriculum_exported_successfully
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,401,undefined,"❌ Export failed",page__export_failed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,411,undefined,"📋 ID copied",page__id_copied
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,434,undefined,"Not Started",page_not_started
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,435,undefined,"Completed",page_completed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,436,undefined,"In Progress",page_in_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,437,undefined,"Not Started",page_not_started
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,455,undefined,"Curriculum",page_curriculum
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,479,undefined,"✅ {stats.completedLessons} completed",page__stats_completedlessons_completed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,481,undefined,"{stats.overallProgress}% progress",page__stats_overallprogress_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,492,undefined,"List",page_list
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,501,undefined,"Grid",page_grid
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,510,undefined,"Compact",page_compact
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,525,undefined,"Filters",page_filters
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,525,undefined,"Filters",page_filters
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,538,undefined,"Stats",page_stats
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,538,undefined,"Stats",page_stats
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,547,undefined,"Print",page_print
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,547,undefined,"Print",page_print
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,555,undefined,"Export",page_export
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,555,undefined,"Export",page_export
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,564,undefined,"Clear",page_clear
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,564,undefined,"Clear",page_clear
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,583,undefined,"Lessons",page_lessons
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,587,undefined,"Completed",page_completed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,591,undefined,"In Progress",page_in_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,595,undefined,"Overall Progress",page_overall_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,599,undefined,"Words",page_words
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,603,undefined,"Phrases",page_phrases
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,607,undefined,"Dialogues",page_dialogues
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,611,undefined,"Favorites",page_favorites
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,632,undefined,"🌍 World",page__world
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,632,undefined,"🌍 World",page__world
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,638,undefined,"🌍 All Worlds",page__all_worlds
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,647,undefined,"📊 Status",page__status
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,647,undefined,"📊 Status",page__status
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,653,undefined,"📚 All",page__all
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,654,undefined,"✅ Completed",page__completed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,655,undefined,"🔄 In Progress",page__in_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,656,undefined,"⏳ Not Started",page__not_started
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,662,undefined,"🔄 Sort",page__sort
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,662,undefined,"🔄 Sort",page__sort
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,668,undefined,"📌 Default",page__default
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,669,undefined,"🔤 Alphabetical",page__alphabetical
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,670,undefined,"📈 Progress",page__progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,671,undefined,"🕐 Recent",page__recent
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,677,undefined,"🔍 Search",page__search
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,677,undefined,"🔍 Search",page__search
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,684,undefined,"Search lessons...",page_search_lessons_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,715,undefined,"Search lessons... (Ctrl+K)",page_search_lessons_ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,732,undefined,"Progress",page_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,732,undefined,"Progress",page_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,741,undefined,"{stats.overallProgress}%",page__stats_overallprogress_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,749,undefined,"🌍",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,750,undefined,"No worlds found",page_no_worlds_found
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,750,undefined,"No worlds found",page_no_worlds_found
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,779,undefined,"({world.title.hy})",page__world_title_hy_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,869,undefined,"📖 {lesson.vocabulary.length}",page__lesson_vocabulary_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,870,undefined,"💬 {lesson.phrases.length}",page__lesson_phrases_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\curriculum\page.tsx,871,undefined,"🗣️ {lesson.dialogues.length}",page__lesson_dialogues_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,30,undefined,"🔍 Դիագնոստիկա...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,31,undefined,"Բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,39,undefined,"❌ Սխալ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,48,undefined,"🔍 Դիագնոստիկա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,48,undefined,"🔍 Դիագնոստիկա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,56,undefined,"Սխալներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,60,undefined,"Զգուշացումներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,64,undefined,"Ամսաթիվ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,72,undefined,"❌ Սխալներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,72,undefined,"❌ Սխալներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,84,undefined,"⚠️ Զգուշացումներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,84,undefined,"⚠️ Զգուշացումներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,95,undefined,"📁 Աուդիո Պանակներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,95,undefined,"📁 Աուդիո Պանակներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,115,undefined,"🔊 Աուդիո Որոնման Արդյունքներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,115,undefined,"🔊 Աուդիո Որոնման Արդյունքներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,132,undefined,"📊 Ամփոփում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,132,undefined,"📊 Ամփոփում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\diagnose\page.tsx,145,undefined,"📄 Ամբողջական տվյալներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,157,undefined,"Սկսնակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,158,undefined,"Միջին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,159,undefined,"Առաջադեմ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,163,undefined,"Առօրյա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,164,undefined,"Ճանապարհորդություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,165,undefined,"Սնունդ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,166,undefined,"Ընտանիք",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,167,undefined,"Աշխատանք",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,168,undefined,"Գնումներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,169,undefined,"Առողջություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,170,undefined,"Կրթություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,171,undefined,"Ժամանց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,172,undefined,"Հասարակական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,456,undefined,"0 && progress[d.id]",page_0_progress_d_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,553,undefined,"0 && progress[d.id]",page_0_progress_d_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,674,undefined,"Բոլոր թարգմանությունները ցուցադրվեցին ✅",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,688,undefined,"👁️ Բոլոր թարգմանությունները թաքցվեցին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,865,undefined,"հպեք՝ թարգմանությունը տեսնելու",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,865,undefined,"հպեք՝ թարգմանությունը տեսնելու",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,930,undefined,"Զրույցը դատարկ է",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,930,undefined,"Զրույցը դատարկ է",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,931,undefined,"Տվյալներ չկան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,931,undefined,"Տվյալներ չկան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1024,undefined,"Զրույցներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1024,undefined,"Զրույցներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1027,undefined,"{dialogues.length} երկխոսություն",page__dialogues_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1029,undefined,"💬 {dialogStats?.totalTurns || 0} տող",page__dialogstats_totalturns_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1031,undefined,"⭐ {favorites.size} սիրված",page__favorites_size_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1033,undefined,"✅ {completed.size} ավարտված",page__completed_size_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1037,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1037,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1050,undefined,"Ցուցակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1059,undefined,"Ցանց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1068,undefined,"Կոմպակտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1081,undefined,"WAV mode",page_wav_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1090,undefined,"TTS mode",page_tts_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1099,undefined,"MP3 mode",page_mp3_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1115,undefined,"Ավտոմատ ցուցադրել թարգմանությունները",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1130,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1130,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1142,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1142,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1152,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1152,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1172,undefined,"Ընդհանուր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1176,undefined,"Ավարտված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1180,undefined,"Ընթացքի մեջ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1184,undefined,"Սիրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1188,undefined,"Ընդհանուր տողեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1192,undefined,"Ընդհանուր տևողություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1196,undefined,"Կատեգորիաներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1202,undefined,"🌱 / 📈 / 🔥",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1222,undefined,"📊 Դժվարություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1222,undefined,"📊 Դժվարություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1228,undefined,"📚 Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1229,undefined,"🌱 Սկսնակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1230,undefined,"📈 Միջին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1231,undefined,"🔥 Առաջադեմ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1232,undefined,"⭐ Սիրվածներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1233,undefined,"✅ Ավարտված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1234,undefined,"🔄 Ընթացքի մեջ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1239,undefined,"📁 Կատեգորիա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1239,undefined,"📁 Կատեգորիա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1245,undefined,"📚 Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1246,undefined,"☀️ Առօրյա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1247,undefined,"✈️ Ճանապարհորդություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1248,undefined,"🍽️ Սնունդ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1249,undefined,"👨‍👩‍👦 Ընտանիք",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1250,undefined,"💼 Աշխատանք",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1255,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1255,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1261,undefined,"📌 Լռելյայն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1262,undefined,"🆕 Նորագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1263,undefined,"📅 Հինագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1264,undefined,"🔤 Այբբենական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1265,undefined,"⭐ Հանրահայտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1266,undefined,"📈 Առաջընթաց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1286,undefined,"Փնտրել զրույցներ... (Ctrl+K)",page__ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dialogues\page.tsx,1306,undefined,"💬",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,143,undefined,"ՀԱՅԵՐԵՆ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,144,undefined,"ENGLISH",page_english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,145,undefined,"РУССКИЙ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,870,undefined,"❌ WAV-ի ստեղծումը ձախողվեց",page__wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,993,undefined,"WAV քեշը մաքրվեց 🗑️",page_wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1270,undefined,"ID-ն պատճենվեց 📋",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1274,undefined,"ID-ն պատճենվեց 📋",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1298,undefined,"Բառարանը բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1298,undefined,"Բառարանը բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1342,undefined,"Բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1342,undefined,"Բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1345,undefined,"{vocab.length} բառ",page__vocab_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1347,undefined,"📝 {wordStats?.byType.vocab || 0} բառ",page__wordstats_bytype_vocab_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1348,undefined,"💬 {wordStats?.byType.phrase || 0} արտահայտություն",page__wordstats_bytype_phrase_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1349,undefined,"🎭 {wordStats?.byType.dialogue || 0} երկխոսություն",page__wordstats_bytype_dialogue_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1353,undefined,"🔊 WAV: {wavCount}/{vocab.length}",page__wav_wavcount_vocab_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1355,undefined,"💰 {wavCredits}",page__wavcredits_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1370,undefined,"Ցուցակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1379,undefined,"Ցանց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1388,undefined,"Կոմպակտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1403,undefined,"WAV mode: հայերեն WAV, անգլերեն/ռուսերեն TTS",page_wav_mode_wav_tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1415,undefined,"TTS mode: բոլոր լեզուները TTS",page_tts_mode_tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1427,undefined,"MP3 mode: ներքին աուդիո (օֆլայն)",page_mp3_mode_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1440,undefined,"Select voice",page_select_voice
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1480,undefined,"Օգտատիրոջ բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1480,undefined,"Օգտատիրոջ բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1481,undefined,"Օգտ.",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1481,undefined,"Օգտ.",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1495,undefined,"Generate WAV audio for all words",page_generate_wav_audio_for_all_words
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1512,undefined,"Clear WAV cache",page_clear_wav_cache
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1527,undefined,"Test WAV.am TTS",page_test_wav_am_tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1545,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1548,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1548,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1556,undefined,"Խմբագրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1556,undefined,"Խմբագրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1604,undefined,"Ընդհանուր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1608,undefined,"Բառեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1612,undefined,"Արտահայտություններ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1616,undefined,"Երկխոսություններ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1620,undefined,"Աուդիոով",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1624,undefined,"WAV-ով",page_wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1630,undefined,"Կատեգորիաներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1636,undefined,"Սիրվածներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1641,undefined,"📊 Դժվարություն՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1641,undefined,"📊 Դժվարություն՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1642,undefined,"🌱 Սկսնակ {wordStats.byDifficulty.beginner || 0}",page__wordstats_bydifficulty_beginner_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1643,undefined,"📈 Միջին {wordStats.byDifficulty.intermediate || 0}",page__wordstats_bydifficulty_intermediate_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1644,undefined,"🔥 Առաջադեմ {wordStats.byDifficulty.advanced || 0}",page__wordstats_bydifficulty_advanced_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1663,undefined,"Որոնել բոլոր լեզուներով... (Ctrl+K)",page__ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1704,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1704,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1713,undefined,"Մաքրել ֆիլտրերը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1716,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1716,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1738,undefined,"WAV",page_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1738,undefined,"WAV",page_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1756,undefined,"📝 Տեսակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1756,undefined,"📝 Տեսակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1762,undefined,"📚 Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1763,undefined,"📖 Բառեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1764,undefined,"💬 Արտահայտություններ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1765,undefined,"🎭 Երկխոսություններ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1766,undefined,"🌱 Սկսնակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1767,undefined,"📈 Միջին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1768,undefined,"🔥 Առաջադեմ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1769,undefined,"🎵 Աուդիոով",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1770,undefined,"🔇 Առանց աուդիո",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1771,undefined,"🔊 WAV-ով",page__wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1777,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1777,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1783,undefined,"📌 ID-ով",page__id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1784,undefined,"⭐ Հանրահայտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1785,undefined,"🔤 Այբբենական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1786,undefined,"🔤 Հակառակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1787,undefined,"🆕 Նորագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1788,undefined,"📅 Հինագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1794,undefined,"📊 Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1794,undefined,"📊 Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1796,undefined,"📚 {totalWords}",page__totalwords_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1798,undefined,"🎵 {wordStats?.withAudio || 0}",page__wordstats_withaudio_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1800,undefined,"🔊 {wordStats?.withWAV || 0}",page__wordstats_withwav_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1802,undefined,"⭐ {favorites.size}",page__favorites_size_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1814,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1814,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1816,undefined,"ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1816,undefined,"ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1818,undefined,"🇦🇲 {vocab.filter(e => e.hy).length}",page__vocab_filter_e_e_hy_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1819,undefined,"🇬🇧 {vocab.filter(e => e.en).length}",page__vocab_filter_e_e_en_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1820,undefined,"🇷🇺 {vocab.filter(e => e.ru).length}",page__vocab_filter_e_e_ru_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1831,undefined,"ID-ներ՝",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1831,undefined,"ID-ներ՝",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1951,undefined,"WAV",page_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,1951,undefined,"WAV",page_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2003,undefined,"🎵",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2003,undefined,"🎵",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2006,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2006,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2009,undefined,"✨ TTS",page__tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2009,undefined,"✨ TTS",page__tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2135,undefined,"🎙️",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\dictionary\page.tsx,2135,undefined,"🎙️",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,113,undefined,"Streak Freeze",page_streak_freeze
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,126,undefined,"Heart Refill",page_heart_refill
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,139,undefined,"Double XP",page_double_xp
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,152,undefined,"Golden Flower",page_golden_flower
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,165,undefined,"Nuri Crown",page_nuri_crown
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,523,undefined,"Garden",page_garden
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,523,undefined,"Garden",page_garden
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,587,undefined,"🔥",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,589,undefined,"Daily Deal!",page_daily_deal_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,589,undefined,"Daily Deal!",page_daily_deal_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,593,undefined,"Expires in {dailyDeal.expiresIn}h",page_expires_in_dailydeal_expiresin_h
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,609,undefined,"Streak",page_streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,609,undefined,"Streak",page_streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,616,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,616,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,623,undefined,"Իրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,623,undefined,"Իրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,747,undefined,"📦",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,747,undefined,"📦",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,818,undefined,"5 սրտերը",page_5_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,824,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,830,undefined,"Garden",page_garden
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,836,undefined,"Նուրիին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,842,undefined,"Գինը՝ {price} HAYQ",page__price_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,844,undefined,"({dailyDeal?.discount}% off)",page__dailydeal_discount_off_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,872,undefined,"×{item.quantity}",page__item_quantity_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,914,undefined,"Հիշեցման ժամը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,914,undefined,"Հիշեցման ժամը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,1043,undefined,"Your cart is empty",page_your_cart_is_empty
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,1043,undefined,"Your cart is empty",page_your_cart_is_empty
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,1060,undefined,"{price} 🪙",page__price_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,1075,undefined,"Total",page_total
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\garden\page.tsx,1075,undefined,"Total",page_total
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\layout.tsx,53,undefined,"NUR Lingo Team",layout_nur_lingo_team
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\layout.tsx,80,undefined,"NUR Lingo — Հայկական AI Լեզվի Հարթակ",layout_nur_lingo_ai_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\layout.tsx,95,undefined,"NUR Lingo — Հայկական AI Լեզվի Հարթակ",layout_nur_lingo_ai_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,353,undefined,"Ընտրեք բառերը հերթականությամբ...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,353,undefined,"Ընտրեք բառերը հերթականությամբ...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,547,undefined,"🎧",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,547,undefined,"🎧",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,549,undefined,"Լսեք ուշադիր և գրեք ձեր լսածը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,549,undefined,"Լսեք ուշադիր և գրեք ձեր լսածը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,581,undefined,"Գրեք ձեր լսածը այստեղ...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1312,undefined,"⚠️ Խնդրում ենք դասավորել բոլոր բառերը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1416,undefined,"⚠️ Խնդրում ենք ընտրել պատասխան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1424,undefined,"⚠️ Խնդրում ենք մուտքագրել պատասխան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1761,undefined,"☕ Զովացիր: 2 րոպեից կշարունակենք",page__2_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1771,undefined,"😊 Շարունակենք սովորել!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1788,undefined,"Something went wrong",page_something_went_wrong
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1800,undefined,"You already have full hearts!",page_you_already_have_full_hearts_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1803,undefined,"Something went wrong",page_something_went_wrong
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1832,undefined,"🔓 Բոլոր դասերը բացված են!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1927,undefined,"{accuracy}%",page__accuracy_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1928,undefined,"Ճշգրտություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1928,undefined,"Ճշգրտություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1931,undefined,"+{stats.hayqEarned}",page__stats_hayqearned_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1932,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1932,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1936,undefined,"Ժամանակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1936,undefined,"Ժամանակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1971,undefined,"💔",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1972,undefined,"Սրտերը վերջացել են",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,1972,undefined,"Սրտերը վերջացել են",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2027,undefined,"🔁 Review ·",page__review_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2027,undefined,"🔁 Review ·",page__review_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2028,undefined,"🌐 Online ·",page__online_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2028,undefined,"🌐 Online ·",page__online_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2044,undefined,"WAV mode",page_wav_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2056,undefined,"TTS mode",page_tts_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2068,undefined,"MP3 mode",page_mp3_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2124,undefined,"{attempts}/3",page__attempts_3
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2208,undefined,"Ճիշտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2212,undefined,"Սխալ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2216,undefined,"HAYQ",page_hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2220,undefined,"🌱 Seeds",page__seeds
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2224,undefined,"Best Streak",page_best_streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2228,undefined,"Ժամանակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2278,undefined,"☕ Զովանալ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2278,undefined,"☕ Զովանալ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2294,undefined,"😊 Շարունակել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2294,undefined,"😊 Շարունակել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2355,undefined,"✅ {current.targetAnswer}",page__current_targetanswer_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2362,undefined,"💡 {current.hint[native]}",page__current_hint_native_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2435,undefined,"Մուտքագրեք ձեր պատասխանը...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2492,undefined,"Ճիշտ տարբերակ՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2492,undefined,"Ճիշտ տարբերակ՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2548,undefined,"Exit lesson?",page_exit_lesson_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\learn\page.tsx,2548,undefined,"Exit lesson?",page_exit_lesson_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,68,undefined,"5 ր",page_5_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,69,undefined,"10 ր",page_10_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,70,undefined,"15 ր",page_15_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,71,undefined,"20 ր",page_20_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,75,undefined,"Դասական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,76,undefined,"Օվկիանոս",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,77,undefined,"Անտառ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,78,undefined,"Մայրամուտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,82,undefined,"Հարուստ բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,83,undefined,"Իրական երկխոսություններ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,84,undefined,"Ձայնային արտասանություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,85,undefined,"Խաղային համակարգ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,86,undefined,"Խելացի կրկնություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,87,undefined,"Առաջընթացի հետևում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,262,undefined,"⚠️ Խնդրում ենք միացնել ծանուցումները բրաուզերում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,380,undefined,"Բեռնում...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,380,undefined,"Բեռնում...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,491,undefined,"Choose your native language",page_choose_your_native_language
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,491,undefined,"Choose your native language",page_choose_your_native_language
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,544,undefined,"What language do you want to learn?",page_what_language_do_you_want_to_learn_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,544,undefined,"What language do you want to learn?",page_what_language_do_you_want_to_learn_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,605,undefined,"One more step! Customize your experience",page_one_more_step_customize_your_experience
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,605,undefined,"One more step! Customize your experience",page_one_more_step_customize_your_experience
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,612,undefined,"Մայրենի",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,612,undefined,"Մայրենի",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,619,undefined,"Սովորելու",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,619,undefined,"Սովորելու",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,642,undefined,"Օրվա նպատակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,642,undefined,"Օրվա նպատակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,715,undefined,"Թեմա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,715,undefined,"Թեմա",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,739,undefined,"Բոլոր դասերի բացում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,739,undefined,"Բոլոր դասերի բացում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,765,undefined,"Ավտոմատ բացում ժամանակից հետո",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,765,undefined,"Ավտոմատ բացում ժամանակից հետո",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,810,undefined,"Օգտագործման պայմաններին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,810,undefined,"Օգտագործման պայմաններին",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,857,undefined,"Քեզ սպասում է ամեն ինչ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\onboarding\page.tsx,857,undefined,"Քեզ սպասում է ամեն ինչ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,44,undefined,"Հայերեն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,45,undefined,"English",page_english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,46,undefined,"Русский",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,52,undefined,"Դասեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,53,undefined,"Բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,54,undefined,"Զրույցներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,55,undefined,"Ծրագիր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,56,undefined,"Պարտեզ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,57,undefined,"Օգտ. բառ.",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,273,undefined,"Բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,273,undefined,"Բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,284,undefined,"Սխալ է տեղի ունեցել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,284,undefined,"Սխալ է տեղի ունեցել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,330,undefined,"Կարգավորումներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,391,undefined,"🛡️",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,391,undefined,"🛡️",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,434,undefined,"{Math.round(stats.dailyProgress)} / {stats.dailyGoal} XP",page__math_round_stats_dailyprogress_stats_dailygoal_xp
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,484,undefined,"🔥 Streak",page__streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,484,undefined,"🔥 Streak",page__streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,488,undefined,"🪙 HAYQ",page__hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,488,undefined,"🪙 HAYQ",page__hayq
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,492,undefined,"🍎 Seeds",page__seeds
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,492,undefined,"🍎 Seeds",page__seeds
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,496,undefined,"❤️ Hearts",page__hearts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,496,undefined,"❤️ Hearts",page__hearts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,500,undefined,"🛡️ Freeze",page__freeze
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,500,undefined,"🛡️ Freeze",page__freeze
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,504,undefined,"📚 Crowns",page__crowns
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,504,undefined,"📚 Crowns",page__crowns
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,513,undefined,"✅ Completed Quests",page__completed_quests
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,513,undefined,"✅ Completed Quests",page__completed_quests
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,574,undefined,"Ընթացիկ լեզուներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,574,undefined,"Ընթացիկ լեզուներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,576,undefined,"Մայրենի՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,576,undefined,"Մայրենի՝",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,588,undefined,"Մայրենի լեզու (Native)",page__native_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,588,undefined,"Մայրենի լեզու (Native)",page__native_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,608,undefined,"Սովորվող լեզու (Learning)",page__learning_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,608,undefined,"Սովորվող լեզու (Learning)",page__learning_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,626,undefined,"⚠️ Մայրենին և սովորվողը չեն կարող նույնը լինել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,626,undefined,"⚠️ Մայրենին և սովորվողը չեն կարող նույնը լինել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,648,undefined,"⚠️ Վտանգավոր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,648,undefined,"⚠️ Վտանգավոր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,691,undefined,"⚠️",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,692,undefined,"Վերականգնել Onboarding-ը?",page__onboarding_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,692,undefined,"Վերականգնել Onboarding-ը?",page__onboarding_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,696,undefined,"Այս գործողությունը հետադարձելի չէ!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\page.tsx,696,undefined,"Այս գործողությունը հետադարձելի չէ!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,114,undefined,"ՀԱՅԵՐԵՆ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,115,undefined,"ENGLISH",page_english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,116,undefined,"РУССКИЙ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,446,undefined,"❌ Չհաջողվեց բեռնել բառարանը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,799,undefined,"Բառը ջնջվեց ✅",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,855,undefined,"Բառը թարմացվեց ✅",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,893,undefined,"❌ Արտահանումը ձախողվեց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,923,undefined,"⚠️ Ֆայլը դատարկ է",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,931,undefined,"⚠️ Բոլոր բառերն արդեն կան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,940,undefined,"❌ Ներմուծումը ձախողվեց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1048,undefined,"ID-ն պատճենվեց 📋",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1058,undefined,"Օգտատիրոջ բառարանը բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1058,undefined,"Օգտատիրոջ բառարանը բեռնվում է...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1093,undefined,"Օգտատիրոջ բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1093,undefined,"Օգտատիրոջ բառարան",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1096,undefined,"{wordStats.total} բառ",page__wordstats_total_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1098,undefined,"👤 {wordStats.userAdded} ձեռքով ավելացված",page__wordstats_useradded_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1100,undefined,"🎵 {wordStats.hasAudio} աուդիո",page__wordstats_hasaudio_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1102,undefined,"⭐ {favorites.size} սիրված",page__favorites_size_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1106,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1106,undefined,"🔊 WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1112,undefined,"📱 Offline ({offlineAudioCount})",page__offline_offlineaudiocount_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1219,undefined,"Վերաբեռնել JSON-ից",page__json_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1262,undefined,"Որոնել բառեր... (Ctrl+K)",page__ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1303,undefined,"📚 Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1304,undefined,"👤 Օգտատիրոջ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1305,undefined,"⚙️ Համակարգային",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1306,undefined,"🎵 Աուդիոով",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1307,undefined,"🔇 Առանց աուդիո",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1308,undefined,"🔊 WAV-ով",page__wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1309,undefined,"⭐ Սիրվածներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1317,undefined,"🆕 Նորագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1318,undefined,"📅 Հինագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1319,undefined,"🔤 Այբբենական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1320,undefined,"🔤 Հակառակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1321,undefined,"⭐ Սիրվածներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1384,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1384,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1386,undefined,"բառ ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1386,undefined,"բառ ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1388,undefined,"🇦🇲 {wordStats.byLanguage.hy}",page__wordstats_bylanguage_hy_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1389,undefined,"🇬🇧 {wordStats.byLanguage.en}",page__wordstats_bylanguage_en_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1390,undefined,"🇷🇺 {wordStats.byLanguage.ru}",page__wordstats_bylanguage_ru_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1392,undefined,"⭐ {favorites.size}",page__favorites_size_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1404,undefined,"ID-ներ՝",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1404,undefined,"ID-ներ՝",page_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1526,undefined,"Խմբագրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1533,undefined,"Ջնջել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1564,undefined,"🎵",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1564,undefined,"🎵",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1640,undefined,"🆔 {item.id}",page__item_id_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1641,undefined,"📝 {item.type || "user"}",page__item_type_user_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1642,undefined,"⭐ {item.isUserAdded ? "User added" : "System"}",page__item_isuseradded_user_added_system_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1644,undefined,"🌐 {item.translationSource}",page__item_translationsource_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1647,undefined,"📁 {item.category}",page__item_category_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1650,undefined,"📊 {item.difficulty}",page__item_difficulty_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1653,undefined,"Mode: {audioMode.toUpperCase()}",page_mode_audiomode_touppercase_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1662,undefined,"📅 Ստեղծված՝ {formatDate(item.createdAt)}",page__formatdate_item_createdat_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1664,undefined,"✏️ Թարմացված՝ {formatDate(item.updatedAt)}",page__formatdate_item_updatedat_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1755,undefined,"(ID: {getNextId()})",page__id_getnextid_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1771,undefined,"🇦🇲 Հայերեն *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1771,undefined,"🇦🇲 Հայերեն *",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1776,undefined,"Մուտքագրեք բառը...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1783,undefined,"🇬🇧 English",page__english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1783,undefined,"🇬🇧 English",page__english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1788,undefined,"Enter translation...",page_enter_translation_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1794,undefined,"🇷🇺 Русский",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1794,undefined,"🇷🇺 Русский",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1799,undefined,"Введите перевод...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1805,undefined,"🏷️ Tags (բաժանել ստորակետերով)",page__tags_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1805,undefined,"🏷️ Tags (բաժանել ստորակետերով)",page__tags_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1810,undefined,"օր.՝ verb, food, travel",page__verb_food_travel
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1815,undefined,"📁 Category",page__category
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1815,undefined,"📁 Category",page__category
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\user-dictionary\page.tsx,1820,undefined,"օր.՝ general, food, travel",page__general_food_travel
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,395,undefined,"❌ Audio playback failed",page__audio_playback_failed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,419,undefined,"🎙️ Ձայնագրությունը պահպանվեց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,450,undefined,"🗑️ Ձայնագրությունը ջնջվեց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,458,undefined,"❌ WAV client not available",page__wav_client_not_available
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,494,undefined,"❌ WAV generation failed",page__wav_generation_failed
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,502,undefined,"❌ WAV client not available",page__wav_client_not_available
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,508,undefined,"✅ All words already have WAV",page__all_words_already_have_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,645,undefined,"Բառապաշար Audio",page__audio
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,645,undefined,"Բառապաշար Audio",page__audio
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,648,undefined,"{vocab.length} բառ",page__vocab_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,650,undefined,"🎵 {audioStats?.withAudio || 0} աուդիո",page__audiostats_withaudio_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,652,undefined,"🔊 {audioStats?.withWAV || 0} WAV",page__audiostats_withwav_0_wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,654,undefined,"🎤 {audioStats?.withRecording || 0} ձայնագրություն",page__audiostats_withrecording_0_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,658,undefined,"📱 Offline ({offlineAudioCount})",page__offline_offlineaudiocount_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,686,undefined,"Ցուցակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,695,undefined,"Ցանց",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,704,undefined,"Կոմպակտ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,787,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,787,undefined,"Վիճակագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,800,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,800,undefined,"Ֆիլտրեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,823,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,823,undefined,"Մաքրել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,843,undefined,"Ընդհանուր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,847,undefined,"Աուդիոով",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,851,undefined,"WAV-ով",page_wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,855,undefined,"Ձայնագրություն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,878,undefined,"📊 Ֆիլտր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,878,undefined,"📊 Ֆիլտր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,884,undefined,"📚 Բոլորը",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,885,undefined,"🎤 Ձայնագրությամբ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,886,undefined,"🎤 Առանց ձայնագրության",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,887,undefined,"🔊 WAV-ով",page__wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,888,undefined,"🔊 Առանց WAV",page__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,893,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,893,undefined,"🔄 Տեսակավորում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,899,undefined,"📌 Լռելյայն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,900,undefined,"🔤 Այբբենական",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,901,undefined,"🔤 Հակառակ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,902,undefined,"🆕 Նորագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,903,undefined,"📅 Հինագույն",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,908,undefined,"🔍 Որոնում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,908,undefined,"🔍 Որոնում",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,915,undefined,"Որոնել բառեր...",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,946,undefined,"Որոնել բառեր... (Ctrl+K)",page__ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1004,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1004,undefined,"📚",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1006,undefined,"ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1006,undefined,"ցուցադրված",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1008,undefined,"🎤 {filteredVocab.filter(d => d.hasRecording).length}",page__filteredvocab_filter_d_d_hasrecording_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1009,undefined,"🔊 {filteredVocab.filter(d => d.hasWAV).length}",page__filteredvocab_filter_d_d_haswav_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1245,undefined,"🎵 {item.hasRecording ? "Ձայնագրություն կա" : "Ձայնագրություն չկա"}",page__item_hasrecording_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\vocab-audio\page.tsx,1247,undefined,"🔊 {item.hasWAV ? "WAV կա" : "WAV չկա"}",page__item_haswav_wav_wav_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,345,undefined,"🎁",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,345,undefined,"🎁",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,383,undefined,"🎯",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,384,undefined,"Օրվա նպատակը կատարված է!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,384,undefined,"Օրվա նպատակը կատարված է!",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,385,undefined,"Շարունակիր այսպես, դու հիանալի ես:",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,385,undefined,"Շարունակիր այսպես, դու հիանալի ես:",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,610,undefined,"❌ Քվեստը չհաջողվեց պահանջել",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,731,undefined,"NUR Lingo",page_nur_lingo
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,731,undefined,"NUR Lingo",page_nur_lingo
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,737,undefined,"Rank",page_rank
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,737,undefined,"Rank",page_rank
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,824,undefined,"Որոնել աշխարհներ և դասեր... (Ctrl+K)",page__ctrl_k_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,853,undefined,"🔓 Բոլոր դասերը բացված են",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,853,undefined,"🔓 Բոլոր դասերը բացված են",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,854,undefined,"DEV MODE",page_dev_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,854,undefined,"DEV MODE",page_dev_mode
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,881,undefined,"Դասեր",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,885,undefined,"👑 Crowns",page__crowns
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,889,undefined,"🔥 Best Streak",page__best_streak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,893,undefined,"📚 Units",page__units
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,897,undefined,"Overall Progress",page_overall_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,897,undefined,"Overall Progress",page_overall_progress
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,906,undefined,"{worldStats.overallProgress}%",page__worldstats_overallprogress_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,923,undefined,"Օրվա Քվեստներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,923,undefined,"Օրվա Քվեստներ",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,990,undefined,"World",page_world
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,990,undefined,"World",page_world
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\app\world\page.tsx,1086,undefined,"🔍",page__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\AudioControls.tsx,97,undefined,"● SPEAKING",AudioControls__speaking
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\AudioControls.tsx,97,undefined,"● SPEAKING",AudioControls__speaking
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,59,undefined,"Home",BottomNav_home
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,66,undefined,"World",BottomNav_world
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,73,undefined,"Dict",BottomNav_dict
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,80,undefined,"User",BottomNav_user
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,87,undefined,"Prog.",BottomNav_prog_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,94,undefined,"Dial.",BottomNav_dial_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,106,undefined,"Profile",BottomNav_profile
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\BottomNav.tsx,113,undefined,"Settings",BottomNav_settings
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,9,undefined,"NUR Lingo",Footer_nur_lingo
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,9,undefined,"NUR Lingo",Footer_nur_lingo
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,24,undefined,"Follow us",Footer_follow_us
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,24,undefined,"Follow us",Footer_follow_us
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,42,undefined,"Stay updated",Footer_stay_updated
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\Footer.tsx,42,undefined,"Stay updated",Footer_stay_updated
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,442,undefined,"Ճիշտ է! 🎉",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,442,undefined,"Ճիշտ է! 🎉",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,505,undefined,"Լրացրեք բաց թողած բառը",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,505,undefined,"Լրացրեք բաց թողած բառը",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,650,undefined,"Ձայնային արտասանությունը հասանելի չէ",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,650,undefined,"Ձայնային արտասանությունը հասանելի չէ",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,663,undefined,"Զրույցը դատարկ է",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,663,undefined,"Զրույցը դատարկ է",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,664,undefined,"Տվյալներ չկան",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,664,undefined,"Տվյալներ չկան",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,695,undefined,"Սկսել նորից",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,705,undefined,"Առաջընթաց",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,705,undefined,"Առաջընթաց",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,734,undefined,"🎉",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,764,undefined,"🔊 WAV",InteractiveDialogue__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,764,undefined,"🔊 WAV",InteractiveDialogue__wav
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,767,undefined,"🎤 TTS",InteractiveDialogue__tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,767,undefined,"🎤 TTS",InteractiveDialogue__tts
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,771,undefined,"🔊 Նվագարկվում է...",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveDialogue.tsx,771,undefined,"🔊 Նվագարկվում է...",InteractiveDialogue__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,16,undefined,"Արեգ",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,16,undefined,"Areg",InteractiveLesson_areg
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,17,undefined,"Անի",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,17,undefined,"Ani",InteractiveLesson_ani
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,20,undefined,"Male",InteractiveLesson_male
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,21,undefined,"Female",InteractiveLesson_female
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,24,undefined,"Мужской",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,25,undefined,"Женский",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,265,undefined,"Բեռնում է աուդիո համակարգը...",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,265,undefined,"Բեռնում է աուդիո համակարգը...",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,344,undefined,"/ {exercises.length}",InteractiveLesson__exercises_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,364,undefined,"Լեզու:",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,364,undefined,"Լեզու:",InteractiveLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,385,undefined,"{lang}:",InteractiveLesson__lang_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,424,undefined,"💡 {current.hint}",InteractiveLesson__current_hint_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\InteractiveLesson.tsx,623,undefined,"Offline mode • {offlineAudio.audioCount} audio files",InteractiveLesson_offline_mode_offlineaudio_audiocount_audio_files
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,113,undefined,"Բեռնում...",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,124,undefined,"📚 Նուր Լինգո",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,124,undefined,"📚 Նուր Լինգո",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,140,undefined,"{unit.lessons.length} դաս",MultilingualLearningModule__unit_lessons_length_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,173,undefined,"Դաս {idx+1}",MultilingualLearningModule__idx_1_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,270,undefined,"Մուտքագրեք պատասխանը...",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,289,undefined,"👆 Հպեք բառերին՝ տեղերը փոխելու համար",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,289,undefined,"👆 Հպեք բառերին՝ տեղերը փոխելու համար",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,321,undefined,"Վարժության այս տեսակը դեռ չի աջակցվում",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,328,undefined,"← Վերադառնալ դասերին",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\MultilingualLearningModule.tsx,328,undefined,"← Վերադառնալ դասերին",MultilingualLearningModule__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineAudioPlayer.tsx,315,undefined,"⚠️",OfflineAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineAudioPlayer.tsx,315,undefined,"⚠️",OfflineAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,66,undefined,"📡 Offline",OfflineIndicator__offline
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,75,undefined,"💾 Cached",OfflineIndicator__cached
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,83,undefined,"🟢 Online",OfflineIndicator__online
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,156,undefined,"Check connection",OfflineIndicator_check_connection
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,196,undefined,"Audio:",OfflineIndicator_audio_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,200,undefined,"Words:",OfflineIndicator_words_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,204,undefined,"Status:",OfflineIndicator_status_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\OfflineIndicator.tsx,204,undefined,"Offline Ready",OfflineIndicator_offline_ready
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ThemeToggle.tsx,110,undefined,"🌙",ThemeToggle__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ThemeToggle.tsx,110,undefined,"🌙",ThemeToggle__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,16,undefined,"Արեգ",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,16,undefined,"Areg",TrilingualAudioPlayer_areg
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,17,undefined,"Անի",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,17,undefined,"Ani",TrilingualAudioPlayer_ani
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,20,undefined,"Male",TrilingualAudioPlayer_male
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,21,undefined,"Female",TrilingualAudioPlayer_female
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,24,undefined,"Мужской",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,25,undefined,"Женский",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,294,undefined,"Ձայն:",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,294,undefined,"Ձայն:",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualAudioPlayer.tsx,297,undefined,"{lang}:",TrilingualAudioPlayer__lang_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,163,undefined,"Loading...",TrilingualDictionary_loading_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,163,undefined,"Loading...",TrilingualDictionary_loading_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,173,undefined,"📖 Dictionary",TrilingualDictionary__dictionary
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,173,undefined,"📖 Dictionary",TrilingualDictionary__dictionary
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,181,undefined,"{entries.length} entries",TrilingualDictionary__entries_length_entries
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,190,undefined,"Search words...",TrilingualDictionary_search_words_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,203,undefined,"All categories",TrilingualDictionary_all_categories
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,273,undefined,"📚 {filteredEntries.length} entries",TrilingualDictionary__filteredentries_length_entries
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,274,undefined,"🌐 HY • EN • RU",TrilingualDictionary__hy_en_ru
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualDictionary.tsx,274,undefined,"🌐 HY • EN • RU",TrilingualDictionary__hy_en_ru
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,16,undefined,"Արեգ (տղամարդ)",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,16,undefined,"Areg",TrilingualLesson_areg
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,17,undefined,"Անի (կին)",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,17,undefined,"Ani",TrilingualLesson_ani
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,20,undefined,"Male",TrilingualLesson_male
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,21,undefined,"Female",TrilingualLesson_female
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,24,undefined,"Мужской",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,25,undefined,"Женский",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,148,undefined,"Հայ",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,149,undefined,"EN",TrilingualLesson_en
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,150,undefined,"RU",TrilingualLesson_ru
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,236,undefined,"Ձայն:",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,236,undefined,"Ձայն:",TrilingualLesson__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,241,undefined,"{lang}:",TrilingualLesson__lang_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,257,undefined,"Offline mode • {offlineAudio.audioCount} audio files available",TrilingualLesson_offline_mode_offlineaudio_audiocount_audio_files_a
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,270,undefined,"Enable offline mode to play audio",TrilingualLesson_enable_offline_mode_to_play_audio
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,270,undefined,"Enable offline mode to play audio",TrilingualLesson_enable_offline_mode_to_play_audio
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,331,undefined,"📚 {vocabItems.length} words",TrilingualLesson__vocabitems_length_words
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,333,undefined,"💬 {phraseItems.length} phrases",TrilingualLesson__phraseitems_length_phrases
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,335,undefined,"🌐 HY • EN • RU",TrilingualLesson__hy_en_ru
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,335,undefined,"🌐 HY • EN • RU",TrilingualLesson__hy_en_ru
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,368,undefined,"📚 Vocabulary",TrilingualLesson__vocabulary
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\TrilingualLesson.tsx,373,undefined,"💬 Phrases",TrilingualLesson__phrases
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\alert.tsx,33,undefined,"& VariantProps",alert__variantprops
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\breadcrumb.tsx,93,undefined,"More",breadcrumb_more
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\breadcrumb.tsx,93,undefined,"More",breadcrumb_more
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\button.tsx,46,undefined,", VariantProps",button__variantprops
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\calendar.tsx,25,undefined,"text-sm font-medium text-foreground/80",calendar_text_sm_font_medium_text_foreground_80
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\carousel.tsx,200,undefined,"Previous slide",carousel_previous_slide
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\carousel.tsx,200,undefined,"Previous slide",carousel_previous_slide
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\carousel.tsx,228,undefined,"Next slide",carousel_next_slide
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\carousel.tsx,228,undefined,"Next slide",carousel_next_slide
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\dialog.tsx,49,undefined,"Close",dialog_close
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\dialog.tsx,49,undefined,"Close",dialog_close
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\form.tsx,22,undefined,"= FieldPath",form__fieldpath
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\form.tsx,31,undefined,"= FieldPath",form__fieldpath
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\label.tsx,15,undefined,"& VariantProps",label__variantprops
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,63,undefined,"Previous",pagination_previous
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,63,undefined,"Previous",pagination_previous
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,75,undefined,"Next",pagination_next
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,75,undefined,"Next",pagination_next
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,88,undefined,"More pages",pagination_more_pages
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\pagination.tsx,88,undefined,"More pages",pagination_more_pages
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\sheet.tsx,66,undefined,"Close",sheet_close
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\sheet.tsx,66,undefined,"Close",sheet_close
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\ui\toggle.tsx,33,undefined,"& VariantProps",toggle__variantprops
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\components\UserRecordingButton.tsx,282,undefined,"Delete recording",UserRecordingButton_delete_recording
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\newsletter.ts,5,undefined,"Thank you for subscribing!",newsletter_thank_you_for_subscribing_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\newsletter.ts,8,undefined,"Something went wrong. Please try again.",newsletter_something_went_wrong_please_try_again_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\newsletter.ts,11,undefined,"Enter your email address...",newsletter_enter_your_email_address_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,38,undefined,"Instagram",social_instagram
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,47,undefined,"Facebook",social_facebook
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,56,undefined,"YouTube",social_youtube
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,65,undefined,"TikTok",social_tiktok
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,74,undefined,"Twitter / X",social_twitter_x
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,83,undefined,"LinkedIn",social_linkedin
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,92,undefined,"Telegram",social_telegram
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,101,undefined,"Spotify",social_spotify
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,110,undefined,"Discord",social_discord
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,119,undefined,"GitHub",social_github
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,128,undefined,"Email",social_email
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,137,undefined,"Website",social_website
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\config\social.ts,219,undefined,"NUR Lingo",social_nur_lingo
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\adaptive\mastery.ts,51,undefined,"e.nextReviewDate",mastery_e_nextreviewdate
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioManager.ts,319,undefined,"): Promise",AudioManager__promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioManifest.ts,20,undefined,"Հայերեն",AudioManifest__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioManifest.ts,21,undefined,"English",AudioManifest_english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioManifest.ts,22,undefined,"Русский",AudioManifest__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioManifest.ts,167,undefined,"): Promise",AudioManifest__promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioTypes.ts,22,undefined,"Armenian",AudioTypes_armenian
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioTypes.ts,32,undefined,"English",AudioTypes_english
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\audio\AudioTypes.ts,42,undefined,"Russian",AudioTypes_russian
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,62,undefined,"Haykakan Aktiv Yuratsman Qanak",blockchain_haykakan_aktiv_yuratsman_qanak
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,122,undefined,"Offchain",blockchain_offchain
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,132,undefined,"Ethereum",blockchain_ethereum
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,146,undefined,"HAYQ Token",blockchain_hayq_token
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,158,undefined,"Polygon",blockchain_polygon
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hayq\blockchain.ts,172,undefined,"HAYQ Token",blockchain_hayq_token
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioEngine.ts,45,undefined,"Promise",useAudioEngine_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioEngine.ts,49,undefined,"Promise",useAudioEngine_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioEngine.ts,51,undefined,"Promise",useAudioEngine_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioEngine.ts,338,undefined,"): Promise",useAudioEngine__promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,14,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,16,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,17,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,24,undefined,"Record",useAudioRecorder_record
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,26,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,27,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useAudioRecorder.ts,32,undefined,"Promise",useAudioRecorder_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,40,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,41,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,42,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,43,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,44,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,45,undefined,"Promise",useLessonAudio_promise
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,633,undefined,"0 && text.length",useLessonAudio_0_text_length
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,667,undefined,"0 && text.length",useLessonAudio_0_text_length
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\hooks\useLessonAudio.ts,675,undefined,"0 && text.length",useLessonAudio_0_text_length
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,183,undefined,"Greetings & Basics",engine_greetings_basics
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,196,undefined,"Home & Movement",engine_home_movement
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,209,undefined,"Food & Drink",engine_food_drink
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,222,undefined,"Family",engine_family
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,235,undefined,"Education",engine_education
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\lessons\engine.ts,254,undefined,"Hello Armenia",engine_hello_armenia
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\notifications.ts,10,undefined,"Նուռիկ 🍎",notifications__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\notifications.ts,14,undefined,"Нурик 🍎",notifications__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\notifications.ts,18,undefined,"Nuri 🍎",notifications_nuri_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioManager.ts,236,undefined,"): Record",OfflineAudioManager__record
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,43,undefined,"Հայերեն",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,44,undefined,"Անգլերեն",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,45,undefined,"Ռուսերեն",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,46,undefined,"Բառարան Հայ",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,47,undefined,"Բառարան Անգլ",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\OfflineAudioSystem.test.ts,48,undefined,"Բառարան Ռուս",OfflineAudioSystem.test__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\TrilingualAudioPlayer.tsx,309,undefined,"Ձայն:",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\TrilingualAudioPlayer.tsx,309,undefined,"Ձայն:",TrilingualAudioPlayer__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\TrilingualAudioPlayer.tsx,312,undefined,"{lang}:",TrilingualAudioPlayer__lang_
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\offline\TrilingualAudioPlayer.tsx,377,undefined,"{audioCount} audio files available",TrilingualAudioPlayer__audiocount_audio_files_available
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,58,undefined,"🌱 Սկսնակ",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,59,undefined,"🌿 Սովորող",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,60,undefined,"🌳 Ընթերցող",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,61,undefined,"📖 Գիտակ",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,62,undefined,"🎓 Փորձագետ",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,63,undefined,"🏆 Մասնագետ",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,64,undefined,"👑 Վարպետ",seeds__
+C:\Users\Armen\Documents\NurLingo\NURLingo-main\lingo-offline-pal-master - Copy\src\lib\rewards\seeds.ts,65,undefined,"⭐ Լեգենդ",seeds__

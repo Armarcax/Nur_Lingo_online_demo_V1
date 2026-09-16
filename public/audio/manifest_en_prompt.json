@@ -1,0 +1,22 @@
+{
+  "entries": {
+    "000001": {
+      "text": "What is \"good morning\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000001.mp3",
+      "audioId": "000001",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-29T22:51:43.661Z"
+    },
+    "000002": {
+      "text": "What is \"good morning\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000002.mp3",
+      "audioId": "000002",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-29T23:04:37.272Z"
+    }
+  },
+  "totalEntries": 2,
+  "lastUpdated": "2026-08-29T23:04:37.272Z"
+}

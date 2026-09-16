@@ -1,0 +1,910 @@
+{
+  "timestamp": "2026-08-27T22:54:18.147Z",
+  "total": 100,
+  "passed": 100,
+  "failed": 0,
+  "withAudio": 0,
+  "withError": 100,
+  "results": [
+    {
+      "lessonId": "w1_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 285,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 79,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 73,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 84,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 44,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 70,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 53,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 45,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w1_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 85,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w1_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 53,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 66,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 82,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 48,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 41,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 57,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 36,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 65,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 36,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w2_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 63,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w2_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 81,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 56,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 53,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 72,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 57,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 89,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 112,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 47,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w3_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 112,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w3_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 80,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 56,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 95,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 53,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 74,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 62,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 46,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 84,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w4_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 67,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w4_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 79,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 75,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 40,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 53,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 84,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 92,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 98,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 40,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w5_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w5_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 84,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 69,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 89,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 108,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 99,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 78,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 76,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 76,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 86,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w6_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 97,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w6_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 97,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 82,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 38,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 85,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 81,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 52,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 66,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 52,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 46,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w7_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 127,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w7_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 85,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 86,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 70,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 61,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 59,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 61,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 61,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 75,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 79,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w8_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 46,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w8_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 64,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 52,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 71,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 70,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 75,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 94,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 57,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 85,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 83,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w9_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 46,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w9_l10&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l1",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 37,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l1&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l2",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 42,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l2&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l3",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 59,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l3&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l4",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 97,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l4&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l5",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 68,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l5&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l6",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 82,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l6&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l7",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 105,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l7&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l8",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 71,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l8&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l9",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 48,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l9&pair=hy-en"
+    },
+    {
+      "lessonId": "w10_l10",
+      "status": "✅",
+      "statusCode": 200,
+      "duration": 79,
+      "hasAudio": false,
+      "hasError": true,
+      "url": "http://localhost:3009/learn?lesson=w10_l10&pair=hy-en"
+    }
+  ]
+}

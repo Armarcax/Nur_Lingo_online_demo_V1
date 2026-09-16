@@ -1,0 +1,23 @@
+{
+  "lastGenerated": "000001",
+  "lastAudioId": {
+    "hy": "000003",
+    "en": "000000",
+    "ru": "000000",
+    "prompt": {
+      "hy": "000001",
+      "en": "000000",
+      "ru": "000000"
+    },
+    "answer": {
+      "hy": "000000",
+      "en": "000000",
+      "ru": "000000"
+    }
+  },
+  "totalGenerated": 4,
+  "pendingItems": [],
+  "completedItems": [],
+  "errors": [],
+  "timestamp": "2026-08-29T19:17:24.119Z"
+}

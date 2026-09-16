@@ -1,0 +1,198 @@
+{
+  "entries": {
+    "000001": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_promt/000001.mp3",
+      "audioId": "000001",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:02:29.066Z"
+    },
+    "000002": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_promt/000002.mp3",
+      "audioId": "000002",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:02:55.992Z"
+    },
+    "000003": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/hy_promt/000003.mp3",
+      "audioId": "000003",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:10:15.891Z"
+    },
+    "000004": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_promt/000004.mp3",
+      "audioId": "000004",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:10:43.460Z"
+    },
+    "000005": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_promt/000005.mp3",
+      "audioId": "000005",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:22:21.308Z"
+    },
+    "000006": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_promt/000006.mp3",
+      "audioId": "000006",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:22:37.775Z"
+    },
+    "000007": {
+      "text": "բարև",
+      "path": "/audio/offline/hy_promt/000007.mp3",
+      "audioId": "000007",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:25:57.045Z"
+    },
+    "000008": {
+      "text": "ողջույն",
+      "path": "/audio/offline/hy_promt/000008.mp3",
+      "audioId": "000008",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:26:21.927Z"
+    },
+    "000009": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_promt/000009.mp3",
+      "audioId": "000009",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:52:00.740Z"
+    },
+    "000010": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/hy_promt/000010.mp3",
+      "audioId": "000010",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-29T22:56:40.489Z"
+    },
+    "000011": {
+      "text": "Ընտրիր \"բարև\"-ի թարգմանությունը",
+      "path": "/audio/offline/hy_promt/000011.mp3",
+      "audioId": "000011",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:24:27.347Z"
+    },
+    "000012": {
+      "text": "Ի՞նչ է «բարև»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000012.mp3",
+      "audioId": "000012",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:24:31.398Z"
+    },
+    "000013": {
+      "text": "Ի՞նչ է «ողջույն»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000013.mp3",
+      "audioId": "000013",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:24:45.930Z"
+    },
+    "000014": {
+      "text": "Ի՞նչ է «բարի լույս»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000014.mp3",
+      "audioId": "000014",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:24:55.737Z"
+    },
+    "000015": {
+      "text": "Ի՞նչ է «բարի օր»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000015.mp3",
+      "audioId": "000015",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:28:19.252Z"
+    },
+    "000016": {
+      "text": "Ի՞նչ է «բարի երեկո»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000016.mp3",
+      "audioId": "000016",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:29:35.764Z"
+    },
+    "000017": {
+      "text": "Ընտրիր \"բարև\"-ի թարգմանությունը",
+      "path": "/audio/offline/hy_promt/000017.mp3",
+      "audioId": "000017",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:31:01.027Z"
+    },
+    "000018": {
+      "text": "Ի՞նչ է «բարև»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000018.mp3",
+      "audioId": "000018",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:31:03.231Z"
+    },
+    "000019": {
+      "text": "Ի՞նչ է «ողջույն»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000019.mp3",
+      "audioId": "000019",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:31:11.024Z"
+    },
+    "000020": {
+      "text": "Ի՞նչ է «բարև»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000020.mp3",
+      "audioId": "000020",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:32:00.148Z"
+    },
+    "000021": {
+      "text": "Ի՞նչ է «ողջույն»-ը ռուսերենով։",
+      "path": "/audio/offline/hy_promt/000021.mp3",
+      "audioId": "000021",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:32:21.915Z"
+    },
+    "000022": {
+      "text": "Выбери перевод \"привет\"",
+      "path": "/audio/offline/hy_promt/000022.mp3",
+      "audioId": "000022",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:44:31.821Z"
+    },
+    "000023": {
+      "text": "Выбери перевод \"привет\"",
+      "path": "/audio/offline/hy_promt/000023.mp3",
+      "audioId": "000023",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:45:46.409Z"
+    },
+    "000024": {
+      "text": "Переведи: \"բարև\"",
+      "path": "/audio/offline/hy_promt/000024.mp3",
+      "audioId": "000024",
+      "type": "promt",
+      "language": "hy",
+      "createdAt": "2026-08-30T19:45:58.341Z"
+    }
+  },
+  "totalEntries": 24,
+  "lastUpdated": "2026-08-30T19:45:58.341Z"
+}

@@ -1,0 +1,110 @@
+{
+  "entries": {
+    "000003": {
+      "text": "What is \"good morning\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000003.mp3",
+      "audioId": "000003",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-29T23:20:45.180Z"
+    },
+    "000004": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000004.mp3",
+      "audioId": "000004",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-29T23:20:45.610Z"
+    },
+    "000005": {
+      "text": "What is \"hi\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000005.mp3",
+      "audioId": "000005",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-29T23:21:16.068Z"
+    },
+    "000006": {
+      "text": "What is \"good morning\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000006.mp3",
+      "audioId": "000006",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T13:12:01.048Z"
+    },
+    "000007": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/en_prompt/000007.mp3",
+      "audioId": "000007",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:33:16.520Z"
+    },
+    "000008": {
+      "text": "What is \"hello\" in Russian?",
+      "path": "/audio/offline/en_prompt/000008.mp3",
+      "audioId": "000008",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:33:20.462Z"
+    },
+    "000009": {
+      "text": "What is \"hi\" in Russian?",
+      "path": "/audio/offline/en_prompt/000009.mp3",
+      "audioId": "000009",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:33:54.364Z"
+    },
+    "000010": {
+      "text": "Choose the meaning of \"hello\"",
+      "path": "/audio/offline/en_prompt/000010.mp3",
+      "audioId": "000010",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:35:01.586Z"
+    },
+    "000011": {
+      "text": "What is \"hello\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000011.mp3",
+      "audioId": "000011",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:35:11.084Z"
+    },
+    "000012": {
+      "text": "What is \"hi\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000012.mp3",
+      "audioId": "000012",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:35:40.221Z"
+    },
+    "000013": {
+      "text": "What is \"good morning\" in Armenian?",
+      "path": "/audio/offline/en_prompt/000013.mp3",
+      "audioId": "000013",
+      "type": "prompt",
+      "language": "en",
+      "createdAt": "2026-08-30T19:36:04.969Z"
+    },
+    "000001": {
+      "text": "hello",
+      "path": "/audio/offline/en_answer/000001.mp3",
+      "audioId": "000001",
+      "type": "answer",
+      "language": "en",
+      "createdAt": "2026-08-30T19:38:48.854Z"
+    },
+    "000002": {
+      "text": "hi",
+      "path": "/audio/offline/en_answer/000002.mp3",
+      "audioId": "000002",
+      "type": "answer",
+      "language": "en",
+      "createdAt": "2026-08-30T19:39:16.333Z"
+    }
+  },
+  "totalEntries": 13,
+  "lastUpdated": "2026-08-30T19:39:16.334Z"
+}

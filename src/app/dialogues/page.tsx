@@ -1,7 +1,7 @@
 // src/app/dialogues/page.tsx
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, Suspense } from "react";
 import { useNuri } from "@/hooks/useNuri";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -243,7 +243,7 @@ function DialogueProgressBar({ progress }: { progress: number }) {
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────
 
-export default function DialoguesPage() {
+function DialoguesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setPage } = useNuri();
@@ -1465,5 +1465,16 @@ export default function DialoguesPage() {
 
       <BottomNav />
     </div>
+  );
+}
+
+
+// ─── DEFAULT EXPORT WITH SUSPENSE ────────────────────────────────────
+
+export default function DialoguesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>}>
+      <DialoguesContent />
+    </Suspense>
   );
 }

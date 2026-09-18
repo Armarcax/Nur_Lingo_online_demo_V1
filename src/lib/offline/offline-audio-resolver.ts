@@ -2,6 +2,7 @@
 
 import { EXERCISE_TO_AUDIO as EXERCISE_TO_AUDIO_RAW } from '@/lib/content/audio-mapping';
 
+export type OfflineLanguage = 'hy' | 'en' | 'ru';
 export const EXERCISE_TO_AUDIO = EXERCISE_TO_AUDIO_RAW;
 
 // ─── TYPES ──────────────────────────────────────────────────────────

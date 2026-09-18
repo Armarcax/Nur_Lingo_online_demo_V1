@@ -873,7 +873,7 @@ const project =
     skipAddingFilesFromTsConfig: true,
     compilerOptions: {
       allowJs: true,
-      jsx: "react-jsx",
+      jsx: 4,
       target: 99,
       module: 99,
       moduleResolution: 2,

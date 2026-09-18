@@ -314,7 +314,9 @@ export function UserRecordingButton({
 
       {/* Status icons */}
       {hasRecording && !isRecording && !isPlaying && (
-        <CheckCircle size={14} className="text-emerald-500" title={t("user_recording_saved")} />
+        <span title={t("user_recording_saved")}>
+          <CheckCircle size={14} className="text-emerald-500" />
+        </span>
       )}
 
       {error && (

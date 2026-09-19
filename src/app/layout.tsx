@@ -9,6 +9,7 @@ import { NuriFloating } from "@/components/NuriFloating";
 import { ThemeBackground } from "@/components/ThemeBackground";
 import { NuriRain } from "@/components/NuriRain";
 import { I18nProvider } from "@/components/I18nProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -235,6 +236,7 @@ export default function RootLayout({
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

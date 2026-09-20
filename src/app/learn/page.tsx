@@ -82,6 +82,7 @@ import { getWavClient, WavClient } from "@/lib/audio/WavClient";
 import type { LanguageCode } from "@/lib/audio";
 import { resolveExerciseAudio, resolveOfflineAudio } from '@/lib/offline/offline-audio-resolver';
 import { useI18n } from "@/hooks/useI18n";
+import { translateOfflineLessonForLang } from "@/lib/offline/offline-lesson-translator";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 
@@ -1241,6 +1242,8 @@ function LearnInner() {
           }
         } else {
           console.log(`✅ Professional lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
+          // 🌐 Translate options and targetAnswer to the learning language
+          l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
         }
       } else {
         console.log('🎮 Trying multilingual (amateur mode)...');

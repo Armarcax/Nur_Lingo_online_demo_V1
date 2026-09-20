@@ -54,8 +54,10 @@ export function NuriFloating({
   }, [autoHide, autoHideDelay, isMounted]);
 
   const positionClasses = {
-    "bottom-right": "bottom-4 right-4",
-    "bottom-left": "bottom-4 left-4",
+    // 📱 Mobile: raise Nuri up so it doesn't overlap the bottom nav
+    // 🖥️  Desktop (md+): keep it near the bottom corner
+    "bottom-right": "bottom-24 md:bottom-6 right-4",
+    "bottom-left": "bottom-24 md:bottom-6 left-4",
     "top-right": "top-4 right-4",
     "top-left": "top-4 left-4",
   };

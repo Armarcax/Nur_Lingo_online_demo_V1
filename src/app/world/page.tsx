@@ -141,11 +141,33 @@ function SnakePath({
   isUnlocked?: boolean;
 }) {
   const { t } = useI18n();
-  const STEP_Y = isCompact ? 100 : 130;
-  const AMPLITUDE = isCompact ? 100 : 140;
-  const WIDTH = isCompact ? 320 : 400;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(400);
+
+  // 📱 Responsive: measure available width on the parent and scale all positions
+  useEffect(() => {
+    const measure = () => {
+      const el = wrapperRef.current;
+      if (!el || !el.parentElement) return;
+      // GlassCard has p-6 (24px each side = 48px total padding)
+      const available = el.parentElement.clientWidth - 48;
+      setContainerWidth(Math.max(260, Math.min(400, available)));
+    };
+    // Let layout settle first
+    const t = setTimeout(measure, 0);
+    window.addEventListener('resize', measure);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
+
+  const WIDTH = containerWidth;
+  const scale = WIDTH / 400;
+  const STEP_Y = (isCompact ? 100 : 130) * scale;
+  const AMPLITUDE = (isCompact ? 100 : 140) * scale;
   const centerX = WIDTH / 2;
-  const height = Math.max(isCompact ? 120 : 160, lessons.length * STEP_Y + 40);
+  const height = Math.max((isCompact ? 120 : 160) * scale, lessons.length * STEP_Y + 40);
 
   const NODES_PER_SWING = 3.5;
   const nodeX = (i: number) => {
@@ -175,7 +197,7 @@ function SnakePath({
   };
 
   return (
-    <div className="relative mx-auto" style={{ width: WIDTH, height }}>
+    <div ref={wrapperRef} className="relative mx-auto" style={{ width: WIDTH, height }}>
       <svg className="absolute inset-0 pointer-events-none" width={WIDTH} height={height}>
         <path
           d={pathD}

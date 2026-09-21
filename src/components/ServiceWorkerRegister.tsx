@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { registerServiceWorker } from "@/lib/notifications";
 import { useI18n } from "@/hooks/useI18n";
 
 export default function ServiceWorkerRegister() {
@@ -13,7 +12,7 @@ export default function ServiceWorkerRegister() {
   useEffect(() => {
     const registerServiceWorkerWithOffline = async (): Promise<ServiceWorkerRegistration | null> => {
       if (typeof window === 'undefined') return null;
-      
+
       if (!('serviceWorker' in navigator)) {
         console.warn('⚠️ Service Worker not supported in this browser');
         return null;
@@ -27,20 +26,27 @@ export default function ServiceWorkerRegister() {
 
         console.log('✅ Service Worker registered:', registration);
 
+        // ─── UPDATE HANDLER ──────────────────────────────────────
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                console.log('🔄 New Service Worker available - refreshing...');
-                // ✅ t()-ն այստեղ հասանելի է
-                const shouldRefresh = confirm(t('service_worker_new_version'));
-                if (shouldRefresh) {
-                  window.location.reload();
-                }
+                console.log('🔄 New Service Worker available — activating...');
+                // ✅ Auto-activate without asking (we bumped cache version)
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
               }
             });
           }
+        });
+
+        // ─── AUTO-RELOAD ON CONTROLLER CHANGE ────────────────────
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshing) return;
+          refreshing = true;
+          console.log('🔄 Service Worker updated — reloading page...');
+          window.location.reload();
         });
 
         if (navigator.serviceWorker.controller) {
@@ -61,21 +67,39 @@ export default function ServiceWorkerRegister() {
       }
     });
 
+    // ─── CHECK FOR UPDATES ON PAGE FOCUS ─────────────────────────
+    const handleFocus = () => {
+      navigator.serviceWorker?.getRegistration().then((reg) => {
+        reg?.update().catch(() => {});
+      });
+    };
+
+    // ─── CHECK FOR UPDATES EVERY 60 SECONDS ──────────────────────
+    const updateInterval = setInterval(() => {
+      navigator.serviceWorker?.getRegistration().then((reg) => {
+        reg?.update().catch(() => {});
+      });
+    }, 60 * 1000);
+
+    // ─── ONLINE EVENT ────────────────────────────────────────────
     const handleOnline = () => {
-      console.log('📡 Online - checking for updates...');
-      if (registration) {
-        registration.update().catch(() => {});
-      }
+      console.log('📡 Online — checking for updates...');
+      navigator.serviceWorker?.getRegistration().then((reg) => {
+        reg?.update().catch(() => {});
+      });
     };
 
+    window.addEventListener('focus', handleFocus);
     window.addEventListener('online', handleOnline);
-    
-    return () => {
-      window.removeEventListener('online', handleOnline);
-    };
-  }, [t, registration]);
 
-  // ─── CACHE AUDIO ───────────────────────────────────────────────────
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('online', handleOnline);
+      clearInterval(updateInterval);
+    };
+  }, []);
+
+  // ─── CACHE AUDIO ────────────────────────────────────────────────
 
   const cacheAudioFiles = async (audioIds: string[]) => {
     if (!registration || !navigator.serviceWorker.controller) {
@@ -117,7 +141,7 @@ export default function ServiceWorkerRegister() {
       channel.port1.onmessage = (event) => {
         resolve(event.data);
       };
-      
+
       if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage(
           { type: 'GET_CACHE_STATUS' },
@@ -129,13 +153,12 @@ export default function ServiceWorkerRegister() {
     });
   };
 
-  // ─── EXPOSE TO WINDOW ─────────────────────────────────────────────
+  // ─── EXPOSE TO WINDOW ───────────────────────────────────────────
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       (window as any).__nurlingo_sw = {
         register: async () => {
-          // Re-run registration
           const reg = await navigator.serviceWorker?.register('/sw.js', {
             scope: '/',
             updateViaCache: 'none',
@@ -145,6 +168,16 @@ export default function ServiceWorkerRegister() {
         cacheAudio: cacheAudioFiles,
         clearCache,
         getCacheStatus,
+        forceUpdate: async () => {
+          const reg = await navigator.serviceWorker?.getRegistration();
+          await reg?.update();
+          console.log('🔄 Forced update check');
+        },
+        unregister: async () => {
+          const reg = await navigator.serviceWorker?.getRegistration();
+          await reg?.unregister();
+          console.log('🗑️ SW unregistered');
+        },
         registration,
       };
     }
@@ -153,7 +186,7 @@ export default function ServiceWorkerRegister() {
   return null;
 }
 
-// ─── HOOK ────────────────────────────────────────────────────────────
+// ─── HOOK ──────────────────────────────────────────────────────────
 
 export function useServiceWorker() {
   const [swReady, setSwReady] = useState(false);
@@ -192,7 +225,7 @@ export function useServiceWorker() {
 
   const getCacheStatus = async (): Promise<any> => {
     if (!navigator.serviceWorker.controller) return null;
-    
+
     return new Promise((resolve) => {
       const channel = new MessageChannel();
       channel.port1.onmessage = (event) => {

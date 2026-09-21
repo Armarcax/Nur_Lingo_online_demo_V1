@@ -113,7 +113,7 @@ class OfflineLessonEngine {
   private async loadLessonDictionary(): Promise<void> {
     try {
       // ✅ ՄԻԱՅՆ ԱՅՍ ԱՂԲՅՈՒՐԸ - lesson-dictionary.json
-      const response = await fetch('/data/dictionaries/lesson-dictionary.json', {
+      const response = await fetch('/data/lesson-dictionary.json', {
         headers: { 'Cache-Control': 'no-cache' }
       });
 

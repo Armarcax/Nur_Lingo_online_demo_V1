@@ -187,7 +187,7 @@ function buildTranslate(
     type: "translate",
     prompt: {
       en: `Translate to ${langName("en", target)}: "${ph.en}"`,
-      hy: `Թարգմանի՛ր ${langName("hy", target)}ով՝ «${ph.hy}»։`,
+      hy: `Թարգմանի՛ր ${langName("hy", target)}՝ «${ph.hy}»։`,
       ru: `Переведите на ${langName("ru", target).toLowerCase()}: «${ph.ru}»`,
     },
     targetAnswer,

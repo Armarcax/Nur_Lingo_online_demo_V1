@@ -1149,7 +1149,7 @@ function LearnInner() {
     const promptText = current.prompt?.[native] || current.prompt?.en || "";
     if (!promptText) return;
 
-    const delay = firstAutoPlayAttempted.current ? 300 : 500;
+    const delay = 50;
     
     if (autoPlayTimeoutRef.current) {
       clearTimeout(autoPlayTimeoutRef.current);
@@ -1390,7 +1390,7 @@ function LearnInner() {
 
   // ─── SUBMIT ────────────────────────────────────────────────────────
 
-  const submit = useCallback(async () => {
+    const submit = useCallback(async (overrideAnswer?: string) => {
     if (!current || ex.state === "submitting") return;
 
     let answerForApi: string = "";
@@ -1500,14 +1500,15 @@ function LearnInner() {
       }
       onWrong();
       return;
-    } else if (current.type === "multiple_choice") {
-      if (!ex.userAnswer) {
-        showMessage(t("page_please_select_answer"), "info");
-        return;
-      }
-      answerForApi = ex.userAnswer;
-      const selectedOption = current.options?.find(opt => opt === ex.userAnswer);
-      userAnswerText = selectedOption || ex.userAnswer;
+      } else if (current.type === "multiple_choice") {
+        const answerToUse = overrideAnswer ?? ex.userAnswer;
+        if (!answerToUse) {
+          showMessage(t("page_please_select_answer"), "info");
+          return;
+        }
+        answerForApi = answerToUse;
+        const selectedOption = current.options?.find(opt => opt === answerToUse);
+        userAnswerText = selectedOption || answerToUse;
     } else {
       if (!ex.userAnswer.trim()) {
         showMessage(t("page_please_enter_answer"), "info");
@@ -1630,9 +1631,8 @@ function LearnInner() {
       }
 
       if (current.targetAnswer) {
-        setTimeout(() => {
-          handleSpeak(current.targetAnswer, learningLang, 'answer');
-        }, 200);
+        // ✅ Immediate audio — no delay
+        handleSpeak(current.targetAnswer, learningLang, 'answer').catch(() => {});
       }
 
       let mood: NuriMood = "idle";
@@ -1652,6 +1652,13 @@ function LearnInner() {
         nuriSpeech: randomLine(speechKey),
         customImage: s.customImage,
       }));
+
+      // ✅ Auto-advance to next question on correct (after ~1.8s)
+      if (correct) {
+        setTimeout(() => {
+          try { nextRef.current?.(); } catch {}
+        }, 1800);
+      }
 
     } catch (error) {
       console.error("Submit error:", error);
@@ -2467,6 +2474,8 @@ function LearnInner() {
                   onSelect={(opt) => {
                     if (ex.state === "idle") {
                       setEx({ ...ex, userAnswer: opt });
+                      // ✅ Auto-submit immediately (50ms for UI feedback)
+                      setTimeout(() => submitRef.current?.(opt), 50);
                     }
                   }}
                   disabled={ex.state !== "idle"}
@@ -2530,7 +2539,7 @@ function LearnInner() {
                   {t("page_hint")}
                 </button>
                 <button
-                  onClick={submit}
+                  onClick={() => submit()}
                   className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
                 >
                   <Send size={18} />

@@ -1683,7 +1683,7 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-            // 🪙 Trigger HAYQ coin animation + auto-advance
+      // 🪙 Trigger HAYQ coin animation + auto-advance
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
         setTimeout(() => {
@@ -1691,10 +1691,14 @@ function LearnInner() {
           try { nextRef.current?.(); } catch {}
         }, 2200);
       } else {
-        // Wrong answer: auto-advance after showing correct answer
-        setTimeout(() => {
-          try { nextRef.current?.(); } catch {}
-        }, 2800);
+        // Wrong answer: only auto-advance if 3 attempts used up
+        const attemptsUsed = attempts + 1;
+        if (attemptsUsed >= 3) {
+          setTimeout(() => {
+            try { nextRef.current?.(); } catch {}
+          }, 2800);
+        }
+        // Otherwise: stay on same question, show retry button
       }
 
     } catch (error) {

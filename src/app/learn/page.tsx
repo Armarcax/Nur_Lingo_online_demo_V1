@@ -56,6 +56,7 @@ import {
   VolumeOff,
   GraduationCap,
   Gamepad2,
+  MousePointerClick,
 } from "lucide-react";
 import Nuri, { NuriSpeech, getMoodFromScore, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
@@ -108,6 +109,7 @@ interface ExState {
   showHint: boolean;
   timeSpent: number;
   showListenButton?: boolean;
+  showCoinAnimation?: boolean;
 }
 
 interface LessonStats {
@@ -521,6 +523,34 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
           </button>
         ))}
       </div>
+    </div>
+  );
+}
+
+// ─── HAYQ COIN ANIMATION (Super Mario style) ────────────────────────
+
+function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
+  if (!show) return null;
+  return (
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none">
+      <motion.div
+        initial={{ y: 0, opacity: 1, scale: 1, rotate: 0 }}
+        animate={{
+          y: -180,
+          opacity: [1, 1, 0],
+          scale: [1, 1.4, 1.6],
+          rotate: [0, 360],
+        }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="flex flex-col items-center gap-2"
+      >
+        <div className="text-6xl drop-shadow-[0_0_25px_rgba(250,204,21,0.9)]">
+          🪙
+        </div>
+        <div className="text-3xl font-black text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)] whitespace-nowrap">
+          +{amount} HAYQ
+        </div>
+      </motion.div>
     </div>
   );
 }
@@ -1653,11 +1683,18 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-      // ✅ Auto-advance to next question on correct (after ~1.8s)
+            // 🪙 Trigger HAYQ coin animation + auto-advance
       if (correct) {
+        setEx((s) => ({ ...s, showCoinAnimation: true }));
+        setTimeout(() => {
+          setEx((s) => ({ ...s, showCoinAnimation: false }));
+          try { nextRef.current?.(); } catch {}
+        }, 2200);
+      } else {
+        // Wrong answer: auto-advance after showing correct answer
         setTimeout(() => {
           try { nextRef.current?.(); } catch {}
-        }, 1800);
+        }, 2800);
       }
 
     } catch (error) {
@@ -1769,6 +1806,7 @@ function LearnInner() {
           showHint: false,
           timeSpent: 0,
           showListenButton: false,
+          showCoinAnimation: false,
         });
         setSW([]);
         setAW([]);
@@ -2316,7 +2354,9 @@ function LearnInner() {
       <div className="container-main py-6">
         <div className="flex flex-col items-center gap-6">
           <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
-
+          
+          {/* 🪙 HAYQ Coin Animation */}
+          <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
           {ex.customImage ? (
             <div className="w-[100px] h-[100px] relative">
               <img
@@ -2529,7 +2569,7 @@ function LearnInner() {
           </GlassCard>
 
           <div className="w-full max-w-2xl">
-            {ex.state === "idle" ? (
+                        {ex.state === "idle" ? (
               <div className="flex gap-3">
                 <button
                   onClick={toggleHint}
@@ -2538,13 +2578,21 @@ function LearnInner() {
                   <Info size={16} />
                   {t("page_hint")}
                 </button>
-                <button
-                  onClick={() => submit()}
-                  className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-                >
-                  <Send size={18} />
-                  {t("page_check_enter")}
-                </button>
+                {current?.type !== "multiple_choice" && (
+                  <button
+                    onClick={() => submit()}
+                    className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
+                  >
+                    <Send size={18} />
+                    {t("page_check_enter")}
+                  </button>
+                )}
+                {current?.type === "multiple_choice" && (
+                  <div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2">
+                    <MousePointerClick size={16} />
+                    {native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}
+                  </div>
+                )}
               </div>
             ) : ex.state === "incorrect" && attempts < 3 ? (
               <button
@@ -2591,22 +2639,25 @@ function LearnInner() {
                     )}
                   </div>
                 </div>
-                <button
-                  onClick={next}
-                  className="w-full mt-4 py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-                >
-                  {ex.index + 1 >= (lesson?.exercises?.length || 0) ? (
-                    <>
-                      <Trophy size={18} />
-                      {t("page_see_results")}
-                    </>
-                  ) : (
-                    <>
-                      {t("page_continue")}
-                      <ArrowLeft size={18} className="rotate-180" />
-                    </>
-                  )}
-                </button>
+                {ex.state === "correct" ? (
+                  <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2.2, ease: "linear" }}
+                      className="h-full bg-emerald-500"
+                    />
+                  </div>
+                ) : (
+                  <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2.8, ease: "linear" }}
+                      className="h-full bg-red-500"
+                    />
+                  </div>
+                )}
               </motion.div>
             )}
           </div>

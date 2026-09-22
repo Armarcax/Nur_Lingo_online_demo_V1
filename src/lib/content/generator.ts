@@ -149,7 +149,7 @@ function buildMC(
     type: "multiple_choice",
     prompt: {
       en: `What is "${v.en}" in ${langName("en", target)}?`,
-      hy: `Ի՞նչ է «${v.hy}»-ը ${langName("hy", target)}ով։`,
+      hy: `Ի՞նչ է «${v.hy}»-ը ${langName("hy", target)}:`,
       ru: `Как «${v.ru}» по-${langName("ru", target).toLowerCase()}?`,
     },
     targetAnswer: correct,

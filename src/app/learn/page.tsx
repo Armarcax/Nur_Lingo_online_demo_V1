@@ -94,6 +94,25 @@ interface MistakeRecord {
   revealed: boolean;
 }
 
+function sanitizeForTTS(text: string): string {
+  if (!text) return text;
+  
+  return text
+    // Remove quotes (Armenian «» and European "")
+    .replace(/[«»""'']/g, '')
+    // Remove emphasis mark (՛)
+    .replace(/՛/g, '')
+    // Armenian comma (՝) → European comma
+    .replace(/՝/g, ',')
+    // Armenian full stop (։) → European period
+    .replace(/։/g, '.')
+    // Remove trailing punctuation
+    .replace(/[.,;:!?]+\s*$/, '')
+    // Normalize multiple spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 interface ExState {
   index: number;
   userAnswer: string;
@@ -857,7 +876,7 @@ function LearnInner() {
           "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8a73467.mp3?filename=calm-nature-ambient-113194.mp3"
         );
         audio.loop = true;
-        audio.volume = 0.3;
+        audio.volume = 0.15;
         setRelaxAudio(audio);
         audio.play().catch(() => {});
         setIsRelaxing(true);
@@ -986,6 +1005,10 @@ function LearnInner() {
       return;
     }
 
+    if (!text) return;
+
+    // ✅ Sanitize text for TTS (strip Armenian punctuation)
+    text = sanitizeForTTS(text);
     if (!text) return;
 
     console.log(`🔊 Playing ${type}: "${text}" (${lang})`);
@@ -1356,7 +1379,6 @@ function LearnInner() {
           nuriSpeech: randomLine("relax"),
         }));
         startBreakTimer(breakDuration);
-        playRelaxMusic();
       }
     }, 10000);
 
@@ -2384,7 +2406,10 @@ function LearnInner() {
                 <GlassCard variant="premium" className="w-full max-w-sm p-6 text-center">
                   <div className="flex items-center justify-center gap-4 mb-4">
                     <button
-                      onClick={() => handleBreakChoice(true)}
+                      onClick={() => {
+                        playRelaxMusic();
+                        handleBreakChoice(true);
+                      }}
                       className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
                     >
                       <img

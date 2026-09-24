@@ -104,10 +104,10 @@ function sanitizeForTTS(text: string): string {
     .replace(/՛/g, '')
     // Armenian comma (՝) → European comma
     .replace(/՝/g, ',')
-    // Armenian full stop (։) → European period
-    .replace(/։/g, '.')
-    // Remove trailing punctuation
-    .replace(/[.,;:!?]+\s*$/, '')
+    // Remove multiple punctuation like "։»։"
+    .replace(/[.,;:!?։»«]+\s*$/g, '')
+    // Remove double punctuation inside
+    .replace(/[։»«]+/g, '')
     // Normalize multiple spaces
     .replace(/\s+/g, ' ')
     .trim();
@@ -791,7 +791,7 @@ function LearnInner() {
   const [sessionLevel, setSLevel] = useState(1);
   const [showBreak, setShowBreak] = useState(false);
   const [breakTimer, setBreakTimer] = useState<number | null>(null);
-  const [breakDuration] = useState(2);
+  const [breakDuration] = useState(15);
   const [startSessionTime] = useState(() => Date.now());
   const [currentStreak, setCurrentStreak] = useState(0);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
@@ -923,9 +923,9 @@ function LearnInner() {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
       if (lang === 'hy') {
-        utterance.rate = 1.05;
+        utterance.rate = 1.15;
       } else {
-        utterance.rate = 0.9;
+        utterance.rate = 1.15;
       }
       utterance.pitch = 1.3;
       utterance.volume = 1;
@@ -2487,12 +2487,14 @@ function LearnInner() {
               </div>
             </div>
 
-            {current.hint && (showHint || sessionLevel === 1) && current.hint[native] && (
-              <p className="text-sm text-amber-400 mb-4 flex items-center gap-2">
-                <Sparkles size={14} />
-                {current.hint[native]}
-              </p>
-            )}
+            <div className="min-h-[40px] mb-4">
+              {current.hint && showHint && current.hint[native] && (
+                <p className="text-sm text-amber-400 flex items-center gap-2">
+                  <Sparkles size={14} />
+                  {current.hint[native]}
+                </p>
+              )}
+            </div>
 
             {ex.state === "incorrect" && attempts < 3 && (
               <p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2">
@@ -2655,9 +2657,12 @@ function LearnInner() {
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                         <p className="font-semibold">{t("page_correct_answer")}</p>
                         <ul className="list-disc list-inside">
-                          {ex.corrections.map((c, i) => (
-                            <li key={i}>{c}</li>
-                          ))}
+                          {ex.corrections
+                            .map((c) => typeof c === 'string' ? c.trim() : '')
+                            .filter((c) => c.length > 0)
+                            .map((c, i) => (
+                              <li key={i}>{c}</li>
+                            ))}
                         </ul>
                       </div>
                     )}

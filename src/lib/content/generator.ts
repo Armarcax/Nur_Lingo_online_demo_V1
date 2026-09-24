@@ -156,6 +156,11 @@ function buildMC(
     acceptableAnswers: [correct, ...synonyms].filter(Boolean),
     options,
     hayqReward: HAYQ.CORRECT,
+    hint: {
+      en: `Think about the ${langName("en", target)} translation of "${v.en}"`,
+      hy: `Մտածիր "${v.hy}"-ի ${langName("hy", target)} թարգմանության մասին`,
+      ru: `Подумай о переводе "${v.ru}" на ${langName("ru", target).toLowerCase()}`,
+    },
   };
 }
 
@@ -193,6 +198,11 @@ function buildTranslate(
     targetAnswer,
     acceptableAnswers: uniqueAnswers,
     hayqReward: HAYQ.CORRECT,
+    hint: {
+      en: `Translate to ${langName("en", target)}`,
+      hy: `Թարգմանիր ${langName("hy", target)}`,
+      ru: `Переведи на ${langName("ru", target).toLowerCase()}`,
+    },
   };
 }
 

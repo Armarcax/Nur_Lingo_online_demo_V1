@@ -923,9 +923,9 @@ function LearnInner() {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
       if (lang === 'hy') {
-        utterance.rate = 1.15;
+        utterance.rate = 1.25;
       } else {
-        utterance.rate = 1.15;
+        utterance.rate = 1.25;
       }
       utterance.pitch = 1.3;
       utterance.volume = 1;
@@ -2455,7 +2455,7 @@ function LearnInner() {
             )}
           </AnimatePresence>
 
-          <GlassCard variant="premium" className="w-full max-w-2xl p-6">
+          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[520px]">
             {isRetryPhase && (
               <p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1">
                 <Brain size={14} /> {t("page_review_mistake")}
@@ -2488,7 +2488,7 @@ function LearnInner() {
             </div>
 
             <div className="min-h-[40px] mb-4">
-              {current.hint && showHint && current.hint[native] && (
+              {current.hint && ex.state === "incorrect" && attempts > 0 && current.hint[native] && (
                 <p className="text-sm text-amber-400 flex items-center gap-2">
                   <Sparkles size={14} />
                   {current.hint[native]}
@@ -2600,15 +2600,8 @@ function LearnInner() {
           </GlassCard>
 
           <div className="w-full max-w-2xl">
-                        {ex.state === "idle" ? (
+                      {ex.state === "idle" ? (
               <div className="flex gap-3">
-                <button
-                  onClick={toggleHint}
-                  className="px-4 py-3 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2"
-                >
-                  <Info size={16} />
-                  {t("page_hint")}
-                </button>
                 {current?.type !== "multiple_choice" && (
                   <button
                     onClick={() => submit()}

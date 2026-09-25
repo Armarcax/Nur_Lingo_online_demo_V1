@@ -117,6 +117,14 @@ function getSentenceVariants(phrase: string, target: LangCode): string[] {
   return patterns[key]?.[target] || [];
 }
 
+// ✅ Above buildMC
+function wordHint(word: string, dots = "···"): string {
+  if (!word || word.length < 2) return word;
+  const first = word[0];
+  const last = word[word.length - 1];
+  return `${first}${dots}${last}`;
+}
+
 // ─── EXERCISE BUILDERS ──────────────────────────────────────────────────────
 
 function buildMC(
@@ -157,9 +165,9 @@ function buildMC(
     options,
     hayqReward: HAYQ.CORRECT,
     hint: {
-      en: `Think about the ${langName("en", target)} translation of "${v.en}"`,
-      hy: `Մտածիր "${v.hy}"-ի ${langName("hy", target)} թարգմանության մասին`,
-      ru: `Подумай о переводе "${v.ru}" на ${langName("ru", target).toLowerCase()}`,
+      en: `Hint: ${wordHint(correct)}`,
+      hy: `Հուշում՝ ${wordHint(correct)}`,
+      ru: `Подсказка: ${wordHint(correct)}`,
     },
   };
 }

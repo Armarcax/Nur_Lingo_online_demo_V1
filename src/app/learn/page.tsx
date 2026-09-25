@@ -1017,33 +1017,24 @@ function LearnInner() {
     
     if (type === 'prompt') {
       if (lang === 'hy') {
+        // ✅ TTS FIRST — instant playback (no 5s WAV wait)
+        try {
+          await playAudioWithFemaleVoice(text, 'hy');
+          console.log(`✅ TTS (hy) for prompt: ${text}`);
+          return;
+        } catch (error) {
+          console.warn("TTS failed:", error);
+        }
+
+        // Fallback: try WAV if TTS fails
         if (wavClient && isWAVAvailable) {
           try {
             await wavClient.playPrompt(text, pairKey, 'Ani');
             console.log(`✅ WAV (Ani) for prompt (hy): ${text}`);
             return;
-          } catch (error: any) {
-            if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-              console.log('⏸️ WAV autoplay blocked, falling back to TTS');
-              try {
-                await playAudioWithFemaleVoice(text, 'hy');
-                console.log(`✅ TTS (hy) for prompt: ${text}`);
-                return;
-              } catch (ttsError) {
-                console.warn("TTS also failed:", ttsError);
-              }
-            } else {
-              console.warn("WAV failed:", error);
-            }
+          } catch (error) {
+            console.warn("WAV also failed:", error);
           }
-        }
-        
-        try {
-          await playAudioWithFemaleVoice(text, 'hy');
-          console.log(`✅ Female TTS (hy) for prompt: ${text}`);
-          return;
-        } catch (error) {
-          console.warn("Female TTS failed:", error);
         }
       }
       
@@ -2599,7 +2590,7 @@ function LearnInner() {
             </div>
           </GlassCard>
 
-          <div className="w-full max-w-2xl">
+          <div className="w-full max-w-2xl min-h-[140px]">
                       {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (

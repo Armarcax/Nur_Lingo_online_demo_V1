@@ -1311,6 +1311,27 @@ function LearnInner() {
   }, [loadLesson, isProfessional]);
 
   useEffect(() => {
+    if (!lesson || !wavClient || !isWAVAvailable) return;
+
+    const preloadPrompts = async () => {
+      const promptsToPreload = lesson.exercises
+        .slice(0, 8)
+        .map((ex) => {
+          const text = ex.prompt?.[native] || ex.prompt?.en || '';
+          return sanitizeForTTS(text);
+        })
+        .filter(Boolean);
+
+      console.log(`🎯 Preloading ${promptsToPreload.length} prompts in background...`);
+      
+      await wavClient.preloadBatch(promptsToPreload, 'Ani');
+    };
+
+    const timer = setTimeout(preloadPrompts, 1500);
+    return () => clearTimeout(timer);
+  }, [lesson, wavClient, isWAVAvailable, native]); 
+
+  useEffect(() => {
     const timer = setInterval(() => {
       try {
         const nextH = syncHearts();

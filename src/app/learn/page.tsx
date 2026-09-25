@@ -2455,7 +2455,7 @@ function LearnInner() {
             )}
           </AnimatePresence>
 
-          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[300px]">
+          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[280px]">
             {isRetryPhase && (
               <p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1">
                 <Brain size={14} /> {t("page_review_mistake")}

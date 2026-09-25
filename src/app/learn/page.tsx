@@ -1017,24 +1017,47 @@ function LearnInner() {
     
     if (type === 'prompt') {
       if (lang === 'hy') {
-        // ✅ TTS FIRST — instant playback (no 5s WAV wait)
-        try {
-          await playAudioWithFemaleVoice(text, 'hy');
-          console.log(`✅ TTS (hy) for prompt: ${text}`);
-          return;
-        } catch (error) {
-          console.warn("TTS failed:", error);
+        // ✅ Check if browser has Armenian voice
+        const hasArmenianVoice = typeof window !== 'undefined'
+          && window.speechSynthesis
+          && window.speechSynthesis.getVoices().some(v => v.lang.startsWith('hy'));
+
+        // If browser HAS Armenian voice → TTS first (instant)
+        if (hasArmenianVoice) {
+          try {
+            await playAudioWithFemaleVoice(text, 'hy');
+            console.log(`✅ TTS (hy) for prompt: ${text}`);
+            return;
+          } catch (error) {
+            console.warn("TTS failed, falling back to WAV:", error);
+          }
+        } else {
+          console.log('ℹ️ No Armenian voice in browser — using WAV first');
         }
 
-        // Fallback: try WAV if TTS fails
+        // WAV: reliable Armenian voice (server-generated with Ani)
         if (wavClient && isWAVAvailable) {
           try {
             await wavClient.playPrompt(text, pairKey, 'Ani');
             console.log(`✅ WAV (Ani) for prompt (hy): ${text}`);
             return;
-          } catch (error) {
-            console.warn("WAV also failed:", error);
+          } catch (error: any) {
+            if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
+              console.log('⏸️ WAV autoplay blocked');
+              // Show "click to play" — do NOT fall back to bad TTS
+              setEx(prev => ({ ...prev, showListenButton: true }));
+              return;
+            }
+            console.warn("WAV failed:", error);
           }
+        }
+
+        // Last resort: TTS (may sound wrong, but at least something)
+        try {
+          await playAudioWithFemaleVoice(text, 'hy');
+          return;
+        } catch (error) {
+          console.warn("All audio failed:", error);
         }
       }
       
@@ -2590,7 +2613,7 @@ function LearnInner() {
             </div>
           </GlassCard>
 
-          <div className="w-full max-w-2xl min-h-[140px]">
+          <div className="w-full max-w-2xl">
                       {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (

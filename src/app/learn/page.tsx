@@ -98,17 +98,12 @@ function sanitizeForTTS(text: string): string {
   if (!text) return text;
   
   return text
-    // Remove quotes (Armenian «» and European "")
     .replace(/[«»""'']/g, '')
-    // Remove emphasis mark (՛)
     .replace(/՛/g, '')
-    // Armenian comma (՝) → European comma
     .replace(/՝/g, ',')
-    // Remove multiple punctuation like "։»։"
+    .replace(/։/g, '.')
     .replace(/[.,;:!?։»«]+\s*$/g, '')
-    // Remove double punctuation inside
     .replace(/[։»«]+/g, '')
-    // Normalize multiple spaces
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -165,8 +160,8 @@ function getMistakes(lessonId: string): MistakeRecord[] {
   try {
     const raw = localStorage.getItem(MISTAKES_KEY);
     if (!raw) return [];
-    const all = JSON.parse(raw) as Record<string, MistakeRecord[]>;  
-  return all[lessonId] ?? [];
+    const all = JSON.parse(raw) as Record<string, MistakeRecord[]>;
+    return all[lessonId] ?? [];
   } catch {
     return [];
   }
@@ -360,8 +355,6 @@ function randomLine(key: string) {
   const arr = NURI_LINES[key] ?? NURI_LINES.idle;
   return arr[Math.floor(Math.random() * arr.length)];
 }
-
-// ─── ✅ COMPONENTS ──────────────────────────────────────────────────
 
 // ─── WORD ORDER INPUT ────────────────────────────────────────────────
 
@@ -691,7 +684,6 @@ function LearnInner() {
   const { onCorrect, onWrong, onLessonComplete, setPage } = useNuri();
   const { t } = useI18n();
 
-  // ─── MODE STATE ────────────────────────────────────────────────────
   const [isProfessional, setIsProfessional] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('nur_learning_mode') === 'professional';
@@ -699,10 +691,8 @@ function LearnInner() {
     return false;
   });
 
-  // ─── AUDIO ENABLED TOGGLE ─────────────────────────────────────────
   const [audioEnabled, setAudioEnabled] = useState(true);
 
-  // ─── AUDIO MANAGER (Online Audio) ─────────────────────────────────
   const { 
     play: playAudio, 
     stop, 
@@ -712,20 +702,16 @@ function LearnInner() {
     preload 
   } = useAudioManager();
 
-  // ─── WAV CLIENT STATE (Online TTS) ──────────────────────────────
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
   const [isWAVAvailable, setIsWAVAvailable] = useState(false);
   const [audioMode] = useState<"wav" | "tts" | "mp3">("wav");
   const [selectedVoice] = useState<string>("Ani");
 
-  // ─── AUDIO READY STATE ────────────────────────────────────────────
   const [isAudioReady, setIsAudioReady] = useState(false);
   const firstAutoPlayAttempted = useRef(false);
 
-  // ─── REF TO PREVENT DUPLICATE LESSON LOAD ────────────────────────
   const loadedLessonRef = useRef<string | null>(null);
 
-  // ─── INIT WAV CLIENT ──────────────────────────────────────────────
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -741,7 +727,6 @@ function LearnInner() {
     initWAV();
   }, []);
 
-  // ─── AUDIO READY CHECK ────────────────────────────────────────────
   useEffect(() => {
     if (wavClient && isWAVAvailable) {
       setIsAudioReady(true);
@@ -766,8 +751,6 @@ function LearnInner() {
   useEffect(() => {
     setPage("learn");
   }, [setPage]);
-
-  // ─── STATE ──────────────────────────────────────────────────────────
 
   const [lesson, setLesson] = useState<MultiLesson | null>(null);
   const [native, setNative] = useState<LangCode>("en");
@@ -803,8 +786,6 @@ function LearnInner() {
   const [relaxAudio, setRelaxAudio] = useState<HTMLAudioElement | null>(null);
   const [isRelaxing, setIsRelaxing] = useState(false);
 
-  // ─── LOCAL TOAST ──────────────────────────────────────────────────
-
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
@@ -814,16 +795,13 @@ function LearnInner() {
     setTimeout(() => setToastMessage(""), 3000);
   }, []);
 
-  // Word Order state
   const [selectedWords, setSW] = useState<string[]>([]);
   const [availWords, setAW] = useState<string[]>([]);
 
-  // Match Pairs state
   const [matchPairsMap, setMatchPairsMap] = useState<Record<string, string>>({});
   const [matchRightItems, setMatchRightItems] = useState<string[]>([]);
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
-  // Exercise state
   const [ex, setEx] = useState<ExState>({
     index: 0,
     userAnswer: "",
@@ -840,7 +818,6 @@ function LearnInner() {
     showListenButton: false,
   });
 
-  // Refs
   const exerciseStartTime = useRef<number>(Date.now());
   const breakTimerRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -849,8 +826,6 @@ function LearnInner() {
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
-
-  // ─── TOGGLE MODE ──────────────────────────────────────────────────
 
   const toggleMode = useCallback(() => {
     setIsProfessional(prev => {
@@ -865,8 +840,6 @@ function LearnInner() {
       return newMode;
     });
   }, [showMessage, t]);
-
-  // ─── RELAX MUSIC ──────────────────────────────────────────────────
 
   const playRelaxMusic = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -897,7 +870,6 @@ function LearnInner() {
     }
   }, [relaxAudio]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (relaxAudio) {
@@ -910,7 +882,6 @@ function LearnInner() {
     };
   }, [relaxAudio]);
 
-  // ─── PLAY AUDIO WITH FEMALE VOICE ──────────────────────────────────
   const playAudioWithFemaleVoice = useCallback((text: string, lang: string) => {
     return new Promise((resolve, reject) => {
       if (typeof window === 'undefined' || !window.speechSynthesis) {
@@ -924,11 +895,13 @@ function LearnInner() {
       utterance.lang = lang;
       if (lang === 'hy') {
         utterance.rate = 1.5;
+      } else if (lang === 'en') {
+        utterance.rate = 1.1;
       } else {
-        utterance.rate = 1.5;
+        utterance.rate = 1.15;
       }
       utterance.pitch = 1.3;
-      utterance.volume = 1;
+      utterance.volume = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
       
@@ -997,8 +970,6 @@ function LearnInner() {
     });
   }, []);
 
-  // ─── PLAY AUDIO WITH FALLBACK ──────────────────────────────────────
-
   const playAudioWithFallback = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
     if (!audioEnabled) {
       console.log(`🔇 Audio disabled, skipping: "${text}"`);
@@ -1007,7 +978,6 @@ function LearnInner() {
 
     if (!text) return;
 
-    // ✅ Sanitize text for TTS (strip Armenian punctuation)
     text = sanitizeForTTS(text);
     if (!text) return;
 
@@ -1017,25 +987,6 @@ function LearnInner() {
     
     if (type === 'prompt') {
       if (lang === 'hy') {
-        // ✅ Check if browser has Armenian voice
-        const hasArmenianVoice = typeof window !== 'undefined'
-          && window.speechSynthesis
-          && window.speechSynthesis.getVoices().some(v => v.lang.startsWith('hy'));
-
-        // If browser HAS Armenian voice → TTS first (instant)
-        if (hasArmenianVoice) {
-          try {
-            await playAudioWithFemaleVoice(text, 'hy');
-            console.log(`✅ TTS (hy) for prompt: ${text}`);
-            return;
-          } catch (error) {
-            console.warn("TTS failed, falling back to WAV:", error);
-          }
-        } else {
-          console.log('ℹ️ No Armenian voice in browser — using WAV first');
-        }
-
-        // WAV: reliable Armenian voice (server-generated with Ani)
         if (wavClient && isWAVAvailable) {
           try {
             await wavClient.playPrompt(text, pairKey, 'Ani');
@@ -1043,21 +994,26 @@ function LearnInner() {
             return;
           } catch (error: any) {
             if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-              console.log('⏸️ WAV autoplay blocked');
-              // Show "click to play" — do NOT fall back to bad TTS
-              setEx(prev => ({ ...prev, showListenButton: true }));
-              return;
+              console.log('⏸️ WAV autoplay blocked, falling back to TTS');
+              try {
+                await playAudioWithFemaleVoice(text, 'hy');
+                console.log(`✅ TTS (hy) for prompt: ${text}`);
+                return;
+              } catch (ttsError) {
+                console.warn("TTS also failed:", ttsError);
+              }
+            } else {
+              console.warn("WAV failed:", error);
             }
-            console.warn("WAV failed:", error);
           }
         }
-
-        // Last resort: TTS (may sound wrong, but at least something)
+        
         try {
           await playAudioWithFemaleVoice(text, 'hy');
+          console.log(`✅ Female TTS (hy) for prompt: ${text}`);
           return;
         } catch (error) {
-          console.warn("All audio failed:", error);
+          console.warn("Female TTS failed:", error);
         }
       }
       
@@ -1195,7 +1151,6 @@ function LearnInner() {
     throw new Error('AUDIO_FAILED');
   }, [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice, audioEnabled]);
 
-  // ─── HANDLE SPEAK ──────────────────────────────────────────────────
   const handleSpeak = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
     if (!text || !audioEnabled) return;
 
@@ -1206,8 +1161,6 @@ function LearnInner() {
 
     await playAudioWithFallback(text, lang, type);
   }, [isPlaying, stop, playAudioWithFallback, audioEnabled]);
-
-  // ─── AUTO-PLAY PROMPT ─────────────────────────────────────────────
 
   useEffect(() => {
     if (!audioEnabled) return;
@@ -1236,8 +1189,6 @@ function LearnInner() {
       }
     };
   }, [current, native, isAudioReady, playAudioWithFallback, audioEnabled]);
-
-  // ─── RESET STATES ON EXERCISE CHANGE ──────────────────────────────
 
   useEffect(() => {
     if (!current) return;
@@ -1270,8 +1221,6 @@ function LearnInner() {
     }
     setBreakTimer(null);
   }, [current]);
-
-  // ─── LOAD LESSON (WITH MODE SUPPORT) ─────────────────────────────
 
   const loadLesson = useCallback(() => {
     if (loadedLessonRef.current === lessonId) {
@@ -1309,7 +1258,6 @@ function LearnInner() {
           }
         } else {
           console.log(`✅ Professional lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
-          // 🌐 Translate options and targetAnswer to the learning language
           l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
         }
       } else {
@@ -1348,8 +1296,6 @@ function LearnInner() {
     }
   }, [lessonId, pairParam, router, isProfessional]);
 
-  // ─── LOAD LESSON EFFECT ────────────────────────────────────────────
-
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {
       console.log('⏳ OfflineLessonEngine not ready, waiting for professional mode...');
@@ -1364,8 +1310,6 @@ function LearnInner() {
     loadLesson();
   }, [loadLesson, isProfessional]);
 
-  // ─── HEART COUNTDOWN ──────────────────────────────────────────────
-
   useEffect(() => {
     const timer = setInterval(() => {
       try {
@@ -1378,8 +1322,6 @@ function LearnInner() {
     }, 1000);
     return () => clearInterval(timer);
   }, [hearts]);
-
-  // ─── SESSION TIME CHECK ──────────────────────────────────────────
 
   useEffect(() => {
     const checkTime = setInterval(() => {
@@ -1397,9 +1339,7 @@ function LearnInner() {
     }, 10000);
 
     return () => clearInterval(checkTime);
-  }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, playRelaxMusic, breakShown]);
-
-  // ─── BREAK TIMER ──────────────────────────────────────────────────
+  }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown]);
 
   const startBreakTimer = useCallback((minutes: number) => {
     if (breakTimerRef.current) {
@@ -1428,8 +1368,6 @@ function LearnInner() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }, []);
 
-  // ─── TOGGLE HINT ──────────────────────────────────────────────────
-
   const toggleHint = useCallback(() => {
     setShowHint(prev => !prev);
     if (!showHint && current?.hint) {
@@ -1440,8 +1378,6 @@ function LearnInner() {
       }));
     }
   }, [showHint, current, native, t]);
-
-  // ─── TOGGLE AUDIO ─────────────────────────────────────────────────
 
   const toggleAudio = useCallback(() => {
     setAudioEnabled(prev => !prev);
@@ -1454,9 +1390,7 @@ function LearnInner() {
     );
   }, [audioEnabled, stop, showMessage, t]);
 
-  // ─── SUBMIT ────────────────────────────────────────────────────────
-
-    const submit = useCallback(async (overrideAnswer?: string) => {
+  const submit = useCallback(async (overrideAnswer?: string) => {
     if (!current || ex.state === "submitting") return;
 
     let answerForApi: string = "";
@@ -1566,15 +1500,15 @@ function LearnInner() {
       }
       onWrong();
       return;
-      } else if (current.type === "multiple_choice") {
-        const answerToUse = overrideAnswer ?? ex.userAnswer;
-        if (!answerToUse) {
-          showMessage(t("page_please_select_answer"), "info");
-          return;
-        }
-        answerForApi = answerToUse;
-        const selectedOption = current.options?.find(opt => opt === answerToUse);
-        userAnswerText = selectedOption || answerToUse;
+    } else if (current.type === "multiple_choice") {
+      const answerToUse = overrideAnswer ?? ex.userAnswer;
+      if (!answerToUse) {
+        showMessage(t("page_please_select_answer"), "info");
+        return;
+      }
+      answerForApi = answerToUse;
+      const selectedOption = current.options?.find(opt => opt === answerToUse);
+      userAnswerText = selectedOption || answerToUse;
     } else {
       if (!ex.userAnswer.trim()) {
         showMessage(t("page_please_enter_answer"), "info");
@@ -1697,7 +1631,6 @@ function LearnInner() {
       }
 
       if (current.targetAnswer) {
-        // ✅ Immediate audio — no delay
         handleSpeak(current.targetAnswer, learningLang, 'answer').catch(() => {});
       }
 
@@ -1719,7 +1652,6 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-      // 🪙 Trigger HAYQ coin animation + auto-advance
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
         setTimeout(() => {
@@ -1727,14 +1659,12 @@ function LearnInner() {
           try { nextRef.current?.(); } catch {}
         }, 2200);
       } else {
-        // Wrong answer: only auto-advance if 3 attempts used up
         const attemptsUsed = attempts + 1;
         if (attemptsUsed >= 3) {
           setTimeout(() => {
             try { nextRef.current?.(); } catch {}
           }, 2800);
         }
-        // Otherwise: stay on same question, show retry button
       }
 
     } catch (error) {
@@ -1772,8 +1702,6 @@ function LearnInner() {
     t
   ]);
 
-  // ─── COMPLETE LESSON ──────────────────────────────────────────────
-
   const completeLesson = useCallback(() => {
     if (!lesson) return;
 
@@ -1802,14 +1730,10 @@ function LearnInner() {
     setComplete(true);
   }, [lesson, stats, sessionLevel, startTime, onLessonComplete]);
 
-  // ─── REF FOR SUBMIT ──────────────────────────────────────────────
-
   const submitRef = useRef(submit);
   useEffect(() => {
     submitRef.current = submit;
   }, [submit]);
-
-  // ─── NEXT ──────────────────────────────────────────────────────────
 
   const next = useCallback(() => {
     if (!lesson) return;
@@ -1895,14 +1819,10 @@ function LearnInner() {
     }
   }, [lesson, ex.index, phase, completeLesson]);
 
-  // ─── REF FOR NEXT ─────────────────────────────────────────────────
-
   const nextRef = useRef(next);
   useEffect(() => {
     nextRef.current = next;
   }, [next]);
-
-  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -1924,8 +1844,6 @@ function LearnInner() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [ex.state, attempts, toggleHint, setShowExitConfirm]);
-
-  // ─── RETRY SAME STEP ──────────────────────────────────────────────
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({
@@ -1954,8 +1872,6 @@ function LearnInner() {
     }
     exerciseStartTime.current = Date.now();
   }, [current]);
-
-  // ─── HANDLE BREAK ──────────────────────────────────────────────────
 
   const handleBreakChoice = useCallback((takeBreak: boolean) => {
     setShowBreak(false);
@@ -1987,8 +1903,6 @@ function LearnInner() {
     }
   }, [startBreakTimer, showMessage, playRelaxMusic, stopRelaxMusic, t]);
 
-  // ─── HANDLE REFILL ─────────────────────────────────────────────────
-
   const handleRefill = useCallback(() => {
     try {
       const result = buyHeartRefill();
@@ -2003,8 +1917,6 @@ function LearnInner() {
     }
   }, [showMessage, t]);
 
-  // ─── HANDLE PRACTICE ──────────────────────────────────────────────
-
   const handlePractice = useCallback(() => {
     try {
       const result = earnHeartByPractice();
@@ -2018,14 +1930,10 @@ function LearnInner() {
     }
   }, [showMessage, t]);
 
-  // ─── EXIT ──────────────────────────────────────────────────────────
-
   const exitToWorld = useCallback(() => {
     stopRelaxMusic();
     router.push("/world");
   }, [router, stopRelaxMusic]);
-
-  // ─── UNLOCK ALL LESSONS ──────────────────────────────────────────
 
   const unlockAllLessons = useCallback(() => {
     if (!lesson) return;
@@ -2045,8 +1953,6 @@ function LearnInner() {
     
     showMessage(t("page_all_lessons_unlocked"), "success");
   }, [lesson, showMessage, t]);
-
-  // ─── SAVE COMPLETION ──────────────────────────────────────────────
 
   async function saveCompletionToSupabase(
     lessonId: string,
@@ -2072,8 +1978,6 @@ function LearnInner() {
       // silently ignore
     }
   }
-
-  // ─── COMPLETION SCREEN ────────────────────────────────────────────
 
   if (complete && lesson) {
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
@@ -2174,8 +2078,6 @@ function LearnInner() {
     );
   }
 
-  // ─── NO HEARTS SCREEN ─────────────────────────────────────────────
-
   if (hearts <= 0) {
     const minutesLeft = Math.ceil(countdown / 60000);
 
@@ -2216,8 +2118,6 @@ function LearnInner() {
   }
 
   if (!lesson || !current) return null;
-
-  // ─── MAIN RENDER ────────────────────────────────────────────────────
 
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
@@ -2395,8 +2295,8 @@ function LearnInner() {
         <div className="flex flex-col items-center gap-6">
           <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
           
-          {/* 🪙 HAYQ Coin Animation */}
           <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
+          
           {ex.customImage ? (
             <div className="w-[100px] h-[100px] relative">
               <img
@@ -2559,7 +2459,6 @@ function LearnInner() {
                   onSelect={(opt) => {
                     if (ex.state === "idle") {
                       setEx({ ...ex, userAnswer: opt });
-                      // ✅ Auto-submit immediately (50ms for UI feedback)
                       setTimeout(() => submitRef.current?.(opt), 50);
                     }
                   }}
@@ -2613,8 +2512,8 @@ function LearnInner() {
             </div>
           </GlassCard>
 
-          <div className="w-full max-w-2xl">
-                      {ex.state === "idle" ? (
+          <div className="w-full max-w-2xl min-h-[140px]">
+            {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (
                   <button

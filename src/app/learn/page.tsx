@@ -923,9 +923,9 @@ function LearnInner() {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
       if (lang === 'hy') {
-        utterance.rate = 1.25;
+        utterance.rate = 1.5;
       } else {
-        utterance.rate = 1.25;
+        utterance.rate = 1.5;
       }
       utterance.pitch = 1.3;
       utterance.volume = 1;
@@ -2455,7 +2455,7 @@ function LearnInner() {
             )}
           </AnimatePresence>
 
-          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[520px]">
+          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[3800px]">
             {isRetryPhase && (
               <p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1">
                 <Brain size={14} /> {t("page_review_mistake")}

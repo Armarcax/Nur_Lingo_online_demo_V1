@@ -31,7 +31,6 @@ import {
   MessageSquare,
   Music,
   Mic,
-  Volume2,
   Settings,
   ChevronDown,
   ChevronUp,
@@ -69,7 +68,6 @@ import {
 import { hayqToLevel } from "@/lib/lessons/engine";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { loadLangConfig, LangCode } from "@/lib/i18n/index";
-import ThemeToggle from "@/components/ThemeToggle";
 import { GlassCard } from "@/components/ui/glass-card";
 import { PageLayout } from "@/components/PageLayout";
 import { useI18n } from "@/hooks/useI18n"; // ✅ ՃԻՇՏ import
@@ -771,15 +769,6 @@ export default function WorldPage() {
               </p>
             </div>
             
-            <Stat icon="🪙" value={rewards.totalHAYQ || 0} color="text-[#FFA500]" />
-            <Stat icon="🍎" value={rewards.totalSeeds || 0} />
-            <Stat 
-              icon="🔥" 
-              value={`${rewards.streak || 0}${rewards.streakFreeze > 0 ? " 🛡️" : ""}`} 
-              onClick={() => setShowStats(true)}
-            />
-            <Stat icon="❤️" value={rewards.hearts || 5} />
-            
             {/* ✅ Unlock All Toggle Button - top header */}
             <button
               onClick={toggleUnlockAll}
@@ -830,7 +819,6 @@ export default function WorldPage() {
               <BookOpen size={14} />
               {t("page_curriculum")}
             </Link>
-            <ThemeToggle />
           </div>
         </nav>
 

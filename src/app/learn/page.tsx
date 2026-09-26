@@ -1347,7 +1347,7 @@ function LearnInner() {
   useEffect(() => {
     const checkTime = setInterval(() => {
       const elapsed = (Date.now() - startSessionTime) / 1000 / 60;
-      if (elapsed >= 2 && !showBreak && !breakShown && ex.state !== "submitting" && !breakTimer) {
+      if (elapsed >= 15 && !showBreak && !breakShown && ex.state !== "submitting" && !breakTimer) {
         setShowBreak(true);
         setBreakShown(true);
         setEx((prev) => ({
@@ -1357,7 +1357,7 @@ function LearnInner() {
         }));
         startBreakTimer(breakDuration);
       }
-    }, 10000);
+    }, 600000);
 
     return () => clearInterval(checkTime);
   }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown]);
@@ -2329,66 +2329,6 @@ function LearnInner() {
           ) : (
             <Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />
           )}
-
-          <AnimatePresence>
-            {showBreak && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="w-full max-w-sm"
-              >
-                <GlassCard variant="premium" className="w-full max-w-sm p-6 text-center">
-                  <div className="flex items-center justify-center gap-4 mb-4">
-                    <button
-                      onClick={() => {
-                        playRelaxMusic();
-                        handleBreakChoice(true);
-                      }}
-                      className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <img
-                        src="/images/nuri/nuri-relax.png"
-                        alt={t("page_take_break")}
-                        className="w-16 h-16 object-contain"
-                      />
-                      <span className="text-sm font-bold text-green-600 dark:text-green-400">☕ {t("page_take_break")}</span>
-                      {breakTimer !== null && (
-                        <span className="text-[10px] text-gray-500 dark:text-gray-400">
-                          {formatBreakTime(breakTimer)}
-                        </span>
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleBreakChoice(false)}
-                      className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
-                    >
-                      <img
-                        src="/images/nuri/nuri-shy.png"
-                        alt={t("page_continue")}
-                        className="w-16 h-16 object-contain"
-                      />
-                      <span className="text-sm font-bold text-blue-600 dark:text-blue-400">😊 {t("page_continue")}</span>
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {ex.nuriSpeech || t("page_break_choice")}
-                  </p>
-                  {breakTimer !== null && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                      ⏱️ {formatBreakTime(breakTimer)} {t("page_remaining")}
-                    </p>
-                  )}
-                  {isRelaxing && (
-                    <p className="text-xs text-green-400/60 mt-2 flex items-center justify-center gap-1 animate-pulse">
-                      <Play size={12} className="animate-pulse" />
-                      🎵 {t("page_relax_music")}
-                    </p>
-                  )}
-                </GlassCard>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[280px]">
             {isRetryPhase && (

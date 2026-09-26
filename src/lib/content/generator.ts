@@ -206,10 +206,10 @@ function buildTranslate(
     targetAnswer,
     acceptableAnswers: uniqueAnswers,
     hayqReward: HAYQ.CORRECT,
-    hint: {
-      en: `Translate to ${langName("en", target)}`,
-      hy: `Թարգմանիր ${langName("hy", target)}`,
-      ru: `Переведи на ${langName("ru", target).toLowerCase()}`,
+         hint: {
+      en: `Hint: ${wordHint(targetAnswer)}`,
+      hy: `Հուշում՝ ${wordHint(targetAnswer)}`,
+      ru: `Подсказка: ${wordHint(targetAnswer)}`,
     },
   };
 }

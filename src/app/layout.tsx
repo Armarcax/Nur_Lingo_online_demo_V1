@@ -5,9 +5,7 @@ import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 // ❌ REMOVED: import { OfflineIndicatorAuto } from "@/components/OfflineIndicator";
 import { NuriProvider } from "@/components/NuriProvider";
-import { NuriFloating } from "@/components/NuriFloating";
 import { ThemeBackground } from "@/components/ThemeBackground";
-import { NuriRain } from "@/components/NuriRain";
 import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -219,7 +217,7 @@ export default function RootLayout({
               </div>
 
               {/* ✅ Language rain — Armenian, English, Russian letters falling together */}
-              <NuriRain />
+              
 
               {/* ✅ Service Worker Register - Offline support */}
               <ServiceWorkerRegister />
@@ -232,7 +230,6 @@ export default function RootLayout({
               </div>
               
               {/* ✅ Nuri Floating - Appears on all pages */}
-              <NuriFloating size={72} position="bottom-right" />
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>

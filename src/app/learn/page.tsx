@@ -1310,26 +1310,34 @@ function LearnInner() {
     loadLesson();
   }, [loadLesson, isProfessional]);
 
+  // ─── PRELOAD WAV AUDIO IN BACKGROUND ────────────────────────────
   useEffect(() => {
     if (!lesson || !wavClient || !isWAVAvailable) return;
 
     const preloadPrompts = async () => {
-      const promptsToPreload = lesson.exercises
-        .slice(0, 8)
-        .map((ex) => {
-          const text = ex.prompt?.[native] || ex.prompt?.en || '';
-          return sanitizeForTTS(text);
-        })
-        .filter(Boolean);
+      const textsToPreload: string[] = [];
 
-      console.log(`🎯 Preloading ${promptsToPreload.length} prompts in background...`);
-      
-      await wavClient.preloadBatch(promptsToPreload, 'Ani');
+      lesson.exercises.slice(0, 8).forEach((ex) => {
+        // Prompt text (always)
+        const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || '');
+        if (promptText) textsToPreload.push(promptText);
+
+        // ✅ Answer text (only if learning Armenian — uses WAV)
+        if (learningLang === 'hy' && ex.targetAnswer) {
+          const answerText = sanitizeForTTS(ex.targetAnswer);
+          if (answerText && answerText !== promptText) {
+            textsToPreload.push(answerText);
+          }
+        }
+      });
+
+      console.log(`🎯 Preloading ${textsToPreload.length} texts (prompts + answers)...`);
+      await wavClient.preloadBatch(textsToPreload, 'Ani');
     };
 
     const timer = setTimeout(preloadPrompts, 1500);
     return () => clearTimeout(timer);
-  }, [lesson, wavClient, isWAVAvailable, native]); 
+  }, [lesson, wavClient, isWAVAvailable, native, learningLang]); 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1651,8 +1659,11 @@ function LearnInner() {
         }
       }
 
+      // ✅ Play answer audio and WAIT for it before advancing
+      let answerAudioPromise: Promise<void> = Promise.resolve();
       if (current.targetAnswer) {
-        handleSpeak(current.targetAnswer, learningLang, 'answer').catch(() => {});
+        answerAudioPromise = handleSpeak(current.targetAnswer, learningLang, 'answer')
+          .catch(() => {});
       }
 
       let mood: NuriMood = "idle";
@@ -1673,19 +1684,29 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
+      // 🪙 Trigger HAYQ coin animation + auto-advance (WAITS for audio)
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
-        setTimeout(() => {
-          setEx((s) => ({ ...s, showCoinAnimation: false }));
-          try { nextRef.current?.(); } catch {}
-        }, 2200);
+        
+        // ✅ Wait for answer audio to finish, THEN advance
+        answerAudioPromise.finally(() => {
+          setTimeout(() => {
+            setEx((s) => ({ ...s, showCoinAnimation: false }));
+            try { nextRef.current?.(); } catch {}
+          }, 800);
+        });
       } else {
+        // Wrong answer: only auto-advance if 3 attempts used up
         const attemptsUsed = attempts + 1;
         if (attemptsUsed >= 3) {
-          setTimeout(() => {
-            try { nextRef.current?.(); } catch {}
-          }, 2800);
+          // ✅ Wait for answer audio too
+          answerAudioPromise.finally(() => {
+            setTimeout(() => {
+              try { nextRef.current?.(); } catch {}
+            }, 1500);
+          });
         }
+        // Otherwise: stay on same question, show retry button
       }
 
     } catch (error) {

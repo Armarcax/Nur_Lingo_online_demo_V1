@@ -624,7 +624,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
 function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
   if (!show) return null;
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none">
+    <div className="fixed inset-0 pointer-events-none z-[9999] flex items-center justify-center">
       <motion.div
         initial={{ y: 0, opacity: 1, scale: 1, rotate: 0 }}
         animate={{
@@ -635,11 +635,10 @@ function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
         }}
         transition={{ duration: 2, ease: "easeOut" }}
         className="flex flex-col items-center gap-2"
+        style={{ willChange: "transform, opacity" }}
       >
-        <div className="text-6xl drop-shadow-[0_0_25px_rgba(250,204,21,0.9)]">
-          🪙
-        </div>
-        <div className="text-3xl font-black text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)] whitespace-nowrap">
+        <div className="text-6xl">🪙</div>
+        <div className="text-3xl font-black text-yellow-400 whitespace-nowrap">
           +{amount} HAYQ
         </div>
       </motion.div>
@@ -2367,6 +2366,9 @@ function LearnInner() {
         </div>
       </header>
 
+      {/* 🪙 HAYQ Coin Animation — OUTSIDE flex to prevent shaking */}
+      <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
+
       <AnimatePresence>
         {showStatsPanel && (
           <motion.div
@@ -2414,9 +2416,10 @@ function LearnInner() {
 
       <div className="container-main py-6">
         <div className="flex flex-col items-center gap-6">
-          <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
+          <div className="min-h-[80px] w-full flex items-start justify-center">
+            <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
+          </div>
           
-          <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
           
           {ex.customImage ? (
             <div className="w-[100px] h-[100px] relative">
@@ -2569,7 +2572,7 @@ function LearnInner() {
             </div>
           </GlassCard>
 
-          <div className="w-full max-w-2xl h-[200px] overflow-visible">
+          <div className="w-full max-w-2xl h-[240px] overflow-hidden">
             {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (

@@ -274,85 +274,165 @@ function getPairKey(native: LangCode, learning: LangCode): string {
   return `${native}-${learning}`;
 }
 
-// ─── NURI LINES ──────────────────────────────────────────────────────
+/// ─── NURI LINES (3 languages) ────────────────────────────────────────
 
-const NURI_LINES: Record<string, string[]> = {
-  correct_perfect: [
-    "🏆 Վայ, HAYQ վաստակեցիր!",
-    "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!",
-    "🔥 Դու այսօր շատ լավն ես!",
-    "💪 Դու հանճար ես!",
-    "🌟 Հիանալի աշխատանք!",
-  ],
-  correct: [
-    "✅ Շատ լավ!",
-    "👍 Այո! Հայերեն գիտես!",
-    "💪 Ճիշտ է! Շարունակիր նույն ոգով!",
-    "🎯 Ճիշտ ուղղությամբ ես շարժվում!",
-    "🌟 Հիանալի է, շարունակիր!",
-  ],
-  almost: [
-    "💪 Գրեթե! Կրկին փորձիր",
-    "🤏 Մոտ էր!",
-    "🧐 Քիչ էր մնում...",
-    "📖 Մի քիչ էլ, և կստացվի!",
-  ],
-  incorrect: [
-    "💪 Մի տխրիր! Կարող ես ավելի լավ",
-    "🔄 Կրկնիր, և կստացվի!",
-    "💪 Շատ մոտ էր, բայց կփորձենք նորից!",
-    "📖 Եկեք նորից փորձենք միասին",
-    "💪 Հաջորդ անգամ կստացվի:",
-  ],
-  reveal: [
-    "🍎 Արի սովորենք միասին",
-    "📖 Ահա ճիշտ պատասխանը",
-  ],
-  thinking: [
-    "💭 Մտածիր...",
-    "🤔 Հայերենը հիասքանչ է",
-    "🧠 Ոչ այստեղ, ոչ այնտեղ...",
-  ],
-  idle: [
-    "🍎 Բարև! Սովորենք միասին!",
-    "💪 Ինչպե՞ս ես: Պատրա՞ստ ես:",
-    "🪙 Հայերեն սովորելը հաճելի է",
-  ],
-  relax: [
-    "☕ Ժամանակն է մի փոքր հանգստանալ:",
-    "🧘 Եկեք մի փոքր հանգստանանք!",
-    "🍵 5 րոպե հանգիստ, հետո կշարունակենք!",
-  ],
-  surprised: [
-    "😲 Վա՜յ, դու շատ արագ ես սովորում!",
-    "🤯 Անհավատալի!",
-    "🌟 Դու ինձ զարմացնում ես!",
-  ],
-  encouraging: [
-    "💪 Դու կարող ես ամեն ինչ!",
-    "🌟 Շարունակիր այսպես!",
-    "🔥 Դու լավագույնն ես!",
-  ],
-  sad: [
-    "😢 Մի տխրիր, հաջորդ անգամ կստացվի!",
-    "💪 Մի հանձնվիր:",
-  ],
-  angry: [
-    "😤 Հանգստացիր, ամեն ինչ լավ կլինի!",
-    "🧘 Շնչիր խորը...",
-  ],
-  excited: [
-    "🤩 Հիանալի է, շարունակիր:",
-    "🎉 Վա՜յ, դու առաջընթաց ունես!",
-  ],
-  neutral: [
-    "😐 Լավ, շարունակենք:",
-    "📖 Եկեք առաջ գնանք:",
-  ],
+const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
+  correct_perfect: {
+    hy: [
+      "🏆 Վայ, HAYQ վաստակեցիր!",
+      "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!",
+      "🔥 Դու այսօր շատ լավն ես!",
+      "💪 Դու հանճար ես!",
+      "🌟 Հիանալի աշխատանք!",
+    ],
+    en: [
+      "🏆 Wow, you earned HAYQ!",
+      "🎉 I can't believe how well you've learned!",
+      "🔥 You're on fire today!",
+      "💪 You're a genius!",
+      "🌟 Excellent work!",
+    ],
+    ru: [
+      "🏆 Вау, ты заработал HAYQ!",
+      "🎉 Не верю, как хорошо ты выучил!",
+      "🔥 Ты сегодня в ударе!",
+      "💪 Ты гений!",
+      "🌟 Отличная работа!",
+    ],
+  },
+  correct: {
+    hy: [
+      "✅ Շատ լավ!",
+      "👍 Այո! Հայերեն գիտես!",
+      "💪 Ճիշտ է! Շարունակիր նույն ոգով!",
+      "🎯 Ճիշտ ուղղությամբ ես շարժվում!",
+      "🌟 Հիանալի է, շարունակիր!",
+    ],
+    en: [
+      "✅ Very good!",
+      "👍 Yes! You know it!",
+      "💪 Correct! Keep it up!",
+      "🎯 You're on the right track!",
+      "🌟 Excellent, continue!",
+    ],
+    ru: [
+      "✅ Очень хорошо!",
+      "👍 Да! Ты знаешь!",
+      "💪 Правильно! Продолжай в том же духе!",
+      "🎯 Ты движешься в правильном направлении!",
+      "🌟 Отлично, продолжай!",
+    ],
+  },
+  almost: {
+    hy: [
+      "💪 Գրեթե! Կրկին փորձիր",
+      "🤏 Մոտ էր!",
+      "🧐 Քիչ էր մնում...",
+      "📖 Մի քիչ էլ, և կստացվի!",
+    ],
+    en: [
+      "💪 Almost! Try again",
+      "🤏 So close!",
+      "🧐 Almost had it...",
+      "📖 A little more and you'll get it!",
+    ],
+    ru: [
+      "💪 Почти! Попробуй снова",
+      "🤏 Так близко!",
+      "🧐 Чуть-чуть не хватило...",
+      "📖 Ещё немного, и получится!",
+    ],
+  },
+  incorrect: {
+    hy: [
+      "💪 Մի տխրիր! Կարող ես ավելի լավ",
+      "🔄 Կրկնիր, և կստացվի!",
+      "💪 Շատ մոտ էր, բայց կփորձենք նորից!",
+      "📖 Եկեք նորից փորձենք միասին",
+      "💪 Հաջորդ անգամ կստացվի:",
+    ],
+    en: [
+      "💪 Don't be sad! You can do better",
+      "🔄 Try again, you'll get it!",
+      "💪 So close, let's try again!",
+      "📖 Let's try together again",
+      "💪 Next time you'll get it!",
+    ],
+    ru: [
+      "💪 Не грусти! Ты можешь лучше",
+      "🔄 Попробуй снова, получится!",
+      "💪 Так близко, попробуем ещё раз!",
+      "📖 Давай попробуем вместе снова",
+      "💪 В следующий раз получится!",
+    ],
+  },
+  reveal: {
+    hy: ["🍎 Արի սովորենք միասին", "📖 Ահա ճիշտ պատասխանը"],
+    en: ["🍎 Let's learn together", "📖 Here's the correct answer"],
+    ru: ["🍎 Давай учиться вместе", "📖 Вот правильный ответ"],
+  },
+  thinking: {
+    hy: ["💭 Մտածիր...", "🤔 Հայերենը հիասքանչ է", "🧠 Ոչ այստեղ, ոչ այնտեղ..."],
+    en: ["💭 Think...", "🤔 You've got this", "🧠 Not here, not there..."],
+    ru: ["💭 Подумай...", "🤔 У тебя получится", "🧠 Ни здесь, ни там..."],
+  },
+  idle: {
+    hy: ["🍎 Բարև! Սովորենք միասին!", "💪 Ինչպե՞ս ես: Պատրա՞ստ ես:", "🪙 Հայերեն սովորելը հաճելի է"],
+    en: ["🍎 Hi! Let's learn together!", "💪 How are you? Ready?", "🪙 Learning is fun"],
+    ru: ["🍎 Привет! Давай учиться вместе!", "💪 Как дела? Готов?", "🪙 Учиться весело"],
+  },
+  relax: {
+    hy: [
+      "☕ Ժամանակն է մի փոքր հանգստանալ:",
+      "🧘 Եկեք մի փոքր հանգստանանք!",
+      "🍵 5 րոպե հանգիստ, հետո կշարունակենք!",
+    ],
+    en: [
+      "☕ Time to take a short break.",
+      "🧘 Let's take a short break!",
+      "🍵 5 minutes rest, then we'll continue!",
+    ],
+    ru: [
+      "☕ Время немного отдохнуть.",
+      "🧘 Давай немного отдохнём!",
+      "🍵 5 минут отдыха, потом продолжим!",
+    ],
+  },
+  surprised: {
+    hy: ["😲 Վա՜յ, դու շատ արագ ես սովորում!", "🤯 Անհավատալի!", "🌟 Դու ինձ զարմացնում ես!"],
+    en: ["😲 Wow, you're learning so fast!", "🤯 Unbelievable!", "🌟 You're amazing me!"],
+    ru: ["😲 Вау, ты так быстро учишься!", "🤯 Невероятно!", "🌟 Ты меня удивляешь!"],
+  },
+  encouraging: {
+    hy: ["💪 Դու կարող ես ամեն ինչ!", "🌟 Շարունակիր այսպես!", "🔥 Դու լավագույնն ես!"],
+    en: ["💪 You can do anything!", "🌟 Keep it up!", "🔥 You're the best!"],
+    ru: ["💪 Ты можешь всё!", "🌟 Продолжай так!", "🔥 Ты лучший!"],
+  },
+  sad: {
+    hy: ["😢 Մի տխրիր, հաջորդ անգամ կստացվի!", "💪 Մի հանձնվիր:"],
+    en: ["😢 Don't be sad, next time you'll get it!", "💪 Don't give up!"],
+    ru: ["😢 Не грусти, в следующий раз получится!", "💪 Не сдавайся!"],
+  },
+  angry: {
+    hy: ["😤 Հանգստացիր, ամեն ինչ լավ կլինի!", "🧘 Շնչիր խորը..."],
+    en: ["😤 Calm down, everything will be fine!", "🧘 Take a deep breath..."],
+    ru: ["😤 Успокойся, всё будет хорошо!", "🧘 Дыши глубоко..."],
+  },
+  excited: {
+    hy: ["🤩 Հիանալի է, շարունակիր:", "🎉 Վա՜յ, դու առաջընթաց ունես!"],
+    en: ["🤩 Excellent, continue!", "🎉 Wow, you're making progress!"],
+    ru: ["🤩 Отлично, продолжай!", "🎉 Вау, у тебя прогресс!"],
+  },
+  neutral: {
+    hy: ["😐 Լավ, շարունակենք:", "📖 Եկեք առաջ գնանք:"],
+    en: ["😐 OK, let's continue", "📖 Let's move forward"],
+    ru: ["😐 Ладно, продолжим", "📖 Пойдём дальше"],
+  },
 };
 
-function randomLine(key: string) {
-  const arr = NURI_LINES[key] ?? NURI_LINES.idle;
+function randomLine(key: string, lang: LangCode = "hy"): string {
+  const dict = NURI_LINES[key] ?? NURI_LINES.idle;
+  const arr = dict[lang] ?? dict.hy;
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -811,7 +891,7 @@ function LearnInner() {
     score: 0,
     hayqEarned: 0,
     nuriMood: "idle",
-    nuriSpeech: randomLine("idle"),
+    nuriSpeech: randomLine("idle", native),
     customImage: "",
     showHint: false,
     timeSpent: 0,
@@ -1361,7 +1441,7 @@ function LearnInner() {
         setEx((prev) => ({
           ...prev,
           customImage: "/images/nuri/nuri-relax.png",
-          nuriSpeech: randomLine("relax"),
+          nuriSpeech: randomLine("relax", native),
         }));
         startBreakTimer(breakDuration);
       }
@@ -1490,7 +1570,7 @@ function LearnInner() {
           hayqEarned: hayq,
           corrections: [],
           nuriMood: "excited",
-          nuriSpeech: randomLine("correct_perfect"),
+          nuriSpeech: randomLine("correct_perfect", native),
           customImage: "/images/nuri/nuri-encouraging.png",
           showHint: false,
         }));
@@ -1509,7 +1589,7 @@ function LearnInner() {
         state: "incorrect",
         feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }),
         nuriMood: "sad",
-        nuriSpeech: randomLine("almost"),
+        nuriSpeech: randomLine("almost", native),
         customImage: "/images/nuri/nuri-confused.png",
         showHint: false,
       }));
@@ -1551,7 +1631,7 @@ function LearnInner() {
       ...s,
       state: "submitting",
       nuriMood: "thinking",
-      nuriSpeech: randomLine("thinking"),
+      nuriSpeech: randomLine("thinking", native),
       customImage: "/images/nuri/nuri-thinking.png",
     }));
 
@@ -1616,7 +1696,7 @@ function LearnInner() {
           hayqEarned: hayq,
           corrections: data.corrections,
           nuriMood: "sad",
-          nuriSpeech: randomLine("incorrect"),
+          nuriSpeech: randomLine("incorrect", native),
           customImage: "/images/nuri/nuri-confused.png",
           showHint: false,
         }));
@@ -1639,7 +1719,7 @@ function LearnInner() {
           hayqEarned: hayq,
           corrections: data.corrections,
           nuriMood: score >= 0.98 ? "excited" : "happy",
-          nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct"),
+          nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct", native),
           customImage: "/images/nuri/nuri-encouraging.png",
           showHint: false,
         }));
@@ -1680,7 +1760,7 @@ function LearnInner() {
       setEx((s) => ({
         ...s,
         nuriMood: mood,
-        nuriSpeech: randomLine(speechKey),
+        nuriSpeech: randomLine(speechKey, native),
         customImage: s.customImage,
       }));
 
@@ -1807,7 +1887,7 @@ function LearnInner() {
           score: 0,
           hayqEarned: 0,
           nuriMood: "idle",
-          nuriSpeech: randomLine("idle"),
+          nuriSpeech: randomLine("idle", native),
           customImage: "/images/nuri/nuri-thinking.png",
           showHint: false,
           timeSpent: 0,
@@ -1841,7 +1921,7 @@ function LearnInner() {
         score: 0,
         hayqEarned: 0,
         nuriMood: "happy",
-        nuriSpeech: randomLine("idle"),
+        nuriSpeech: randomLine("idle", native),
         customImage: "/images/nuri/nuri-thinking.png",
         showHint: false,
         timeSpent: 0,
@@ -1895,7 +1975,7 @@ function LearnInner() {
       feedback: "",
       score: 0,
       nuriMood: "idle",
-      nuriSpeech: randomLine("idle"),
+      nuriSpeech: randomLine("idle", native),
       customImage: "/images/nuri/nuri-thinking.png",
       showHint: false,
       showListenButton: false,
@@ -1937,7 +2017,7 @@ function LearnInner() {
       setEx((prev) => ({
         ...prev,
         customImage: "/images/nuri/nuri-thinking.png",
-        nuriSpeech: randomLine("thinking"),
+        nuriSpeech: randomLine("thinking", native),
       }));
       exerciseStartTime.current = Date.now();
       showMessage(t("page_continue_learning"), "success");

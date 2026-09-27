@@ -1,6 +1,8 @@
+// src/components/ThemeBackground.tsx
 "use client";
 
 import { useState, useEffect, ReactNode } from "react";
+import { useBackground } from "@/lib/hooks/useBackground";
 
 interface ThemeBackgroundProps {
   children: ReactNode;
@@ -25,6 +27,7 @@ export function ThemeBackground({
 }: ThemeBackgroundProps) {
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const { settings } = useBackground();
 
   useEffect(() => {
     setIsMounted(true);
@@ -42,44 +45,61 @@ export function ThemeBackground({
     return <div className={className}>{children}</div>;
   }
 
+  // ─── BACKGROUND STYLE (based on type) ────────────────────────────
+
+  let backgroundStyle: React.CSSProperties = {};
+  let backgroundClassName = "fixed inset-0 -z-10 transition-all duration-500";
+
+  if (settings.type === "image") {
+    backgroundClassName += " bg-cover bg-center bg-no-repeat";
+    backgroundStyle = {
+      backgroundImage: `url(${isDark ? darkImage : lightImage})`,
+      opacity: imageOpacity,
+    };
+  } else if (settings.type === "solid") {
+    backgroundStyle = {
+      backgroundColor: settings.solidColor,
+    };
+  } else if (settings.type === "gradient") {
+    backgroundStyle = {
+      background: `linear-gradient(135deg, ${settings.gradientFrom} 0%, ${settings.gradientTo} 100%)`,
+    };
+  }
+
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ─── LAYER 1: BACKGROUND IMAGE ─── */}
-      <div 
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-opacity duration-500"
-        style={{
-          backgroundImage: `url(${isDark ? darkImage : lightImage})`,
-          opacity: imageOpacity,
-        }}
-      />
+      {/* ─── LAYER 1: BACKGROUND ─── */}
+      <div className={backgroundClassName} style={backgroundStyle} />
 
-      {/* ─── LAYER 2: OVERLAY ─── */}
-      {showOverlay && (
-        <div 
+      {/* ─── LAYER 2: OVERLAY (only for image) ─── */}
+      {settings.type === "image" && showOverlay && (
+        <div
           className="fixed inset-0 -z-10 transition-opacity duration-500"
           style={{
-            background: isDark 
+            background: isDark
               ? "linear-gradient(180deg, rgba(13,13,20,0.3) 0%, rgba(13,13,20,0.5) 100%)"
               : "linear-gradient(180deg, rgba(250,248,246,0.2) 0%, rgba(250,248,246,0.4) 100%)",
           }}
         />
       )}
 
-      {/* ─── LAYER 3: GLASS LAYER ─── */}
-      <div 
-        className="fixed inset-0 -z-10 pointer-events-none"
-        style={{
-          background: isDark
-            ? "rgba(13,13,20,0.15)"
-            : "rgba(255,255,255,0.1)",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-        }}
-      />
+      {/* ─── LAYER 3: GLASS LAYER (only for image) ─── */}
+      {settings.type === "image" && (
+        <div
+          className="fixed inset-0 -z-10 pointer-events-none"
+          style={{
+            background: isDark
+              ? "rgba(13,13,20,0.15)"
+              : "rgba(255,255,255,0.1)",
+            backdropFilter: "blur(2px)",
+            WebkitBackdropFilter: "blur(2px)",
+          }}
+        />
+      )}
 
       {/* ─── LAYER 4: NOISE ─── */}
       {showNoise && (
-        <div 
+        <div
           className="fixed inset-0 -z-10 opacity-[0.02] pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
@@ -88,9 +108,9 @@ export function ThemeBackground({
         />
       )}
 
-      {/* ─── LAYER 5: VIGNETTE ─── */}
-      {showVignette && (
-        <div 
+      {/* ─── LAYER 5: VIGNETTE (only for image) ─── */}
+      {settings.type === "image" && showVignette && (
+        <div
           className="fixed inset-0 -z-10 pointer-events-none"
           style={{
             background: isDark

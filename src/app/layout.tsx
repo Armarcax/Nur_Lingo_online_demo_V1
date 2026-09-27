@@ -8,6 +8,7 @@ import { NuriProvider } from "@/components/NuriProvider";
 import { ThemeBackground } from "@/components/ThemeBackground";
 import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { BackgroundSelector } from "@/components/BackgroundSelector";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -230,6 +231,8 @@ export default function RootLayout({
               </div>
               
               {/* ✅ Nuri Floating - Appears on all pages */}
+               {/* 🎨 Background selector */}
+              <BackgroundSelector />
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>

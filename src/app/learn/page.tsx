@@ -1597,14 +1597,14 @@ function LearnInner() {
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
       
-      if (newAttempts >= 3) {
+      if (newAttempts >= 2) {
         try {
           const updated = deductHeart();
           setHearts(updated.hearts);
         } catch {
           // silent fail
         }
-        setAttempts(0);
+      
         if (lesson) logMistake(lesson.id, current, newAttempts, false);
       }
       onWrong();
@@ -1676,14 +1676,13 @@ function LearnInner() {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
 
-        if (newAttempts >= 3) {
+        if (newAttempts >= 2) {
           try {
             const updated = deductHeart();
             setHearts(updated.hearts);
           } catch {
             // silent fail
           }
-          setAttempts(0);
           if (lesson) logMistake(lesson.id, current, newAttempts, false);
         }
         onWrong();
@@ -1778,7 +1777,7 @@ function LearnInner() {
       } else {
         // Wrong answer: only auto-advance if 3 attempts used up
         const attemptsUsed = attempts + 1;
-        if (attemptsUsed >= 3) {
+        if (attemptsUsed >= 2) {
           // ✅ Wait for answer audio too
           answerAudioPromise.finally(() => {
             setTimeout(() => {
@@ -2431,7 +2430,7 @@ function LearnInner() {
             <Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />
           )}
 
-          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[280px]">
+          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[320px] flex flex-col">
             {isRetryPhase && (
               <p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1">
                 <Brain size={14} /> {t("page_review_mistake")}
@@ -2439,24 +2438,20 @@ function LearnInner() {
             )}
 
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white flex-1">
                 {current.prompt[native] ?? current.prompt["en"]}
               </h3>
-              <div className="flex items-center gap-2">
-                {ex.showListenButton && (
-                  <button
-                    onClick={() => {
-                      const promptText = current.prompt?.[native] || current.prompt?.en || "";
-                      playAudioWithFallback(promptText, native, 'prompt')
-                        .then(() => setEx(prev => ({ ...prev, showListenButton: false })))
-                        .catch(() => {});
-                    }}
-                    className="px-3 py-1.5 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors text-xs font-bold flex items-center gap-1 animate-pulse"
-                  >
-                    <Volume2 size={14} />
-                    {t("page_listen")}
-                  </button>
-                )}
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <button
+                  onClick={() => {
+                    const promptText = current.prompt?.[native] || current.prompt?.en || "";
+                    playAudioWithFallback(promptText, native, 'prompt').catch(() => {});
+                  }}
+                  className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
+                  title={t("page_listen")}
+                >
+                  <Volume2 size={18} />
+                </button>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/40 dark:bg-white/10 text-gray-500 dark:text-gray-400">
                   {ex.index + 1}/{lesson.exercises?.length}
                 </span>
@@ -2472,14 +2467,14 @@ function LearnInner() {
               )}
             </div>
 
-            {ex.state === "incorrect" && attempts < 3 && (
+            {ex.state === "incorrect" && attempts < 2 && (
               <p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2">
                 <AlertCircle size={14} />
                 {t("page_attempts_left", { count: attemptsLeft })}
               </p>
             )}
 
-            {ex.state === "incorrect" && attempts >= 3 && (
+            {ex.state === "incorrect" && attempts >= 2 && (
               <div className="mb-4 p-4 bg-blue-50/50 dark:bg-blue-950/30 backdrop-blur-sm border border-blue-200/30 dark:border-blue-800/30 rounded-xl">
                 <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-2 flex items-center gap-1">
                   <BookOpen size={12} /> {t("page_lets_learn_from_answer")}
@@ -2574,7 +2569,7 @@ function LearnInner() {
             </div>
           </GlassCard>
 
-          <div className="w-full max-w-2xl min-h-[140px]">
+          <div className="w-full max-w-2xl h-[200px] overflow-visible">
             {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (
@@ -2593,7 +2588,7 @@ function LearnInner() {
                   </div>
                 )}
               </div>
-            ) : ex.state === "incorrect" && attempts < 3 ? (
+            ) : ex.state === "incorrect" && attempts < 2 ? (
               <button
                 onClick={retrySameStep}
                 className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"

@@ -28,8 +28,7 @@ export function ThemeBackground({
   useEffect(() => {
     setIsMounted(true);
     const checkTheme = () => {
-      const dark = document.documentElement.classList.contains("dark");
-      setIsDark(dark);
+      setIsDark(document.documentElement.classList.contains("dark"));
     };
     checkTheme();
     const observer = new MutationObserver(checkTheme);
@@ -51,7 +50,7 @@ export function ThemeBackground({
 
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ─── LAYER 1: GRADIENT BACKGROUND (theme preset) ─── */}
+      {/* ─── LAYER 1: GRADIENT (theme preset) ─── */}
       <div
         className="fixed inset-0 -z-20 transition-all duration-700"
         style={{
@@ -59,22 +58,22 @@ export function ThemeBackground({
         }}
       />
 
-      {/* ─── LAYER 2: POMEGRANATE IMAGE OVERLAY ─── */}
+      {/* ─── LAYER 2: POMEGRANATE IMAGE (blended over gradient) ─── */}
       {bgImage && (
         <div
-          className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-700"
+          className="fixed inset-0 -z-[15] pointer-events-none transition-opacity duration-700"
           style={{
             backgroundImage: `url("${bgImage}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            opacity: isDark ? 0.35 : 0.25,
+            opacity: isDark ? 0.35 : 0.22,
             mixBlendMode: isDark ? "luminosity" : "multiply",
           }}
         />
       )}
 
-      {/* ─── LAYER 3: PATTERN OVERLAY (very subtle) ─── */}
+      {/* ─── LAYER 3: ARMENIAN PATTERN (very subtle) ─── */}
       {patternEnabled && (
         <div
           className="fixed inset-0 -z-10 pointer-events-none"
@@ -93,7 +92,7 @@ export function ThemeBackground({
           style={{
             background: isDark
               ? "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%)"
-              : "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.12) 100%)",
+              : "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.10) 100%)",
           }}
         />
       )}
@@ -103,7 +102,7 @@ export function ThemeBackground({
         <div
           className="fixed inset-0 -z-10 pointer-events-none"
           style={{
-            opacity: isDark ? 0.06 : 0.04,
+            opacity: isDark ? 0.05 : 0.03,
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           }}
         />

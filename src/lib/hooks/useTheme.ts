@@ -4,11 +4,11 @@
 import { useState, useEffect, useCallback } from "react";
 
 export type ThemePresetId =
-  | "default"     // 🏆 NUR Lingo default (sage + cream)
-  | "blue"        // 🌙 #1 Dark blue ↔ warm light blue
-  | "green"       // 🌲 #2 Dark green ↔ light sage
-  | "purple"      // 🌌 #3 Dark purple ↔ light lavender
-  | "charcoal";   // 🪨 #4 Charcoal ↔ warm gray
+  | "default"
+  | "blue"
+  | "green"
+  | "purple"
+  | "charcoal";
 
 export interface ThemeColors {
   lightFrom: string;
@@ -19,16 +19,10 @@ export interface ThemeColors {
 
 export interface ThemePreset {
   id: ThemePresetId;
-  label: {
-    hy: string;
-    en: string;
-    ru: string;
-  };
+  label: { hy: string; en: string; ru: string };
   emoji: string;
   colors: ThemeColors;
 }
-
-// ─── PRESETS ────────────────────────────────────────────────────────
 
 export const THEME_PRESETS: ThemePreset[] = [
   {
@@ -48,11 +42,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   },
   {
     id: "blue",
-    label: {
-      hy: "🌙 Հանգիստ կապույտ",
-      en: "🌙 Calm blue",
-      ru: "🌙 Спокойный синий",
-    },
+    label: { hy: "🌙 Հանգիստ կապույտ", en: "🌙 Calm blue", ru: "🌙 Спокойный синий" },
     emoji: "🌙",
     colors: {
       lightFrom: "#F4F8FC",
@@ -63,11 +53,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   },
   {
     id: "green",
-    label: {
-      hy: "🌲 Բնական կանաչ",
-      en: "🌲 Natural green",
-      ru: "🌲 Природный зелёный",
-    },
+    label: { hy: "🌲 Բնական կանաչ", en: "🌲 Natural green", ru: "🌲 Природный зелёный" },
     emoji: "🌲",
     colors: {
       lightFrom: "#F3F8F5",
@@ -78,11 +64,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   },
   {
     id: "purple",
-    label: {
-      hy: "🌌 Մանուշակագույն",
-      en: "🌌 Lavender",
-      ru: "🌌 Лаванда",
-    },
+    label: { hy: "🌌 Մանուշակագույն", en: "🌌 Lavender", ru: "🌌 Лаванда" },
     emoji: "🌌",
     colors: {
       lightFrom: "#F8F6FC",
@@ -93,11 +75,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   },
   {
     id: "charcoal",
-    label: {
-      hy: "🪨 Մինիմալ",
-      en: "🪨 Minimal",
-      ru: "🪨 Минимал",
-    },
+    label: { hy: "🪨 Մինիմալ", en: "🪨 Minimal", ru: "🪨 Минимал" },
     emoji: "🪨",
     colors: {
       lightFrom: "#F7F7F5",
@@ -108,8 +86,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   },
 ];
 
-// ─── MODULE-LEVEL STATE (shared across all instances) ───────────────
-
+// ─── MODULE-LEVEL STATE ───
 const STORAGE_KEY = "nur_theme_preset";
 const PATTERN_KEY = "nur_theme_pattern";
 
@@ -122,13 +99,9 @@ function loadFromStorage() {
   if (typeof window === "undefined") return;
   try {
     const saved = localStorage.getItem(STORAGE_KEY) as ThemePresetId | null;
-    if (saved && THEME_PRESETS.some((p) => p.id === saved)) {
-      globalThemeId = saved;
-    }
+    if (saved && THEME_PRESETS.some((p) => p.id === saved)) globalThemeId = saved;
     const pattern = localStorage.getItem(PATTERN_KEY);
-    if (pattern !== null) {
-      globalPatternEnabled = pattern === "true";
-    }
+    if (pattern !== null) globalPatternEnabled = pattern === "true";
   } catch (e) {
     console.warn("Failed to load theme:", e);
   }
@@ -142,27 +115,22 @@ function initializeIfNeeded() {
 }
 
 function notifyAll() {
-  listeners.forEach((listener) => listener());
+  listeners.forEach((l) => l());
 }
 
 function setThemeId(id: ThemePresetId) {
   globalThemeId = id;
-  try {
-    localStorage.setItem(STORAGE_KEY, id);
-  } catch {}
+  try { localStorage.setItem(STORAGE_KEY, id); } catch {}
   notifyAll();
 }
 
 function setPattern(enabled: boolean) {
   globalPatternEnabled = enabled;
-  try {
-    localStorage.setItem(PATTERN_KEY, String(enabled));
-  } catch {}
+  try { localStorage.setItem(PATTERN_KEY, String(enabled)); } catch {}
   notifyAll();
 }
 
-// ─── HOOK ───────────────────────────────────────────────────────────
-
+// ─── HOOK ───
 export function useTheme() {
   initializeIfNeeded();
 
@@ -180,18 +148,11 @@ export function useTheme() {
       setLocalPatternEnabled(globalPatternEnabled);
     };
     listeners.add(handler);
-    return () => {
-      listeners.delete(handler);
-    };
+    return () => { listeners.delete(handler); };
   }, []);
 
-  const updateTheme = useCallback((id: ThemePresetId) => {
-    setThemeId(id);
-  }, []);
-
-  const updatePattern = useCallback((enabled: boolean) => {
-    setPattern(enabled);
-  }, []);
+  const updateTheme = useCallback((id: ThemePresetId) => setThemeId(id), []);
+  const updatePattern = useCallback((enabled: boolean) => setPattern(enabled), []);
 
   const currentPreset =
     THEME_PRESETS.find((p) => p.id === themeId) ?? THEME_PRESETS[0];

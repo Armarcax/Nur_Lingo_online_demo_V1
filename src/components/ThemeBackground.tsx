@@ -2,32 +2,28 @@
 "use client";
 
 import { useState, useEffect, ReactNode } from "react";
-import { useBackground } from "@/lib/hooks/useBackground";
+import { useTheme } from "@/lib/hooks/useTheme";
 
 interface ThemeBackgroundProps {
   children: ReactNode;
   className?: string;
   darkImage?: string;
   lightImage?: string;
-  showNoise?: boolean;
   showVignette?: boolean;
-  showOverlay?: boolean;
-  imageOpacity?: number;
+  showNoise?: boolean;
 }
 
 export function ThemeBackground({
   children,
   className = "",
-  darkImage = "/images/pomegranate-dark.jpg",
-  lightImage = "/images/pomegranate-light.jpg",
-  showNoise = true,
-  showVignette = true,
-  showOverlay = true,
-  imageOpacity = 1,
+  darkImage,
+  lightImage,
+  showVignette = false,
+  showNoise = false,
 }: ThemeBackgroundProps) {
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const { settings } = useBackground();
+  const { currentPreset, patternEnabled } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
@@ -37,7 +33,10 @@ export function ThemeBackground({
     };
     checkTheme();
     const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
     return () => observer.disconnect();
   }, []);
 
@@ -45,77 +44,67 @@ export function ThemeBackground({
     return <div className={className}>{children}</div>;
   }
 
-  // ─── BACKGROUND STYLE (based on type) ────────────────────────────
-
-  let backgroundStyle: React.CSSProperties = {};
-  let backgroundClassName = "fixed inset-0 -z-10 transition-all duration-500";
-
-  if (settings.type === "image") {
-    backgroundClassName += " bg-cover bg-center bg-no-repeat";
-    backgroundStyle = {
-      backgroundImage: `url(${isDark ? darkImage : lightImage})`,
-      opacity: imageOpacity,
-    };
-  } else if (settings.type === "solid") {
-    backgroundStyle = {
-      backgroundColor: settings.solidColor,
-    };
-  } else if (settings.type === "gradient") {
-    backgroundStyle = {
-      background: `linear-gradient(135deg, ${settings.gradientFrom} 0%, ${settings.gradientTo} 100%)`,
-    };
-  }
+  const { colors } = currentPreset;
+  const from = isDark ? colors.darkFrom : colors.lightFrom;
+  const to = isDark ? colors.darkTo : colors.lightTo;
+  const bgImage = isDark ? darkImage : lightImage;
 
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ─── LAYER 1: BACKGROUND ─── */}
-      <div className={backgroundClassName} style={backgroundStyle} />
+      {/* ─── LAYER 1: GRADIENT BACKGROUND (theme preset) ─── */}
+      <div
+        className="fixed inset-0 -z-20 transition-all duration-700"
+        style={{
+          background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
+        }}
+      />
 
-      {/* ─── LAYER 2: OVERLAY (only for image) ─── */}
-      {settings.type === "image" && showOverlay && (
+      {/* ─── LAYER 2: POMEGRANATE IMAGE OVERLAY ─── */}
+      {bgImage && (
         <div
-          className="fixed inset-0 -z-10 transition-opacity duration-500"
+          className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-700"
           style={{
-            background: isDark
-              ? "linear-gradient(180deg, rgba(13,13,20,0.3) 0%, rgba(13,13,20,0.5) 100%)"
-              : "linear-gradient(180deg, rgba(250,248,246,0.2) 0%, rgba(250,248,246,0.4) 100%)",
+            backgroundImage: `url("${bgImage}")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: isDark ? 0.35 : 0.25,
+            mixBlendMode: isDark ? "luminosity" : "multiply",
           }}
         />
       )}
 
-      {/* ─── LAYER 3: GLASS LAYER (only for image) ─── */}
-      {settings.type === "image" && (
+      {/* ─── LAYER 3: PATTERN OVERLAY (very subtle) ─── */}
+      {patternEnabled && (
+        <div
+          className="fixed inset-0 -z-10 pointer-events-none"
+          style={{
+            opacity: isDark ? 0.04 : 0.03,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23${isDark ? "FFFFFF" : "8B0000"}' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+      )}
+
+      {/* ─── LAYER 4: VIGNETTE (optional) ─── */}
+      {showVignette && (
         <div
           className="fixed inset-0 -z-10 pointer-events-none"
           style={{
             background: isDark
-              ? "rgba(13,13,20,0.15)"
-              : "rgba(255,255,255,0.1)",
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(2px)",
+              ? "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%)"
+              : "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.12) 100%)",
           }}
         />
       )}
 
-      {/* ─── LAYER 4: NOISE ─── */}
+      {/* ─── LAYER 5: NOISE (optional) ─── */}
       {showNoise && (
         <div
-          className="fixed inset-0 -z-10 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-            backgroundSize: "256px 256px",
-          }}
-        />
-      )}
-
-      {/* ─── LAYER 5: VIGNETTE (only for image) ─── */}
-      {settings.type === "image" && showVignette && (
-        <div
           className="fixed inset-0 -z-10 pointer-events-none"
           style={{
-            background: isDark
-              ? "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)"
-              : "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.06) 100%)",
+            opacity: isDark ? 0.06 : 0.04,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           }}
         />
       )}

@@ -8,6 +8,7 @@ import { NuriProvider } from "@/components/NuriProvider";
 import { ThemeBackground } from "@/components/ThemeBackground";
 import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -203,20 +204,12 @@ export default function RootLayout({
         <I18nProvider>
           {/* ✅ Nuri Provider - Full Emotion Engine */}
           <NuriProvider>
-            {/* ✅ Theme Background - Pomegranate images with .jpg extension */}
-            <ThemeBackground
-              darkImage="/images/pomegranate-dark.jpg"
-              lightImage="/images/pomegranate-light.jpg"
-              showVignette={true}
-              showNoise={true}
-            >
+            {/* ✅ Theme Background — uses palette selection from localStorage */}
+            <ThemeBackground language="hy" showSelector={true}>
               {/* ✅ Background layers for visibility */}
               <div className="fixed inset-0 -z-20 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 dark:to-black/20" />
               </div>
-
-              {/* ✅ Language rain — Armenian, English, Russian letters falling together */}
-              
 
               {/* ✅ Service Worker Register - Offline support */}
               <ServiceWorkerRegister />
@@ -227,8 +220,6 @@ export default function RootLayout({
               <div className="relative z-10 container-main">
                 {children}
               </div>
-              
-              {/* ✅ Nuri Floating - Appears on all pages */}
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>

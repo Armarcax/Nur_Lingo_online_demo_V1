@@ -191,6 +191,7 @@ export default function RootLayout({
             /* Ensure background image is visible */
             body {
               background-color: transparent !important;
+              background-image: none !important;
             }
             .layer-image {
               opacity: 1 !important;

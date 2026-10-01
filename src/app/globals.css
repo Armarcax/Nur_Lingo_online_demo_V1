@@ -176,7 +176,7 @@
   
   body {
     background: var(--color-bg);
-    background-image: var(--pom-bg), var(--pom-image);
+    background-image: none;
     background-size: cover, cover;
     background-position: center, center;
     background-attachment: fixed, fixed;

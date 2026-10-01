@@ -3,7 +3,6 @@
 import {
   useState,
   useEffect,
-  useRef,
   ReactNode,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,16 +20,9 @@ export type AppLanguage = "hy" | "en" | "ru";
 
 export interface ThemeBackgroundItem {
   id: string;
-
-  title: {
-    hy: string;
-    en: string;
-    ru: string;
-  };
-
+  title: { hy: string; en: string; ru: string };
   dark: string;
   light: string;
-
   preview: string;
 }
 
@@ -150,13 +142,9 @@ export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
    HELPERS
 ───────────────────────────────────────────── */
 
-export function getThemeBackground(
-  id: string
-): ThemeBackgroundItem {
+export function getThemeBackground(id: string): ThemeBackgroundItem {
   return (
-    THEME_BACKGROUNDS.find(
-      (item) => item.id === id
-    ) ??
+    THEME_BACKGROUNDS.find((item) => item.id === id) ??
     THEME_BACKGROUNDS[0]
   );
 }
@@ -208,32 +196,37 @@ export function ThemeBackground({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  /* For crossfade — hold the previous image URL */
-  const [prevImage, setPrevImage] = useState<string | null>(null);
-  const isFirstRender = useRef(true);
-
   /* ─────────────────────────────────────────
-     MOUNT + THEME DETECTION
+     MOUNT
   ───────────────────────────────────────── */
 
   useEffect(() => {
+    console.log("🔵 [ThemeBg] MOUNT effect, background prop =", background);
     setIsMounted(true);
 
     if (background) {
+      console.log("🔵 [ThemeBg] Using background prop:", background);
       setActiveId(background);
     } else {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
+        console.log("🔵 [ThemeBg] localStorage saved =", saved);
         if (saved) setActiveId(saved);
-      } catch {}
+      } catch (e) {
+        console.warn("🔵 [ThemeBg] localStorage error:", e);
+      }
     }
+  }, [background]);
 
+  /* ─────────────────────────────────────────
+     THEME DETECTION
+  ───────────────────────────────────────── */
+
+  useEffect(() => {
     const checkTheme = () => {
-      const dark =
-        document.documentElement.classList.contains("dark");
+      const dark = document.documentElement.classList.contains("dark");
       setIsDark(dark);
     };
-
     checkTheme();
 
     const observer = new MutationObserver(checkTheme);
@@ -241,24 +234,30 @@ export function ThemeBackground({
       attributes: true,
       attributeFilter: ["class"],
     });
-
     return () => observer.disconnect();
-  }, [background]);
+  }, []);
 
   /* ─────────────────────────────────────────
      CHANGE BACKGROUND
   ───────────────────────────────────────── */
 
   const changeBackground = (id: string) => {
+    console.log("🟢 [ThemeBg] changeBackground called with id:", id);
+
     setActiveId(id);
+
     try {
       localStorage.setItem(STORAGE_KEY, id);
-    } catch {}
+      console.log("🟢 [ThemeBg] localStorage.setItem OK");
+    } catch (e) {
+      console.warn("🟢 [ThemeBg] localStorage.setItem failed:", e);
+    }
+
     setIsOpen(false);
   };
 
   /* ─────────────────────────────────────────
-     SELECT CURRENT IMAGE
+     SELECT BACKGROUND
   ───────────────────────────────────────── */
 
   const selected = getThemeBackground(activeId);
@@ -267,22 +266,14 @@ export function ThemeBackground({
   const currentLightImage = lightImage ?? selected.light;
   const currentImage = isDark ? currentDarkImage : currentLightImage;
 
-  /* Track previous image for crossfade */
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    // When the image changes, hold the OLD one briefly for crossfade
-    setPrevImage((prev) => {
-      // If prev is same as current, don't bother
-      if (prev === currentImage) return null;
-      return prev;
-    });
-    // After animation completes, clear prev
-    const timer = setTimeout(() => setPrevImage(null), 700);
-    return () => clearTimeout(timer);
-  }, [currentImage]);
+  /* DEBUG */
+  console.log("🟡 [ThemeBg] RENDER", {
+    isMounted,
+    isDark,
+    activeId,
+    selectedId: selected.id,
+    currentImage,
+  });
 
   /* ─────────────────────────────────────────
      LABELS
@@ -309,12 +300,11 @@ export function ThemeBackground({
 
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ───────────────────────────────
-          LAYER 1 — BACKGROUND (KEY forces remount)
-      ─────────────────────────────── */}
-
+      {/* LAYER 1 — BACKGROUND */}
       <div
-        key={`bg-${currentImage}`}
+        key={`bg-${activeId}-${isDark ? "dark" : "light"}`}
+        data-bg-id={activeId}
+        data-bg-img={currentImage}
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("${currentImage}")`,
@@ -322,10 +312,7 @@ export function ThemeBackground({
         }}
       />
 
-      {/* ───────────────────────────────
-          LAYER 2 — OVERLAY
-      ─────────────────────────────── */}
-
+      {/* LAYER 2 — OVERLAY */}
       {showOverlay && (
         <div
           className="fixed inset-0 -z-10"
@@ -337,10 +324,7 @@ export function ThemeBackground({
         />
       )}
 
-      {/* ───────────────────────────────
-          LAYER 3 — GLASS
-      ─────────────────────────────── */}
-
+      {/* LAYER 3 — GLASS */}
       <div
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{
@@ -352,10 +336,7 @@ export function ThemeBackground({
         }}
       />
 
-      {/* ───────────────────────────────
-          LAYER 4 — NOISE
-      ─────────────────────────────── */}
-
+      {/* LAYER 4 — NOISE */}
       {showNoise && (
         <div
           className="fixed inset-0 -z-10 opacity-[0.02] pointer-events-none"
@@ -366,10 +347,7 @@ export function ThemeBackground({
         />
       )}
 
-      {/* ───────────────────────────────
-          LAYER 5 — VIGNETTE
-      ─────────────────────────────── */}
-
+      {/* LAYER 5 — VIGNETTE */}
       {showVignette && (
         <div
           className="fixed inset-0 -z-10 pointer-events-none"
@@ -381,16 +359,10 @@ export function ThemeBackground({
         />
       )}
 
-      {/* ───────────────────────────────
-          CONTENT
-      ─────────────────────────────── */}
-
+      {/* CONTENT */}
       {children}
 
-      {/* ───────────────────────────────
-          FLOATING PALETTE BUTTON + MODAL
-      ─────────────────────────────── */}
-
+      {/* FLOATING BUTTON + MODAL */}
       {showSelector && (
         <>
           <button
@@ -418,7 +390,6 @@ export function ThemeBackground({
                   onClick={(e) => e.stopPropagation()}
                   className="w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/20 dark:border-gray-700 shadow-2xl flex flex-col"
                 >
-                  {/* Header */}
                   <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
                       <Palette size={20} className="text-red-500" />
@@ -440,7 +411,6 @@ export function ThemeBackground({
                     </button>
                   </div>
 
-                  {/* Grid of previews */}
                   <div className="p-5 overflow-y-auto">
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {THEME_BACKGROUNDS.map((bg) => {
@@ -455,7 +425,6 @@ export function ThemeBackground({
                                 : "border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
                             }`}
                           >
-                            {/* Preview image */}
                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                               <img
                                 src={bg.preview}
@@ -469,8 +438,6 @@ export function ThemeBackground({
                                 </div>
                               )}
                             </div>
-
-                            {/* Title */}
                             <div className="px-2 py-2 text-left bg-white dark:bg-gray-900">
                               <p className="text-xs font-medium text-gray-900 dark:text-white truncate">
                                 {bg.title[language]}

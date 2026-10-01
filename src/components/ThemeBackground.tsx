@@ -3,6 +3,7 @@
 import {
   useState,
   useEffect,
+  useRef,
   ReactNode,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -170,34 +171,14 @@ const DEFAULT_BACKGROUND_ID = "pomegranate";
 interface ThemeBackgroundProps {
   children: ReactNode;
   className?: string;
-
-  /**
-   * Selected background (optional override).
-   * If not passed → reads from localStorage.
-   */
   background?: string;
-
-  /**
-   * Current application language (for selector labels).
-   */
   language?: AppLanguage;
-
-  /**
-   * Show the floating palette button + modal.
-   * Default: true
-   */
   showSelector?: boolean;
-
-  /**
-   * Backwards compatibility: direct image overrides.
-   */
   darkImage?: string;
   lightImage?: string;
-
   showNoise?: boolean;
   showVignette?: boolean;
   showOverlay?: boolean;
-
   imageOpacity?: number;
 }
 
@@ -221,17 +202,15 @@ export function ThemeBackground({
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  /* Active background id — priority:
-     1) prop 'background'
-     2) localStorage
-     3) default
-  */
   const [activeId, setActiveId] = useState<string>(
     background ?? DEFAULT_BACKGROUND_ID
   );
 
-  /* Modal open state */
   const [isOpen, setIsOpen] = useState(false);
+
+  /* For crossfade — hold the previous image URL */
+  const [prevImage, setPrevImage] = useState<string | null>(null);
+  const isFirstRender = useRef(true);
 
   /* ─────────────────────────────────────────
      MOUNT + THEME DETECTION
@@ -240,7 +219,6 @@ export function ThemeBackground({
   useEffect(() => {
     setIsMounted(true);
 
-    /* Load background from localStorage if no prop given */
     if (background) {
       setActiveId(background);
     } else {
@@ -250,7 +228,6 @@ export function ThemeBackground({
       } catch {}
     }
 
-    /* Theme detection */
     const checkTheme = () => {
       const dark =
         document.documentElement.classList.contains("dark");
@@ -277,12 +254,11 @@ export function ThemeBackground({
     try {
       localStorage.setItem(STORAGE_KEY, id);
     } catch {}
-    /* Close modal immediately after selection */
     setIsOpen(false);
   };
 
   /* ─────────────────────────────────────────
-     SELECT BACKGROUND
+     SELECT CURRENT IMAGE
   ───────────────────────────────────────── */
 
   const selected = getThemeBackground(activeId);
@@ -290,6 +266,23 @@ export function ThemeBackground({
   const currentDarkImage = darkImage ?? selected.dark;
   const currentLightImage = lightImage ?? selected.light;
   const currentImage = isDark ? currentDarkImage : currentLightImage;
+
+  /* Track previous image for crossfade */
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    // When the image changes, hold the OLD one briefly for crossfade
+    setPrevImage((prev) => {
+      // If prev is same as current, don't bother
+      if (prev === currentImage) return null;
+      return prev;
+    });
+    // After animation completes, clear prev
+    const timer = setTimeout(() => setPrevImage(null), 700);
+    return () => clearTimeout(timer);
+  }, [currentImage]);
 
   /* ─────────────────────────────────────────
      LABELS
@@ -307,11 +300,7 @@ export function ThemeBackground({
   ───────────────────────────────────────── */
 
   if (!isMounted) {
-    return (
-      <div className={className}>
-        {children}
-      </div>
-    );
+    return <div className={className}>{children}</div>;
   }
 
   /* ─────────────────────────────────────────
@@ -321,20 +310,12 @@ export function ThemeBackground({
   return (
     <div className={`relative min-h-screen ${className}`}>
       {/* ───────────────────────────────
-          LAYER 1 — BACKGROUND
+          LAYER 1 — BACKGROUND (KEY forces remount)
       ─────────────────────────────── */}
 
       <div
-        className="
-          fixed
-          inset-0
-          -z-10
-          bg-cover
-          bg-center
-          bg-no-repeat
-          transition-all
-          duration-500
-        "
+        key={`bg-${currentImage}`}
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("${currentImage}")`,
           opacity: imageOpacity,
@@ -347,13 +328,7 @@ export function ThemeBackground({
 
       {showOverlay && (
         <div
-          className="
-            fixed
-            inset-0
-            -z-10
-            transition-opacity
-            duration-500
-          "
+          className="fixed inset-0 -z-10"
           style={{
             background: isDark
               ? "linear-gradient(180deg, rgba(13,13,20,0.3) 0%, rgba(13,13,20,0.5) 100%)"
@@ -367,12 +342,7 @@ export function ThemeBackground({
       ─────────────────────────────── */}
 
       <div
-        className="
-          fixed
-          inset-0
-          -z-10
-          pointer-events-none
-        "
+        className="fixed inset-0 -z-10 pointer-events-none"
         style={{
           background: isDark
             ? "rgba(13,13,20,0.15)"
@@ -388,13 +358,7 @@ export function ThemeBackground({
 
       {showNoise && (
         <div
-          className="
-            fixed
-            inset-0
-            -z-10
-            opacity-[0.02]
-            pointer-events-none
-          "
+          className="fixed inset-0 -z-10 opacity-[0.02] pointer-events-none"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
             backgroundSize: "256px 256px",
@@ -408,12 +372,7 @@ export function ThemeBackground({
 
       {showVignette && (
         <div
-          className="
-            fixed
-            inset-0
-            -z-10
-            pointer-events-none
-          "
+          className="fixed inset-0 -z-10 pointer-events-none"
           style={{
             background: isDark
               ? "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)"
@@ -436,26 +395,7 @@ export function ThemeBackground({
         <>
           <button
             onClick={() => setIsOpen(true)}
-            className="
-              fixed
-              top-4
-              right-4
-              z-[60]
-              p-2.5
-              rounded-xl
-              bg-white/60
-              dark:bg-gray-900/60
-              backdrop-blur-md
-              border
-              border-white/30
-              dark:border-white/10
-              text-gray-700
-              dark:text-gray-200
-              hover:bg-white/80
-              dark:hover:bg-gray-800/80
-              transition-all
-              shadow-lg
-            "
+            className="fixed top-4 right-4 z-[60] p-2.5 rounded-xl bg-white/60 dark:bg-gray-900/60 backdrop-blur-md border border-white/30 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all shadow-lg"
             title={L.title}
             aria-label={L.title}
           >
@@ -468,17 +408,7 @@ export function ThemeBackground({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="
-                  fixed
-                  inset-0
-                  z-[100]
-                  flex
-                  items-center
-                  justify-center
-                  p-4
-                  bg-black/50
-                  backdrop-blur-sm
-                "
+                className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
                 onClick={() => setIsOpen(false)}
               >
                 <motion.div
@@ -486,35 +416,10 @@ export function ThemeBackground({
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.9, opacity: 0 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="
-                    w-full
-                    max-w-2xl
-                    max-h-[85vh]
-                    overflow-hidden
-                    rounded-2xl
-                    bg-white/95
-                    dark:bg-gray-900/95
-                    backdrop-blur-xl
-                    border
-                    border-white/20
-                    dark:border-gray-700
-                    shadow-2xl
-                    flex
-                    flex-col
-                  "
+                  className="w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/20 dark:border-gray-700 shadow-2xl flex flex-col"
                 >
                   {/* Header */}
-                  <div
-                    className="
-                      flex
-                      items-center
-                      justify-between
-                      p-5
-                      border-b
-                      border-gray-200
-                      dark:border-gray-700
-                    "
-                  >
+                  <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
                       <Palette size={20} className="text-red-500" />
                       <div>
@@ -528,13 +433,7 @@ export function ThemeBackground({
                     </div>
                     <button
                       onClick={() => setIsOpen(false)}
-                      className="
-                        p-1.5
-                        rounded-lg
-                        hover:bg-gray-200
-                        dark:hover:bg-gray-800
-                        transition-colors
-                      "
+                      className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                       aria-label="Close"
                     >
                       <X size={18} className="text-gray-500" />
@@ -550,58 +449,23 @@ export function ThemeBackground({
                           <button
                             key={bg.id}
                             onClick={() => changeBackground(bg.id)}
-                            className={`
-                              group
-                              relative
-                              flex
-                              flex-col
-                              rounded-xl
-                              overflow-hidden
-                              border-2
-                              transition-all
-                              ${
-                                isActive
-                                  ? "border-red-500 ring-2 ring-red-500/30"
-                                  : "border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
-                              }
-                            `}
+                            className={`group relative flex flex-col rounded-xl overflow-hidden border-2 transition-all ${
+                              isActive
+                                ? "border-red-500 ring-2 ring-red-500/30"
+                                : "border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
+                            }`}
                           >
                             {/* Preview image */}
                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
                               <img
                                 src={bg.preview}
                                 alt={bg.title[language]}
-                                className="
-                                  w-full
-                                  h-full
-                                  object-cover
-                                  transition-transform
-                                  duration-300
-                                  group-hover:scale-105
-                                "
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                 loading="lazy"
                               />
                               {isActive && (
-                                <div
-                                  className="
-                                    absolute
-                                    top-1.5
-                                    right-1.5
-                                    w-6
-                                    h-6
-                                    rounded-full
-                                    bg-red-500
-                                    flex
-                                    items-center
-                                    justify-center
-                                    shadow-lg
-                                  "
-                                >
-                                  <Check
-                                    size={14}
-                                    className="text-white"
-                                    strokeWidth={3}
-                                  />
+                                <div className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-500 flex items-center justify-center shadow-lg">
+                                  <Check size={14} className="text-white" strokeWidth={3} />
                                 </div>
                               )}
                             </div>

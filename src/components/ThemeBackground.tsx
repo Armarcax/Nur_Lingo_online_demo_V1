@@ -48,9 +48,9 @@ export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
   {
     id: "aeroplane",
     title: { hy: "Օդանավ", en: "Aeroplane", ru: "Самолёт" },
-    dark: "/images/aeroplane-dark.jpeg",
-    light: "/images/aeroplane-light.jpeg",
-    preview: "/images/aeroplane-light.jpeg",
+    dark: "/images/Aeroplane-dark.jpeg",
+    light: "/images/Aeroplane-light.jpeg",
+    preview: "/images/Aeroplane-light.jpeg",
   },
   {
     id: "beehive",
@@ -133,7 +133,7 @@ export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
     id: "im",
     title: { hy: "Ես եմ", en: "I'm", ru: "Я" },
     dark: "/images/im-dark.jpeg",
-    light: "/images/im-dark.jpeg",   // ⚠️ light չկա — օգտագործում ենք dark-ը
+    light: "/images/im-dark.jpeg",
     preview: "/images/im-dark.jpeg",
   },
   {

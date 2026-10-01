@@ -1,112 +1,528 @@
-// src/components/ThemeBackground.tsx
 "use client";
 
-import { useState, useEffect, ReactNode } from "react";
-import { useTheme } from "@/lib/hooks/useTheme";
+import {
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+
+/* ─────────────────────────────────────────────
+   LANGUAGE
+───────────────────────────────────────────── */
+
+export type AppLanguage = "hy" | "en" | "ru";
+
+/* ─────────────────────────────────────────────
+   BACKGROUND DEFINITION
+───────────────────────────────────────────── */
+
+export interface ThemeBackgroundItem {
+  id: string;
+
+  title: {
+    hy: string;
+    en: string;
+    ru: string;
+  };
+
+  dark: string;
+  light: string;
+
+  preview: string;
+}
+
+/* ─────────────────────────────────────────────
+   BACKGROUND LIST
+───────────────────────────────────────────── */
+
+export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
+  {
+    id: "pomegranate",
+
+    title: {
+      hy: "Նուռ",
+      en: "Pomegranate",
+      ru: "Гранат",
+    },
+
+    dark: "/images/pomegranate-dark.jpg",
+    light: "/images/pomegranate-light.jpg",
+
+    preview: "/images/pomegranate-light.jpg",
+  },
+
+  {
+    id: "aeroplane",
+
+    title: {
+      hy: "Օդանավ",
+      en: "Aeroplane",
+      ru: "Самолёт",
+    },
+
+    dark: "/images/Aeroplane-dark.jpeg",
+    light: "/images/Aeroplane-light.jpeg",
+
+    preview: "/images/Aeroplane-light.jpeg",
+  },
+
+  {
+    id: "beehive",
+
+    title: {
+      hy: "Մեղվափեթակ",
+      en: "Beehive",
+      ru: "Пчелиный улей",
+    },
+
+    dark: "/images/beehive black-dark.jpeg",
+    light: "/images/beehive gray-light.jpeg",
+
+    preview: "/images/beehive gray-light.jpeg",
+  },
+
+  {
+    id: "tornPaper",
+
+    title: {
+      hy: "Պատռված թուղթ",
+      en: "Torn Paper",
+      ru: "Рваная бумага",
+    },
+
+    dark: "/images/Orange + Black torn paper-dark.jpeg",
+    light: "/images/Beige + Browntan paper-light.png",
+
+    preview: "/images/Beige + Browntan paper-light.png",
+  },
+
+  {
+    id: "waterPaper",
+
+    title: {
+      hy: "Ջուր և թուղթ",
+      en: "Water & Paper",
+      ru: "Вода и бумага",
+    },
+
+    dark: "/images/Black+water paper-dark.jpeg",
+    light: "/images/Green + white paper-light.jpeg",
+
+    preview: "/images/Green + white paper-light.jpeg",
+  },
+
+  {
+    id: "blueRedPaper",
+
+    title: {
+      hy: "Կապույտ և կարմիր",
+      en: "Blue & Red",
+      ru: "Синий и красный",
+    },
+
+    dark: "/images/Blue+red paper-dark.jpeg",
+    light: "/images/Pink+skyblue-light.jpeg",
+
+    preview: "/images/Pink+skyblue-light.jpeg",
+  },
+
+  {
+    id: "brown",
+
+    title: {
+      hy: "Շագանակագույն",
+      en: "Brown",
+      ru: "Коричневый",
+    },
+
+    dark: "/images/Brown-dark.jpeg",
+    light: "/images/LightGray-light.jpeg",
+
+    preview: "/images/LightGray-light.jpeg",
+  },
+
+  {
+    id: "canCant",
+
+    title: {
+      hy: "Կարող եմ / Չեմ կարող",
+      en: "CAN / CAN'T",
+      ru: "МОГУ / НЕ МОГУ",
+    },
+
+    dark: "/images/CAN-CAN'T-dark.jpeg",
+    light: "/images/CAN-CAN'T-light.jpeg",
+
+    preview: "/images/CAN-CAN'T-light.jpeg",
+  },
+
+  {
+    id: "redPink",
+
+    title: {
+      hy: "Կարմիր և վարդագույն",
+      en: "Red & Pink",
+      ru: "Красный и розовый",
+    },
+
+    dark: "/images/DeepRed-dark.jpeg",
+    light: "/images/DustyPink-light.jpeg",
+
+    preview: "/images/DustyPink-light.jpeg",
+  },
+
+  {
+    id: "tealLime",
+
+    title: {
+      hy: "Թեյլ և լայմ",
+      en: "Teal & Lime",
+      ru: "Бирюзовый и лаймовый",
+    },
+
+    dark: "/images/DeepTeal-dark.jpeg",
+    light: "/images/LimeGreen-light.jpeg",
+
+    preview: "/images/LimeGreen-light.jpeg",
+  },
+
+  {
+    id: "dialog",
+
+    title: {
+      hy: "Երկխոսություն",
+      en: "Dialog",
+      ru: "Диалог",
+    },
+
+    dark: "/images/Dialog-dark.jpeg",
+    light: "/images/Dialog-light.jpeg",
+
+    preview: "/images/Dialog-light.jpeg",
+  },
+
+  {
+    id: "dictionary",
+
+    title: {
+      hy: "Բառարան",
+      en: "Dictionary",
+      ru: "Словарь",
+    },
+
+    dark: "/images/Dictionary-dark.jpeg",
+    light: "/images/Dictionary-light.jpeg",
+
+    preview: "/images/Dictionary-light.jpeg",
+  },
+
+  {
+    id: "pistol",
+
+    title: {
+      hy: "Ատրճանակ",
+      en: "Pistol",
+      ru: "Пистолет",
+    },
+
+    dark: "/images/Firing pistol-dark.jpeg",
+    light: "/images/Silenced pistol-light.jpeg",
+
+    preview: "/images/Silenced pistol-light.jpeg",
+  },
+
+  {
+    id: "im",
+
+    title: {
+      hy: "Ես եմ",
+      en: "I'm",
+      ru: "Я",
+    },
+
+    dark: "/images/I'm-dark.jpeg",
+    light: "/images/I'm-light.jpeg",
+
+    preview: "/images/I'm-light.jpeg",
+  },
+
+  {
+    id: "yinYangSwan",
+
+    title: {
+      hy: "Յին և Յան կարապներ",
+      en: "Yin-Yang Swans",
+      ru: "Лебеди Инь-Ян",
+    },
+
+    dark: "/images/Yin-Yang Swan-dark.jpeg",
+    light: "/images/Yin-Yang Swan-light.jpeg",
+
+    preview: "/images/Yin-Yang Swan-light.jpeg",
+  },
+];
+
+/* ─────────────────────────────────────────────
+   HELPERS
+───────────────────────────────────────────── */
+
+export function getThemeBackground(
+  id: string
+): ThemeBackgroundItem {
+  return (
+    THEME_BACKGROUNDS.find(
+      (item) => item.id === id
+    ) ??
+    THEME_BACKGROUNDS[0]
+  );
+}
+
+/* ─────────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────────── */
 
 interface ThemeBackgroundProps {
   children: ReactNode;
+
   className?: string;
+
+  /**
+   * Selected background.
+   * Default: pomegranate
+   */
+  background?: string;
+
+  /**
+   * Current application language.
+   */
+  language?: AppLanguage;
+
+  /**
+   * Backwards compatibility:
+   * Direct image overrides.
+   */
   darkImage?: string;
   lightImage?: string;
-  showVignette?: boolean;
+
   showNoise?: boolean;
+  showVignette?: boolean;
+  showOverlay?: boolean;
+
+  imageOpacity?: number;
 }
 
 export function ThemeBackground({
   children,
+
   className = "",
+
+  background = "pomegranate",
+
+  language = "hy",
+
   darkImage,
   lightImage,
-  showVignette = false,
-  showNoise = false,
+
+  showNoise = true,
+  showVignette = true,
+  showOverlay = true,
+
+  imageOpacity = 1,
 }: ThemeBackgroundProps) {
-  const [isDark, setIsDark] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const { currentPreset, patternEnabled } = useTheme();
+  const [isDark, setIsDark] =
+    useState(false);
+
+  const [isMounted, setIsMounted] =
+    useState(false);
+
+  /* ─────────────────────────────────────────
+     THEME DETECTION
+  ───────────────────────────────────────── */
 
   useEffect(() => {
     setIsMounted(true);
+
     const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
+      const dark =
+        document.documentElement.classList.contains(
+          "dark"
+        );
+
+      setIsDark(dark);
     };
+
     checkTheme();
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
+
+    const observer =
+      new MutationObserver(checkTheme);
+
+    observer.observe(
+      document.documentElement,
+      {
+        attributes: true,
+        attributeFilter: ["class"],
+      }
+    );
+
+    return () =>
+      observer.disconnect();
   }, []);
 
+  /* ─────────────────────────────────────────
+     SELECT BACKGROUND
+  ───────────────────────────────────────── */
+
+  const selected =
+    getThemeBackground(background);
+
+  /*
+   * Direct image props have priority.
+   * Otherwise use the selected pair.
+   */
+  const currentDarkImage =
+    darkImage ?? selected.dark;
+
+  const currentLightImage =
+    lightImage ?? selected.light;
+
+  const currentImage = isDark
+    ? currentDarkImage
+    : currentLightImage;
+
+  /* ─────────────────────────────────────────
+     SSR / HYDRATION
+  ───────────────────────────────────────── */
+
   if (!isMounted) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
   }
 
-  const { colors } = currentPreset;
-  const from = isDark ? colors.darkFrom : colors.lightFrom;
-  const to = isDark ? colors.darkTo : colors.lightTo;
-  const bgImage = isDark ? darkImage : lightImage;
+  /* ─────────────────────────────────────────
+     RENDER
+  ───────────────────────────────────────── */
 
   return (
-    <div className={`relative min-h-screen ${className}`}>
-      {/* ─── LAYER 1: GRADIENT (theme preset) ─── */}
+    <div
+      className={`relative min-h-screen ${className}`}
+    >
+      {/* ───────────────────────────────
+          LAYER 1 — BACKGROUND
+      ─────────────────────────────── */}
+
       <div
-        className="fixed inset-0 -z-20 transition-all duration-700"
+        className="
+          fixed
+          inset-0
+          -z-10
+          bg-cover
+          bg-center
+          bg-no-repeat
+          transition-all
+          duration-500
+        "
         style={{
-          background: `linear-gradient(135deg, ${from} 0%, ${to} 100%)`,
+          backgroundImage:
+            `url("${currentImage}")`,
+
+          opacity: imageOpacity,
         }}
       />
 
-      {/* ─── LAYER 2: POMEGRANATE IMAGE (blended over gradient) ─── */}
-      {bgImage && (
-        <div
-          className="fixed inset-0 -z-[15] pointer-events-none transition-opacity duration-700"
-          style={{
-            backgroundImage: `url("${bgImage}")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            opacity: isDark ? 0.35 : 0.22,
-            mixBlendMode: isDark ? "luminosity" : "multiply",
-          }}
-        />
-      )}
+      {/* ───────────────────────────────
+          LAYER 2 — OVERLAY
+      ─────────────────────────────── */}
 
-      {/* ─── LAYER 3: ARMENIAN PATTERN (very subtle) ─── */}
-      {patternEnabled && (
+      {showOverlay && (
         <div
-          className="fixed inset-0 -z-10 pointer-events-none"
-          style={{
-            opacity: isDark ? 0.04 : 0.03,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23${isDark ? "FFFFFF" : "8B0000"}' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      )}
-
-      {/* ─── LAYER 4: VIGNETTE (optional) ─── */}
-      {showVignette && (
-        <div
-          className="fixed inset-0 -z-10 pointer-events-none"
+          className="
+            fixed
+            inset-0
+            -z-10
+            transition-opacity
+            duration-500
+          "
           style={{
             background: isDark
-              ? "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%)"
-              : "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.10) 100%)",
+              ? "linear-gradient(180deg, rgba(13,13,20,0.3) 0%, rgba(13,13,20,0.5) 100%)"
+              : "linear-gradient(180deg, rgba(250,248,246,0.2) 0%, rgba(250,248,246,0.4) 100%)",
           }}
         />
       )}
 
-      {/* ─── LAYER 5: NOISE (optional) ─── */}
+      {/* ───────────────────────────────
+          LAYER 3 — GLASS
+      ─────────────────────────────── */}
+
+      <div
+        className="
+          fixed
+          inset-0
+          -z-10
+          pointer-events-none
+        "
+        style={{
+          background: isDark
+            ? "rgba(13,13,20,0.15)"
+            : "rgba(255,255,255,0.1)",
+
+          backdropFilter:
+            "blur(2px)",
+
+          WebkitBackdropFilter:
+            "blur(2px)",
+        }}
+      />
+
+      {/* ───────────────────────────────
+          LAYER 4 — NOISE
+      ─────────────────────────────── */}
+
       {showNoise && (
         <div
-          className="fixed inset-0 -z-10 pointer-events-none"
+          className="
+            fixed
+            inset-0
+            -z-10
+            opacity-[0.02]
+            pointer-events-none
+          "
           style={{
-            opacity: isDark ? 0.05 : 0.03,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundImage:
+              `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+
+            backgroundSize:
+              "256px 256px",
           }}
         />
       )}
+
+      {/* ───────────────────────────────
+          LAYER 5 — VIGNETTE
+      ─────────────────────────────── */}
+
+      {showVignette && (
+        <div
+          className="
+            fixed
+            inset-0
+            -z-10
+            pointer-events-none
+          "
+          style={{
+            background: isDark
+              ? "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)"
+              : "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.06) 100%)",
+          }}
+        />
+      )}
+
+      {/* ───────────────────────────────
+          CONTENT
+      ─────────────────────────────── */}
 
       {children}
     </div>

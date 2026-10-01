@@ -1,14 +1,15 @@
 /**
  * NUR Lingo — Service Worker
  * Full offline support with audio caching, lesson caching, and push notifications
- * 
- * v5 fixes:
+ *
+ * v6 fixes:
+ * ✅ Network-first for static assets (HTML/JS/CSS) — fresh code always
  * ✅ Network-first for JSON/data files (fixes stale lesson-dictionary.json)
  * ✅ Cache version auto-bumps when SW changes
  * ✅ skipWaiting + clients.claim for immediate activation
  */
 
-const SW_VERSION = 'v5';  // ← BUMP THIS whenever sw.js changes
+const SW_VERSION = 'v6';  // ← BUMP THIS whenever sw.js changes
 
 const CACHE_NAME = `nurlingo-${SW_VERSION}`;
 const ASSETS_CACHE = `nurlingo-assets-${SW_VERSION}`;
@@ -45,7 +46,6 @@ self.addEventListener('install', (event) => {
           console.warn('[SW] Some assets failed to cache:', err);
         });
       }),
-      // ✅ Do NOT pre-cache dictionary or lessons — let network-first handle them
     ])
   );
 
@@ -111,7 +111,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // --- STATIC: Cache First with Network Fallback ---
+  // --- STATIC: Network First with Cache Fallback (v6 UPDATED) ---
   event.respondWith(handleStaticRequest(event));
 });
 
@@ -152,7 +152,7 @@ async function handleAudioRequest(event) {
   }
 }
 
-// ─── DATA HANDLER (Network First — FIXED!) ───────────────────────────
+// ─── DATA HANDLER (Network First) ────────────────────────────────────
 
 async function handleDataRequest(event) {
   const request = event.request;
@@ -163,7 +163,6 @@ async function handleDataRequest(event) {
     const response = await fetch(request);
 
     if (response.ok) {
-      // Update cache with fresh copy
       const clone = response.clone();
       const cache = await caches.open(DICTIONARY_CACHE);
       await cache.put(request, clone);
@@ -171,7 +170,6 @@ async function handleDataRequest(event) {
       return response;
     }
 
-    // Non-OK response (404, 500) — try cache
     const cached = await caches.match(request);
     if (cached) {
       console.log('[SW] Network error, serving cached:', url.pathname);
@@ -180,7 +178,6 @@ async function handleDataRequest(event) {
 
     return response;
   } catch (error) {
-    // Offline — serve from cache
     const cached = await caches.match(request);
     if (cached) {
       console.log('[SW] Offline, serving cached:', url.pathname);
@@ -226,24 +223,37 @@ async function handleApiRequest(event) {
   }
 }
 
-// ─── STATIC HANDLER (Cache First) ────────────────────────────────────
+// ─── STATIC HANDLER (Network First — v6 UPDATED) ─────────────────────
 
 async function handleStaticRequest(event) {
   const request = event.request;
 
   try {
+    // ✅ NETWORK FIRST — always try fresh code/assets
+    const response = await fetch(request);
+
+    if (response.ok && response.type === 'basic') {
+      // Update cache with fresh copy in background (non-blocking)
+      const clone = response.clone();
+      caches
+        .open(ASSETS_CACHE)
+        .then((cache) => {
+          cache.put(request, clone).catch(() => {});
+        })
+        .catch(() => {});
+      return response;
+    }
+
+    // Non-OK — fallback to cache
     const cached = await caches.match(request);
     if (cached) return cached;
 
-    const response = await fetch(request);
-    if (response.ok && response.type === 'basic') {
-      const clone = response.clone();
-      const cache = await caches.open(ASSETS_CACHE);
-      await cache.put(request, clone);
-      return response;
-    }
     return response;
   } catch {
+    // Offline — try cache
+    const cached = await caches.match(request);
+    if (cached) return cached;
+
     if (request.headers.get('accept')?.includes('text/html')) {
       const offlinePage = await caches.match('/offline.html');
       return (

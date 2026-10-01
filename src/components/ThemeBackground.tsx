@@ -1,22 +1,10 @@
 "use client";
 
-import {
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Palette, X, Check } from "lucide-react";
 
-/* ─────────────────────────────────────────────
-   LANGUAGE
-───────────────────────────────────────────── */
-
 export type AppLanguage = "hy" | "en" | "ru";
-
-/* ─────────────────────────────────────────────
-   BACKGROUND DEFINITION
-───────────────────────────────────────────── */
 
 export interface ThemeBackgroundItem {
   id: string;
@@ -25,10 +13,6 @@ export interface ThemeBackgroundItem {
   light: string;
   preview: string;
 }
-
-/* ─────────────────────────────────────────────
-   BACKGROUND LIST
-───────────────────────────────────────────── */
 
 export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
   {
@@ -138,10 +122,6 @@ export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
   },
 ];
 
-/* ─────────────────────────────────────────────
-   HELPERS
-───────────────────────────────────────────── */
-
 export function getThemeBackground(id: string): ThemeBackgroundItem {
   return (
     THEME_BACKGROUNDS.find((item) => item.id === id) ??
@@ -152,26 +132,13 @@ export function getThemeBackground(id: string): ThemeBackgroundItem {
 const STORAGE_KEY = "nur_background_id";
 const DEFAULT_BACKGROUND_ID = "pomegranate";
 
-/* ─────────────────────────────────────────────
-   COMPONENT PROPS
-   (darkImage/lightImage REMOVED — they were causing the bug)
-───────────────────────────────────────────── */
-
 interface ThemeBackgroundProps {
   children: ReactNode;
   className?: string;
   background?: string;
   language?: AppLanguage;
   showSelector?: boolean;
-  showNoise?: boolean;
-  showVignette?: boolean;
-  showOverlay?: boolean;
-  imageOpacity?: number;
 }
-
-/* ─────────────────────────────────────────────
-   COMPONENT
-───────────────────────────────────────────── */
 
 export function ThemeBackground({
   children,
@@ -179,24 +146,15 @@ export function ThemeBackground({
   background,
   language = "hy",
   showSelector = true,
-  showNoise = true,
-  showVignette = true,
-  showOverlay = true,
-  imageOpacity = 1,
 }: ThemeBackgroundProps) {
   const [isDark, setIsDark] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
   const [activeId, setActiveId] = useState<string>(
     background ?? DEFAULT_BACKGROUND_ID
   );
-
   const [isOpen, setIsOpen] = useState(false);
 
-  /* ─────────────────────────────────────────
-     MOUNT
-  ───────────────────────────────────────── */
-
+  /* MOUNT */
   useEffect(() => {
     setIsMounted(true);
 
@@ -210,17 +168,13 @@ export function ThemeBackground({
     }
   }, [background]);
 
-  /* ─────────────────────────────────────────
-     THEME DETECTION
-  ───────────────────────────────────────── */
-
+  /* THEME */
   useEffect(() => {
     const checkTheme = () => {
       const dark = document.documentElement.classList.contains("dark");
       setIsDark(dark);
     };
     checkTheme();
-
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
@@ -229,10 +183,7 @@ export function ThemeBackground({
     return () => observer.disconnect();
   }, []);
 
-  /* ─────────────────────────────────────────
-     CHANGE BACKGROUND
-  ───────────────────────────────────────── */
-
+  /* CHANGE */
   const changeBackground = (id: string) => {
     setActiveId(id);
     try {
@@ -241,16 +192,9 @@ export function ThemeBackground({
     setIsOpen(false);
   };
 
-  /* ─────────────────────────────────────────
-     SELECT BACKGROUND
-  ───────────────────────────────────────── */
-
+  /* SELECT */
   const selected = getThemeBackground(activeId);
   const currentImage = isDark ? selected.dark : selected.light;
-
-  /* ─────────────────────────────────────────
-     LABELS
-  ───────────────────────────────────────── */
 
   const labels = {
     hy: { title: "Ֆոնի Տեսք", subtitle: "Ընտրիր ֆոնը" },
@@ -259,73 +203,30 @@ export function ThemeBackground({
   };
   const L = labels[language] || labels.hy;
 
-  /* ─────────────────────────────────────────
-     SSR / HYDRATION
-  ───────────────────────────────────────── */
-
   if (!isMounted) {
     return <div className={className}>{children}</div>;
   }
 
-  /* ─────────────────────────────────────────
-     RENDER
-  ───────────────────────────────────────── */
-
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* LAYER 1 — BACKGROUND */}
-      <div
-        key={`bg-${activeId}-${isDark ? "dark" : "light"}`}
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+      {/* BACKGROUND — single img, no layers */}
+      <img
+        key={currentImage}
+        src={currentImage}
+        alt=""
+        className="fixed inset-0 w-full h-full object-cover pointer-events-none"
         style={{
-          backgroundImage: `url("${currentImage}")`,
-          opacity: imageOpacity,
+          zIndex: -1,
         }}
       />
 
-      {/* LAYER 2 — OVERLAY */}
-      {showOverlay && (
+      {/* DARK MODE OVERLAY — very light */}
+      {isDark && (
         <div
-          className="fixed inset-0 -z-10"
+          className="fixed inset-0 pointer-events-none"
           style={{
-            background: isDark
-              ? "linear-gradient(180deg, rgba(13,13,20,0.3) 0%, rgba(13,13,20,0.5) 100%)"
-              : "linear-gradient(180deg, rgba(250,248,246,0.2) 0%, rgba(250,248,246,0.4) 100%)",
-          }}
-        />
-      )}
-
-      {/* LAYER 3 — GLASS */}
-      <div
-        className="fixed inset-0 -z-10 pointer-events-none"
-        style={{
-          background: isDark
-            ? "rgba(13,13,20,0.15)"
-            : "rgba(255,255,255,0.1)",
-          backdropFilter: "blur(2px)",
-          WebkitBackdropFilter: "blur(2px)",
-        }}
-      />
-
-      {/* LAYER 4 — NOISE */}
-      {showNoise && (
-        <div
-          className="fixed inset-0 -z-10 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-            backgroundSize: "256px 256px",
-          }}
-        />
-      )}
-
-      {/* LAYER 5 — VIGNETTE */}
-      {showVignette && (
-        <div
-          className="fixed inset-0 -z-10 pointer-events-none"
-          style={{
-            background: isDark
-              ? "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)"
-              : "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.06) 100%)",
+            zIndex: -1,
+            background: "rgba(0,0,0,0.25)",
           }}
         />
       )}
@@ -333,7 +234,7 @@ export function ThemeBackground({
       {/* CONTENT */}
       {children}
 
-      {/* FLOATING BUTTON + MODAL */}
+      {/* PALETTE BUTTON */}
       {showSelector && (
         <>
           <button

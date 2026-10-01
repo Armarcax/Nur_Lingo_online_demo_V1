@@ -154,6 +154,7 @@ const DEFAULT_BACKGROUND_ID = "pomegranate";
 
 /* ─────────────────────────────────────────────
    COMPONENT PROPS
+   (darkImage/lightImage REMOVED — they were causing the bug)
 ───────────────────────────────────────────── */
 
 interface ThemeBackgroundProps {
@@ -162,8 +163,6 @@ interface ThemeBackgroundProps {
   background?: string;
   language?: AppLanguage;
   showSelector?: boolean;
-  darkImage?: string;
-  lightImage?: string;
   showNoise?: boolean;
   showVignette?: boolean;
   showOverlay?: boolean;
@@ -180,8 +179,6 @@ export function ThemeBackground({
   background,
   language = "hy",
   showSelector = true,
-  darkImage,
-  lightImage,
   showNoise = true,
   showVignette = true,
   showOverlay = true,
@@ -201,20 +198,15 @@ export function ThemeBackground({
   ───────────────────────────────────────── */
 
   useEffect(() => {
-    console.log("🔵 [ThemeBg] MOUNT effect, background prop =", background);
     setIsMounted(true);
 
     if (background) {
-      console.log("🔵 [ThemeBg] Using background prop:", background);
       setActiveId(background);
     } else {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        console.log("🔵 [ThemeBg] localStorage saved =", saved);
         if (saved) setActiveId(saved);
-      } catch (e) {
-        console.warn("🔵 [ThemeBg] localStorage error:", e);
-      }
+      } catch {}
     }
   }, [background]);
 
@@ -242,17 +234,10 @@ export function ThemeBackground({
   ───────────────────────────────────────── */
 
   const changeBackground = (id: string) => {
-    console.log("🟢 [ThemeBg] changeBackground called with id:", id);
-
     setActiveId(id);
-
     try {
       localStorage.setItem(STORAGE_KEY, id);
-      console.log("🟢 [ThemeBg] localStorage.setItem OK");
-    } catch (e) {
-      console.warn("🟢 [ThemeBg] localStorage.setItem failed:", e);
-    }
-
+    } catch {}
     setIsOpen(false);
   };
 
@@ -261,19 +246,7 @@ export function ThemeBackground({
   ───────────────────────────────────────── */
 
   const selected = getThemeBackground(activeId);
-
-  const currentDarkImage = darkImage ?? selected.dark;
-  const currentLightImage = lightImage ?? selected.light;
-  const currentImage = isDark ? currentDarkImage : currentLightImage;
-
-  /* DEBUG */
-  console.log("🟡 [ThemeBg] RENDER", {
-    isMounted,
-    isDark,
-    activeId,
-    selectedId: selected.id,
-    currentImage,
-  });
+  const currentImage = isDark ? selected.dark : selected.light;
 
   /* ─────────────────────────────────────────
      LABELS
@@ -303,8 +276,6 @@ export function ThemeBackground({
       {/* LAYER 1 — BACKGROUND */}
       <div
         key={`bg-${activeId}-${isDark ? "dark" : "light"}`}
-        data-bg-id={activeId}
-        data-bg-img={currentImage}
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("${currentImage}")`,

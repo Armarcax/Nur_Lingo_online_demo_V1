@@ -277,6 +277,8 @@ export function ThemeBackground({
     try {
       localStorage.setItem(STORAGE_KEY, id);
     } catch {}
+    /* Close modal immediately after selection */
+    setIsOpen(false);
   };
 
   /* ─────────────────────────────────────────

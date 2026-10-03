@@ -5,48 +5,15 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Search,
-  BookOpen,
-  User,
-  X,
-  Plus,
-  Play,
-  Volume2,
-  Loader2,
-  ArrowUp,
-  CheckCircle,
-  AlertCircle,
-  Clock,
-  Music,
-  Radio,
-  Speaker,
-  Download,
-  RefreshCw,
-  ChevronDown,
-  ChevronUp,
-  Sparkles,
-  Trash2,
-  Edit,
-  Save,
-  Filter,
-  SortAsc,
-  SortDesc,
-  Copy,
-  Check,
-  Globe,
-  FileJson,
-  Upload,
-  Star,
-  Heart,
-  Wifi,
-  WifiOff,
+  Search, BookOpen, X, Plus, Play, Loader2, ArrowUp, CheckCircle,
+  AlertCircle, Clock, Download, RefreshCw, ChevronDown, ChevronUp,
+  Trash2, Edit, Save, Filter, Copy, Check, Upload, Star,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useNuri } from "@/hooks/useNuri";
 import { useAudioManager } from "@/lib/hooks/useAudioManager";
-import { getWavClient, WavClient } from "@/lib/audio/WavClient";
 import type { LangCode } from "@/lib/i18n/multilingual";
 import type { LanguageCode } from "@/lib/audio";
 import { useI18n } from "@/hooks/useI18n";
@@ -60,17 +27,7 @@ interface UserDictionaryEntry {
   ru: string;
   type: string;
   isUserAdded: boolean;
-  audio?: {
-    hy?: string;
-    en?: string;
-    ru?: string;
-  };
-  wavAudio?: {
-    hy?: string;
-    en?: string;
-    ru?: string;
-  };
-  hasWAV?: boolean;
+  audio?: { hy?: string; en?: string; ru?: string };
   audioGenerated?: boolean;
   translationSource?: string;
   createdAt?: string;
@@ -91,42 +48,34 @@ interface WordStats {
   total: number;
   userAdded: number;
   hasAudio: number;
-  hasWAV: number;
   byLanguage: { [key: string]: number };
 }
 
-const LANGS: { code: LangCode; label: string; flag: string; color: string; bg: string; textColor: string }[] = [
-  { code: "hy", label: "ՀԱՅԵՐԵՆ", flag: "🇦🇲", color: "text-red-400", bg: "bg-red-500/10 border-red-500/20", textColor: "text-red-300" },
-  { code: "en", label: "ENGLISH", flag: "🇬🇧", color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", textColor: "text-blue-300" },
-  { code: "ru", label: "РУССКИЙ", flag: "🇷🇺", color: "text-green-400", bg: "bg-green-500/10 border-green-500/20", textColor: "text-green-300" },
+const LANGS: { code: LangCode; label: string; flagUrl: string; color: string; bg: string; textColor: string }[] = [
+  { code: "hy", label: "ՀԱՅԵՐԵՆ", flagUrl: "https://flagcdn.com/24x18/am.png", color: "text-red-400", bg: "bg-red-500/10 border-red-500/20", textColor: "text-red-300" },
+  { code: "en", label: "ENGLISH", flagUrl: "https://flagcdn.com/24x18/gb.png", color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20", textColor: "text-blue-300" },
+  { code: "ru", label: "РУССКИЙ", flagUrl: "https://flagcdn.com/24x18/ru.png", color: "text-green-400", bg: "bg-green-500/10 border-green-500/20", textColor: "text-green-300" },
 ];
 
 const STORAGE_KEYS = {
   USER_WORDS: "nurlingo_user_dictionary",
   USER_MANIFEST: "nurlingo_user_manifest",
-  SELECTED_VOICE: "nurlingo_selected_voice",
-  VIEW_PREFERENCES: "nurlingo_user_preferences",
   DICTIONARY_BACKUP: "nurlingo_dictionary_backup",
   USER_FAVORITES: "nurlingo_user_favorites",
 };
 
 type SortOption = "newest" | "oldest" | "alphabetical" | "reverse-alpha" | "favorites";
-type FilterOption = "all" | "user" | "system" | "has-audio" | "no-audio" | "has-wav" | "favorites";
+type FilterOption = "all" | "user" | "system" | "has-audio" | "no-audio" | "favorites";
 
 const formatDate = (dateString?: string) => {
   if (!dateString) return "—";
   try {
     const date = new Date(dateString);
-    return date.toLocaleDateString("hy-AM", { 
-      year: "numeric", 
-      month: "short", 
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
+    return date.toLocaleDateString("hy-AM", {
+      year: "numeric", month: "short", day: "numeric",
+      hour: "2-digit", minute: "2-digit",
     });
-  } catch {
-    return dateString;
-  }
+  } catch { return dateString; }
 };
 
 const generateId = () => {
@@ -139,16 +88,16 @@ export default function UserDictionaryPage() {
   const { play, stop, isPlaying, isLoading } = useAudioManager();
   const { setPage } = useNuri();
   const { t } = useI18n();
-  
+
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
-  
+
   const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
     setToastMessage(text);
     setToastType(type);
     setTimeout(() => setToastMessage(""), 3000);
   }, []);
-  
+
   useEffect(() => setPage("dictionary"), [setPage]);
 
   const [words, setWords] = useState<UserDictionaryEntry[]>([]);
@@ -157,24 +106,15 @@ export default function UserDictionaryPage() {
   const [activePlay, setActivePlay] = useState<ActivePlay | null>(null);
   const [nuriMood, setNuriMood] = useState<NuriMood>("idle");
   const [isLoadingData, setIsLoadingData] = useState(true);
-  const [isWAVAvailable, setIsWAVAvailable] = useState(false);
-  const [wavClient, setWavClient] = useState<WavClient | null>(null);
-  const [selectedVoice, setSelectedVoice] = useState<string>("Avet");
-  const [showVoiceSelector, setShowVoiceSelector] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editData, setEditData] = useState<{ hy: string; en: string; ru: string; tags?: string[]; category?: string; difficulty?: "easy" | "medium" | "hard" } | null>(null);
-  const [wavStatus, setWavStatus] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>("newest");
   const [filterOption, setFilterOption] = useState<FilterOption>("all");
   const [showFilters, setShowFilters] = useState(false);
   const [wordStats, setWordStats] = useState<WordStats>({
-    total: 0,
-    userAdded: 0,
-    hasAudio: 0,
-    hasWAV: 0,
-    byLanguage: { hy: 0, en: 0, ru: 0 }
+    total: 0, userAdded: 0, hasAudio: 0, byLanguage: { hy: 0, en: 0, ru: 0 },
   });
   const [selectedWords, setSelectedWords] = useState<Set<string>>(new Set());
   const [isBatchMode, setIsBatchMode] = useState(false);
@@ -200,12 +140,8 @@ export default function UserDictionaryPage() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.USER_FAVORITES);
-      if (saved) {
-        setFavorites(new Set(JSON.parse(saved)));
-      }
-    } catch {
-      // Ignore
-    }
+      if (saved) setFavorites(new Set(JSON.parse(saved)));
+    } catch {}
   }, []);
 
   const toggleFavorite = useCallback((id: string) => {
@@ -214,13 +150,7 @@ export default function UserDictionaryPage() {
       if (next.has(id)) next.delete(id);
       else next.add(id);
       localStorage.setItem(STORAGE_KEYS.USER_FAVORITES, JSON.stringify([...next]));
-      
-      setWords(prevWords => 
-        prevWords.map(w => 
-          w.id === id ? { ...w, isFavorite: next.has(id) } : w
-        )
-      );
-      
+      setWords(prevWords => prevWords.map(w => w.id === id ? { ...w, isFavorite: next.has(id) } : w));
       return next;
     });
   }, []);
@@ -233,6 +163,20 @@ export default function UserDictionaryPage() {
     return String(maxId + 1);
   }, [words]);
 
+  const updateStats = useCallback((data: UserDictionaryEntry[]) => {
+    const stats: WordStats = {
+      total: data.length,
+      userAdded: data.filter(w => w.isUserAdded).length,
+      hasAudio: data.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)).length,
+      byLanguage: {
+        hy: data.filter(w => w.hy).length,
+        en: data.filter(w => w.en).length,
+        ru: data.filter(w => w.ru).length,
+      },
+    };
+    setWordStats(stats);
+  }, []);
+
   const loadWords = useCallback(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.USER_WORDS);
@@ -242,15 +186,9 @@ export default function UserDictionaryPage() {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            data = parsed.map(w => ({
-              ...w,
-              isFavorite: favorites.has(w.id)
-            }));
-            console.log(`✅ Loaded ${data.length} words from localStorage`);
+            data = parsed.map(w => ({ ...w, isFavorite: favorites.has(w.id) }));
           }
-        } catch (e) {
-          console.warn("Failed to parse localStorage, falling back to JSON");
-        }
+        } catch {}
       }
 
       if (data.length === 0) {
@@ -274,91 +212,28 @@ export default function UserDictionaryPage() {
             hy: w.audio?.hy || `/audio/hy_user/${w.id || w.word_id}.mp3`,
             en: w.audio?.en || `/audio/en_user/${w.id || w.word_id}.mp3`,
             ru: w.audio?.ru || `/audio/ru_user/${w.id || w.word_id}.mp3`,
-          }
+          },
         }));
-        console.log(`✅ Loaded ${data.length} words from JSON`);
       }
 
       data.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-      
       setWords(data);
       setFilteredWords(data);
       updateStats(data);
-      
       localStorage.setItem(STORAGE_KEYS.USER_WORDS, JSON.stringify(data));
-      
-      const manifest: any = {
-        schemaVersion: 2,
-        lastUpdated: new Date().toISOString(),
-        totalEntries: data.length,
-        entries: {}
-      };
-      for (const word of data) {
-        manifest.entries[word.id] = {
-          hy: word.audio?.hy || `/audio/hy_user/${word.id}.mp3`,
-          en: word.audio?.en || `/audio/en_user/${word.id}.mp3`,
-          ru: word.audio?.ru || `/audio/ru_user/${word.id}.mp3`,
-        };
-      }
-      localStorage.setItem(STORAGE_KEYS.USER_MANIFEST, JSON.stringify(manifest));
-      
       setIsLoadingData(false);
     } catch (error) {
       console.error("Failed to load user dictionary:", error);
       setIsLoadingData(false);
       showMessage(t("page_load_failed"), "error");
     }
-  }, [favorites, showMessage, t]);
-
-  const updateStats = useCallback((data: UserDictionaryEntry[]) => {
-    const stats: WordStats = {
-      total: data.length,
-      userAdded: data.filter(w => w.isUserAdded).length,
-      hasAudio: data.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)).length,
-      hasWAV: data.filter(w => w.hasWAV).length,
-      byLanguage: {
-        hy: data.filter(w => w.hy).length,
-        en: data.filter(w => w.en).length,
-        ru: data.filter(w => w.ru).length,
-      }
-    };
-    setWordStats(stats);
-  }, []);
+  }, [favorites, showMessage, t, updateStats]);
 
   const saveWords = useCallback((newWords: UserDictionaryEntry[]) => {
     localStorage.setItem(STORAGE_KEYS.USER_WORDS, JSON.stringify(newWords));
     setWords(newWords);
     updateStats(newWords);
-    
-    const manifest = JSON.parse(localStorage.getItem(STORAGE_KEYS.USER_MANIFEST) || '{"entries":{}}');
-    manifest.schemaVersion = 2;
-    manifest.lastUpdated = new Date().toISOString();
-    manifest.totalEntries = newWords.length;
-    
-    for (const word of newWords) {
-      manifest.entries[word.id] = {
-        hy: word.audio?.hy || `/audio/hy_user/${word.id}.mp3`,
-        en: word.audio?.en || `/audio/en_user/${word.id}.mp3`,
-        ru: word.audio?.ru || `/audio/ru_user/${word.id}.mp3`,
-        tags: word.tags || [],
-        category: word.category || "general",
-        difficulty: word.difficulty || "medium",
-      };
-    }
-    localStorage.setItem(STORAGE_KEYS.USER_MANIFEST, JSON.stringify(manifest));
-
-    try {
-      const backup = {
-        timestamp: new Date().toISOString(),
-        version: "2.0",
-        words: newWords,
-        stats: wordStats
-      };
-      localStorage.setItem(STORAGE_KEYS.DICTIONARY_BACKUP, JSON.stringify(backup));
-    } catch (e) {
-      console.warn("Failed to create backup:", e);
-    }
-  }, [updateStats, wordStats]);
+  }, [updateStats]);
 
   const filteredAndSortedWords = useMemo(() => {
     let result = [...words];
@@ -376,46 +251,21 @@ export default function UserDictionaryPage() {
     }
 
     switch (filterOption) {
-      case "user":
-        result = result.filter(w => w.isUserAdded);
-        break;
-      case "system":
-        result = result.filter(w => !w.isUserAdded);
-        break;
-      case "has-audio":
-        result = result.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru));
-        break;
-      case "no-audio":
-        result = result.filter(w => !w.audio || (!w.audio.hy && !w.audio.en && !w.audio.ru));
-        break;
-      case "has-wav":
-        result = result.filter(w => w.hasWAV);
-        break;
-      case "favorites":
-        result = result.filter(w => favorites.has(w.id));
-        break;
-      default:
-        break;
+      case "user": result = result.filter(w => w.isUserAdded); break;
+      case "system": result = result.filter(w => !w.isUserAdded); break;
+      case "has-audio": result = result.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)); break;
+      case "no-audio": result = result.filter(w => !w.audio || (!w.audio.hy && !w.audio.en && !w.audio.ru)); break;
+      case "favorites": result = result.filter(w => favorites.has(w.id)); break;
+      default: break;
     }
 
     switch (sortOption) {
-      case "newest":
-        result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
-        break;
-      case "oldest":
-        result.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
-        break;
-      case "alphabetical":
-        result.sort((a, b) => a.hy.localeCompare(b.hy));
-        break;
-      case "reverse-alpha":
-        result.sort((a, b) => b.hy.localeCompare(a.hy));
-        break;
-      case "favorites":
-        result.sort((a, b) => (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0));
-        break;
-      default:
-        break;
+      case "newest": result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()); break;
+      case "oldest": result.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()); break;
+      case "alphabetical": result.sort((a, b) => a.hy.localeCompare(b.hy)); break;
+      case "reverse-alpha": result.sort((a, b) => b.hy.localeCompare(a.hy)); break;
+      case "favorites": result.sort((a, b) => (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0)); break;
+      default: break;
     }
 
     setNuriMood(result.length === 0 ? (searchQuery ? "sad" : "idle") : "happy");
@@ -426,317 +276,22 @@ export default function UserDictionaryPage() {
     setFilteredWords(filteredAndSortedWords);
   }, [filteredAndSortedWords]);
 
-  useEffect(() => {
-    const initWAV = async () => {
-      try {
-        const client = getWavClient();
-        if (client) {
-          setWavClient(client);
-          setIsWAVAvailable(true);
-          const voices = client.getAvailableVoices();
-          if (voices.length > 0) {
-            const savedVoice = localStorage.getItem(STORAGE_KEYS.SELECTED_VOICE);
-            setSelectedVoice(savedVoice && voices.includes(savedVoice) ? savedVoice : voices[0]);
-          }
-        }
-      } catch {
-        setIsWAVAvailable(false);
-      }
-    };
-    initWAV();
-  }, []);
-
-  const changeVoice = useCallback((voice: string) => {
-    setSelectedVoice(voice);
-    try {
-      localStorage.setItem(STORAGE_KEYS.SELECTED_VOICE, voice);
-    } catch {
-      // Ignore
-    }
-    setShowVoiceSelector(false);
-    setWavStatus(t("page_voice_changed_to", { voice }));
-  }, [t]);
-
-  const speakWithFemaleVoice = useCallback((text: string, lang: string) => {
-    return new Promise((resolve, reject) => {
-      if (typeof window === 'undefined' || !window.speechSynthesis) {
-        reject(new Error('Speech synthesis not supported'));
-        return;
-      }
-
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.rate = 0.9;
-      utterance.pitch = 1.2;
-      utterance.volume = 1;
-
-      const getVoices = () => {
-        const voices = window.speechSynthesis.getVoices();
-        
-        if (voices.length === 0) {
-          window.speechSynthesis.onvoiceschanged = () => {
-            const newVoices = window.speechSynthesis.getVoices();
-            findAndSpeak(newVoices);
-          };
-          return;
-        }
-        
-        findAndSpeak(voices);
-      };
-
-      const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
-        const femaleVoiceNames = [
-          'Samantha', 'Google UK English Female', 'Karen', 'Zira', 
-          'Alice', 'Victoria', 'Emma', 'Susan', 'Tessa',
-          'Google русский', 'Anna', 'Elena', 'Katya', 'Marina', 'Natalia', 'Alena',
-          'Ani', 'Google Հայերեն', 'Armine', 'Lusine',
-        ];
-        
-        let selectedVoice = null;
-        
-        for (const name of femaleVoiceNames) {
-          const found = voices.find(v => 
-            v.lang.startsWith(lang) && 
-            v.name.toLowerCase() === name.toLowerCase()
-          );
-          if (found) {
-            selectedVoice = found;
-            break;
-          }
-        }
-        
-        if (!selectedVoice) {
-          for (const name of femaleVoiceNames) {
-            const found = voices.find(v => 
-              v.lang.startsWith(lang) && 
-              v.name.toLowerCase().includes(name.toLowerCase())
-            );
-            if (found) {
-              selectedVoice = found;
-              break;
-            }
-          }
-        }
-        
-        if (!selectedVoice) {
-          selectedVoice = voices.find(v => 
-            v.lang.startsWith(lang) && 
-            (v.name.toLowerCase().includes('female') ||
-             v.name.toLowerCase().includes('samantha') ||
-             v.name.toLowerCase().includes('zira') ||
-             v.name.toLowerCase().includes('karen') ||
-             v.name.toLowerCase().includes('anna'))
-          );
-        }
-        
-        if (selectedVoice) {
-          utterance.voice = selectedVoice;
-          console.log(`🎤 Using voice: ${selectedVoice.name} (${selectedVoice.lang})`);
-        } else {
-          utterance.pitch = 1.5;
-          console.warn(`⚠️ No female voice found for ${lang}, using high pitch (1.5)`);
-        }
-
-        utterance.onend = () => {
-          resolve(true);
-        };
-
-        utterance.onerror = (e) => {
-          console.error('Speech error:', e);
-          reject(e);
-        };
-
-        window.speechSynthesis.speak(utterance);
-      };
-
-      getVoices();
-    });
-  }, []);
-
-  const playAudioViaAPI = useCallback(async (text: string, lang: LangCode) => {
-    if (!text) return false;
-
-    if (lang === 'hy') {
-      if (wavClient && isWAVAvailable) {
-        try {
-          console.log(`🔊 Playing Armenian via WAV: "${text}"`);
-          await wavClient.playGeneratedAudio(text, selectedVoice);
-          return true;
-        } catch (error) {
-          console.warn("WAV Client failed:", error);
-        }
-      }
-
-      try {
-        const response = await fetch('/api/generate-wav', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, voice: selectedVoice }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.audio) {
-            const audio = new Audio(data.audio);
-            await audio.play();
-            return true;
-          } else if (data.url || data.audioUrl) {
-            const url = data.url || data.audioUrl;
-            const audio = new Audio(url);
-            await audio.play();
-            return true;
-          }
-        }
-      } catch (error) {
-        console.warn("WAV API failed:", error);
-      }
-
-      try {
-        await speakWithFemaleVoice(text, 'hy');
-        return true;
-      } catch {
-        return false;
-      }
-    }
-
-    if (lang === 'en') {
-      try {
-        const response = await fetch('/api/generate-tts-en', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.audio) {
-            const audio = new Audio(data.audio);
-            await audio.play();
-            return true;
-          } else if (data.audioUrl) {
-            const audio = new Audio(data.audioUrl);
-            await audio.play();
-            return true;
-          }
-        }
-      } catch (error) {
-        console.warn("English TTS API failed:", error);
-      }
-
-      try {
-        await speakWithFemaleVoice(text, 'en');
-        return true;
-      } catch {
-        return false;
-      }
-    }
-
-    if (lang === 'ru') {
-      try {
-        const response = await fetch('/api/generate-tts-ru', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.audio) {
-            const audio = new Audio(data.audio);
-            await audio.play();
-            return true;
-          } else if (data.audioUrl) {
-            const audio = new Audio(data.audioUrl);
-            await audio.play();
-            return true;
-          }
-        }
-      } catch (error) {
-        console.warn("Russian TTS API failed:", error);
-      }
-
-      try {
-        await speakWithFemaleVoice(text, 'ru');
-        return true;
-      } catch {
-        return false;
-      }
-    }
-
-    return false;
-  }, [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]);
-
   const handleSpeak = useCallback(
     async (item: UserDictionaryEntry, lang: LangCode) => {
       const text = item[lang] || "";
-      
-      if (!text) {
-        showMessage(t("page_text_empty"), "error");
-        return;
-      }
-
-      if (isPlaying) {
-        stop();
-        setActivePlay(null);
-        return;
-      }
+      if (!text) { showMessage(t("page_text_empty"), "error"); return; }
+      if (isPlaying) { stop(); setActivePlay(null); return; }
 
       setActivePlay({ wordId: item.id, lang, source: "tts" });
       setNuriMood("happy");
 
       try {
-        if (lang === "hy") {
-          const wavUrl = item.wavAudio?.hy;
-          if (wavUrl) {
-            try {
-              const audio = new Audio(wavUrl);
-              await audio.play();
-              audio.onended = () => setActivePlay(null);
-              return;
-            } catch (error) {
-              console.warn("WAV playback failed:", error);
-            }
-          }
-
-          const success = await playAudioViaAPI(text, "hy");
-          if (success) {
-            setActivePlay(null);
-            return;
-          }
-          
-          play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
-          return;
-        }
-
-        if (lang === "en") {
-          const success = await playAudioViaAPI(text, "en");
-          if (success) {
-            setActivePlay(null);
-            return;
-          }
-          play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
-          return;
-        }
-
-        if (lang === "ru") {
-          const success = await playAudioViaAPI(text, "ru");
-          if (success) {
-            setActivePlay(null);
-            return;
-          }
-          play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
-          return;
-        }
-
         play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
       } catch (error) {
         console.error("Playback error:", error);
-        play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
       }
     },
-    [isPlaying, stop, play, showMessage, playAudioViaAPI, t]
+    [isPlaying, stop, play, showMessage, t]
   );
 
   const isWordPlaying = useCallback(
@@ -759,9 +314,7 @@ export default function UserDictionaryPage() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    loadWords();
-  }, [loadWords]);
+  useEffect(() => { loadWords(); }, [loadWords]);
 
   const copyId = useCallback((id: string) => {
     navigator.clipboard.writeText(id);
@@ -795,41 +348,30 @@ export default function UserDictionaryPage() {
     const category = newWordCategory.trim() || "general";
 
     const newWord: UserDictionaryEntry = {
-      id: newId,
-      hy,
-      en: en || hy,
-      ru: ru || hy,
-      type: "user",
-      isUserAdded: true,
-      audioGenerated: true,
+      id: newId, hy,
+      en: en || hy, ru: ru || hy,
+      type: "user", isUserAdded: true, audioGenerated: true,
       translationSource: "manual",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       tags: tags.length > 0 ? tags : undefined,
-      category,
-      difficulty: "medium",
-      isFavorite: false,
+      category, difficulty: "medium", isFavorite: false,
       audio: {
         hy: `/audio/hy_user/${newId}.mp3`,
         en: `/audio/en_user/${newId}.mp3`,
         ru: `/audio/ru_user/${newId}.mp3`,
-      }
+      },
     };
 
-    const updated = [...words, newWord];
-    saveWords(updated);
-
+    saveWords([...words, newWord]);
     setAddWordStatus("success");
     setAddWordMessage(t("page_word_added", { word: hy, id: newId }));
     showMessage(t("page_word_added_to_dict", { word: hy }), "success");
 
     setTimeout(() => {
       setShowAddWord(false);
-      setNewWordHy("");
-      setNewWordEn("");
-      setNewWordRu("");
-      setNewWordTags("");
-      setNewWordCategory("");
+      setNewWordHy(""); setNewWordEn(""); setNewWordRu("");
+      setNewWordTags(""); setNewWordCategory("");
       setAddWordStatus("idle");
       setAddWordMessage("");
     }, 1500);
@@ -837,9 +379,7 @@ export default function UserDictionaryPage() {
 
   const handleDelete = useCallback((id: string) => {
     if (confirm(t("page_confirm_delete"))) {
-      const updated = words.filter(w => w.id !== id);
-      saveWords(updated);
-      setWavStatus(t("page_deleted_prefix") + " " + t("page_word_deleted"));
+      saveWords(words.filter(w => w.id !== id));
       showMessage(t("page_word_deleted_success"), "success");
     }
   }, [words, saveWords, showMessage, t]);
@@ -847,8 +387,7 @@ export default function UserDictionaryPage() {
   const handleBatchDelete = useCallback(() => {
     if (selectedWords.size === 0) return;
     if (confirm(t("page_confirm_batch_delete", { count: selectedWords.size }))) {
-      const updated = words.filter(w => !selectedWords.has(w.id));
-      saveWords(updated);
+      saveWords(words.filter(w => !selectedWords.has(w.id)));
       setSelectedWords(new Set());
       setIsBatchMode(false);
       showMessage(t("page_batch_deleted", { count: selectedWords.size }), "success");
@@ -857,41 +396,31 @@ export default function UserDictionaryPage() {
 
   const startEdit = useCallback((word: UserDictionaryEntry) => {
     setEditingId(word.id);
-    setEditData({ 
-      hy: word.hy, 
-      en: word.en, 
-      ru: word.ru,
-      tags: word.tags,
-      category: word.category,
-      difficulty: word.difficulty
+    setEditData({
+      hy: word.hy, en: word.en, ru: word.ru,
+      tags: word.tags, category: word.category, difficulty: word.difficulty,
     });
   }, []);
 
   const saveEdit = useCallback(() => {
     if (!editingId || !editData) return;
-    if (!editData.hy.trim()) {
-      setWavStatus(t("page_error_prefix") + t("page_hy_required"));
-      return;
-    }
+    if (!editData.hy.trim()) return;
 
-    const updated = words.map(w => 
-      w.id === editingId 
-        ? { 
-            ...w, 
-            hy: editData.hy.trim(), 
-            en: editData.en.trim() || editData.hy.trim(),
-            ru: editData.ru.trim() || editData.hy.trim(),
-            tags: editData.tags || w.tags,
-            category: editData.category || w.category,
-            difficulty: editData.difficulty || w.difficulty,
-            updatedAt: new Date().toISOString(),
-          }
-        : w
+    const updated = words.map(w =>
+      w.id === editingId ? {
+        ...w,
+        hy: editData.hy.trim(),
+        en: editData.en.trim() || editData.hy.trim(),
+        ru: editData.ru.trim() || editData.hy.trim(),
+        tags: editData.tags || w.tags,
+        category: editData.category || w.category,
+        difficulty: editData.difficulty || w.difficulty,
+        updatedAt: new Date().toISOString(),
+      } : w
     );
     saveWords(updated);
     setEditingId(null);
     setEditData(null);
-    setWavStatus(t("page_updated_prefix") + " " + t("page_word_updated"));
     showMessage(t("page_word_updated_success"), "success");
   }, [editingId, editData, words, saveWords, showMessage, t]);
 
@@ -907,14 +436,10 @@ export default function UserDictionaryPage() {
         version: "2.0",
         exportedAt: new Date().toISOString(),
         totalWords: words.length,
-        words: words.map(w => ({
-          ...w,
-          wavAudio: undefined,
-        })),
+        words,
         stats: wordStats,
-        favorites: [...favorites]
+        favorites: [...favorites],
       };
-
       const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -924,10 +449,8 @@ export default function UserDictionaryPage() {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
       showMessage(t("page_export_success", { count: words.length }), "success");
     } catch (error) {
-      console.error("Export failed:", error);
       showMessage(t("page_export_failed"), "error");
     } finally {
       setIsExporting(false);
@@ -944,16 +467,10 @@ export default function UserDictionaryPage() {
       try {
         const content = e.target?.result as string;
         const data = JSON.parse(content);
-        
         let importedWords: UserDictionaryEntry[] = [];
-        
-        if (data.version && data.words && Array.isArray(data.words)) {
-          importedWords = data.words;
-        } else if (Array.isArray(data)) {
-          importedWords = data;
-        } else {
-          throw new Error("Invalid format");
-        }
+        if (data.version && data.words && Array.isArray(data.words)) importedWords = data.words;
+        else if (Array.isArray(data)) importedWords = data;
+        else throw new Error("Invalid format");
 
         if (importedWords.length === 0) {
           showMessage(t("page_warning_prefix") + t("page_import_empty"), "info");
@@ -962,23 +479,18 @@ export default function UserDictionaryPage() {
 
         const existingIds = new Set(words.map(w => w.id));
         const newWords = importedWords.filter(w => !existingIds.has(w.id));
-        
         if (newWords.length === 0) {
           showMessage(t("page_warning_prefix") + t("page_import_all_exist"), "info");
           return;
         }
 
-        const updated = [...words, ...newWords];
-        saveWords(updated);
+        saveWords([...words, ...newWords]);
         showMessage(t("page_import_success", { count: newWords.length }), "success");
       } catch (error) {
-        console.error("Import failed:", error);
         showMessage(t("page_import_failed"), "error");
       } finally {
         setIsImporting(false);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
+        if (fileInputRef.current) fileInputRef.current.value = "";
       }
     };
     reader.readAsText(file);
@@ -994,11 +506,8 @@ export default function UserDictionaryPage() {
   }, []);
 
   const toggleSelectAll = useCallback(() => {
-    if (selectedWords.size === filteredWords.length) {
-      setSelectedWords(new Set());
-    } else {
-      setSelectedWords(new Set(filteredWords.map(w => w.id)));
-    }
+    if (selectedWords.size === filteredWords.length) setSelectedWords(new Set());
+    else setSelectedWords(new Set(filteredWords.map(w => w.id)));
   }, [selectedWords, filteredWords]);
 
   useEffect(() => {
@@ -1014,32 +523,18 @@ export default function UserDictionaryPage() {
         searchInputRef.current?.focus();
       }
       if (e.key === "Escape") {
-        if (showAddWord) {
-          setShowAddWord(false);
-          setAddWordStatus("idle");
-          setAddWordMessage("");
-        }
-        if (editingId) {
-          cancelEdit();
-        }
-        if (searchQuery) {
-          setSearchQuery("");
-        }
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key === "a" && !e.target) {
-        if (isBatchMode) {
-          e.preventDefault();
-          toggleSelectAll();
-        }
+        if (showAddWord) { setShowAddWord(false); setAddWordStatus("idle"); }
+        if (editingId) cancelEdit();
+        if (searchQuery) setSearchQuery("");
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [showAddWord, editingId, searchQuery, isBatchMode, toggleSelectAll, cancelEdit]);
+  }, [showAddWord, editingId, searchQuery, cancelEdit]);
 
   if (isLoadingData) {
     return (
-      <div className="min-h-screen bg-transparent dark:bg-transparent flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">{t("page_loading")}</p>
@@ -1049,7 +544,7 @@ export default function UserDictionaryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
+    <div className="min-h-screen bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="container-main py-6">
 
         <header className="mb-6">
@@ -1076,23 +571,11 @@ export default function UserDictionaryPage() {
                 <BookOpen size={24} className="text-yellow-500" />
                 <span className="text-gradient">{t("page_title")}</span>
               </h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 flex-wrap">
-                <span>{t("page__wordstats_total_", { total: wordStats.total })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("page__wordstats_useradded_", { count: wordStats.userAdded })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("page__wordstats_hasaudio_", { count: wordStats.hasAudio })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("page_favorites_count", { count: favorites.size })}</span>
-                {isWAVAvailable && (
-                  <>
-                    <span className="w-1 h-1 rounded-full bg-gray-400" />
-                    <span className="text-emerald-500">🔊 WAV</span>
-                  </>
-                )}
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {t("page__wordstats_total_", { total: wordStats.total })}
               </p>
             </div>
-            
+
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setViewMode(viewMode === "list" ? "grid" : "list")}
@@ -1101,41 +584,6 @@ export default function UserDictionaryPage() {
               >
                 {viewMode === "list" ? "📋" : "📐"}
               </button>
-
-              {isWAVAvailable && wavClient && (
-                <div className="relative">
-                  <button
-                    onClick={() => setShowVoiceSelector(!showVoiceSelector)}
-                    className="px-3 py-2 rounded-xl text-xs font-medium bg-purple-500/20 text-purple-400 hover:bg-purple-500/30 transition-all flex items-center gap-1"
-                    title="Select voice"
-                  >
-                    <Music size={14} />
-                    {selectedVoice}
-                    <ChevronDown size={12} />
-                  </button>
-                  
-                  <AnimatePresence>
-                    {showVoiceSelector && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="absolute top-full mt-1 right-0 z-50 bg-white/80 dark:bg-gray-900/80 border border-gray-200 dark:border-gray-700 rounded-xl p-2 min-w-[140px] shadow-glass backdrop-blur-xl"
-                      >
-                        {wavClient.getAvailableVoices().map((voice) => (
-                          <button
-                            key={voice}
-                            onClick={() => changeVoice(voice)}
-                            className={`w-full px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-left ${voice === selectedVoice ? "bg-purple-500/30 text-purple-300" : "hover:bg-white/5 text-text-muted"}`}
-                          >
-                            {voice} {voice === selectedVoice && "✓"}
-                          </button>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )}
 
               <button
                 onClick={() => setShowAddWord(true)}
@@ -1148,8 +596,8 @@ export default function UserDictionaryPage() {
               <button
                 onClick={() => setIsBatchMode(!isBatchMode)}
                 className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                  isBatchMode 
-                    ? "bg-blue-500 text-white shadow-[0_4px_16px_rgba(59,130,246,0.3)]" 
+                  isBatchMode
+                    ? "bg-blue-500 text-white shadow-[0_4px_16px_rgba(59,130,246,0.3)]"
                     : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-800/80 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                 }`}
               >
@@ -1174,13 +622,7 @@ export default function UserDictionaryPage() {
                 {isImporting ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
                 {t("page_import")}
               </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".json"
-                onChange={handleImport}
-                className="hidden"
-              />
+              <input ref={fileInputRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
 
               <button
                 onClick={loadWords}
@@ -1190,38 +632,13 @@ export default function UserDictionaryPage() {
                 <RefreshCw size={14} />
                 {t("page_reload")}
               </button>
-
-              <Link
-                href="/dictionary"
-                className="px-4 py-2 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-800/80 rounded-xl text-sm font-medium transition text-gray-700 dark:text-gray-300 flex items-center gap-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              >
-                <Sparkles size={16} />
-                {t("page_main")}
-              </Link>
             </div>
           </div>
-          
-          {wavStatus && (
-            <p className={`text-xs mt-1 flex items-center gap-1 ${
-              wavStatus.includes("✅") ? "text-emerald-500" : 
-              wavStatus.includes("❌") ? "text-red-500" : 
-              wavStatus.includes("⏳") ? "text-yellow-500" :
-              "text-blue-500"
-            }`}>
-              {wavStatus.includes("✅") && <CheckCircle size={12} />}
-              {wavStatus.includes("❌") && <AlertCircle size={12} />}
-              {wavStatus.includes("⏳") && <Loader2 size={12} className="animate-spin" />}
-              {wavStatus}
-            </p>
-          )}
         </header>
 
         <div className="space-y-3 mb-4">
           <div className="relative">
-            <Search
-              size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            />
+            <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
             <input
               ref={searchInputRef}
               type="text"
@@ -1244,8 +661,8 @@ export default function UserDictionaryPage() {
             <button
               onClick={() => setShowFilters(!showFilters)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1 ${
-                showFilters 
-                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30" 
+                showFilters
+                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
                   : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
               }`}
             >
@@ -1273,7 +690,6 @@ export default function UserDictionaryPage() {
                   <option value="system">{t("page_system")}</option>
                   <option value="has-audio">{t("page_has_audio")}</option>
                   <option value="no-audio">{t("page_no_audio")}</option>
-                  <option value="has-wav">{t("page_has_wav")}</option>
                   <option value="favorites">{t("page_favorites")}</option>
                 </select>
 
@@ -1291,10 +707,7 @@ export default function UserDictionaryPage() {
 
                 {(filterOption !== "all" || sortOption !== "newest") && (
                   <button
-                    onClick={() => {
-                      setFilterOption("all");
-                      setSortOption("newest");
-                    }}
+                    onClick={() => { setFilterOption("all"); setSortOption("newest"); }}
                     className="px-3 py-1.5 text-xs text-red-400 hover:text-red-300 transition-colors"
                   >
                     ✕ {t("page_clear")}
@@ -1333,10 +746,7 @@ export default function UserDictionaryPage() {
                 </button>
               )}
               <button
-                onClick={() => {
-                  setIsBatchMode(false);
-                  setSelectedWords(new Set());
-                }}
+                onClick={() => { setIsBatchMode(false); setSelectedWords(new Set()); }}
                 className="px-3 py-1.5 bg-white/20 dark:bg-gray-800/80 text-gray-400 rounded-lg text-xs font-medium hover:bg-white/30 dark:hover:bg-gray-700 transition"
               >
                 ✕ {t("page_close")}
@@ -1350,12 +760,6 @@ export default function UserDictionaryPage() {
             <span className="text-gray-500 dark:text-gray-400">📚</span>
             <span className="text-gray-900 dark:text-white font-medium">{filteredWords.length}</span>
             <span className="text-gray-500 dark:text-gray-400">{t("page_words_shown")}</span>
-            <span className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-            <span className="text-gray-500 dark:text-gray-400">{t("page__wordstats_bylanguage_hy_", { count: wordStats.byLanguage.hy })}</span>
-            <span className="text-gray-500 dark:text-gray-400">{t("page__wordstats_bylanguage_en_", { count: wordStats.byLanguage.en })}</span>
-            <span className="text-gray-500 dark:text-gray-400">{t("page__wordstats_bylanguage_ru_", { count: wordStats.byLanguage.ru })}</span>
-            <span className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-            <span className="text-yellow-500">⭐ {favorites.size}</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <span className="text-gray-500 dark:text-gray-400">{t("page__id_")}</span>
@@ -1398,7 +802,6 @@ export default function UserDictionaryPage() {
               const isSelected = selectedWords.has(item.id);
               const isCopied = copiedId === item.id;
               const isFavorite = favorites.has(item.id);
-              const hasWAV = item.hasWAV;
 
               return (
                 <motion.div
@@ -1448,26 +851,11 @@ export default function UserDictionaryPage() {
                           MP3
                         </span>
                       )}
-                      {hasWAV && (
-                        <span className="text-[8px] text-blue-400 bg-blue-500/20 px-1.5 py-0.5 rounded-full">
-                          WAV
-                        </span>
-                      )}
-                      {item.tags && item.tags.length > 0 && (
-                        <span className="text-[8px] text-gray-400 bg-gray-500/20 px-1.5 py-0.5 rounded-full">
-                          {item.tags.join(", ")}
-                        </span>
-                      )}
                     </div>
                     <div className="flex items-center gap-1">
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleFavorite(item.id);
-                        }}
-                        className={`p-1 rounded-lg transition-colors ${
-                          isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"
-                        }`}
+                        onClick={(e) => { e.stopPropagation(); toggleFavorite(item.id); }}
+                        className={`p-1 rounded-lg transition-colors ${isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"}`}
                         title={isFavorite ? t("page_remove_favorite") : t("page_add_favorite")}
                       >
                         <Star size={14} fill={isFavorite ? "currentColor" : "none"} />
@@ -1500,21 +888,20 @@ export default function UserDictionaryPage() {
                   </div>
 
                   <div className="space-y-2.5">
-                    {LANGS.map(({ code, label, flag, color, bg, textColor }) => {
+                    {LANGS.map(({ code, label, flagUrl, color }) => {
                       const playing = isWordPlaying(item.id, code);
                       const loading = activePlay?.wordId === item.id && activePlay.lang === code && isLoading;
                       const text = item[code] || "—";
-                      const audioUrl = item.audio?.[code] || null;
-
 
                       return (
                         <div
                           key={code}
-                          className={`flex items-center justify-between gap-3 p-2 rounded-xl transition-all hover:bg-white/5`}
+                          className="flex items-center justify-between gap-3 p-2 rounded-xl transition-all hover:bg-white/5"
                         >
                           <div className="flex-1 min-w-0">
-                            <div className={`text-[10px] font-bold mb-0.5 ${color}`}>
-                              {flag} {label}
+                            <div className={`text-[10px] font-bold mb-0.5 ${color} flex items-center gap-1.5`}>
+                              <img src={flagUrl} alt={code.toUpperCase()} className="w-3.5 h-2.5" loading="lazy" />
+                              {label}
                             </div>
                             {isEditing && editingId === item.id ? (
                               <input
@@ -1548,7 +935,7 @@ export default function UserDictionaryPage() {
                             {loading ? (
                               <Loader2 size={18} className="animate-spin" />
                             ) : playing ? (
-                              <Volume2 size={18} />
+                              <span className="text-lg">🔊</span>
                             ) : (
                               <Play size={16} />
                             )}
@@ -1589,21 +976,11 @@ export default function UserDictionaryPage() {
                           <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2 flex-wrap">
                             <span>{t("page__item_id_", { id: item.id })}</span>
                             <span>{t("page__item_type_user_", { type: item.type || "user" })}</span>
-                            <span>{t("page__item_isuseradded_user_added_system_", { isUser: item.isUserAdded ? t("page_user") : t("page_system") })}</span>
-                            {item.translationSource && (
-                              <span>{t("page__item_translationsource_", { source: item.translationSource })}</span>
-                            )}
                             {item.category && (
                               <span>{t("page__item_category_", { category: item.category })}</span>
                             )}
-                            {item.difficulty && (
-                              <span>{t("page__item_difficulty_", { difficulty: item.difficulty })}</span>
-                            )}
                             <Clock size={12} />
                             <span>{t("page__formatdate_item_createdat_", { date: formatDate(item.createdAt) })}</span>
-                            {item.updatedAt && item.updatedAt !== item.createdAt && (
-                              <span className="ml-3">{t("page__formatdate_item_updatedat_", { date: formatDate(item.updatedAt) })}</span>
-                            )}
                           </div>
                           {item.tags && item.tags.length > 0 && (
                             <div className="flex gap-1 flex-wrap">
@@ -1689,7 +1066,6 @@ export default function UserDictionaryPage() {
                 <h2 className="text-lg font-black text-gray-900 dark:text-white flex items-center gap-2">
                   <Plus size={20} className="text-yellow-500" />
                   {t("page_add_new_word")}
-                  <span className="text-xs font-normal text-gray-500">{t("page__id_getnextid_", { id: getNextId() })}</span>
                 </h2>
                 <button
                   onClick={() => {
@@ -1705,7 +1081,10 @@ export default function UserDictionaryPage() {
 
               <div className="px-6 py-5 space-y-4">
                 <div>
-                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide">{t("page_hy_label")}</label>
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide flex items-center gap-1.5">
+                    <img src="https://flagcdn.com/24x18/am.png" alt="AM" className="w-4 h-3" loading="lazy" />
+                    {t("page_hy_label")}
+                  </label>
                   <input
                     value={newWordHy}
                     onChange={(e) => setNewWordHy(e.target.value)}
@@ -1717,7 +1096,10 @@ export default function UserDictionaryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide">{t("page_en_label")}</label>
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide flex items-center gap-1.5">
+                    <img src="https://flagcdn.com/24x18/gb.png" alt="GB" className="w-4 h-3" loading="lazy" />
+                    {t("page_en_label")}
+                  </label>
                   <input
                     value={newWordEn}
                     onChange={(e) => setNewWordEn(e.target.value)}
@@ -1728,7 +1110,10 @@ export default function UserDictionaryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide">{t("page_ru_label")}</label>
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide flex items-center gap-1.5">
+                    <img src="https://flagcdn.com/24x18/ru.png" alt="RU" className="w-4 h-3" loading="lazy" />
+                    {t("page_ru_label")}
+                  </label>
                   <input
                     value={newWordRu}
                     onChange={(e) => setNewWordRu(e.target.value)}

@@ -1449,3 +1449,153 @@ textarea,
 select {
   font-size: 16px !important;
 }
+
+/* ═══════════════════════════════════════════
+   🧹 HIDE UNWANTED ELEMENTS
+   (Dictionary-ի դեղին նշվածները)
+═══════════════════════════════════════════ */
+
+/* Hide WAV status / Generate All / Clear Cache / Test WAV */
+.hide-wav-status,
+.wav-status,
+[data-hide="wav-status"] {
+  display: none !important;
+}
+
+/* Hide "Active + WAV API" badges */
+.wav-api-badge,
+.api-badge,
+[data-hide="api-badge"] {
+  display: none !important;
+}
+
+/* Hide TTS badges */
+.tts-badge,
+[data-hide="tts-badge"] {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════
+   🧹 HIDE UNWANTED DICTIONARY ELEMENTS
+═══════════════════════════════════════════ */
+
+/* Hide "✨ WAV API" badge */
+span.text-purple-400:has(+ span),
+span.text-\[8px\].text-purple-400,
+span.text-\[8px\].text-blue-400,
+span.text-\[8px\].text-green-400 {
+  display: none !important;
+}
+
+/* Hide WAV/TTS/MP3 badges in header */
+.text-\[8px\].text-green-400,
+.text-\[8px\].text-yellow-400 {
+  display: none !important;
+}
+
+/* Hide "WAV:am connected" or similar status */
+.wav-status,
+[data-status="wav"],
+.stats-wav {
+  display: none !important;
+}
+
+/* Hide "Generate All" / "Clear Cache" / "Test WAV" buttons */
+button:has(> svg + span:contains("Generate")),
+button:has(> svg + span:contains("Clear Cache")),
+button:has(> svg + span:contains("Test WAV")) {
+  display: none !important;
+}
+
+/* Fallback: hide by text content using attribute */
+button[title*="Generate All"],
+button[title*="Clear Cache"],
+button[title*="Test WAV"] {
+  display: none !important;
+}
+
+/* ═══════════════════════════════════════════
+   🎨 FORCE TEXT COLORS — Light=Black, Dark=White
+═══════════════════════════════════════════ */
+
+/* LIGHT MODE — all text black */
+html:not(.dark) body,
+html:not(.dark) body * {
+  color: #000000 !important;
+}
+
+/* Exceptions — keep colored accents */
+html:not(.dark) .text-red-400,
+html:not(.dark) .text-red-500,
+html:not(.dark) .text-blue-400,
+html:not(.dark) .text-blue-500,
+html:not(.dark) .text-green-400,
+html:not(.dark) .text-green-500,
+html:not(.dark) .text-yellow-400,
+html:not(.dark) .text-yellow-500,
+html:not(.dark) .text-purple-400,
+html:not(.dark) .text-purple-500,
+html:not(.dark) .text-emerald-400,
+html:not(.dark) .text-emerald-500,
+html:not(.dark) .text-orange-400,
+html:not(.dark) .text-orange-500,
+html:not(.dark) .text-indigo-400,
+html:not(.dark) .text-indigo-500,
+html:not(.dark) .text-amber-400,
+html:not(.dark) .text-amber-500,
+html:not(.dark) .text-primary {
+  color: inherit !important;
+}
+
+html:not(.dark) .text-red-400,
+html:not(.dark) .text-red-500 { color: #dc2626 !important; }
+html:not(.dark) .text-blue-400,
+html:not(.dark) .text-blue-500 { color: #2563eb !important; }
+html:not(.dark) .text-green-400,
+html:not(.dark) .text-green-500 { color: #16a34a !important; }
+html:not(.dark) .text-yellow-400,
+html:not(.dark) .text-yellow-500 { color: #ca8a04 !important; }
+html:not(.dark) .text-purple-400,
+html:not(.dark) .text-purple-500 { color: #9333ea !important; }
+html:not(.dark) .text-emerald-400,
+html:not(.dark) .text-emerald-500 { color: #059669 !important; }
+html:not(.dark) .text-orange-400,
+html:not(.dark) .text-orange-500 { color: #ea580c !important; }
+html:not(.dark) .text-indigo-400,
+html:not(.dark) .text-indigo-500 { color: #4f46e5 !important; }
+
+/* Buttons with white text keep white */
+html:not(.dark) button[class*="bg-yellow"],
+html:not(.dark) button[class*="bg-red"],
+html:not(.dark) button[class*="bg-blue-500"],
+html:not(.dark) button[class*="bg-emerald"],
+html:not(.dark) button[class*="bg-primary"],
+html:not(.dark) button[class*="bg-green-500"],
+html:not(.dark) .bg-gradient-to-r,
+html:not(.dark) .bg-gradient-to-r * {
+  color: #ffffff !important;
+}
+
+/* DARK MODE — all text white */
+.dark body,
+.dark body * {
+  color: #ffffff !important;
+}
+
+/* Exceptions — keep colored accents in dark */
+.dark .text-red-400,
+.dark .text-red-500 { color: #f87171 !important; }
+.dark .text-blue-400,
+.dark .text-blue-500 { color: #60a5fa !important; }
+.dark .text-green-400,
+.dark .text-green-500 { color: #4ade80 !important; }
+.dark .text-yellow-400,
+.dark .text-yellow-500 { color: #fbbf24 !important; }
+.dark .text-purple-400,
+.dark .text-purple-500 { color: #c084fc !important; }
+.dark .text-emerald-400,
+.dark .text-emerald-500 { color: #34d399 !important; }
+.dark .text-orange-400,
+.dark .text-orange-500 { color: #fb923c !important; }
+.dark .text-indigo-400,
+.dark .text-indigo-500 { color: #818cf8 !important; }

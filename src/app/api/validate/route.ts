@@ -314,7 +314,7 @@ export async function POST(req: NextRequest) {
         const mcResult = checkMultipleChoice(userAnswer, expectedAnswer, options, allValidAnswers);
         result.accepted = mcResult.accepted;
         result.score = mcResult.score;
-        result.feedback = mcResult.accepted ? "✅ Ճիշտ է!" : "❌ Սխալ է, փորձիր նորից";
+        result.feedback = mcResult.accepted ? "feedback_correct" : "feedback_wrong";
         result.corrections = mcResult.accepted ? undefined : [expectedAnswer];
         break;
       }

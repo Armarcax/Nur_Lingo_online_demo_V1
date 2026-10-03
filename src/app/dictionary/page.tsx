@@ -1209,10 +1209,6 @@ export default function DictionaryPage() {
   if (isLoadingData) {
     return (
       <div className="min-h-screen bg-transparent flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-text-secondary dark:text-gray-400">{t("page_loading")}</p>
-        </div>
       </div>
     );
   }
@@ -1337,60 +1333,6 @@ export default function DictionaryPage() {
                 </div>
               )}
               
-              {/* User Dictionary Button */}
-              <Link
-                href="/user-dictionary"
-                className="px-4 py-2 bg-yellow-500/20 border border-yellow-500/30 hover:bg-yellow-500/30 rounded-xl text-sm font-medium transition-all flex items-center gap-2 text-yellow-500 backdrop-blur-soft"
-              >
-                <Users size={16} />
-                <span className="hidden sm:inline">{t("page_user_dictionary")}</span>
-                <span className="sm:hidden">{t("page_user_dictionary_short")}</span>
-              </Link>
-              
-              {/* Generate All WAV Button */}
-              {isWAVAvailable && (
-                <>
-                  <button
-                    onClick={isGeneratingWAV ? cancelWAVGeneration : generateAllWAV}
-                    disabled={isGeneratingWAV}
-                    className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${isGeneratingWAV ? "bg-red-500/20 text-red-400 hover:bg-red-500/30" : "bg-blue-500/20 text-blue-400 hover:bg-blue-500/30"}`}
-                    title={t("page_generate_all")}
-                  >
-                    {isGeneratingWAV ? (
-                      <>
-                        <X size={14} />
-                        {t("page_cancel")} {wavProgress.current}/{wavProgress.total}
-                      </>
-                    ) : (
-                      <>
-                        <Download size={14} />
-                        {t("page_generate_all")}
-                      </>
-                    )}
-                  </button>
-                  <button
-                    onClick={clearWAVCache}
-                    className="px-3 py-2 rounded-xl text-xs font-medium bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all flex items-center gap-1"
-                    title={t("page_clear_cache")}
-                  >
-                    <X size={14} />
-                    {t("page_clear_cache")}
-                  </button>
-                </>
-              )}
-              <button
-                onClick={testWAV}
-                disabled={isTestingWAV}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${isTestingWAV ? "bg-yellow-500/20 text-yellow-400 cursor-wait" : "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"}`}
-                title={t("page_test_wav")}
-              >
-                {isTestingWAV ? (
-                  <Loader2 size={14} className="animate-spin" />
-                ) : (
-                  <Zap size={14} />
-                )}
-                {t("page_test_wav")}
-              </button>
 
               {/* Stats Button */}
               <button
@@ -1411,29 +1353,6 @@ export default function DictionaryPage() {
               </Link>
             </div>
           </div>
-          
-          {/* WAV Status */}
-          {wavStatus && (
-            <p className={`text-xs mt-1 flex items-center gap-1 ${wavStatus.includes("✅") ? "text-emerald-500" : wavStatus.includes("❌") ? "text-red-500" : wavStatus.includes("⏳") ? "text-yellow-500" : wavStatus.includes("⏹️") ? "text-orange-500" : "text-blue-500"}`}>
-              {wavStatus.includes("✅") && <CheckCircle size={12} />}
-              {wavStatus.includes("❌") && <AlertCircle size={12} />}
-              {wavStatus.includes("⏳") && <Loader2 size={12} className="animate-spin" />}
-              {wavStatus.includes("⏹️") && <X size={12} />}
-              {wavStatus}
-            </p>
-          )}
-          
-          {/* WAV Progress Bar */}
-          {isGeneratingWAV && (
-            <div className="mt-2 w-full h-1.5 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-soft overflow-hidden">
-              <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-blue-500 to-emerald-500"
-                initial={{ width: 0 }}
-                animate={{ width: `${(wavProgress.current / wavProgress.total) * 100}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-          )}
         </header>
 
         {/* ─── STATS PANEL ─── */}
@@ -1552,23 +1471,6 @@ export default function DictionaryPage() {
                 <span className="hidden sm:inline">{t("page_clear_filters")}</span>
               </button>
             )}
-
-            {/* WAV filter shortcut */}
-            <button
-              onClick={() => {
-                if (filterOption === "all") {
-                  setFilterOption("has-wav");
-                } else if (filterOption === "has-wav") {
-                  setFilterOption("all");
-                } else {
-                  setFilterOption("has-wav");
-                }
-              }}
-              className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${filterOption === "has-wav" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "bg-white/10 dark:bg-white/5 text-text-muted hover:text-text"}`}
-            >
-              <BadgeCheck size={14} />
-              <span className="hidden sm:inline">{t("page_has_wav")}</span>
-            </button>
           </div>
         </div>
 
@@ -1600,7 +1502,7 @@ export default function DictionaryPage() {
                       <option value="advanced">🔥 {t("page_advanced")}</option>
                       <option value="has-audio">🎵 {t("page_has_audio")}</option>
                       <option value="no-audio">🔇 {t("page_no_audio")}</option>
-                      <option value="has-wav">🔊 {t("page_has_wav")}</option>
+                    
                     </select>
                   </div>
 

@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       status: score >= 70 ? "completed" : "needs_review",
       message:
         score >= 90
-          ? "Կատարյալ! (Perfect!)"
+          ? "feedback_perfect"
           : score >= 70
           ? "Շատ լավ! (Very good!)"
           : "Փորձեք կրկին: (Try again.)",

@@ -1506,14 +1506,6 @@ export default function UserDictionaryPage() {
                       const text = item[code] || "—";
                       const audioUrl = item.audio?.[code] || null;
 
-                      let sourceLabel = "";
-                      if (code === "hy") {
-                        sourceLabel = hasWAV ? "WAV" : "WAV API";
-                      } else if (code === "en") {
-                        sourceLabel = "TTS";
-                      } else if (code === "ru") {
-                        sourceLabel = "TTS";
-                      }
 
                       return (
                         <div
@@ -1523,24 +1515,6 @@ export default function UserDictionaryPage() {
                           <div className="flex-1 min-w-0">
                             <div className={`text-[10px] font-bold mb-0.5 ${color}`}>
                               {flag} {label}
-                              {audioUrl && (
-                                <span className="ml-1.5 text-[8px] text-emerald-500">🎵</span>
-                              )}
-                              {code === "hy" && hasWAV && (
-                                <span className="ml-1.5 text-[8px] text-blue-400">🔊 WAV</span>
-                              )}
-                              {code === "hy" && !hasWAV && isWAVAvailable && (
-                                <span className="ml-1.5 text-[8px] text-purple-400">✨ WAV API</span>
-                              )}
-                              {code === "en" && (
-                                <span className="ml-1.5 text-[8px] text-blue-400">🔊 TTS</span>
-                              )}
-                              {code === "ru" && (
-                                <span className="ml-1.5 text-[8px] text-green-400">🔊 TTS</span>
-                              )}
-                              <span className="ml-1.5 text-[8px] text-gray-400">
-                                [{sourceLabel}]
-                              </span>
                             </div>
                             {isEditing && editingId === item.id ? (
                               <input
@@ -1577,26 +1551,6 @@ export default function UserDictionaryPage() {
                               <Volume2 size={18} />
                             ) : (
                               <Play size={16} />
-                            )}
-                            {code === "hy" && hasWAV && !playing && (
-                              <span className="absolute -top-1 -right-1 text-[8px] bg-blue-500 text-white rounded-full px-1 font-bold">
-                                WAV
-                              </span>
-                            )}
-                            {code === "hy" && !hasWAV && !playing && isWAVAvailable && (
-                              <span className="absolute -top-1 -right-1 text-[8px] bg-purple-500 text-white rounded-full px-1 font-bold">
-                                API
-                              </span>
-                            )}
-                            {code === "en" && !playing && (
-                              <span className="absolute -top-1 -right-1 text-[8px] bg-blue-500 text-white rounded-full px-1 font-bold">
-                                TTS
-                              </span>
-                            )}
-                            {code === "ru" && !playing && (
-                              <span className="absolute -top-1 -right-1 text-[8px] bg-green-500 text-white rounded-full px-1 font-bold">
-                                TTS
-                              </span>
                             )}
                           </button>
                         </div>

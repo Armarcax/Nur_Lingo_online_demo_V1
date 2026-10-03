@@ -7,9 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Flame, BookOpen, Globe, Sparkles, ArrowRight, Zap, Heart, MessageSquare, Leaf, LayoutGrid,
-  Trophy, Target, Calendar, TrendingUp, Award, Users, Music, Mic, Volume2, Settings,
-  ChevronDown, ChevronUp, Star, Gift, Clock, CheckCircle, AlertCircle, Loader2,
-  Languages, RefreshCw, RotateCcw, XCircle
+  Trophy, Target, Settings, Languages, RotateCcw, Loader2, XCircle, Users
 } from "lucide-react";
 import Nuri, { NuriSpeech } from "@/components/Nuri";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -17,8 +15,7 @@ import { NuriRain } from "@/components/NuriRain";
 import { syncHearts, loadRewards, type UserRewards } from "@/lib/rewards/seeds";
 import { loadQuests, type Quest } from "@/lib/rewards/seeds";
 import { loadLangConfig, saveLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
-import { useI18n } from "@/hooks/useI18n"; // ✅ ՃԻՇՏ իմպորտ
-// ❌ LanguageSwitcher-ը հեռացվել է
+import { useI18n } from "@/hooks/useI18n";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 
@@ -31,7 +28,6 @@ interface HomeStats {
   dailyGoal: number;
 }
 
-// ✅ FIXED: Use any for icons
 interface QuickLink {
   href: string;
   icon: any;
@@ -65,7 +61,6 @@ export default function Home() {
   const router = useRouter();
   const { t, locale, setLanguage } = useI18n();
   const [stats, setStats] = useState<HomeStats | null>(null);
-  const [isDark, setIsDark] = useState(false);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -87,7 +82,6 @@ export default function Home() {
     const loadData = async () => {
       setIsLoading(true);
 
-      // Check onboarding
       try {
         const langConfig = localStorage.getItem("nur_lang_config");
         if (!langConfig) {
@@ -95,7 +89,6 @@ export default function Home() {
           return;
         }
         
-        // Load current language settings
         const config = loadLangConfig();
         if (config) {
           setCurrentNative(config.native as LangCode);
@@ -151,16 +144,6 @@ export default function Home() {
     loadData();
   }, [router]);
 
-  // ─── THEME OBSERVER ───────────────────────────────────────────────
-
-  useEffect(() => {
-    const checkTheme = () => setIsDark(document.documentElement.classList.contains("dark"));
-    checkTheme();
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
-
   // ─── HANDLERS ──────────────────────────────────────────────────────
 
   const handleStatsClick = useCallback(() => {
@@ -212,26 +195,25 @@ export default function Home() {
   // ─── SAVE LANGUAGE SETTINGS ───────────────────────────────────────
 
   const handleSaveLanguage = useCallback(() => {
-  try {
-    saveLangConfig({
-      native: selectedNative,
-      learning: selectedLearning,
-      pair: `${selectedNative}-${selectedLearning}` as LangPair,
-    });
-    // ✅ UI-ի լեզուն թարմացնել
-    setLanguage(selectedNative);
-    setCurrentNative(selectedNative);
-    setCurrentLearning(selectedLearning);
-    setShowSettingsModal(false);
-    
-    setNuriMood("excited");
-    setTimeout(() => setNuriMood("happy"), 2000);
-    
-    router.refresh();
-  } catch (error) {
-    console.error("Failed to save language settings:", error);
-  }
-}, [selectedNative, selectedLearning, router, setLanguage]);
+    try {
+      saveLangConfig({
+        native: selectedNative,
+        learning: selectedLearning,
+        pair: `${selectedNative}-${selectedLearning}` as LangPair,
+      });
+      setLanguage(selectedNative);
+      setCurrentNative(selectedNative);
+      setCurrentLearning(selectedLearning);
+      setShowSettingsModal(false);
+      
+      setNuriMood("excited");
+      setTimeout(() => setNuriMood("happy"), 2000);
+      
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to save language settings:", error);
+    }
+  }, [selectedNative, selectedLearning, router, setLanguage]);
 
   // ─── RESET ONBOARDING ─────────────────────────────────────────────
 
@@ -272,10 +254,10 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-transparent flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#FFA500] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/60 text-sm font-medium">{t("page_loading")}</p>
+          <p className="text-[var(--color-text-muted)] text-sm font-medium">{t("page_loading")}</p>
         </div>
       </div>
     );
@@ -283,10 +265,10 @@ export default function Home() {
 
   if (!stats) {
     return (
-      <div className="min-h-screen bg-transparent flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/60 text-sm font-medium">{t("page_something_went_wrong")}</p>
+          <p className="text-[var(--color-text-muted)] text-sm font-medium">{t("page_something_went_wrong")}</p>
           <button
             onClick={() => window.location.reload()}
             className="mt-4 px-6 py-2 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/30 transition"
@@ -304,24 +286,12 @@ export default function Home() {
   // ─── MAIN RENDER ──────────────────────────────────────────────────
 
   return (
-    <main className="min-h-screen text-white overflow-hidden relative">
-
-      {/* ─── BACKGROUND ─── */}
-      <div
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-all duration-700"
-        style={{
-          backgroundImage: isDark
-            ? "url('/images/pomegranate-dark.jpg')"
-            : "url('/images/pomegranate-light.jpg')",
-        }}
-      />
+    <main className="min-h-screen overflow-hidden relative">
 
       <NuriRain langs={["hy"]} count={35} speed={0.7} />
 
       {/* ─── HEADER ACTIONS ─── */}
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-        {/* ✅ Language Switcher-ը հեռացվել է */}
-
         {isReturning && completedQuests > 0 && (
           <div className="relative">
             <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-[10px] font-bold text-black animate-pulse">
@@ -333,10 +303,10 @@ export default function Home() {
         
         <button
           onClick={handleSettingsClick}
-          className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-all"
+          className="p-2 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/20 transition-all"
           title={t("page_settings")}
         >
-          <Settings size={20} className="text-white/60 hover:text-white transition" />
+          <Settings size={20} className="text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition" />
         </button>
         
         <ThemeToggle size="lg" />
@@ -371,7 +341,7 @@ export default function Home() {
             NUR Lingo
           </span>
         </h1>
-        <p className="text-white/30 text-sm font-bold uppercase tracking-[0.3em] mb-6">
+        <p className="text-[var(--color-text-muted)] text-sm font-bold uppercase tracking-[0.3em] mb-6">
           {t("page_subtitle")}
         </p>
 
@@ -380,23 +350,23 @@ export default function Home() {
           <div className="flex items-center gap-3 mb-6 flex-wrap justify-center">
             <button
               onClick={handleStatsClick}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/20 transition-all"
             >
               <Flame size={14} className="text-orange-500" />
-              <span className="text-sm font-bold text-white">{stats.streak}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{stats.streak}</span>
             </button>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Zap size={14} className="text-yellow-500" />
-              <span className="text-sm font-bold text-white">{stats.totalHAYQ}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{stats.totalHAYQ}</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Heart size={14} className="text-red-500" />
-              <span className="text-sm font-bold text-white">{stats.hearts}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{stats.hearts}</span>
             </div>
             {rewards && rewards.streakFreeze > 0 && (
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-500/30">
                 <span className="text-xs">🛡️</span>
-                <span className="text-xs font-bold text-blue-400">{rewards.streakFreeze}</span>
+                <span className="text-xs font-bold text-blue-500">{rewards.streakFreeze}</span>
               </div>
             )}
           </div>
@@ -420,10 +390,10 @@ export default function Home() {
             <Link
               key={item.href}
               href={item.href}
-              className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-2.5 text-center hover:bg-white/20 hover:scale-105 transition-all group"
+              className="bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-2xl p-2.5 text-center hover:bg-white/50 dark:hover:bg-white/20 hover:scale-105 transition-all group"
             >
-              <item.icon size={20} className={`mx-auto ${item.color || 'text-white/60'} mb-0.5 group-hover:scale-110 transition-transform`} />
-              <span className="text-[8px] font-bold text-white/50 uppercase tracking-wider">
+              <item.icon size={20} className={`mx-auto ${item.color || 'text-[var(--color-text-secondary)]'} mb-0.5 group-hover:scale-110 transition-transform`} />
+              <span className="text-[8px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
                 {t(item.labelKey)}
               </span>
             </Link>
@@ -433,14 +403,14 @@ export default function Home() {
         {/* ─── DAILY PROGRESS ─── */}
         {isReturning && (
           <div className="w-full max-w-sm mt-4">
-            <div className="flex items-center justify-between text-xs text-white/40 mb-1">
+            <div className="flex items-center justify-between text-xs text-[var(--color-text-muted)] mb-1">
               <span className="flex items-center gap-1.5">
                 <Target size={12} />
                 {t("page_daily_goal")}
               </span>
               <span>{Math.round(stats.dailyProgress)} / {stats.dailyGoal} XP</span>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-white/10 backdrop-blur-sm overflow-hidden">
+            <div className="w-full h-1.5 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${Math.min((stats.dailyProgress / stats.dailyGoal) * 100, 100)}%` }}
@@ -451,7 +421,7 @@ export default function Home() {
         )}
 
         {/* ─── FOOTER ─── */}
-        <p className="text-white/10 text-[10px] font-bold uppercase tracking-[0.2em] mt-8">
+        <p className="text-[var(--color-text-muted)] text-[10px] font-bold uppercase tracking-[0.2em] mt-8 opacity-40">
           {t("page_footer_platform")}
         </p>
       </div>
@@ -471,45 +441,45 @@ export default function Home() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white/10 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto"
+              className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto shadow-2xl"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
                   <Trophy size={20} className="text-yellow-500" />
                   {t("page_stats") || "Stats"}
                 </h3>
                 <button
                   onClick={() => setShowStatsModal(false)}
-                  className="text-white/40 hover:text-white/70 transition-colors"
+                  className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
                 >
                   ✕
                 </button>
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__streak") || "Streak"}</span>
-                  <span className="font-bold text-white">{rewards.streak}</span>
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__streak") || "Streak"}</span>
+                  <span className="font-bold text-[var(--color-text)]">{rewards.streak}</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__hayq") || "HAYQ"}</span>
-                  <span className="font-bold text-yellow-400">{rewards.totalHAYQ}</span>
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__hayq") || "HAYQ"}</span>
+                  <span className="font-bold text-yellow-500">{rewards.totalHAYQ}</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__seeds") || "Seeds"}</span>
-                  <span className="font-bold text-emerald-400">{rewards.totalSeeds}</span>
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__seeds") || "Seeds"}</span>
+                  <span className="font-bold text-emerald-500">{rewards.totalSeeds}</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__hearts") || "Hearts"}</span>
-                  <span className="font-bold text-red-400">{rewards.hearts}</span>
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__hearts") || "Hearts"}</span>
+                  <span className="font-bold text-red-500">{rewards.hearts}</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__freeze") || "Freeze"}</span>
-                  <span className="font-bold text-blue-400">{rewards.streakFreeze}</span>
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__freeze") || "Freeze"}</span>
+                  <span className="font-bold text-blue-500">{rewards.streakFreeze}</span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
-                  <span className="text-white/60">{t("page__crowns") || "Crowns"}</span>
-                  <span className="font-bold text-amber-400">
+                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__crowns") || "Crowns"}</span>
+                  <span className="font-bold text-amber-500">
                     {Object.values(rewards.crowns || {}).reduce((a, b) => a + b, 0)}
                   </span>
                 </div>
@@ -517,16 +487,16 @@ export default function Home() {
 
               {quests.filter(q => q.completed && !q.claimed).length > 0 && (
                 <div className="mt-4">
-                  <p className="text-xs text-white/40 uppercase tracking-wider mb-2">{t("page__completed_quests") || "Completed Quests"}</p>
+                  <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-2">{t("page__completed_quests") || "Completed Quests"}</p>
                   <div className="space-y-1.5">
                     {quests.filter(q => q.completed && !q.claimed).map((q) => (
-                      <div key={q.id} className="flex items-center justify-between p-2 bg-white/5 rounded-lg text-xs">
-                        <span className="text-white/70">
+                      <div key={q.id} className="flex items-center justify-between p-2 bg-white/40 dark:bg-white/5 rounded-lg text-xs">
+                        <span className="text-[var(--color-text-secondary)]">
                            {q.description?.[locale as keyof typeof q.description] || q.description?.en || q.id}
                         </span>
                         <button
                           onClick={() => handleClaimQuest(q.id)}
-                          className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-colors text-[10px] font-bold"
+                          className="px-2 py-0.5 bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-colors text-[10px] font-bold"
                         >
                           {t("page_claim")}
                         </button>
@@ -562,29 +532,29 @@ export default function Home() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white/10 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto"
+              className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto shadow-2xl"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Settings size={20} className="text-white/60" />
+                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
+                  <Settings size={20} className="text-[var(--color-text-secondary)]" />
                   {t("page_settings")}
                 </h3>
                 <button
                   onClick={() => setShowSettingsModal(false)}
-                  className="text-white/40 hover:text-white/70 transition-colors"
+                  className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="bg-white/5 rounded-xl p-3 mb-4">
-                <p className="text-xs text-white/40 mb-1">{t("page_current_languages")}</p>
+              <div className="bg-white/40 dark:bg-white/5 rounded-xl p-3 mb-4">
+                <p className="text-xs text-[var(--color-text-muted)] mb-1">{t("page_current_languages")}</p>
                 <div className="flex items-center gap-3 text-sm">
-                  <span className="text-white/60">{t("page__native_") || "Native"}</span>
-                  <span className="font-bold text-white">
+                  <span className="text-[var(--color-text-secondary)]">{t("page__native_") || "Native"}</span>
+                  <span className="font-bold text-[var(--color-text)]">
                     {LANGUAGE_OPTIONS.find(l => l.code === currentNative)?.flag} {LANGUAGE_OPTIONS.find(l => l.code === currentNative)?.label}
                   </span>
-                  <span className="text-white/20">→</span>
+                  <span className="text-[var(--color-text-muted)]">→</span>
                   <span className="font-bold text-[#FFA500]">
                     {LANGUAGE_OPTIONS.find(l => l.code === currentLearning)?.flag} {LANGUAGE_OPTIONS.find(l => l.code === currentLearning)?.label}
                   </span>
@@ -592,7 +562,7 @@ export default function Home() {
               </div>
 
               <div className="mb-4">
-                <label className="text-xs text-white/40 mb-2 block">{t("page__native_") || "Native"}</label>
+                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">{t("page__native_") || "Native"}</label>
                 <div className="grid grid-cols-3 gap-2">
                   {LANGUAGE_OPTIONS.map((lang) => (
                     <button
@@ -601,7 +571,7 @@ export default function Home() {
                       className={`p-3 rounded-xl border-2 text-center transition-all ${
                         selectedNative === lang.code
                           ? `border-[#FFA500] bg-[#FFA500]/10 ${lang.color}`
-                          : "border-white/10 bg-white/5 text-white/40 hover:text-white/70"
+                          : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                       }`}
                     >
                       <div className="text-2xl">{lang.flag}</div>
@@ -612,7 +582,7 @@ export default function Home() {
               </div>
 
               <div className="mb-4">
-                <label className="text-xs text-white/40 mb-2 block">{t("page__learning_") || "Learning"}</label>
+                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">{t("page__learning_") || "Learning"}</label>
                 <div className="grid grid-cols-3 gap-2">
                   {LANGUAGE_OPTIONS.filter(l => l.code !== selectedNative).map((lang) => (
                     <button
@@ -621,7 +591,7 @@ export default function Home() {
                       className={`p-3 rounded-xl border-2 text-center transition-all ${
                         selectedLearning === lang.code
                           ? `border-[#FFA500] bg-[#FFA500]/10 ${lang.color}`
-                          : "border-white/10 bg-white/5 text-white/40 hover:text-white/70"
+                          : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                       }`}
                     >
                       <div className="text-2xl">{lang.flag}</div>
@@ -630,7 +600,7 @@ export default function Home() {
                   ))}
                 </div>
                 {selectedNative === selectedLearning && (
-                  <p className="text-xs text-red-400 mt-2">⚠️ {t("page_language_same_error")}</p>
+                  <p className="text-xs text-red-500 mt-2">⚠️ {t("page_language_same_error")}</p>
                 )}
               </div>
 
@@ -639,7 +609,7 @@ export default function Home() {
                 disabled={selectedNative === selectedLearning}
                 className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
                   selectedNative === selectedLearning
-                    ? "bg-white/5 text-white/20 cursor-not-allowed"
+                    ? "bg-white/20 dark:bg-white/5 text-[var(--color-text-muted)] cursor-not-allowed"
                     : "bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white hover:scale-105"
                 }`}
               >
@@ -649,27 +619,27 @@ export default function Home() {
 
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10" />
+                  <div className="w-full border-t border-white/20 dark:border-white/10" />
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="bg-transparent px-2 text-white/20">⚠️ {t("page_danger_zone")}</span>
+                  <span className="bg-transparent px-2 text-[var(--color-text-muted)]">⚠️ {t("page_danger_zone")}</span>
                 </div>
               </div>
 
               <button
                 onClick={() => setShowResetConfirm(true)}
-                className="w-full py-3 rounded-xl border-2 border-red-500/30 bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500/20 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl border-2 border-red-500/30 bg-red-500/10 text-red-500 font-bold text-sm hover:bg-red-500/20 transition-all flex items-center justify-center gap-2"
               >
                 <RotateCcw size={16} />
                 {t("page__onboarding_") || "Reset Onboarding"}
               </button>
-              <p className="text-[10px] text-white/20 text-center mt-2">
+              <p className="text-[10px] text-[var(--color-text-muted)] text-center mt-2">
                 {t("page_reset_warning") || "All data will be lost!"}
               </p>
 
               <button
                 onClick={() => setShowSettingsModal(false)}
-                className="w-full mt-3 py-2.5 rounded-xl border border-white/10 text-white/40 hover:text-white/70 transition-colors text-sm font-medium"
+                className="w-full mt-3 py-2.5 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors text-sm font-medium"
               >
                 {t("page_cancel")}
               </button>
@@ -693,19 +663,19 @@ export default function Home() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white/10 dark:bg-gray-900/95 backdrop-blur-xl border border-red-500/30 rounded-2xl p-6 max-w-sm w-full text-center"
+              className="bg-white/90 dark:bg-gray-900/95 backdrop-blur-xl border border-red-500/30 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl"
             >
               <div className="text-5xl mb-4">⚠️</div>
-              <h3 className="text-xl font-bold text-white mb-2">{t("page_reset_onboarding_title")}</h3>
-              <p className="text-sm text-white/40 mb-6">
+              <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">{t("page_reset_onboarding_title")}</h3>
+              <p className="text-sm text-[var(--color-text-secondary)] mb-6">
                 {t("page_reset_onboarding_description")}
                 <br />
-                <span className="text-red-400 font-bold">{t("page_reset_irreversible")}</span>
+                <span className="text-red-500 font-bold">{t("page_reset_irreversible")}</span>
               </p>
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 hover:text-white/80 transition-colors font-medium"
+                  className="flex-1 py-3 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors font-medium"
                 >
                   {t("page_cancel")}
                 </button>

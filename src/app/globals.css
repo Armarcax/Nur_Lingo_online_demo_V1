@@ -943,3 +943,424 @@
 .dark .avatar-glow {
   box-shadow: 0 0 30px rgba(239, 68, 68, 0.25);
 }
+
+/* ═══════════════════════════════════════════
+   TEXT COLOR OVERRIDES — Force theme-aware
+═══════════════════════════════════════════ */
+
+/* Base text — always theme-aware */
+body,
+p, span, li, div, article, section, aside, main, header, footer, nav {
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+}
+
+/* Override hardcoded Tailwind text colors */
+.text-black,
+.text-gray-900,
+.text-gray-800,
+.text-gray-700,
+.text-slate-900,
+.text-slate-800,
+.text-zinc-900 {
+  color: var(--color-text) !important;
+}
+
+.dark .text-black,
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: var(--color-text) !important;
+}
+
+/* Muted text */
+.text-gray-600,
+.text-gray-500,
+.text-slate-600,
+.text-zinc-600 {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-gray-400,
+.text-gray-300 {
+  color: var(--color-text-muted) !important;
+}
+
+/* White text — only in specific cases (buttons, cards on dark bg) */
+.text-white {
+  color: var(--color-text) !important;
+}
+
+/* BUT — allow buttons to keep white text */
+button.text-white,
+.btn.text-white,
+[role="button"].text-white {
+  color: #ffffff !important;
+}
+
+/* Preserve white text on colored backgrounds */
+.bg-red-500 .text-white,
+.bg-red-600 .text-white,
+.bg-blue-500 .text-white,
+.bg-primary .text-white,
+[data-variant="primary"] .text-white {
+  color: #ffffff !important;
+}
+
+/* ═══════════════════════════════════════════
+   FONT + TEXT VISIBILITY
+═══════════════════════════════════════════ */
+
+body {
+  font-family: var(--font-armenian), var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-armenian), var(--font-inter), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Text shadow for visibility against backgrounds */
+body {
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.15),
+    0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.dark body {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    0 0 1px rgba(0, 0, 0, 0.6);
+}
+
+/* Headings — stronger outline */
+h1, h2, h3 {
+  text-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.3),
+    0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.dark h1, .dark h2, .dark h3 {
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Buttons/inputs — remove shadow (clean look) */
+button,
+input,
+textarea,
+select,
+a.btn,
+[role="button"] {
+  text-shadow: none;
+}
+
+/* Links — subtle underline for visibility */
+a:not(.btn):not([role="button"]):not(button) {
+  text-decoration: none;
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.dark a:not(.btn):not([role="button"]):not(button) {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ═══════════════════════════════════════════
+   🎨 NUR LINGO — THEME FIXES
+   (Text colors + Font + Visibility + Page transparency)
+═══════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   1. FONT FAMILY
+───────────────────────────────────────── */
+
+html {
+  font-family: var(--font-armenian), var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-armenian), var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-armenian), var(--font-inter), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono), "Courier New", monospace;
+}
+
+/* ─────────────────────────────────────────
+   2. TEXT COLORS — Force theme-aware
+───────────────────────────────────────── */
+
+p, span, li, article, section, aside, main, header, footer, nav, div {
+  color: inherit;
+}
+
+/* Base text color */
+body, p, span, li {
+  color: var(--color-text);
+}
+
+/* Muted text variants */
+.text-muted,
+.text-gray-500,
+.text-gray-600,
+.text-slate-500,
+.text-slate-600 {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-gray-400,
+.text-gray-300 {
+  color: var(--color-text-muted) !important;
+}
+
+/* Override hardcoded dark text — force theme-aware */
+.text-black,
+.text-gray-900,
+.text-gray-800,
+.text-slate-900,
+.text-slate-800,
+.text-zinc-900,
+.text-neutral-900 {
+  color: var(--color-text) !important;
+}
+
+.dark .text-black,
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-slate-900 {
+  color: var(--color-text) !important;
+}
+
+/* White text — allow only in specific cases */
+.text-white {
+  color: var(--color-text) !important;
+}
+
+/* BUT: buttons and colored backgrounds keep white */
+button.bg-red-500,
+button.bg-red-600,
+button.bg-primary,
+.bg-red-500.text-white,
+.bg-red-600.text-white,
+.bg-primary.text-white,
+.bg-blue-500 .text-white,
+[data-variant="primary"] {
+  color: #ffffff !important;
+}
+
+/* ─────────────────────────────────────────
+   3. TEXT SHADOW — Better visibility
+───────────────────────────────────────── */
+
+body {
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.12),
+    0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.dark body {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 0 1px rgba(0, 0, 0, 0.65);
+}
+
+/* Headings — stronger shadow */
+h1, h2, h3 {
+  text-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.25),
+    0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.dark h1, .dark h2, .dark h3 {
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 3px rgba(0, 0, 0, 0.7);
+}
+
+h4, h5, h6 {
+  text-shadow:
+    0 1px 3px rgba(255, 255, 255, 0.2);
+}
+
+.dark h4, .dark h5, .dark h6 {
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Buttons/inputs — remove shadow for clean look */
+button,
+input,
+textarea,
+select,
+a.btn,
+[role="button"],
+[data-variant="primary"] {
+  text-shadow: none;
+}
+
+/* ─────────────────────────────────────────
+   4. PAGE BACKGROUND TRANSPARENCY
+   (so ThemeBackground is always visible)
+───────────────────────────────────────── */
+
+main,
+.page-wrapper,
+[data-page] {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Force common background utility classes to be transparent
+   ONLY on page-level containers */
+body > div > div[class*="min-h-screen"]:not([class*="bg-red"]):not([class*="bg-blue"]):not([class*="bg-green"]) {
+  background-color: transparent !important;
+}
+
+/* ─────────────────────────────────────────
+   5. IMPROVED CONTRAST
+───────────────────────────────────────── */
+
+::selection {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.dark ::selection {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Focus ring — visible in both modes */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────
+   6. SCROLLBAR — themed
+───────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ═══════════════════════════════════════════
+   🎨 NUR LINGO — LIGHT MODE TEXT FIXES
+   (text-white/X → dark in light mode)
+═══════════════════════════════════════════ */
+
+/* Light mode: white opacity classes become dark */
+html:not(.dark) .text-white\/70 { color: rgba(10, 10, 26, 0.75) !important; }
+html:not(.dark) .text-white\/60 { color: rgba(10, 10, 26, 0.65) !important; }
+html:not(.dark) .text-white\/50 { color: rgba(10, 10, 26, 0.55) !important; }
+html:not(.dark) .text-white\/40 { color: rgba(10, 10, 26, 0.45) !important; }
+html:not(.dark) .text-white\/30 { color: rgba(10, 10, 26, 0.35) !important; }
+html:not(.dark) .text-white\/20 { color: rgba(10, 10, 26, 0.25) !important; }
+html:not(.dark) .text-white\/10 { color: rgba(10, 10, 26, 0.15) !important; }
+
+/* Keep text-white on colored buttons */
+.bg-gradient-to-r.from-\[\#D90012\],
+.bg-gradient-to-r.from-\[\#D90012\] * {
+  color: #ffffff !important;
+}
+
+/* White overlay backgrounds — make them dark in light mode */
+html:not(.dark) .bg-white\/50 { background-color: rgba(255, 255, 255, 0.6) !important; }
+html:not(.dark) .bg-white\/40 { background-color: rgba(255, 255, 255, 0.7) !important; }
+html:not(.dark) .bg-white\/20 { background-color: rgba(0, 0, 0, 0.05) !important; }
+html:not(.dark) .bg-white\/10 { background-color: rgba(0, 0, 0, 0.04) !important; }
+html:not(.dark) .bg-white\/5  { background-color: rgba(0, 0, 0, 0.03) !important; }
+
+/* ─────────────────────────────────────────
+   FORCE MAIN CONTAINERS TRANSPARENT
+   (so ThemeBackground is always visible)
+───────────────────────────────────────── */
+
+main,
+[data-page],
+.page-wrapper,
+.container-main {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* ─────────────────────────────────────────
+   TEXT SHADOW FOR VISIBILITY
+───────────────────────────────────────── */
+
+body {
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.12),
+    0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.dark body {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 0 1px rgba(0, 0, 0, 0.65);
+}
+
+h1, h2, h3 {
+  text-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.25),
+    0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.dark h1, .dark h2, .dark h3 {
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 3px rgba(0, 0, 0, 0.7);
+}
+
+button, input, textarea, select {
+  text-shadow: none;
+}

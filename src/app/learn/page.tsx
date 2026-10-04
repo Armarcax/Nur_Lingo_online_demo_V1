@@ -2612,7 +2612,7 @@ function LearnInner() {
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-gray-900 dark:text-white">
-                      {typeof ex.feedback === "string" && ex.feedback.startsWith("InteractiveLesson_")
+                      {typeof ex.feedback === "string" && /^[a-zA-Z][a-zA-Z0-9_]+$/.test(ex.feedback)
                         ? t(ex.feedback)
                         : ex.feedback}
                     </p>

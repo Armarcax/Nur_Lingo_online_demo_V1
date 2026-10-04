@@ -103,6 +103,39 @@ const CHARACTER_NAMES: Record<string, Record<LangCode, string>> = {
   user: { hy: "Դուք", en: "You", ru: "Вы" },
 };
 
+// ─── EXTRA TRANSLATIONS (fallback for missing keys) ──────────────
+
+const EXTRA_TR: Record<string, Record<string, string>> = {
+  page_print: { hy: "Տպել", en: "Print", ru: "Печать" },
+  page_not_started: { hy: "Չսկսված", en: "Not started", ru: "Не начато" },
+  page_in_progress: { hy: "Ընթացքի մեջ", en: "In progress", ru: "В процессе" },
+  page_completed: { hy: "Ավարտված", en: "Completed", ru: "Завершено" },
+  page__vocab_count: { hy: "📖 {count} բառ", en: "📖 {count} words", ru: "📖 {count} слов" },
+  page__phrase_count: { hy: "💬 {count} արտահայտություն", en: "💬 {count} phrases", ru: "💬 {count} фраз" },
+  page__dialogue_count: { hy: "🗣️ {count} երկխոսություն", en: "🗣️ {count} dialogues", ru: "🗣️ {count} диалогов" },
+};
+
+function applyParams(str: string, params?: Record<string, any>): string {
+  if (!params) return str;
+  return str.replace(/\{(\w+)\}/g, (_, key) =>
+    params[key] !== undefined ? String(params[key]) : `{${key}}`
+  );
+}
+
+function tr(
+  key: string,
+  locale: string,
+  t: (k: string, p?: any) => string,
+  params?: Record<string, any>
+): string {
+  const extra = EXTRA_TR[key];
+  if (extra) {
+    const localized = extra[locale] || extra.en || extra.hy;
+    return applyParams(localized, params);
+  }
+  return t(key, params);
+}
+
 // ─── HELPER: Get localized text ─────────────────────────────────────
 
 function getLocalizedText(
@@ -125,19 +158,22 @@ function getSpeakerName(speaker: string, lang: LangCode): string {
 export default function CurriculumPage() {
   const { setPage } = useNuri();
   const { t, locale } = useI18n();
-  
+
   // ─── LOCAL TOAST ──────────────────────────────────────────────────
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
-  
-  const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
-  }, []);
-  
+
+  const showMessage = useCallback(
+    (text: string, type: "success" | "error" | "info" = "info") => {
+      setToastMessage(text);
+      setToastType(type);
+      setTimeout(() => setToastMessage(""), 3000);
+    },
+    []
+  );
+
   useEffect(() => setPage("curriculum"), [setPage]);
-  
+
   // ─── STATE ──────────────────────────────────────────────────────────
 
   const [selectedWorld, setSelectedWorld] = useState<string | null>(null);
@@ -156,7 +192,7 @@ export default function CurriculumPage() {
   const [isPrinting, setIsPrinting] = useState(false);
   const [expandedWorlds, setExpandedWorlds] = useState<Set<string>>(new Set());
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  
+
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const printRef = useRef<HTMLDivElement>(null);
@@ -167,12 +203,10 @@ export default function CurriculumPage() {
     try {
       const savedLang = localStorage.getItem("nur_source_lang");
       if (savedLang) setNativeLang(savedLang as LangCode);
-      
+
       const savedProgress = localStorage.getItem(STORAGE_KEYS.LESSON_PROGRESS);
-      if (savedProgress) {
-        setLessonProgress(JSON.parse(savedProgress));
-      }
-      
+      if (savedProgress) setLessonProgress(JSON.parse(savedProgress));
+
       const savedView = localStorage.getItem(STORAGE_KEYS.CURRICULUM_VIEW);
       if (savedView) {
         const view = JSON.parse(savedView);
@@ -180,28 +214,21 @@ export default function CurriculumPage() {
         if (view.filterOption) setFilterOption(view.filterOption);
         if (view.sortOption) setSortOption(view.sortOption);
       }
-      
+
       const savedFavorites = localStorage.getItem(STORAGE_KEYS.CURRICULUM_FAVORITES);
-      if (savedFavorites) {
-        setFavorites(new Set(JSON.parse(savedFavorites)));
-      }
-    } catch {
-      // Ignore
-    }
+      if (savedFavorites) setFavorites(new Set(JSON.parse(savedFavorites)));
+    } catch {}
   }, []);
 
   // ─── SAVE VIEW PREFERENCES ────────────────────────────────────────
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEYS.CURRICULUM_VIEW, JSON.stringify({
-        viewMode,
-        filterOption,
-        sortOption,
-      }));
-    } catch {
-      // Ignore
-    }
+      localStorage.setItem(
+        STORAGE_KEYS.CURRICULUM_VIEW,
+        JSON.stringify({ viewMode, filterOption, sortOption })
+      );
+    } catch {}
   }, [viewMode, filterOption, sortOption]);
 
   // ─── SCROLL EVENT ──────────────────────────────────────────────────
@@ -247,17 +274,17 @@ export default function CurriculumPage() {
     const totalVocabulary = CONTENT_LESSONS.reduce((s, l) => s + l.vocabulary.length, 0);
     const totalPhrases = CONTENT_LESSONS.reduce((s, l) => s + l.phrases.length, 0);
     const totalDialogues = CONTENT_LESSONS.reduce((s, l) => s + l.dialogues.length, 0);
-    
+
     let completedLessons = 0;
     let inProgressLessons = 0;
     const byWorld: Record<string, WorldProgress> = {};
-    
+
     for (const world of WORLDS) {
       const worldLessons = getWorldLessons(world.id);
       let completed = 0;
       let totalScore = 0;
       let lastActivity = "";
-      
+
       for (const lesson of worldLessons) {
         const progress = lessonProgress[lesson.id];
         if (progress) {
@@ -266,22 +293,26 @@ export default function CurriculumPage() {
           if (progress.lastAttempt > lastActivity) lastActivity = progress.lastAttempt;
         }
       }
-      
+
       byWorld[world.id] = {
         completedLessons: completed,
         totalLessons: worldLessons.length,
         totalScore,
         lastActivity,
       };
-      
+
       completedLessons += completed;
-      inProgressLessons += worldLessons.filter(l => 
-        lessonProgress[l.id] && !lessonProgress[l.id].completed && lessonProgress[l.id].score > 0
+      inProgressLessons += worldLessons.filter(
+        (l) =>
+          lessonProgress[l.id] &&
+          !lessonProgress[l.id].completed &&
+          lessonProgress[l.id].score > 0
       ).length;
     }
-    
-    const overallProgress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-    
+
+    const overallProgress =
+      totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
     return {
       totalLessons,
       totalVocabulary,
@@ -298,74 +329,81 @@ export default function CurriculumPage() {
 
   const filteredWorlds = useMemo(() => {
     let worlds = WORLDS;
-    
-    if (selectedWorld) {
-      worlds = worlds.filter(w => w.id === selectedWorld);
-    }
-    
+    if (selectedWorld) worlds = worlds.filter((w) => w.id === selectedWorld);
     return worlds;
   }, [selectedWorld]);
 
   // ─── FILTERED & SORTED LESSONS ────────────────────────────────────
 
-  const getFilteredLessons = useCallback((worldId: string) => {
-    let lessons = getWorldLessons(worldId);
-    
-    const q = searchQuery.trim().toLowerCase();
-    if (q) {
-      lessons = lessons.filter(l =>
-        l.title.en.toLowerCase().includes(q) ||
-        l.title.hy?.toLowerCase().includes(q) ||
-        l.concept.en.toLowerCase().includes(q) ||
-        l.vocabulary.some(v => v.hy.toLowerCase().includes(q) || v.en.toLowerCase().includes(q))
-      );
-    }
-    
-    switch (filterOption) {
-      case "completed":
-        lessons = lessons.filter(l => lessonProgress[l.id]?.completed);
-        break;
-      case "in-progress":
-        lessons = lessons.filter(l => 
-          lessonProgress[l.id] && !lessonProgress[l.id].completed && lessonProgress[l.id].score > 0
+  const getFilteredLessons = useCallback(
+    (worldId: string) => {
+      let lessons = getWorldLessons(worldId);
+
+      const q = searchQuery.trim().toLowerCase();
+      if (q) {
+        lessons = lessons.filter(
+          (l) =>
+            l.title.en.toLowerCase().includes(q) ||
+            l.title.hy?.toLowerCase().includes(q) ||
+            l.concept.en.toLowerCase().includes(q) ||
+            l.vocabulary.some(
+              (v) => v.hy.toLowerCase().includes(q) || v.en.toLowerCase().includes(q)
+            )
         );
-        break;
-      case "not-started":
-        lessons = lessons.filter(l => !lessonProgress[l.id] || lessonProgress[l.id].score === 0);
-        break;
-      default:
-        break;
-    }
-    
-    switch (sortOption) {
-      case "alphabetical":
-        lessons.sort((a, b) => a.title.en.localeCompare(b.title.en));
-        break;
-      case "progress":
-        lessons.sort((a, b) => {
-          const progA = lessonProgress[a.id]?.score || 0;
-          const progB = lessonProgress[b.id]?.score || 0;
-          return progB - progA;
-        });
-        break;
-      case "recent":
-        lessons.sort((a, b) => {
-          const dateA = lessonProgress[a.id]?.lastAttempt || "";
-          const dateB = lessonProgress[b.id]?.lastAttempt || "";
-          return dateB.localeCompare(dateA);
-        });
-        break;
-      default:
-        break;
-    }
-    
-    return lessons;
-  }, [getWorldLessons, searchQuery, filterOption, sortOption, lessonProgress]);
+      }
+
+      switch (filterOption) {
+        case "completed":
+          lessons = lessons.filter((l) => lessonProgress[l.id]?.completed);
+          break;
+        case "in-progress":
+          lessons = lessons.filter(
+            (l) =>
+              lessonProgress[l.id] &&
+              !lessonProgress[l.id].completed &&
+              lessonProgress[l.id].score > 0
+          );
+          break;
+        case "not-started":
+          lessons = lessons.filter(
+            (l) => !lessonProgress[l.id] || lessonProgress[l.id].score === 0
+          );
+          break;
+        default:
+          break;
+      }
+
+      switch (sortOption) {
+        case "alphabetical":
+          lessons.sort((a, b) => a.title.en.localeCompare(b.title.en));
+          break;
+        case "progress":
+          lessons.sort((a, b) => {
+            const progA = lessonProgress[a.id]?.score || 0;
+            const progB = lessonProgress[b.id]?.score || 0;
+            return progB - progA;
+          });
+          break;
+        case "recent":
+          lessons.sort((a, b) => {
+            const dateA = lessonProgress[a.id]?.lastAttempt || "";
+            const dateB = lessonProgress[b.id]?.lastAttempt || "";
+            return dateB.localeCompare(dateA);
+          });
+          break;
+        default:
+          break;
+      }
+
+      return lessons;
+    },
+    [getWorldLessons, searchQuery, filterOption, sortOption, lessonProgress]
+  );
 
   // ─── TOGGLE FAVORITE ──────────────────────────────────────────────
 
   const toggleFavorite = useCallback((id: string) => {
-    setFavorites(prev => {
+    setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -377,7 +415,7 @@ export default function CurriculumPage() {
   // ─── TOGGLE WORLD EXPAND ──────────────────────────────────────────
 
   const toggleWorldExpand = useCallback((worldId: string) => {
-    setExpandedWorlds(prev => {
+    setExpandedWorlds((prev) => {
       const next = new Set(prev);
       if (next.has(worldId)) next.delete(worldId);
       else next.add(worldId);
@@ -407,17 +445,17 @@ export default function CurriculumPage() {
         progress: lessonProgress,
         stats,
       };
-      
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = `nurlingo-curriculum-${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `nurlingo-curriculum-${new Date().toISOString().slice(0, 10)}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       showMessage(t("page_export_success", { count: stats.totalLessons }), "success");
     } catch (error) {
       console.error("Export failed:", error);
@@ -427,12 +465,15 @@ export default function CurriculumPage() {
 
   // ─── COPY LESSON ID ───────────────────────────────────────────────
 
-  const copyId = useCallback((id: string) => {
-    navigator.clipboard.writeText(id);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-    showMessage(t("page_id_copied"), "info");
-  }, [showMessage, t]);
+  const copyId = useCallback(
+    (id: string) => {
+      navigator.clipboard.writeText(id);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+      showMessage(t("page_id_copied"), "info");
+    },
+    [showMessage, t]
+  );
 
   // ─── SCROLL TO TOP ─────────────────────────────────────────────────
 
@@ -452,13 +493,39 @@ export default function CurriculumPage() {
 
   // ─── GET LESSON STATUS ────────────────────────────────────────────
 
-  const getLessonStatus = useCallback((lessonId: string) => {
-    const progress = lessonProgress[lessonId];
-    if (!progress) return { status: "not-started", labelKey: "page_not_started", color: "text-gray-400", icon: "⏳" };
-    if (progress.completed) return { status: "completed", labelKey: "page_completed", color: "text-emerald-400", icon: "✅" };
-    if (progress.score > 0) return { status: "in-progress", labelKey: "page_in_progress", color: "text-yellow-400", icon: "🔄" };
-    return { status: "not-started", labelKey: "page_not_started", color: "text-gray-400", icon: "⏳" };
-  }, [lessonProgress]);
+  const getLessonStatus = useCallback(
+    (lessonId: string) => {
+      const progress = lessonProgress[lessonId];
+      if (!progress)
+        return {
+          status: "not-started",
+          labelKey: "page_not_started",
+          color: "text-gray-400",
+          icon: "⏳",
+        };
+      if (progress.completed)
+        return {
+          status: "completed",
+          labelKey: "page_completed",
+          color: "text-emerald-400",
+          icon: "✅",
+        };
+      if (progress.score > 0)
+        return {
+          status: "in-progress",
+          labelKey: "page_in_progress",
+          color: "text-yellow-400",
+          icon: "🔄",
+        };
+      return {
+        status: "not-started",
+        labelKey: "page_not_started",
+        color: "text-gray-400",
+        icon: "⏳",
+      };
+    },
+    [lessonProgress]
+  );
 
   // ─── GET PROGRESS COLOR ───────────────────────────────────────────
 
@@ -469,14 +536,17 @@ export default function CurriculumPage() {
     return "bg-gray-500";
   }, []);
 
-  const isFiltered = searchQuery !== "" || filterOption !== "all" || sortOption !== "default" || selectedWorld !== null;
+  const isFiltered =
+    searchQuery !== "" ||
+    filterOption !== "all" ||
+    sortOption !== "default" ||
+    selectedWorld !== null;
 
   // ─── MAIN RENDER ────────────────────────────────────────────────────
 
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="container-main py-6">
-        
         {/* ─── NURI ─── */}
         <div className="flex items-center gap-4 mb-6 no-print">
           <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
@@ -500,26 +570,17 @@ export default function CurriculumPage() {
               <BookOpen size={24} className="text-red-500" />
               {t("page_curriculum")}
             </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 flex-wrap">
-              <span>{t("page__stats_total_", { total: stats.totalLessons })}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-400" />
-              <span>📚 {t("page__stats_completed_", { completed: stats.completedLessons })}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-400" />
-              <span>{t("page__stats_inprogress_", { inProgress: stats.inProgressLessons })}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-400" />
-              <span className="text-emerald-400">✅ {t("page_completed")}: {stats.completedLessons}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-400" />
-              <span>{t("page__stats_overallprogress_", { progress: stats.overallProgress })}</span>
-            </p>
           </div>
-          
+
           <div className="flex gap-2 flex-wrap no-print">
             {/* View Mode */}
             <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
               <button
                 onClick={() => setViewMode("list")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "list" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  viewMode === "list"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
                 }`}
                 title={t("page_list_view")}
               >
@@ -528,7 +589,9 @@ export default function CurriculumPage() {
               <button
                 onClick={() => setViewMode("grid")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "grid" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  viewMode === "grid"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
                 }`}
                 title={t("page_grid_view")}
               >
@@ -537,7 +600,9 @@ export default function CurriculumPage() {
               <button
                 onClick={() => setViewMode("compact")}
                 className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "compact" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  viewMode === "compact"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
                 }`}
                 title={t("page_compact")}
               >
@@ -575,8 +640,12 @@ export default function CurriculumPage() {
               disabled={isPrinting}
               className="px-3 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-blue-500/20"
             >
-              {isPrinting ? <Loader2 size={14} className="animate-spin" /> : <Printer size={14} />}
-              <span className="hidden sm:inline">{t("page_print")}</span>
+              {isPrinting ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Printer size={14} />
+              )}
+              <span className="hidden sm:inline">{tr("page_print", locale, t)}</span>
             </button>
 
             <button
@@ -612,35 +681,63 @@ export default function CurriculumPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-red-500">{stats.totalLessons}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_lessons")}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_lessons")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-500">{stats.completedLessons}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_completed")}</div>
+                    <div className="text-2xl font-bold text-emerald-500">
+                      {stats.completedLessons}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {tr("page_completed", locale, t)}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-500">{stats.inProgressLessons}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_in_progress")}</div>
+                    <div className="text-2xl font-bold text-yellow-500">
+                      {stats.inProgressLessons}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {tr("page_in_progress", locale, t)}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-500">{stats.overallProgress}%</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_overall_progress")}</div>
+                    <div className="text-2xl font-bold text-blue-500">
+                      {stats.overallProgress}%
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_overall_progress")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-500">{stats.totalVocabulary}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_vocabulary")}</div>
+                    <div className="text-2xl font-bold text-purple-500">
+                      {stats.totalVocabulary}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_vocabulary")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-500">{stats.totalPhrases}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_phrases")}</div>
+                    <div className="text-2xl font-bold text-orange-500">
+                      {stats.totalPhrases}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_phrases")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-pink-500">{stats.totalDialogues}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_dialogues")}</div>
+                    <div className="text-2xl font-bold text-pink-500">
+                      {stats.totalDialogues}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_dialogues")}
+                    </div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-amber-500">{favorites.size}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_favorites")}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_favorites")}
+                    </div>
                   </div>
                 </div>
               </GlassCard>
@@ -661,16 +758,19 @@ export default function CurriculumPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   {/* World Filter */}
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">{t("page__world")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      {t("page__world")}
+                    </label>
                     <select
                       value={selectedWorld || ""}
                       onChange={(e) => setSelectedWorld(e.target.value || null)}
                       className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
                     >
                       <option value="">{t("page_all")}</option>
-                      {WORLDS.map(w => (
+                      {WORLDS.map((w) => (
                         <option key={w.id} value={w.id}>
-                          {w.iconEmoji} {getLocalizedText(w.title, locale as LangCode, w.title.en)}
+                          {w.iconEmoji}{" "}
+                          {getLocalizedText(w.title, locale as LangCode, w.title.en)}
                         </option>
                       ))}
                     </select>
@@ -678,22 +778,26 @@ export default function CurriculumPage() {
 
                   {/* Status Filter */}
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">{t("page_status")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      {t("page_status")}
+                    </label>
                     <select
                       value={filterOption}
                       onChange={(e) => setFilterOption(e.target.value as FilterOption)}
                       className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
                     >
                       <option value="all">{t("page_all")}</option>
-                      <option value="completed">{t("page_completed")}</option>
-                      <option value="in-progress">{t("page_in_progress")}</option>
-                      <option value="not-started">{t("page_not_started")}</option>
+                      <option value="completed">{tr("page_completed", locale, t)}</option>
+                      <option value="in-progress">{tr("page_in_progress", locale, t)}</option>
+                      <option value="not-started">{tr("page_not_started", locale, t)}</option>
                     </select>
                   </div>
 
                   {/* Sort */}
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">{t("page_sort")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      {t("page_sort")}
+                    </label>
                     <select
                       value={sortOption}
                       onChange={(e) => setSortOption(e.target.value as SortOption)}
@@ -708,7 +812,9 @@ export default function CurriculumPage() {
 
                   {/* Search */}
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">{t("page_search")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      {t("page_search")}
+                    </label>
                     <div className="relative">
                       <input
                         ref={searchInputRef}
@@ -763,7 +869,9 @@ export default function CurriculumPage() {
         {/* ─── PROGRESS OVERVIEW BAR ─── */}
         <div className="mb-6 no-print">
           <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-500 dark:text-gray-400">{t("page_progress")}</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              {t("page_progress")}
+            </span>
             <div className="flex-1 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
               <motion.div
                 className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
@@ -772,7 +880,9 @@ export default function CurriculumPage() {
                 transition={{ duration: 0.8 }}
               />
             </div>
-            <span className="text-sm font-bold text-gray-900 dark:text-white">{t("page__stats_overallprogress_", { progress: stats.overallProgress })}</span>
+            <span className="text-sm font-bold text-gray-900 dark:text-white">
+              {t("page__stats_overallprogress_", { progress: stats.overallProgress })}
+            </span>
           </div>
         </div>
 
@@ -781,7 +891,9 @@ export default function CurriculumPage() {
           {filteredWorlds.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-5xl mb-4">🌍</div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">{t("page_no_worlds")}</p>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">
+                {t("page_no_worlds")}
+              </p>
             </div>
           ) : (
             filteredWorlds.map((world) => {
@@ -790,13 +902,21 @@ export default function CurriculumPage() {
               const worldProgress = stats.byWorld[world.id];
               const completedCount = worldProgress?.completedLessons || 0;
               const totalCount = worldProgress?.totalLessons || 0;
-              const worldProgressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+              const worldProgressPercent =
+                totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
               if (lessons.length === 0 && searchQuery) return null;
 
-              // ✅ Localized world title and description
-              const worldTitle = getLocalizedText(world.title, locale as LangCode, world.title.en);
-              const worldDesc = getLocalizedText(world.description, locale as LangCode, world.description.en);
+              const worldTitle = getLocalizedText(
+                world.title,
+                locale as LangCode,
+                world.title.en
+              );
+              const worldDesc = getLocalizedText(
+                world.description,
+                locale as LangCode,
+                world.description.en
+              );
 
               return (
                 <GlassCard
@@ -815,17 +935,23 @@ export default function CurriculumPage() {
                           <span>{world.iconEmoji}</span>
                           <span>{worldTitle}</span>
                           {world.title.hy && world.title.hy !== worldTitle && (
-                            <span className="text-sm font-normal text-gray-400">({world.title.hy})</span>
+                            <span className="text-sm font-normal text-gray-400">
+                              ({world.title.hy})
+                            </span>
                           )}
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{worldDesc}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {worldDesc}
+                        </p>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="text-right">
                           <div className="text-sm font-medium text-gray-900 dark:text-white">
                             {completedCount}/{totalCount}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_lessons")}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            {t("page_lessons")}
+                          </div>
                         </div>
                         <div className="w-16 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
                           <div
@@ -855,10 +981,20 @@ export default function CurriculumPage() {
                         <div className="p-4 space-y-4">
                           {lessons.length === 0 ? (
                             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                              {searchQuery ? t("page_no_results", { query: searchQuery }) : t("page_no_lessons")}
+                              {searchQuery
+                                ? t("page_no_results", { query: searchQuery })
+                                : t("page_no_lessons")}
                             </div>
                           ) : (
-                            <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4" : viewMode === "compact" ? "space-y-1" : "space-y-3"}>
+                            <div
+                              className={
+                                viewMode === "grid"
+                                  ? "grid grid-cols-1 md:grid-cols-2 gap-4"
+                                  : viewMode === "compact"
+                                  ? "space-y-1"
+                                  : "space-y-3"
+                              }
+                            >
                               {lessons.map((lesson) => {
                                 const status = getLessonStatus(lesson.id);
                                 const progress = lessonProgress[lesson.id];
@@ -866,9 +1002,19 @@ export default function CurriculumPage() {
                                 const isFavorite = favorites.has(lesson.id);
                                 const isExpandedLesson = expandedLesson === lesson.id;
 
-                                // ✅ Localized lesson title and concept
-                                const lessonTitle = getLocalizedText(lesson.title, locale as LangCode, lesson.title.en);
-                                const lessonConcept = getLocalizedText(lesson.concept, locale as LangCode, lesson.concept.en);
+                                const lessonTitle = getLocalizedText(
+                                  lesson.title,
+                                  locale as LangCode,
+                                  lesson.title.en
+                                );
+
+                                // ✅ Fallback chain: locale → hy → ru → en
+                                const lessonConcept =
+                                  lesson.concept?.[locale as LangCode] ||
+                                  lesson.concept?.hy ||
+                                  lesson.concept?.ru ||
+                                  lesson.concept?.en ||
+                                  "";
 
                                 return (
                                   <GlassCard
@@ -881,20 +1027,33 @@ export default function CurriculumPage() {
                                   >
                                     {/* ─── LESSON HEADER ─── */}
                                     <div
-                                      className={`flex items-center justify-between cursor-pointer ${viewMode === "compact" ? "gap-2" : ""}`}
-                                      onClick={() => setExpandedLesson(isExpandedLesson ? null : lesson.id)}
+                                      className={`flex items-center justify-between cursor-pointer ${
+                                        viewMode === "compact" ? "gap-2" : ""
+                                      }`}
+                                      onClick={() =>
+                                        setExpandedLesson(
+                                          isExpandedLesson ? null : lesson.id
+                                        )
+                                      }
                                     >
                                       <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 flex-wrap">
-                                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                                            status.status === "completed" ? "bg-emerald-500/20 text-emerald-500" :
-                                            status.status === "in-progress" ? "bg-yellow-500/20 text-yellow-500" :
-                                            "bg-gray-500/20 text-gray-400"
-                                          }`}>
-                                            {status.icon} {t(status.labelKey)}
+                                          <span
+                                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                                              status.status === "completed"
+                                                ? "bg-emerald-500/20 text-emerald-500"
+                                                : status.status === "in-progress"
+                                                ? "bg-yellow-500/20 text-yellow-500"
+                                                : "bg-gray-500/20 text-gray-400"
+                                            }`}
+                                          >
+                                            {status.icon}{" "}
+                                            {tr(status.labelKey, locale, t)}
                                           </span>
                                           {isFavorite && (
-                                            <span className="text-[10px] text-yellow-400">⭐</span>
+                                            <span className="text-[10px] text-yellow-400">
+                                              ⭐
+                                            </span>
                                           )}
                                           {lesson.dialogues.length > 0 && (
                                             <span className="text-[10px] text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full">
@@ -902,17 +1061,37 @@ export default function CurriculumPage() {
                                             </span>
                                           )}
                                         </div>
-                                        <h3 className={`font-bold text-gray-900 dark:text-white truncate ${viewMode === "compact" ? "text-sm" : "text-base"}`}>
+                                        <h3
+                                          className={`font-bold text-gray-900 dark:text-white truncate ${
+                                            viewMode === "compact" ? "text-sm" : "text-base"
+                                          }`}
+                                        >
                                           {lessonTitle}
                                         </h3>
-                                        <p className={`text-gray-500 dark:text-gray-400 truncate ${viewMode === "compact" ? "text-xs" : "text-sm"}`}>
+                                        <p
+                                          className={`text-gray-500 dark:text-gray-400 truncate ${
+                                            viewMode === "compact" ? "text-xs" : "text-sm"
+                                          }`}
+                                        >
                                           {lessonConcept}
                                         </p>
                                         {viewMode !== "compact" && (
                                           <div className="flex items-center gap-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                            <span>{t("page__vocab_count", { count: lesson.vocabulary.length })}</span>
-                                            <span>{t("page__phrase_count", { count: lesson.phrases.length })}</span>
-                                            <span>{t("page__dialogue_count", { count: lesson.dialogues.length })}</span>
+                                            <span>
+                                              {tr("page__vocab_count", locale, t, {
+                                                count: lesson.vocabulary.length,
+                                              })}
+                                            </span>
+                                            <span>
+                                              {tr("page__phrase_count", locale, t, {
+                                                count: lesson.phrases.length,
+                                              })}
+                                            </span>
+                                            <span>
+                                              {tr("page__dialogue_count", locale, t, {
+                                                count: lesson.dialogues.length,
+                                              })}
+                                            </span>
                                           </div>
                                         )}
                                       </div>
@@ -920,18 +1099,36 @@ export default function CurriculumPage() {
                                         {viewMode !== "compact" && (
                                           <>
                                             <button
-                                              onClick={(e) => { e.stopPropagation(); toggleFavorite(lesson.id); }}
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleFavorite(lesson.id);
+                                              }}
                                               className={`p-1 rounded-lg transition-colors ${
-                                                isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"
+                                                isFavorite
+                                                  ? "text-yellow-400"
+                                                  : "text-gray-400 hover:text-yellow-400"
                                               }`}
                                             >
-                                              <Star size={16} fill={isFavorite ? "currentColor" : "none"} />
+                                              <Star
+                                                size={16}
+                                                fill={isFavorite ? "currentColor" : "none"}
+                                              />
                                             </button>
                                             <button
-                                              onClick={(e) => { e.stopPropagation(); copyId(lesson.id); }}
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                copyId(lesson.id);
+                                              }}
                                               className="p-1 rounded-lg text-gray-400 hover:text-gray-300 transition-colors"
                                             >
-                                              {copiedId === lesson.id ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+                                              {copiedId === lesson.id ? (
+                                                <Check
+                                                  size={14}
+                                                  className="text-emerald-500"
+                                                />
+                                              ) : (
+                                                <Copy size={14} />
+                                              )}
                                             </button>
                                           </>
                                         )}
@@ -943,16 +1140,24 @@ export default function CurriculumPage() {
                                               </div>
                                               <div className="w-12 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
                                                 <div
-                                                  className={`h-full rounded-full ${getProgressColor(score)} transition-all`}
+                                                  className={`h-full rounded-full ${getProgressColor(
+                                                    score
+                                                  )} transition-all`}
                                                   style={{ width: `${score}%` }}
                                                 />
                                               </div>
                                             </div>
                                           )}
                                           {isExpandedLesson ? (
-                                            <ChevronUp size={viewMode === "compact" ? 14 : 20} className="text-gray-500" />
+                                            <ChevronUp
+                                              size={viewMode === "compact" ? 14 : 20}
+                                              className="text-gray-500"
+                                            />
                                           ) : (
-                                            <ChevronDown size={viewMode === "compact" ? 14 : 20} className="text-gray-500" />
+                                            <ChevronDown
+                                              size={viewMode === "compact" ? 14 : 20}
+                                              className="text-gray-500"
+                                            />
                                           )}
                                         </div>
                                       </div>
@@ -972,14 +1177,24 @@ export default function CurriculumPage() {
                                             {/* Vocabulary */}
                                             <div>
                                               <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                📖 {t("page_vocabulary")} ({lesson.vocabulary.length})
+                                                📖 {t("page_vocabulary")} (
+                                                {lesson.vocabulary.length})
                                               </h4>
                                               <div className="grid grid-cols-1 gap-1">
                                                 {lesson.vocabulary.map((v) => (
-                                                  <div key={v.id} className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0">
-                                                    <span className="text-red-600 dark:text-red-400 w-1/3">{v.hy}</span>
-                                                    <span className="text-blue-600 dark:text-blue-400 w-1/3">{v.en}</span>
-                                                    <span className="text-green-600 dark:text-green-400 w-1/3">{v.ru}</span>
+                                                  <div
+                                                    key={v.id}
+                                                    className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
+                                                  >
+                                                    <span className="text-red-600 dark:text-red-400 w-1/3">
+                                                      {v.hy}
+                                                    </span>
+                                                    <span className="text-blue-600 dark:text-blue-400 w-1/3">
+                                                      {v.en}
+                                                    </span>
+                                                    <span className="text-green-600 dark:text-green-400 w-1/3">
+                                                      {v.ru}
+                                                    </span>
                                                   </div>
                                                 ))}
                                               </div>
@@ -989,14 +1204,24 @@ export default function CurriculumPage() {
                                             {lesson.phrases.length > 0 && (
                                               <div>
                                                 <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                  💬 {t("page_phrases")} ({lesson.phrases.length})
+                                                  💬 {t("page_phrases")} (
+                                                  {lesson.phrases.length})
                                                 </h4>
                                                 <div className="grid grid-cols-1 gap-1">
                                                   {lesson.phrases.map((p, i) => (
-                                                    <div key={i} className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0">
-                                                      <span className="text-red-600 dark:text-red-400 w-1/3">{p.hy}</span>
-                                                      <span className="text-blue-600 dark:text-blue-400 w-1/3">{p.en}</span>
-                                                      <span className="text-green-600 dark:text-green-400 w-1/3">{p.ru}</span>
+                                                    <div
+                                                      key={i}
+                                                      className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
+                                                    >
+                                                      <span className="text-red-600 dark:text-red-400 w-1/3">
+                                                        {p.hy}
+                                                      </span>
+                                                      <span className="text-blue-600 dark:text-blue-400 w-1/3">
+                                                        {p.en}
+                                                      </span>
+                                                      <span className="text-green-600 dark:text-green-400 w-1/3">
+                                                        {p.ru}
+                                                      </span>
                                                     </div>
                                                   ))}
                                                 </div>
@@ -1005,16 +1230,25 @@ export default function CurriculumPage() {
 
                                             {/* Dialogues */}
                                             {lesson.dialogues.map((d, i) => {
-                                              const dialogueTitle = getLocalizedText(d.title, locale as LangCode, d.title.en);
+                                              const dialogueTitle = getLocalizedText(
+                                                d.title,
+                                                locale as LangCode,
+                                                d.title.en
+                                              );
                                               return (
                                                 <div key={i}>
                                                   <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                    🗣️ {dialogueTitle} {d.title.hy && d.title.hy !== dialogueTitle && `/ ${d.title.hy}`}
+                                                    🗣️ {dialogueTitle}{" "}
+                                                    {d.title.hy &&
+                                                      d.title.hy !== dialogueTitle &&
+                                                      `/ ${d.title.hy}`}
                                                   </h4>
                                                   <div className="space-y-2 border border-white/20 dark:border-white/5 rounded-lg p-3 bg-white/20 dark:bg-gray-800/30 backdrop-blur-sm">
                                                     {d.turns.map((turn, j) => {
-                                                      // ✅ Use localized speaker name
-                                                      const speakerName = getSpeakerName(turn.speaker, locale as LangCode);
+                                                      const speakerName = getSpeakerName(
+                                                        turn.speaker,
+                                                        locale as LangCode
+                                                      );
                                                       return (
                                                         <div
                                                           key={j}
@@ -1025,11 +1259,20 @@ export default function CurriculumPage() {
                                                           }`}
                                                         >
                                                           <div className="font-bold text-xs mb-1 text-gray-900 dark:text-white">
-                                                            {turn.speaker === "nurik" ? "🐿️ " : "🧑 "}{speakerName}
+                                                            {turn.speaker === "nurik"
+                                                              ? "🐿️ "
+                                                              : "🧑 "}
+                                                            {speakerName}
                                                           </div>
-                                                          <div className="text-red-600 dark:text-red-400">{turn.hy}</div>
-                                                          <div className="text-blue-600 dark:text-blue-400 text-sm">{turn.en}</div>
-                                                          <div className="text-green-600 dark:text-green-400 text-sm">{turn.ru}</div>
+                                                          <div className="text-red-600 dark:text-red-400">
+                                                            {turn.hy}
+                                                          </div>
+                                                          <div className="text-blue-600 dark:text-blue-400 text-sm">
+                                                            {turn.en}
+                                                          </div>
+                                                          <div className="text-green-600 dark:text-green-400 text-sm">
+                                                            {turn.ru}
+                                                          </div>
                                                         </div>
                                                       );
                                                     })}
@@ -1062,8 +1305,14 @@ export default function CurriculumPage() {
                                                     : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                                                 }`}
                                               >
-                                                {isFavorite ? <BookMarked size={16} /> : <BookOpen size={16} />}
-                                                {isFavorite ? t("page_favorite") : t("page_save")}
+                                                {isFavorite ? (
+                                                  <BookMarked size={16} />
+                                                ) : (
+                                                  <BookOpen size={16} />
+                                                )}
+                                                {isFavorite
+                                                  ? t("page_favorite")
+                                                  : t("page_save")}
                                               </button>
                                             </div>
                                           </div>
@@ -1083,10 +1332,15 @@ export default function CurriculumPage() {
                                         <button
                                           onClick={() => toggleFavorite(lesson.id)}
                                           className={`p-1 rounded-lg transition-colors ${
-                                            isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"
+                                            isFavorite
+                                              ? "text-yellow-400"
+                                              : "text-gray-400 hover:text-yellow-400"
                                           }`}
                                         >
-                                          <Star size={12} fill={isFavorite ? "currentColor" : "none"} />
+                                          <Star
+                                            size={12}
+                                            fill={isFavorite ? "currentColor" : "none"}
+                                          />
                                         </button>
                                       </div>
                                     )}

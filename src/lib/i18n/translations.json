@@ -995,8 +995,14 @@
     "page_amateur_short": "🎮 Սիրող",
     "page_professional_short": "🧠 Պրո",
     "page_audio_on": "Աուդիո Միացված",
-    "page_audio_off": "Աուդիո Անջատված"
+    "page_audio_off": "Աուդիո Անջատված",
+    "feedback_perfect": "🎉 Կատարյալ!",
+    "feedback_correct": "✅ Ճիշտ է!",
+    "feedback_wrong": "❌ Սխալ է, փորձիր նորից"
   },
+
+
+
 
   "en": {
     "BottomNav_home": "Home",
@@ -1991,8 +1997,14 @@
     "page_amateur_mode": "🎮 Amateur Mode",
     "page_professional_mode": "🧠 Professional Mode",
     "page_amateur_short": "Amateur",
-    "page_professional_short": "Pro"
+    "page_professional_short": "Pro",
+    "feedback_perfect": "🎉 Perfect!",
+    "feedback_correct": "✅ Correct!",
+    "feedback_wrong": "❌ Wrong, try again"
   },
+
+
+
 
   "ru": {
     "BottomNav_home": "Главная",
@@ -2987,6 +2999,9 @@
     "page_amateur_mode": "🎮 Любительский режим",
     "page_professional_mode": "🧠 Профессиональный режим",
     "page_amateur_short": "Люб",
-    "page_professional_short": "Про"
+    "page_professional_short": "Про",
+    "feedback_perfect": "🎉 Идеально!",
+    "feedback_correct": "✅ Правильно!",
+    "feedback_wrong": "❌ Неправильно, попробуй снова"
   }
 }

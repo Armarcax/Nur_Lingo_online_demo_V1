@@ -2618,7 +2618,23 @@ function LearnInner() {
                     </p>
                     {ex.corrections && ex.corrections.length > 0 && (
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                        <p className="font-semibold">{t("page_correct_answer")}</p>
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {(() => {
+                            const fb = ex.feedback;
+                            if (typeof fb !== "string") return fb;
+                            // If it's a key, translate
+                            if (/^feedback_(correct|wrong|perfect)$/.test(fb)) {
+                              const map: Record<string, string> = {
+                                feedback_correct: t("page_correct") || "✅ Ճիշտ է!",
+                                feedback_wrong: t("page_try_again") || "❌ Սխալ է, փորձիր նորից",
+                                feedback_perfect: t("page_perfect") || "🎉 Կատարյալ!",
+                              };
+                              return map[fb] || fb;
+                            }
+                            if (fb.startsWith("InteractiveLesson_")) return t(fb);
+                            return fb;
+                          })()}
+                        </p>
                         <ul className="list-disc list-inside">
                           {ex.corrections
                             .map((c) => typeof c === 'string' ? c.trim() : '')

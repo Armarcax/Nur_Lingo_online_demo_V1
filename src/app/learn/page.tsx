@@ -7,21 +7,72 @@ import { offlineAudioManager } from '@/lib/offline/OfflineAudioManager';
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft, Heart, Coins, CheckCircle, XCircle, Volume2, RefreshCw, Send,
-  Trophy, Clock, Sparkles, Brain, Target, Flame, Award, BarChart3, Share2,
-  Copy, Check, Loader2, Zap, BookOpen, Users, MessageSquare, Eye, EyeOff,
-  Settings, ChevronDown, ChevronUp, Star, Gift, Calendar, TrendingUp,
-  AlertCircle, Info, Mic, VolumeX, Play, Pause, Unlock, Music, Radio,
-  Speaker, Volume, VolumeOff, GraduationCap, Gamepad2, MousePointerClick,
+  ArrowLeft,
+  Heart,
+  Coins,
+  CheckCircle,
+  XCircle,
+  Volume2,
+  RefreshCw,
+  Send,
+  Trophy,
+  Clock,
+  Sparkles,
+  Brain,
+  Target,
+  Flame,
+  Award,
+  BarChart3,
+  Share2,
+  Copy,
+  Check,
+  Loader2,
+  Zap,
+  BookOpen,
+  Users,
+  MessageSquare,
+  Eye,
+  EyeOff,
+  Settings,
+  ChevronDown,
+  ChevronUp,
+  Star,
+  Gift,
+  Calendar,
+  TrendingUp,
+  AlertCircle,
+  Info,
+  Mic,
+  VolumeX,
+  Play,
+  Pause,
+  Unlock,
+  Music,
+  Radio,
+  Speaker,
+  Volume,
+  VolumeOff,
+  GraduationCap,
+  Gamepad2,
+  MousePointerClick,
 } from "lucide-react";
 import Nuri, { NuriSpeech, getMoodFromScore, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
 import { loadLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
 import { getLessonById, type MultiLesson, type MultiExercise } from "@/lib/i18n/multilingual";
 import {
-  loadRewards, saveRewards, addRewards, updateStreak, addHAYQ, syncHearts,
-  deductHeart, buyHeartRefill, getNextHeartCountdown, saveCrownLevel,
-  earnHeartByPractice, updateQuestProgress,
+  loadRewards,
+  saveRewards,
+  addRewards,
+  updateStreak,
+  addHAYQ,
+  syncHearts,
+  deductHeart,
+  buyHeartRefill,
+  getNextHeartCountdown,
+  saveCrownLevel,
+  earnHeartByPractice,
+  updateQuestProgress,
 } from "@/lib/rewards/seeds";
 import { supabase } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -43,6 +94,7 @@ interface MistakeRecord {
 
 function sanitizeForTTS(text: string): string {
   if (!text) return text;
+  
   return text
     .replace(/[«»""'']/g, '')
     .replace(/՛/g, '')
@@ -163,6 +215,7 @@ function formatTime(ms: number): string {
 
 function getInitialLanguage(): LangCode {
   if (typeof window === 'undefined') return 'en';
+  
   const params = new URLSearchParams(window.location.search);
   const pair = params.get('pair');
   if (pair) {
@@ -175,6 +228,7 @@ function getInitialLanguage(): LangCode {
       }
     }
   }
+  
   try {
     const saved = localStorage.getItem('nur_language_preference');
     if (saved && ['en', 'hy', 'ru'].includes(saved)) {
@@ -182,6 +236,7 @@ function getInitialLanguage(): LangCode {
       return saved as LangCode;
     }
   } catch {}
+  
   try {
     const browserLang = navigator.language.split('-')[0];
     if (['hy', 'ru'].includes(browserLang)) {
@@ -189,21 +244,26 @@ function getInitialLanguage(): LangCode {
       return browserLang as LangCode;
     }
   } catch {}
+  
   console.log(`📍 Default native language: en`);
   return 'en';
 }
 
 function getLearningLanguage(): LangCode {
   if (typeof window === 'undefined') return 'hy';
+  
   const params = new URLSearchParams(window.location.search);
   const pair = params.get('pair');
   if (pair) {
     const parts = pair.split('-');
     if (parts.length === 2) {
       const learning = parts[1] as LangCode;
-      if (['en', 'hy', 'ru'].includes(learning)) return learning;
+      if (['en', 'hy', 'ru'].includes(learning)) {
+        return learning;
+      }
     }
   }
+  
   const native = getInitialLanguage();
   return native === 'hy' ? 'en' : 'hy';
 }
@@ -216,24 +276,93 @@ function getPairKey(native: LangCode, learning: LangCode): string {
 
 const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
   correct_perfect: {
-    hy: ["🏆 Վայ, HAYQ վաստակեցիր!", "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!", "🔥 Դու այսօր շատ լավն ես!", "💪 Դու հանճար ես!", "🌟 Հիանալի աշխատանք!"],
-    en: ["🏆 Wow, you earned HAYQ!", "🎉 I can't believe how well you've learned!", "🔥 You're on fire today!", "💪 You're a genius!", "🌟 Excellent work!"],
-    ru: ["🏆 Вау, ты заработал HAYQ!", "🎉 Не верю, как хорошо ты выучил!", "🔥 Ты сегодня в ударе!", "💪 Ты гений!", "🌟 Отличная работа!"],
+    hy: [
+      "🏆 Վայ, HAYQ վաստակեցիր!",
+      "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!",
+      "🔥 Դու այսօր շատ լավն ես!",
+      "💪 Դու հանճար ես!",
+      "🌟 Հիանալի աշխատանք!",
+    ],
+    en: [
+      "🏆 Wow, you earned HAYQ!",
+      "🎉 I can't believe how well you've learned!",
+      "🔥 You're on fire today!",
+      "💪 You're a genius!",
+      "🌟 Excellent work!",
+    ],
+    ru: [
+      "🏆 Вау, ты заработал HAYQ!",
+      "🎉 Не верю, как хорошо ты выучил!",
+      "🔥 Ты сегодня в ударе!",
+      "💪 Ты гений!",
+      "🌟 Отличная работа!",
+    ],
   },
   correct: {
-    hy: ["✅ Շատ լավ!", "👍 Այո! Հայերեն գիտես!", "💪 Ճիշտ է! Շարունակիր նույն ոգով!", "🎯 Ճիշտ ուղղությամբ ես շարժվում!", "🌟 Հիանալի է, շարունակիր!"],
-    en: ["✅ Very good!", "👍 Yes! You know it!", "💪 Correct! Keep it up!", "🎯 You're on the right track!", "🌟 Excellent, continue!"],
-    ru: ["✅ Очень хорошо!", "👍 Да! Ты знаешь!", "💪 Правильно! Продолжай в том же духе!", "🎯 Ты движешься в правильном направлении!", "🌟 Отлично, продолжай!"],
+    hy: [
+      "✅ Շատ լավ!",
+      "👍 Այո! Հայերեն գիտես!",
+      "💪 Ճիշտ է! Շարունակիր նույն ոգով!",
+      "🎯 Ճիշտ ուղղությամբ ես շարժվում!",
+      "🌟 Հիանալի է, շարունակիր!",
+    ],
+    en: [
+      "✅ Very good!",
+      "👍 Yes! You know it!",
+      "💪 Correct! Keep it up!",
+      "🎯 You're on the right track!",
+      "🌟 Excellent, continue!",
+    ],
+    ru: [
+      "✅ Очень хорошо!",
+      "👍 Да! Ты знаешь!",
+      "💪 Правильно! Продолжай в том же духе!",
+      "🎯 Ты движешься в правильном направлении!",
+      "🌟 Отлично, продолжай!",
+    ],
   },
   almost: {
-    hy: ["💪 Գրեթե! Կրկին փորձիր", "🤏 Մոտ էր!", "🧐 Քիչ էր մնում...", "📖 Մի քիչ էլ, և կստացվի!"],
-    en: ["💪 Almost! Try again", "🤏 So close!", "🧐 Almost had it...", "📖 A little more and you'll get it!"],
-    ru: ["💪 Почти! Попробуй снова", "🤏 Так близко!", "🧐 Чуть-чуть не хватило...", "📖 Ещё немного, и получится!"],
+    hy: [
+      "💪 Գրեթե! Կրկին փորձիր",
+      "🤏 Մոտ էր!",
+      "🧐 Քիչ էր մնում...",
+      "📖 Մի քիչ էլ, և կստացվի!",
+    ],
+    en: [
+      "💪 Almost! Try again",
+      "🤏 So close!",
+      "🧐 Almost had it...",
+      "📖 A little more and you'll get it!",
+    ],
+    ru: [
+      "💪 Почти! Попробуй снова",
+      "🤏 Так близко!",
+      "🧐 Чуть-чуть не хватило...",
+      "📖 Ещё немного, и получится!",
+    ],
   },
   incorrect: {
-    hy: ["💪 Մի տխրիր! Կարող ես ավելի լավ", "🔄 Կրկնիր, և կստացվի!", "💪 Շատ մոտ էր, բայց կփորձենք նորից!", "📖 Եկեք նորից փորձենք միասին", "💪 Հաջորդ անգամ կստացվի:"],
-    en: ["💪 Don't be sad! You can do better", "🔄 Try again, you'll get it!", "💪 So close, let's try again!", "📖 Let's try together again", "💪 Next time you'll get it!"],
-    ru: ["💪 Не грусти! Ты можешь лучше", "🔄 Попробуй снова, получится!", "💪 Так близко, попробуем ещё раз!", "📖 Давай попробуем вместе снова", "💪 В следующий раз получится!"],
+    hy: [
+      "💪 Մի տխրիր! Կարող ես ավելի լավ",
+      "🔄 Կրկնիր, և կստացվի!",
+      "💪 Շատ մոտ էր, բայց կփորձենք նորից!",
+      "📖 Եկեք նորից փորձենք միասին",
+      "💪 Հաջորդ անգամ կստացվի:",
+    ],
+    en: [
+      "💪 Don't be sad! You can do better",
+      "🔄 Try again, you'll get it!",
+      "💪 So close, let's try again!",
+      "📖 Let's try together again",
+      "💪 Next time you'll get it!",
+    ],
+    ru: [
+      "💪 Не грусти! Ты можешь лучше",
+      "🔄 Попробуй снова, получится!",
+      "💪 Так близко, попробуем ещё раз!",
+      "📖 Давай попробуем вместе снова",
+      "💪 В следующий раз получится!",
+    ],
   },
   reveal: {
     hy: ["🍎 Արի սովորենք միասին", "📖 Ահա ճիշտ պատասխանը"],
@@ -251,9 +380,21 @@ const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
     ru: ["🍎 Привет! Давай учиться вместе!", "💪 Как дела? Готов?", "🪙 Учиться весело"],
   },
   relax: {
-    hy: ["☕ Ժամանակն է մի փոքր հանգստանալ:", "🧘 Եկեք մի փոքր հանգստանանք!", "🍵 5 րոպե հանգիստ, հետո կշարունակենք!"],
-    en: ["☕ Time to take a short break.", "🧘 Let's take a short break!", "🍵 5 minutes rest, then we'll continue!"],
-    ru: ["☕ Время немного отдохнуть.", "🧘 Давай немного отдохнём!", "🍵 5 минут отдыха, потом продолжим!"],
+    hy: [
+      "☕ Ժամանակն է մի փոքր հանգստանալ:",
+      "🧘 Եկեք մի փոքր հանգստանանք!",
+      "🍵 5 րոպե հանգիստ, հետո կշարունակենք!",
+    ],
+    en: [
+      "☕ Time to take a short break.",
+      "🧘 Let's take a short break!",
+      "🍵 5 minutes rest, then we'll continue!",
+    ],
+    ru: [
+      "☕ Время немного отдохнуть.",
+      "🧘 Давай немного отдохнём!",
+      "🍵 5 минут отдыха, потом продолжим!",
+    ],
   },
   surprised: {
     hy: ["😲 Վա՜յ, դու շատ արագ ես սովորում!", "🤯 Անհավատալի!", "🌟 Դու ինձ զարմացնում ես!"],
@@ -293,38 +434,45 @@ function randomLine(key: string, lang: LangCode = "hy"): string {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// ─── FEEDBACK TRANSLATION HELPER (NEW) ──────────────────────────────
-// Handles: feedback_correct, feedback_wrong, feedback_perfect,
-//          InteractiveLesson__correct/wrong/perfect, and any other key
+// ─── FEEDBACK TRANSLATION (locale-aware, doesn't use translations.json) ──────
+const FEEDBACK_MAP: Record<string, Record<string, string>> = {
+  hy: {
+    feedback_correct: "✅ Ճիշտ է!",
+    feedback_wrong: "❌ Սխալ է, փորձիր նորից",
+    feedback_perfect: "🎉 Կատարյալ!",
+  },
+  en: {
+    feedback_correct: "✅ Correct!",
+    feedback_wrong: "❌ Wrong, try again",
+    feedback_perfect: "🎉 Perfect!",
+  },
+  ru: {
+    feedback_correct: "✅ Правильно!",
+    feedback_wrong: "❌ Неправильно, попробуй снова",
+    feedback_perfect: "🎉 Идеально!",
+  },
+};
 
-function translateFeedback(
-  fb: string,
-  t: (key: string, params?: any) => string,
-): string {
+function translateFeedback(fb: string, locale: string): string {
   if (typeof fb !== "string" || !fb) return fb;
+  const map = FEEDBACK_MAP[locale] || FEEDBACK_MAP.en;
 
-  // Case 1: known short feedback keys
-  const shortMap: Record<string, string> = {
-    feedback_correct: t("page_correct"),
-    feedback_wrong: t("page_try_again"),
-    feedback_perfect: t("page_perfect"),
-  };
-  if (shortMap[fb]) return shortMap[fb];
+  // Direct key match
+  if (map[fb]) return map[fb];
 
-  // Case 2: InteractiveLesson__* keys
-  if (fb.startsWith("InteractiveLesson_")) {
-    const translated = t(fb);
-    // If t() returns the same key (not found), fallback to a generic
-    return translated !== fb ? translated : fb;
+  // InteractiveLesson__correct / feedback_correct and variants
+  const lower = fb.toLowerCase();
+  if (lower.endsWith("_correct") || lower.endsWith("__correct") || lower.includes("correct")) {
+    return map.feedback_correct;
+  }
+  if (lower.endsWith("_wrong") || lower.endsWith("__wrong") || lower.includes("wrong") || lower.includes("incorrect")) {
+    return map.feedback_wrong;
+  }
+  if (lower.endsWith("_perfect") || lower.endsWith("__perfect") || lower.includes("perfect")) {
+    return map.feedback_perfect;
   }
 
-  // Case 3: any other pure key pattern (letters + underscore, no spaces)
-  if (/^[a-zA-Z][a-zA-Z0-9_]*$/.test(fb)) {
-    const translated = t(fb);
-    return translated !== fb ? translated : fb;
-  }
-
-  // Case 4: already human text
+  // Not a known key — return as-is
   return fb;
 }
 
@@ -392,6 +540,7 @@ interface MultipleChoiceInputProps {
 
 function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelect, disabled }: MultipleChoiceInputProps) {
   const isAnswered = state === "correct" || state === "incorrect";
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       {options.map((opt) => {
@@ -399,14 +548,28 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
         const isCorrectAnswer = opt === targetAnswer;
         const isWrong = isAnswered && isPicked && !isCorrectAnswer;
         const isCorrect = isAnswered && isCorrectAnswer;
+
         let className = "p-4 rounded-xl border-2 transition-all text-left ";
-        if (isCorrect) className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
-        else if (isWrong) className += "border-red-500 bg-red-500/10 line-through opacity-70";
-        else if (isPicked && !isAnswered) className += "border-red-500 bg-red-500/10";
-        else if (isAnswered && !isCorrectAnswer && !isPicked) className += "opacity-50";
-        else className += "border-white/20 dark:border-gray-700 bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-800";
+
+        if (isCorrect) {
+          className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
+        } else if (isWrong) {
+          className += "border-red-500 bg-red-500/10 line-through opacity-70";
+        } else if (isPicked && !isAnswered) {
+          className += "border-red-500 bg-red-500/10";
+        } else if (isAnswered && !isCorrectAnswer && !isPicked) {
+          className += "opacity-50";
+        } else {
+          className += "border-white/20 dark:border-gray-700 bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-800";
+        }
+
         return (
-          <button key={opt} onClick={() => onSelect(opt)} className={className} disabled={disabled || isAnswered}>
+          <button
+            key={opt}
+            onClick={() => onSelect(opt)}
+            className={className}
+            disabled={disabled || isAnswered}
+          >
             <span className="text-gray-900 dark:text-white">{opt}</span>
             {isCorrect && <span className="ml-2 text-emerald-500">✅</span>}
             {isWrong && <span className="ml-2 text-red-500">❌</span>}
@@ -430,11 +593,16 @@ interface MatchPairsInputProps {
 
 function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, disabled }: MatchPairsInputProps) {
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
+
   const handleLeftClick = (left: string) => {
     if (disabled) return;
-    if (matched[left]) { onUnmatch?.(left); return; }
+    if (matched[left]) {
+      onUnmatch?.(left);
+      return;
+    }
     setSelectedLeft(selectedLeft === left ? null : left);
   };
+
   const handleRightClick = (right: string) => {
     if (disabled) return;
     if (selectedLeft && !matched[selectedLeft]) {
@@ -442,7 +610,11 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
       setSelectedLeft(null);
     }
   };
-  const isRightMatched = (right: string) => Object.values(matched).includes(right);
+
+  const isRightMatched = (right: string) => {
+    return Object.values(matched).includes(right);
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div className="space-y-2">
@@ -495,13 +667,20 @@ function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
     <div className="fixed inset-0 pointer-events-none z-[9999] flex items-center justify-center">
       <motion.div
         initial={{ y: 0, opacity: 1, scale: 1, rotate: 0 }}
-        animate={{ y: -180, opacity: [1, 1, 0], scale: [1, 1.4, 1.6], rotate: [0, 360] }}
+        animate={{
+          y: -180,
+          opacity: [1, 1, 0],
+          scale: [1, 1.4, 1.6],
+          rotate: [0, 360],
+        }}
         transition={{ duration: 2, ease: "easeOut" }}
         className="flex flex-col items-center gap-2"
         style={{ willChange: "transform, opacity" }}
       >
         <div className="text-6xl">🪙</div>
-        <div className="text-3xl font-black text-yellow-400 whitespace-nowrap">+{amount} HAYQ</div>
+        <div className="text-3xl font-black text-yellow-400 whitespace-nowrap">
+          +{amount} HAYQ
+        </div>
       </motion.div>
     </div>
   );
@@ -521,26 +700,52 @@ interface ListeningInputProps {
   t: (key: string, params?: any) => string;
 }
 
-function ListeningInput({ ttsText, ttsLang, promptText, value, onChange, disabled, onSpeak, isSpeaking = false, t }: ListeningInputProps) {
+function ListeningInput({
+  ttsText,
+  ttsLang,
+  promptText,
+  value,
+  onChange,
+  disabled,
+  onSpeak,
+  isSpeaking = false,
+  t,
+}: ListeningInputProps) {
   return (
     <div className="space-y-4">
       <div className="text-sm bg-amber-500/10 backdrop-blur-sm p-3 rounded-xl border border-amber-500/30">
-        <p className="flex items-center gap-2 text-gray-900 dark:text-white"><span>🎧</span> {promptText}</p>
+        <p className="flex items-center gap-2 text-gray-900 dark:text-white">
+          <span>🎧</span> {promptText}
+        </p>
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("page_listen_carefully")}</p>
       </div>
+
       <button
         onClick={() => onSpeak?.(ttsText, ttsLang)}
         disabled={disabled || isSpeaking}
         className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition ${
-          isSpeaking ? "bg-amber-500 text-white cursor-wait"
-            : disabled ? "bg-white/20 text-white/50 cursor-not-allowed"
+          isSpeaking
+            ? "bg-amber-500 text-white cursor-wait"
+            : disabled
+            ? "bg-white/20 text-white/50 cursor-not-allowed"
             : "bg-amber-500 text-white hover:bg-amber-600"
         }`}
       >
-        {isSpeaking ? (<><Loader2 size={18} className="animate-spin" />{t("page_playing")}</>)
-          : disabled ? (<span>{t("page_please_wait")}</span>)
-          : (<><Volume2 size={18} />{t("page_listen_to_pronunciation")}</>)}
+        {isSpeaking ? (
+          <>
+            <Loader2 size={18} className="animate-spin" />
+            {t("page_playing")}
+          </>
+        ) : disabled ? (
+          <span>{t("page_please_wait")}</span>
+        ) : (
+          <>
+            <Volume2 size={18} />
+            {t("page_listen_to_pronunciation")}
+          </>
+        )}
       </button>
+
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -596,7 +801,7 @@ function LearnInner() {
   const pairParam = params?.get("pair") as LangPair | null;
 
   const { onCorrect, onWrong, onLessonComplete, setPage } = useNuri();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   const [isProfessional, setIsProfessional] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -607,7 +812,14 @@ function LearnInner() {
 
   const [audioEnabled, setAudioEnabled] = useState(true);
 
-  const { play: playAudio, stop, isPlaying, isLoading, isTTSFallback, preload } = useAudioManager();
+  const { 
+    play: playAudio, 
+    stop, 
+    isPlaying, 
+    isLoading, 
+    isTTSFallback, 
+    preload 
+  } = useAudioManager();
 
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
   const [isWAVAvailable, setIsWAVAvailable] = useState(false);
@@ -635,21 +847,29 @@ function LearnInner() {
   }, []);
 
   useEffect(() => {
-    if (wavClient && isWAVAvailable) setIsAudioReady(true);
+    if (wavClient && isWAVAvailable) {
+      setIsAudioReady(true);
+    }
   }, [wavClient, isWAVAvailable]);
 
   useEffect(() => {
     if (!isWAVAvailable && typeof window !== 'undefined') {
       const checkVoices = () => {
-        if (window.speechSynthesis.getVoices().length > 0) setIsAudioReady(true);
+        if (window.speechSynthesis.getVoices().length > 0) {
+          setIsAudioReady(true);
+        }
       };
       window.speechSynthesis.onvoiceschanged = checkVoices;
       checkVoices();
-      return () => { window.speechSynthesis.onvoiceschanged = null; };
+      return () => {
+        window.speechSynthesis.onvoiceschanged = null;
+      };
     }
   }, [isWAVAvailable]);
 
-  useEffect(() => { setPage("learn"); }, [setPage]);
+  useEffect(() => {
+    setPage("learn");
+  }, [setPage]);
 
   const [lesson, setLesson] = useState<MultiLesson | null>(null);
   const [native, setNative] = useState<LangCode>("en");
@@ -660,8 +880,13 @@ function LearnInner() {
   const [countdown, setCountdown] = useState<number>(0);
   const [startTime] = useState(() => Date.now());
   const [stats, setStats] = useState<LessonStats>({
-    correct: 0, total: 0, hayqEarned: 0, seedsEarned: 0,
-    streaks: 0, bestStreak: 0, timeSpent: 0,
+    correct: 0,
+    total: 0,
+    hayqEarned: 0,
+    seedsEarned: 0,
+    streaks: 0,
+    bestStreak: 0,
+    timeSpent: 0,
   });
   const [totalHAYQ, setTotal] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -697,10 +922,19 @@ function LearnInner() {
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
   const [ex, setEx] = useState<ExState>({
-    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle",
-    feedback: "", score: 0, hayqEarned: 0,
-    nuriMood: "idle", nuriSpeech: randomLine("idle", native),
-    customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
+    index: 0,
+    userAnswer: "",
+    matchPairsAnswer: {},
+    state: "idle",
+    feedback: "",
+    score: 0,
+    hayqEarned: 0,
+    nuriMood: "idle",
+    nuriSpeech: randomLine("idle", native),
+    customImage: "",
+    showHint: false,
+    timeSpent: 0,
+    showListenButton: false,
   });
 
   const exerciseStartTime = useRef<number>(Date.now());
@@ -716,7 +950,10 @@ function LearnInner() {
     setIsProfessional(prev => {
       const newMode = !prev;
       localStorage.setItem('nur_learning_mode', newMode ? 'professional' : 'amateur');
-      showMessage(newMode ? t("page_professional_mode") : t("page_amateur_mode"), "info");
+      showMessage(
+        newMode ? t("page_professional_mode") : t("page_amateur_mode"),
+        "info"
+      );
       loadedLessonRef.current = null;
       setLesson(null);
       return newMode;
@@ -727,7 +964,9 @@ function LearnInner() {
     if (typeof window === "undefined") return;
     try {
       if (!relaxAudio) {
-        const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8a73467.mp3?filename=calm-nature-ambient-113194.mp3");
+        const audio = new Audio(
+          "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8a73467.mp3?filename=calm-nature-ambient-113194.mp3"
+        );
         audio.loop = true;
         audio.volume = 0.15;
         setRelaxAudio(audio);
@@ -737,7 +976,9 @@ function LearnInner() {
         relaxAudio.play().catch(() => {});
         setIsRelaxing(true);
       }
-    } catch {}
+    } catch {
+      // Silent fail
+    }
   }, [relaxAudio]);
 
   const stopRelaxMusic = useCallback(() => {
@@ -750,8 +991,13 @@ function LearnInner() {
 
   useEffect(() => {
     return () => {
-      if (relaxAudio) { relaxAudio.pause(); relaxAudio.currentTime = 0; }
-      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      if (relaxAudio) {
+        relaxAudio.pause();
+        relaxAudio.currentTime = 0;
+      }
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
     };
   }, [relaxAudio]);
 
@@ -761,36 +1007,59 @@ function LearnInner() {
         reject(new Error('Speech synthesis not supported'));
         return;
       }
+
       window.speechSynthesis.cancel();
+
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
-      if (lang === 'hy') utterance.rate = 1.5;
-      else if (lang === 'en') utterance.rate = 1.1;
-      else utterance.rate = 1.15;
+      if (lang === 'hy') {
+        utterance.rate = 1.5;
+      } else if (lang === 'en') {
+        utterance.rate = 1.1;
+      } else {
+        utterance.rate = 1.15;
+      }
       utterance.pitch = 1.3;
       utterance.volume = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
+      
       const femaleVoiceNames = [
-        'Samantha', 'Google UK English Female', 'Karen', 'Zira',
+        'Samantha', 'Google UK English Female', 'Karen', 'Zira', 
         'Alice', 'Victoria', 'Emma', 'Susan', 'Tessa',
         'Google русский', 'Anna', 'Elena', 'Katya', 'Marina', 'Natalia', 'Alena',
         'Ani', 'Google Հայերեն', 'Armine', 'Lusine',
       ];
+      
       let selectedVoice = null;
+      
       for (const name of femaleVoiceNames) {
-        const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase());
-        if (found) { selectedVoice = found; break; }
-      }
-      if (!selectedVoice) {
-        for (const name of femaleVoiceNames) {
-          const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase()));
-          if (found) { selectedVoice = found; break; }
+        const found = voices.find(v => 
+          v.lang.startsWith(lang) && 
+          v.name.toLowerCase() === name.toLowerCase()
+        );
+        if (found) {
+          selectedVoice = found;
+          break;
         }
       }
+      
       if (!selectedVoice) {
-        selectedVoice = voices.find(v =>
-          v.lang.startsWith(lang) &&
+        for (const name of femaleVoiceNames) {
+          const found = voices.find(v => 
+            v.lang.startsWith(lang) && 
+            v.name.toLowerCase().includes(name.toLowerCase())
+          );
+          if (found) {
+            selectedVoice = found;
+            break;
+          }
+        }
+      }
+      
+      if (!selectedVoice) {
+        selectedVoice = voices.find(v => 
+          v.lang.startsWith(lang) && 
           (v.name.toLowerCase().includes('female') ||
            v.name.toLowerCase().includes('samantha') ||
            v.name.toLowerCase().includes('zira') ||
@@ -798,6 +1067,7 @@ function LearnInner() {
            v.name.toLowerCase().includes('anna'))
         );
       }
+      
       if (selectedVoice) {
         utterance.voice = selectedVoice;
         console.log(`🎤 Female voice: ${selectedVoice.name}`);
@@ -805,82 +1075,195 @@ function LearnInner() {
         utterance.pitch = 1.5;
         console.warn(`⚠️ No female voice found, using high pitch (1.5)`);
       }
-      utterance.onend = () => resolve(undefined);
-      utterance.onerror = (e) => { console.error('Speech error:', e); reject(e); };
+
+      utterance.onend = () => {
+        resolve(undefined);
+      };
+
+      utterance.onerror = (e) => {
+        console.error('Speech error:', e);
+        reject(e);
+      };
+
       window.speechSynthesis.speak(utterance);
     });
   }, []);
 
   const playAudioWithFallback = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
-    if (!audioEnabled) { console.log(`🔇 Audio disabled, skipping: "${text}"`); return; }
+    if (!audioEnabled) {
+      console.log(`🔇 Audio disabled, skipping: "${text}"`);
+      return;
+    }
+
     if (!text) return;
+
     text = sanitizeForTTS(text);
     if (!text) return;
+
     console.log(`🔊 Playing ${type}: "${text}" (${lang})`);
 
     const pairKey = getPairKey(native, learningLang);
-
+    
     if (type === 'prompt') {
       if (lang === 'hy') {
         if (wavClient && isWAVAvailable) {
-          try { await wavClient.playPrompt(text, pairKey, 'Ani'); return; }
-          catch (error: any) {
+          try {
+            await wavClient.playPrompt(text, pairKey, 'Ani');
+            console.log(`✅ WAV (Ani) for prompt (hy): ${text}`);
+            return;
+          } catch (error: any) {
             if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-              try { await playAudioWithFemaleVoice(text, 'hy'); return; } catch {}
+              console.log('⏸️ WAV autoplay blocked, falling back to TTS');
+              try {
+                await playAudioWithFemaleVoice(text, 'hy');
+                console.log(`✅ TTS (hy) for prompt: ${text}`);
+                return;
+              } catch (ttsError) {
+                console.warn("TTS also failed:", ttsError);
+              }
+            } else {
+              console.warn("WAV failed:", error);
             }
           }
         }
-        try { await playAudioWithFemaleVoice(text, 'hy'); return; } catch {}
+        
+        try {
+          await playAudioWithFemaleVoice(text, 'hy');
+          console.log(`✅ Female TTS (hy) for prompt: ${text}`);
+          return;
+        } catch (error) {
+          console.warn("Female TTS failed:", error);
+        }
       }
+      
       if (lang === 'en') {
         try {
-          const response = await fetch('/api/generate-tts-en', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+          const response = await fetch('/api/generate-tts-en', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+          });
+          
           if (response.ok) {
             const data = await response.json();
-            if (data.success && data.audioUrl) { await new Audio(data.audioUrl).play(); return; }
+            if (data.success && data.audioUrl) {
+              const audio = new Audio(data.audioUrl);
+              await audio.play();
+              console.log(`✅ English TTS for prompt: ${text}`);
+              return;
+            }
           }
-        } catch {}
+        } catch (error) {
+          console.warn("English TTS failed:", error);
+        }
       }
+      
       if (lang === 'ru') {
         try {
-          const response = await fetch('/api/generate-tts-ru', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+          const response = await fetch('/api/generate-tts-ru', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+          });
+          
           if (response.ok) {
             const data = await response.json();
-            if (data.success && data.audioUrl) { await new Audio(data.audioUrl).play(); return; }
+            if (data.success && data.audioUrl) {
+              const audio = new Audio(data.audioUrl);
+              await audio.play();
+              console.log(`✅ Russian TTS for prompt: ${text}`);
+              return;
+            }
           }
-        } catch {}
+        } catch (error) {
+          console.warn("Russian TTS failed:", error);
+        }
       }
-      try { await playAudioWithFemaleVoice(text, lang); return; } catch {}
+      
+      try {
+        await playAudioWithFemaleVoice(text, lang);
+        console.log(`✅ TTS (${lang}) for prompt (fallback): ${text}`);
+        return;
+      } catch (error) {
+        console.warn("TTS failed:", error);
+      }
     }
 
     if (type === 'answer') {
-      if (learningLang === 'hy' && wavClient && isWAVAvailable) {
-        try { await wavClient.playAnswer(text, pairKey, 'Ani'); return; }
-        catch (error: any) {
-          if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-            try { await playAudioWithFemaleVoice(text, learningLang); return; } catch {}
+      if (learningLang === 'hy') {
+        if (wavClient && isWAVAvailable) {
+          try {
+            await wavClient.playAnswer(text, pairKey, 'Ani');
+            console.log(`✅ WAV (Ani) for answer (${pairKey}): ${text}`);
+            return;
+          } catch (error: any) {
+            if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
+              console.log('⏸️ WAV autoplay blocked for answer, falling back to TTS');
+              try {
+                await playAudioWithFemaleVoice(text, learningLang);
+                console.log(`✅ TTS (${learningLang}) for answer (fallback): ${text}`);
+                return;
+              } catch (ttsError) {
+                console.warn("TTS also failed:", ttsError);
+              }
+            } else {
+              console.warn("WAV failed:", error);
+            }
           }
         }
       }
+      
       if (learningLang === 'en') {
         try {
-          const response = await fetch('/api/generate-tts-en', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+          const response = await fetch('/api/generate-tts-en', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+          });
+          
           if (response.ok) {
             const data = await response.json();
-            if (data.success && data.audioUrl) { await new Audio(data.audioUrl).play(); return; }
+            if (data.success && data.audioUrl) {
+              const audio = new Audio(data.audioUrl);
+              await audio.play();
+              console.log(`✅ English TTS for answer: ${text}`);
+              return;
+            }
           }
-        } catch {}
+        } catch (error) {
+          console.warn("English TTS failed:", error);
+        }
       }
+      
       if (learningLang === 'ru') {
         try {
-          const response = await fetch('/api/generate-tts-ru', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+          const response = await fetch('/api/generate-tts-ru', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+          });
+          
           if (response.ok) {
             const data = await response.json();
-            if (data.success && data.audioUrl) { await new Audio(data.audioUrl).play(); return; }
+            if (data.success && data.audioUrl) {
+              const audio = new Audio(data.audioUrl);
+              await audio.play();
+              console.log(`✅ Russian TTS for answer: ${text}`);
+              return;
+            }
           }
-        } catch {}
+        } catch (error) {
+          console.warn("Russian TTS failed:", error);
+        }
       }
-      try { await playAudioWithFemaleVoice(text, learningLang); return; } catch {}
+      
+      try {
+        await playAudioWithFemaleVoice(text, learningLang);
+        console.log(`✅ TTS (${learningLang}) for answer (fallback): ${text}`);
+        return;
+      } catch (error) {
+        console.warn("TTS failed:", error);
+      }
     }
 
     console.warn(`❌ No audio available for ${type}: "${text}"`);
@@ -889,32 +1272,53 @@ function LearnInner() {
 
   const handleSpeak = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
     if (!text || !audioEnabled) return;
-    if (isPlaying) { stop(); return; }
+
+    if (isPlaying) {
+      stop();
+      return;
+    }
+
     await playAudioWithFallback(text, lang, type);
   }, [isPlaying, stop, playAudioWithFallback, audioEnabled]);
 
   useEffect(() => {
     if (!audioEnabled) return;
     if (!current || !isAudioReady) return;
+
     const promptText = current.prompt?.[native] || current.prompt?.en || "";
     if (!promptText) return;
-    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+
+    const delay = 50;
+    
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+    }
+
     autoPlayTimeoutRef.current = setTimeout(() => {
-      playAudioWithFallback(promptText, native, 'prompt').catch(() => {
-        setEx(prev => ({ ...prev, showListenButton: true }));
-      });
+      playAudioWithFallback(promptText, native, 'prompt')
+        .catch(() => {
+          setEx(prev => ({ ...prev, showListenButton: true }));
+        });
       firstAutoPlayAttempted.current = true;
-    }, 50);
-    return () => { if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current); };
+    }, delay);
+
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+    };
   }, [current, native, isAudioReady, playAudioWithFallback, audioEnabled]);
 
   useEffect(() => {
     if (!current) return;
+
     exerciseStartTime.current = Date.now();
     setShowHint(false);
     setEx(prev => ({ ...prev, showListenButton: false }));
+
     if (current.type === "word_order" && current.words) {
-      setAW([...current.words]); setSW([]);
+      setAW([...current.words]);
+      setSW([]);
     } else if (current.type === "match_pairs" && current.pairs) {
       const left = current.pairs.map((p) => p[0]);
       const right = current.pairs.map((p) => p[1]);
@@ -923,11 +1327,17 @@ function LearnInner() {
       setMatchPairsMap({});
       setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
     } else {
-      setMatchLeftItems([]); setMatchRightItems([]); setMatchPairsMap({});
+      setMatchLeftItems([]);
+      setMatchRightItems([]);
+      setMatchPairsMap({});
     }
+
     setAttempts(0);
     setShowBreak(false);
-    if (breakTimerRef.current) { clearInterval(breakTimerRef.current); breakTimerRef.current = null; }
+    if (breakTimerRef.current) {
+      clearInterval(breakTimerRef.current);
+      breakTimerRef.current = null;
+    }
     setBreakTimer(null);
   }, [current]);
 
@@ -936,45 +1346,69 @@ function LearnInner() {
       console.log('⏭️ Lesson already loaded, skipping duplicate load');
       return;
     }
+
     try {
       const nativeLang = getInitialLanguage();
       const learnLang = getLearningLanguage();
       setNative(nativeLang);
       setLearningLang(learnLang);
-      try { localStorage.setItem('nur_language_preference', nativeLang); } catch {}
+      
+      try {
+        localStorage.setItem('nur_language_preference', nativeLang);
+      } catch {}
+      
       const cfg = loadLangConfig();
       const pair = pairParam ?? cfg?.pair ?? `${nativeLang}-${learnLang}`;
+      
       console.log('📍 Pair:', pair, 'Native:', nativeLang, 'Learning:', learnLang);
       console.log(`📚 Mode: ${isProfessional ? 'PROFESSIONAL' : 'AMATEUR'}`);
 
       let l = null;
+
       if (isProfessional) {
+        console.log('🔍 Trying offline dictionary (professional mode)...');
         l = offlineLessonEngine.getLesson(lessonId);
         if (!l) {
+          console.warn('❌ Professional lesson not found in offline dictionary:', lessonId);
           const found = getLessonById(pair as LangPair, lessonId);
-          if (found) l = found;
+          if (found) {
+            console.log('📚 Using multilingual as fallback (professional mode)');
+            l = found;
+          }
         } else {
+          console.log(`✅ Professional lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
           l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
         }
       } else {
+        console.log('🎮 Trying multilingual (amateur mode)...');
         l = getLessonById(pair as LangPair, lessonId);
         if (!l) {
+          console.warn('❌ Amateur lesson not found in multilingual:', lessonId);
           l = offlineLessonEngine.getLesson(lessonId);
+          if (l) {
+            console.log(`📚 Using offline dictionary as fallback (amateur mode): ${l.id}`);
+          }
+        } else {
+          console.log(`✅ Amateur lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
         }
       }
+      
       if (!l) {
         console.warn('❌ Lesson not found in any source:', lessonId);
         if (lessonId) router.push("/world");
         return;
       }
+      
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
+
       const rewards = syncHearts();
       setHearts(rewards.hearts);
       setTotal(rewards.totalHAYQ);
       setStreak(rewards.streak);
       const lvl = Math.min(3, (rewards.crowns[l.id] || 0) + 1);
       setSLevel(lvl);
+
       clearMistakes(l.id);
     } catch (error) {
       console.error("Failed to load lesson:", error);
@@ -983,32 +1417,46 @@ function LearnInner() {
 
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {
+      console.log('⏳ OfflineLessonEngine not ready, waiting for professional mode...');
       const checkReady = setInterval(() => {
-        if (offlineLessonEngine.isAvailable()) { clearInterval(checkReady); loadLesson(); }
+        if (offlineLessonEngine.isAvailable()) {
+          clearInterval(checkReady);
+          loadLesson();
+        }
       }, 150);
       return () => clearInterval(checkReady);
     }
     loadLesson();
   }, [loadLesson, isProfessional]);
 
+  // ─── PRELOAD WAV AUDIO IN BACKGROUND ────────────────────────────
   useEffect(() => {
     if (!lesson || !wavClient || !isWAVAvailable) return;
+
     const preloadPrompts = async () => {
       const textsToPreload: string[] = [];
+
       lesson.exercises.slice(0, 8).forEach((ex) => {
+        // Prompt text (always)
         const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || '');
         if (promptText) textsToPreload.push(promptText);
+
+        // ✅ Answer text (only if learning Armenian — uses WAV)
         if (learningLang === 'hy' && ex.targetAnswer) {
           const answerText = sanitizeForTTS(ex.targetAnswer);
-          if (answerText && answerText !== promptText) textsToPreload.push(answerText);
+          if (answerText && answerText !== promptText) {
+            textsToPreload.push(answerText);
+          }
         }
       });
+
       console.log(`🎯 Preloading ${textsToPreload.length} texts (prompts + answers)...`);
       await wavClient.preloadBatch(textsToPreload, 'Ani');
     };
+
     const timer = setTimeout(preloadPrompts, 1500);
     return () => clearTimeout(timer);
-  }, [lesson, wavClient, isWAVAvailable, native, learningLang]);
+  }, [lesson, wavClient, isWAVAvailable, native, learningLang]); 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1016,7 +1464,9 @@ function LearnInner() {
         const nextH = syncHearts();
         if (nextH.hearts !== hearts) setHearts(nextH.hearts);
         setCountdown(getNextHeartCountdown(nextH));
-      } catch {}
+      } catch (error) {
+        // silent fail
+      }
     }, 1000);
     return () => clearInterval(timer);
   }, [hearts]);
@@ -1035,16 +1485,23 @@ function LearnInner() {
         startBreakTimer(breakDuration);
       }
     }, 600000);
+
     return () => clearInterval(checkTime);
   }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown]);
 
   const startBreakTimer = useCallback((minutes: number) => {
-    if (breakTimerRef.current) { clearInterval(breakTimerRef.current); breakTimerRef.current = null; }
+    if (breakTimerRef.current) {
+      clearInterval(breakTimerRef.current);
+      breakTimerRef.current = null;
+    }
+    
     let remainingSeconds = minutes * 60;
     setBreakTimer(remainingSeconds);
+    
     breakTimerRef.current = setInterval(() => {
       remainingSeconds -= 1;
       setBreakTimer(remainingSeconds);
+      
       if (remainingSeconds <= 0) {
         clearInterval(breakTimerRef.current!);
         breakTimerRef.current = null;
@@ -1063,14 +1520,22 @@ function LearnInner() {
     setShowHint(prev => !prev);
     if (!showHint && current?.hint) {
       const hintText = current.hint?.[native] || current.hint?.en || "💡 Think about the word order!";
-      setEx(prev => ({ ...prev, nuriSpeech: `${t("page_hint_prefix")} ${hintText}` }));
+      setEx(prev => ({
+        ...prev,
+        nuriSpeech: `${t("page_hint_prefix")} ${hintText}`,
+      }));
     }
   }, [showHint, current, native, t]);
 
   const toggleAudio = useCallback(() => {
     setAudioEnabled(prev => !prev);
-    if (audioEnabled) stop();
-    showMessage(audioEnabled ? t("page_audio_disabled") : t("page_audio_enabled"), "info");
+    if (audioEnabled) {
+      stop();
+    }
+    showMessage(
+      audioEnabled ? t("page_audio_disabled") : t("page_audio_enabled"),
+      "info"
+    );
   }, [audioEnabled, stop, showMessage, t]);
 
   const submit = useCallback(async (overrideAnswer?: string) => {
@@ -1080,91 +1545,139 @@ function LearnInner() {
     let userAnswerText: string = "";
 
     if (current.type === "word_order") {
-      if (selectedWords.length === 0) { showMessage(t("page_please_arrange_words"), "info"); return; }
+      if (selectedWords.length === 0) {
+        showMessage(t("page_please_arrange_words"), "info");
+        return;
+      }
       answerForApi = selectedWords.join(" ");
       userAnswerText = answerForApi;
     } else if (current.type === "match_pairs") {
       const totalPairs = current.pairs?.length || 0;
       const matchedCount = Object.keys(matchPairsMap).length;
+      
       if (matchedCount !== totalPairs) {
         showMessage(t("page_please_match_all_pairs", { matched: matchedCount, total: totalPairs }), "info");
         return;
       }
+      
       let correctCount = 0;
       let allCorrect = true;
+      
       if (current.pairs) {
         for (const [left, right] of current.pairs) {
-          if (matchPairsMap[left] === right) correctCount++;
-          else allCorrect = false;
+          if (matchPairsMap[left] === right) {
+            correctCount++;
+          } else {
+            allCorrect = false;
+          }
         }
       }
+      
       if (allCorrect && current.pairs && correctCount === totalPairs) {
-        const score = 1; const hayq = 10; const seeds = 1;
+        const score = 1;
+        const hayq = 10;
+        const seeds = 1;
+        
         setStats((prev) => ({
-          ...prev, correct: prev.correct + 1, total: prev.total + 1,
-          hayqEarned: prev.hayqEarned + hayq, seedsEarned: prev.seedsEarned + seeds,
+          ...prev,
+          correct: prev.correct + 1,
+          total: prev.total + 1,
+          hayqEarned: prev.hayqEarned + hayq,
+          seedsEarned: prev.seedsEarned + seeds,
         }));
-        setAttempts(0); onCorrect();
+        
+        setAttempts(0);
+        onCorrect();
+        
         try {
           const rewards = loadRewards();
           const updated = addHAYQ(updateStreak(rewards), hayq);
           if (seeds > 0) updated.totalSeeds += seeds;
-          saveRewards(updated); setTotal(updated.totalHAYQ); setStreak(updated.streak);
+          saveRewards(updated);
+          setTotal(updated.totalHAYQ);
+          setStreak(updated.streak);
           updateQuestProgress("earn_hayq", hayq);
-        } catch {}
+        } catch {
+          // silent fail
+        }
+        
         setEx((s) => ({
-          ...s, state: "correct",
+          ...s,
+          state: "correct",
           feedback: t("page_all_pairs_correct"),
-          score, hayqEarned: hayq, corrections: [],
+          score: score,
+          hayqEarned: hayq,
+          corrections: [],
           nuriMood: "excited",
           nuriSpeech: randomLine("correct_perfect", native),
           customImage: "/images/nuri/nuri-encouraging.png",
           showHint: false,
         }));
+        
         if (current.pairs) {
           const correctPairs = current.pairs.map(([l, r]) => `${l} → ${r}`).join(", ");
           await new Promise(resolve => setTimeout(resolve, 200));
           await handleSpeak(correctPairs, learningLang, 'answer');
         }
+        
         return;
       }
+      
       setEx((s) => ({
-        ...s, state: "incorrect",
+        ...s,
+        state: "incorrect",
         feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }),
         nuriMood: "sad",
         nuriSpeech: randomLine("almost", native),
         customImage: "/images/nuri/nuri-confused.png",
         showHint: false,
       }));
+      
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
+      
       if (newAttempts >= 2) {
-        try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
+        try {
+          const updated = deductHeart();
+          setHearts(updated.hearts);
+        } catch {
+          // silent fail
+        }
+      
         if (lesson) logMistake(lesson.id, current, newAttempts, false);
       }
       onWrong();
       return;
     } else if (current.type === "multiple_choice") {
       const answerToUse = overrideAnswer ?? ex.userAnswer;
-      if (!answerToUse) { showMessage(t("page_please_select_answer"), "info"); return; }
+      if (!answerToUse) {
+        showMessage(t("page_please_select_answer"), "info");
+        return;
+      }
       answerForApi = answerToUse;
       const selectedOption = current.options?.find(opt => opt === answerToUse);
       userAnswerText = selectedOption || answerToUse;
     } else {
-      if (!ex.userAnswer.trim()) { showMessage(t("page_please_enter_answer"), "info"); return; }
+      if (!ex.userAnswer.trim()) {
+        showMessage(t("page_please_enter_answer"), "info");
+        return;
+      }
       answerForApi = ex.userAnswer.trim();
       userAnswerText = answerForApi;
     }
 
     setEx((s) => ({
-      ...s, state: "submitting",
+      ...s,
+      state: "submitting",
       nuriMood: "thinking",
       nuriSpeech: randomLine("thinking", native),
       customImage: "/images/nuri/nuri-thinking.png",
     }));
 
     try {
-      if (isPlaying) stop();
+      if (isPlaying) {
+        stop();
+      }
 
       const res = await fetch("/api/validate", {
         method: "POST",
@@ -1201,20 +1714,31 @@ function LearnInner() {
       if (!correct) {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
+
         if (newAttempts >= 2) {
-          try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
+          try {
+            const updated = deductHeart();
+            setHearts(updated.hearts);
+          } catch {
+            // silent fail
+          }
           if (lesson) logMistake(lesson.id, current, newAttempts, false);
         }
         onWrong();
+
         setEx((s) => ({
-          ...s, state: "incorrect",
+          ...s,
+          state: "incorrect",
           feedback: data.feedback || t("page_try_again"),
-          score, hayqEarned: hayq, corrections: data.corrections,
+          score: score,
+          hayqEarned: hayq,
+          corrections: data.corrections,
           nuriMood: "sad",
           nuriSpeech: randomLine("incorrect", native),
           customImage: "/images/nuri/nuri-confused.png",
           showHint: false,
         }));
+
       } else {
         setAttempts(0);
         onCorrect();
@@ -1224,10 +1748,14 @@ function LearnInner() {
           setStats(s => ({ ...s, streaks: s.streaks + 1, bestStreak: Math.max(s.bestStreak, newStreak) }));
           return newStreak;
         });
+
         setEx((s) => ({
-          ...s, state: "correct",
+          ...s,
+          state: "correct",
           feedback: data.feedback || t("page_correct"),
-          score, hayqEarned: hayq, corrections: data.corrections,
+          score: score,
+          hayqEarned: hayq,
+          corrections: data.corrections,
           nuriMood: score >= 0.98 ? "excited" : "happy",
           nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct", native),
           customImage: "/images/nuri/nuri-encouraging.png",
@@ -1240,18 +1768,25 @@ function LearnInner() {
           const rewards = loadRewards();
           const updated = addHAYQ(updateStreak(rewards), hayq);
           if (seeds > 0) updated.totalSeeds += seeds;
-          saveRewards(updated); setTotal(updated.totalHAYQ); setStreak(updated.streak);
+          saveRewards(updated);
+          setTotal(updated.totalHAYQ);
+          setStreak(updated.streak);
           updateQuestProgress("earn_hayq", hayq);
-        } catch {}
+        } catch {
+          // silent fail
+        }
       }
 
+      // ✅ Play answer audio and WAIT for it before advancing
       let answerAudioPromise: Promise<void> = Promise.resolve();
       if (current.targetAnswer) {
-        answerAudioPromise = handleSpeak(current.targetAnswer, learningLang, 'answer').catch(() => {});
+        answerAudioPromise = handleSpeak(current.targetAnswer, learningLang, 'answer')
+          .catch(() => {});
       }
 
       let mood: NuriMood = "idle";
       let speechKey = "idle";
+
       if (correct) {
         mood = score >= 0.98 ? "excited" : "happy";
         speechKey = score >= 0.98 ? "correct_perfect" : "correct";
@@ -1259,14 +1794,19 @@ function LearnInner() {
         mood = attempts >= 2 ? "sad" : "idle";
         speechKey = attempts >= 2 ? "almost" : "incorrect";
       }
+
       setEx((s) => ({
-        ...s, nuriMood: mood,
+        ...s,
+        nuriMood: mood,
         nuriSpeech: randomLine(speechKey, native),
         customImage: s.customImage,
       }));
 
+      // 🪙 Trigger HAYQ coin animation + auto-advance (WAITS for audio)
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
+        
+        // ✅ Wait for answer audio to finish, THEN advance
         answerAudioPromise.finally(() => {
           setTimeout(() => {
             setEx((s) => ({ ...s, showCoinAnimation: false }));
@@ -1274,17 +1814,24 @@ function LearnInner() {
           }, 800);
         });
       } else {
+        // Wrong answer: only auto-advance if 3 attempts used up
         const attemptsUsed = attempts + 1;
         if (attemptsUsed >= 2) {
+          // ✅ Wait for answer audio too
           answerAudioPromise.finally(() => {
-            setTimeout(() => { try { nextRef.current?.(); } catch {} }, 1500);
+            setTimeout(() => {
+              try { nextRef.current?.(); } catch {}
+            }, 1500);
           });
         }
+        // Otherwise: stay on same question, show retry button
       }
+
     } catch (error) {
       console.error("Submit error:", error);
       setEx((s) => ({
-        ...s, state: "incorrect",
+        ...s,
+        state: "incorrect",
         feedback: t("page_network_error"),
         nuriMood: "sad",
         nuriSpeech: t("page_oops"),
@@ -1292,84 +1839,167 @@ function LearnInner() {
       }));
     }
   }, [
-    current, ex.userAnswer, ex.state, selectedWords, matchPairsMap,
-    matchLeftItems.length, lesson, streak, native, learningLang, attempts,
-    onCorrect, onWrong, startTime, stats.correct, lesson?.exercises?.length,
-    handleSpeak, stop, isPlaying, showMessage, t
+    current, 
+    ex.userAnswer, 
+    ex.state, 
+    selectedWords, 
+    matchPairsMap, 
+    matchLeftItems.length, 
+    lesson, 
+    streak, 
+    native, 
+    learningLang,
+    attempts, 
+    onCorrect, 
+    onWrong, 
+    startTime, 
+    stats.correct, 
+    lesson?.exercises?.length, 
+    handleSpeak, 
+    stop, 
+    isPlaying, 
+    showMessage,
+    t
   ]);
 
   const completeLesson = useCallback(() => {
     if (!lesson) return;
+
     const bonus = Math.min(40, stats.correct * 2);
     addRewards(bonus, 0, lesson.estimatedMinutes);
     saveCrownLevel(lesson.id, sessionLevel);
     updateQuestProgress("complete_lessons", 1);
+
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
-    try { saveCompletionToSupabase(lesson.id, accuracy, stats.hayqEarned + bonus, sessionLevel, Date.now() - startTime); } catch {}
+
+    try {
+      saveCompletionToSupabase(
+        lesson.id,
+        accuracy,
+        stats.hayqEarned + bonus,
+        sessionLevel,
+        Date.now() - startTime
+      );
+    } catch {
+      // silent fail
+    }
+
     clearMistakes(lesson.id);
     onLessonComplete(accuracy >= 90);
+
     setComplete(true);
   }, [lesson, stats, sessionLevel, startTime, onLessonComplete]);
 
   const submitRef = useRef(submit);
-  useEffect(() => { submitRef.current = submit; }, [submit]);
+  useEffect(() => {
+    submitRef.current = submit;
+  }, [submit]);
 
   const next = useCallback(() => {
     if (!lesson) return;
+
     const totalExercises = lesson.exercises?.length || 0;
     const nextIdx = ex.index + 1;
+
     if (ex.index >= totalExercises - 1 && phase === "main") {
       const retryQ = buildRetryQueue(lesson.id);
+
       if (retryQ.length > 0) {
         setPhase("retry");
         setRetryStartIndex(totalExercises);
+
         setLesson((prev) => {
           if (!prev) return prev;
-          return { ...prev, exercises: [...prev.exercises, ...retryQ] };
+          return {
+            ...prev,
+            exercises: [...prev.exercises, ...retryQ],
+          };
         });
+
         setEx({
-          index: totalExercises, userAnswer: "", matchPairsAnswer: {},
-          state: "idle", feedback: "", score: 0, hayqEarned: 0,
-          nuriMood: "idle", nuriSpeech: randomLine("idle", native),
+          index: totalExercises,
+          userAnswer: "",
+          matchPairsAnswer: {},
+          state: "idle",
+          feedback: "",
+          score: 0,
+          hayqEarned: 0,
+          nuriMood: "idle",
+          nuriSpeech: randomLine("idle", native),
           customImage: "/images/nuri/nuri-thinking.png",
-          showHint: false, timeSpent: 0, showListenButton: false, showCoinAnimation: false,
+          showHint: false,
+          timeSpent: 0,
+          showListenButton: false,
+          showCoinAnimation: false,
         });
-        setSW([]); setAW([]); setMatchPairsMap({}); setAttempts(0);
+        setSW([]);
+        setAW([]);
+        setMatchPairsMap({});
+        setAttempts(0);
         firstAutoPlayAttempted.current = false;
         return;
       }
+
       completeLesson();
       return;
     }
-    if (phase === "retry" && ex.index >= totalExercises - 1) { completeLesson(); return; }
+
+    if (phase === "retry" && ex.index >= totalExercises - 1) {
+      completeLesson();
+      return;
+    }
+
     if (nextIdx < totalExercises) {
       setEx({
-        index: nextIdx, userAnswer: "", matchPairsAnswer: {},
-        state: "idle", feedback: "", score: 0, hayqEarned: 0,
-        nuriMood: "happy", nuriSpeech: randomLine("idle", native),
+        index: nextIdx,
+        userAnswer: "",
+        matchPairsAnswer: {},
+        state: "idle",
+        feedback: "",
+        score: 0,
+        hayqEarned: 0,
+        nuriMood: "happy",
+        nuriSpeech: randomLine("idle", native),
         customImage: "/images/nuri/nuri-thinking.png",
-        showHint: false, timeSpent: 0, showListenButton: false,
+        showHint: false,
+        timeSpent: 0,
+        showListenButton: false,
       });
-      setSW([]); setAW([]); setMatchPairsMap({}); setAttempts(0); setShowBreak(false);
+      setSW([]);
+      setAW([]);
+      setMatchPairsMap({});
+      setAttempts(0);
+      setShowBreak(false);
       if (breakTimerRef.current) {
-        clearInterval(breakTimerRef.current); breakTimerRef.current = null; setBreakTimer(null);
+        clearInterval(breakTimerRef.current);
+        breakTimerRef.current = null;
+        setBreakTimer(null);
       }
       exerciseStartTime.current = Date.now();
     }
   }, [lesson, ex.index, phase, completeLesson]);
 
   const nextRef = useRef(next);
-  useEffect(() => { nextRef.current = next; }, [next]);
+  useEffect(() => {
+    nextRef.current = next;
+  }, [next]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        if (ex.state === "idle") submitRef.current();
-        else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 3)) nextRef.current();
+        if (ex.state === "idle") {
+          submitRef.current();
+        } else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 3)) {
+          nextRef.current();
+        }
       }
-      if (e.key === "h" || e.key === "H") toggleHint();
-      if (e.key === "Escape" && ex.state !== "submitting") setShowExitConfirm(true);
+      if (e.key === "h" || e.key === "H") {
+        toggleHint();
+      }
+      if (e.key === "Escape" && ex.state !== "submitting") {
+        setShowExitConfirm(true);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -1377,12 +2007,21 @@ function LearnInner() {
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({
-      ...s, userAnswer: "", state: "idle", feedback: "", score: 0,
-      nuriMood: "idle", nuriSpeech: randomLine("idle", native),
+      ...s,
+      userAnswer: "",
+      state: "idle",
+      feedback: "",
+      score: 0,
+      nuriMood: "idle",
+      nuriSpeech: randomLine("idle", native),
       customImage: "/images/nuri/nuri-thinking.png",
-      showHint: false, showListenButton: false,
+      showHint: false,
+      showListenButton: false,
     }));
-    if (current?.type === "word_order" && current.words) { setAW([...current.words]); setSW([]); }
+    if (current?.type === "word_order" && current.words) {
+      setAW([...current.words]);
+      setSW([]);
+    }
     if (current?.type === "match_pairs" && current.pairs) {
       const left = current.pairs.map((p) => p[0]);
       const right = current.pairs.map((p) => p[1]);
@@ -1396,15 +2035,28 @@ function LearnInner() {
 
   const handleBreakChoice = useCallback((takeBreak: boolean) => {
     setShowBreak(false);
-    if (breakTimerRef.current) { clearInterval(breakTimerRef.current); breakTimerRef.current = null; setBreakTimer(null); }
+    if (breakTimerRef.current) {
+      clearInterval(breakTimerRef.current);
+      breakTimerRef.current = null;
+      setBreakTimer(null);
+    }
+    
     if (takeBreak) {
       startBreakTimer(2);
-      setEx((prev) => ({ ...prev, customImage: "/images/nuri/nuri-relax.png", nuriSpeech: t("page_relax_message") }));
+      setEx((prev) => ({
+        ...prev,
+        customImage: "/images/nuri/nuri-relax.png",
+        nuriSpeech: t("page_relax_message"),
+      }));
       showMessage(t("page_take_break"), "info");
       playRelaxMusic();
     } else {
       stopRelaxMusic();
-      setEx((prev) => ({ ...prev, customImage: "/images/nuri/nuri-thinking.png", nuriSpeech: randomLine("thinking", native) }));
+      setEx((prev) => ({
+        ...prev,
+        customImage: "/images/nuri/nuri-thinking.png",
+        nuriSpeech: randomLine("thinking", native),
+      }));
       exerciseStartTime.current = Date.now();
       showMessage(t("page_continue_learning"), "success");
       setBreakShown(true);
@@ -1414,17 +2066,28 @@ function LearnInner() {
   const handleRefill = useCallback(() => {
     try {
       const result = buyHeartRefill();
-      if (result.success) { setHearts(result.rewards.hearts); setTotal(result.rewards.totalHAYQ); }
-      else showMessage(result.error || t("page_refill_failed"), "error");
-    } catch { showMessage(t("page_something_went_wrong"), "error"); }
+      if (result.success) {
+        setHearts(result.rewards.hearts);
+        setTotal(result.rewards.totalHAYQ);
+      } else {
+        showMessage(result.error || t("page_refill_failed"), "error");
+      }
+    } catch (error) {
+      showMessage(t("page_something_went_wrong"), "error");
+    }
   }, [showMessage, t]);
 
   const handlePractice = useCallback(() => {
     try {
       const result = earnHeartByPractice();
-      if (result.success) setHearts(result.rewards.hearts);
-      else showMessage(t("page_already_full_hearts"), "info");
-    } catch { showMessage(t("page_something_went_wrong"), "error"); }
+      if (result.success) {
+        setHearts(result.rewards.hearts);
+      } else {
+        showMessage(t("page_already_full_hearts"), "info");
+      }
+    } catch (error) {
+      showMessage(t("page_something_went_wrong"), "error");
+    }
   }, [showMessage, t]);
 
   const exitToWorld = useCallback(() => {
@@ -1434,42 +2097,110 @@ function LearnInner() {
 
   const unlockAllLessons = useCallback(() => {
     if (!lesson) return;
-    const unlockedExercises = lesson.exercises.map((ex) => ({ ...ex, unlocked: true }));
-    setLesson((prev) => prev ? { ...prev, exercises: unlockedExercises } : prev);
+    
+    const unlockedExercises = lesson.exercises.map((ex) => ({
+      ...ex,
+      unlocked: true,
+    }));
+    
+    setLesson((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        exercises: unlockedExercises,
+      };
+    });
+    
     showMessage(t("page_all_lessons_unlocked"), "success");
   }, [lesson, showMessage, t]);
 
-  async function saveCompletionToSupabase(lessonId: string, accuracy: number, hayqEarned: number, crownLevel: number, durationMs: number) {
+  async function saveCompletionToSupabase(
+    lessonId: string,
+    accuracy: number,
+    hayqEarned: number,
+    crownLevel: number,
+    durationMs: number
+  ) {
     try {
       const deviceId = getOrCreateDeviceId();
       await supabase.from("lesson_completions" as any).upsert(
-        { device_id: deviceId, lesson_id: lessonId, accuracy, hayq_earned: hayqEarned, crown_level: crownLevel, duration_ms: durationMs },
+        {
+          device_id: deviceId,
+          lesson_id: lessonId,
+          accuracy,
+          hayq_earned: hayqEarned,
+          crown_level: crownLevel,
+          duration_ms: durationMs,
+        },
         { onConflict: "device_id,lesson_id" }
       );
-    } catch {}
+    } catch {
+      // silently ignore
+    }
   }
 
   if (complete && lesson) {
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
     const crownCount = accuracy >= 90 ? 3 : accuracy >= 70 ? 2 : 1;
     const lessonTitle = typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en;
+
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
-        <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", damping: 12 }} className="mb-6">
-          <img src="/images/nuri/nuri-celebrating.png" alt={t("page_celebrating")} className="w-40 h-40 object-contain" />
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", damping: 12 }}
+          className="mb-6"
+        >
+          <img
+            src="/images/nuri/nuri-celebrating.png"
+            alt={t("page_celebrating")}
+            className="w-40 h-40 object-contain"
+          />
         </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-3xl font-bold mb-1 text-gray-900 dark:text-white">
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-3xl font-bold mb-1 text-gray-900 dark:text-white"
+        >
           {accuracy >= 90 ? t("page_perfect") : accuracy >= 70 ? t("page_great") : t("page_good_job")}
         </motion.h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-gray-500 dark:text-gray-400 text-sm mb-6"
+        >
           {lessonTitle}
         </motion.p>
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="flex gap-3 mb-6">
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4 }}
+          className="flex gap-3 mb-6"
+        >
           {[1, 2, 3].map((n) => (
-            <motion.span key={n} initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.4 + n * 0.12, type: "spring", damping: 8 }} className={`text-4xl ${n <= crownCount ? "opacity-100" : "opacity-20 grayscale"}`}>⭐</motion.span>
+            <motion.span
+              key={n}
+              initial={{ scale: 0, rotate: -30 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.4 + n * 0.12, type: "spring", damping: 8 }}
+              className={`text-4xl ${n <= crownCount ? "opacity-100" : "opacity-20 grayscale"}`}
+            >
+              ⭐
+            </motion.span>
           ))}
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="grid grid-cols-3 gap-3 mb-6 w-full max-w-xs">
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="grid grid-cols-3 gap-3 mb-6 w-full max-w-xs"
+        >
           <GlassCard variant="compact" className="p-3 text-center">
             <p className="text-2xl font-bold text-emerald-500">{accuracy}%</p>
             <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_accuracy")}</p>
@@ -1483,11 +2214,25 @@ function LearnInner() {
             <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_time")}</p>
           </GlassCard>
         </motion.div>
+
         <div className="w-full max-w-xs bg-white/10 dark:bg-gray-700 rounded-full h-2.5 mb-6 overflow-hidden">
-          <motion.div className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400" initial={{ width: 0 }} animate={{ width: `${accuracy}%` }} transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }} />
+          <motion.div
+            className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
+            initial={{ width: 0 }}
+            animate={{ width: `${accuracy}%` }}
+            transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
+          />
         </div>
-        <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} onClick={() => router.push("/world")} className="w-full max-w-xs py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
-          <Trophy size={18} /> {t("page_continue")} →
+
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          onClick={() => router.push("/world")}
+          className="w-full max-w-xs py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
+        >
+          <Trophy size={18} />
+          {t("page_continue")} →
         </motion.button>
       </div>
     );
@@ -1495,20 +2240,35 @@ function LearnInner() {
 
   if (hearts <= 0) {
     const minutesLeft = Math.ceil(countdown / 60000);
+
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
         <GlassCard variant="premium" className="p-8 max-w-sm w-full">
           <div className="text-6xl mb-4">💔</div>
           <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{t("page_no_hearts")}</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{t("page_next_heart_in", { minutes: minutesLeft })}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+            {t("page_next_heart_in", { minutes: minutesLeft })}
+          </p>
+
           <div className="space-y-3">
-            <button onClick={handlePractice} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300">
-              <RefreshCw size={16} /> {t("page_practice_for_heart")}
+            <button
+              onClick={handlePractice}
+              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"
+            >
+              <RefreshCw size={16} />
+              {t("page_practice_for_heart")}
             </button>
-            <button onClick={handleRefill} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
-              <Coins size={16} /> {t("page_refill_hearts", { hayq: totalHAYQ })}
+            <button
+              onClick={handleRefill}
+              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
+            >
+              <Coins size={16} />
+              {t("page_refill_hearts", { hayq: totalHAYQ })}
             </button>
-            <button onClick={exitToWorld} className="w-full text-gray-500 dark:text-gray-400 text-sm hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+            <button
+              onClick={exitToWorld}
+              className="w-full text-gray-500 dark:text-gray-400 text-sm hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            >
               ← {t("page_back_to_world")}
             </button>
           </div>
@@ -1525,7 +2285,11 @@ function LearnInner() {
         <div className="container-main py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowExitConfirm(true)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-900 dark:text-white" aria-label={t("page_back")}>
+              <button
+                onClick={() => setShowExitConfirm(true)}
+                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-900 dark:text-white"
+                aria-label={t("page_back")}
+              >
                 <ArrowLeft size={20} />
               </button>
               <div>
@@ -1539,79 +2303,145 @@ function LearnInner() {
                 </p>
               </div>
             </div>
+
             <div className="flex items-center gap-2 flex-wrap justify-end">
-              <button onClick={toggleMode} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${isProfessional ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30" : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"}`} title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}>
+              <button
+                onClick={toggleMode}
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${
+                  isProfessional
+                    ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30"
+                    : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"
+                }`}
+                title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}
+              >
                 {isProfessional ? <GraduationCap size={14} /> : <Gamepad2 size={14} />}
-                <span className="hidden sm:inline">{isProfessional ? t("page_professional_short") : t("page_amateur_short")}</span>
+                <span className="hidden sm:inline">
+                  {isProfessional ? t("page_professional_short") : t("page_amateur_short")}
+                </span>
               </button>
-              <button onClick={toggleAudio} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${audioEnabled ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"}`} title={audioEnabled ? t("page_audio_on") : t("page_audio_off")}>
+
+              <button
+                onClick={toggleAudio}
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${
+                  audioEnabled
+                    ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30"
+                    : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"
+                }`}
+                title={audioEnabled ? t("page_audio_on") : t("page_audio_off")}
+              >
                 {audioEnabled ? <Volume2 size={14} /> : <VolumeOff size={14} />}
-                <span className="hidden sm:inline">{audioEnabled ? t("page_audio_on") : t("page_audio_off")}</span>
+                <span className="hidden sm:inline">
+                  {audioEnabled ? t("page_audio_on") : t("page_audio_off")}
+                </span>
               </button>
+
               <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
                 <Heart size={16} className="text-red-500" />
                 <span className="text-sm font-bold text-gray-900 dark:text-white">{hearts}</span>
               </div>
+
               {attempts > 0 && ex.state !== "correct" && (
                 <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
                   <span className="text-xs text-yellow-500">❌</span>
                   <span className="text-sm font-bold text-yellow-500">{attempts}/3</span>
                 </div>
               )}
+
               {currentStreak > 1 && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30">
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
                   <Flame size={14} className="text-orange-500" />
                   <span className="text-sm font-bold text-orange-500">{currentStreak}</span>
                 </div>
               )}
+
               <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
                 <Coins size={16} className="text-yellow-500" />
                 <span className="text-sm font-bold text-gray-900 dark:text-white">{totalHAYQ}</span>
               </div>
-              <button onClick={() => setShowStatsPanel(!showStatsPanel)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400" title={t("page_stats")}>
+
+              <button
+                onClick={() => setShowStatsPanel(!showStatsPanel)}
+                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400"
+                title={t("page_stats")}
+              >
                 <BarChart3 size={18} />
               </button>
             </div>
           </div>
 
           <div className="mt-2 w-full h-1.5 rounded-full bg-white/10 dark:bg-gray-700 overflow-hidden">
-            <motion.div className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400" initial={{ width: 0 }} animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5 }}
+            />
           </div>
 
           {isPlaying && (
             <p className="text-xs text-blue-400 animate-pulse mt-1.5 flex items-center gap-1">
-              <Mic size={12} className="animate-pulse" /> {t("page_speaking")}
+              <Mic size={12} className="animate-pulse" />
+              {t("page_speaking")}
             </p>
           )}
-
+          
           {breakTimer !== null && (
             <p className="text-xs text-green-400 animate-pulse mt-1.5 flex items-center gap-1">
-              <Clock size={12} className="animate-pulse" /> {t("page_break_remaining", { time: formatBreakTime(breakTimer) })}
+              <Clock size={12} className="animate-pulse" />
+              {t("page_break_remaining", { time: formatBreakTime(breakTimer) })}
             </p>
           )}
 
           {isRelaxing && (
             <p className="text-xs text-green-400/60 mt-1.5 flex items-center gap-1 animate-pulse">
-              <Play size={12} className="animate-pulse" /> 🎵 {t("page_relax_music")}
+              <Play size={12} className="animate-pulse" />
+              🎵 {t("page_relax_music")}
             </p>
           )}
         </div>
       </header>
 
+      {/* 🪙 HAYQ Coin Animation — OUTSIDE flex to prevent shaking */}
       <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
 
       <AnimatePresence>
         {showStatsPanel && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden border-b border-white/20 dark:border-white/5">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-b border-white/20 dark:border-white/5"
+          >
             <div className="container-main py-3">
               <GlassCard variant="premium" className="p-4">
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
-                  <div><div className="text-lg font-bold text-emerald-500">{stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_correct")}</div></div>
-                  <div><div className="text-lg font-bold text-red-500">{stats.total - stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_wrong")}</div></div>
-                  <div><div className="text-lg font-bold text-yellow-500">{stats.hayqEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">HAYQ</div></div>
-                  <div><div className="text-lg font-bold text-emerald-500">{stats.seedsEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">🌱 {t("page_seeds")}</div></div>
-                  <div><div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_best_streak")}</div></div>
-                  <div><div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_time")}</div></div>
+                  <div>
+                    <div className="text-lg font-bold text-emerald-500">{stats.correct}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_correct")}</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-red-500">{stats.total - stats.correct}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_wrong")}</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-yellow-500">{stats.hayqEarned}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">HAYQ</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-emerald-500">{stats.seedsEarned}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">🌱 {t("page_seeds")}</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_best_streak")}</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_time")}</div>
+                  </div>
+                </div>
+                <div className="mt-2 text-center text-xs text-blue-500">
+                  {t("page_online_mode_detail", { native, learning: learningLang, wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only") })}
                 </div>
               </GlassCard>
             </div>
@@ -1624,10 +2454,15 @@ function LearnInner() {
           <div className="min-h-[80px] w-full flex items-start justify-center">
             <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
           </div>
-
+          
+          
           {ex.customImage ? (
             <div className="w-[100px] h-[100px] relative">
-              <img src={ex.customImage} alt={t("page_nuri")} className="w-full h-full object-contain" />
+              <img
+                src={ex.customImage}
+                alt={t("page_nuri")}
+                className="w-full h-full object-contain"
+              />
             </div>
           ) : (
             <Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />
@@ -1645,10 +2480,14 @@ function LearnInner() {
                 {current.prompt[native] ?? current.prompt["en"]}
               </h3>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <button onClick={() => {
-                  const promptText = current.prompt?.[native] || current.prompt?.en || "";
-                  playAudioWithFallback(promptText, native, 'prompt').catch(() => {});
-                }} className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors" title={t("page_listen")}>
+                <button
+                  onClick={() => {
+                    const promptText = current.prompt?.[native] || current.prompt?.en || "";
+                    playAudioWithFallback(promptText, native, 'prompt').catch(() => {});
+                  }}
+                  className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
+                  title={t("page_listen")}
+                >
                   <Volume2 size={18} />
                 </button>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/40 dark:bg-white/10 text-gray-500 dark:text-gray-400">
@@ -1660,14 +2499,16 @@ function LearnInner() {
             <div className="min-h-[40px] mb-4">
               {current.hint && ex.state === "incorrect" && attempts > 0 && current.hint[native] && (
                 <p className="text-sm text-amber-400 flex items-center gap-2">
-                  <Sparkles size={14} /> {current.hint[native]}
+                  <Sparkles size={14} />
+                  {current.hint[native]}
                 </p>
               )}
             </div>
 
             {ex.state === "incorrect" && attempts < 2 && (
               <p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2">
-                <AlertCircle size={14} /> {t("page_attempts_left", { count: attemptsLeft })}
+                <AlertCircle size={14} />
+                {t("page_attempts_left", { count: attemptsLeft })}
               </p>
             )}
 
@@ -1678,7 +2519,9 @@ function LearnInner() {
                 </p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white mb-2">✅ {current.targetAnswer}</p>
                 {current.acceptableAnswers && current.acceptableAnswers.length > 1 && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}
+                  </p>
                 )}
                 {current.hint?.[native] && (
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">💡 {current.hint[native]}</p>
@@ -1691,8 +2534,14 @@ function LearnInner() {
                 <WordOrderInput
                   selected={selectedWords}
                   available={availWords}
-                  onSelect={(w) => { setSW([...selectedWords, w]); setAW(availWords.filter((x) => x !== w)); }}
-                  onDeselect={(w) => { setAW([...availWords, w]); setSW(selectedWords.filter((x) => x !== w)); }}
+                  onSelect={(w) => {
+                    setSW([...selectedWords, w]);
+                    setAW(availWords.filter((x) => x !== w));
+                  }}
+                  onDeselect={(w) => {
+                    setAW([...availWords, w]);
+                    setSW(selectedWords.filter((x) => x !== w));
+                  }}
                   disabled={ex.state !== "idle"}
                   t={t}
                 />
@@ -1702,7 +2551,12 @@ function LearnInner() {
                   targetAnswer={current.targetAnswer}
                   userAnswer={ex.userAnswer}
                   state={ex.state}
-                  onSelect={(opt) => { if (ex.state === "idle") { setEx({ ...ex, userAnswer: opt }); setTimeout(() => submitRef.current?.(opt), 50); } }}
+                  onSelect={(opt) => {
+                    if (ex.state === "idle") {
+                      setEx({ ...ex, userAnswer: opt });
+                      setTimeout(() => submitRef.current?.(opt), 50);
+                    }
+                  }}
                   disabled={ex.state !== "idle"}
                 />
               ) : current.type === "match_pairs" && current.pairs ? (
@@ -1722,7 +2576,9 @@ function LearnInner() {
                     delete newMap[left];
                     setMatchPairsMap(newMap);
                     setEx((prev) => ({ ...prev, matchPairsAnswer: newMap }));
-                    if (right) setMatchRightItems((prev) => [...prev, right]);
+                    if (right) {
+                      setMatchRightItems((prev) => [...prev, right]);
+                    }
                   }}
                   disabled={ex.state !== "idle"}
                 />
@@ -1755,8 +2611,12 @@ function LearnInner() {
             {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (
-                  <button onClick={() => submit()} className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
-                    <Send size={18} /> {t("page_check_enter")}
+                  <button
+                    onClick={() => submit()}
+                    className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
+                  >
+                    <Send size={18} />
+                    {t("page_check_enter")}
                   </button>
                 )}
                 {current?.type === "multiple_choice" && (
@@ -1767,38 +2627,47 @@ function LearnInner() {
                 )}
               </div>
             ) : ex.state === "incorrect" && attempts < 2 ? (
-              <button onClick={retrySameStep} className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300">
-                <RefreshCw size={18} /> {t("page_try_again_left", { count: attemptsLeft })}
+              <button
+                onClick={retrySameStep}
+                className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"
+              >
+                <RefreshCw size={18} />
+                {t("page_try_again_left", { count: attemptsLeft })}
               </button>
             ) : (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={`border rounded-xl p-5 backdrop-blur-sm ${
-                  ex.state === "correct" ? "border-emerald-500/30 bg-emerald-500/10" : "border-red-500/30 bg-red-500/10"
+                  ex.state === "correct"
+                    ? "border-emerald-500/30 bg-emerald-500/10"
+                    : "border-red-500/30 bg-red-500/10"
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5">
-                    {ex.state === "correct" ? <CheckCircle size={24} className="text-emerald-500" /> : <XCircle size={24} className="text-red-500" />}
+                    {ex.state === "correct" ? (
+                      <CheckCircle size={24} className="text-emerald-500" />
+                    ) : (
+                      <XCircle size={24} className="text-red-500" />
+                    )}
                   </div>
                   <div className="flex-1">
-                    {/* ✅ FEEDBACK — handled via inline map */}
                     <p className="font-medium text-gray-900 dark:text-white">
-                      {translateFeedback(ex.feedback, t)}
+                      {translateFeedback(ex.feedback, locale)}
                     </p>
-
                     {ex.corrections && ex.corrections.length > 0 && (
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                         <ul className="list-disc list-inside">
                           {ex.corrections
                             .map((c) => typeof c === 'string' ? c.trim() : '')
                             .filter((c) => c.length > 0)
-                            .map((c, i) => (<li key={i}>{c}</li>))}
+                            .map((c, i) => (
+                              <li key={i}>{c}</li>
+                            ))}
                         </ul>
                       </div>
                     )}
-
                     {ex.hayqEarned > 0 && (
                       <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-xs font-bold">
                         <Coins size={12} /> +{ex.hayqEarned} HAYQ
@@ -1808,11 +2677,21 @@ function LearnInner() {
                 </div>
                 {ex.state === "correct" ? (
                   <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden">
-                    <motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.2, ease: "linear" }} className="h-full bg-emerald-500" />
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2.2, ease: "linear" }}
+                      className="h-full bg-emerald-500"
+                    />
                   </div>
                 ) : (
                   <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden">
-                    <motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.8, ease: "linear" }} className="h-full bg-red-500" />
+                    <motion.div
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 2.8, ease: "linear" }}
+                      className="h-full bg-red-500"
+                    />
                   </div>
                 )}
               </motion.div>
@@ -1823,17 +2702,37 @@ function LearnInner() {
 
       <AnimatePresence>
         {showExitConfirm && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm" onClick={() => setShowExitConfirm(false)}>
-            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} onClick={(e) => e.stopPropagation()} className="max-w-sm w-full">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowExitConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-sm w-full"
+            >
               <GlassCard variant="premium" className="max-w-sm w-full p-6 text-center">
                 <Nuri mood="sad" size={80} />
                 <h3 className="text-xl font-black text-gray-900 dark:text-white mt-3 mb-2">{t("page_exit_lesson_title")}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">{t("page_exit_lesson_description")}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
+                  {t("page_exit_lesson_description")}
+                </p>
                 <div className="flex gap-3">
-                  <button onClick={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold text-gray-700 dark:text-gray-300 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors">
+                  <button
+                    onClick={() => setShowExitConfirm(false)}
+                    className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold text-gray-700 dark:text-gray-300 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
+                  >
                     {t("page_stay")}
                   </button>
-                  <button onClick={exitToWorld} className="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
+                  <button
+                    onClick={exitToWorld}
+                    className="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
+                  >
                     {t("page_exit")}
                   </button>
                 </div>
@@ -1846,10 +2745,14 @@ function LearnInner() {
       <AnimatePresence>
         {toastMessage && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border px-6 py-3 max-w-sm rounded-xl text-center shadow-xl ${
-              toastType === "success" ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                : toastType === "error" ? "border-red-500/30 text-red-600 dark:text-red-400"
+              toastType === "success"
+                ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                : toastType === "error"
+                ? "border-red-500/30 text-red-600 dark:text-red-400"
                 : "border-blue-500/30 text-blue-600 dark:text-blue-400"
             }`}
           >
@@ -1863,7 +2766,13 @@ function LearnInner() {
 
 export default function LearnPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-transparent dark:bg-transparent"><div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin border-red-600" /></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-transparent dark:bg-transparent">
+          <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin border-red-600" />
+        </div>
+      }
+    >
       <LearnInner />
     </Suspense>
   );

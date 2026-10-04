@@ -47,8 +47,6 @@ import {
   Play,
   Pause,
   Unlock,
-  Wifi,
-  WifiOff,
   Music,
   Radio,
   Speaker,
@@ -2358,11 +2356,6 @@ function LearnInner() {
               🎵 {t("page_relax_music")}
             </p>
           )}
-
-          <p className="text-xs text-blue-400/80 mt-1.5 flex items-center gap-1">
-            <Wifi size={12} />
-            {t("page_online_mode", { native, learning: learningLang, wav: isWAVAvailable ? t("page_wav_available") : t("page_tts_only") })}
-          </p>
         </div>
       </header>
 
@@ -2618,7 +2611,11 @@ function LearnInner() {
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900 dark:text-white">{ex.feedback}</p>
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      {typeof ex.feedback === "string" && ex.feedback.startsWith("InteractiveLesson_")
+                        ? t(ex.feedback)
+                        : ex.feedback}
+                    </p>
                     {ex.corrections && ex.corrections.length > 0 && (
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                         <p className="font-semibold">{t("page_correct_answer")}</p>

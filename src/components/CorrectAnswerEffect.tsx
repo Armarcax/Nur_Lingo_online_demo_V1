@@ -18,7 +18,7 @@ interface Particle {
   color: string;
   delay: number;
   duration: number;
-  shape: "circle" | "square" | "star" | "coin" | "sparkle";
+  shape: "circle" | "square" | "star" | "coin" | "sparkle" | "emoji";
   emoji?: string;
 }
 

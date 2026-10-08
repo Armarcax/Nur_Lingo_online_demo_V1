@@ -82,6 +82,7 @@ import type { LanguageCode } from "@/lib/audio";
 import { resolveExerciseAudio, resolveOfflineAudio } from '@/lib/offline/offline-audio-resolver';
 import { useI18n } from "@/hooks/useI18n";
 import { translateOfflineLessonForLang } from "@/lib/offline/offline-lesson-translator";
+import { CorrectAnswerEffect } from "@/components/CorrectAnswerEffect";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 
@@ -906,6 +907,7 @@ function LearnInner() {
   const [isRelaxing, setIsRelaxing] = useState(false);
 
   const [toastMessage, setToastMessage] = useState("");
+  const [showCorrectEffect, setShowCorrectEffect] = useState(false);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
   const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
@@ -1749,6 +1751,10 @@ function LearnInner() {
           return newStreak;
         });
 
+        // 🎉 Trigger correct answer effect
+        setShowCorrectEffect(true);
+        setTimeout(() => setShowCorrectEffect(false), 2200);
+
         setEx((s) => ({
           ...s,
           state: "correct",
@@ -1950,6 +1956,7 @@ function LearnInner() {
     }
 
     if (nextIdx < totalExercises) {
+      setShowCorrectEffect(false);
       setEx({
         index: nextIdx,
         userAnswer: "",
@@ -2403,6 +2410,12 @@ function LearnInner() {
 
       {/* 🪙 HAYQ Coin Animation — OUTSIDE flex to prevent shaking */}
       <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
+
+      {/* 🎉 Correct Answer Effect — confetti burst */}
+      <CorrectAnswerEffect
+        show={showCorrectEffect}
+        intensity={ex.score >= 0.98 ? "perfect" : "normal"}
+      />
 
       <AnimatePresence>
         {showStatsPanel && (

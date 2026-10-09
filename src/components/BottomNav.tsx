@@ -16,6 +16,7 @@ import {
   User,
   Users,
   Volume2,
+  Car,
 } from "lucide-react";
 
 interface NavItem {
@@ -40,10 +41,10 @@ interface BottomNavProps {
   isOffline?: boolean;
 }
 
-export default function BottomNav({ 
+export default function BottomNav({
   showProfile = false,
   onTestAudio,
-  isOffline = false
+  isOffline = false,
 }: BottomNavProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -61,6 +62,12 @@ export default function BottomNav({
       labelKey: "BottomNav_world",
       icon: <Globe size={20} strokeWidth={1.8} />,
       activeIcon: <Globe size={20} strokeWidth={2.5} />,
+    },
+    {
+      href: "/drive-test",
+      labelKey: "BottomNav_drive",
+      icon: <Car size={20} strokeWidth={1.8} />,
+      activeIcon: <Car size={20} strokeWidth={2.5} />,
     },
     {
       href: "/dictionary",
@@ -114,35 +121,39 @@ export default function BottomNav({
 
   // ✅ Test audio handler
   const handleTestAudio = () => {
-    console.log('🔊🔊🔊 TEST AUDIO BUTTON CLICKED FROM BOTTOM NAV!');
-    
+    console.log("🔊🔊🔊 TEST AUDIO BUTTON CLICKED FROM BOTTOM NAV!");
+
     if (onTestAudio) {
       onTestAudio();
       return;
     }
-    
-    const testPath = resolveOfflineAudio('greet_hello', 'hy')?.url;
+
+    const testPath = resolveOfflineAudio("greet_hello", "hy")?.url;
     if (!testPath) {
-      console.error('[offline-audio] test key is unresolved', { audioKey: 'greet_hello', language: 'hy' });
+      console.error("[offline-audio] test key is unresolved", {
+        audioKey: "greet_hello",
+        language: "hy",
+      });
       return;
     }
-    console.log('🎯 Testing path:', testPath);
-    
+    console.log("🎯 Testing path:", testPath);
+
     const audio = new Audio(testPath);
-    audio.play()
+    audio
+      .play()
       .then(() => {
-        console.log('✅ Audio started playing!');
-        alert(t('AudioControls__speaking'));
+        console.log("✅ Audio started playing!");
+        alert(t("AudioControls__speaking"));
       })
       .catch((err) => {
-        console.error('❌ Playback error:', err);
-        alert(t('page__audio_playback_failed') + ' ' + err.message);
+        console.error("❌ Playback error:", err);
+        alert(t("page__audio_playback_failed") + " " + err.message);
       });
   };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50">
-      <div className="relative mx-2 mb-3 md:mx-auto md:max-w-lg">
+      <div className="relative mx-2 mb-3 md:mx-auto md:max-w-2xl">
         {/* Floating theme toggle and test button */}
         <div className="absolute -top-14 right-0 flex items-center gap-2">
           {/* ✅ TEST AUDIO BUTTON */}
@@ -150,17 +161,21 @@ export default function BottomNav({
             onClick={handleTestAudio}
             className={`p-2 rounded-xl transition-all duration-200 border ${
               isOffline
-                ? 'bg-green-500/20 text-green-500 border-green-500/30 hover:bg-green-500/30'
-                : 'bg-yellow-500/20 text-yellow-500 border-yellow-500/30 hover:bg-yellow-500/30'
+                ? "bg-green-500/20 text-green-500 border-green-500/30 hover:bg-green-500/30"
+                : "bg-yellow-500/20 text-yellow-500 border-yellow-500/30 hover:bg-yellow-500/30"
             }`}
-            title={isOffline ? t('OfflineIndicator__offline') : t('AudioControls__speaking')}
+            title={
+              isOffline
+                ? t("OfflineIndicator__offline")
+                : t("AudioControls__speaking")
+            }
           >
             <Volume2 size={16} />
           </button>
-          
+
           <ThemeToggle size="sm" />
         </div>
-        
+
         {/* ✅ Glassmorphism BottomNav */}
         <div className="rounded-2xl px-1 py-2 shadow-2xl border border-white/10 bg-background/60 backdrop-blur-xl transition-all duration-300 hover:shadow-glass-lg">
           <div className="flex items-center justify-around gap-0.5">
@@ -181,7 +196,11 @@ export default function BottomNav({
                         scale: active ? 1.1 : 1,
                         y: active ? -2 : 0,
                       }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
                     >
                       <span
                         className={`transition-colors duration-200 ${
@@ -190,7 +209,7 @@ export default function BottomNav({
                             : "text-gray-500 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
                         }`}
                       >
-                        {active ? (item.activeIcon || item.icon) : item.icon}
+                        {active ? item.activeIcon || item.icon : item.icon}
                       </span>
 
                       {active && (
@@ -247,15 +266,15 @@ export default function BottomNav({
 /**
  * BottomNav with safe area padding for mobile
  */
-export function BottomNavWithSafeArea({ 
+export function BottomNavWithSafeArea({
   showProfile = false,
   onTestAudio,
-  isOffline = false
+  isOffline = false,
 }: BottomNavProps) {
   return (
     <div className="pb-[76px] md:pb-0">
-      <BottomNav 
-        showProfile={showProfile} 
+      <BottomNav
+        showProfile={showProfile}
         onTestAudio={onTestAudio}
         isOffline={isOffline}
       />

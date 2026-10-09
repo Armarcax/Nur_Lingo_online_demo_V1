@@ -83,7 +83,6 @@ import { resolveExerciseAudio, resolveOfflineAudio } from '@/lib/offline/offline
 import { useI18n } from "@/hooks/useI18n";
 import { translateOfflineLessonForLang } from "@/lib/offline/offline-lesson-translator";
 import { CorrectAnswerEffect } from "@/components/CorrectAnswerEffect";
-import { WhyButton } from "@/components/WhyButton";
 // ─── TYPES ────────────────────────────────────────────────────────────
 
 interface MistakeRecord {
@@ -2654,21 +2653,6 @@ function LearnInner() {
                     <p className="font-medium text-gray-900 dark:text-white">
                       {translateFeedback(ex.feedback, locale)}
                     </p>
-                    {/* 🎓 AI Tutor — «Ինչու՞» button */}
-                    {current && (
-                      <div className="mt-2">
-                        <WhyButton
-                          question={current.prompt?.[native] || current.prompt?.en || ""}
-                          userAnswer={ex.userAnswer}
-                          correctAnswer={current.targetAnswer || ""}
-                          wasCorrect={ex.state === "correct"}
-                          exerciseType={current.type || "translation"}
-                          sourceLesson={lesson?.id}
-                          acceptableAnswers={current.acceptableAnswers}
-                          learningLang={learningLang}
-                        />
-                      </div>
-                    )}
                     {ex.corrections && ex.corrections.length > 0 && (
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                         <ul className="list-disc list-inside">

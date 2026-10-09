@@ -99,7 +99,7 @@ export default function DriveTestPage() {
   const L = LABELS[locale as keyof typeof LABELS] || LABELS.hy;
 
   useEffect(() => {
-    setPage("drive-test");
+    setPage("drive-test" as any);
   }, [setPage]);
 
   useEffect(() => {

@@ -39,7 +39,6 @@ const LABELS = {
     percent: "Ճշգրտություն",
     retry: "Կրկին փորձել",
     home: "Գլխավոր",
-    study: "Ուսուցում",
     nuriPerfect: "🏆 Անթերի՛",
     nuriGreat: "🎉 Հիանալի՛",
     nuriGood: "💪 Լավ է!",
@@ -59,7 +58,6 @@ const LABELS = {
     percent: "Accuracy",
     retry: "Try again",
     home: "Home",
-    study: "Study",
     nuriPerfect: "🏆 Perfect!",
     nuriGreat: "🎉 Great!",
     nuriGood: "💪 Good job!",
@@ -79,7 +77,6 @@ const LABELS = {
     percent: "Точность",
     retry: "Попробовать снова",
     home: "Главная",
-    study: "Учёба",
     nuriPerfect: "🏆 Идеально!",
     nuriGreat: "🎉 Отлично!",
     nuriGood: "💪 Хорошо!",
@@ -109,7 +106,7 @@ export default function DriveTestRunner() {
   const [hayqEarned, setHayqEarned] = useState(0);
 
   useEffect(() => {
-    setPage("drive-test");
+    setPage("drive-test" as any);
   }, [setPage]);
 
   useEffect(() => {
@@ -148,9 +145,7 @@ export default function DriveTestRunner() {
     if (mode !== "test") return;
     const total = questions.length;
     if (total === 0) return;
-    const score = Math.round(((correctCount + (currentIdx < total - 1 ? 0 : 0)) / total) * 100);
 
-    // Simple: on finish, current correctCount already has all
     const finalScore = Math.round((correctCount / total) * 100);
 
     try {

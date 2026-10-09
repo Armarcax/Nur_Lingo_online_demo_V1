@@ -1808,7 +1808,7 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-            // 🪙 HAYQ coin animation only — NO auto-advance
+             // 🪙 HAYQ coin animation only — NO auto-advance
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
         // Hide coin animation after 2 seconds
@@ -2688,7 +2688,7 @@ function LearnInner() {
                     )}
                   </div>
                 </div>
-                                {ex.state === "correct" ? (
+                {ex.state === "correct" ? (
                   <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: "0%" }}

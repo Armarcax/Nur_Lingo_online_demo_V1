@@ -1808,30 +1808,15 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-      // 🪙 Trigger HAYQ coin animation + auto-advance (WAITS for audio)
+            // 🪙 HAYQ coin animation only — NO auto-advance
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
-        
-        // ✅ Wait for answer audio to finish, THEN advance
-        answerAudioPromise.finally(() => {
-          setTimeout(() => {
-            setEx((s) => ({ ...s, showCoinAnimation: false }));
-            try { nextRef.current?.(); } catch {}
-          }, 800);
-        });
-      } else {
-        // Wrong answer: only auto-advance if 3 attempts used up
-        const attemptsUsed = attempts + 1;
-        if (attemptsUsed >= 2) {
-          // ✅ Wait for answer audio too
-          answerAudioPromise.finally(() => {
-            setTimeout(() => {
-              try { nextRef.current?.(); } catch {}
-            }, 1500);
-          });
-        }
-        // Otherwise: stay on same question, show retry button
+        // Hide coin animation after 2 seconds
+        setTimeout(() => {
+          setEx((s) => ({ ...s, showCoinAnimation: false }));
+        }, 2000);
       }
+      // ✅ User clicks "Next" button manually — no auto-advance
 
     } catch (error) {
       console.error("Submit error:", error);
@@ -2703,7 +2688,7 @@ function LearnInner() {
                     )}
                   </div>
                 </div>
-                {ex.state === "correct" ? (
+                                {ex.state === "correct" ? (
                   <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: "0%" }}
@@ -2722,6 +2707,22 @@ function LearnInner() {
                     />
                   </div>
                 )}
+
+                {/* ✅ Next button — user controls advance */}
+                <button
+                  onClick={() => {
+                    try { nextRef.current?.(); } catch {}
+                  }}
+                  className={`mt-4 w-full py-3 rounded-xl text-white font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+                    ex.state === "correct"
+                      ? "bg-emerald-500 hover:bg-emerald-600"
+                      : "bg-red-500 hover:bg-red-600"
+                  }`}
+                >
+                  {ex.state === "correct" ? "🎉" : "💪"}{" "}
+                  {locale === "hy" ? "Հաջորդ" : locale === "ru" ? "Далее" : "Next"}
+                  <span>→</span>
+                </button>
               </motion.div>
             )}
           </div>

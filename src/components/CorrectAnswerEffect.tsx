@@ -9,150 +9,210 @@ interface CorrectAnswerEffectProps {
   intensity?: "normal" | "perfect";
 }
 
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  rotation: number;
-  scale: number;
-  color: string;
-  delay: number;
-  duration: number;
-  shape: "circle" | "square" | "star" | "coin" | "sparkle" | "emoji";
-  emoji?: string;
-}
-
-const COLORS = [
-  "#F2A800", // HAYQ gold
-  "#FFD700", // bright gold
-  "#D90012", // Armenian red
-  "#10b981", // emerald
-  "#3b82f6", // blue
-  "#8b5cf6", // purple
-  "#ec4899", // pink
-];
-
-const EMOJIS = ["🪙", "⭐", "✨", "💫", "🌟", "🎉", "🍎", "🏆"];
-
 export function CorrectAnswerEffect({
   show,
   intensity = "normal",
 }: CorrectAnswerEffectProps) {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [isActive, setIsActive] = useState(false);
+  const [flashKey, setFlashKey] = useState(0);
 
   useEffect(() => {
     if (!show) {
-      setParticles([]);
+      setIsActive(false);
       return;
     }
 
-    const count = intensity === "perfect" ? 60 : 35;
-    const newParticles: Particle[] = [];
+    setIsActive(true);
+    setFlashKey((k) => k + 1);
 
-    for (let i = 0; i < count; i++) {
-      const shape =
-        i % 8 === 0
-          ? "emoji"
-          : i % 4 === 0
-          ? "star"
-          : i % 3 === 0
-          ? "sparkle"
-          : i % 2 === 0
-          ? "circle"
-          : "square";
+    // Dynamically import canvas-confetti (SSR safe)
+    let cancelled = false;
 
-      newParticles.push({
-        id: i,
-        x: (Math.random() - 0.5) * 800, // spread horizontally
-        y: -(Math.random() * 600 + 200), // go up
-        rotation: Math.random() * 720 - 360,
-        scale: Math.random() * 0.8 + 0.6,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        delay: Math.random() * 0.3,
-        duration: 1.2 + Math.random() * 0.8,
-        shape: shape as Particle["shape"],
-        emoji:
-          shape === "emoji"
-            ? EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
-            : undefined,
-      });
-    }
+    (async () => {
+      try {
+        const confettiModule = await import("canvas-confetti");
+        const confetti = confettiModule.default;
 
-    setParticles(newParticles);
+        if (cancelled) return;
 
-    // Clear particles after animation
-    const timer = setTimeout(() => setParticles([]), 2200);
-    return () => clearTimeout(timer);
+        // ─── Emoji shapes (HAYQ themed) ───
+        const coin = confetti.shapeFromText({ text: "🪙", scalar: 2.5 });
+        const star = confetti.shapeFromText({ text: "⭐", scalar: 2 });
+        const sparkle = confetti.shapeFromText({ text: "✨", scalar: 1.8 });
+        const trophy = confetti.shapeFromText({ text: "🏆", scalar: 2.2 });
+        const apple = confetti.shapeFromText({ text: "🍎", scalar: 2 });
+        const party = confetti.shapeFromText({ text: "🎉", scalar: 2.4 });
+
+        const isPerfect = intensity === "perfect";
+        const mult = isPerfect ? 1.8 : 1;
+
+        // ─── BURST 1: Center explosion (HAYQ coins + stars) ───
+        confetti({
+          particleCount: Math.round(120 * mult),
+          spread: 160,
+          startVelocity: 70,
+          origin: { y: 0.6, x: 0.5 },
+          shapes: [coin, star, sparkle, trophy, party],
+          scalar: isPerfect ? 1.4 : 1.1,
+          gravity: 0.9,
+          drift: 0,
+          ticks: 250,
+          zIndex: 9998,
+        });
+
+        // ─── BURST 2: Left cannon ───
+        setTimeout(() => {
+          if (cancelled) return;
+          confetti({
+            particleCount: Math.round(50 * mult),
+            angle: 60,
+            spread: 70,
+            origin: { x: 0, y: 0.7 },
+            colors: ["#F2A800", "#FFD700", "#D90012", "#FFFFFF"],
+            shapes: ["circle", "square", "star"],
+            scalar: 1.2,
+            gravity: 0.85,
+            ticks: 250,
+            zIndex: 9998,
+          });
+        }, 100);
+
+        // ─── BURST 3: Right cannon ───
+        setTimeout(() => {
+          if (cancelled) return;
+          confetti({
+            particleCount: Math.round(50 * mult),
+            angle: 120,
+            spread: 70,
+            origin: { x: 1, y: 0.7 },
+            colors: ["#F2A800", "#FFD700", "#0033A0", "#FFFFFF"],
+            shapes: ["circle", "square", "star"],
+            scalar: 1.2,
+            gravity: 0.85,
+            ticks: 250,
+            zIndex: 9998,
+          });
+        }, 100);
+
+        // ─── BURST 4: Armenian flag fountain (perfect only) ───
+        if (isPerfect) {
+          setTimeout(() => {
+            if (cancelled) return;
+            confetti({
+              particleCount: 70,
+              spread: 180,
+              startVelocity: 45,
+              origin: { y: 0.5, x: 0.5 },
+              colors: ["#D90012", "#0033A0", "#F2A800"],
+              shapes: ["square"],
+              scalar: 1.5,
+              gravity: 0.9,
+              ticks: 300,
+              zIndex: 9998,
+            });
+          }, 250);
+
+          // Extra apple + trophy burst
+          setTimeout(() => {
+            if (cancelled) return;
+            confetti({
+              particleCount: 30,
+              spread: 120,
+              startVelocity: 40,
+              origin: { y: 0.4, x: 0.5 },
+              shapes: [apple, trophy],
+              scalar: 2,
+              gravity: 1,
+              ticks: 250,
+              zIndex: 9998,
+            });
+          }, 400);
+
+          // Side sparkle rain (perfect only)
+          setTimeout(() => {
+            if (cancelled) return;
+            confetti({
+              particleCount: 40,
+              angle: 90,
+              spread: 140,
+              startVelocity: 30,
+              origin: { x: 0.5, y: 0.3 },
+              shapes: [sparkle, star],
+              scalar: 1.5,
+              gravity: 0.7,
+              ticks: 300,
+              zIndex: 9998,
+            });
+          }, 550);
+        }
+
+        // ─── BURST 5: Continuous sparkle rain ───
+        const end = Date.now() + (isPerfect ? 2000 : 1200);
+        const interval = setInterval(() => {
+          if (cancelled || Date.now() > end) {
+            clearInterval(interval);
+            return;
+          }
+          confetti({
+            particleCount: 3,
+            angle: 90,
+            spread: 90,
+            startVelocity: 20,
+            origin: { x: Math.random(), y: -0.1 },
+            shapes: [sparkle, star],
+            scalar: 1.2,
+            gravity: 0.6,
+            ticks: 300,
+            zIndex: 9998,
+          });
+        }, 80);
+
+        setTimeout(() => clearInterval(interval), isPerfect ? 2200 : 1400);
+      } catch (error) {
+        console.warn("Confetti effect failed:", error);
+      }
+    })();
+
+    const timer = setTimeout(() => {
+      if (!cancelled) setIsActive(false);
+    }, intensity === "perfect" ? 2500 : 1800);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [show, intensity]);
 
   return (
     <AnimatePresence>
-      {particles.length > 0 && (
-        <div className="fixed inset-0 pointer-events-none z-[9998] overflow-hidden">
-          {particles.map((p) => (
-            <motion.div
-              key={p.id}
-              initial={{
-                x: 0,
-                y: 0,
-                opacity: 1,
-                scale: 0,
-                rotate: 0,
-              }}
-              animate={{
-                x: p.x,
-                y: p.y,
-                opacity: [1, 1, 0.8, 0],
-                scale: [0, p.scale, p.scale, 0],
-                rotate: p.rotation,
-              }}
-              transition={{
-                duration: p.duration,
-                delay: p.delay,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="absolute left-1/2 top-1/2 will-change-transform"
-              style={{
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              {p.shape === "emoji" && p.emoji ? (
-                <span className="text-3xl">{p.emoji}</span>
-              ) : p.shape === "star" ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill={p.color}>
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ) : p.shape === "sparkle" ? (
-                <svg width="16" height="16" viewBox="0 0 24 24" fill={p.color}>
-                  <path d="M12 0l2 10 10 2-10 2-2 10-2-10-10-2 10-2z" />
-                </svg>
-              ) : (
-                <div
-                  className={
-                    p.shape === "circle"
-                      ? "rounded-full"
-                      : "rounded-sm"
-                  }
-                  style={{
-                    width: "12px",
-                    height: "12px",
-                    backgroundColor: p.color,
-                    boxShadow: `0 0 8px ${p.color}80`,
-                  }}
-                />
-              )}
-            </motion.div>
-          ))}
+      {isActive && (
+        <>
+          {/* ─── LAYER 0: Screen flash (very subtle) ─── */}
+          <motion.div
+            key={`flash-${flashKey}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.15, 0] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="fixed inset-0 pointer-events-none z-[9996]"
+            style={{
+              background:
+                intensity === "perfect"
+                  ? "radial-gradient(circle at center, #F2A800 0%, transparent 60%)"
+                  : "radial-gradient(circle at center, #10b981 0%, transparent 60%)",
+            }}
+          />
 
-          {/* Central glow pulse */}
+          {/* ─── LAYER 1: Central glow pulse ─── */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{
-              scale: [0, 2.5, 3.5],
-              opacity: [0, 0.5, 0],
+              scale: [0, 2.5, 4],
+              opacity: [0, 0.6, 0],
             }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 1.4, ease: "easeOut" }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none z-[9997]"
             style={{
               width: "200px",
               height: "200px",
@@ -161,7 +221,77 @@ export function CorrectAnswerEffect({
               } 0%, transparent 70%)`,
             }}
           />
-        </div>
+
+          {/* ─── LAYER 2: Perfect — extra ring pulse ─── */}
+          {intensity === "perfect" && (
+            <>
+              <motion.div
+                initial={{ scale: 0, opacity: 0.8 }}
+                animate={{ scale: [0, 3, 5], opacity: [0.8, 0.4, 0] }}
+                transition={{ duration: 1.8, ease: "easeOut" }}
+                className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 pointer-events-none z-[9997]"
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  borderColor: "#F2A800",
+                }}
+              />
+              <motion.div
+                initial={{ scale: 0, opacity: 0.6 }}
+                animate={{ scale: [0, 4, 7], opacity: [0.6, 0.3, 0] }}
+                transition={{ duration: 2, ease: "easeOut", delay: 0.2 }}
+                className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 pointer-events-none z-[9997]"
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  borderColor: "#FFD700",
+                }}
+              />
+            </>
+          )}
+
+          {/* ─── LAYER 3: Corner sparkles (perfect only) ─── */}
+          {intensity === "perfect" && (
+            <>
+              {[
+                { x: "10%", y: "15%", delay: 0 },
+                { x: "90%", y: "15%", delay: 0.15 },
+                { x: "10%", y: "85%", delay: 0.3 },
+                { x: "90%", y: "85%", delay: 0.45 },
+              ].map((pos, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ scale: 0, opacity: 0, rotate: 0 }}
+                  animate={{
+                    scale: [0, 1.5, 0],
+                    opacity: [0, 1, 0],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    delay: pos.delay,
+                    ease: "easeOut",
+                  }}
+                  className="fixed pointer-events-none z-[9997]"
+                  style={{
+                    left: pos.x,
+                    top: pos.y,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <div
+                    className="text-6xl"
+                    style={{
+                      filter: "drop-shadow(0 0 20px #F2A800)",
+                    }}
+                  >
+                    ✨
+                  </div>
+                </motion.div>
+              ))}
+            </>
+          )}
+        </>
       )}
     </AnimatePresence>
   );

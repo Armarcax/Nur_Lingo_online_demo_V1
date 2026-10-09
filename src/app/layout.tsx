@@ -1,26 +1,37 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
+import {
+  Inter,
+  Space_Mono,
+  Noto_Sans_Armenian,
+  Noto_Serif_Armenian,
+} from "next/font/google";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
-// ❌ REMOVED: import { OfflineIndicatorAuto } from "@/components/OfflineIndicator";
 import { NuriProvider } from "@/components/NuriProvider";
 import { ThemeBackground } from "@/components/ThemeBackground";
 import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+
+const notoSansArmenian = Noto_Sans_Armenian({
+  subsets: ["armenian", "latin"],
+  variable: "--font-armenian",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
+
+const notoSerifArmenian = Noto_Serif_Armenian({
+  subsets: ["armenian", "latin"],
+  variable: "--font-armenian-serif",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
   weight: ["300", "400", "500", "600", "700", "800", "900"],
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
-  weight: ["600", "700", "800", "900"],
 });
 
 const spaceMono = Space_Mono({
@@ -127,7 +138,7 @@ export default function RootLayout({
     <html
       lang="hy"
       dir="ltr"
-      className={`${inter.variable} ${playfair.variable} ${spaceMono.variable}`}
+      className={`${notoSansArmenian.variable} ${notoSerifArmenian.variable} ${inter.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -136,14 +147,6 @@ export default function RootLayout({
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
         />
         <script
           dangerouslySetInnerHTML={{
@@ -179,43 +182,24 @@ export default function RootLayout({
             `,
           }}
         />
-        
+
         {/* ✅ CACHE BUSTING */}
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
-        
-        {/* ✅ BASE STYLES FOR BACKGROUND VISIBILITY */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            /* Ensure background image is visible */
-            body {
-              background-color: transparent !important;
-              background-image: none !important;
-            }
-            .layer-image {
-              opacity: 1 !important;
-            }
-          `
-        }} />
       </head>
 
-      <body className="min-h-screen font-sans antialiased transition-colors duration-300 bg-transparent">
-        {/* ✅ I18n Provider - Must be at the top level */}
+      <body className="min-h-screen antialiased transition-colors duration-300 bg-transparent">
         <I18nProvider>
-          {/* ✅ Nuri Provider - Full Emotion Engine */}
           <NuriProvider>
-            {/* ✅ Theme Background — uses palette selection from localStorage */}
             <ThemeBackground language="hy" showSelector={true}>
-              {/* ✅ Background layers for visibility */}
+              {/* Background subtle gradient */}
               <div className="fixed inset-0 -z-20 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 dark:to-black/20" />
               </div>
 
-              {/* ✅ Service Worker Register - Offline support */}
+              {/* Service Worker Register */}
               <ServiceWorkerRegister />
-
-              {/* ❌ REMOVED: OfflineIndicatorAuto - now managed by useLessonAudio hook */}
 
               {/* Content */}
               <div className="relative z-10 container-main">

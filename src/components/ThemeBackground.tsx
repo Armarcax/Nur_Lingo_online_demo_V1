@@ -110,8 +110,8 @@ export const THEME_BACKGROUNDS: ThemeBackgroundItem[] = [
     id: "im",
     title: { hy: "Ես եմ", en: "I'm", ru: "Я" },
     dark: "/images/im-dark.jpeg",
-    light: "/images/im-dark.jpeg",
-    preview: "/images/im-dark.jpeg",
+    light: "/images/Just-do-it-light.jpeg",
+    preview: "/images/Just-do-it-light.jpeg",
   },
   {
     id: "yinYangSwan",

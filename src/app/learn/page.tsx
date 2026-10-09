@@ -1807,14 +1807,23 @@ function LearnInner() {
         customImage: s.customImage,
       }));
 
-             // 🪙 HAYQ coin animation only — NO auto-advance
+            // 🪙 HAYQ coin animation + auto-advance (only for correct)
       if (correct) {
         setEx((s) => ({ ...s, showCoinAnimation: true }));
+
         // Hide coin animation after 2 seconds
         setTimeout(() => {
           setEx((s) => ({ ...s, showCoinAnimation: false }));
         }, 2000);
+
+        // ✅ Auto-advance after 2.5 seconds (enough to see feedback + confetti)
+        answerAudioPromise.finally(() => {
+          setTimeout(() => {
+            try { nextRef.current?.(); } catch {}
+          }, 2500);
+        });
       }
+      // ❌ Wrong answer: NO auto-advance — user clicks Retry button
       // ✅ User clicks "Next" button manually — no auto-advance
 
     } catch (error) {
@@ -2691,22 +2700,6 @@ function LearnInner() {
                     />
                   </div>
                 )}
-
-                {/* ✅ Next button — user controls advance */}
-                <button
-                  onClick={() => {
-                    try { nextRef.current?.(); } catch {}
-                  }}
-                  className={`mt-4 w-full py-3 rounded-xl text-white font-bold text-sm transition-all flex items-center justify-center gap-2 ${
-                    ex.state === "correct"
-                      ? "bg-emerald-500 hover:bg-emerald-600"
-                      : "bg-red-500 hover:bg-red-600"
-                  }`}
-                >
-                  {ex.state === "correct" ? "🎉" : "💪"}{" "}
-                  {locale === "hy" ? "Հաջորդ" : locale === "ru" ? "Далее" : "Next"}
-                  <span>→</span>
-                </button>
               </motion.div>
             )}
           </div>

@@ -96,6 +96,7 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.43.0",
     "@vercel/speed-insights": "^2.0.0",
+    "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -118,6 +119,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^20",
     "@types/react": "^18",

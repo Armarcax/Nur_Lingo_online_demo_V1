@@ -22,6 +22,8 @@ interface TestIndex {
   questionCount: number;
   imageCount: number;
   file: string;
+  progress?: number;
+  bestScore?: number;
 }
 
 const STORAGE_KEY = "nur_drive_test_progress";
@@ -30,6 +32,7 @@ const LABELS = {
   hy: {
     title: "Վարորդական թեստ",
     subtitle: "ՀՀ տեսական քննություն · 10 թեստ",
+    total: "Ընդհանուր",
     questions: "հարց",
     test: "Թեստ",
     startTest: "Սկսել թեստ",
@@ -45,6 +48,7 @@ const LABELS = {
   en: {
     title: "Driving Test",
     subtitle: "Armenian theory exam · 10 tests",
+    total: "Total",
     questions: "questions",
     test: "Test",
     startTest: "Start Test",
@@ -60,6 +64,7 @@ const LABELS = {
   ru: {
     title: "Водительский тест",
     subtitle: "Теория РА · 10 тестов",
+    total: "Всего",
     questions: "вопросов",
     test: "Тест",
     startTest: "Начать тест",
@@ -82,7 +87,7 @@ interface ProgressRecord {
 }
 
 export default function DriveTestPage() {
-  const { t, locale } = useI18n();
+  const { locale } = useI18n();
   const { setPage } = useNuri();
   const [tests, setTests] = useState<TestIndex[]>([]);
   const [loading, setLoading] = useState(true);
@@ -109,31 +114,36 @@ export default function DriveTestPage() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) setProgress(JSON.parse(saved));
-    } catch {}
+    } catch (e) {
+      console.warn("Failed to parse drive test progress:", e);
+    }
   }, []);
 
   const completedCount = Object.values(progress).filter((p) => p.completed).length;
 
+  const nuriText =
+    completedCount > 0
+      ? L.nuriHappy.replace("{count}", String(completedCount))
+      : loading
+      ? L.nuriWelcome
+      : L.nuriIdle;
+
   return (
     <div className="min-h-screen bg-transparent pb-24">
       <div className="container-main py-6">
+        {/* Nuri */}
         <div className="flex items-center gap-4 mb-6">
           <Nuri mood={completedCount > 0 ? "happy" : "idle"} size={72} />
           <div className="flex-1">
             <NuriSpeech
-              text={
-                completedCount > 0
-                  ? L.nuriHappy.replace("{count}", String(completedCount))
-                  : loading
-                  ? L.nuriWelcome
-                  : L.nuriIdle
-              }
+              text={nuriText}
               mood={completedCount > 0 ? "happy" : "idle"}
             />
           </div>
           <ThemeToggle />
         </div>
 
+        {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
             <Car size={28} className="text-red-500" />
@@ -144,12 +154,14 @@ export default function DriveTestPage() {
           </p>
         </div>
 
+        {/* Loading */}
         {loading && (
           <div className="flex items-center justify-center py-20">
             <Loader2 size={32} className="animate-spin text-red-500" />
           </div>
         )}
 
+        {/* Test Grid */}
         {!loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {tests.map((test, i) => {

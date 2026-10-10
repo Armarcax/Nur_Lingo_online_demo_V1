@@ -1,19 +1,18 @@
 // src/app/drive-test/[testNum]/page.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Loader2,
-  Trophy,
-  Target,
-  BookOpen,
   Home,
   RotateCcw,
   Coins,
+  Target,
+  BookOpen,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -33,7 +32,6 @@ const LABELS = {
     study: "Ուսուցում",
     loading: "Բեռնվում է...",
     loadingHint: "Nuri-ն ամեն ինչ պատրաստում է...",
-    results: "Արդյունքներ",
     correct: "Ճիշտ",
     wrong: "Սխալ",
     percent: "Ճշգրտություն",
@@ -52,7 +50,6 @@ const LABELS = {
     study: "Study",
     loading: "Loading...",
     loadingHint: "Nuri is preparing everything...",
-    results: "Results",
     correct: "Correct",
     wrong: "Wrong",
     percent: "Accuracy",
@@ -71,7 +68,6 @@ const LABELS = {
     study: "Учёба",
     loading: "Загрузка...",
     loadingHint: "Нурик всё готовит...",
-    results: "Результаты",
     correct: "Правильно",
     wrong: "Неправильно",
     percent: "Точность",
@@ -86,11 +82,22 @@ const LABELS = {
   },
 };
 
-export default function DriveTestRunner() {
+// ─── Loading fallback for Suspense ────────────────────────────────
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
+      <Loader2 size={32} className="animate-spin text-red-500 mb-3" />
+      <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
+    </div>
+  );
+}
+
+// ─── Inner component (uses useSearchParams → must be inside Suspense) ───
+function DriveTestRunnerInner() {
   const params = useParams();
   const search = useSearchParams();
   const router = useRouter();
-  const { t, locale } = useI18n();
+  const { locale } = useI18n();
   const { setPage } = useNuri();
 
   const testNum = Number(params?.testNum);
@@ -124,6 +131,15 @@ export default function DriveTestRunner() {
         setLoading(false);
       });
   }, [testNum]);
+
+  // Stop browser speech when component unmounts (navigating away)
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined") {
+        window.speechSynthesis?.cancel();
+      }
+    };
+  }, []);
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
@@ -160,7 +176,9 @@ export default function DriveTestRunner() {
         lastAttempt: new Date().toISOString(),
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-    } catch {}
+    } catch (e) {
+      console.warn("Failed to save drive test progress:", e);
+    }
   };
 
   const handleRetry = () => {
@@ -170,7 +188,7 @@ export default function DriveTestRunner() {
     setHayqEarned(0);
   };
 
-  // Loading
+  // ─── Loading ───────────────────────────────────────────────
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
@@ -183,7 +201,7 @@ export default function DriveTestRunner() {
     );
   }
 
-  // Not found
+  // ─── Not found ─────────────────────────────────────────────
   if (questions.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-transparent">
@@ -200,7 +218,7 @@ export default function DriveTestRunner() {
     );
   }
 
-  // Results
+  // ─── Results ───────────────────────────────────────────────
   if (finished) {
     const total = questions.length;
     const percent = Math.round((correctCount / total) * 100);
@@ -314,7 +332,7 @@ export default function DriveTestRunner() {
     );
   }
 
-  // Active question
+  // ─── Active question ───────────────────────────────────────
   const current = questions[currentIdx];
   const progress = ((currentIdx + 1) / questions.length) * 100;
 
@@ -349,7 +367,6 @@ export default function DriveTestRunner() {
             <ThemeToggle />
           </div>
 
-          {/* Progress bar */}
           <div className="mt-2 w-full h-1.5 rounded-full bg-white/20 dark:bg-white/10 overflow-hidden">
             <motion.div
               animate={{ width: `${progress}%` }}
@@ -367,6 +384,7 @@ export default function DriveTestRunner() {
       {/* Question */}
       <div className="container-main py-6">
         <QuestionCard
+          key={current.id}
           question={current}
           index={currentIdx}
           total={questions.length}
@@ -379,5 +397,14 @@ export default function DriveTestRunner() {
 
       <BottomNav />
     </div>
+  );
+}
+
+// ─── Default export with Suspense ──────────────────────────────
+export default function DriveTestRunner() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <DriveTestRunnerInner />
+    </Suspense>
   );
 }

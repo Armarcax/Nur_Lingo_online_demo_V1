@@ -325,36 +325,94 @@ export function QuestionCard({
       }
 
       // ═══════════ ANSWER ═══════════
-      // Drive-test-ի պատասխանները միշտ հայերեն են
+      // Պատասխանը հնչում է ցուցադրվող լեզվով (`lang`) → համապատասխան WAV/TTS
       if (type === "answer") {
-        if (wavClient && isWAVAvailable) {
-          try {
-            await wavClient.playAnswer(text, pairKey, "Ani");
-            console.log(`✅ WAV (Ani) for answer (${pairKey}): ${text}`);
-            return;
-          } catch (error: any) {
-            if (
-              error?.message === "AUTOPLAY_BLOCKED" ||
-              error?.name === "NotAllowedError"
-            ) {
-              console.log("⏸️ WAV autoplay blocked for answer, falling back to TTS");
-              try {
-                await playAudioWithFemaleVoice(text, "hy");
-                return;
-              } catch (ttsError) {
-                console.warn("TTS also failed:", ttsError);
+        // ─── Armenian: WAV → TTS ───
+        if (lang === "hy") {
+          if (wavClient && isWAVAvailable) {
+            try {
+              await wavClient.playAnswer(text, pairKey, "Ani");
+              console.log(`✅ WAV (Ani) for answer (${pairKey}): ${text}`);
+              return;
+            } catch (error: any) {
+              if (
+                error?.message === "AUTOPLAY_BLOCKED" ||
+                error?.name === "NotAllowedError"
+              ) {
+                console.log("⏸️ WAV autoplay blocked for answer, falling back to TTS");
+                try {
+                  await playAudioWithFemaleVoice(text, "hy");
+                  return;
+                } catch (ttsError) {
+                  console.warn("TTS also failed:", ttsError);
+                }
+              } else {
+                console.warn("WAV failed:", error);
               }
-            } else {
-              console.warn("WAV failed:", error);
             }
+          }
+          try {
+            await playAudioWithFemaleVoice(text, "hy");
+            return;
+          } catch (error) {
+            console.warn("TTS failed:", error);
           }
         }
 
-        try {
-          await playAudioWithFemaleVoice(text, "hy");
-          return;
-        } catch (error) {
-          console.warn("TTS failed:", error);
+        // ─── English: API → TTS ───
+        if (lang === "en") {
+          try {
+            const response = await fetch("/api/generate-tts-en", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (response.ok) {
+              const data = await response.json();
+              if (data.success && data.audioUrl) {
+                const audio = new Audio(data.audioUrl);
+                await audio.play();
+                console.log(`✅ English TTS for answer: ${text}`);
+                return;
+              }
+            }
+          } catch (error) {
+            console.warn("English TTS failed:", error);
+          }
+          try {
+            await playAudioWithFemaleVoice(text, "en");
+            return;
+          } catch (error) {
+            console.warn("TTS failed:", error);
+          }
+        }
+
+        // ─── Russian: API → TTS ───
+        if (lang === "ru") {
+          try {
+            const response = await fetch("/api/generate-tts-ru", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (response.ok) {
+              const data = await response.json();
+              if (data.success && data.audioUrl) {
+                const audio = new Audio(data.audioUrl);
+                await audio.play();
+                console.log(`✅ Russian TTS for answer: ${text}`);
+                return;
+              }
+            }
+          } catch (error) {
+            console.warn("Russian TTS failed:", error);
+          }
+          try {
+            await playAudioWithFemaleVoice(text, "ru");
+            return;
+          } catch (error) {
+            console.warn("TTS failed:", error);
+          }
         }
       }
 

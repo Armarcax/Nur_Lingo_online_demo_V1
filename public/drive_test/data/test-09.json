@@ -1,0 +1,3745 @@
+{
+  "testNumber": 9,
+  "totalQuestions": 119,
+  "questions": [
+    {
+      "id": "drv_t09_q001",
+      "testNumber": 9,
+      "sourceQuestionNumber": 1,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Կարմիր գույնի առկայծող փարոսիկ միացրած, կանգնած վիճակում գտնվող տրանսպորտային միջոցին մոտենալիս` տվյալ ուղղությամբ երթեւեկող տրանսպորտային միջոցների վարորդները պետք է",
+        "en": "When approaching a stopped vehicle with a flashing red beacon switched on, drivers of vehicles proceeding in that direction must:",
+        "ru": "При приближении к остановившемуся транспортному средству с включённым проблесковым маячком красного цвета водители транспортных средств, движущихся в данном направлении, должны:"
+      },
+      "options": {
+        "hy": [
+          "Կանգ առնեն եւ շարունակեն երթեւեկությունը միայն թույլտվություն ստանալուց հետո։",
+          "Իջեցնեն արագությունը, որպեսզի անհրաժեշտության դեպքում հնարավորություն ունենան անմիջապես կանգ առնել։",
+          "Շարունակեն երթեւեկությունը:"
+        ],
+        "en": [
+          "Stop and continue only after receiving permission.",
+          "Reduce speed so that they can stop immediately if necessary.",
+          "Continue driving."
+        ],
+        "ru": [
+          "Остановиться и продолжить движение только после получения разрешения.",
+          "Снизить скорость, чтобы при необходимости иметь возможность немедленно остановиться.",
+          "Продолжить движение."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t09_q002",
+      "testNumber": 9,
+      "sourceQuestionNumber": 2,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կապույտ գույնի առկայծող փարոսիկ եւ հատուկ ձայնային ազդանշան միացրած տրանսպորտային միջոցի մոտենալու դեպքում տրանսպորտային միջոցների վարորդները պետք է",
+        "en": "When a vehicle with a flashing blue beacon and a special audible signal activated is approaching, drivers of vehicles must:",
+        "ru": "При приближении транспортного средства с включённым проблесковым маячком синего цвета и специальным звуковым сигналом водители транспортных средств должны:"
+      },
+      "options": {
+        "hy": [
+          "Շարունակեն երթեւեկությունը:",
+          "Զիջեն ճանապարհը՝ նշված տրանսպորտային միջոցի անխոչընդոտ անցումն ապահովելու համար։",
+          "Իջեցնեն արագությունը եւ զիջեն ճանապարհը՝ նշված տրանսպորտային միջոցի անխոչընդոտ անցումն ապահովելու համար։"
+        ],
+        "en": [
+          "Continue driving.",
+          "Yield to ensure the unobstructed passage of that vehicle.",
+          "Reduce speed and yield to ensure the unobstructed passage of that vehicle."
+        ],
+        "ru": [
+          "Продолжить движение.",
+          "Уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства.",
+          "Снизить скорость и уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t09_q003",
+      "testNumber": 9,
+      "sourceQuestionNumber": 3,
+      "category": "other",
+      "prompt": {
+        "hy": "Պարտադի՞ր է արդյոք օրվա լուսավոր ժամերին լապտերների մոտակա լույսը միացված լինի մոպեդների վրա։",
+        "en": "Is it mandatory to have the low-beam headlights switched on during daylight hours on mopeds?",
+        "ru": "Обязательно ли в светлое время суток включать ближний свет фар на мопеде?"
+      },
+      "options": {
+        "hy": [
+          "Պարտադիր է",
+          "Պարտադիր չէ"
+        ],
+        "en": [
+          "Mandatory",
+          "Not mandatory"
+        ],
+        "ru": [
+          "Обязательно.",
+          "Не обязательно."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t09_q004",
+      "testNumber": 9,
+      "sourceQuestionNumber": 4,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում կանոնները չեն պարտադրում տալ նախազգուշացնող ազդանշան։",
+        "en": "In which case do the rules not require a warning signal to be given?",
+        "ru": "В каком случае Правила не требуют подачи предупреждающего сигнала?"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկելի մասի եզրին կանգառ կատարելիս",
+          "«Վտանգավոր շրջադարձ» նշանի ազդեցության ճանապարհի կորացումից առաջ",
+          "Երթեւեկության հարեւան գոտի վերադասավորվելուց առաջ"
+        ],
+        "en": [
+          "Before stopping at the edge of the roadway.",
+          "Before a curve in the road within the area of effect of a “Dangerous Turn” sign.",
+          "Before changing to an adjacent traffic lane."
+        ],
+        "ru": [
+          "Перед остановкой у края проезжей части.",
+          "Перед изгибом дороги в зоне действия знака «Опасный поворот».",
+          "Перед перестроением на соседнюю полосу движения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t09_q005",
+      "testNumber": 9,
+      "sourceQuestionNumber": 5,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Վերադասավորումից առաջ նախազգուշացնող ազդանշանը պետք է տրվի",
+        "en": "Before changing lanes, a warning signal must be given:",
+        "ru": "Перед перестроением предупреждающий сигнал должен быть подан:"
+      },
+      "options": {
+        "hy": [
+          "Անմիջապես մանեւրը սկսելուց առաջ։",
+          "Անմիջապես մանեւրն սկսելուց հետո։",
+          "Նախօրոք՝ մինչեւ մանեւրը սկսելը։"
+        ],
+        "en": [
+          "Immediately before beginning the maneuver.",
+          "Immediately after beginning the maneuver.",
+          "In advance, before beginning the maneuver."
+        ],
+        "ru": [
+          "Непосредственно перед началом манёвра.",
+          "Непосредственно после начала манёвра.",
+          "Заблаговременно, до начала манёвра."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t09_q006",
+      "testNumber": 9,
+      "sourceQuestionNumber": 6,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Մանեւր կատարելիս նախազգուշացնող ազդանշանը պետք է տրվի",
+        "en": "When performing a maneuver, a warning signal must be given:",
+        "ru": "При выполнении манёвра предупреждающий сигнал должен быть подан:"
+      },
+      "options": {
+        "hy": [
+          "Երթևեկության ուղղությունը փոխելուց առաջ։",
+          "Երթևեկության ուղղությունը փոխելու ընթացքում։",
+          "Նախօրոք՝ մինչեւ երթևեկության ուղղություն փոխելը։"
+        ],
+        "en": [
+          "Before changing the direction of traffic.",
+          "While changing the direction of traffic.",
+          "In advance, before changing the direction of traffic."
+        ],
+        "ru": [
+          "Перед изменением направления движения.",
+          "Во время изменения направления движения.",
+          "Заблаговременно, до изменения направления движения."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q007",
+      "testNumber": 9,
+      "sourceQuestionNumber": 7,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Վարորդի կողմից ձեռքով տրվող նախազգուշացնող ազդանշանը դադարեցվում է",
+        "en": "A warning signal given by hand must be discontinued:",
+        "ru": "Предупреждающий сигнал, подаваемый водителем рукой, прекращается:"
+      },
+      "options": {
+        "hy": [
+          "Մանեւրն սկսելուց անմիջապես առաջ։",
+          "Մանեւրն ավարտելուց անմիջապես հետո։",
+          "Մանեւրը կատարելու ժամանակ։"
+        ],
+        "en": [
+          "Immediately before beginning the maneuver.",
+          "Immediately after completing the maneuver.",
+          "While performing the maneuver."
+        ],
+        "ru": [
+          "Непосредственно перед началом манёвра.",
+          "Непосредственно после завершения манёвра.",
+          "Во время выполнения манёвра."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q008",
+      "testNumber": 9,
+      "sourceQuestionNumber": 8,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում վարորդը պետք է տա նախազգուշացնող ազդանշան՝ կանգառ կատարելուց առաջ։",
+        "en": "In which case must the driver give a warning signal before stopping?",
+        "ru": "В каком случае водитель должен подать предупреждающий сигнал перед остановкой?"
+      },
+      "options": {
+        "hy": [
+          "Եթե նրա հետեւից երթեւեկում է այլ տրանսպորտային միջոց",
+          "Միայն բնակավայրերում",
+          "Բոլոր դեպքերում"
+        ],
+        "en": [
+          "If another vehicle is proceeding behind the driver.",
+          "Only in populated areas.",
+          "In all cases."
+        ],
+        "ru": [
+          "Если за ним движется другое транспортное средство.",
+          "Только в населённых пунктах.",
+          "Во всех случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q009",
+      "testNumber": 9,
+      "sourceQuestionNumber": 9,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ձայնային ազդանշանների կրկնողությամբ ընդհանուր տագնապի ինչպիսի՞ ազդանշան է վարորդը պարտավոր տալ երկաթուղային գծանցի վրա հարկադրական կանգառ կատարելու դեպքում։",
+        "en": "If forced to stop on a railroad crossing, what general alarm signal must the driver give by repeated horn signals?",
+        "ru": "Какой сигнал общей тревоги повторяющимися звуковыми сигналами водитель обязан подать при вынужденной остановке на железнодорожном переезде?"
+      },
+      "options": {
+        "hy": [
+          "Երեք երկար եւ մեկ կարճ",
+          "Մեկ երկար եւ երեք կարճ",
+          "Մեկ երկար եւ երկու կարճ"
+        ],
+        "en": [
+          "Three long and one short.",
+          "One long and three short.",
+          "One long and two short."
+        ],
+        "ru": [
+          "Три длинных и один короткий.",
+          "Один длинный и три коротких.",
+          "Один длинный и два коротких."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q010",
+      "testNumber": 9,
+      "sourceQuestionNumber": 10,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Շրջադարձի լուսային ցուցիչի բացակայության կամ անսարքության դեպքում ձեռքով տրվող նախազգուշացնող ազդանշանը դադարեցվում է",
+        "en": "If a turn signal is absent or malfunctioning, a warning signal given by hand must be discontinued:",
+        "ru": "При отсутствии или неисправности светового указателя поворота предупреждающий сигнал, подаваемый рукой, прекращается:"
+      },
+      "options": {
+        "hy": [
+          "Մանեւրն սկսելուց անմիջապես առաջ։",
+          "Մանեւրն ավարտելուց անմիջապես հետո։",
+          "Մանեւրը կատարելու ժամանակ։"
+        ],
+        "en": [
+          "Immediately before beginning the maneuver.",
+          "Immediately after completing the maneuver.",
+          "While performing the maneuver."
+        ],
+        "ru": [
+          "Непосредственно перед началом манёвра.",
+          "Непосредственно после завершения манёвра.",
+          "Во время выполнения манёвра."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q011",
+      "testNumber": 9,
+      "sourceQuestionNumber": 11,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Երկաթուղային գծանցի վրա տրվող ընդհանուր տագնապի ազդանշան է հանդիսանում ձայնային ազդանշանների հետեւյալ համակցությունը՝",
+        "en": "The following combination of horn signals constitutes the general alarm signal given at a railroad crossing:",
+        "ru": "Сигналом общей тревоги, подаваемым на железнодорожном переезде, является следующая комбинация звуковых сигналов:"
+      },
+      "options": {
+        "hy": [
+          "Երկու երկար եւ երկու կարճ։",
+          "Մեկ երկար եւ երեք կարճ։",
+          "Երեք երկար եւ երեք կարճ։",
+          "Երեք երկար եւ մեկ կարճ։"
+        ],
+        "en": [
+          "Two long and two short.",
+          "One long and three short.",
+          "Three long and three short.",
+          "Three long and one short."
+        ],
+        "ru": [
+          "Два длинных и два коротких.",
+          "Один длинный и три коротких.",
+          "Три длинных и три коротких.",
+          "Три длинных и один короткий."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t09_q012",
+      "testNumber": 9,
+      "sourceQuestionNumber": 12,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է վարորդը տալիս ձախ շրջադարձի ազդանշան։",
+        "en": "In which image is the driver giving a left-turn signal?",
+        "ru": "На каком рисунке водитель подаёт сигнал поворота налево?"
+      },
+      "options": {
+        "hy": [
+          "1",
+          "2",
+          "3"
+        ],
+        "en": [
+          "1",
+          "2",
+          "3"
+        ],
+        "ru": [
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-03-img-01.jpeg",
+      "imageFilename": "page-03-img-01.jpeg",
+      "page": 3
+    },
+    {
+      "id": "drv_t09_q013",
+      "testNumber": 9,
+      "sourceQuestionNumber": 13,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Կարմիր գույնի առկայծող փարոսիկ միացրած, կանգնած վիճակում գտնվող տրանսպորտային միջոցին մոտենալիս` տվյալ ուղղությամբ երթեւեկող տրանսպորտային միջոցների վարորդները պետք է",
+        "en": "When approaching a stationary vehicle with a red flashing beacon activated, drivers proceeding in the same direction must:",
+        "ru": "При приближении к стоящему транспортному средству с включённым проблесковым маячком красного цвета водители транспортных средств, движущихся в данном направлении, должны:"
+      },
+      "options": {
+        "hy": [
+          "Կանգ առնեն եւ շարունակեն երթեւեկությունը միայն թույլտվություն ստանալուց հետո։",
+          "Իջեցնեն արագությունը, որպեսզի անհրաժեշտության դեպքում հնարավորություն ունենան անմիջապես կանգ առնել։"
+        ],
+        "en": [
+          "Stop and continue only after receiving permission.",
+          "Reduce speed so that they can stop immediately if necessary."
+        ],
+        "ru": [
+          "Остановиться и продолжить движение только после получения разрешения.",
+          "Снизить скорость, чтобы при необходимости иметь возможность немедленно остановиться."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t09_q014",
+      "testNumber": 9,
+      "sourceQuestionNumber": 14,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների վրա ի՞նչ նպատակով են տեղադրված նարնջագույն կամ դեղին գույնի առկայծող փարոսիկներ։",
+        "en": "For what purpose are orange or yellow flashing beacons installed on vehicles?",
+        "ru": "С какой целью на транспортных средствах устанавливаются проблесковые маячки оранжевого или жёлтого цвета?"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկության մյուս մասնակիցների նկատմամբ երթեւեկության առավելություն ստանալու համար",
+          "Երթեւեկության մյուս մասնակիցներին վտանգի մասին նախազգուշացնելու համար"
+        ],
+        "en": [
+          "To obtain right-of-way over other road users.",
+          "To warn other road users of danger."
+        ],
+        "ru": [
+          "Для получения преимущества в движении перед другими участниками дорожного движения.",
+          "Для предупреждения других участников дорожного движения об опасности."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t09_q015",
+      "testNumber": 9,
+      "sourceQuestionNumber": 15,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կապույտ գույնի առկայծող փարոսիկ եւ հատուկ ձայնային ազդանշան միացրած տրանսպորտային միջոց մոտենալու դեպքում վարորդները պետք է",
+        "en": "When a vehicle with a blue flashing beacon and a special audible signal activated is approaching, drivers must:",
+        "ru": "При приближении транспортного средства с включённым проблесковым маячком синего цвета и специальным звуковым сигналом водители должны:"
+      },
+      "options": {
+        "hy": [
+          "Զիջեն ճանապարհը՝ նշված տրանսպորտային միջոցի անխոչընդոտ անցումն ապահովելու համար։",
+          "Իջեցնեն արագությունը եւ զիջեն ճանապարհը՝ նշված տրանսպորտային միջոցի անխոչընդոտ անցումն ապահովելու համար։"
+        ],
+        "en": [
+          "Yield to ensure the unobstructed passage of that vehicle.",
+          "Reduce speed and yield to ensure the unobstructed passage of that vehicle."
+        ],
+        "ru": [
+          "Уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства.",
+          "Снизить скорость и уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t09_q016",
+      "testNumber": 9,
+      "sourceQuestionNumber": 16,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կապույտ ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The blue automobile will proceed through the intersection:",
+        "ru": "Синий автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը՝ կարմիրի հետ միաժամանակ։",
+          "Երկրորդը՝ կարմիրի հետ միաժամանակ։",
+          "Երրորդը՝ կարմիրի հետ միաժամանակ։"
+        ],
+        "en": [
+          "First, simultaneously with the red automobile.",
+          "Second, simultaneously with the red automobile.",
+          "Third, simultaneously with the red automobile."
+        ],
+        "ru": [
+          "Первым, одновременно с красным.",
+          "Вторым, одновременно с красным.",
+          "Третьим, одновременно с красным."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-04-img-01.jpeg",
+      "imageFilename": "page-04-img-01.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t09_q017",
+      "testNumber": 9,
+      "sourceQuestionNumber": 17,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կապույտ եւ կարմիր գույների առկայծող փարոսիկներ եւ հատուկ ձայնային ազդանշան միացրած տրանսպորտային միջոց մոտենալու դեպքում վարորդները պետք է",
+        "en": "When a vehicle with blue and red flashing beacons and a special audible signal activated is approaching, drivers must:",
+        "ru": "При приближении транспортного средства с включёнными проблесковыми маячками синего и красного цветов и специальным звуковым сигналом водители должны:"
+      },
+      "options": {
+        "hy": [
+          "Զիջեն ճանապարհը՝ նշված տրանսպորտային միջոցի անխոչընդոտ անցումն ապահովելու համար։",
+          "Իջեցնեն արագությունը եւ զիջեն ճանապարհը՝ նշված, ինչպես նաեւ դրանով ուղեկցվող տրանսպորտային միջոցների անխոչընդոտ անցումն ապահովելու համար։"
+        ],
+        "en": [
+          "Yield to ensure the unobstructed passage of that vehicle.",
+          "Reduce speed and yield to ensure the unobstructed passage of that vehicle and the vehicles it is escorting."
+        ],
+        "ru": [
+          "Уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства.",
+          "Снизить скорость и уступить дорогу для обеспечения беспрепятственного проезда указанного транспортного средства, а также сопровождаемых им транспортных средств."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-04-img-02.jpeg",
+      "imageFilename": "page-04-img-02.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t09_q018",
+      "testNumber": 9,
+      "sourceQuestionNumber": 18,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդն ունի առաջնահերթ երթեւեկության իրավունք։",
+        "en": "Which vehicle driver has the right-of-way?",
+        "ru": "Водитель какого транспортного средства имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհը մաքրող մեքենայի վարորդը",
+          "Թեթեւ մարդատար ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The driver of the road-cleaning vehicle.",
+          "The passenger-car driver."
+        ],
+        "ru": [
+          "Водитель машины, выполняющей уборку дороги.",
+          "Водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t09_q019",
+      "testNumber": 9,
+      "sourceQuestionNumber": 19,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Սեւ ավտոմոբիլը խաչմերուկը կանցնի՝",
+        "en": "The black automobile will proceed through the intersection:",
+        "ru": "Чёрный автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։",
+          "Վերջինը։"
+        ],
+        "en": [
+          "First.",
+          "Second.",
+          "Last."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым.",
+          "Последним."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-05-img-01.jpeg",
+      "imageFilename": "page-05-img-01.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t09_q020",
+      "testNumber": 9,
+      "sourceQuestionNumber": 20,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Շտապ օգնության ավտոմոբիլի վարորդը",
+          "Թեթեւ մարդատար ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The ambulance driver.",
+          "The passenger-car driver."
+        ],
+        "ru": [
+          "Водитель автомобиля скорой медицинской помощи.",
+          "Водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-05-img-02.jpeg",
+      "imageFilename": "page-05-img-02.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t09_q021",
+      "testNumber": 9,
+      "sourceQuestionNumber": 21,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կապույտ ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The blue automobile will proceed through the intersection:",
+        "ru": "Синий автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։",
+          "Երրորդը։",
+          "Վերջինը։"
+        ],
+        "en": [
+          "First.",
+          "Second.",
+          "Third.",
+          "Last."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым.",
+          "Третьим.",
+          "Последним."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-09/page-06-img-01.jpeg",
+      "imageFilename": "page-06-img-01.jpeg",
+      "page": 6
+    },
+    {
+      "id": "drv_t09_q022",
+      "testNumber": 9,
+      "sourceQuestionNumber": 22,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Տալի՞ս է արդյոք երթեւեկության առավելություն տրանսպորտային միջոցի վրա միացված դեղին գույնի (նարնջագույն) առկայծող փարոսիկը։",
+        "en": "Does an activated yellow (orange) flashing beacon give a vehicle the right-of-way?",
+        "ru": "Предоставляет ли включённый на транспортном средстве проблесковый маячок жёлтого (оранжевого) цвета преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Տալիս է",
+          "Չի տալիս"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Предоставляет.",
+          "Не предоставляет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t09_q023",
+      "testNumber": 9,
+      "sourceQuestionNumber": 23,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսնասպիտակ գույնի առկայծող փարոսիկները միացրած տրանսպորտային միջոցի վարորդը տալիս է հատուկ ձայնային ազդանշան, որպեսզի",
+        "en": "The driver of a vehicle with white flashing beacons activated gives a special audible signal in order to:",
+        "ru": "Водитель транспортного средства с включённым проблесковым маячком бело-лунного цвета подаёт специальный звуковой сигнал с целью:"
+      },
+      "options": {
+        "hy": [
+          "Ստանա երթեւեկության առավելություն երթեւեկության այլ մասնակիցների նկատմամբ։",
+          "Ոստիկանության ծառայողների եւ այլ անձանց ուշադրությունը գրավելու համար։"
+        ],
+        "en": [
+          "Obtain right-of-way over other road users.",
+          "Attract the attention of police officers and other persons."
+        ],
+        "ru": [
+          "Получения преимущества в движении перед другими участниками дорожного движения.",
+          "Привлечения внимания сотрудников полиции и иных лиц."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t09_q024",
+      "testNumber": 9,
+      "sourceQuestionNumber": 24,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կապույտ գույնի առկայծող փարոսիկով կահավորված տրանսպորտային միջոցի վարորդը երթեւեկության մյուս մասնակիցների նկատմամբ առավելություն ունի, եթե",
+        "en": "The driver of a vehicle equipped with a blue flashing beacon has the right-of-way over other road users if the driver:",
+        "ru": "Водитель транспортного средства, оборудованного проблесковым маячком синего цвета, имеет преимущество перед другими участниками дорожного движения, если:"
+      },
+      "options": {
+        "hy": [
+          "Միացրել է առկայծող փարոսիկը։",
+          "Հատուկ ձայնային ազդանշան է տալիս։",
+          "Միացրել է կապույտ գույնի առկայծող փարոսիկը եւ հատուկ ձայնային ազդանշանը։"
+        ],
+        "en": [
+          "Has activated the flashing beacon.",
+          "Is giving a special audible signal.",
+          "Has activated the blue flashing beacon and the special audible signal."
+        ],
+        "ru": [
+          "Включил проблесковый маячок.",
+          "Подаёт специальный звуковой сигнал.",
+          "Включил проблесковый маячок синего цвета и специальный звуковой сигнал."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t09_q025",
+      "testNumber": 9,
+      "sourceQuestionNumber": 25,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ի՞նչ տարածության վրա է արգելվում վազանցը մինչեւ երկաթուղային գծանցը։",
+        "en": "Within what distance before a railroad crossing is passing prohibited?",
+        "ru": "На каком расстоянии до железнодорожного переезда запрещается обгон?"
+      },
+      "options": {
+        "hy": [
+          "Մինչեւ 50մ գծանցից առաջ։",
+          "Մինչեւ 100մ գծանցից առաջ։",
+          "Մինչեւ 150մ գծանցից առաջ։"
+        ],
+        "en": [
+          "Within 50 m before the crossing.",
+          "Within 100 m before the crossing.",
+          "Within 150 m before the crossing."
+        ],
+        "ru": [
+          "Ближе чем за 50 м до переезда.",
+          "Ближе чем за 100 м до переезда.",
+          "Ближе чем за 150 м до переезда."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t09_q026",
+      "testNumber": 9,
+      "sourceQuestionNumber": 26,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք խաչմերուկում կատարել տրանսպորտային միջոցների վազանց` հատվողի նկատմամբ գլխավոր համարվող ճանապարհի վրա։",
+        "en": "Is passing vehicles at an intersection permitted when proceeding on a road that is the priority road relative to the intersecting road?",
+        "ru": "Разрешается ли на перекрёстке выполнять обгон транспортных средств при движении по дороге, являющейся главной по отношению к пересекаемой?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-07-img-01.jpeg",
+      "imageFilename": "page-07-img-01.jpeg",
+      "page": 7
+    },
+    {
+      "id": "drv_t09_q027",
+      "testNumber": 9,
+      "sourceQuestionNumber": 27,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք թեթեւ մարդատար ավտոմոբիլի վարորդին վազանց կատարել նշված իրադրությունում։",
+        "en": "Is the passenger-car driver permitted to pass in the indicated situation?",
+        "ru": "Разрешается ли водителю легкового автомобиля выполнить обгон в указанной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Թույլատրվում է, եթե մոտոցիկլի արագությունը չի գերազանցում 30 կմ/ժ",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted if the motorcycle’s speed does not exceed 30 km/h.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается, если скорость мотоцикла не превышает 30 км/ч.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t09_q028",
+      "testNumber": 9,
+      "sourceQuestionNumber": 28,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վազանցն արգելվում է",
+        "en": "Passing is prohibited:",
+        "ru": "Обгон запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկներում։",
+          "Երկաթուղային գծանցներից 150 մ առաջ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "At intersections.",
+          "Within 150 m before railroad crossings.",
+          "In both cases."
+        ],
+        "ru": [
+          "На перекрёстках.",
+          "За 150 м до железнодорожных переездов.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t09_q029",
+      "testNumber": 9,
+      "sourceQuestionNumber": 29,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վազանցն արգելվում է",
+        "en": "Passing is prohibited:",
+        "ru": "Обгон запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Կարգավորվող խաչմերուկներում։",
+          "Չկարգավորվող խաչմերուկներում։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "At controlled intersections.",
+          "At uncontrolled intersections.",
+          "In both cases."
+        ],
+        "ru": [
+          "На регулируемых перекрёстках.",
+          "На нерегулируемых перекрёстках.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t09_q030",
+      "testNumber": 9,
+      "sourceQuestionNumber": 30,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք վազանցել ավտոգնացքը տվյալ իրադրությունում, եթե դրա արագությունը չի գերազանցում 30կմ/ժ։",
+        "en": "Is it permitted to pass the road train in this situation if its speed does not exceed 30 km/h?",
+        "ru": "Разрешается ли в данной ситуации обогнать автопоезд, если его скорость не превышает 30 км/ч?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-08-img-01.jpeg",
+      "imageFilename": "page-08-img-01.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t09_q031",
+      "testNumber": 9,
+      "sourceQuestionNumber": 31,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք կանաչ ավտոմոբիլի վարորդին վազանց կատարել։",
+        "en": "Is the driver of the green automobile permitted to pass?",
+        "ru": "Разрешается ли водителю зелёного автомобиля выполнить обгон?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է",
+          "Թույլատրվում է, եթե կարմիր ավտոմոբիլը երթեւեկում է 30 կմ/ժ-ից ցածր արագությամբ"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited.",
+          "Permitted if the red automobile is proceeding at a speed below 30 km/h."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается.",
+          "Разрешается, если красный автомобиль движется со скоростью менее 30 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-08-img-02.jpeg",
+      "imageFilename": "page-08-img-02.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t09_q032",
+      "testNumber": 9,
+      "sourceQuestionNumber": 32,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք կարմիր ավտոմոբիլի վարորդին վազանց կատարել տվյալ իրադրությունում։",
+        "en": "Is the driver of the red automobile permitted to pass in this situation?",
+        "ru": "Разрешается ли водителю красного автомобиля выполнить обгон в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է",
+          "Թույլատրվում է, եթե վազանցվող ավտոմոբիլի արագությունը չի գերազանցում 30 կմ/ժ։"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited.",
+          "Permitted if the speed of the automobile being passed does not exceed 30 km/h."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается.",
+          "Разрешается, если скорость обгоняемого автомобиля не превышает 30 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-09-img-01.jpeg",
+      "imageFilename": "page-09-img-01.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t09_q033",
+      "testNumber": 9,
+      "sourceQuestionNumber": 33,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք նշված տեղում վազանցել ավտոբուսը։",
+        "en": "Is it permitted to pass the bus at the indicated location?",
+        "ru": "Разрешается ли обогнать автобус в указанном месте?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-09-img-02.jpeg",
+      "imageFilename": "page-09-img-02.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t09_q034",
+      "testNumber": 9,
+      "sourceQuestionNumber": 34,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների վազանց նշանակում է",
+        "en": "Passing vehicles means:",
+        "ru": "Обгон транспортных средств — это:"
+      },
+      "options": {
+        "hy": [
+          "Շարժման մեջ գտնվող մեկ կամ մի քանի տրանսպորտային միջոցից առաջ անցնելը` կապված զբաղեցրած գոտուց հանդիպակաց երթեւեկության գոտի դուրս գալու հետ։",
+          "Շարժման մեջ գտնվող մեկ կամ մի քանի տրանսպորտային միջոցից առաջ անցնելը` կապված զբաղեցրած գոտուց դուրս գալու հետ։"
+        ],
+        "en": [
+          "Proceeding ahead of one or more moving vehicles by leaving the occupied lane and entering the oncoming traffic lane.",
+          "Proceeding ahead of one or more moving vehicles by leaving the occupied lane."
+        ],
+        "ru": [
+          "Опережение одного или нескольких движущихся транспортных средств, связанное с выездом с занимаемой полосы на полосу встречного движения.",
+          "Опережение одного или нескольких движущихся транспортных средств, связанное с выездом с занимаемой полосы."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t09_q035",
+      "testNumber": 9,
+      "sourceQuestionNumber": 35,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Օրվա մութ ժամանակ եւ անբավարար տեսանելիության պայմաններում` անկախ ճանապարհի լուսավորվածությունից, երթեւեկող մեխանիկական տրանսպորտային միջոցների վրա պետք է միացված լինեն",
+        "en": "At night and under conditions of insufficient visibility, regardless of road lighting, moving motor vehicles must have the following activated:",
+        "ru": "В тёмное время суток и в условиях недостаточной видимости, независимо от освещения дороги, на движущихся механических транспортных средствах должны быть включены:"
+      },
+      "options": {
+        "hy": [
+          "Լապտերների հեռահար լույսը։",
+          "Լապտերների մոտակա լույսը։",
+          "Լապտերների հեռահար կամ մոտակա լույսը։"
+        ],
+        "en": [
+          "High-beam headlights.",
+          "Low-beam headlights.",
+          "High-beam or low-beam headlights."
+        ],
+        "ru": [
+          "Фары дальнего света.",
+          "Фары ближнего света.",
+          "Фары дальнего или ближнего света."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q036",
+      "testNumber": 9,
+      "sourceQuestionNumber": 36,
+      "category": "parking",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում օրվա լուսավոր ժամանակ մոտոցիկլի վրա պետք է միացված լինի լապտերների մոտակա լույսը։",
+        "en": "In which case must a motorcycle have its low-beam headlights activated during daylight?",
+        "ru": "В каком случае в светлое время суток на мотоцикле должен быть включён ближний свет фар?"
+      },
+      "options": {
+        "hy": [
+          "Անբավարար տեսանելիության պայմաններում երթեւեկելիս",
+          "Անսարքություններ ունեցող մոտոցիկլով դեպի կայանման վայր երթեւեկելիս",
+          "Ցանկացած դեպքում` երթեւեկության մեջ գտնվելիս",
+          "Հիվանդ ուղեւոր փոխադրելիս"
+        ],
+        "en": [
+          "When proceeding under conditions of insufficient visibility.",
+          "When proceeding to a parking location on a motorcycle with a malfunction.",
+          "In all cases while participating in traffic.",
+          "When carrying an ill passenger."
+        ],
+        "ru": [
+          "При движении в условиях недостаточной видимости.",
+          "При следовании на неисправном мотоцикле к месту стоянки.",
+          "Во всех случаях при участии в дорожном движении.",
+          "При перевозке больного пассажира."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q037",
+      "testNumber": 9,
+      "sourceQuestionNumber": 37,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Առաջնահերթ ի՞նչ պետք է ձեռնարկի վարորդը հանդիպակաց երթեւեկող տրանսպորտային միջոցի լապտերների լույսից շլանալու դեպքում։",
+        "en": "What must the driver do first if dazzled by the headlights of an oncoming vehicle?",
+        "ru": "Что в первую очередь должен сделать водитель при ослеплении светом фар встречного транспортного средства?"
+      },
+      "options": {
+        "hy": [
+          "Լապտերների հեռահար լույսը (միացված լինելու դեպքում) փոխարկի մոտակայի",
+          "Միացնի վթարային լուսային ազդանշանը",
+          "Տա ձայնային ազդանշան՝ մեկ երկար եւ երեք կարճ",
+          "Տա ձայնային ազդանշան՝ մեկ կարճ եւ երեք երկար"
+        ],
+        "en": [
+          "Switch the high-beam headlights (if activated) to low beam.",
+          "Activate the hazard warning lights.",
+          "Give a horn signal consisting of one long and three short signals.",
+          "Give a horn signal consisting of one short and three long signals."
+        ],
+        "ru": [
+          "Переключить дальний свет фар, если он включён, на ближний.",
+          "Включить аварийную световую сигнализацию.",
+          "Подать звуковой сигнал: один длинный и три коротких.",
+          "Подать звуковой сигнал: один короткий и три длинных."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q038",
+      "testNumber": 9,
+      "sourceQuestionNumber": 38,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ձայնային ազդանշանները կարող են կիրառվել միայն",
+        "en": "Horn signals may be used only:",
+        "ru": "Звуковые сигналы могут применяться только:"
+      },
+      "options": {
+        "hy": [
+          "Բնակավայրերում՝ վազանց կատարելու մտադրության մասին մյուս վարորդներին նախազգուշացնելու համար։",
+          "Երբ դա անհրաժեշտ է ճանապարհատրանսպորտային պատահարը կանխելու համար",
+          "Երկու դեպքում էլ"
+        ],
+        "en": [
+          "In populated areas, to warn other drivers of the intention to pass.",
+          "When necessary to prevent a traffic accident.",
+          "In both cases."
+        ],
+        "ru": [
+          "В населённых пунктах — для предупреждения других водителей о намерении выполнить обгон.",
+          "Когда это необходимо для предотвращения дорожно-транспортного происшествия.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q039",
+      "testNumber": 9,
+      "sourceQuestionNumber": 39,
+      "category": "other",
+      "prompt": {
+        "hy": "Օրվա մութ ժամանակ ճանապարհի չլուսավորված հատվածներում երթեւեկող մեխանիկական տրանսպորտային միջոցի վրա պետք է միացված լինի",
+        "en": "At night, on unlit sections of road, a moving motor vehicle must have the following activated:",
+        "ru": "В тёмное время суток на неосвещённых участках дороги на движущемся механическом транспортном средстве должны быть включены:"
+      },
+      "options": {
+        "hy": [
+          "Լապտերների հեռահար կամ մոտակա լույսը։",
+          "Լապտերների միայն մոտակա լույսը։",
+          "Լապտերների միայն հեռահար լույսը։"
+        ],
+        "en": [
+          "High-beam or low-beam headlights.",
+          "Low-beam headlights only.",
+          "High-beam headlights only."
+        ],
+        "ru": [
+          "Фары дальнего или ближнего света.",
+          "Только фары ближнего света.",
+          "Только фары дальнего света."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q040",
+      "testNumber": 9,
+      "sourceQuestionNumber": 40,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Հետին հակամառախուղային լապտերիկները կարող են օգտագործվել",
+        "en": "Rear fog lights may be used:",
+        "ru": "Задние противотуманные фонари могут использоваться:"
+      },
+      "options": {
+        "hy": [
+          "Օրվա մութ ժամանակ՝ տրանսպորտային շարասյան կազմում երթեւեկելիս։",
+          "Թունելներում երթեւեկելիս։",
+          "Միայն անբավարար տեսանելիության պայմաններում։",
+          "Օրվա մութ ժամանակ՝ տրանսպորտային միջոցը բեռնաթափելիս։",
+          "Թվարկած բոլոր դեպքերում։"
+        ],
+        "en": [
+          "At night when proceeding as part of a convoy.",
+          "When proceeding through tunnels.",
+          "Only under conditions of insufficient visibility.",
+          "At night when unloading a vehicle.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "В тёмное время суток при движении в составе транспортной колонны.",
+          "При движении в тоннелях.",
+          "Только в условиях недостаточной видимости.",
+          "В тёмное время суток при разгрузке транспортного средства.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t09_q041",
+      "testNumber": 9,
+      "sourceQuestionNumber": 41,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Հանդիպակաց երթեւեկող տրանսպորտային միջոցից ի՞նչ հեռավորության վրա լապտերների հեռահար լույսը պետք է փոխարկվի մոտակայի։",
+        "en": "At what distance from an oncoming vehicle must high-beam headlights be switched to low beam?",
+        "ru": "На каком расстоянии до встречного транспортного средства дальний свет фар должен быть переключён на ближний?"
+      },
+      "options": {
+        "hy": [
+          "100 մ-ից ոչ պակաս",
+          "150 մ-ից ոչ պակաս",
+          "300 մ-ից ոչ պակաս"
+        ],
+        "en": [
+          "At least 100 m.",
+          "At least 150 m.",
+          "At least 300 m."
+        ],
+        "ru": [
+          "Не менее чем за 100 м.",
+          "Не менее чем за 150 м.",
+          "Не менее чем за 300 м."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-11-img-01.jpeg",
+      "imageFilename": "page-11-img-01.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t09_q042",
+      "testNumber": 9,
+      "sourceQuestionNumber": 42,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Լապտեր-լուսարձակ թույլատրվում է օգտագործել",
+        "en": "A searchlight may be used:",
+        "ru": "Фару-прожектор разрешается использовать:"
+      },
+      "options": {
+        "hy": [
+          "Միայն բնակավայրերից դուրս՝ հանդիպակաց եւ համընթաց տրանսպորտային միջոցների բացակայության դեպքում։",
+          "Միայն անբավարար տեսանելիության պայմաններում։",
+          "Ցանկացած տեղում, եթե դրա անհրաժեշտությունը կա։",
+          "Օրվա մութ ժամանակ՝ ճանապարհների բոլոր հատվածներում։"
+        ],
+        "en": [
+          "Only outside populated areas when there are no oncoming or preceding vehicles.",
+          "Only under conditions of insufficient visibility.",
+          "Anywhere, when necessary.",
+          "At night on all sections of road."
+        ],
+        "ru": [
+          "Только вне населённых пунктов при отсутствии встречных и попутных транспортных средств.",
+          "Только в условиях недостаточной видимости.",
+          "В любом месте при наличии необходимости.",
+          "В тёмное время суток на всех участках дорог."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t09_q043",
+      "testNumber": 9,
+      "sourceQuestionNumber": 43,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս նախազգուշացնող նշանը բնակավայրերում, մինչեւ վտանգավոր հատվածի սկիզբը ի՞նչ հեռավորության վրա է տեղադրվում։",
+        "en": "In populated areas, at what distance before the beginning of a hazardous section is this warning sign installed?",
+        "ru": "На каком расстоянии до начала опасного участка устанавливается данный предупреждающий знак в населённых пунктах?"
+      },
+      "options": {
+        "hy": [
+          "25 - 50մ",
+          "50 - 100մ",
+          "100 - 150մ"
+        ],
+        "en": [
+          "25–50 m.",
+          "50–100 m.",
+          "100–150 m."
+        ],
+        "ru": [
+          "25–50 м.",
+          "50–100 м.",
+          "100–150 м."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t09_q044",
+      "testNumber": 9,
+      "sourceQuestionNumber": 44,
+      "category": "railway",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք երկաթուղային գծանցով փոխադրել գյուղատնտեսական, ճանապարհային, շինարարական եւ այլ մեքենաներ ու մեխանիզմներ։",
+        "en": "Is it permitted to transport agricultural, road-construction, construction, and other machines and mechanisms across a railroad crossing?",
+        "ru": "Разрешается ли перевозить через железнодорожный переезд сельскохозяйственные, дорожные, строительные и иные машины и механизмы?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է, եթե գծանցը կահավորված չէ ուղեփակոցով",
+          "Թույլատրվում է, եթե դրանք գտնվում են ոչ տրանսպորտային վիճակում",
+          "Թույլատրվում է, եթե դրանք գտնվում են տրանսպորտային վիճակում"
+        ],
+        "en": [
+          "Permitted if the crossing is not equipped with a barrier gate.",
+          "Permitted if they are in a non-transport position.",
+          "Permitted if they are in a transport position."
+        ],
+        "ru": [
+          "Разрешается, если переезд не оборудован шлагбаумом.",
+          "Разрешается, если они находятся в нетранспортном положении.",
+          "Разрешается, если они находятся в транспортном положении."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t09_q045",
+      "testNumber": 9,
+      "sourceQuestionNumber": 45,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Որտե՞ղ է թույլատրվում հատել երկաթուղային գծերը։",
+        "en": "Where is it permitted to cross railroad tracks?",
+        "ru": "Где разрешается пересекать железнодорожные пути?"
+      },
+      "options": {
+        "hy": [
+          "Այն տեղերում, որտեղ երկու կողմից տեսանելիությունը կազմում է առնվազն 1000մ",
+          "Վարորդի հայեցողությամբ՝ դրա համար առավել հարմարավետ տեղերում",
+          "Դրա համար նախատեսված տեղերում",
+          "Երկաթուղային կայարաններից առնվազն 1000մ հեռավորության վրա"
+        ],
+        "en": [
+          "At locations where visibility in both directions is at least 1,000 m.",
+          "At locations most convenient at the driver’s discretion.",
+          "At locations designated for crossing.",
+          "At least 1,000 m from railroad stations."
+        ],
+        "ru": [
+          "В местах, где видимость в обе стороны составляет не менее 1000 м.",
+          "В наиболее удобных местах по усмотрению водителя.",
+          "В специально предназначенных для этого местах.",
+          "На расстоянии не менее 1000 м от железнодорожных станций."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t09_q046",
+      "testNumber": 9,
+      "sourceQuestionNumber": 46,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք ծառայողական առաջադրանք կատարելիս ինքնակամ բացել կամ շրջանցել ուղեփակոցը։",
+        "en": "While performing an official assignment, is it permitted to open or bypass a barrier gate without authorization?",
+        "ru": "Разрешается ли при выполнении служебного задания самовольно открывать шлагбаум или объезжать его?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է",
+          "Թույլատրվում է՝ վարորդի հայեցողությամբ, եթե մոտակայքում բացակայում է մոտեցող գնացքը",
+          "Թույլատրվում է՝ գծանցի հերթապահի բացակայության դեպքում"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted.",
+          "Permitted at the driver’s discretion if no train is approaching nearby.",
+          "Permitted if the railroad crossing attendant is absent."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается.",
+          "Разрешается по усмотрению водителя, если приближающийся поезд отсутствует.",
+          "Разрешается при отсутствии дежурного по переезду."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q047",
+      "testNumber": 9,
+      "sourceQuestionNumber": 47,
+      "category": "railway",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք երկաթուղայհն գծանցով փոխադրել գյուղատնտեսական, ճանապարհային, շինարարական եւ այլ մեքենաներ ու մեխանիզմներ։",
+        "en": "Is it permitted to transport agricultural, road-construction, construction, and other machines and mechanisms across a railroad crossing?",
+        "ru": "Разрешается ли перевозить через железнодорожный переезд сельскохозяйственные, дорожные, строительные и иные машины и механизмы?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Թույլատրվում է, եթե դրանք գտնվում են տրանսպորտային վիճակում",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted if they are in a transport position.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается, если они находятся в транспортном положении.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q048",
+      "testNumber": 9,
+      "sourceQuestionNumber": 48,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ինչո՞վ պետք է ղեկավարվի վարորդը երկաթուղային գծանցին մոտենալիս։",
+        "en": "What must the driver follow when approaching a railroad crossing?",
+        "ru": "Чем должен руководствоваться водитель при приближении к железнодорожному переезду?"
+      },
+      "options": {
+        "hy": [
+          "Ուղեփակոցի դիրքով եւ լուսացույցի ազդանշաններով",
+          "Ճանապարհային նշանների եւ գծանշումների պահանջներով",
+          "Գծանցի հերթապահի ցուցումներով",
+          "Բոլոր թվարկած պահանջներով"
+        ],
+        "en": [
+          "The position of the barrier gate and the traffic signals.",
+          "The requirements of traffic signs and pavement markings.",
+          "The instructions of the railroad crossing attendant.",
+          "All of the listed requirements."
+        ],
+        "ru": [
+          "Положением шлагбаума и сигналами светофора.",
+          "Требованиями дорожных знаков и разметки.",
+          "Указаниями дежурного по переезду.",
+          "Всеми перечисленными требованиями."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q049",
+      "testNumber": 9,
+      "sourceQuestionNumber": 49,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք հետիոտներին տեղաշարժվել «Ավտոմայրուղի» նշանով կահավորված ճանապարհով։",
+        "en": "Are pedestrians permitted to proceed on a road marked with the “Freeway” sign?",
+        "ru": "Разрешается ли пешеходам передвигаться по дороге, обозначенной знаком «Автомагистраль»?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է` բնակավայրերից դուրս` տրանսպորտային միջոցների հոսքին հակառակ",
+          "Թույլատրվում է` բնակավայրերից դուրս` տրանսպորտային միջոցների հոսքին համընթաց"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted outside populated areas, against the direction of vehicle traffic.",
+          "Permitted outside populated areas, in the same direction as vehicle traffic."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается вне населённых пунктов навстречу движению транспортных средств.",
+          "Разрешается вне населённых пунктов по направлению движения транспортных средств."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q050",
+      "testNumber": 9,
+      "sourceQuestionNumber": 50,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցներով, որոնց արագությունը, տեխնիկական բնութագրերից կամ վիճակից ելնելով, չի գերազանցում 40 կմ/ժ, ավտոմայրուղիներով երթեւեկել",
+        "en": "Vehicles whose speed, because of their technical characteristics or condition, does not exceed 40 km/h are:",
+        "ru": "Движение по автомагистралям транспортных средств, скорость которых по технической характеристике или состоянию не превышает 40 км/ч:"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է` միայն աջ եզրային գոտիով։",
+          "Արգելվում է։",
+          "Թույլատրվում է` «Նվազագույն արագության սահմանափակում» նշանի բացակայության դեպքում։"
+        ],
+        "en": [
+          "Permitted on freeways only in the rightmost lane.",
+          "Prohibited from proceeding on freeways.",
+          "Permitted on freeways if there is no “Minimum Speed Limit” sign."
+        ],
+        "ru": [
+          "Разрешается только по крайней правой полосе.",
+          "Запрещается.",
+          "Разрешается при отсутствии знака «Ограничение минимальной скорости»."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q051",
+      "testNumber": 9,
+      "sourceQuestionNumber": 51,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի վրա վթարային լուսային ազդանշանը պետք է միացված լինի",
+        "en": "The hazard warning lights on a vehicle must be activated:",
+        "ru": "Аварийная световая сигнализация на транспортном средстве должна быть включена:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհատրանսպորտային պատահարի դեպքում։",
+          "Կանգառն արգելված տեղերում՝ հարկադրված կանգառի դեպքում։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "In the event of a traffic accident.",
+          "In the event of a forced stop where stopping is prohibited.",
+          "In both cases."
+        ],
+        "ru": [
+          "При дорожно-транспортном происшествии.",
+          "При вынужденной остановке в местах, где остановка запрещена.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t09_q052",
+      "testNumber": 9,
+      "sourceQuestionNumber": 52,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի վրա վթարային լուսային ազդանշանը պետք է միացված լինի",
+        "en": "The hazard warning lights on a vehicle must be activated:",
+        "ru": "Аварийная световая сигнализация на транспортном средстве должна быть включена:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհատրանսպորտային պատահարի դեպքում։",
+          "Քարշակման դեպքում (քարշակվող մեխանիկական տրանսպորտային միջոցի վրա)։",
+          "Կանգառն արգելված տեղերում՝ հարկադրված կանգառի դեպքում։",
+          "Թվարկած բոլոր դեպքերում։"
+        ],
+        "en": [
+          "In the event of a traffic accident.",
+          "During towing, on the towed motor vehicle.",
+          "In the event of a forced stop where stopping is prohibited.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "При дорожно-транспортном происшествии.",
+          "При буксировке — на буксируемом механическом транспортном средстве.",
+          "При вынужденной остановке в местах, где остановка запрещена.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q053",
+      "testNumber": 9,
+      "sourceQuestionNumber": 53,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցից ի՞նչ հեռավորության վրա է տեղադրվում «Վթարային կանգառ» նշանը։",
+        "en": "At what distance from the vehicle must the emergency warning triangle be placed?",
+        "ru": "На каком расстоянии от транспортного средства устанавливается знак аварийной остановки?"
+      },
+      "options": {
+        "hy": [
+          "Բնակավայրերում՝ ոչ պակաս, քան 15մ վրա, բնակավայրերից դուրս՝ ոչ պակաս, քան 30մ",
+          "Բնակավայրերում՝ ոչ պակաս, քան 10 մ վրա, բնակավայրերից դուրս՝ ոչ պակաս, քան 20մ",
+          "Բնակավայրերում՝ ոչ պակաս, քան 5մ վրա, բնակավայրերից դուրս՝ ոչ պակաս, քան 10մ"
+        ],
+        "en": [
+          "At least 15 m in populated areas and at least 30 m outside populated areas.",
+          "At least 10 m in populated areas and at least 20 m outside populated areas.",
+          "At least 5 m in populated areas and at least 10 m outside populated areas."
+        ],
+        "ru": [
+          "В населённых пунктах — не менее 15 м, вне населённых пунктов — не менее 30 м.",
+          "В населённых пунктах — не менее 10 м, вне населённых пунктов — не менее 20 м.",
+          "В населённых пунктах — не менее 5 м, вне населённых пунктов — не менее 10 м."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q054",
+      "testNumber": 9,
+      "sourceQuestionNumber": 54,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի վրա վթարային լուսային ազդանշանը պետք է միացված լինի",
+        "en": "The hazard warning lights on a vehicle must be activated:",
+        "ru": "Аварийная световая сигнализация на транспортном средстве должна быть включена:"
+      },
+      "options": {
+        "hy": [
+          "Լապտերների լույսից վարորդի շլացման դեպքում։",
+          "Քարշակման դեպքում (քարշակվող մեխանիկական տրանսպորտային միջոցի վրա)։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "If the driver is dazzled by headlights.",
+          "During towing, on the towed motor vehicle.",
+          "In both cases."
+        ],
+        "ru": [
+          "При ослеплении водителя светом фар.",
+          "При буксировке — на буксируемом механическом транспортном средстве.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q055",
+      "testNumber": 9,
+      "sourceQuestionNumber": 55,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի վրա վթարային լուսային ազդանշանը պետք է միացված լինի",
+        "en": "The hazard warning lights on a vehicle must be activated:",
+        "ru": "Аварийная световая сигнализация на транспортном средстве должна быть включена:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհատրանսպորտային պատահարի դեպքում։",
+          "Քարշակման դեպքում (քարշակվող մեխանիկական տրանսպորտային միջոցի վրա)։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "In the event of a traffic accident.",
+          "During towing, on the towed motor vehicle.",
+          "In both cases."
+        ],
+        "ru": [
+          "При дорожно-транспортном происшествии.",
+          "При буксировке — на буксируемом механическом транспортном средстве.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q056",
+      "testNumber": 9,
+      "sourceQuestionNumber": 56,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կառուցապատված տարածքներում, որտեղ մուտքն ու ելքը նշված են «Բնակելի գոտի» եւ «Բնակելի գոտու վերջ» ճանապարհային նշաններով, չի արգելվում",
+        "en": "In developed areas where the entrance and exit are marked by the “Residential Zone” and “End of Residential Zone” traffic signs, the following is not prohibited:",
+        "ru": "На застроенных территориях, въезды и выезды с которых обозначены дорожными знаками «Жилая зона» и «Конец жилой зоны», не запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Հետիոտների տեղաշարժը՝ ճանապարհի երթեւեկելի մասով։",
+          "Տրանսպորտային միջոցների միջանցիկ երթեւեկությունը։",
+          "Ուսումնական վարումը։"
+        ],
+        "en": [
+          "Pedestrians proceeding on the roadway.",
+          "Through traffic of vehicles.",
+          "Driving instruction."
+        ],
+        "ru": [
+          "Движение пешеходов по проезжей части.",
+          "Сквозное движение транспортных средств.",
+          "Учебная езда."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q057",
+      "testNumber": 9,
+      "sourceQuestionNumber": 57,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Խաչմերուկը համարվում է կարգավորվող, եթե երթեւեկության հերթականությունը որոշվում է",
+        "en": "An intersection is considered controlled if the order of traffic is determined by:",
+        "ru": "Перекрёсток считается регулируемым, если очерёдность движения определяется:"
+      },
+      "options": {
+        "hy": [
+          "Միայն լուսացույցի ազդանշաններով։",
+          "Միայն կարգավորողի ազդանշաններով։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Traffic signals only.",
+          "Traffic controller signals only.",
+          "Either of the above."
+        ],
+        "ru": [
+          "Только сигналами светофора.",
+          "Только сигналами регулировщика.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q058",
+      "testNumber": 9,
+      "sourceQuestionNumber": 58,
+      "category": "other",
+      "prompt": {
+        "hy": "Առանց ծածկույթի հողային ճանապարհի վրա, անմիջապես խաչմերուկից առաջ, ծածկույթով հատվածի առկայությունն արդյոք այդ ճանապարհը դարձնու՞մ է հատվողին հավասարազոր։",
+        "en": "On an unpaved dirt road, does the presence of a paved section immediately before an intersection make that road equal in priority to the intersecting road?",
+        "ru": "Делает ли наличие участка с покрытием непосредственно перед перекрёстком на грунтовой дороге без покрытия эту дорогу равнозначной пересекаемой?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ",
+          "Այո"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Нет.",
+          "Да."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t09_q059",
+      "testNumber": 9,
+      "sourceQuestionNumber": 59,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում են պատկերված երթեւեկության թույլատրելի ուղղությունները։",
+        "en": "Which image shows the permitted directions of traffic?",
+        "ru": "На каком рисунке изображены разрешённые направления движения?"
+      },
+      "options": {
+        "hy": [
+          "Ձախ նկարում",
+          "Մեջտեղի նկարում",
+          "Աջ նկարում",
+          "Մեջտեղի եւ աջ նկարներում"
+        ],
+        "en": [
+          "The left image.",
+          "The center image.",
+          "The right image.",
+          "The center and right images."
+        ],
+        "ru": [
+          "На левом рисунке.",
+          "На среднем рисунке.",
+          "На правом рисунке.",
+          "На среднем и правом рисунках."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-14-img-01.jpeg",
+      "imageFilename": "page-14-img-01.jpeg",
+      "page": 14
+    },
+    {
+      "id": "drv_t09_q060",
+      "testNumber": 9,
+      "sourceQuestionNumber": 60,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Եթե լուսացույցի ազդանշանների նշանակությունները հակասում են առավելության նշանների պահանջներին, ապա վարորդները պետք է ղեկավարվեն",
+        "en": "If the meanings of the traffic signals conflict with the requirements of the priority signs, drivers must follow:",
+        "ru": "Если значения сигналов светофора противоречат требованиям знаков приоритета, водители должны руководствоваться:"
+      },
+      "options": {
+        "hy": [
+          "Նշանների պահանջներով։",
+          "Լուսացույցի ազդանշաններով։"
+        ],
+        "en": [
+          "The requirements of the signs.",
+          "The traffic signals."
+        ],
+        "ru": [
+          "Требованиями знаков.",
+          "Сигналами светофора."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t09_q061",
+      "testNumber": 9,
+      "sourceQuestionNumber": 61,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք վարորդին շարունակել երթեւեկությունը լուսացույցի դեղին ազդանշանը միանալու կամ կարգավորողի ձեռքը բարձրացնելու դեպքում։",
+        "en": "Is the driver permitted to continue when the yellow traffic signal turns on or the traffic controller raises an arm?",
+        "ru": "Разрешается ли водителю продолжить движение при включении жёлтого сигнала светофора или поднятии руки регулировщика?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է, եթե վարորդը չի կարող կանգնել՝ առանց կտրուկ արգելակման"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted if the driver cannot stop without sudden braking."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается, если водитель не может остановиться без экстренного торможения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t09_q062",
+      "testNumber": 9,
+      "sourceQuestionNumber": 62,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կարգավորողն ազդանշան տալիս է սուլիչով",
+        "en": "A traffic controller gives a whistle signal:",
+        "ru": "Регулировщик подаёт сигнал свистком:"
+      },
+      "options": {
+        "hy": [
+          "Միայն այն դեպքում, երբ պահանջում է կանգնեցնել տրանսպորտային միջոցը։",
+          "Երթեւեկության մասնակիցների ուշադրությունն իր վրա հրավիրելու համար։"
+        ],
+        "en": [
+          "Only when requiring a vehicle to stop.",
+          "To attract the attention of road users."
+        ],
+        "ru": [
+          "Только когда требует остановить транспортное средство.",
+          "Для привлечения внимания участников дорожного движения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t09_q063",
+      "testNumber": 9,
+      "sourceQuestionNumber": 63,
+      "category": "railway",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք տվյալ իրադրությունում ավտոգնացքին անցնել կամուրջի վրայով։",
+        "en": "In this situation, is the road train permitted to proceed across the bridge?",
+        "ru": "Разрешается ли автопоезду проехать по мосту в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-15-img-01.jpeg",
+      "imageFilename": "page-15-img-01.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t09_q064",
+      "testNumber": 9,
+      "sourceQuestionNumber": 64,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կարելի՞ է նշված հետագծով երթեւեկելու համար ձեռքով տալ նախազգուշացնող ազդանշան։",
+        "en": "May a warning signal be given by hand in order to proceed along the indicated path?",
+        "ru": "Можно ли подать рукой предупреждающий сигнал для движения по указанной траектории?"
+      },
+      "options": {
+        "hy": [
+          "Կարելի է, եթե անսարք է շրջադարձի ցուցիչը",
+          "Կարելի, եթե անսարք է շրջադարձի ցուցիչը` օրվա լուսավոր ժամերին",
+          "Կարելի է բոլոր դեպքերում"
+        ],
+        "en": [
+          "Yes, if the turn signal is malfunctioning.",
+          "Yes, if the turn signal is malfunctioning during daylight hours.",
+          "Yes, in all cases."
+        ],
+        "ru": [
+          "Можно, если неисправен указатель поворота.",
+          "Можно, если указатель поворота неисправен, только в светлое время суток.",
+          "Можно во всех случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-15-img-02.jpeg",
+      "imageFilename": "page-15-img-02.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t09_q065",
+      "testNumber": 9,
+      "sourceQuestionNumber": 65,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Պարտավո՞ր է վարորդը միացնել շրջադարձի ցուցիչը` բնակելի գոտում երթեւեկությունը սկսելուց առաջ։",
+        "en": "Must the driver activate the turn signal before starting to move in a residential zone?",
+        "ru": "Обязан ли водитель включить указатель поворота перед началом движения в жилой зоне?"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր չէ",
+          "Պարտավոր է",
+          "Պարտավոր է, այլ տրանսպորտային միջոցների առկայության դեպքում"
+        ],
+        "en": [
+          "No.",
+          "Yes.",
+          "Yes, if other vehicles are present."
+        ],
+        "ru": [
+          "Не обязан.",
+          "Обязан.",
+          "Обязан при наличии других транспортных средств."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t09_q066",
+      "testNumber": 9,
+      "sourceQuestionNumber": 66,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Պարեկային ծառայության ավտոմոբիլի վարորդը երթեւեկության այլ մասնակիցների նկատմամբ առավելություն ստանալու համար պետք է միացնի",
+        "en": "To obtain right-of-way over other road users, the driver of a patrol vehicle must activate:",
+        "ru": "Для получения преимущества перед другими участниками дорожного движения водитель патрульного автомобиля должен включить:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ գույնի առկայծող փարոսիկը։",
+          "Կապույտ եւ կարմիր գույնի առկայծող փարոսիկները։",
+          "Կապույտ գույնի առկայծող փարոսիկը եւ հատուկ ձայնային ազդանշանը։"
+        ],
+        "en": [
+          "The blue flashing beacon.",
+          "The blue and red flashing beacons.",
+          "The blue flashing beacon and the special audible signal."
+        ],
+        "ru": [
+          "Проблесковый маячок синего цвета.",
+          "Проблесковые маячки синего и красного цветов.",
+          "Проблесковый маячок синего цвета и специальный звуковой сигнал."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-16-img-01.jpeg",
+      "imageFilename": "page-16-img-01.jpeg",
+      "page": 16
+    },
+    {
+      "id": "drv_t09_q067",
+      "testNumber": 9,
+      "sourceQuestionNumber": 67,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վազանցն արգելվում է",
+        "en": "Passing is prohibited:",
+        "ru": "Обгон запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Երկաթուղային գծանցների վրա եւ դրանցից 100մ առաջ։",
+          "Երկաթուղային գծանցների վրա եւ դրանցից 150մ առաջ։",
+          "Երկաթուղային գծանցների վրա եւ դրանցից 250մ առաջ։"
+        ],
+        "en": [
+          "At railroad crossings and within 100 m before them.",
+          "At railroad crossings and within 150 m before them.",
+          "At railroad crossings and within 250 m before them."
+        ],
+        "ru": [
+          "На железнодорожных переездах и ближе чем за 100 м до них.",
+          "На железнодорожных переездах и ближе чем за 150 м до них.",
+          "На железнодорожных переездах и ближе чем за 250 м до них."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t09_q068",
+      "testNumber": 9,
+      "sourceQuestionNumber": 68,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ինչի՞ մասին է տեղեկացնում թեթեւ մարդատար ավտոմոբիլի վարորդի կողմից ձեռքով տրված ազդանշանը։",
+        "en": "What does the hand signal given by the passenger-car driver indicate?",
+        "ru": "О чём информирует сигнал, подаваемый рукой водителем легкового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Շրջադարձ է կատարում դեպի աջ",
+          "Շարունակում է երթեւեկությունն ուղիղ",
+          "Արգելակում է"
+        ],
+        "en": [
+          "The driver is making a right turn.",
+          "The driver is continuing straight ahead.",
+          "The driver is braking."
+        ],
+        "ru": [
+          "О повороте направо.",
+          "О продолжении движения прямо.",
+          "О торможении."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t09_q069",
+      "testNumber": 9,
+      "sourceQuestionNumber": 69,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Վթարային լուսային ազդանշանը միացվում է",
+        "en": "The hazard warning lights must be activated:",
+        "ru": "Аварийная световая сигнализация включается:"
+      },
+      "options": {
+        "hy": [
+          "Մինչեւ թունել մտնելը։",
+          "Ճանապարհատրանսպորտային պատահարի դեպքում։",
+          "Կազմակերպված ավտոշարասյան կազմում երթեւեկելիս։"
+        ],
+        "en": [
+          "Before entering a tunnel.",
+          "In the event of a traffic accident.",
+          "When proceeding as part of an organized convoy."
+        ],
+        "ru": [
+          "Перед въездом в тоннель.",
+          "При дорожно-транспортном происшествии.",
+          "При движении в составе организованной транспортной колонны."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t09_q070",
+      "testNumber": 9,
+      "sourceQuestionNumber": 70,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ինչի՞ մասին է տեղեկացնում մոտոցիկլի վարորդի կողմից ձեռքով տրված ազդանշանը։",
+        "en": "What does the hand signal given by the motorcycle operator indicate?",
+        "ru": "О чём информирует сигнал, подаваемый рукой водителем мотоцикла?"
+      },
+      "options": {
+        "hy": [
+          "Շարունակում է երթեւեկությունը ձախ կամ հակառակ ուղղությամբ",
+          "Շարունակում է երթեւեկությունն ուղիղ կամ աջ ուղղությամբ"
+        ],
+        "en": [
+          "The motorcycle will proceed to the left or make a U-turn.",
+          "The motorcycle will proceed straight ahead or to the right."
+        ],
+        "ru": [
+          "О продолжении движения налево или в обратном направлении.",
+          "О продолжении движения прямо или направо."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-17-img-01.jpeg",
+      "imageFilename": "page-17-img-01.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t09_q071",
+      "testNumber": 9,
+      "sourceQuestionNumber": 71,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ինչի՞ մասին է տեղեկացնում թեթեւ մարդատար ավտոմոբիլի վարորդի կողմից ձեռքով տրված ազդանշանը։",
+        "en": "What does the hand signal given by the passenger-car driver indicate?",
+        "ru": "О чём информирует сигнал, подаваемый рукой водителем легкового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Աջ շրջադարձ է կատարում",
+          "Շարունակում է երթեւեկությունն ուղիղ",
+          "Արգելակում է` ճանապարհը մոտոցիկլին զիջելու համար"
+        ],
+        "en": [
+          "The driver is making a right turn.",
+          "The driver is continuing straight ahead.",
+          "The driver is braking in order to yield to the motorcycle."
+        ],
+        "ru": [
+          "О повороте направо.",
+          "О продолжении движения прямо.",
+          "О торможении для предоставления преимущества мотоциклу."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-17-img-02.jpeg",
+      "imageFilename": "page-17-img-02.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t09_q072",
+      "testNumber": 9,
+      "sourceQuestionNumber": 72,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ինչի՞ մասին է տեղեկացնում թեթեւ մարդատար ավտոմոբիլի վարորդի կողմից ձեռքով տրված ազդանշանը։",
+        "en": "What does the hand signal given by the passenger-car driver indicate?",
+        "ru": "О чём информирует сигнал, подаваемый рукой водителем легкового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Մտադիր է կատարել ձախ շրջադարձ կամ հետադարձ",
+          "Արգելակում է` ճանապարհը բեռնատար ավտոմոբիլին զիջելու համար"
+        ],
+        "en": [
+          "The driver intends to make a left turn or a U-turn.",
+          "The driver is braking in order to yield to the truck."
+        ],
+        "ru": [
+          "О намерении выполнить поворот налево или разворот.",
+          "О торможении для предоставления преимущества грузовому автомобилю."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-18-img-01.jpeg",
+      "imageFilename": "page-18-img-01.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t09_q073",
+      "testNumber": 9,
+      "sourceQuestionNumber": 73,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Պարտավո՞ր է արդյոք վարորդը միացնել շրջադարձի ցուցիչը տվյալ դեպքում։",
+        "en": "In this case, must the driver activate the turn signal?",
+        "ru": "Обязан ли водитель включить указатель поворота в данном случае?"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր է",
+          "Պարտավոր չէ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Обязан.",
+          "Не обязан."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-18-img-02.jpeg",
+      "imageFilename": "page-18-img-02.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t09_q074",
+      "testNumber": 9,
+      "sourceQuestionNumber": 74,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է բեռնատար ավտոմոբիլի վարորդին վազանցել ավտոբուսին, որը երթեւեկում է 60 կմ/ժ արագությամբ։",
+        "en": "Is the truck driver permitted to pass the bus that is proceeding at a speed of 60 km/h?",
+        "ru": "Разрешается ли водителю грузового автомобиля обогнать автобус, движущийся со скоростью 60 км/ч?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-19-img-01.jpeg",
+      "imageFilename": "page-19-img-01.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t09_q075",
+      "testNumber": 9,
+      "sourceQuestionNumber": 75,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է վազանց կատարել տվյալ իրավիճակում։",
+        "en": "Is passing permitted in this situation?",
+        "ru": "Разрешается ли выполнить обгон в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է",
+          "Թույլատրվում է, եթե ավտոբուսը երթեւեկում է 30 կմ/ժ պակաս արագությամբ"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted.",
+          "Permitted if the bus is proceeding at a speed below 30 km/h."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается.",
+          "Разрешается, если автобус движется со скоростью менее 30 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-19-img-02.jpeg",
+      "imageFilename": "page-19-img-02.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t09_q076",
+      "testNumber": 9,
+      "sourceQuestionNumber": 76,
+      "category": "railway",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք մուտք գործել երկաթուղային գծանց տվյալ իրավիճակում։",
+        "en": "Is it permitted to enter the railroad crossing in this situation?",
+        "ru": "Разрешается ли въехать на железнодорожный переезд в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-20-img-01.jpeg",
+      "imageFilename": "page-20-img-01.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t09_q077",
+      "testNumber": 9,
+      "sourceQuestionNumber": 77,
+      "category": "railway",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք մուտք գործել երկաթուղային գծանց տվյալ իրավիճակում։",
+        "en": "Is it permitted to enter the railroad crossing in this situation?",
+        "ru": "Разрешается ли въехать на железнодорожный переезд в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է, եթե գնացք չի մոտենում",
+          "Թույլատրվում է, եթե ուղեփակոցը բաց է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted if no train is approaching.",
+          "Permitted if the barrier gate is open.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается, если поезд не приближается.",
+          "Разрешается, если шлагбаум открыт.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-20-img-02.jpeg",
+      "imageFilename": "page-20-img-02.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t09_q078",
+      "testNumber": 9,
+      "sourceQuestionNumber": 78,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ինչպե՞ս պետք է գործել տվյալ իրադրությունում։",
+        "en": "What should the driver do in this situation?",
+        "ru": "Как следует поступить в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Գնացքի բացակայության դեպքում շրջանցել ուղեփակոցը եւ շարունակել երթեւեկությունը",
+          "Կանգ առնել եւ սպասել ուղեփակոցի բացմանը"
+        ],
+        "en": [
+          "If no train is approaching, go around the barrier gate and continue.",
+          "Stop and wait for the barrier gate to open."
+        ],
+        "ru": [
+          "При отсутствии поезда объехать шлагбаум и продолжить движение.",
+          "Остановиться и ожидать открытия шлагбаума."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-21-img-01.jpeg",
+      "imageFilename": "page-21-img-01.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t09_q079",
+      "testNumber": 9,
+      "sourceQuestionNumber": 79,
+      "category": "railway",
+      "prompt": {
+        "hy": "Տվյալ իրավիճակում թույլատրվու՞մ է անցնել երկաթուղային գծանցը։",
+        "en": "In this situation, is it permitted to cross the railroad crossing?",
+        "ru": "Разрешается ли проехать железнодорожный переезд в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է, եթե գնացք չի մոտենում",
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted if no train is approaching.",
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается, если поезд не приближается.",
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-21-img-02.jpeg",
+      "imageFilename": "page-21-img-02.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t09_q080",
+      "testNumber": 9,
+      "sourceQuestionNumber": 80,
+      "category": "railway",
+      "prompt": {
+        "hy": "Տվյալ իրավիճակում թույլատրվու՞մ է անցնել երկաթուղային գծանցը։",
+        "en": "In this situation, is it permitted to cross the railroad crossing?",
+        "ru": "Разрешается ли проехать железнодорожный переезд в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է, եթե մոտեցող գնացք չկա",
+          "Թույլատրվում է, քանի որ գծանցի հերթապահն արգելում է հանդիպակաց տրանսպորտային միջոցի անցումը"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted if no train is approaching.",
+          "Permitted because the railroad crossing attendant is prohibiting the oncoming vehicle from crossing."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается, если приближающийся поезд отсутствует.",
+          "Разрешается, поскольку дежурный по переезду запрещает движение встречному транспортному средству."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-22-img-01.jpeg",
+      "imageFilename": "page-22-img-01.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t09_q081",
+      "testNumber": 9,
+      "sourceQuestionNumber": 81,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տվյալ իրավիճակում որտե՞ղ կարելի է սկսել վազանցը։",
+        "en": "In this situation, where may passing be started?",
+        "ru": "Где в данной ситуации разрешается начать обгон?"
+      },
+      "options": {
+        "hy": [
+          "Երկաթուղային գծանցում",
+          "Երկաթուղային գծանցն անցնելուց հետո",
+          "Երկաթուղային գծանցից 100մ անցնելուց հետո"
+        ],
+        "en": [
+          "At the railroad crossing.",
+          "After crossing the railroad crossing.",
+          "After proceeding 100 m beyond the railroad crossing."
+        ],
+        "ru": [
+          "На железнодорожном переезде.",
+          "После проезда железнодорожного переезда.",
+          "Через 100 м после железнодорожного переезда."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-22-img-02.jpeg",
+      "imageFilename": "page-22-img-02.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t09_q082",
+      "testNumber": 9,
+      "sourceQuestionNumber": 82,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տվյալ իրավիճակում թույլատրվու՞մ է վազանց կատարել։",
+        "en": "In this situation, is passing permitted?",
+        "ru": "Разрешается ли выполнить обгон в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է, քանի որ հանդիպակաց երթեւեկող տրանսպորտային միջոց չկա",
+          "Արգելվում է",
+          "Թույլատրվում է, եթե լծասայլը շարժվում է 30 կմ/ժ-ից ցածր արագությամբ"
+        ],
+        "en": [
+          "Permitted because there is no oncoming vehicle.",
+          "Prohibited.",
+          "Permitted if the animal-drawn cart is moving at a speed below 30 km/h."
+        ],
+        "ru": [
+          "Разрешается, поскольку встречное транспортное средство отсутствует.",
+          "Запрещается.",
+          "Разрешается, если гужевая повозка движется со скоростью менее 30 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-23-img-01.jpeg",
+      "imageFilename": "page-23-img-01.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t09_q083",
+      "testNumber": 9,
+      "sourceQuestionNumber": 83,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ի՞նչ մանևր է կատարում թեթև մարդատարի վարորդը։",
+        "en": "What maneuver is the passenger-car driver performing?",
+        "ru": "Какой манёвр выполняет водитель легкового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Կողանցում",
+          "Վազանց",
+          "Շրջանցում"
+        ],
+        "en": [
+          "Passing without leaving the lane.",
+          "Passing.",
+          "Driving around an obstruction."
+        ],
+        "ru": [
+          "Опережение.",
+          "Обгон.",
+          "Объезд."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-23-img-02.jpeg",
+      "imageFilename": "page-23-img-02.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t09_q084",
+      "testNumber": 9,
+      "sourceQuestionNumber": 84,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվում է արդյո՞ք վազանցել մոտոցիկլին։",
+        "en": "Is passing the motorcycle permitted?",
+        "ru": "Разрешается ли обгон мотоцикла?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-23-img-03.jpeg",
+      "imageFilename": "page-23-img-03.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t09_q085",
+      "testNumber": 9,
+      "sourceQuestionNumber": 85,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում է թույլատրվում հանդիպակաց երթևեկության գոտիով վազանց կատարել յուրաքանչյուր ուղղությամբ մեկ գոտի ունեցող ճանապարհներին։",
+        "en": "On a road with one lane in each direction, when is passing in the oncoming traffic lane permitted?",
+        "ru": "В каком случае разрешается выполнять обгон с выездом на полосу встречного движения на дорогах, имеющих по одной полосе в каждом направлении?"
+      },
+      "options": {
+        "hy": [
+          "Միայն, երբ հանդիպակաց ուղղությամբ գոտին բավարար տարածությամբ ազատ է:",
+          "Միայն, երբ մեզ վազանց չեն կատարում:",
+          "Երկու պայմաններն էլ պետք է ապահովված լինեն:"
+        ],
+        "en": [
+          "Only when the oncoming traffic lane is clear for a sufficient distance.",
+          "Only when no vehicle is passing us.",
+          "Both conditions must be met."
+        ],
+        "ru": [
+          "Только когда полоса встречного движения свободна на достаточном расстоянии.",
+          "Только когда нас не обгоняют.",
+          "Должны быть соблюдены оба условия."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-24-img-01.jpeg",
+      "imageFilename": "page-24-img-01.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t09_q086",
+      "testNumber": 9,
+      "sourceQuestionNumber": 86,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվում է արդյո՞ք վազանց կատարել նշված իրավիճակում:",
+        "en": "Is passing permitted in the indicated situation?",
+        "ru": "Разрешается ли выполнить обгон в указанной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է, եթե մանևրը կավարտվի տեսանելիության սահմաններում",
+          "Թույլատրվում է"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted if the maneuver can be completed within the visible section of the road.",
+          "Permitted."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается, если манёвр будет завершён в пределах видимости.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-24-img-02.jpeg",
+      "imageFilename": "page-24-img-02.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t09_q087",
+      "testNumber": 9,
+      "sourceQuestionNumber": 87,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվո՞ւմ է վազանցել բեռնատարին:",
+        "en": "Is passing the truck permitted?",
+        "ru": "Разрешается ли обгон грузового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Այո, եթե վազանցը մինչև խաչմերուկ կավարտվի",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "Yes, if the passing maneuver is completed before the intersection.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Да, если обгон будет завершён до перекрёстка.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 24
+    },
+    {
+      "id": "drv_t09_q088",
+      "testNumber": 9,
+      "sourceQuestionNumber": 88,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ի՞նչ է պահանջվում վազանցվող տրանսպորտային միջոցի վարորդից։",
+        "en": "What is required of the driver of the vehicle being passed?",
+        "ru": "Что требуется от водителя обгоняемого транспортного средства?"
+      },
+      "options": {
+        "hy": [
+          "Նա պարտավոր է զիջել ճանապարհը վազանց կատարողին:",
+          "Նա որևէ կերպ չպետք է խոչընդոտի վազանցողին՝ բարձրացնելով արագությունը կամ կատարելով այլ գործողություն"
+        ],
+        "en": [
+          "The driver must yield to the passing vehicle.",
+          "The driver must not interfere with the passing vehicle by increasing speed or by taking any other action."
+        ],
+        "ru": [
+          "Он обязан уступить дорогу транспортному средству, выполняющему обгон.",
+          "Он не должен препятствовать обгону повышением скорости или иными действиями."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 24
+    },
+    {
+      "id": "drv_t09_q089",
+      "testNumber": 9,
+      "sourceQuestionNumber": 89,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվո՞ւմ է այս իրավիճակում վազանց կատարել։",
+        "en": "Is passing permitted in this situation?",
+        "ru": "Разрешается ли выполнить обгон в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է, եթե բեռնատարի արագությունը 30 կմ/ժ-ից պակաս է",
+          "Թույլատրվում է"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted if the truck is moving at less than 30 km/h.",
+          "Permitted."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается, если скорость грузового автомобиля менее 30 км/ч.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-25-img-01.jpeg",
+      "imageFilename": "page-25-img-01.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t09_q090",
+      "testNumber": 9,
+      "sourceQuestionNumber": 90,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Թույլատրվո՞ւմ է բեռնատարի վարորդին վազանցել տրակտորին, եթե թույլատրելի առավելագույն զանգվածը 3 տոննա է:",
+        "en": "Is the driver of a truck with a maximum authorized mass of 3 metric tons permitted to pass the tractor?",
+        "ru": "Разрешается ли водителю грузового автомобиля с разрешённой максимальной массой 3 т обогнать трактор?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Այո, եթե տրակտորը 30 կմ/ժ-ից պակաս արագությամբ է ընթանում",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "Yes, if the tractor is moving at less than 30 km/h.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Да, если трактор движется со скоростью менее 30 км/ч.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-25-img-02.jpeg",
+      "imageFilename": "page-25-img-02.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t09_q091",
+      "testNumber": 9,
+      "sourceQuestionNumber": 91,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Եթե այս իրավիճակում հանդիպակաց երթևեկությունը դժվար է, ապա ճանապարհը պետք է զիջի",
+        "en": "If oncoming traffic is difficult in this situation, who must yield?",
+        "ru": "Если в данной ситуации встречный разъезд затруднён, уступить дорогу должен:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատարի վարորդը։",
+          "Թեթև մարդատարի վարորդը։"
+        ],
+        "en": [
+          "The truck driver.",
+          "The passenger-car driver."
+        ],
+        "ru": [
+          "Водитель грузового автомобиля.",
+          "Водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-25-img-03.jpeg",
+      "imageFilename": "page-25-img-03.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t09_q092",
+      "testNumber": 9,
+      "sourceQuestionNumber": 92,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Հետիոտնային անցման վրա վազանցն",
+        "en": "Passing at a pedestrian crossing is:",
+        "ru": "Обгон на пешеходном переходе:"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է միայն հետիոտնի առկայության դեպքում:",
+          "Արգելվում է։",
+          "Թույլատրվում է։"
+        ],
+        "en": [
+          "Prohibited only when pedestrians are present.",
+          "Prohibited.",
+          "Permitted."
+        ],
+        "ru": [
+          "Запрещается только при наличии пешеходов.",
+          "Запрещается.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-26-img-01.jpeg",
+      "imageFilename": "page-26-img-01.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t09_q093",
+      "testNumber": 9,
+      "sourceQuestionNumber": 93,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր հետագծով է թույլատրվում վազանց կատարել։",
+        "en": "Along which path is passing permitted?",
+        "ru": "По какой траектории разрешается выполнить обгон?"
+      },
+      "options": {
+        "hy": [
+          "Ցանկացած",
+          "Միայն Ա",
+          "Միայն Բ"
+        ],
+        "en": [
+          "Either path.",
+          "Only A.",
+          "Only B."
+        ],
+        "ru": [
+          "По любой.",
+          "Только по траектории A.",
+          "Только по траектории B."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-26-img-02.jpeg",
+      "imageFilename": "page-26-img-02.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t09_q094",
+      "testNumber": 9,
+      "sourceQuestionNumber": 94,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ է ցույց տալիս ճանապարհային նշանը։",
+        "en": "What does the traffic sign indicate?",
+        "ru": "Что указывает дорожный знак?"
+      },
+      "options": {
+        "hy": [
+          "500 մետր հետո տապալված ծառ կա",
+          "500 մետր հետո հանգստի վայր է",
+          "500 մետր հատվածում հանգստի վայր է"
+        ],
+        "en": [
+          "There is a fallen tree 500 meters ahead.",
+          "There is a rest area 500 meters ahead.",
+          "There is a rest area along the next 500 meters."
+        ],
+        "ru": [
+          "Через 500 м находится поваленное дерево.",
+          "Через 500 м находится место отдыха.",
+          "На участке протяжённостью 500 м находится место отдыха."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 26
+    },
+    {
+      "id": "drv_t09_q095",
+      "testNumber": 9,
+      "sourceQuestionNumber": 95,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում շրջադարձի լուսային ցուցիչ վարորդը միացնել",
+        "en": "In this situation, is the driver required to activate the turn signal?",
+        "ru": "В данной ситуации водитель обязан включить указатель поворота:"
+      },
+      "options": {
+        "hy": [
+          "պարտավոր է։",
+          "պարտավոր է, եթե հետևից մոտեցող տրանսպորտային միջոց կա։",
+          "պարտավոր չէ։"
+        ],
+        "en": [
+          "Yes.",
+          "Yes, if a vehicle is approaching from behind.",
+          "No."
+        ],
+        "ru": [
+          "Обязан.",
+          "Обязан, если сзади приближается транспортное средство.",
+          "Не обязан."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-27-img-01.jpeg",
+      "imageFilename": "page-27-img-01.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t09_q096",
+      "testNumber": 9,
+      "sourceQuestionNumber": 96,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վարորդը դեպի վեր պարզած ձեռքով տեղեկացնում է",
+        "en": "By raising an arm, the driver indicates:",
+        "ru": "Поднятой вверх рукой водитель информирует:"
+      },
+      "options": {
+        "hy": [
+          "Ձախ շրջադարձ կատարելու մասին։",
+          "Ուղիղ երթևեկելու մասին։",
+          "Ընթացքը դանդաղեցնելու մասին։"
+        ],
+        "en": [
+          "An intention to make a left turn.",
+          "An intention to proceed straight ahead.",
+          "An intention to slow down."
+        ],
+        "ru": [
+          "О намерении выполнить поворот налево.",
+          "О намерении продолжить движение прямо.",
+          "О намерении снизить скорость."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-27-img-02.jpeg",
+      "imageFilename": "page-27-img-02.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t09_q097",
+      "testNumber": 9,
+      "sourceQuestionNumber": 97,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ազդանշան տալը երթևեկության մյուս մասնակիցների նկատմամբ առավելություն",
+        "en": "Giving a signal:",
+        "ru": "Подача сигнала преимущество перед другими участниками движения:"
+      },
+      "options": {
+        "hy": [
+          "Տալիս է։",
+          "Չի տալիս։",
+          "Տալիս է՝ միայն շարժում սկսելիս։"
+        ],
+        "en": [
+          "Gives the driver the right-of-way over other road users.",
+          "Does not give the driver the right-of-way over other road users.",
+          "Gives the driver the right-of-way only when starting to move."
+        ],
+        "ru": [
+          "Предоставляет.",
+          "Не предоставляет.",
+          "Предоставляет только при начале движения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 27
+    },
+    {
+      "id": "drv_t09_q098",
+      "testNumber": 9,
+      "sourceQuestionNumber": 98,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Գլխավոր ճանապարհով աջ շրջադարձ կատարելիս ազդանշան տալը",
+        "en": "When making a right turn while following the priority road, giving a turn signal is:",
+        "ru": "При повороте направо по главной дороге подача сигнала:"
+      },
+      "options": {
+        "hy": [
+          "պարտադիր է։",
+          "պարտադիր է, միայն օրվա մութ ժամանակ։",
+          "պարտադիր չէ։"
+        ],
+        "en": [
+          "Required.",
+          "Required only at night.",
+          "Not required."
+        ],
+        "ru": [
+          "Обязательна.",
+          "Обязательна только в тёмное время суток.",
+          "Не обязательна."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-28-img-01.jpeg",
+      "imageFilename": "page-28-img-01.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t09_q099",
+      "testNumber": 9,
+      "sourceQuestionNumber": 99,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ի՞նչի մասին է տեղեկացնում մոտոցիկլի վարորդը։",
+        "en": "What is the driver of the motorcycle indicating?",
+        "ru": "О чём информирует водитель мотоцикла?"
+      },
+      "options": {
+        "hy": [
+          "Երթևեկությունը ուղիղ շարունակելու",
+          "Ձախ շրջադարձ կատարելու",
+          "Թեթև մարդատարին զիջելու նպատակով արագությունն իջեցնելու"
+        ],
+        "en": [
+          "An intention to continue straight ahead.",
+          "An intention to make a left turn.",
+          "An intention to slow down in order to yield to the passenger car."
+        ],
+        "ru": [
+          "О намерении продолжить движение прямо.",
+          "О намерении выполнить поворот налево.",
+          "О снижении скорости с целью уступить дорогу легковому автомобилю."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-28-img-02.jpeg",
+      "imageFilename": "page-28-img-02.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t09_q100",
+      "testNumber": 9,
+      "sourceQuestionNumber": 100,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս այս իրավիճակում ազդանշան տալը",
+        "en": "In this situation, when making a left turn, giving a turn signal is:",
+        "ru": "При повороте налево в данной ситуации подача сигнала:"
+      },
+      "options": {
+        "hy": [
+          "Պարտադիր է։",
+          "Պարտադիր չէ։"
+        ],
+        "en": [
+          "Required.",
+          "Not required."
+        ],
+        "ru": [
+          "Обязательна.",
+          "Не обязательна."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-28-img-03.jpeg",
+      "imageFilename": "page-28-img-03.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t09_q101",
+      "testNumber": 9,
+      "sourceQuestionNumber": 101,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վազանց կատարելիս ձախ շրջադարձի լուսային ցուցիչն անջատել պարտավոր ենք",
+        "en": "When passing, the left turn signal must be turned off:",
+        "ru": "При выполнении обгона левый указатель поворота необходимо выключить:"
+      },
+      "options": {
+        "hy": [
+          "Անմիջապես ձախ գոտի վերադասավորվելուց հետո։",
+          "Միայն առջևից ընթացողից առաջ անցնելուց հետո։",
+          "Վարորդի հայեցողությամբ։"
+        ],
+        "en": [
+          "Immediately after changing to the left lane.",
+          "Only after proceeding ahead of the vehicle in front.",
+          "At the driver’s discretion."
+        ],
+        "ru": [
+          "Сразу после перестроения на левую полосу.",
+          "Только после опережения движущегося впереди транспортного средства.",
+          "По усмотрению водителя."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-29-img-01.jpeg",
+      "imageFilename": "page-29-img-01.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t09_q102",
+      "testNumber": 9,
+      "sourceQuestionNumber": 102,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Հետադարձն այս խաչմերուկում կատարելիս ո՞ր շրջադարձի ցուցիչը պետք է միացնենք։",
+        "en": "When making a U-turn at this intersection, which turn signal must be activated?",
+        "ru": "Какой указатель поворота следует включить при выполнении разворота на данном перекрёстке?"
+      },
+      "options": {
+        "hy": [
+          "Աջ",
+          "Ձախ",
+          "Ոչ մեկը"
+        ],
+        "en": [
+          "Right.",
+          "Left.",
+          "Neither."
+        ],
+        "ru": [
+          "Правый.",
+          "Левый.",
+          "Ни один."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-29-img-02.jpeg",
+      "imageFilename": "page-29-img-02.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t09_q103",
+      "testNumber": 9,
+      "sourceQuestionNumber": 103,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Պարտավոր եք արդյո՞ք նշված իրադրությունում տալ ազդանշան լուսային ցուցիչով։",
+        "en": "In the indicated situation, must you give a turn signal?",
+        "ru": "Обязаны ли Вы в указанной ситуации подать сигнал указателем поворота?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ",
+          "Այո, եթե աջ գոտով երթևեկող վարորդ կա:"
+        ],
+        "en": [
+          "Yes.",
+          "No.",
+          "Yes, if there is a driver proceeding in the right lane."
+        ],
+        "ru": [
+          "Да.",
+          "Нет.",
+          "Да, если по правой полосе движется другое транспортное средство."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-29-img-03.jpeg",
+      "imageFilename": "page-29-img-03.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t09_q104",
+      "testNumber": 9,
+      "sourceQuestionNumber": 104,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ի՞նչի մասին է տեղեկացնում մոտոցիկլի վարորդը։",
+        "en": "What is the driver of the motorcycle indicating?",
+        "ru": "О чём информирует водитель мотоцикла?"
+      },
+      "options": {
+        "hy": [
+          "Երթևեկությունն ուղիղ շարունակելու",
+          "Աջ շրջադարձ կատարելու",
+          "Ձախ շրջադարձ կամ հետադարձ կատարելու"
+        ],
+        "en": [
+          "An intention to continue straight ahead.",
+          "An intention to make a right turn.",
+          "An intention to make a left turn or U-turn."
+        ],
+        "ru": [
+          "О намерении продолжить движение прямо.",
+          "О намерении выполнить поворот направо.",
+          "О намерении выполнить поворот налево или разворот."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-30-img-01.jpeg",
+      "imageFilename": "page-30-img-01.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t09_q105",
+      "testNumber": 9,
+      "sourceQuestionNumber": 105,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսային ցուցիչով տրված մանևրի մասին ազդանշանը պետք է դադարեցվի",
+        "en": "The turn signal must be canceled",
+        "ru": "Сигнал о манёвре, подаваемый указателем поворота, должен быть прекращён:"
+      },
+      "options": {
+        "hy": [
+          "Անմիջապես մանևրից առաջ։",
+          "Անմիջապես մանևրից հետո։",
+          "Մանևրի ընթացքում։"
+        ],
+        "en": [
+          "Immediately before the maneuver.",
+          "Immediately after the maneuver.",
+          "During the maneuver."
+        ],
+        "ru": [
+          "Непосредственно перед манёвром.",
+          "Непосредственно после завершения манёвра.",
+          "Во время выполнения манёвра."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-30-img-02.jpeg",
+      "imageFilename": "page-30-img-02.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t09_q106",
+      "testNumber": 9,
+      "sourceQuestionNumber": 106,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսային ցուցիչով ազդանշան տալ նշված իրավիճակում",
+        "en": "In the indicated situation, giving a turn signal is:",
+        "ru": "Подача сигнала указателем поворота в указанной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Պարտադիր է։",
+          "Ըստ վարորդի հայեցողության։"
+        ],
+        "en": [
+          "Required.",
+          "At the driver’s discretion."
+        ],
+        "ru": [
+          "Обязательна.",
+          "Осуществляется по усмотрению водителя."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 30
+    },
+    {
+      "id": "drv_t09_q107",
+      "testNumber": 9,
+      "sourceQuestionNumber": 107,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր վարորդն է աջ շրջադարձի ազդանշան տալիս։",
+        "en": "Which driver is giving a right-turn signal?",
+        "ru": "Какой водитель подаёт сигнал правого поворота?"
+      },
+      "options": {
+        "hy": [
+          "Միայն աջում գտնվողը",
+          "Երկու վարորդներն էլ",
+          "Միայն ձախում գտնվողը"
+        ],
+        "en": [
+          "Only the driver on the right.",
+          "Both drivers.",
+          "Only the driver on the left."
+        ],
+        "ru": [
+          "Только находящийся справа.",
+          "Оба водителя.",
+          "Только находящийся слева."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-31-img-01.jpeg",
+      "imageFilename": "page-31-img-01.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t09_q108",
+      "testNumber": 9,
+      "sourceQuestionNumber": 108,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կայանատեղիներում կամ ավտոլցակայաններում մանևրելիս ազդանշան տալ լուսային ցուցիչով",
+        "en": "When maneuvering in parking areas or at gas stations, you:",
+        "ru": "При маневрировании на стоянках или автозаправочных станциях подавать сигнал указателем поворота:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր եք։",
+          "Պարտավոր չեք։"
+        ],
+        "en": [
+          "Must use the turn signal.",
+          "Are not required to use the turn signal."
+        ],
+        "ru": [
+          "Вы обязаны.",
+          "Вы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-31-img-02.jpeg",
+      "imageFilename": "page-31-img-02.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t09_q109",
+      "testNumber": 9,
+      "sourceQuestionNumber": 109,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս իրավիճակում ի՞նչ կարող է նշանակել վարորդի դուրս պարզած ձեռքը։",
+        "en": "In this situation, what can the driver’s outstretched arm indicate?",
+        "ru": "Что в данной ситуации может означать вытянутая водителем рука?"
+      },
+      "options": {
+        "hy": [
+          "Նրա կողմից երթևեկությունը սկսելու վերաբերյալ նշան",
+          "Կանգնելու մասին նշան",
+          "Ընդհանուր տագնապի ազդանշան"
+        ],
+        "en": [
+          "An intention to start moving.",
+          "An intention to stop.",
+          "A general emergency signal."
+        ],
+        "ru": [
+          "Сигнал о начале движения.",
+          "Сигнал об остановке.",
+          "Сигнал общей тревоги."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 31
+    },
+    {
+      "id": "drv_t09_q110",
+      "testNumber": 9,
+      "sourceQuestionNumber": 110,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ ազդանշաններ պետք է տաք նշված հետագծով հետադարձը կատարելիս։",
+        "en": "Which turn signals must you use when making a U-turn along the indicated path?",
+        "ru": "Какие сигналы следует подавать при выполнении разворота по указанной траектории?"
+      },
+      "options": {
+        "hy": [
+          "Աջ",
+          "Ձախ",
+          "Նախ՝ աջ, ապա՝ ձախ:"
+        ],
+        "en": [
+          "Right.",
+          "Left.",
+          "First right, then left."
+        ],
+        "ru": [
+          "Правый.",
+          "Левый.",
+          "Сначала правый, затем левый."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-32-img-01.jpeg",
+      "imageFilename": "page-32-img-01.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t09_q111",
+      "testNumber": 9,
+      "sourceQuestionNumber": 111,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Եթե անմիջապես խաչմերուկից հետո մտադրվել եք կանգառ կատարել, ապա երթևեկության մասնակիցներին շփոթության մեջ չգցելու համար ե՞րբ պետք է միացնեք աջ շրջադարձի լուսային ցուցիչը։",
+        "en": "If you intend to stop immediately after the intersection, when should you activate the right turn signal so as not to mislead other road users?",
+        "ru": "Если сразу после перекрёстка Вы намерены остановиться, когда следует включить правый указатель поворота, чтобы не вводить других участников движения в заблуждение?"
+      },
+      "options": {
+        "hy": [
+          "Նախապես՝ մինչև խաչմերուկը",
+          "Խաչմերուկ մուտք գործելուց հետո"
+        ],
+        "en": [
+          "In advance, before the intersection.",
+          "After entering the intersection."
+        ],
+        "ru": [
+          "Заранее, до перекрёстка.",
+          "После въезда на перекрёсток."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-32-img-02.jpeg",
+      "imageFilename": "page-32-img-02.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t09_q112",
+      "testNumber": 9,
+      "sourceQuestionNumber": 112,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Վազանցն ավարտող մեքենայի վարորդն համընթաց գոտի վերադասավորվելիս արդյո՞ք ունի առավելություն տվյալ գոտով երթևեկող վարոդի նկատմամբ։",
+        "en": "When changing back into the lane proceeding in the same direction after completing a passing maneuver, does the driver have the right-of-way over a driver already proceeding in that lane?",
+        "ru": "Имеет ли водитель, завершающий обгон и перестраивающийся на попутную полосу, преимущество перед водителем, движущимся по этой полосе?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ",
+          "Այո"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Нет.",
+          "Да."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-09/page-32-img-03.jpeg",
+      "imageFilename": "page-32-img-03.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t09_q113",
+      "testNumber": 9,
+      "sourceQuestionNumber": 113,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Մերձակա տարածքից դուրս եկող հատուկ ձայնային և լուսային ազդանշաններ միացրած վարորդին զիջել",
+        "en": "Must we yield to a driver exiting an adjacent area with flashing beacons and a special audible signal activated?",
+        "ru": "Уступить дорогу водителю, выезжающему с прилегающей территории с включёнными специальными звуковыми и световыми сигналами:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր չենք։",
+          "Պարտավոր ենք։"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Мы не обязаны.",
+          "Мы обязаны."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-33-img-01.jpeg",
+      "imageFilename": "page-33-img-01.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t09_q114",
+      "testNumber": 9,
+      "sourceQuestionNumber": 114,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս պարտավո՞ր ենք արդյոք զիջել ճանապարհը միացված դեղին առկայծող փարոսիկներով բեռնատարի վարորդին։",
+        "en": "When proceeding straight through the intersection, must we yield to the driver of the truck with flashing yellow beacons activated?",
+        "ru": "Обязаны ли мы при проезде перекрёстка прямо уступить дорогу водителю грузового автомобиля с включёнными проблесковыми маячками жёлтого цвета?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-33-img-02.jpeg",
+      "imageFilename": "page-33-img-02.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t09_q115",
+      "testNumber": 9,
+      "sourceQuestionNumber": 115,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս իրավիճակում ու՞մ պետք է զիջել ճանապարհը։",
+        "en": "In this situation, to whom must you yield?",
+        "ru": "Кому следует уступить дорогу в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի վարորդին",
+          "Հատուկ լուսային և ձայնային ազդանշաններ միացրած ավտոմոբիլի վարորդին",
+          "Երկու վարորդներին"
+        ],
+        "en": [
+          "The driver of the motorcycle.",
+          "The driver of the automobile with special light and audible signals activated.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Водителю мотоцикла.",
+          "Водителю автомобиля с включёнными специальными световыми и звуковыми сигналами.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-33-img-03.jpeg",
+      "imageFilename": "page-33-img-03.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t09_q116",
+      "testNumber": 9,
+      "sourceQuestionNumber": 116,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել ճանապարհը պարտավոր ենք",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներին։",
+          "Դեղին առկայծող փարոսիկով բեռնատարի վարորդին։",
+          "Միայն ավտոբուսի վարորդին։"
+        ],
+        "en": [
+          "Both drivers.",
+          "The driver of the truck with a flashing yellow beacon.",
+          "Only the bus driver."
+        ],
+        "ru": [
+          "Обоим водителям.",
+          "Водителю грузового автомобиля с включённым жёлтым проблесковым маячком.",
+          "Только водителю автобуса."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-34-img-01.jpeg",
+      "imageFilename": "page-34-img-01.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t09_q117",
+      "testNumber": 9,
+      "sourceQuestionNumber": 117,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում",
+        "en": "In this situation:",
+        "ru": "В данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկը կանցնեք առաջինը։",
+          "Պետք է զիջեք ճանապարհը ձախից մոտեցող վարորդին:"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You must yield to the driver approaching from the left."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Следует уступить дорогу водителю, приближающемуся слева."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-34-img-02.jpeg",
+      "imageFilename": "page-34-img-02.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t09_q118",
+      "testNumber": 9,
+      "sourceQuestionNumber": 118,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել պարտավոր ենք",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Բոլորին։",
+          "Ոստիկանության ավտոմոբիլի վարորդին;",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Everyone.",
+          "The driver of the police automobile.",
+          "No one."
+        ],
+        "ru": [
+          "Всем.",
+          "Водителю полицейского автомобиля.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-09/page-34-img-03.jpeg",
+      "imageFilename": "page-34-img-03.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t09_q119",
+      "testNumber": 9,
+      "sourceQuestionNumber": 119,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս",
+        "en": "When making a left turn:",
+        "ru": "При повороте налево:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկն առաջինը կանցնեք։",
+          "Կզիջեք միայն ոստիկանության ավտոմոբիլի վարորդին;",
+          "Կզիջեք բոլոր վարորդներին։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You will yield only to the driver of the police automobile.",
+          "You will yield to all drivers."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Вы уступите дорогу только водителю полицейского автомобиля.",
+          "Вы уступите дорогу всем водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-09/page-35-img-01.jpeg",
+      "imageFilename": "page-35-img-01.jpeg",
+      "page": 35
+    }
+  ]
+}

@@ -1,0 +1,4265 @@
+{
+  "testNumber": 5,
+  "totalQuestions": 136,
+  "questions": [
+    {
+      "id": "drv_t05_q001",
+      "testNumber": 5,
+      "sourceQuestionNumber": 1,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, տրոլեյբուսը։",
+          "Տրոլեյբուսը եւ ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Տրոլեյբուսը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը։"
+        ],
+        "en": [
+          "The passenger car, the bus, then the trolleybus.",
+          "The trolleybus and the bus, then the passenger car.",
+          "The trolleybus, the passenger car, then the bus."
+        ],
+        "ru": [
+          "Легковой автомобиль, автобус, троллейбус.",
+          "Троллейбус и автобус, затем легковой автомобиль.",
+          "Троллейбус, легковой автомобиль, автобус."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-01-img-01.jpeg",
+      "imageFilename": "page-01-img-01.jpeg",
+      "page": 1
+    },
+    {
+      "id": "drv_t05_q002",
+      "testNumber": 5,
+      "sourceQuestionNumber": 2,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Դեղին ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The blue automobile.",
+          "The yellow automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Жёлтый автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-05/page-01-img-02.jpeg",
+      "imageFilename": "page-01-img-02.jpeg",
+      "page": 1
+    },
+    {
+      "id": "drv_t05_q003",
+      "testNumber": 5,
+      "sourceQuestionNumber": 3,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը վերջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection last?",
+        "ru": "Последним перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The green automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Зелёный автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-02-img-01.jpeg",
+      "imageFilename": "page-02-img-01.jpeg",
+      "page": 2
+    },
+    {
+      "id": "drv_t05_q004",
+      "testNumber": 5,
+      "sourceQuestionNumber": 4,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կապույտ ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The blue automobile will proceed through the intersection:",
+        "ru": "Синий автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։"
+        ],
+        "en": [
+          "First.",
+          "Second."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-02-img-02.jpeg",
+      "imageFilename": "page-02-img-02.jpeg",
+      "page": 2
+    },
+    {
+      "id": "drv_t05_q005",
+      "testNumber": 5,
+      "sourceQuestionNumber": 5,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Ո՞ր պատասխանում է ճիշտ նշված խաչմերուկն անցնելու հերթականությունը։",
+        "en": "Which answer correctly states the order in which the vehicles will proceed through the intersection?",
+        "ru": "В каком ответе правильно указана очерёдность проезда перекрёстка?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը, հեծանիվը",
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, հեծանիվը",
+          "Հեծանիվը, ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The bus, the passenger car, the bicycle.",
+          "The passenger car, the bus, the bicycle.",
+          "The bicycle, the bus, the passenger car."
+        ],
+        "ru": [
+          "Автобус, легковой автомобиль, велосипед.",
+          "Легковой автомобиль, автобус, велосипед.",
+          "Велосипед, автобус, легковой автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-03-img-01.jpeg",
+      "imageFilename": "page-03-img-01.jpeg",
+      "page": 3
+    },
+    {
+      "id": "drv_t05_q006",
+      "testNumber": 5,
+      "sourceQuestionNumber": 6,
+      "category": "tram",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը։",
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The tram.",
+          "The red automobile.",
+          "The blue automobile."
+        ],
+        "ru": [
+          "Трамвай.",
+          "Красный автомобиль.",
+          "Синий автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-03-img-02.jpeg",
+      "imageFilename": "page-03-img-02.jpeg",
+      "page": 3
+    },
+    {
+      "id": "drv_t05_q007",
+      "testNumber": 5,
+      "sourceQuestionNumber": 7,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր ուղղությամբ է արգելվում երթեւեկությունը։",
+        "en": "In which direction is traffic prohibited?",
+        "ru": "В каком направлении движение запрещено?"
+      },
+      "options": {
+        "hy": [
+          "Դեպի աջ՝ առաջին անցումով",
+          "Դեպի աջ՝ երկրորդ անցումով",
+          "Դեպի աջ՝ առաջին եւ երկրորդ անցումներով"
+        ],
+        "en": [
+          "To the right through the first passage.",
+          "To the right through the second passage.",
+          "To the right through the first and second passages."
+        ],
+        "ru": [
+          "Направо через первый проезд.",
+          "Направо через второй проезд.",
+          "Направо через первый и второй проезды."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-04-img-01.jpeg",
+      "imageFilename": "page-04-img-01.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t05_q008",
+      "testNumber": 5,
+      "sourceQuestionNumber": 8,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The red automobile.",
+          "The blue automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Красный автомобиль.",
+          "Синий автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-04-img-02.jpeg",
+      "imageFilename": "page-04-img-02.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t05_q009",
+      "testNumber": 5,
+      "sourceQuestionNumber": 9,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The green automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Зелёный автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-05-img-01.jpeg",
+      "imageFilename": "page-05-img-01.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t05_q010",
+      "testNumber": 5,
+      "sourceQuestionNumber": 10,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Սպիտակ ավտոմոբիլը՝ դեղինի հետ միաժամանակ։",
+          "Կարմիր ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The white automobile, simultaneously with the yellow automobile.",
+          "The red automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Белый автомобиль одновременно с жёлтым.",
+          "Красный автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-05-img-02.jpeg",
+      "imageFilename": "page-05-img-02.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t05_q011",
+      "testNumber": 5,
+      "sourceQuestionNumber": 11,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը վերջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection last?",
+        "ru": "Последним перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը։",
+          "Դեղին ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The yellow automobile.",
+          "The green automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Жёлтый автомобиль.",
+          "Зелёный автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-06-img-01.jpeg",
+      "imageFilename": "page-06-img-01.jpeg",
+      "page": 6
+    },
+    {
+      "id": "drv_t05_q012",
+      "testNumber": 5,
+      "sourceQuestionNumber": 12,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Հեծանվորդը",
+          "Ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The bicyclist.",
+          "The automobile driver."
+        ],
+        "ru": [
+          "Велосипедист.",
+          "Водитель автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-06-img-02.jpeg",
+      "imageFilename": "page-06-img-02.jpeg",
+      "page": 6
+    },
+    {
+      "id": "drv_t05_q013",
+      "testNumber": 5,
+      "sourceQuestionNumber": 13,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի՝",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։",
+          "Դեղին ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The blue automobile.",
+          "The red automobile.",
+          "The yellow automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Синий автомобиль.",
+          "Красный автомобиль.",
+          "Жёлтый автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-07-img-01.jpeg",
+      "imageFilename": "page-07-img-01.jpeg",
+      "page": 7
+    },
+    {
+      "id": "drv_t05_q014",
+      "testNumber": 5,
+      "sourceQuestionNumber": 14,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները ի՞նչ հերթականությամբ կանցնեն խաչմերուկը։",
+        "en": "In what order will the vehicles proceed through the intersection?",
+        "ru": "В какой последовательности транспортные средства проедут перекрёсток?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլը, ավտոմոբիլը, տրամվայը",
+          "Տրամվայը, ավտոմոբիլը, մոտոցիկլը",
+          "Տրամվայը, մոտոցիկլը, ավտոմոբիլը"
+        ],
+        "en": [
+          "The motorcycle, the automobile, the tram.",
+          "The tram, the automobile, the motorcycle.",
+          "The tram, the motorcycle, the automobile."
+        ],
+        "ru": [
+          "Мотоцикл, автомобиль, трамвай.",
+          "Трамвай, автомобиль, мотоцикл.",
+          "Трамвай, мотоцикл, автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-07-img-02.jpeg",
+      "imageFilename": "page-07-img-02.jpeg",
+      "page": 7
+    },
+    {
+      "id": "drv_t05_q015",
+      "testNumber": 5,
+      "sourceQuestionNumber": 15,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The blue automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-08-img-01.jpeg",
+      "imageFilename": "page-08-img-01.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t05_q016",
+      "testNumber": 5,
+      "sourceQuestionNumber": 16,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը վերջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection last?",
+        "ru": "Последним перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The blue automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Синий автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-08-img-02.jpeg",
+      "imageFilename": "page-08-img-02.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t05_q017",
+      "testNumber": 5,
+      "sourceQuestionNumber": 17,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր ավտոմոբիլը վերջինը կանցնի խաչմերուկը։",
+        "en": "Which automobile will proceed through the intersection last?",
+        "ru": "Какой автомобиль последним проедет перекрёсток?"
+      },
+      "options": {
+        "hy": [
+          "Կապույտը",
+          "Կարմիրը",
+          "Կանաչը"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The red automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Синий.",
+          "Красный.",
+          "Зелёный."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-09-img-01.jpeg",
+      "imageFilename": "page-09-img-01.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t05_q018",
+      "testNumber": 5,
+      "sourceQuestionNumber": 18,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The red automobile.",
+          "The blue automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Красный автомобиль.",
+          "Синий автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-09-img-02.jpeg",
+      "imageFilename": "page-09-img-02.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t05_q019",
+      "testNumber": 5,
+      "sourceQuestionNumber": 19,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի վարորդը",
+          "Մոտոցիկլի վարորդը"
+        ],
+        "en": [
+          "The bus driver.",
+          "The motorcycle operator."
+        ],
+        "ru": [
+          "Водитель автобуса.",
+          "Водитель мотоцикла."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-10-img-01.jpeg",
+      "imageFilename": "page-10-img-01.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t05_q020",
+      "testNumber": 5,
+      "sourceQuestionNumber": 20,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The green automobile.",
+          "The blue automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Зелёный автомобиль.",
+          "Синий автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-10-img-02.jpeg",
+      "imageFilename": "page-10-img-02.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t05_q021",
+      "testNumber": 5,
+      "sourceQuestionNumber": 21,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The green automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Зелёный автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-11-img-01.jpeg",
+      "imageFilename": "page-11-img-01.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t05_q022",
+      "testNumber": 5,
+      "sourceQuestionNumber": 22,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection third?",
+        "ru": "Третьим перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը։",
+          "Դեղին ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The yellow automobile.",
+          "The green automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Жёлтый автомобиль.",
+          "Зелёный автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-11-img-02.jpeg",
+      "imageFilename": "page-11-img-02.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t05_q023",
+      "testNumber": 5,
+      "sourceQuestionNumber": 23,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կարմիր ավտոմոբիլը",
+        "en": "The red automobile:",
+        "ru": "Красный автомобиль:"
+      },
+      "options": {
+        "hy": [
+          "Ունի երթեւեկության առավելություն, քանի որ շրջանաձեւ երթեւեկությամբ խաչմերուկին մոտեցել է կապույտ ավտոմոբիլի աջ կողմից։",
+          "Պետք է ճանապարհը զիջի շրջանաձեւ երթեւեկությամբ ընթացող կապույտ ավտոմոբիլին։"
+        ],
+        "en": [
+          "Has the right-of-way because it approached the roundabout from the right of the blue automobile.",
+          "Must yield to the blue automobile proceeding on the roundabout."
+        ],
+        "ru": [
+          "Имеет преимущество в движении, поскольку приблизился к перекрёстку с круговым движением справа от синего автомобиля.",
+          "Должен уступить дорогу синему автомобилю, движущемуся по перекрёстку с круговым движением."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-12-img-01.jpeg",
+      "imageFilename": "page-12-img-01.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t05_q024",
+      "testNumber": 5,
+      "sourceQuestionNumber": 24,
+      "category": "other",
+      "prompt": {
+        "hy": "Ավտոմոբիլները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The automobiles will proceed through the intersection in the following order:",
+        "ru": "Автомобили проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Դեղինը, կանաչը, կապույտը։",
+          "Կապույտը՝ կանաչի հետ միաժամանակ, դեղինը։"
+        ],
+        "en": [
+          "The yellow automobile, the green automobile, the blue automobile.",
+          "The blue automobile simultaneously with the green automobile, then the yellow automobile."
+        ],
+        "ru": [
+          "Жёлтый, зелёный, синий.",
+          "Синий одновременно с зелёным, затем жёлтый."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-12-img-02.jpeg",
+      "imageFilename": "page-12-img-02.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t05_q025",
+      "testNumber": 5,
+      "sourceQuestionNumber": 25,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection third?",
+        "ru": "Третьим перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Դեղին ավտոմոբիլը։",
+          "Կարմիր ավտոմբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The yellow automobile.",
+          "The red automobile.",
+          "The blue automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Жёлтый автомобиль.",
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-13-img-01.jpeg",
+      "imageFilename": "page-13-img-01.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t05_q026",
+      "testNumber": 5,
+      "sourceQuestionNumber": 26,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The blue automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Синий автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-13-img-02.jpeg",
+      "imageFilename": "page-13-img-02.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t05_q027",
+      "testNumber": 5,
+      "sourceQuestionNumber": 27,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիրը, կանաչը, կապույտը, սեւը։",
+          "Կանաչը, կարմիրը, սեւը, կապույտը։",
+          "Կանաչը, կարմիրը, կապույտը, սեւը։"
+        ],
+        "en": [
+          "The red automobile, the green automobile, the blue automobile, the black automobile.",
+          "The green automobile, the red automobile, the black automobile, the blue automobile.",
+          "The green automobile, the red automobile, the blue automobile, the black automobile."
+        ],
+        "ru": [
+          "Красный, зелёный, синий, чёрный.",
+          "Зелёный, красный, чёрный, синий.",
+          "Зелёный, красный, синий, чёрный."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-14-img-01.jpeg",
+      "imageFilename": "page-14-img-01.jpeg",
+      "page": 14
+    },
+    {
+      "id": "drv_t05_q028",
+      "testNumber": 5,
+      "sourceQuestionNumber": 28,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը, դեղին ավտոմոբիլը, կանաչ ավտոմոբիլը։",
+          "Տրամվայը եւ կանաչ ավտոմոբիլը, դեղին ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը, դեղին ավտոմոբիլը, տրամվայը։"
+        ],
+        "en": [
+          "The tram, the yellow automobile, the green automobile.",
+          "The tram and the green automobile, then the yellow automobile.",
+          "The green automobile, the yellow automobile, the tram."
+        ],
+        "ru": [
+          "Трамвай, жёлтый автомобиль, зелёный автомобиль.",
+          "Трамвай и зелёный автомобиль, затем жёлтый автомобиль.",
+          "Зелёный автомобиль, жёлтый автомобиль, трамвай."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-14-img-02.jpeg",
+      "imageFilename": "page-14-img-02.jpeg",
+      "page": 14
+    },
+    {
+      "id": "drv_t05_q029",
+      "testNumber": 5,
+      "sourceQuestionNumber": 29,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Վարորդներից ո՞վ ունի առաջնահերթ երթեւեկության իրավունք։",
+        "en": "Which driver has the right-of-way?",
+        "ru": "Кто из водителей имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի վարորդը",
+          "Ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The motorcycle operator.",
+          "The automobile driver."
+        ],
+        "ru": [
+          "Водитель мотоцикла.",
+          "Водитель автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-15-img-01.jpeg",
+      "imageFilename": "page-15-img-01.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t05_q030",
+      "testNumber": 5,
+      "sourceQuestionNumber": 30,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The blue automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-15-img-02.jpeg",
+      "imageFilename": "page-15-img-02.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t05_q031",
+      "testNumber": 5,
+      "sourceQuestionNumber": 31,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայի վարորդը",
+          "Բեռնատար ավտոմոբիլի վարորդը",
+          "Ավտոմոբիլների վարորդները"
+        ],
+        "en": [
+          "The tram operator.",
+          "The truck driver.",
+          "The automobile drivers."
+        ],
+        "ru": [
+          "Водитель трамвая.",
+          "Водитель грузового автомобиля.",
+          "Водители автомобилей."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-16-img-01.jpeg",
+      "imageFilename": "page-16-img-01.jpeg",
+      "page": 16
+    },
+    {
+      "id": "drv_t05_q032",
+      "testNumber": 5,
+      "sourceQuestionNumber": 32,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կարմիր ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The red automobile will proceed through the intersection:",
+        "ru": "Красный автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։"
+        ],
+        "en": [
+          "First.",
+          "Second."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-16-img-02.jpeg",
+      "imageFilename": "page-16-img-02.jpeg",
+      "page": 16
+    },
+    {
+      "id": "drv_t05_q033",
+      "testNumber": 5,
+      "sourceQuestionNumber": 33,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, հեծանիվը։",
+          "Ավտոբուսը, հեծանիվը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը, հեծանիվը։",
+          "Հեծանիվը, ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The passenger car, the bus, the bicycle.",
+          "The bus, the bicycle, the passenger car.",
+          "The bus, the passenger car, the bicycle.",
+          "The bicycle, the bus, the passenger car."
+        ],
+        "ru": [
+          "Легковой автомобиль, автобус, велосипед.",
+          "Автобус, велосипед, легковой автомобиль.",
+          "Автобус, легковой автомобиль, велосипед.",
+          "Велосипед, автобус, легковой автомобиль."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-05/page-17-img-01.jpeg",
+      "imageFilename": "page-17-img-01.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t05_q034",
+      "testNumber": 5,
+      "sourceQuestionNumber": 34,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդն ունի առաջնահերթ երթեւեկության իրավունք։",
+        "en": "Which vehicle driver has the right-of-way?",
+        "ru": "Водитель какого транспортного средства имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլի վարորդը",
+          "Հեծանվորդը"
+        ],
+        "en": [
+          "The automobile driver.",
+          "The bicyclist."
+        ],
+        "ru": [
+          "Водитель автомобиля.",
+          "Велосипедист."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-17-img-02.jpeg",
+      "imageFilename": "page-17-img-02.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t05_q035",
+      "testNumber": 5,
+      "sourceQuestionNumber": 35,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը, ավտոմոբիլն ու ավտոբուսը միաժամանակ։",
+          "Տրամվայը, ավտոբուսը, ավտոմոբիլը։",
+          "Ավտոբուսը, տրամվայը, ավտոմոբիլը։"
+        ],
+        "en": [
+          "The tram, then the automobile and the bus simultaneously.",
+          "The tram, the bus, the automobile.",
+          "The bus, the tram, the automobile."
+        ],
+        "ru": [
+          "Трамвай, затем автомобиль и автобус одновременно.",
+          "Трамвай, автобус, автомобиль.",
+          "Автобус, трамвай, автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-18-img-01.jpeg",
+      "imageFilename": "page-18-img-01.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t05_q036",
+      "testNumber": 5,
+      "sourceQuestionNumber": 36,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլի վարորդը",
+          "Կարմիր ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The driver of the blue automobile.",
+          "The driver of the red automobile."
+        ],
+        "ru": [
+          "Водитель синего автомобиля.",
+          "Водитель красного автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-18-img-02.jpeg",
+      "imageFilename": "page-18-img-02.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t05_q037",
+      "testNumber": 5,
+      "sourceQuestionNumber": 37,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլի վարորդը",
+          "Մոտոցիկլի վարորդը"
+        ],
+        "en": [
+          "The automobile driver.",
+          "The motorcycle operator."
+        ],
+        "ru": [
+          "Водитель автомобиля.",
+          "Водитель мотоцикла."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-19-img-01.jpeg",
+      "imageFilename": "page-19-img-01.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t05_q038",
+      "testNumber": 5,
+      "sourceQuestionNumber": 38,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդն է ճիշտ մուտք գործում շրջանաձեւ երթեւեկությամբ խաչմերուկ։",
+        "en": "Which vehicle driver is entering the roundabout correctly?",
+        "ru": "Водитель какого транспортного средства правильно въезжает на перекрёсток с круговым движением?"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներն էլ",
+          "Միայն ավտոբուսի վարորդը",
+          "Միայն թեթեւ մարդատար ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "Both drivers.",
+          "Only the bus driver.",
+          "Only the passenger-car driver."
+        ],
+        "ru": [
+          "Оба водителя.",
+          "Только водитель автобуса.",
+          "Только водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-19-img-02.jpeg",
+      "imageFilename": "page-19-img-02.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t05_q039",
+      "testNumber": 5,
+      "sourceQuestionNumber": 39,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցն ունի առաջնահերթ երթեւեկության իրավունք։",
+        "en": "Which vehicle has the right-of-way?",
+        "ru": "Какое транспортное средство имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը, քանի որ մուտք է գործում շրջանաձեւ երթեւեկությամբ խաչմերուկ կապույտ ավտոմոբիլի աջ կողմից",
+          "Կապույտ ավտոմոբիլը, քանի որ ընթանում է շրջանաձեւ երթեւեկությամբ ճանապարհով"
+        ],
+        "en": [
+          "The red automobile, because it is entering the roundabout from the right of the blue automobile.",
+          "The blue automobile, because it is proceeding on the roundabout."
+        ],
+        "ru": [
+          "Красный автомобиль, поскольку въезжает на перекрёсток с круговым движением справа от синего автомобиля.",
+          "Синий автомобиль, поскольку движется по дороге с круговым движением."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-20-img-01.jpeg",
+      "imageFilename": "page-20-img-01.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t05_q040",
+      "testNumber": 5,
+      "sourceQuestionNumber": 40,
+      "category": "other",
+      "prompt": {
+        "hy": "Ցույց տվեք խաչմերուկն անցելու հերթականությունը։",
+        "en": "Indicate the order in which the vehicles will proceed through the intersection:",
+        "ru": "Укажите очерёдность проезда перекрёстка:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտը, կարմիրը` կանաչի հետ միաժամանակ",
+          "Կարմիրը, կապույտը, կանաչը",
+          "Կարմիրը` կանաչի հետ միաժամանակ, կապույտը"
+        ],
+        "en": [
+          "The blue automobile, then the red and green automobiles simultaneously.",
+          "The red automobile, the blue automobile, the green automobile.",
+          "The red and green automobiles simultaneously, then the blue automobile."
+        ],
+        "ru": [
+          "Синий, затем красный одновременно с зелёным.",
+          "Красный, синий, зелёный.",
+          "Красный одновременно с зелёным, затем синий."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-20-img-02.jpeg",
+      "imageFilename": "page-20-img-02.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t05_q041",
+      "testNumber": 5,
+      "sourceQuestionNumber": 41,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կանաչ ավտոմոբիլի վարորդը",
+        "en": "The driver of the green automobile:",
+        "ru": "Водитель зелёного автомобиля:"
+      },
+      "options": {
+        "hy": [
+          "Ունի առաջնահերթ երթեւեկության իրավունք։",
+          "Պետք է զիջի ճանապարհը։"
+        ],
+        "en": [
+          "Has the right-of-way.",
+          "Must yield."
+        ],
+        "ru": [
+          "Имеет преимущество в движении.",
+          "Должен уступить дорогу."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-21-img-01.jpeg",
+      "imageFilename": "page-21-img-01.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t05_q042",
+      "testNumber": 5,
+      "sourceQuestionNumber": 42,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը վերջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection last?",
+        "ru": "Последним перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The blue automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-21-img-02.jpeg",
+      "imageFilename": "page-21-img-02.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t05_q043",
+      "testNumber": 5,
+      "sourceQuestionNumber": 43,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը` կապույտի հետ միաժամանակ։",
+          "Դեղին ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The red automobile simultaneously with the blue automobile.",
+          "The yellow automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Красный автомобиль одновременно с синим.",
+          "Жёлтый автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-22-img-01.jpeg",
+      "imageFilename": "page-22-img-01.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t05_q044",
+      "testNumber": 5,
+      "sourceQuestionNumber": 44,
+      "category": "other",
+      "prompt": {
+        "hy": "Ավտոմոբիլները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The automobiles will proceed through the intersection in the following order:",
+        "ru": "Автомобили проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտը, կանաչը, կարմիրը։",
+          "Կարմիրը, կապույտը, կանաչը։",
+          "Կանաչը, կարմիրը, կապույտը։"
+        ],
+        "en": [
+          "The blue automobile, the green automobile, the red automobile.",
+          "The red automobile, the blue automobile, the green automobile.",
+          "The green automobile, the red automobile, the blue automobile."
+        ],
+        "ru": [
+          "Синий, зелёный, красный.",
+          "Красный, синий, зелёный.",
+          "Зелёный, красный, синий."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-22-img-02.jpeg",
+      "imageFilename": "page-22-img-02.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t05_q045",
+      "testNumber": 5,
+      "sourceQuestionNumber": 45,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկը երկրորդը կանցնի",
+        "en": "Which vehicle will proceed through the intersection second?",
+        "ru": "Вторым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The green automobile.",
+          "The blue automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Зелёный автомобиль.",
+          "Синий автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-23-img-01.jpeg",
+      "imageFilename": "page-23-img-01.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t05_q046",
+      "testNumber": 5,
+      "sourceQuestionNumber": 46,
+      "category": "other",
+      "prompt": {
+        "hy": "Կարմիր ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The red automobile will proceed through the intersection:",
+        "ru": "Красный автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Երկրորդը` կապույտի հետ միաժամանակ։",
+          "Երկրորդը` դեղինից հետո։",
+          "Երրորդը` կանաչից եւ դեղինից հետո։"
+        ],
+        "en": [
+          "Second, simultaneously with the blue automobile.",
+          "Second, after the yellow automobile.",
+          "Third, after the green and yellow automobiles."
+        ],
+        "ru": [
+          "Вторым, одновременно с синим автомобилем.",
+          "Вторым, после жёлтого автомобиля.",
+          "Третьим, после зелёного и жёлтого автомобилей."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-23-img-02.jpeg",
+      "imageFilename": "page-23-img-02.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t05_q047",
+      "testNumber": 5,
+      "sourceQuestionNumber": 47,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Դեղին ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The yellow automobile will proceed through the intersection:",
+        "ru": "Жёлтый автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։",
+          "Երրորդը",
+          "Վերջինը։"
+        ],
+        "en": [
+          "First.",
+          "Second.",
+          "Third.",
+          "Last."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым.",
+          "Третьим.",
+          "Последним."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-05/page-24-img-01.jpeg",
+      "imageFilename": "page-24-img-01.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t05_q048",
+      "testNumber": 5,
+      "sourceQuestionNumber": 48,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Ո՞ր պատասխանում է ճիշտ նշված անցնելու հերթականությունը։",
+        "en": "Which answer correctly states the order in which the vehicles will proceed?",
+        "ru": "В каком ответе правильно указана очерёдность проезда?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլ, ավտոբուս, բեռնատար ավտոմոբիլ",
+          "Ավտոբուս, մոտոցիկլը, բեռնատար ավտոմոբիլ",
+          "Ավտոբուս, բեռնատար ավտոմոբիլ, մոտոցիկլ"
+        ],
+        "en": [
+          "The motorcycle, the bus, the truck.",
+          "The bus, the motorcycle, the truck.",
+          "The bus, the truck, the motorcycle."
+        ],
+        "ru": [
+          "Мотоцикл, автобус, грузовой автомобиль.",
+          "Автобус, мотоцикл, грузовой автомобиль.",
+          "Автобус, грузовой автомобиль, мотоцикл."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-24-img-02.jpeg",
+      "imageFilename": "page-24-img-02.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t05_q049",
+      "testNumber": 5,
+      "sourceQuestionNumber": 49,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, տրամվայը։",
+          "Տրամվայը, ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Տրամվայը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը։"
+        ],
+        "en": [
+          "The passenger car, the bus, the tram.",
+          "The tram, the bus, the passenger car.",
+          "The tram, the passenger car, the bus."
+        ],
+        "ru": [
+          "Легковой автомобиль, автобус, трамвай.",
+          "Трамвай, автобус, легковой автомобиль.",
+          "Трамвай, легковой автомобиль, автобус."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-25-img-01.jpeg",
+      "imageFilename": "page-25-img-01.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t05_q050",
+      "testNumber": 5,
+      "sourceQuestionNumber": 50,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլի վարորդը",
+          "Ավտոբուսի վարորդը"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The bus driver."
+        ],
+        "ru": [
+          "Водитель легкового автомобиля.",
+          "Водитель автобуса."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-25-img-02.jpeg",
+      "imageFilename": "page-25-img-02.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t05_q051",
+      "testNumber": 5,
+      "sourceQuestionNumber": 51,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle must yield?",
+        "ru": "Какое транспортное средство должно уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ ավտոմոբիլը",
+          "Կարմիր ավտոմոբիլը"
+        ],
+        "en": [
+          "The blue automobile.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Синий автомобиль.",
+          "Красный автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-26-img-01.jpeg",
+      "imageFilename": "page-26-img-01.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t05_q052",
+      "testNumber": 5,
+      "sourceQuestionNumber": 52,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Դեղին ավտոբուսը, բեռնատար ավտոմոբիլը, կանաչ ավտոբուսը։",
+          "Բեռնատար ավտոմոբիլը, դեղին ավտոբուսը, կանաչ ավտոբուսը։",
+          "Դեղին ավտոբուսը, կանաչ ավտոբուսը, բեռնատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The yellow bus, the truck, the green bus.",
+          "The truck, the yellow bus, the green bus.",
+          "The yellow bus, the green bus, the truck."
+        ],
+        "ru": [
+          "Жёлтый автобус, грузовой автомобиль, зелёный автобус.",
+          "Грузовой автомобиль, жёлтый автобус, зелёный автобус.",
+          "Жёлтый автобус, зелёный автобус, грузовой автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-26-img-02.jpeg",
+      "imageFilename": "page-26-img-02.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t05_q053",
+      "testNumber": 5,
+      "sourceQuestionNumber": 53,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը՝ բեռնատար ավտոմոբիլի հետ միաժամանակ։",
+          "Թեթեւ մարդատար ավտոմոբիլը եւ բեռնատար ավտոմոբիլը՝ միաժամանակ, ավտոբուսը։"
+        ],
+        "en": [
+          "The bus, then the passenger car and the truck simultaneously.",
+          "The passenger car and the truck simultaneously, then the bus."
+        ],
+        "ru": [
+          "Автобус, затем легковой и грузовой автомобили одновременно.",
+          "Легковой и грузовой автомобили одновременно, затем автобус."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-27-img-01.jpeg",
+      "imageFilename": "page-27-img-01.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t05_q054",
+      "testNumber": 5,
+      "sourceQuestionNumber": 54,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ հերթականությամբ խաչմերուկը կանցնեն տրանսպորտային միջոցները, եթե լուսացույցերը չեն աշխատում։",
+        "en": "In what order will the vehicles proceed through the intersection if the traffic signals are not operating?",
+        "ru": "В какой последовательности транспортные средства проедут перекрёсток, если светофоры не работают?"
+      },
+      "options": {
+        "hy": [
+          "Տրոլեյբուսը եւ մոտոցիկլը, ավտոբուսը եւ թեթեւ մարդատար ավտոմոբիլը",
+          "Մոտոցիկլը, ավտոբուսը եւ թեթեւ մարդատար ավտոմոբիլը, տրոլեյբուսը",
+          "Ավտոբուսը եւ թեթեւ մարդատար ավտոմոբիլը, տրոլեյբուսը եւ մոտոցիկլը"
+        ],
+        "en": [
+          "The trolleybus and the motorcycle, then the bus and the passenger car.",
+          "The motorcycle, then the bus and the passenger car, then the trolleybus.",
+          "The bus and the passenger car, then the trolleybus and the motorcycle."
+        ],
+        "ru": [
+          "Троллейбус и мотоцикл, затем автобус и легковой автомобиль.",
+          "Мотоцикл, затем автобус и легковой автомобиль, затем троллейбус.",
+          "Автобус и легковой автомобиль, затем троллейбус и мотоцикл."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-27-img-02.jpeg",
+      "imageFilename": "page-27-img-02.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t05_q055",
+      "testNumber": 5,
+      "sourceQuestionNumber": 55,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլը, տրամվայը եւ ավտոբուսը, մոտոցիկլը եւ թեթեւ մարդատար ավտոմոբիլը։",
+          "Տրամվայը եւ ավտոբուսը, մոտոցիկլը եւ թեթեւ մարդատար ավտոմոբիլը, բեռնատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The truck, then the tram and the bus, then the motorcycle and the passenger car.",
+          "The tram and the bus, then the motorcycle and the passenger car, then the truck."
+        ],
+        "ru": [
+          "Грузовой автомобиль, затем трамвай и автобус, затем мотоцикл и легковой автомобиль.",
+          "Трамвай и автобус, затем мотоцикл и легковой автомобиль, затем грузовой автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-28-img-01.jpeg",
+      "imageFilename": "page-28-img-01.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t05_q056",
+      "testNumber": 5,
+      "sourceQuestionNumber": 56,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "«Շտապ օգնության» ավտոմոբիլը, տրամվայը, մոտոցիկլը, ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Մոտոցիկլը, ավտոբուսը, տրամվայը եւ «Շտապ օգնության» ավտոմոբիլը, թեթեւ մարդատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The ambulance, the tram, the motorcycle, the bus, the passenger car.",
+          "The motorcycle, the bus, then the tram and the ambulance, then the passenger car."
+        ],
+        "ru": [
+          "Автомобиль скорой медицинской помощи, трамвай, мотоцикл, автобус, легковой автомобиль.",
+          "Мотоцикл, автобус, затем трамвай и автомобиль скорой медицинской помощи, затем легковой автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-28-img-02.jpeg",
+      "imageFilename": "page-28-img-02.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t05_q057",
+      "testNumber": 5,
+      "sourceQuestionNumber": 57,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլը եւ մոտոցիկլը, ավտոբուսը, տրոլեյբուսը։",
+          "Բեռնատար ավտոմոբիլը եւ ավտոբուսը, մոտոցիկլը, տրոլեյբուսը։"
+        ],
+        "en": [
+          "The truck and the motorcycle, then the bus, then the trolleybus.",
+          "The truck and the bus, then the motorcycle, then the trolleybus."
+        ],
+        "ru": [
+          "Грузовой автомобиль и мотоцикл, затем автобус, затем троллейбус.",
+          "Грузовой автомобиль и автобус, затем мотоцикл, затем троллейбус."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-29-img-01.jpeg",
+      "imageFilename": "page-29-img-01.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t05_q058",
+      "testNumber": 5,
+      "sourceQuestionNumber": 58,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, ավտոցիստեռնը։",
+          "Բեռնատար ավտոմոբիլը, ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը, ավտոցիստեռնը։"
+        ],
+        "en": [
+          "The truck, the passenger car, the bus, the tanker truck.",
+          "The truck, the bus, the passenger car, the tanker truck."
+        ],
+        "ru": [
+          "Грузовой автомобиль, легковой автомобиль, автобус, автоцистерна.",
+          "Грузовой автомобиль, автобус, легковой автомобиль, автоцистерна."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-29-img-02.jpeg",
+      "imageFilename": "page-29-img-02.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t05_q059",
+      "testNumber": 5,
+      "sourceQuestionNumber": 59,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Թեթեւ մարդատար ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The passenger car will proceed through the intersection:",
+        "ru": "Легковой автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը` ավտոբուսից հետո։",
+          "Երրորդը։"
+        ],
+        "en": [
+          "First.",
+          "Second, after the bus.",
+          "Third."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым, после автобуса.",
+          "Третьим."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-30-img-01.jpeg",
+      "imageFilename": "page-30-img-01.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t05_q060",
+      "testNumber": 5,
+      "sourceQuestionNumber": 60,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, բեռնատար ավտոմոբիլը։",
+          "Ավտոբուսը, բեռնատար ավտոմոբիլը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը, բեռնատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The passenger car, the bus, the truck.",
+          "The bus, the truck, the passenger car.",
+          "The bus, the passenger car, the truck."
+        ],
+        "ru": [
+          "Легковой автомобиль, автобус, грузовой автомобиль.",
+          "Автобус, грузовой автомобиль, легковой автомобиль.",
+          "Автобус, легковой автомобиль, грузовой автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-30-img-02.jpeg",
+      "imageFilename": "page-30-img-02.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t05_q061",
+      "testNumber": 5,
+      "sourceQuestionNumber": 61,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը։",
+          "Ավտոբուսը, բեռնատար ավտոմոբիլը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը, բեռնատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The truck, the passenger car, the bus.",
+          "The bus, the truck, the passenger car.",
+          "The bus, the passenger car, the truck."
+        ],
+        "ru": [
+          "Грузовой автомобиль, легковой автомобиль, автобус.",
+          "Автобус, грузовой автомобиль, легковой автомобиль.",
+          "Автобус, легковой автомобиль, грузовой автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-31-img-01.jpeg",
+      "imageFilename": "page-31-img-01.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t05_q062",
+      "testNumber": 5,
+      "sourceQuestionNumber": 62,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կարո՞ղ են արդյոք տրանսպորտային միջոցները միաժամանակ կատարել ձախ շրջադարձ։",
+        "en": "May the vehicles make left turns simultaneously?",
+        "ru": "Могут ли транспортные средства одновременно выполнить поворот налево?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ: Թեթև մարդատարի վարորդը պետք է զիջի։",
+          "Ոչ: Բեռնատարի վարորդը պետք է զիջի։"
+        ],
+        "en": [
+          "Yes.",
+          "No. The passenger-car driver must yield.",
+          "No. The truck driver must yield."
+        ],
+        "ru": [
+          "Да.",
+          "Нет. Водитель легкового автомобиля должен уступить дорогу.",
+          "Нет. Водитель грузового автомобиля должен уступить дорогу."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-31-img-02.jpeg",
+      "imageFilename": "page-31-img-02.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t05_q063",
+      "testNumber": 5,
+      "sourceQuestionNumber": 63,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ւմ եք պարտավոր զիջել ճանապարհը տվյալ իրավիճակում։",
+        "en": "To whom must you yield in this situation?",
+        "ru": "Кому Вы обязаны уступить дорогу в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ավտոբուսին",
+          "Թեթև մարդատարին",
+          "Ոչ մեկին"
+        ],
+        "en": [
+          "Only to the bus.",
+          "To the passenger car.",
+          "To no one."
+        ],
+        "ru": [
+          "Только автобусу.",
+          "Легковому автомобилю.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-31-img-03.jpeg",
+      "imageFilename": "page-31-img-03.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t05_q064",
+      "testNumber": 5,
+      "sourceQuestionNumber": 64,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ձախ շրջադարձ կատարելիս",
+        "en": "In this situation, when making a left turn:",
+        "ru": "При повороте налево в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "կանցնեք խաչմերուկն առաջինը։",
+          "պետք է ճանապարհը զիջել բեռնատարի վարորդին։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You must yield to the truck driver."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Следует уступить дорогу водителю грузового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-32-img-01.jpeg",
+      "imageFilename": "page-32-img-01.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t05_q065",
+      "testNumber": 5,
+      "sourceQuestionNumber": 65,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում աջ շրջադարձ կատարելիս",
+        "en": "In this situation, when making a right turn:",
+        "ru": "При повороте направо в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "կանցնեք խաչմերուկն առաջինը։",
+          "պետք է ճանապարհը զիջել թեթև մարդատարի վարորդին։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You must yield to the passenger-car driver."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Следует уступить дорогу водителю легкового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-32-img-02.jpeg",
+      "imageFilename": "page-32-img-02.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t05_q066",
+      "testNumber": 5,
+      "sourceQuestionNumber": 66,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պարտավոր եք զիջել ճանապարհը",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի և A տրամվայի վարորդներին։",
+          "Միայն A տրամվայի վարորդին։",
+          "Տրամվայների վարորդներին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "The passenger-car driver and the operator of tram A.",
+          "Only the operator of tram A.",
+          "The tram operators.",
+          "No one."
+        ],
+        "ru": [
+          "Водителям легкового автомобиля и трамвая A.",
+          "Только водителю трамвая A.",
+          "Водителям трамваев.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-32-img-03.jpeg",
+      "imageFilename": "page-32-img-03.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t05_q067",
+      "testNumber": 5,
+      "sourceQuestionNumber": 67,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Երթևեկությունն ուղիղ շարունակելու դեպքում",
+        "en": "If continuing straight ahead:",
+        "ru": "При продолжении движения прямо:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկն առաջինը կանցնեք։",
+          "Կանցնեք թեթև մարդատարի անցնելուց հետո։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You will proceed after the passenger car has passed."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Вы проедете после легкового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-33-img-01.jpeg",
+      "imageFilename": "page-33-img-01.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t05_q068",
+      "testNumber": 5,
+      "sourceQuestionNumber": 68,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում հետադարձ կատարելիս անհրաժեշտ է ճանապարհը զիջել",
+        "en": "In this situation, when making a U-turn, you must yield to:",
+        "ru": "При выполнении разворота в данной ситуации необходимо уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարին։",
+          "Երկու վարորդներին։"
+        ],
+        "en": [
+          "The passenger car.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Легковому автомобилю.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-33-img-02.jpeg",
+      "imageFilename": "page-33-img-02.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t05_q069",
+      "testNumber": 5,
+      "sourceQuestionNumber": 69,
+      "category": "other",
+      "prompt": {
+        "hy": "Այս իրավիճակում հետիոտներին խոչընդոտ չստեղծել",
+        "en": "In this situation, must we avoid interfering with pedestrians?",
+        "ru": "В данной ситуации мы обязаны не создавать помех пешеходам:"
+      },
+      "options": {
+        "hy": [
+          "պարտավոր ենք։",
+          "պարտավոր չենք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-33-img-03.jpeg",
+      "imageFilename": "page-33-img-03.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t05_q070",
+      "testNumber": 5,
+      "sourceQuestionNumber": 70,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Խաչմերուկից անմիջապես հետո գոյացած խցանման պայմաններում մուտք գործելը խաչմերուկ թույլատրելի է,",
+        "en": "When congestion has formed immediately beyond the intersection, entering the intersection is permitted:",
+        "ru": "Въезд на перекрёсток при заторе, образовавшемся непосредственно за ним, разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե երթևեկությունն ուղիղ ենք շարունակելու:",
+          "Եթե շրջադարձ կամ հետադարձ ենք կատարելու:",
+          "Թվարկված բոլոր դեպքերում:"
+        ],
+        "en": [
+          "If you intend to continue straight ahead.",
+          "If you intend to make a turn or a U-turn.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "Если движение будет продолжено прямо.",
+          "Если выполняется поворот или разворот.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-34-img-01.jpeg",
+      "imageFilename": "page-34-img-01.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t05_q071",
+      "testNumber": 5,
+      "sourceQuestionNumber": 71,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել ճանապարհը պարտավոր ենք",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի վարորդին:",
+          "Թեթև մարդատարին:",
+          "Ոչ ոքի:"
+        ],
+        "en": [
+          "The motorcycle operator.",
+          "The passenger-car driver.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю мотоцикла.",
+          "Легковому автомобилю.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-34-img-02.jpeg",
+      "imageFilename": "page-34-img-02.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t05_q072",
+      "testNumber": 5,
+      "sourceQuestionNumber": 72,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն անցնելիս վարորդը պարտավոր է զիջել ճանապարհը",
+        "en": "When proceeding through the intersection, the driver must yield to:",
+        "ru": "При проезде перекрёстка водитель обязан уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն տրամվայների վարորդներին:",
+          "Թեթև մարդատարի և տրամվայ Բ-ի վարորդին:",
+          "Ոչ ոքի:",
+          "Բոլորին:"
+        ],
+        "en": [
+          "Only the tram operators.",
+          "The passenger-car driver and the operator of tram B.",
+          "No one.",
+          "Everyone."
+        ],
+        "ru": [
+          "Только водителям трамваев.",
+          "Водителям легкового автомобиля и трамвая B.",
+          "Никому.",
+          "Всем."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-34-img-03.jpeg",
+      "imageFilename": "page-34-img-03.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t05_q073",
+      "testNumber": 5,
+      "sourceQuestionNumber": 73,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ձախ շրջադարձ կատարելիս պարտավոր ենք զիջել ճանապարհը",
+        "en": "In this situation, when making a left turn, we must yield to:",
+        "ru": "При повороте налево в данной ситуации мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդին։",
+          "Ավտոբուսի վարորդին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The bus driver.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю легкового автомобиля.",
+          "Водителю автобуса.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-35-img-01.jpeg",
+      "imageFilename": "page-35-img-01.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t05_q074",
+      "testNumber": 5,
+      "sourceQuestionNumber": 74,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Պարտավոր ենք զիջել ճանապարհը",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն տրամվայի վարորդին։",
+          "Բեռնատարի վարորդին։",
+          "Երկու վարորդներին էլ։"
+        ],
+        "en": [
+          "Only the tram operator.",
+          "The truck driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Только водителю трамвая.",
+          "Водителю грузового автомобиля.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-35-img-02.jpeg",
+      "imageFilename": "page-35-img-02.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t05_q075",
+      "testNumber": 5,
+      "sourceQuestionNumber": 75,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ճանապարհը պետք է զիջել",
+        "en": "We must yield to:",
+        "ru": "Уступить дорогу следует:"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի վարորդին։",
+          "Երկու վարորդներին էլ։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "The bus driver.",
+          "Both drivers.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю автобуса.",
+          "Обоим водителям.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-35-img-03.jpeg",
+      "imageFilename": "page-35-img-03.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t05_q076",
+      "testNumber": 5,
+      "sourceQuestionNumber": 76,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում խաչմերուկն անցնելիս զիջել ճանապարհը",
+        "en": "In this situation, when proceeding through the intersection, must you yield?",
+        "ru": "При проезде перекрёстка в данной ситуации уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր եք։",
+          "Պարտավոր չեք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Вы обязаны.",
+          "Вы не обязаны."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-36-img-01.jpeg",
+      "imageFilename": "page-36-img-01.jpeg",
+      "page": 36
+    },
+    {
+      "id": "drv_t05_q077",
+      "testNumber": 5,
+      "sourceQuestionNumber": 77,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն անցնելիս այս իրավիճակում",
+        "en": "In this situation, when proceeding through the intersection:",
+        "ru": "При проезде перекрёстка в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինն անցնելու իրավունք ունենք",
+          "Պետք է զիջենք տրամվայի վարորդին։",
+          "Պետք է զիջենք բեռնատարի վարորդին։",
+          "Պետք է զիջենք բոլոր վարորդներին։"
+        ],
+        "en": [
+          "We have the right-of-way to proceed first.",
+          "We must yield to the tram operator.",
+          "We must yield to the truck driver.",
+          "We must yield to all drivers."
+        ],
+        "ru": [
+          "Мы имеем право проехать первыми.",
+          "Мы должны уступить дорогу водителю трамвая.",
+          "Мы должны уступить дорогу водителю грузового автомобиля.",
+          "Мы должны уступить дорогу всем водителям."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-36-img-02.jpeg",
+      "imageFilename": "page-36-img-02.jpeg",
+      "page": 36
+    },
+    {
+      "id": "drv_t05_q078",
+      "testNumber": 5,
+      "sourceQuestionNumber": 78,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "«Շրջանաձև երթևեկություն» նշանով կահավորված շրջանաձև երթևեկությամբ խաչմերուկ մուտք գործելիս տրանսպորտային միջոցի վարորդը",
+        "en": "When entering a roundabout marked with the “Roundabout” traffic sign, the driver of a vehicle:",
+        "ru": "При въезде на перекрёсток с круговым движением, обозначенный знаком «Круговое движение», водитель транспортного средства:"
+      },
+      "options": {
+        "hy": [
+          "պարտավոր է ճանապարհը զիջել այդ խաչմերուկում երթևեկող տրանսպորտային միջոցներին։",
+          "ունի երթևեկության առավելություն այդ խաչմերուկում երթևեկողների նկատմամբ:"
+        ],
+        "en": [
+          "Must yield to vehicles proceeding within the roundabout.",
+          "Has the right-of-way over vehicles proceeding within the roundabout."
+        ],
+        "ru": [
+          "Обязан уступить дорогу транспортным средствам, движущимся по этому перекрёстку.",
+          "Имеет преимущество перед транспортными средствами, движущимися по этому перекрёстку."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 36
+    },
+    {
+      "id": "drv_t05_q079",
+      "testNumber": 5,
+      "sourceQuestionNumber": 79,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում ձախ շրջադարձի ժամանակ պարտավոր ենք զիջել ճանապարհը",
+        "en": "In this situation, when making a left turn, we must yield to:",
+        "ru": "При повороте налево в данной ситуации мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Բոլոր վարորդներին։",
+          "Միայն թեթև մարդատարի վարորդին։",
+          "Ավտոբուսի և թեթև մարդատարի վարորդներին։"
+        ],
+        "en": [
+          "All drivers.",
+          "Only the passenger-car driver.",
+          "The bus driver and the passenger-car driver."
+        ],
+        "ru": [
+          "Всем водителям.",
+          "Только водителю легкового автомобиля.",
+          "Водителям автобуса и легкового автомобиля."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-37-img-01.jpeg",
+      "imageFilename": "page-37-img-01.jpeg",
+      "page": 37
+    },
+    {
+      "id": "drv_t05_q080",
+      "testNumber": 5,
+      "sourceQuestionNumber": 80,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր վարորդն է պարտավոր չխոչընդոտել հետիոտներին։",
+        "en": "Which driver must not interfere with pedestrians?",
+        "ru": "Какой водитель обязан не создавать помех пешеходам?"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդը",
+          "Բեռնատարի վարորդը",
+          "Երկու վարորդները"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The truck driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Водитель легкового автомобиля.",
+          "Водитель грузового автомобиля.",
+          "Оба водителя."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-37-img-02.jpeg",
+      "imageFilename": "page-37-img-02.jpeg",
+      "page": 37
+    },
+    {
+      "id": "drv_t05_q081",
+      "testNumber": 5,
+      "sourceQuestionNumber": 81,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում վարորդը կարող է՞ կատարել ձախ շրջադարձը։",
+        "en": "In this situation, may the driver make a left turn?",
+        "ru": "Может ли водитель выполнить поворот налево в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Այո, եթե չի խոչընդոտի բեռնատարի վարորդին",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "Yes, if the driver does not interfere with the truck driver.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Да, если это не создаст помех водителю грузового автомобиля.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-37-img-03.jpeg",
+      "imageFilename": "page-37-img-03.jpeg",
+      "page": 37
+    },
+    {
+      "id": "drv_t05_q082",
+      "testNumber": 5,
+      "sourceQuestionNumber": 82,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում ձախ շրջադարձ կատարելիս վարորդը",
+        "en": "In this situation, when making a left turn, the driver:",
+        "ru": "При повороте налево в данной ситуации водитель:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է զիջի ճանապարհը։",
+          "Կանցնի խաչմերուկն առաջինը։"
+        ],
+        "en": [
+          "Must yield.",
+          "Will proceed through the intersection first."
+        ],
+        "ru": [
+          "Должен уступить дорогу.",
+          "Проедет перекрёсток первым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-38-img-01.jpeg",
+      "imageFilename": "page-38-img-01.jpeg",
+      "page": 38
+    },
+    {
+      "id": "drv_t05_q083",
+      "testNumber": 5,
+      "sourceQuestionNumber": 83,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Նշանները տեղեկացնում են, որ",
+        "en": "The signs indicate that:",
+        "ru": "Знаки информируют о том, что:"
+      },
+      "options": {
+        "hy": [
+          "200մ-ից հետո ճանապարհը պետք է զիջել հատվող ճանապարհով երթևեկողին:",
+          "200մ տեղամասում պետք է զիջել բոլոր տրանսպորտային միջոցներին:"
+        ],
+        "en": [
+          "After 200 m, you must yield to traffic proceeding on the intersecting road.",
+          "Over the next 200 m, you must yield to all vehicles."
+        ],
+        "ru": [
+          "Через 200 м необходимо уступить дорогу транспортным средствам, движущимся по пересекаемой дороге.",
+          "На участке протяжённостью 200 м необходимо уступать дорогу всем транспортным средствам."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-38-img-02.jpeg",
+      "imageFilename": "page-38-img-02.jpeg",
+      "page": 38
+    },
+    {
+      "id": "drv_t05_q084",
+      "testNumber": 5,
+      "sourceQuestionNumber": 84,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Երկրորդ անցում ձախ շրջադարձ կատարելու դեպքում վարորդը",
+        "en": "When making a left turn at the second crossing, the driver:",
+        "ru": "При выполнении поворота налево на втором пересечении водитель:"
+      },
+      "options": {
+        "hy": [
+          "Ունի առավելություն։",
+          "Պետք է զիջի մյուս վարորդներին։",
+          "Պետք է զիջի ավտոբուսի վարորդին։"
+        ],
+        "en": [
+          "Has the right-of-way.",
+          "Must yield to the other drivers.",
+          "Must yield to the bus driver."
+        ],
+        "ru": [
+          "Имеет преимущество.",
+          "Должен уступить дорогу другим водителям.",
+          "Должен уступить дорогу водителю автобуса."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-38-img-03.jpeg",
+      "imageFilename": "page-38-img-03.jpeg",
+      "page": 38
+    },
+    {
+      "id": "drv_t05_q085",
+      "testNumber": 5,
+      "sourceQuestionNumber": 85,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս վարորդը",
+        "en": "When proceeding straight through the intersection, the driver:",
+        "ru": "При проезде перекрёстка прямо водитель:"
+      },
+      "options": {
+        "hy": [
+          "Կարող է առաջինն անցնել։",
+          "Պետք է զիջի տրամվային։",
+          "Պետք է զիջի երկու վարորդներին։"
+        ],
+        "en": [
+          "May proceed first.",
+          "Must yield to the tram.",
+          "Must yield to both drivers."
+        ],
+        "ru": [
+          "Может проехать первым.",
+          "Должен уступить дорогу трамваю.",
+          "Должен уступить дорогу обоим водителям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-39-img-01.jpeg",
+      "imageFilename": "page-39-img-01.jpeg",
+      "page": 39
+    },
+    {
+      "id": "drv_t05_q086",
+      "testNumber": 5,
+      "sourceQuestionNumber": 86,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս վարորդն ո՞ւմ է պարտավոր զիջել։",
+        "en": "When making a left turn, to whom must the driver yield?",
+        "ru": "Кому водитель обязан уступить дорогу при повороте налево?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի վարորդին",
+          "Թեթև մարդատարի վարորդին",
+          "Ոչ ոքի"
+        ],
+        "en": [
+          "The bus driver.",
+          "The passenger-car driver.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю автобуса.",
+          "Водителю легкового автомобиля.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-39-img-02.jpeg",
+      "imageFilename": "page-39-img-02.jpeg",
+      "page": 39
+    },
+    {
+      "id": "drv_t05_q087",
+      "testNumber": 5,
+      "sourceQuestionNumber": 87,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս խաչմերուկ մուտք գործելիս վարորդը",
+        "en": "When entering this intersection, the driver:",
+        "ru": "При въезде на данный перекрёсток водитель:"
+      },
+      "options": {
+        "hy": [
+          "Ունի առաջնահերթ երթևեկության իրավունք։",
+          "Պետք է զիջի բեռնատարին։",
+          "Երկու վարոդներին էլ պետք է զիջի։"
+        ],
+        "en": [
+          "Has the right-of-way.",
+          "Must yield to the truck.",
+          "Must yield to both drivers."
+        ],
+        "ru": [
+          "Имеет преимущество в движении.",
+          "Должен уступить дорогу грузовому автомобилю.",
+          "Должен уступить дорогу обоим водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-39-img-03.jpeg",
+      "imageFilename": "page-39-img-03.jpeg",
+      "page": 39
+    },
+    {
+      "id": "drv_t05_q088",
+      "testNumber": 5,
+      "sourceQuestionNumber": 88,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս վարորդն ո՞ւմ է պարտավոր զիջել։",
+        "en": "When making a left turn, to whom must the driver yield?",
+        "ru": "Кому водитель обязан уступить дорогу при повороте налево?"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներին էլ",
+          "Թեթև մարդատարի վարորդին",
+          "Ավտոբուսի վարորդին"
+        ],
+        "en": [
+          "Both drivers.",
+          "The passenger-car driver.",
+          "The bus driver."
+        ],
+        "ru": [
+          "Обоим водителям.",
+          "Водителю легкового автомобиля.",
+          "Водителю автобуса."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-40-img-01.jpeg",
+      "imageFilename": "page-40-img-01.jpeg",
+      "page": 40
+    },
+    {
+      "id": "drv_t05_q089",
+      "testNumber": 5,
+      "sourceQuestionNumber": 89,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում զիջել պարտավոր ենք",
+        "en": "In this situation, we must yield to:",
+        "ru": "В данной ситуации мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներին էլ։",
+          "Միայն հանդիպակաց գոտուց մոտեցող բեռնատարին։"
+        ],
+        "en": [
+          "Both drivers.",
+          "Only the truck approaching in the oncoming lane."
+        ],
+        "ru": [
+          "Обоим водителям.",
+          "Только грузовому автомобилю, приближающемуся по встречной полосе."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-40-img-02.jpeg",
+      "imageFilename": "page-40-img-02.jpeg",
+      "page": 40
+    },
+    {
+      "id": "drv_t05_q090",
+      "testNumber": 5,
+      "sourceQuestionNumber": 90,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս",
+        "en": "When making a left turn:",
+        "ru": "При повороте налево:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկը կանցնեք առաջինը։",
+          "Կզիջեք ճանապարհը։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You will yield."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Вы уступите дорогу."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-40-img-03.jpeg",
+      "imageFilename": "page-40-img-03.jpeg",
+      "page": 40
+    },
+    {
+      "id": "drv_t05_q091",
+      "testNumber": 5,
+      "sourceQuestionNumber": 91,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձն այս իրավիճակում կատարում ենք՝",
+        "en": "In this situation, when making a right turn, we:",
+        "ru": "Поворот направо в данной ситуации выполняется:"
+      },
+      "options": {
+        "hy": [
+          "առաջինն անցնելով խաչմերուկը։",
+          "զիջելով ճանապարհը թեթև մարդատարի վարորդին։",
+          "զիջելով ճանապարհը երկու վարորդներին։"
+        ],
+        "en": [
+          "Proceed through the intersection first.",
+          "Yield to the passenger-car driver.",
+          "Yield to both drivers."
+        ],
+        "ru": [
+          "С проездом перекрёстка первым.",
+          "С уступлением дороги водителю легкового автомобиля.",
+          "С уступлением дороги обоим водителям."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-41-img-01.jpeg",
+      "imageFilename": "page-41-img-01.jpeg",
+      "page": 41
+    },
+    {
+      "id": "drv_t05_q092",
+      "testNumber": 5,
+      "sourceQuestionNumber": 92,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս",
+        "en": "When making a right turn:",
+        "ru": "При повороте направо:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է զիջեք ճանապարհը։",
+          "Կարող եք անցնել առաջինը։"
+        ],
+        "en": [
+          "You must yield.",
+          "You may proceed first."
+        ],
+        "ru": [
+          "Вы должны уступить дорогу.",
+          "Вы можете проехать первым."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-41-img-02.jpeg",
+      "imageFilename": "page-41-img-02.jpeg",
+      "page": 41
+    },
+    {
+      "id": "drv_t05_q093",
+      "testNumber": 5,
+      "sourceQuestionNumber": 93,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պետք է ճանապարհը զիջեք",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево Вы должны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի և մոտոցիկլի վարորդներին։",
+          "Ավտոբուսի վարորդին։",
+          "Բոլորին։"
+        ],
+        "en": [
+          "The bus driver and the driver of the motorcycle.",
+          "The bus driver.",
+          "Everyone."
+        ],
+        "ru": [
+          "Водителям автобуса и мотоцикла.",
+          "Водителю автобуса.",
+          "Всем."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-41-img-03.jpeg",
+      "imageFilename": "page-41-img-03.jpeg",
+      "page": 41
+    },
+    {
+      "id": "drv_t05_q094",
+      "testNumber": 5,
+      "sourceQuestionNumber": 94,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս",
+        "en": "When making a left turn:",
+        "ru": "При повороте налево:"
+      },
+      "options": {
+        "hy": [
+          "Կանցնեք առաջինը՝ թեթև մարդատարի հետ միաժամանակ։",
+          "Կանցնեք մոտոցիկլից հետո։"
+        ],
+        "en": [
+          "You will proceed first, simultaneously with the passenger car.",
+          "You will proceed after the motorcycle."
+        ],
+        "ru": [
+          "Вы проедете первым одновременно с легковым автомобилем.",
+          "Вы проедете после мотоцикла."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-42-img-01.jpeg",
+      "imageFilename": "page-42-img-01.jpeg",
+      "page": 42
+    },
+    {
+      "id": "drv_t05_q095",
+      "testNumber": 5,
+      "sourceQuestionNumber": 95,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ուղիղ երթևեկելիս պարտավոր եք զիջել",
+        "en": "When proceeding straight ahead, you must yield to:",
+        "ru": "При движении прямо Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներին էլ։",
+          "Միայն թեթև մարդատարին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Both drivers.",
+          "Only the passenger car.",
+          "No one."
+        ],
+        "ru": [
+          "Обоим водителям.",
+          "Только легковому автомобилю.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-42-img-02.jpeg",
+      "imageFilename": "page-42-img-02.jpeg",
+      "page": 42
+    },
+    {
+      "id": "drv_t05_q096",
+      "testNumber": 5,
+      "sourceQuestionNumber": 96,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Տրամվային զիջել",
+        "en": "Must we yield to the tram?",
+        "ru": "Уступить дорогу трамваю:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք։",
+          "Պարտավոր չենք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Мы обязаны.",
+          "Мы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-42-img-03.jpeg",
+      "imageFilename": "page-42-img-03.jpeg",
+      "page": 42
+    },
+    {
+      "id": "drv_t05_q097",
+      "testNumber": 5,
+      "sourceQuestionNumber": 97,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում ե՞րբ է թույլատրվում աջ շրջադարձ կատարել։",
+        "en": "In this situation, when is a right turn permitted?",
+        "ru": "Когда в данной ситуации разрешается выполнить поворот направо?"
+      },
+      "options": {
+        "hy": [
+          "Անմիջապես",
+          "Բեռնատարին չխոչընդոտելու դեպքում՝ նրա անցման հետ միաժամանակ",
+          "Բեռնատարի անցնելուց հետո"
+        ],
+        "en": [
+          "Immediately.",
+          "At the same time as the truck passes, provided you do not interfere with the truck.",
+          "After the truck has passed."
+        ],
+        "ru": [
+          "Немедленно.",
+          "Одновременно с проездом грузового автомобиля, если ему не будут созданы помехи.",
+          "После проезда грузового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-43-img-01.jpeg",
+      "imageFilename": "page-43-img-01.jpeg",
+      "page": 43
+    },
+    {
+      "id": "drv_t05_q098",
+      "testNumber": 5,
+      "sourceQuestionNumber": 98,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս պարտավոր եք զիջել ճանապարհը",
+        "en": "When proceeding straight through the intersection, you must yield to:",
+        "ru": "При проезде перекрёстка прямо Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն A տրամվայի վարորդին։",
+          "Միայն B տրամվայի վարորդին։",
+          "Երկու վարորդներին էլ։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Only the operator of tram A.",
+          "Only the operator of tram B.",
+          "Both drivers.",
+          "No one."
+        ],
+        "ru": [
+          "Только водителю трамвая A.",
+          "Только водителю трамвая B.",
+          "Обоим водителям.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-43-img-02.jpeg",
+      "imageFilename": "page-43-img-02.jpeg",
+      "page": 43
+    },
+    {
+      "id": "drv_t05_q099",
+      "testNumber": 5,
+      "sourceQuestionNumber": 99,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պարտավոր եք զիջել ճանապարհը",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն ավտոբուսի վարորդին։",
+          "Երկու վարորդներին էլ։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Only the bus driver.",
+          "Both drivers.",
+          "No one."
+        ],
+        "ru": [
+          "Только водителю автобуса.",
+          "Обоим водителям.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-43-img-03.jpeg",
+      "imageFilename": "page-43-img-03.jpeg",
+      "page": 43
+    },
+    {
+      "id": "drv_t05_q100",
+      "testNumber": 5,
+      "sourceQuestionNumber": 100,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞վ առաջինը կանցնի խաչմերուկը։",
+        "en": "Who will proceed through the intersection first?",
+        "ru": "Кто первым проедет перекрёсток?"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատարի վարորդը",
+          "Տրոլեյբուսի վարորդը",
+          "Կանոններն այս դեպքը չեն կանոնակարգում: Վարորդները կանցնեն՝ փոխադարձ հարգանք ցուցաբերելով:"
+        ],
+        "en": [
+          "The truck driver.",
+          "The trolleybus driver.",
+          "The rules do not regulate this situation. The drivers should proceed while showing mutual respect."
+        ],
+        "ru": [
+          "Водитель грузового автомобиля.",
+          "Водитель троллейбуса.",
+          "Правила не регулируют данный случай. Водители проедут, руководствуясь взаимным уважением."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-44-img-01.jpeg",
+      "imageFilename": "page-44-img-01.jpeg",
+      "page": 44
+    },
+    {
+      "id": "drv_t05_q101",
+      "testNumber": 5,
+      "sourceQuestionNumber": 101,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Հետիոտներին չխոչընդոտել վարորդը պարտավոր է",
+        "en": "The driver must not interfere with pedestrians:",
+        "ru": "Водитель обязан не создавать помех пешеходам:"
+      },
+      "options": {
+        "hy": [
+          "Միայն ձախ շրջադարձ կատարելիս։",
+          "Միայն աջ շրջադարձ կատարելիս։",
+          "Երկու դեպքերում՝ նմանապես։"
+        ],
+        "en": [
+          "Only when making a left turn.",
+          "Only when making a right turn.",
+          "In both cases."
+        ],
+        "ru": [
+          "Только при повороте налево.",
+          "Только при повороте направо.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-44-img-02.jpeg",
+      "imageFilename": "page-44-img-02.jpeg",
+      "page": 44
+    },
+    {
+      "id": "drv_t05_q102",
+      "testNumber": 5,
+      "sourceQuestionNumber": 102,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձի ժամանակ պարտավոր եք ճանապարհը զիջել",
+        "en": "When making a right turn, you must yield to:",
+        "ru": "При повороте направо Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Հետիոտներին և հեծանվորդներին։",
+          "Միայն հետիոտներին։"
+        ],
+        "en": [
+          "Pedestrians and bicyclists.",
+          "Pedestrians only."
+        ],
+        "ru": [
+          "Пешеходам и велосипедистам.",
+          "Только пешеходам."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-44-img-03.jpeg",
+      "imageFilename": "page-44-img-03.jpeg",
+      "page": 44
+    },
+    {
+      "id": "drv_t05_q103",
+      "testNumber": 5,
+      "sourceQuestionNumber": 103,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պարտավոր եք ճանապարհը զիջել",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево Вы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն թեթև մարդատարի վարորդին։",
+          "Թեթև մարդատարի և ավտոբուսի վարորդին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Only the passenger-car driver.",
+          "The passenger-car driver and the bus driver.",
+          "No one."
+        ],
+        "ru": [
+          "Только водителю легкового автомобиля.",
+          "Водителям легкового автомобиля и автобуса.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-45-img-01.jpeg",
+      "imageFilename": "page-45-img-01.jpeg",
+      "page": 45
+    },
+    {
+      "id": "drv_t05_q104",
+      "testNumber": 5,
+      "sourceQuestionNumber": 104,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Երբ վարորդը չի կարող որոշել ճանապարհի ծածկույթի առկայությունը (օրվա մութ ժամանակ, ցեխ, ձյուն և այլն), և բացակայում են առավելության նշանները, ապա",
+        "en": "When a driver cannot determine whether the road has a paved surface (at night, because of mud, snow, etc.) and there are no priority signs:",
+        "ru": "Если водитель не может определить наличие покрытия дороги (в тёмное время суток, из-за грязи, снега и т. п.) и отсутствуют знаки приоритета, то:"
+      },
+      "options": {
+        "hy": [
+          "Նա պետք է համարի, որ գտնվում է երկրորդական ճանապարհի վրա։",
+          "Նա պետք է առաջնորդվի հավասարազոր խաչմերուկի անցման կանոններով:"
+        ],
+        "en": [
+          "The driver must consider that he/she is on a secondary road.",
+          "The driver must follow the rules for proceeding through an intersection of roads of equal priority."
+        ],
+        "ru": [
+          "Он должен считать, что находится на второстепенной дороге.",
+          "Он должен руководствоваться правилами проезда перекрёстков равнозначных дорог."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-45-img-02.jpeg",
+      "imageFilename": "page-45-img-02.jpeg",
+      "page": 45
+    },
+    {
+      "id": "drv_t05_q105",
+      "testNumber": 5,
+      "sourceQuestionNumber": 105,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում զիջել ճանապարհը պարտավոր ենք",
+        "en": "In this situation, we must yield to:",
+        "ru": "В данной ситуации мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Բոլոր վարոդներին։",
+          "Միայն բեռնատարի վարորդին։",
+          "Միայն թեթև մարդատարի վարորդին։"
+        ],
+        "en": [
+          "All drivers.",
+          "Only the truck driver.",
+          "Only the passenger-car driver."
+        ],
+        "ru": [
+          "Всем водителям.",
+          "Только водителю грузового автомобиля.",
+          "Только водителю легкового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 45
+    },
+    {
+      "id": "drv_t05_q106",
+      "testNumber": 5,
+      "sourceQuestionNumber": 106,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել ճանապարհը պարտավոր ենք",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդին։",
+          "Ավտոբուսի և թեթև մարդատարի վարորդներին։",
+          "Բոլոր վարորդներին։"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The bus driver and the passenger-car driver.",
+          "All drivers."
+        ],
+        "ru": [
+          "Водителю легкового автомобиля.",
+          "Водителям автобуса и легкового автомобиля.",
+          "Всем водителям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-46-img-01.jpeg",
+      "imageFilename": "page-46-img-01.jpeg",
+      "page": 46
+    },
+    {
+      "id": "drv_t05_q107",
+      "testNumber": 5,
+      "sourceQuestionNumber": 107,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս խաչմերուկում հետադարձ կատարելիս",
+        "en": "When making a U-turn at this intersection:",
+        "ru": "При выполнении разворота на данном перекрёстке:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը կկատարեմ մանևրը։",
+          "Պետք է զիջել ճանապարհը մյուս վարորդին։"
+        ],
+        "en": [
+          "I will perform the maneuver first.",
+          "I must yield to the other driver."
+        ],
+        "ru": [
+          "Я выполню манёвр первым.",
+          "Следует уступить дорогу другому водителю."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-46-img-02.jpeg",
+      "imageFilename": "page-46-img-02.jpeg",
+      "page": 46
+    },
+    {
+      "id": "drv_t05_q108",
+      "testNumber": 5,
+      "sourceQuestionNumber": 108,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի դեղին թարթող ազդանշանի պայմաններում խաչմերուկն ուղիղ անցնելիս՝ պարտավոր ենք",
+        "en": "When the traffic signal is flashing yellow, while proceeding straight through the intersection we must:",
+        "ru": "При мигающем жёлтом сигнале светофора, проезжая перекрёсток прямо, мы обязаны:"
+      },
+      "options": {
+        "hy": [
+          "Կանգնել և սպասել կանաչ թույլատրող ազդանշանի միանալուն։",
+          "Զիջել թեթև մարդատարի վարորդին։",
+          "Զիջել տրամվայի վարորդին։"
+        ],
+        "en": [
+          "Stop and wait for the permissive green signal.",
+          "Yield to the passenger-car driver.",
+          "Yield to the tram operator."
+        ],
+        "ru": [
+          "Остановиться и ожидать включения разрешающего зелёного сигнала.",
+          "Уступить дорогу водителю легкового автомобиля.",
+          "Уступить дорогу водителю трамвая."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-46-img-03.jpeg",
+      "imageFilename": "page-46-img-03.jpeg",
+      "page": 46
+    },
+    {
+      "id": "drv_t05_q109",
+      "testNumber": 5,
+      "sourceQuestionNumber": 109,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ուղիղ երթևեկելու դեպքում",
+        "en": "When proceeding straight ahead:",
+        "ru": "При движении прямо:"
+      },
+      "options": {
+        "hy": [
+          "Կարող ենք խաչմերուկն առաջինն անցնել։",
+          "Պետք է զիջել ճանապարհը։"
+        ],
+        "en": [
+          "We may proceed through the intersection first.",
+          "We must yield."
+        ],
+        "ru": [
+          "Мы можем проехать перекрёсток первыми.",
+          "Следует уступить дорогу."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-47-img-01.jpeg",
+      "imageFilename": "page-47-img-01.jpeg",
+      "page": 47
+    },
+    {
+      "id": "drv_t05_q110",
+      "testNumber": 5,
+      "sourceQuestionNumber": 110,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Հետադարձ կատարելիս ո՞ւմ պետք է զիջեք ճանապարհը",
+        "en": "When making a U-turn, to whom must you yield?",
+        "ru": "Кому Вы должны уступить дорогу при выполнении разворота?"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատարի վարորդին։",
+          "Թեթև մարդատարի վարորդին։",
+          "Երկու վարորդներին։"
+        ],
+        "en": [
+          "The truck driver.",
+          "The passenger-car driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Водителю грузового автомобиля.",
+          "Водителю легкового автомобиля.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-47-img-02.jpeg",
+      "imageFilename": "page-47-img-02.jpeg",
+      "page": 47
+    },
+    {
+      "id": "drv_t05_q111",
+      "testNumber": 5,
+      "sourceQuestionNumber": 111,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս տրամվային զիջել",
+        "en": "When making a left turn, must we yield to the tram?",
+        "ru": "При повороте налево уступить дорогу трамваю:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք։",
+          "Պարտավոր չենք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Мы обязаны.",
+          "Мы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-47-img-03.jpeg",
+      "imageFilename": "page-47-img-03.jpeg",
+      "page": 47
+    },
+    {
+      "id": "drv_t05_q112",
+      "testNumber": 5,
+      "sourceQuestionNumber": 112,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս խաչմերուկում ծածկույթ չունեցող ճանապարհից մոտեցող բեռնատարին",
+        "en": "At this intersection, we do not have to yield to the truck approaching from the unpaved road because:",
+        "ru": "На данном перекрёстке грузовому автомобилю, приближающемуся по дороге без покрытия:"
+      },
+      "options": {
+        "hy": [
+          "պարտավոր ենք զիջել, քանի որ այն մոտեցել է մեզ աջ կողմից։",
+          "պարտավոր չենք զիջել, քանի որ կոշտ ծածկույթով ճանապարհը ծածկույթ չունեցողի նկատմամբ համարվում է գլխավոր։"
+        ],
+        "en": [
+          "We must yield because it is approaching from our right.",
+          "A paved road is considered the priority road relative to an unpaved road."
+        ],
+        "ru": [
+          "Мы обязаны уступить дорогу, поскольку он приближается справа.",
+          "Мы не обязаны уступать дорогу, поскольку дорога с твёрдым покрытием является главной по отношению к дороге без покрытия."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-48-img-01.jpeg",
+      "imageFilename": "page-48-img-01.jpeg",
+      "page": 48
+    },
+    {
+      "id": "drv_t05_q113",
+      "testNumber": 5,
+      "sourceQuestionNumber": 113,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի դեղին թարթող ազդանշանի պարագայում",
+        "en": "When the traffic signal is flashing yellow:",
+        "ru": "При мигающем жёлтом сигнале светофора:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է սպասենք կանաչ ազդանշանի միանալուն։",
+          "Կանցնենք խաչմերուկը զիջելով լծասայլի վարորդին։",
+          "Թեթև մարդատարի հետ միաժամանակ կանցնեք խաչմերուկը։"
+        ],
+        "en": [
+          "We must wait for the green signal.",
+          "We will proceed through the intersection after yielding to the driver of the animal-drawn cart.",
+          "You will proceed through the intersection simultaneously with the passenger car."
+        ],
+        "ru": [
+          "Следует ожидать включения зелёного сигнала.",
+          "Мы проедем перекрёсток, уступив дорогу водителю гужевой повозки.",
+          "Вы проедете перекрёсток одновременно с легковым автомобилем."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-48-img-02.jpeg",
+      "imageFilename": "page-48-img-02.jpeg",
+      "page": 48
+    },
+    {
+      "id": "drv_t05_q114",
+      "testNumber": 5,
+      "sourceQuestionNumber": 114,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջվելիս պարտավոր ենք զիջել ճանապարհը",
+        "en": "When making a left turn, we must yield to:",
+        "ru": "При повороте налево мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդին։",
+          "Ավտոբուսի վարորդին։",
+          "Մոտոցիկլի վարորդին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The bus driver.",
+          "The driver of the motorcycle.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю легкового автомобиля.",
+          "Водителю автобуса.",
+          "Водителю мотоцикла.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-05/page-48-img-03.jpeg",
+      "imageFilename": "page-48-img-03.jpeg",
+      "page": 48
+    },
+    {
+      "id": "drv_t05_q115",
+      "testNumber": 5,
+      "sourceQuestionNumber": 115,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում",
+        "en": "In this situation:",
+        "ru": "В данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Զիջել ճանապարհը բեռնատարի վարորդին պարտավոր ենք։",
+          "Կարող ենք տրամվայի հետ միաժամանակ անցնել խաչմերուկը:"
+        ],
+        "en": [
+          "We must yield to the truck driver.",
+          "We may proceed through the intersection simultaneously with the tram."
+        ],
+        "ru": [
+          "Мы обязаны уступить дорогу водителю грузового автомобиля.",
+          "Мы можем проехать перекрёсток одновременно с трамваем."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-49-img-01.jpeg",
+      "imageFilename": "page-49-img-01.jpeg",
+      "page": 49
+    },
+    {
+      "id": "drv_t05_q116",
+      "testNumber": 5,
+      "sourceQuestionNumber": 116,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն անցնելիս զիջել պարտավոր ենք",
+        "en": "When proceeding through the intersection, we must yield to:",
+        "ru": "При проезде перекрёстка мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի վարորդին։",
+          "Մոտոցիկլի և ավտոբուսի վարորդներին։",
+          "Ավտոբուսի և թեթև մարդատարի վարորդներին։",
+          "Բոլոր վարորդներին։"
+        ],
+        "en": [
+          "The driver of the motorcycle.",
+          "The driver of the motorcycle and the bus driver.",
+          "The bus driver and the passenger-car driver.",
+          "All drivers."
+        ],
+        "ru": [
+          "Водителю мотоцикла.",
+          "Водителям мотоцикла и автобуса.",
+          "Водителям автобуса и легкового автомобиля.",
+          "Всем водителям."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-05/page-49-img-02.jpeg",
+      "imageFilename": "page-49-img-02.jpeg",
+      "page": 49
+    },
+    {
+      "id": "drv_t05_q117",
+      "testNumber": 5,
+      "sourceQuestionNumber": 117,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում ճանապարհը պետք է զիջեք",
+        "en": "In this situation, you must yield to:",
+        "ru": "В данной ситуации Вы должны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն տրամվայի վարորդին։",
+          "Թեթև մարդատարի վարորդին։",
+          "Թեթև մարդատարի և տրամվայի վարորդներին։",
+          "Բոլոր վարորդներին։"
+        ],
+        "en": [
+          "Only the tram operator.",
+          "The passenger-car driver.",
+          "The passenger-car driver and the tram operator.",
+          "All drivers."
+        ],
+        "ru": [
+          "Только водителю трамвая.",
+          "Водителю легкового автомобиля.",
+          "Водителям легкового автомобиля и трамвая.",
+          "Всем водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-49-img-03.jpeg",
+      "imageFilename": "page-49-img-03.jpeg",
+      "page": 49
+    },
+    {
+      "id": "drv_t05_q118",
+      "testNumber": 5,
+      "sourceQuestionNumber": 118,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ձախ շրջադարձ կատարելիս",
+        "en": "In this situation, when making a left turn:",
+        "ru": "При повороте налево в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկը կանցնեք առաջինը։",
+          "Մուտք գործելով խաչմերուկ՝ կզիջեք ճանապարհը մոտոցիկլի վարորդին և հետո կավարտեք մանևրը։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "After entering the intersection, you will yield to the driver of the motorcycle and then complete the maneuver."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Въехав на перекрёсток, Вы уступите дорогу водителю мотоцикла, после чего завершите манёвр."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-50-img-01.jpeg",
+      "imageFilename": "page-50-img-01.jpeg",
+      "page": 50
+    },
+    {
+      "id": "drv_t05_q119",
+      "testNumber": 5,
+      "sourceQuestionNumber": 119,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս անհրաժեշտ է ճանապարհը զիջել",
+        "en": "When proceeding straight through the intersection, you must yield to:",
+        "ru": "При проезде перекрёстка прямо необходимо уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատարի վարորդին։",
+          "Թեթև մարդատարի վարորդին։",
+          "Երկու վարորդներին։"
+        ],
+        "en": [
+          "The truck driver.",
+          "The passenger-car driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Водителю грузового автомобиля.",
+          "Водителю легкового автомобиля.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-50-img-02.jpeg",
+      "imageFilename": "page-50-img-02.jpeg",
+      "page": 50
+    },
+    {
+      "id": "drv_t05_q120",
+      "testNumber": 5,
+      "sourceQuestionNumber": 120,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում",
+        "en": "In this situation:",
+        "ru": "В данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Խաչմերուկը կանցնեք առաջինը։",
+          "Կզիջեք ճանապարհը թեթև մարդատարի վարորդին։",
+          "Կզիջեք ճանապարհը երկու վարորդներին։"
+        ],
+        "en": [
+          "You will proceed through the intersection first.",
+          "You will yield to the passenger-car driver.",
+          "You will yield to both drivers."
+        ],
+        "ru": [
+          "Вы проедете перекрёсток первым.",
+          "Вы уступите дорогу водителю легкового автомобиля.",
+          "Вы уступите дорогу обоим водителям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-50-img-03.jpeg",
+      "imageFilename": "page-50-img-03.jpeg",
+      "page": 50
+    },
+    {
+      "id": "drv_t05_q121",
+      "testNumber": 5,
+      "sourceQuestionNumber": 121,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել պարտավոր ենք",
+        "en": "We must yield to:",
+        "ru": "Мы обязаны уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Երկու վարորդներին էլ։",
+          "Թեթև մարդատարի վարորդին։",
+          "Ավտոբուսի վարորդին։"
+        ],
+        "en": [
+          "Both drivers.",
+          "The passenger-car driver.",
+          "The bus driver."
+        ],
+        "ru": [
+          "Обоим водителям.",
+          "Водителю легкового автомобиля.",
+          "Водителю автобуса."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-51-img-01.jpeg",
+      "imageFilename": "page-51-img-01.jpeg",
+      "page": 51
+    },
+    {
+      "id": "drv_t05_q122",
+      "testNumber": 5,
+      "sourceQuestionNumber": 122,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այստեղ խաչմերուկը",
+        "en": "At this intersection:",
+        "ru": "На данном перекрёстке:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը կանցնեք։",
+          "Կզիջեք ճանապարհը բեռնատարին։"
+        ],
+        "en": [
+          "You will proceed first.",
+          "You will yield to the truck."
+        ],
+        "ru": [
+          "Вы проедете первым.",
+          "Вы уступите дорогу грузовому автомобилю."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-51-img-02.jpeg",
+      "imageFilename": "page-51-img-02.jpeg",
+      "page": 51
+    },
+    {
+      "id": "drv_t05_q123",
+      "testNumber": 5,
+      "sourceQuestionNumber": 123,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել ճանապարհը տրամվայի վարորդին",
+        "en": "Must we yield to the tram operator?",
+        "ru": "Уступить дорогу водителю трамвая:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք։",
+          "Պարտավոր չենք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Мы обязаны.",
+          "Мы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-51-img-03.jpeg",
+      "imageFilename": "page-51-img-03.jpeg",
+      "page": 51
+    },
+    {
+      "id": "drv_t05_q124",
+      "testNumber": 5,
+      "sourceQuestionNumber": 124,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պետք է զիջել",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево следует уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատարի վարորդին։",
+          "Երկու վարորդներին էլ։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "The truck driver.",
+          "Both drivers.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю грузового автомобиля.",
+          "Обоим водителям.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-52-img-01.jpeg",
+      "imageFilename": "page-52-img-01.jpeg",
+      "page": 52
+    },
+    {
+      "id": "drv_t05_q125",
+      "testNumber": 5,
+      "sourceQuestionNumber": 125,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս խաչմերուկում",
+        "en": "At this intersection:",
+        "ru": "На данном перекрёстке:"
+      },
+      "options": {
+        "hy": [
+          "Կզիջեք ճանապարհը ։",
+          "Կանցնեք առաջինը։"
+        ],
+        "en": [
+          "You will yield.",
+          "You will proceed first."
+        ],
+        "ru": [
+          "Вы уступите дорогу.",
+          "Вы проедете первым."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-52-img-02.jpeg",
+      "imageFilename": "page-52-img-02.jpeg",
+      "page": 52
+    },
+    {
+      "id": "drv_t05_q126",
+      "testNumber": 5,
+      "sourceQuestionNumber": 126,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Երթևեկությունն ուղիղ շարունակելու դեպքում տրամվային զիջել",
+        "en": "When proceeding straight ahead, must we yield to the tram?",
+        "ru": "При продолжении движения прямо уступить дорогу трамваю:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք։",
+          "Պարտավոր չենք։"
+        ],
+        "en": [
+          "We must.",
+          "We must not."
+        ],
+        "ru": [
+          "Мы обязаны.",
+          "Мы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-52-img-03.jpeg",
+      "imageFilename": "page-52-img-03.jpeg",
+      "page": 52
+    },
+    {
+      "id": "drv_t05_q127",
+      "testNumber": 5,
+      "sourceQuestionNumber": 127,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Տրամվային զիջել",
+        "en": "Must we yield to the tram?",
+        "ru": "Уступить дорогу трамваю:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք։",
+          "Պարտավոր չենք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Мы обязаны.",
+          "Мы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-53-img-01.jpeg",
+      "imageFilename": "page-53-img-01.jpeg",
+      "page": 53
+    },
+    {
+      "id": "drv_t05_q128",
+      "testNumber": 5,
+      "sourceQuestionNumber": 128,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում աջ շրջադարձը թույլատրվում է",
+        "en": "In this situation, a right turn is permitted:",
+        "ru": "В данной ситуации поворот направо разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Միայն բեռնատարից հետո։",
+          "Բեռնատարի հետ միաժամանակ, եթե դա չի խոչընդոտի բեռնատարի վարորդին։"
+        ],
+        "en": [
+          "Only after the truck has passed.",
+          "At the same time as the truck, provided this does not interfere with the truck driver."
+        ],
+        "ru": [
+          "Только после проезда грузового автомобиля.",
+          "Одновременно с грузовым автомобилем, если это не создаст помех его водителю."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-53-img-02.jpeg",
+      "imageFilename": "page-53-img-02.jpeg",
+      "page": 53
+    },
+    {
+      "id": "drv_t05_q129",
+      "testNumber": 5,
+      "sourceQuestionNumber": 129,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրամվայի վարորդին ենք պարտավոր զիջել ճանապարհը։",
+        "en": "To which tram operator must we yield?",
+        "ru": "Водителю какого трамвая мы обязаны уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Միայն A",
+          "Միայն B",
+          "Երկու տրամվայների"
+        ],
+        "en": [
+          "Only A.",
+          "Only B.",
+          "Both tram operators."
+        ],
+        "ru": [
+          "Только трамвая A.",
+          "Только трамвая B.",
+          "Обоих трамваев."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-53-img-03.jpeg",
+      "imageFilename": "page-53-img-03.jpeg",
+      "page": 53
+    },
+    {
+      "id": "drv_t05_q130",
+      "testNumber": 5,
+      "sourceQuestionNumber": 130,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ուղիղ երթևեկելիս պետք է զիջել",
+        "en": "When proceeding straight ahead, you must yield to:",
+        "ru": "При движении прямо следует уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդին։",
+          "Բոլորին։",
+          "Ոչ մեկին։"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "Everyone.",
+          "No one."
+        ],
+        "ru": [
+          "Водителю легкового автомобиля.",
+          "Всем.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-05/page-54-img-01.jpeg",
+      "imageFilename": "page-54-img-01.jpeg",
+      "page": 54
+    },
+    {
+      "id": "drv_t05_q131",
+      "testNumber": 5,
+      "sourceQuestionNumber": 131,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրադրությունում զիջել անհրաժեշտ է",
+        "en": "In this situation, you must yield to:",
+        "ru": "В данной ситуации необходимо уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի վարորդին։",
+          "Բեռնատարի վարորդին։",
+          "Երկու վարորդներին։"
+        ],
+        "en": [
+          "The bus driver.",
+          "The truck driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Водителю автобуса.",
+          "Водителю грузового автомобиля.",
+          "Обоим водителям."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-54-img-02.jpeg",
+      "imageFilename": "page-54-img-02.jpeg",
+      "page": 54
+    },
+    {
+      "id": "drv_t05_q132",
+      "testNumber": 5,
+      "sourceQuestionNumber": 132,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր նշանի դեպքում խաչմերուկում պետք է զիջեք ձախից մոտեցող վարորդներին։",
+        "en": "Under which sign must you give way at an intersection to drivers approaching from the left?",
+        "ru": "При каком знаке на перекрёстке вы должны уступить дорогу водителям, приближающимся слева?"
+      },
+      "options": {
+        "hy": [
+          "Միայն A",
+          "Միայն B",
+          "A և B",
+          "Բոլոր"
+        ],
+        "en": [
+          "Only A.",
+          "Only B.",
+          "A and B.",
+          "All."
+        ],
+        "ru": [
+          "Только A",
+          "Только при знаке B.",
+          "A и B",
+          "При всех знаках."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-54-img-03.jpeg",
+      "imageFilename": "page-54-img-03.jpeg",
+      "page": 54
+    },
+    {
+      "id": "drv_t05_q133",
+      "testNumber": 5,
+      "sourceQuestionNumber": 133,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է պատկերված գլխավոր ճանապարհը։",
+        "en": "In which image is the priority road shown?",
+        "ru": "На каком рисунке изображена главная дорога?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ձախ",
+          "Ներքևի և ձախ",
+          "Բոլոր"
+        ],
+        "en": [
+          "Only in the left image.",
+          "In the lower and left images.",
+          "In all images."
+        ],
+        "ru": [
+          "Только на левом.",
+          "На нижнем и левом.",
+          "На всех."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-55-img-01.jpeg",
+      "imageFilename": "page-55-img-01.jpeg",
+      "page": 55
+    },
+    {
+      "id": "drv_t05_q134",
+      "testNumber": 5,
+      "sourceQuestionNumber": 134,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է պատկերված գլխավոր ճանապարհը։",
+        "en": "In which image is the priority road shown?",
+        "ru": "На каком рисунке изображена главная дорога?"
+      },
+      "options": {
+        "hy": [
+          "Միայն աջ",
+          "Աջ և ներքևի",
+          "Բոլոր"
+        ],
+        "en": [
+          "Only in the right image.",
+          "In the right and lower images.",
+          "In all images."
+        ],
+        "ru": [
+          "Только на правом.",
+          "На правом и нижнем.",
+          "На всех."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-05/page-55-img-02.jpeg",
+      "imageFilename": "page-55-img-02.jpeg",
+      "page": 55
+    },
+    {
+      "id": "drv_t05_q135",
+      "testNumber": 5,
+      "sourceQuestionNumber": 135,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է պատկերված գլխավոր ճանապարհը։",
+        "en": "In which image is the priority road shown?",
+        "ru": "На каком рисунке изображена главная дорога?"
+      },
+      "options": {
+        "hy": [
+          "Վերին ձախ",
+          "Վերին աջ",
+          "Վերևի նկարներում",
+          "Բոլոր"
+        ],
+        "en": [
+          "Upper left.",
+          "Upper right.",
+          "In the upper images.",
+          "In all images."
+        ],
+        "ru": [
+          "На верхнем левом.",
+          "На верхнем правом.",
+          "На верхних рисунках.",
+          "На всех."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-05/page-55-img-03.jpeg",
+      "imageFilename": "page-55-img-03.jpeg",
+      "page": 55
+    },
+    {
+      "id": "drv_t05_q136",
+      "testNumber": 5,
+      "sourceQuestionNumber": 136,
+      "category": "other",
+      "prompt": {
+        "hy": "Խաչմերուկում ո՞ր ճանապարհն է համարվում գլխավոր։",
+        "en": "At an intersection, which road is considered the priority road?",
+        "ru": "Какая дорога на перекрёстке считается главной?"
+      },
+      "options": {
+        "hy": [
+          "Կոշտ ծածկույթով (ասֆալտբետոն, ցեմենտբետոն, քարե նյութեր և այլն) ճանապարհը հողային ծածկույթ ունեցողի նկատմամբ",
+          "Եռագոտի ճանապարհը՝ ամեն ուղղությամբ մեկ գոտի ունեցողի նկատմամբ",
+          "Ասֆալտբետոնե ճանապարհը՝ սալիկապատ ճանապարհի նկատմամբ"
+        ],
+        "en": [
+          "A paved road (asphalt concrete, cement concrete, stone materials, etc.) relative to an unpaved road.",
+          "A three-lane road relative to a road having one lane in each direction.",
+          "An asphalt-concrete road relative to a road paved with slabs."
+        ],
+        "ru": [
+          "Дорога с твёрдым покрытием (асфальтобетон, цементобетон, каменные материалы и т. п.) по отношению к грунтовой дороге.",
+          "Трёхполосная дорога по отношению к дороге, имеющей по одной полосе в каждом направлении.",
+          "Асфальтобетонная дорога по отношению к дороге с плиточным покрытием."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 56
+    }
+  ]
+}

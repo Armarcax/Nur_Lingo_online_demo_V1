@@ -1,0 +1,1903 @@
+{
+  "testNumber": 3,
+  "totalQuestions": 59,
+  "questions": [
+    {
+      "id": "drv_t03_q001",
+      "testNumber": 3,
+      "sourceQuestionNumber": 1,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլների դողերի պահպանաշերտի մնացորդային բարձրությունը կազմում է 1.8 մմ։",
+          "Խախտված է հիդրավլիկ արգելակային հաղորդակի հերմետիկությունը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The remaining tread depth of the tires of a passenger car is 1.8 mm.",
+          "The hydraulic brake system is not leak-tight.",
+          "In both cases."
+        ],
+        "ru": [
+          "Остаточная высота рисунка протектора шин легкового автомобиля составляет 1,8 мм.",
+          "Нарушена герметичность гидравлического тормозного привода.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q002",
+      "testNumber": 3,
+      "sourceQuestionNumber": 2,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլի դողերի պահպանաշերտի մնացորդային բարձրությունը կազմում է 1.6 մմ։",
+          "Չի գործում պնեւմատիկ արգելակային հաղորդակի ճնշաչափը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The remaining tread depth of the tires of a truck is 1.6 mm.",
+          "The pressure gauge of the pneumatic brake system does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Остаточная высота рисунка протектора шин грузового автомобиля составляет 1,6 мм.",
+          "Не работает манометр пневматического тормозного привода.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q003",
+      "testNumber": 3,
+      "sourceQuestionNumber": 3,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առկա են ղեկային կառավարման դետալների ու հանգույցների` կառուցվածքով չնախատեսված տեղաշարժեր կամ պարուրակային միացումները ձգված չեն։",
+          "Բեռնատար ավտոմոբիլում բացակայում է կրակմարիչը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "There is movement in steering parts or assemblies that is not provided for by the design, or threaded connections are not tightened.",
+          "A fire extinguisher is missing from a truck.",
+          "In both cases."
+        ],
+        "ru": [
+          "Имеются не предусмотренные конструкцией перемещения деталей и узлов рулевого управления либо резьбовые соединения не затянуты.",
+          "В грузовом автомобиле отсутствует огнетушитель.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q004",
+      "testNumber": 3,
+      "sourceQuestionNumber": 4,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Սահմանված ռեժիմով չեն աշխատում արտաքին լուսային սարքերը։",
+          "Մոտոցիկլի դողերի պահպանաշերտի մնացորդային բարձրությունը կազմում է 0.6 մմ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The exterior lighting devices do not operate in the prescribed mode.",
+          "The remaining tread depth of the tires of a motorcycle is 0.6 mm.",
+          "In both cases."
+        ],
+        "ru": [
+          "Внешние световые приборы не работают в установленном режиме.",
+          "Остаточная высота рисунка протектора шин мотоцикла составляет 0,6 мм.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q005",
+      "testNumber": 3,
+      "sourceQuestionNumber": 5,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Հետին հակամառախուղային լապտերիկները միացված են տրանսպորտային միջոցի արգելակումն ազդարարող լուսային սարքերին։",
+          "Չի աշխատում շարժիչը հովացնող հեղուկի ջերմաստիճանի ցուցիչը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The rear fog lights are connected to the vehicle’s brake lights.",
+          "The engine coolant temperature gauge does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Задние противотуманные фонари подключены к световым приборам, сигнализирующим о торможении транспортного средства.",
+          "Не работает указатель температуры охлаждающей жидкости двигателя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q006",
+      "testNumber": 3,
+      "sourceQuestionNumber": 6,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Շարժիչն աշխատում է ընդհատումներով։",
+          "Դողերն ունեն անվադողի հենքը (կորդը) մերկացնող տեղային վնասվածքներ։",
+          "Չեն աշխատում թեթեւ մարդատար ավտոմոբիլի սրահի ներքին լուսավորության սարքերը։",
+          "Թվարկած բոլոր դեպքերում։"
+        ],
+        "en": [
+          "The engine operates intermittently.",
+          "The tires have localized damage exposing the tire cord.",
+          "The interior lighting devices of a passenger car do not operate.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "Двигатель работает с перебоями.",
+          "Шины имеют местные повреждения, обнажающие корд.",
+          "Не работают приборы внутреннего освещения салона легкового автомобиля.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t03_q007",
+      "testNumber": 3,
+      "sourceQuestionNumber": 7,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առանց կողային կցորդի մոտոցիկլում բացակայում է «Վթարային կանգառ» նշանը։",
+          "Դողերը չափերով կամ թույլատրելի բեռնվածությամբ չեն համապատասխանում տրանսպորտային միջոցի տվյալ մոդելին։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A motorcycle without a sidecar does not have an emergency warning triangle.",
+          "The tires do not correspond to the vehicle model in size or permitted load capacity.",
+          "In both cases."
+        ],
+        "ru": [
+          "На мотоцикле без бокового прицепа отсутствует знак аварийной остановки.",
+          "Шины по размеру или допустимой нагрузке не соответствуют данной модели транспортного средства.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q008",
+      "testNumber": 3,
+      "sourceQuestionNumber": 8,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում է դողի անվահեցի ամրացման հեղյուսներից թեկուզ մեկը։",
+          "Նույն սռնու վրա տեղադրված են պահպանաշերտի տարբեր նախշանկարներով դողեր։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Even one wheel-fastening bolt is missing.",
+          "Tires with different tread patterns are installed on the same axle.",
+          "In both cases."
+        ],
+        "ru": [
+          "Отсутствует хотя бы один болт крепления обода колеса.",
+          "На одной оси установлены шины с различным рисунком протектора.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q009",
+      "testNumber": 3,
+      "sourceQuestionNumber": 9,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում են կառուցվածքով նախատեսված նստատեղերի գլխակալները։",
+          "Նույն սռնու վրա տեղադրված են նոր եւ վերականգնված դողեր։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The head restraints provided by the vehicle’s design are missing.",
+          "New and retreaded tires are installed on the same axle.",
+          "In both cases."
+        ],
+        "ru": [
+          "Отсутствуют предусмотренные конструкцией подголовники сидений.",
+          "На одной оси установлены новые и восстановленные шины.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q010",
+      "testNumber": 3,
+      "sourceQuestionNumber": 10,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Արտածվող գազերում վնասակար նյութերի պարունակությունը գերազանցում է ՀՀ օրենսդրությամբ սահմանված նորմերը։",
+          "Մոտոցիկլի վրա բացակայում են կառուցվածքով նախատեսված ոտնատեղերը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The content of harmful substances in the exhaust gases exceeds the limits established by the legislation of the Republic of Armenia.",
+          "The footrests provided by the motorcycle’s design are missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Содержание вредных веществ в отработавших газах превышает нормы, установленные законодательством Республики Армения.",
+          "На мотоцикле отсутствуют предусмотренные конструкцией подножки.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q011",
+      "testNumber": 3,
+      "sourceQuestionNumber": 11,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Խախտված է շարժիչի հենատուփի օդափոխության համակարգի հերմետիկությունը։",
+          "Խախտված է շարժիչի սնման համակարգի հերմետիկությունը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The engine crankcase ventilation system is not leak-tight.",
+          "The engine fuel system is not leak-tight.",
+          "In both cases."
+        ],
+        "ru": [
+          "Нарушена герметичность системы вентиляции картера двигателя.",
+          "Нарушена герметичность системы питания двигателя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q012",
+      "testNumber": 3,
+      "sourceQuestionNumber": 12,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Խախտված է շարժիչի հենատուփի օդափոխության համակարգի հերմետիկությունը։",
+          "Նույն սռնու վրա՝ տեղադրված են ցրտադիմացկուն եւ ոչ ցրտադիմացկուն դողեր։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The engine crankcase ventilation system is not leak-tight.",
+          "Winter and non-winter tires are installed on the same axle.",
+          "In both cases."
+        ],
+        "ru": [
+          "Нарушена герметичность системы вентиляции картера двигателя.",
+          "На одной оси установлены морозостойкие и неморозостойкие шины.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q013",
+      "testNumber": 3,
+      "sourceQuestionNumber": 13,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Չեն աշխատում կառուցվածքով նախատեսված ապակեողողիչները։",
+          "Շարժիչի արտաքին աղմուկի թույլատրելի մակարդակը գերազանցում է ստանդարտով սահմանված նորմերը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The windshield washers provided by the vehicle’s design do not operate.",
+          "The engine’s external noise level exceeds the limits established by the standard.",
+          "In both cases."
+        ],
+        "ru": [
+          "Не работают предусмотренные конструкцией стеклоомыватели.",
+          "Уровень внешнего шума двигателя превышает нормы, установленные стандартом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t03_q014",
+      "testNumber": 3,
+      "sourceQuestionNumber": 14,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Շարժիչն աշխատում է ընդհատումներով։",
+          "Հետին հակամառախուղային լապտերիկները միացված չեն արգելակումն ազդարարող լուսային սարքերին։",
+          "Չեն աշխատում տրանսպորտային միջոցի՝ կառուցվածքով նախատեսված ապակեողողիչները։",
+          "Թվարկած բոլոր դեպքերում։"
+        ],
+        "en": [
+          "The engine operates intermittently.",
+          "The rear fog lights are not connected to the brake lights.",
+          "The windshield washers provided by the vehicle’s design do not operate.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "Двигатель работает с перебоями.",
+          "Задние противотуманные фонари не подключены к световым приборам, сигнализирующим о торможении.",
+          "Не работают предусмотренные конструкцией транспортного средства стеклоомыватели.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q015",
+      "testNumber": 3,
+      "sourceQuestionNumber": 15,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Տեղադրված են երթեւեկության մասնակիցներին վնասվածքներ հասցնելու վտանգ պարունակող իրեր կամ առարկաներ։",
+          "Չի աշխատում ձայնային ազդանշանի սարքը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Items or objects that may cause injury to road users are installed on the vehicle.",
+          "The horn does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Установлены предметы или устройства, создающие опасность причинения травм участникам дорожного движения.",
+          "Не работает звуковой сигнал.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q016",
+      "testNumber": 3,
+      "sourceQuestionNumber": 16,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի եւ կողային կցորդի շրջանակների միացումներում առկա է խաղացք։",
+          "Առջեւի մասում տեղադրված են դեղին գույնի լույսերով հակամառախուղային լապտերներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "There is excessive play in the connections between the motorcycle frame and the sidecar frame.",
+          "Yellow-light fog lamps are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "В соединениях рам мотоцикла и бокового прицепа имеется люфт.",
+          "В передней части установлены противотуманные фары с жёлтым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q017",
+      "testNumber": 3,
+      "sourceQuestionNumber": 17,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլում բացակայում է բժշկական դեղատուփը։",
+          "Առջեւի մասում տեղադրված են սպիտակ գույնի լուսանդրադարձնող հարմարանքներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A first-aid kit is missing from a truck.",
+          "White reflectors are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "В грузовом автомобиле отсутствует медицинская аптечка.",
+          "В передней части установлены световозвращающие устройства белого цвета.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q018",
+      "testNumber": 3,
+      "sourceQuestionNumber": 18,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Կողային կցորդով մոտոցիկլում բացակայում է բժշկական դեղատուփը։",
+          "Անսարք է քարշակի հենակցման հարմարանքը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A first-aid kit is missing from a motorcycle with a sidecar.",
+          "The trailer support-coupling device is defective.",
+          "In both cases."
+        ],
+        "ru": [
+          "В мотоцикле с боковым прицепом отсутствует медицинская аптечка.",
+          "Неисправно опорно-сцепное устройство тягача.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q019",
+      "testNumber": 3,
+      "sourceQuestionNumber": 19,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Չեն աշխատում տրանսպորտային միջոցի կառուցվածքով նախատեսված անվտանգության ամրագոտիները։",
+          "Տեղադրված են վարորդի նստատեղից նրա տեսադաշտը սահմանափակող իրեր կամ առարկաներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The seat belts provided by the vehicle’s design do not operate.",
+          "Items or objects that restrict the driver’s field of vision are installed within the driver’s field of view.",
+          "In both cases."
+        ],
+        "ru": [
+          "Не работают предусмотренные конструкцией транспортного средства ремни безопасности.",
+          "Установлены предметы или устройства, ограничивающие обзор с места водителя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t03_q020",
+      "testNumber": 3,
+      "sourceQuestionNumber": 20,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առանց տրանսպորտային միջոցի հաշվառումն իրականացնող մարմնի թույլտվության՝ տրանսպորտային միջոցի կառուցվածքում կատարված են փոփոխություններ (վերասարքավորումներ)։",
+          "Առջեւի մասում տեղադրված են դեղին գույնի լույսերով շրջադարձի ցուցիչներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Changes or modifications have been made to the vehicle’s design without permission from the vehicle registration authority.",
+          "Yellow-light turn signals are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "В конструкцию транспортного средства внесены изменения (переоборудование) без разрешения органа, осуществляющего государственную регистрацию транспортного средства.",
+          "В передней части установлены указатели поворота с жёлтым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q021",
+      "testNumber": 3,
+      "sourceQuestionNumber": 21,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Մեխանիկական տրանսպորտային միջոցը, որով իրականացվում է գործնական վարման ուսուցումը, չունի համապատասխան ճանաչման նշան։",
+          "Չի աշխատում վառելիքի մակարդակի ցուցիչը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A motor vehicle used for practical driving instruction does not have the required identification sign.",
+          "The fuel gauge does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Механическое транспортное средство, используемое для обучения практическому вождению, не имеет соответствующего опознавательного знака.",
+          "Не работает указатель уровня топлива.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q022",
+      "testNumber": 3,
+      "sourceQuestionNumber": 22,
+      "category": "other",
+      "prompt": {
+        "hy": "Մոտոցիկլների շահագործումն արգելվում է, եթե",
+        "en": "A motorcycle may not be operated if:",
+        "ru": "Эксплуатация мотоциклов запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում են կառուցվածքով նախատեսված անվտանգության աղեղները։",
+          "Դողերի պահպանաշերտի նվազագույն մնացորդային բարձրությունը կազմում է 1,6 մմ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The safety bars provided by its design are missing.",
+          "The minimum remaining tire tread depth is 1.6 mm.",
+          "In both cases."
+        ],
+        "ru": [
+          "Отсутствуют предусмотренные конструкцией защитные дуги.",
+          "Минимальная остаточная высота рисунка протектора шин составляет 1,6 мм.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q023",
+      "testNumber": 3,
+      "sourceQuestionNumber": 23,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առջեւի մասում տեղադրված են դեղին գույնի լույսերով շրջադարձի ցուցիչներ։",
+          "Բացակայում է դողի անվահեցի ամրացման հեղյուսներից թեկուզ մեկը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Yellow-light turn signals are installed at the front.",
+          "Even one wheel-fastening bolt is missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "В передней части установлены указатели поворота с жёлтым светом.",
+          "Отсутствует хотя бы один болт крепления обода колеса.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q024",
+      "testNumber": 3,
+      "sourceQuestionNumber": 24,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առջեւի մասում տեղադրված են նարնջագույն լույսերով շրջադարձի ցուցիչներ։",
+          "Անսարք է քարշակի քարշակցման հարմարանքը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Amber-light turn signals are installed at the front.",
+          "The trailer towing device is defective.",
+          "In both cases."
+        ],
+        "ru": [
+          "В передней части установлены указатели поворота с оранжевым светом.",
+          "Неисправно тягово-сцепное устройство тягача.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q025",
+      "testNumber": 3,
+      "sourceQuestionNumber": 25,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առջեւի մասում տեղադրված են սպիտակ գույնի լուսանդրադարձնող հարմարանքներ։",
+          "Անսարք է քարշակի քարշակցման հարմարանքը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "White reflectors are installed at the front.",
+          "The trailer towing device is defective.",
+          "In both cases."
+        ],
+        "ru": [
+          "В передней части установлены световозвращающие устройства белого цвета.",
+          "Неисправно тягово-сцепное устройство тягача.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q026",
+      "testNumber": 3,
+      "sourceQuestionNumber": 26,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում են կառուցվածքով նախատեսված անվտանգության ամրագոտիները։",
+          "Հետեւի մասում տեղադրված են սպիտակ գույնի լույսերով հետընթացի լապտերիկներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The seat belts provided by the vehicle’s design are missing.",
+          "White-light backup lamps are installed at the rear.",
+          "In both cases."
+        ],
+        "ru": [
+          "Отсутствуют предусмотренные конструкцией ремни безопасности.",
+          "В задней части установлены фонари заднего хода с белым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t03_q027",
+      "testNumber": 3,
+      "sourceQuestionNumber": 27,
+      "category": "other",
+      "prompt": {
+        "hy": "Կողային կցորդով մոտոցիկլների շահագործումն արգելվում է, եթե",
+        "en": "A motorcycle with a sidecar may not be operated if:",
+        "ru": "Эксплуатация мотоциклов с боковым прицепом запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում է կառուցվածքով նախատեսված թամբի վրայի ուղեւորի համար լայնակի բռնատեղը։",
+          "Դողերի պահպանաշերտի մնացորդային բարձրությունը կազմում է 0.6 մմ։",
+          "Բացակայում է բժշկական դեղատուփը։",
+          "Թվարկած բոլոր դեպքերում։"
+        ],
+        "en": [
+          "The transverse passenger handhold on the seat, as provided by the design, is missing.",
+          "The remaining tire tread depth is 0.6 mm.",
+          "A first-aid kit is missing.",
+          "In all of the listed cases."
+        ],
+        "ru": [
+          "Отсутствует предусмотренная конструкцией поперечная рукоятка для пассажира на сиденье.",
+          "Остаточная высота рисунка протектора шин составляет 0,6 мм.",
+          "Отсутствует медицинская аптечка.",
+          "Во всех перечисленных случаях."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q028",
+      "testNumber": 3,
+      "sourceQuestionNumber": 28,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Չեն աշխատում թեթեւ մարդատար ավտոմոբիլի սրահի ներքին լուսավորության սարքերը։",
+          "Բացակայում են կառուցվածքով նախատեսված նստատեղերի գլխակալները։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The interior lighting devices of a passenger car do not operate.",
+          "The head restraints provided by the vehicle’s design are missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Не работают приборы внутреннего освещения салона легкового автомобиля.",
+          "Отсутствуют предусмотренные конструкцией подголовники сидений.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q029",
+      "testNumber": 3,
+      "sourceQuestionNumber": 29,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե՝",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Հետեւի մասում տեղադրված են կարմիր գույնի լուսանդրադարձնող հարմարանքներ։",
+          "Չի աշխատում կառուցվածքով նախատեսված արագաչափը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Red reflectors are installed at the rear.",
+          "The speedometer provided by the vehicle’s design does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "В задней части установлены световозвращающие устройства красного цвета.",
+          "Не работает предусмотренный конструкцией спидометр.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q030",
+      "testNumber": 3,
+      "sourceQuestionNumber": 30,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե՝",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլի ղեկային կառավարման համակարգի գումարային խաղացքը գերազանցում է 10 աստիճանը։",
+          "Բացակայում են կառուցվածքով նախատեսված ցեխապաշտպան գոգնոցները եւ ցայտապաշտպանիչները։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The total play in the steering system of a passenger car exceeds 10 degrees.",
+          "The mud flaps and splash guards provided by the vehicle design are missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Суммарный люфт в рулевом управлении легкового автомобиля превышает 10 градусов.",
+          "Отсутствуют предусмотренные конструкцией грязезащитные фартуки и брызговики.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q031",
+      "testNumber": 3,
+      "sourceQuestionNumber": 31,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլում բացակայում է բժշկական դեղատուփը։",
+          "Հետեւի մասում տեղադրված են կարմիր գույնի լույսերով հետընթացի լապտերիկներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A first-aid kit is missing from a passenger car.",
+          "Red-light backup lamps are installed at the rear.",
+          "In both cases."
+        ],
+        "ru": [
+          "В легковом автомобиле отсутствует медицинская аптечка.",
+          "В задней части установлены фонари заднего хода с красным светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q032",
+      "testNumber": 3,
+      "sourceQuestionNumber": 32,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլի կցորդի դողերի պաշտպանաշերտի նախշանկարի մնացորդային բարձրությունը պակաս է 1,6 մմ-ից։",
+          "Հետեւի մասում տեղադրված են նարնջագույն լույսերով շրջադարձի ցուցիչներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The remaining tread depth of the tires on a passenger-car trailer is less than 1.6 mm.",
+          "Amber-light turn signals are installed at the rear.",
+          "In both cases."
+        ],
+        "ru": [
+          "Остаточная высота рисунка протектора шин прицепа легкового автомобиля составляет менее 1,6 мм.",
+          "В задней части установлены указатели поворота с оранжевым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q033",
+      "testNumber": 3,
+      "sourceQuestionNumber": 33,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Խախտված է հիդրավլիկ արգելակային հաղորդակի հերմետիկությունը։",
+          "Հետեւի մասում տեղադրված են սպիտակ գույնի լույսերով շրջադարձի ցուցիչներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The hydraulic brake system is not leak-tight.",
+          "White-light turn signals are installed at the rear.",
+          "In both cases."
+        ],
+        "ru": [
+          "Нарушена герметичность гидравлического тормозного привода.",
+          "В задней части установлены указатели поворота с белым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t03_q034",
+      "testNumber": 3,
+      "sourceQuestionNumber": 34,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Նույն սռնու վրա տեղադրված են տարբեր կառուցվածքների դողեր։",
+          "Խախտված է շարժիչի սնման համակարգի հերմետիկությունը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Tires of different constructions are installed on the same axle.",
+          "The engine fuel system is not leak-tight.",
+          "In both cases."
+        ],
+        "ru": [
+          "На одной оси установлены шины различной конструкции.",
+          "Нарушена герметичность системы питания двигателя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q035",
+      "testNumber": 3,
+      "sourceQuestionNumber": 35,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Չի աշխատում ձայնային ազդանշանի սարքը։",
+          "Հովացման համակարգը չի ապահովում շարժիչի աշխատանքի կայուն ջերմային ռեժիմը։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The horn does not operate.",
+          "The cooling system does not maintain a stable operating temperature for the engine.",
+          "In both cases."
+        ],
+        "ru": [
+          "Не работает звуковой сигнал.",
+          "Система охлаждения не обеспечивает устойчивый тепловой режим работы двигателя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q036",
+      "testNumber": 3,
+      "sourceQuestionNumber": 36,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Առկա են ղեկային կառավարման դետալների ու հանգույցների՝ կառուցվածքով չնախատեսված տեղաշարժեր։",
+          "Առջեւի մասում տեղադրված են սպիտակ գույնի լույսերով շրջադարձի ցուցիչներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "There is movement in steering parts or assemblies that is not provided for by the design.",
+          "White-light turn signals are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "Имеются не предусмотренные конструкцией перемещения деталей и узлов рулевого управления.",
+          "В передней части установлены указатели поворота с белым светом.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q037",
+      "testNumber": 3,
+      "sourceQuestionNumber": 37,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Շարժիչն աշխատում է ընդհատումներով։",
+          "Դողերն ունեն անվադողի հենքը (կորդը) մերկացնող տեղային վնասվածքներ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "The engine operates intermittently.",
+          "The tires have localized damage exposing the tire cord.",
+          "In both cases."
+        ],
+        "ru": [
+          "Двигатель работает с перебоями.",
+          "Шины имеют местные повреждения, обнажающие корд.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q038",
+      "testNumber": 3,
+      "sourceQuestionNumber": 38,
+      "category": "other",
+      "prompt": {
+        "hy": "Թեթև մարդատար ավտոմոբիլի շահագործումն արգելվում է, եթե",
+        "en": "A passenger-car may not be operated if:",
+        "ru": "Эксплуатация легкового автомобиля запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Բացակայում է բժշկական դեղատուփը։",
+          "Դողերի պահպանաշերտի նախշանկարի մնացորդային բարձրությունը կազմում է 2,2 մմ։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "A first-aid kit is missing.",
+          "The remaining tire tread depth is 2.2 mm.",
+          "In both cases."
+        ],
+        "ru": [
+          "Отсутствует медицинская аптечка.",
+          "Остаточная высота рисунка протектора шин составляет 2,2 мм.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q039",
+      "testNumber": 3,
+      "sourceQuestionNumber": 39,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է, եթե",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается, если:"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլի բազայի վրա պատրաստված ավտոբուսի մոտ ղեկային կառավարման համակարգի գումարային խաղանցքը գերազանցում է 10 աստիճանը։",
+          "Բացակայում են կառուցվածքով նախատեսված ցեխապաշտպան գոգնոցները եւ ցայտապաշտպանիչները։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "For a bus built on a passenger-car chassis, the total play in the steering system exceeds 10 degrees.",
+          "The mudguards and splash guards provided by the vehicle’s design are missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Суммарный люфт в рулевом управлении автобуса, изготовленного на базе легкового автомобиля, превышает 10 градусов.",
+          "Отсутствуют предусмотренные конструкцией грязезащитные фартуки и брызговики.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q040",
+      "testNumber": 3,
+      "sourceQuestionNumber": 40,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե չի աշխատում կառուցվածքով նախատեսված թափքի դռան փականը։",
+          "Եթե չի աշխատում կառուցվածքով նախատեսված խցիկի դռան փականը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The cargo-bed door latch provided by the vehicle’s design does not operate.",
+          "The cab door latch provided by the vehicle’s design does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если не работает предусмотренный конструкцией замок двери кузова.",
+          "Если не работает предусмотренный конструкцией замок двери кабины.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t03_q041",
+      "testNumber": 3,
+      "sourceQuestionNumber": 41,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե հետևի մասում տեղադրված են կարմիր գույնի լույսերով շրջադարձի լուսային ցուցիչներ:",
+          "Եթե բացակայում է կառուցվածքով նախատեսված հետին պաշտպանիչ հարմարանքը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Red-light turn signals are installed at the rear.",
+          "The rear protective device provided by the vehicle’s design is missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если сзади установлены указатели поворота с огнями красного цвета.",
+          "Если отсутствует предусмотренное конструкцией заднее защитное устройство.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q042",
+      "testNumber": 3,
+      "sourceQuestionNumber": 42,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե անսարք է կամ բացակայում է կառուցվածքով նախատեսված ղեկային կառավարման ուժեղարարը։",
+          "Եթե չի աշխատում ձայնարկիչը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The power steering system provided by the vehicle’s design is defective or missing.",
+          "The horn does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если неисправен или отсутствует предусмотренный конструкцией усилитель рулевого управления.",
+          "Если не работает звуковой сигнал.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q043",
+      "testNumber": 3,
+      "sourceQuestionNumber": 43,
+      "category": "parking",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե կայանման արգելակային համակարգը ստանդարտով սահմանված թեքության վրա չի ապահովում անշարժ վիճակ։",
+          "Եթե խախտված է փոխանցման տուփի կիպարարների հերմետիկությունը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The parking brake system does not hold the vehicle stationary on the gradient specified by the standard.",
+          "The leak-tightness of the transmission seals is compromised.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если стояночная тормозная система не обеспечивает неподвижное состояние на уклоне, установленном стандартом.",
+          "Если нарушена герметичность уплотнений коробки передач.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q044",
+      "testNumber": 3,
+      "sourceQuestionNumber": 44,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե չի աշխատում պահեստային անիվի բռնիչը։",
+          "Եթե խախտված է հետին կամրջակի կիպարարների հերմետիկությունը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The spare-wheel holder does not operate.",
+          "The leak-tightness of the rear-axle seals is compromised.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если не работает держатель запасного колеса.",
+          "Если нарушена герметичность уплотнений заднего моста.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q045",
+      "testNumber": 3,
+      "sourceQuestionNumber": 45,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե կառուցվածքով նախատեսված անվտանգության ամրագոտիների ժապավենի վրա առկա են տեսանելի պատռվածքներ։",
+          "Եթե կահավորված չէ հակամառախուղային լապտերիկներով։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "There are visible tears in the webbing of the seat belts provided by the vehicle’s design.",
+          "The vehicle is not equipped with fog lamps.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если на лямках предусмотренных конструкцией ремней безопасности имеются видимые разрывы.",
+          "Если транспортное средство не оборудовано противотуманными фарами.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q046",
+      "testNumber": 3,
+      "sourceQuestionNumber": 46,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե չի աշխատում կառուցվածքով նախատեսված շարժիչի ծածկոցի փականը։",
+          "Եթե վարագուրապատված են հետին կողային ապակիները, և առկա են հետին տեսանելիության 2 կողային հայելիները։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The engine-hood latch provided by the vehicle’s design does not operate.",
+          "The rear side windows are curtained and two side rear-view mirrors are installed.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если не работает предусмотренный конструкцией замок капота двигателя.",
+          "Если задние боковые стёкла занавешены и имеются два наружных зеркала заднего вида.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q047",
+      "testNumber": 3,
+      "sourceQuestionNumber": 47,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե վարագուրապատված են հետին կողային ապակիները, և բացակայում են հետին տեսանելիության 2 կողային հայելիները։",
+          "Եթե չեն աշխատում կառուցվածքով նախատեսված ապակիների տաքացման ու փչահարման սարքերը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The rear side windows are curtained and two side rear-view mirrors are missing.",
+          "The window heating and defogging devices provided by the vehicle’s design do not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если задние боковые стёкла занавешены и отсутствуют два наружных зеркала заднего вида.",
+          "Если не работают предусмотренные конструкцией устройства обогрева и обдува стёкол.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t03_q048",
+      "testNumber": 3,
+      "sourceQuestionNumber": 48,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե չի աշխատում կառուցվածքով նախատեսված վառելիքի բաքի խցանը։",
+          "Եթե առջևի կողային ապակիները վարագուրապատված են։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The fuel-tank cap provided by the vehicle’s design does not operate.",
+          "The front side windows are curtained.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если не работает предусмотренная конструкцией крышка топливного бака.",
+          "Если передние боковые стёкла занавешены.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q049",
+      "testNumber": 3,
+      "sourceQuestionNumber": 49,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե ձայնային ազդանշանի սարքով տրվող ազդանշանը չի աշխատում։",
+          "Եթե բացակայում են տրանսպորտային միջոցի կառուցվածքով նախատեսված ապակիները։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The horn does not operate.",
+          "The windows provided by the vehicle’s design are missing.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если не работает устройство подачи звукового сигнала.",
+          "Если отсутствуют стёкла, предусмотренные конструкцией транспортного средства.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q050",
+      "testNumber": 3,
+      "sourceQuestionNumber": 50,
+      "category": "visibility",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե անվահեցի կամ անվասկավառակի վրա առկա են ճաքեր։",
+          "Եթե անվահեցի ամրացման անցքերի ձևի և չափերի տեսանելի խախտումներ են առկա։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "There are cracks in a wheel rim or wheel disc.",
+          "There are visible distortions in the shape or dimensions of the wheel-rim mounting holes.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если на ободе или диске колеса имеются трещины.",
+          "Если имеются видимые нарушения формы и размеров отверстий крепления обода.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q051",
+      "testNumber": 3,
+      "sourceQuestionNumber": 51,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե կեղտոտված են արտաքին լուսային սարքերը և լուսանդրադարձիչները։",
+          "Եթե կեղտոտված են առջևի և հետին պաշտպանիչ հարմարանքները։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The exterior lighting devices and reflectors are dirty.",
+          "The front and rear protective devices are dirty.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если загрязнены внешние световые приборы и световозвращатели.",
+          "Если загрязнены переднее и заднее защитные устройства.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q052",
+      "testNumber": 3,
+      "sourceQuestionNumber": 52,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե լուսային սարքերի վրա բացակայում են լամպերը կամ ցրիչները։",
+          "Եթե օգտագործվում են տվյալ լուսային սարքի տեսակին չհամապատասխանող ցրիչներ կամ լամպեր։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Lamps or lenses are missing from the lighting devices.",
+          "Lenses or lamps that do not correspond to the type of the lighting device are used.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если в световых приборах отсутствуют лампы или рассеиватели.",
+          "Если применяются рассеиватели или лампы, не соответствующие типу данного светового прибора.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q053",
+      "testNumber": 3,
+      "sourceQuestionNumber": 53,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե կեղտոտված են արտաքին լուսային սարքերը և լուսանդրադարձիչները։",
+          "Եթե արտադրությունից հանված տրանսպորտային միջոցի վրա տեղադրված է այլ մակնիշի տրանսպորտային միջոցի արտաքին լուսային սարքեր:",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The exterior lighting devices and reflectors are dirty.",
+          "Exterior lighting devices from a different make of vehicle are installed on a discontinued vehicle.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если загрязнены внешние световые приборы и световозвращатели.",
+          "Если на транспортном средстве, снятом с производства, установлены внешние световые приборы транспортного средства другой марки.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q054",
+      "testNumber": 3,
+      "sourceQuestionNumber": 54,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե տրանսպորտային միջոցի նույն սռնու վրա տեղադրված են պահպանաշերտի տարբեր նախշանկարներով դողեր։",
+          "Եթե թեթև մարդատար ավտոմոբիլի դողի պահպանաշերտի նախշանկարի մնացորդային բարձրությունը կազմում է 1,6մմ:",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Tires with different tread patterns are installed on the same axle.",
+          "The remaining tire tread depth of a passenger car is 1.6 mm.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если на одной оси транспортного средства установлены шины с различным рисунком протектора.",
+          "Если остаточная высота рисунка протектора шины легкового автомобиля составляет 1,6 мм.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t03_q055",
+      "testNumber": 3,
+      "sourceQuestionNumber": 55,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե բեռնատար ավտոմոբիլի դողի պահպանաշերտի նախշանկարի մնացորդային բարձրությունը կազմում է 1,4մմ:",
+          "Եթե առջևի մասում տեղադրված են դեղին գույնի լուսաանդրադարձնող հարմարանքներ:",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The remaining tire tread depth of a truck is 1.4 mm.",
+          "Yellow reflectors are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если остаточная высота рисунка протектора шины грузового автомобиля составляет 1,4 мм.",
+          "Если спереди установлены световозвращающие устройства жёлтого цвета.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t03_q056",
+      "testNumber": 3,
+      "sourceQuestionNumber": 56,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե հետևի մասում տեղադրված են դեղին գույնի լուսաանդրադարձնող հարմարանքներ:",
+          "Եթե առջևի մասում տեղադրված են դեղին գույնի լուսաանդրադարձնող հարմարանքներ",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Yellow reflectors are installed at the rear.",
+          "Yellow reflectors are installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если сзади установлены световозвращающие устройства жёлтого цвета.",
+          "Если спереди установлены световозвращающие устройства жёлтого цвета.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t03_q057",
+      "testNumber": 3,
+      "sourceQuestionNumber": 57,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե հետևի մասում տեղադրված է «Մեծ եզրաչափերով բեռ» ճանաչման նշանը՝ սպիտակ և կարմիր գույնի լուսաանդրադարձնող գծերով:",
+          "Եթե մոպեդի դողերի պահպանաշերտի նախշանկարի մնացորդային բարձրությունը կազմում է 0,7մմ։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "An “Oversized Cargo” identification sign with white and red reflective stripes is installed at the rear.",
+          "The remaining tire tread depth of a moped is 0.7 mm.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если сзади установлен опознавательный знак «Крупногабаритный груз» с белыми и красными световозвращающими полосами.",
+          "Если остаточная высота рисунка протектора шин мопеда составляет 0,7 мм.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t03_q058",
+      "testNumber": 3,
+      "sourceQuestionNumber": 58,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե բժիշկ-վարորդի կողմից վարած ավտոմոբիլի վրա բացակայում է «Բժիշկ» ճանաչման նշանը։",
+          "Եթե չի աշխատում կառուցվածքով նախատեսված վառելիքի բաքի խցանը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "The “Doctor” identification sign is missing from an automobile driven by a physician-driver.",
+          "The fuel-tank cap provided by the vehicle’s design does not operate.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если на автомобиле, управляемом водителем-врачом, отсутствует опознавательный знак «Врач».",
+          "Если не работает предусмотренная конструкцией крышка топливного бака.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t03_q059",
+      "testNumber": 3,
+      "sourceQuestionNumber": 59,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների շահագործումն արգելվում է",
+        "en": "A vehicle may not be operated if:",
+        "ru": "Эксплуатация транспортных средств запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Եթե տրանսպորտային միջոցի նույն սռնու վրա տեղադրված են պահպանաշերտի տարբեր նախշանկարներով դողեր։",
+          "Եթե առջևի մասում դեղին լուսանդրադարձնող հիմնագույնով և կամիր լուսանդրադարձնող եզրագծերով տեղադրված է «Երեխաների փոխադրում» ճանաչման նշանը։",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Tires with different tread patterns are installed on the same axle.",
+          "A “Transportation of Children” identification sign with a yellow reflective background and red reflective border is installed at the front.",
+          "In both cases."
+        ],
+        "ru": [
+          "Если на одной оси транспортного средства установлены шины с различным рисунком протектора.",
+          "Если спереди установлен опознавательный знак «Перевозка детей» с жёлтым световозвращающим фоном и красной световозвращающей каймой.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    }
+  ]
+}

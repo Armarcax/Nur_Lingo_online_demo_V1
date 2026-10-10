@@ -1,0 +1,83 @@
+{
+  "version": "3.0",
+  "generatedAt": "2026-10-09T23:34:55.529035Z",
+  "totalTests": 10,
+  "totalQuestions": 1050,
+  "byCategory": {
+    "road_signs": 290,
+    "maneuvers": 137,
+    "yards": 10,
+    "other": 234,
+    "tram": 14,
+    "right_of_way": 208,
+    "bus_stop": 22,
+    "penalties": 15,
+    "bridge_tunnel": 2,
+    "speed_limits": 25,
+    "visibility": 8,
+    "parking": 77,
+    "railway": 8
+  },
+  "tests": [
+    {
+      "testNumber": 1,
+      "questionCount": 145,
+      "imageCount": 124,
+      "file": "test-01.json"
+    },
+    {
+      "testNumber": 2,
+      "questionCount": 82,
+      "imageCount": 10,
+      "file": "test-02.json"
+    },
+    {
+      "testNumber": 3,
+      "questionCount": 59,
+      "imageCount": 0,
+      "file": "test-03.json"
+    },
+    {
+      "testNumber": 4,
+      "questionCount": 179,
+      "imageCount": 178,
+      "file": "test-04.json"
+    },
+    {
+      "testNumber": 5,
+      "questionCount": 136,
+      "imageCount": 133,
+      "file": "test-05.json"
+    },
+    {
+      "testNumber": 6,
+      "questionCount": 95,
+      "imageCount": 88,
+      "file": "test-06.json"
+    },
+    {
+      "testNumber": 7,
+      "questionCount": 129,
+      "imageCount": 116,
+      "file": "test-07.json"
+    },
+    {
+      "testNumber": 8,
+      "questionCount": 55,
+      "imageCount": 6,
+      "file": "test-08.json"
+    },
+    {
+      "testNumber": 9,
+      "questionCount": 119,
+      "imageCount": 60,
+      "file": "test-09.json"
+    },
+    {
+      "testNumber": 10,
+      "questionCount": 51,
+      "imageCount": 0,
+      "file": "test-10.json"
+    }
+  ]
+}

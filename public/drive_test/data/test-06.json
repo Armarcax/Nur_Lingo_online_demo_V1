@@ -1,0 +1,2980 @@
+{
+  "testNumber": 6,
+  "totalQuestions": 95,
+  "questions": [
+    {
+      "id": "drv_t06_q001",
+      "testNumber": 6,
+      "sourceQuestionNumber": 1,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթեւեկել արգելվում է",
+        "en": "Traffic is prohibited for:",
+        "ru": "Движение запрещено:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր եւ սպիտակ ավտոմոբիլներին։",
+          "Կապույտ, կանաչ եւ սպիտակ ավտոմոբիլներին։",
+          "Սպիտակ, կապույտ եւ դեղին ավտոմոբիլներին։"
+        ],
+        "en": [
+          "The red and white automobiles.",
+          "The blue, green, and white automobiles.",
+          "The white, blue, and yellow automobiles."
+        ],
+        "ru": [
+          "Красному и белому автомобилям.",
+          "Синему, зелёному и белому автомобилям.",
+          "Белому, синему и жёлтому автомобилям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-01-img-01.jpeg",
+      "imageFilename": "page-01-img-01.jpeg",
+      "page": 1
+    },
+    {
+      "id": "drv_t06_q002",
+      "testNumber": 6,
+      "sourceQuestionNumber": 2,
+      "category": "penalties",
+      "prompt": {
+        "hy": "Վարորդներից ո՞վ իրավունք ունի երթեւեկել ուղիղ։",
+        "en": "Which drivers are permitted to proceed straight ahead?",
+        "ru": "Кто из водителей имеет право продолжить движение прямо?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի եւ մոտոցիկլի վարորդները",
+          "Թեթեւ մարդատար եւ բեռնատար ավտոմոբիլների վարորդները",
+          "Թեթեւ մարդատար ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The bus driver and the motorcycle operator.",
+          "The passenger-car driver and the truck driver.",
+          "The passenger-car driver."
+        ],
+        "ru": [
+          "Водители автобуса и мотоцикла.",
+          "Водители легкового и грузового автомобилей.",
+          "Водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-01-img-02.jpeg",
+      "imageFilename": "page-01-img-02.jpeg",
+      "page": 1
+    },
+    {
+      "id": "drv_t06_q003",
+      "testNumber": 6,
+      "sourceQuestionNumber": 3,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլի վարորդը",
+          "Տրամվայի վարորդը"
+        ],
+        "en": [
+          "The automobile driver.",
+          "The tram operator."
+        ],
+        "ru": [
+          "Водитель автомобиля.",
+          "Водитель трамвая."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-02-img-01.jpeg",
+      "imageFilename": "page-02-img-01.jpeg",
+      "page": 2
+    },
+    {
+      "id": "drv_t06_q004",
+      "testNumber": 6,
+      "sourceQuestionNumber": 4,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե կարգավորողի աջ ձեռքը պարզված է առաջ, ապա ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "If the traffic controller’s right arm is extended forward, traffic of non-rail vehicles is permitted:",
+        "ru": "Если правая рука регулировщика вытянута вперёд, движение нерельсовых транспортных средств разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Ձախ կողմից` դեպի ձախ եւ հակառակ ուղղությամբ։",
+          "Աջ կողմից` միայն դեպի աջ։",
+          "Ձախ կողմից` բոլոր ուղղություններով։",
+          "Թիկունքից` միայն դեպի աջ։"
+        ],
+        "en": [
+          "From the left side, to the left and by making a U-turn.",
+          "From the right side, to the right only.",
+          "From the left side, in all directions.",
+          "From the rear, to the right only."
+        ],
+        "ru": [
+          "Со стороны левого бока — налево и в обратном направлении.",
+          "Со стороны правого бока — только направо.",
+          "Со стороны левого бока — во всех направлениях.",
+          "Со стороны спины — только направо."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-02-img-02.jpeg",
+      "imageFilename": "page-02-img-02.jpeg",
+      "page": 2
+    },
+    {
+      "id": "drv_t06_q005",
+      "testNumber": 6,
+      "sourceQuestionNumber": 5,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը եւ ավտոբուսը, թեթեւ մարդատար ավտոմոբիլը։",
+          "Տրամվայը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը։",
+          "Թեթեւ մարդատար ավտոմոբիլը, տրամվայը եւ ավտոբուսը։"
+        ],
+        "en": [
+          "The tram and the bus, then the passenger car.",
+          "The tram, the passenger car, the bus.",
+          "The passenger car, then the tram and the bus."
+        ],
+        "ru": [
+          "Трамвай и автобус, затем легковой автомобиль.",
+          "Трамвай, легковой автомобиль, автобус.",
+          "Легковой автомобиль, затем трамвай и автобус."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t06_q006",
+      "testNumber": 6,
+      "sourceQuestionNumber": 6,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Ո՞ր պատասխանում են ճիշտ նշված այն տրանսպորտային միջոցները, որոնց թույլատրվում է երթեւեկել։",
+        "en": "Which answer correctly identifies the vehicle or vehicles permitted to proceed?",
+        "ru": "В каком ответе правильно указаны транспортные средства, которым разрешено движение?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլը",
+          "Բեռնատար ավտոմոբիլը",
+          "Ավտոբուսը",
+          "Թեթեւ մարդատար ավտոմոբիլը",
+          "Թեթեւ մարդատար եւ բեռնատար ավտոմոբիլները"
+        ],
+        "en": [
+          "The motorcycle.",
+          "The truck.",
+          "The bus.",
+          "The passenger car.",
+          "The passenger car and the truck."
+        ],
+        "ru": [
+          "Мотоцикл.",
+          "Грузовой автомобиль.",
+          "Автобус.",
+          "Легковой автомобиль.",
+          "Легковой и грузовой автомобили."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-06/page-03-img-01.jpeg",
+      "imageFilename": "page-03-img-01.jpeg",
+      "page": 3
+    },
+    {
+      "id": "drv_t06_q007",
+      "testNumber": 6,
+      "sourceQuestionNumber": 7,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle driver must yield?",
+        "ru": "Водитель какого транспортного средства должен уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Մոտոցիկլի վարորդը",
+          "Ավտոմոբիլի վարորդը"
+        ],
+        "en": [
+          "The motorcycle operator.",
+          "The automobile driver."
+        ],
+        "ru": [
+          "Водитель мотоцикла.",
+          "Водитель автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-03-img-02.jpeg",
+      "imageFilename": "page-03-img-02.jpeg",
+      "page": 3
+    },
+    {
+      "id": "drv_t06_q008",
+      "testNumber": 6,
+      "sourceQuestionNumber": 8,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կարգավորողի այս ազդանշանը նշանակում է, որ երթեւեկությունը թույլատրվում է",
+        "en": "This signal given by the traffic controller means that traffic is permitted for:",
+        "ru": "Данный сигнал регулировщика означает, что движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Կապույտ եւ կանաչ ավտոմոբիլներին։ Արգելվում է կարմիրին, դեղինին եւ սպիտակին։",
+          "Կապույտ, կարմիր եւ կանաչ ավտոմոբիլներին։ Արգելվում է դեղինին եւ սպիտակին։"
+        ],
+        "en": [
+          "The blue and green automobiles; traffic is prohibited for the red, yellow, and white automobiles.",
+          "The blue, red, and green automobiles; traffic is prohibited for the yellow and white automobiles."
+        ],
+        "ru": [
+          "Синему и зелёному автомобилям. Красному, жёлтому и белому автомобилям движение запрещено.",
+          "Синему, красному и зелёному автомобилям. Жёлтому и белому автомобилям движение запрещено."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-04-img-01.jpeg",
+      "imageFilename": "page-04-img-01.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t06_q009",
+      "testNumber": 6,
+      "sourceQuestionNumber": 9,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցները կարող են կատարել աջ շրջադարձ։",
+        "en": "Which vehicles may make a right turn?",
+        "ru": "Какие транспортные средства могут выполнить поворот направо?"
+      },
+      "options": {
+        "hy": [
+          "Միայն կարմիր ավտոմոբիլը",
+          "Բոլոր տրանսպորտային միջոցները",
+          "Կարմիր եւ կանաչ ավտոմոբիլները"
+        ],
+        "en": [
+          "Only the red automobile.",
+          "All vehicles.",
+          "The red and green automobiles."
+        ],
+        "ru": [
+          "Только красный автомобиль.",
+          "Все транспортные средства.",
+          "Красный и зелёный автомобили."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-04-img-02.jpeg",
+      "imageFilename": "page-04-img-02.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t06_q010",
+      "testNumber": 6,
+      "sourceQuestionNumber": 10,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Երթեւեկությունը թույլատրվում է",
+        "en": "Traffic is permitted:",
+        "ru": "Движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ։",
+          "Դեպի աջ՝ առաջին անցումով։",
+          "Դեպի աջ՝ երկրորդ անցումով։",
+          "Դեպի աջ՝ առաջին եւ երկրորդ անցումներով։"
+        ],
+        "en": [
+          "Straight ahead.",
+          "To the right through the first passage.",
+          "To the right through the second passage.",
+          "To the right through the first and second passages."
+        ],
+        "ru": [
+          "Прямо.",
+          "Направо через первый проезд.",
+          "Направо через второй проезд.",
+          "Направо через первый и второй проезды."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-05-img-01.jpeg",
+      "imageFilename": "page-05-img-01.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t06_q011",
+      "testNumber": 6,
+      "sourceQuestionNumber": 11,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Երթեւեկությունը թույլատրվում է",
+        "en": "Traffic is permitted:",
+        "ru": "Движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Դեպի աջ՝ առաջին անցումով։",
+          "Ուղիղ եւ դեպի աջ՝ առաջին անցումով։"
+        ],
+        "en": [
+          "To the right through the first passage.",
+          "Straight ahead and to the right through the first passage."
+        ],
+        "ru": [
+          "Направо через первый проезд.",
+          "Прямо и направо через первый проезд."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-05-img-02.jpeg",
+      "imageFilename": "page-05-img-02.jpeg",
+      "page": 5
+    },
+    {
+      "id": "drv_t06_q012",
+      "testNumber": 6,
+      "sourceQuestionNumber": 12,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե կարգավորողի ձեռքերը կողմ են պարզված կամ իջեցված են, ապա ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "If the traffic controller’s arms are extended to the sides or lowered, traffic of non-rail vehicles is permitted:",
+        "ru": "Если руки регулировщика вытянуты в стороны или опущены, движение нерельсовых транспортных средств разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Թիկունքի եւ կրծքի կողմից՝ միայն դեպի աջ։",
+          "Ձախ եւ աջ կողմերից՝ ուղիղ եւ դեպի աջ։",
+          "Ձախ եւ աջ կողմերից՝ միայն ուղիղ։"
+        ],
+        "en": [
+          "From the front and rear, to the right only.",
+          "From the left and right sides, straight ahead and to the right.",
+          "From the left and right sides, straight ahead only."
+        ],
+        "ru": [
+          "Со стороны спины и груди — только направо.",
+          "Со стороны левого и правого бока — прямо и направо.",
+          "Со стороны левого и правого бока — только прямо."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t06_q013",
+      "testNumber": 6,
+      "sourceQuestionNumber": 13,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կարմիր ավտոմոբիլի վարորդը",
+        "en": "The driver of the red automobile:",
+        "ru": "Водитель красного автомобиля:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է զիջի ճանապարհը։",
+          "Ունի առաջնահերթ երթեւեկության իրավունք։"
+        ],
+        "en": [
+          "Must yield.",
+          "Has the right-of-way."
+        ],
+        "ru": [
+          "Должен уступить дорогу.",
+          "Имеет преимущество в движении."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-06-img-01.jpeg",
+      "imageFilename": "page-06-img-01.jpeg",
+      "page": 6
+    },
+    {
+      "id": "drv_t06_q014",
+      "testNumber": 6,
+      "sourceQuestionNumber": 14,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցներին է թույլատրվում երթեւեկությունը։",
+        "en": "Which vehicles are permitted to proceed?",
+        "ru": "Каким транспортным средствам разрешено движение?"
+      },
+      "options": {
+        "hy": [
+          "Դեղին եւ կարմիր ավտոմոբիլներին",
+          "Կանաչ, կարմիր եւ սպիտակ ավտոմոբիլներին",
+          "Սպիտակ եւ կանաչ ավտոմոբիլներին"
+        ],
+        "en": [
+          "The yellow and red automobiles.",
+          "The green, red, and white automobiles.",
+          "The white and green automobiles."
+        ],
+        "ru": [
+          "Жёлтому и красному автомобилям.",
+          "Зелёному, красному и белому автомобилям.",
+          "Белому и зелёному автомобилям."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-06-img-02.jpeg",
+      "imageFilename": "page-06-img-02.jpeg",
+      "page": 6
+    },
+    {
+      "id": "drv_t06_q015",
+      "testNumber": 6,
+      "sourceQuestionNumber": 15,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի ի՞նչ ազդանշանի դեպքում ավտոմոբիլի վարորդը կարող է ավարտել հետադարձը։",
+        "en": "Under which traffic signal may the automobile driver complete the U-turn?",
+        "ru": "При каком сигнале светофора водитель автомобиля может завершить разворот?"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր",
+          "Կանաչ",
+          "Ցանկացած"
+        ],
+        "en": [
+          "Red.",
+          "Green.",
+          "Any signal."
+        ],
+        "ru": [
+          "При красном.",
+          "При зелёном.",
+          "При любом."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-07-img-01.jpeg",
+      "imageFilename": "page-07-img-01.jpeg",
+      "page": 7
+    },
+    {
+      "id": "drv_t06_q016",
+      "testNumber": 6,
+      "sourceQuestionNumber": 16,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ է նշանակում լուսացույցի դեղին եւ կարմիր գույների ազդանշանների զուգակցումը։",
+        "en": "What does the combination of yellow and red traffic signals mean?",
+        "ru": "Что означает сочетание жёлтого и красного сигналов светофора?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է սկսել երթեւեկությունը",
+          "Արգելվում է երթեւեկությունը եւ տեղեկացնում կանաչ ազդանշանի՝ առաջիկայում միանալու մասին",
+          "Խաչմերուկին մոտենում է հատուկ ձայնային ազդանշան եւ առկայծող փարոսիկներ միացրած տրանսպորտային միջոց"
+        ],
+        "en": [
+          "Traffic may begin.",
+          "Traffic is prohibited, and the signals indicate that the green signal will turn on shortly.",
+          "A vehicle with a special audible signal and flashing beacons activated is approaching the intersection."
+        ],
+        "ru": [
+          "Разрешается начать движение.",
+          "Движение запрещено; сигнал информирует о предстоящем включении зелёного сигнала.",
+          "К перекрёстку приближается транспортное средство с включённым специальным звуковым сигналом и проблесковыми маячками."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-07-img-02.jpeg",
+      "imageFilename": "page-07-img-02.jpeg",
+      "page": 7
+    },
+    {
+      "id": "drv_t06_q017",
+      "testNumber": 6,
+      "sourceQuestionNumber": 17,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է վարորդը ճիշտ կատարում շրջադարձը։",
+        "en": "In which image is the driver making the turn correctly?",
+        "ru": "На каком рисунке водитель правильно выполняет поворот?"
+      },
+      "options": {
+        "hy": [
+          "Ձախ նկարում",
+          "Աջ նկարում"
+        ],
+        "en": [
+          "In the left image.",
+          "In the right image."
+        ],
+        "ru": [
+          "На левом рисунке.",
+          "На правом рисунке."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-08-img-01.jpeg",
+      "imageFilename": "page-08-img-01.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t06_q018",
+      "testNumber": 6,
+      "sourceQuestionNumber": 18,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Պարտավո՞ր է արդյոք տրամվայի վարորդը լուսացույցի կանաչ ազդանշանի դեպքում զիջել ճանապարհն այլ ուղղություններից մոտեցող տրանսպորտային միջոցներին։",
+        "en": "When the traffic signal is green, must the tram operator yield to vehicles approaching from other directions?",
+        "ru": "Обязан ли водитель трамвая при зелёном сигнале светофора уступить дорогу транспортным средствам, приближающимся с других направлений?"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր է",
+          "Պարտավոր չէ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Обязан.",
+          "Не обязан."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-08-img-02.jpeg",
+      "imageFilename": "page-08-img-02.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t06_q019",
+      "testNumber": 6,
+      "sourceQuestionNumber": 19,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս լուսացույցը կիրառվում է երթեւեկությունը կարգավորելու համար՝",
+        "en": "This traffic signal is used to regulate traffic:",
+        "ru": "Данный светофор применяется для регулирования движения:"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկելի մասի ամբողջ լայնությամբ։",
+          "Երթեւեկելի մասի այն գոտիներով, որտեղ երթեւեկության ուղղությունը կարող է փոխվել հանդիպակացի։",
+          "Միայն ընդհանուր օգտագործման տրանսպորտային միջոցների երթեւեկության համար նախատեսված գոտիներում։"
+        ],
+        "en": [
+          "Across the entire width of the roadway.",
+          "In roadway lanes where the direction of traffic may change to the opposite direction.",
+          "Only in lanes designated for public transit vehicles."
+        ],
+        "ru": [
+          "По всей ширине проезжей части.",
+          "По полосам проезжей части, на которых направление движения может изменяться на противоположное.",
+          "Только по полосам, предназначенным для движения транспортных средств общего пользования."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-09-img-01.jpeg",
+      "imageFilename": "page-09-img-01.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t06_q020",
+      "testNumber": 6,
+      "sourceQuestionNumber": 20,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե կարգավորողի աջ ձեռքը պարզված է առաջ, ապա նրա ձախ կողմից ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "If the traffic controller’s right arm is extended forward, traffic of non-rail vehicles from the controller’s left side is permitted:",
+        "ru": "Если правая рука регулировщика вытянута вперёд, движение нерельсовых транспортных средств со стороны его левого бока разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Բոլոր ուղղություններով։",
+          "Միայն դեպի ձախ։"
+        ],
+        "en": [
+          "In all directions.",
+          "To the left only."
+        ],
+        "ru": [
+          "Во всех направлениях.",
+          "Только налево."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-09-img-02.jpeg",
+      "imageFilename": "page-09-img-02.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t06_q021",
+      "testNumber": 6,
+      "sourceQuestionNumber": 21,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցների երթեւեկությունն է թույլատրվում լուսացույցի տվյալ ազդանշանի դեպքում։",
+        "en": "Which vehicles are permitted to proceed under this traffic signal?",
+        "ru": "Движение каких транспортных средств разрешено при данном сигнале светофора?"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայի, դեղին եւ կարմիր ավտոմոբիլների",
+          "Դեղին եւ կարմիր ավտոմոբիլների",
+          "Բոլոր տրանսպորտային միջոցների"
+        ],
+        "en": [
+          "The tram, the yellow automobile, and the red automobile.",
+          "The yellow and red automobiles.",
+          "All vehicles."
+        ],
+        "ru": [
+          "Трамвая, жёлтого и красного автомобилей.",
+          "Жёлтого и красного автомобилей.",
+          "Всех транспортных средств."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t06_q022",
+      "testNumber": 6,
+      "sourceQuestionNumber": 22,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթեւեկությունը թույլատրվում է",
+        "en": "Traffic is permitted for:",
+        "ru": "Движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Բոլոր տրանսպորտային միջոցներին։",
+          "Մոտոցիկլին։",
+          "Ավտոմոբիլին եւ մոտոցիկլին։"
+        ],
+        "en": [
+          "All vehicles.",
+          "The motorcycle.",
+          "The automobile and the motorcycle."
+        ],
+        "ru": [
+          "Всем транспортным средствам.",
+          "Мотоциклу.",
+          "Автомобилю и мотоциклу."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-10-img-01.jpeg",
+      "imageFilename": "page-10-img-01.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t06_q023",
+      "testNumber": 6,
+      "sourceQuestionNumber": 23,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե կարգավորողի ձեռքերը կողմ են պարզված կամ իջեցված են, ապա նրա ձախ եւ աջ կողմերից ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "If the traffic controller’s arms are extended to the sides or lowered, traffic of non-rail vehicles from the controller’s left and right sides is permitted:",
+        "ru": "Если руки регулировщика вытянуты в стороны или опущены, движение нерельсовых транспортных средств со стороны его левого и правого бока разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ եւ դեպի աջ։",
+          "Միայն ուղիղ։"
+        ],
+        "en": [
+          "Straight ahead and to the right.",
+          "Straight ahead only."
+        ],
+        "ru": [
+          "Прямо и направо.",
+          "Только прямо."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-10-img-02.jpeg",
+      "imageFilename": "page-10-img-02.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t06_q024",
+      "testNumber": 6,
+      "sourceQuestionNumber": 24,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցի վարորդն ունի երթեւեկության առավելություն։",
+        "en": "Which vehicle driver has the right-of-way?",
+        "ru": "Водитель какого транспортного средства имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլի վարորդը",
+          "Տրամվայի վարորդը"
+        ],
+        "en": [
+          "The automobile driver.",
+          "The tram operator."
+        ],
+        "ru": [
+          "Водитель автомобиля.",
+          "Водитель трамвая."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t06_q025",
+      "testNumber": 6,
+      "sourceQuestionNumber": 25,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթեւեկել արգելվում է",
+        "en": "Traffic is prohibited for:",
+        "ru": "Движение запрещено:"
+      },
+      "options": {
+        "hy": [
+          "Կանաչ եւ սպիտակ ավտոմոբիլներին։",
+          "Սպիտակ, կապույտ եւ կանաչ ավտոմոբիլներին։",
+          "Սպիտակ եւ դեղին ավտոմոբիլներին։",
+          "Կանաչ եւ դեղին ավտոմոբիլներին։"
+        ],
+        "en": [
+          "The green and white automobiles.",
+          "The white, blue, and green automobiles.",
+          "The white and yellow automobiles.",
+          "The green and yellow automobiles."
+        ],
+        "ru": [
+          "Зелёному и белому автомобилям.",
+          "Белому, синему и зелёному автомобилям.",
+          "Белому и жёлтому автомобилям.",
+          "Зелёному и жёлтому автомобилям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-11-img-01.jpeg",
+      "imageFilename": "page-11-img-01.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t06_q026",
+      "testNumber": 6,
+      "sourceQuestionNumber": 26,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս լուսացույցի կարմիր ազդանշանի դեպքում երթեւեկությունն արգելվում է",
+        "en": "When this traffic signal is red, traffic is prohibited:",
+        "ru": "При красном сигнале данного светофора движение запрещено:"
+      },
+      "options": {
+        "hy": [
+          "երթեւեկելի մասի ամբողջ լայնությամբ։",
+          "ոչ ավել, քան 50 կմ/ժ արագությամբ։",
+          "Այն գոտիով, որի վերեւում տեղակայված է։"
+        ],
+        "en": [
+          "Across the entire width of the roadway.",
+          "At a speed not exceeding 50 km/h.",
+          "In the lane over which the signal is located."
+        ],
+        "ru": [
+          "По всей ширине проезжей части.",
+          "Со скоростью более 50 км/ч.",
+          "По полосе, над которой он расположен."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-11-img-02.jpeg",
+      "imageFilename": "page-11-img-02.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t06_q027",
+      "testNumber": 6,
+      "sourceQuestionNumber": 27,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ նշանակություն ունի լուսացույցի կլոր կանաչ թարթող ազդանշանը։",
+        "en": "What is the meaning of the circular flashing green traffic signal?",
+        "ru": "Что означает круглый мигающий зелёный сигнал светофора?"
+      },
+      "options": {
+        "hy": [
+          "Տեղեկացնում է, որ մուտքը խաչմերուկ արգելվում է",
+          "Թույլատրում է երթեւեկությունը եւ տեղեկացնում, որ դրա գործողության ժամկետը լրանում է եւ շուտով կմիանա արգելող ազդանշանը"
+        ],
+        "en": [
+          "It indicates that entering the intersection is prohibited.",
+          "It permits traffic and indicates that its display period is ending and a prohibitory signal will be activated shortly."
+        ],
+        "ru": [
+          "Информирует о том, что въезд на перекрёсток запрещён.",
+          "Разрешает движение и информирует о том, что время его действия истекает и вскоре будет включён запрещающий сигнал."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t06_q028",
+      "testNumber": 6,
+      "sourceQuestionNumber": 28,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությանբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը, կարմիր ավտոմոբիլը, կանաչ ավտոմոբիլը։",
+          "Կարմիր ավտոմոբիլը, տրամվայը` կանաչ ավտոմոբիլի հետ միաժամանակ։",
+          "Տրամվայը` կանաչ ավտոմոբիլի հետ միաժամանակ, կարմիր ավտոմոբիլը։"
+        ],
+        "en": [
+          "The tram, the red automobile, the green automobile.",
+          "The red automobile, then the tram simultaneously with the green automobile.",
+          "The tram simultaneously with the green automobile, then the red automobile."
+        ],
+        "ru": [
+          "Трамвай, красный автомобиль, зелёный автомобиль.",
+          "Красный автомобиль, затем трамвай одновременно с зелёным автомобилем.",
+          "Трамвай одновременно с зелёным автомобилем, затем красный автомобиль."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-12-img-01.jpeg",
+      "imageFilename": "page-12-img-01.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t06_q029",
+      "testNumber": 6,
+      "sourceQuestionNumber": 29,
+      "category": "tram",
+      "prompt": {
+        "hy": "Ո՞ր պատասխանում են ճիշտ նշված այն տրանսպորտային միջոցները, որոնց երթեւեկությունը թույլատրվում է։",
+        "en": "Which answer correctly identifies the vehicles that are permitted to proceed?",
+        "ru": "В каком ответе правильно указаны транспортные средства, которым разрешено движение?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլները եւ մոտոցիկլը",
+          "Բոլոր տրանսպորտային միջոցները",
+          "Ավտոմոբիլները եւ տրամվայը"
+        ],
+        "en": [
+          "The automobiles and the motorcycle.",
+          "All vehicles.",
+          "The automobiles and the tram."
+        ],
+        "ru": [
+          "Автомобили и мотоцикл.",
+          "Все транспортные средства.",
+          "Автомобили и трамвай."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-12-img-02.jpeg",
+      "imageFilename": "page-12-img-02.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t06_q030",
+      "testNumber": 6,
+      "sourceQuestionNumber": 30,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե կարգավորողի աջ ձեռքը պարզված է առաջ, ապա նրա ձախ կողմից ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "If the traffic controller’s right arm is extended forward, traffic of non-rail vehicles from the controller’s left side is permitted:",
+        "ru": "Если правая рука регулировщика вытянута вперёд, движение нерельсовых транспортных средств со стороны его левого бока разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ եւ դեպի ձախ։",
+          "Բոլոր ուղղություններով։"
+        ],
+        "en": [
+          "Straight ahead and to the left.",
+          "In all directions."
+        ],
+        "ru": [
+          "Прямо и налево.",
+          "Во всех направлениях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 12
+    },
+    {
+      "id": "drv_t06_q031",
+      "testNumber": 6,
+      "sourceQuestionNumber": 31,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթեւեկել արգելվում է",
+        "en": "Traffic is prohibited for:",
+        "ru": "Движение запрещено:"
+      },
+      "options": {
+        "hy": [
+          "Կապտադեղին ավտոմոբիլին` դեպի ձախ։",
+          "Կապտադեղին ավտոմոբիլին` ուղիղ, կարմիր ավտոմոբիլին` ուղիղ եւ դեպի աջ։",
+          "Կարմիր ավտոմոբիլին։"
+        ],
+        "en": [
+          "The blue-and-yellow automobile when proceeding to the left.",
+          "The blue-and-yellow automobile when proceeding straight ahead, and the red automobile when proceeding straight ahead and to the right.",
+          "The red automobile."
+        ],
+        "ru": [
+          "Сине-жёлтому автомобилю — налево.",
+          "Сине-жёлтому автомобилю — прямо, красному автомобилю — прямо и направо.",
+          "Красному автомобилю."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-13-img-01.jpeg",
+      "imageFilename": "page-13-img-01.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t06_q032",
+      "testNumber": 6,
+      "sourceQuestionNumber": 32,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր ուղղությամբ է թույլատրվում երթեւեկությունը։",
+        "en": "In which direction is traffic permitted?",
+        "ru": "В каком направлении разрешено движение?"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ եւ դեպի աջ` առաջին անցումով",
+          "Դեպի աջ` առաջին անցումով",
+          "Դեպի աջ` երկրորդ անցումով",
+          "Դեպի աջ` առաջին եւ երկրորդ անցումներով"
+        ],
+        "en": [
+          "Straight ahead and to the right through the first passage.",
+          "To the right through the first passage.",
+          "To the right through the second passage.",
+          "To the right through the first and second passages."
+        ],
+        "ru": [
+          "Прямо и направо через первый проезд.",
+          "Направо через первый проезд.",
+          "Направо через второй проезд.",
+          "Направо через первый и второй проезды."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-13-img-02.jpeg",
+      "imageFilename": "page-13-img-02.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t06_q033",
+      "testNumber": 6,
+      "sourceQuestionNumber": 33,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն առաջինը կանցնի",
+        "en": "Which vehicle will proceed through the intersection first?",
+        "ru": "Первым перекрёсток проедет:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլը։",
+          "Կապույտ ավտոմոբիլը։",
+          "Կանաչ ավտոմոբիլը։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The blue automobile.",
+          "The green automobile."
+        ],
+        "ru": [
+          "Красный автомобиль.",
+          "Синий автомобиль.",
+          "Зелёный автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-14-img-01.jpeg",
+      "imageFilename": "page-14-img-01.jpeg",
+      "page": 14
+    },
+    {
+      "id": "drv_t06_q034",
+      "testNumber": 6,
+      "sourceQuestionNumber": 34,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է վարորդը ճիշտ կատարում շրջադարձը։",
+        "en": "In which image is the driver making the turn correctly?",
+        "ru": "На каком рисунке водитель правильно выполняет поворот?"
+      },
+      "options": {
+        "hy": [
+          "Ձախ նկարում",
+          "Աջ նկարում",
+          "Երկու նկարներում էլ"
+        ],
+        "en": [
+          "In the left image.",
+          "In the right image.",
+          "In both images."
+        ],
+        "ru": [
+          "На левом рисунке.",
+          "На правом рисунке.",
+          "На обоих рисунках."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-14-img-02.jpeg",
+      "imageFilename": "page-14-img-02.jpeg",
+      "page": 14
+    },
+    {
+      "id": "drv_t06_q035",
+      "testNumber": 6,
+      "sourceQuestionNumber": 35,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Կարմիր ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The red automobile will proceed through the intersection:",
+        "ru": "Красный автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։",
+          "Երրորդը։",
+          "Վերջինը։"
+        ],
+        "en": [
+          "First.",
+          "Second.",
+          "Third.",
+          "Last."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым.",
+          "Третьим.",
+          "Последним."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-06/page-15-img-01.jpeg",
+      "imageFilename": "page-15-img-01.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t06_q036",
+      "testNumber": 6,
+      "sourceQuestionNumber": 36,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ավտոմոբիլը խաչմերուկը կանցնի",
+        "en": "The automobile will proceed through the intersection:",
+        "ru": "Автомобиль проедет перекрёсток:"
+      },
+      "options": {
+        "hy": [
+          "Առաջինը։",
+          "Երկրորդը։"
+        ],
+        "en": [
+          "First.",
+          "Second."
+        ],
+        "ru": [
+          "Первым.",
+          "Вторым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-15-img-02.jpeg",
+      "imageFilename": "page-15-img-02.jpeg",
+      "page": 15
+    },
+    {
+      "id": "drv_t06_q037",
+      "testNumber": 6,
+      "sourceQuestionNumber": 37,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթեւեկությունը թույլատրվում է",
+        "en": "Traffic is permitted for:",
+        "ru": "Движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Կապտադեղին ավտոմոբիլին` ուղիղ, կարմիրին` դեպի աջ։",
+          "Կարմիր ավտոմոբիլին` ուղիղ եւ դեպի աջ, կապտադեղինին` ուղիղ։",
+          "Երկու ավտոմոբիլներին` միայն ուղիղ։"
+        ],
+        "en": [
+          "The blue-and-yellow automobile straight ahead, and the red automobile to the right.",
+          "The red automobile straight ahead and to the right, and the blue-and-yellow automobile straight ahead.",
+          "Both automobiles straight ahead only."
+        ],
+        "ru": [
+          "Сине-жёлтому автомобилю — прямо, красному автомобилю — направо.",
+          "Красному автомобилю — прямо и направо, сине-жёлтому автомобилю — прямо.",
+          "Обоим автомобилям — только прямо."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-16-img-01.jpeg",
+      "imageFilename": "page-16-img-01.jpeg",
+      "page": 16
+    },
+    {
+      "id": "drv_t06_q038",
+      "testNumber": 6,
+      "sourceQuestionNumber": 38,
+      "category": "tram",
+      "prompt": {
+        "hy": "Երթեւեկությունը թույլատրվում է",
+        "en": "Traffic is permitted for:",
+        "ru": "Движение разрешено:"
+      },
+      "options": {
+        "hy": [
+          "Կարմիր ավտոմոբիլին։",
+          "Մոտոցիկլին։",
+          "Տրամվային եւ կարմիր ավտոմոբիլին։",
+          "Տրամվային։",
+          "Կապույտ ավտոմոբիլին։"
+        ],
+        "en": [
+          "The red automobile.",
+          "The motorcycle.",
+          "The tram and the red automobile.",
+          "The tram.",
+          "The blue automobile."
+        ],
+        "ru": [
+          "Красному автомобилю.",
+          "Мотоциклу.",
+          "Трамваю и красному автомобилю.",
+          "Трамваю.",
+          "Синему автомобилю."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-16-img-02.jpeg",
+      "imageFilename": "page-16-img-02.jpeg",
+      "page": 16
+    },
+    {
+      "id": "drv_t06_q039",
+      "testNumber": 6,
+      "sourceQuestionNumber": 39,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է երթեւեկել նշված հետագծով, երբ դարձափոխային լուսացույցերն անջատված են։",
+        "en": "Is it permitted to proceed along the indicated path when the reversible traffic signals are off?",
+        "ru": "Разрешается ли движение по указанной траектории при выключенных реверсивных светофорах?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Թույլատրվում է վազանցելու նպատակով",
+          "Արգելվում է",
+          "Թույլատրվում է՝ հանդիպակաց երթեւեկող տրանսպորտային միջոցների բացակայության դեպքում"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted for the purpose of passing.",
+          "Prohibited.",
+          "Permitted if there are no oncoming vehicles."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается с целью обгона.",
+          "Запрещается.",
+          "Разрешается при отсутствии встречных транспортных средств."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-17-img-01.jpeg",
+      "imageFilename": "page-17-img-01.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t06_q040",
+      "testNumber": 6,
+      "sourceQuestionNumber": 40,
+      "category": "penalties",
+      "prompt": {
+        "hy": "Տվյալ իրավիճակում ո՞ր տրանսպորտային միջոցներն ունեն երթեւեկությունը շարունակելու իրավունք։",
+        "en": "In this situation, which vehicles are permitted to continue?",
+        "ru": "Какие транспортные средства в данной ситуации имеют право продолжить движение?"
+      },
+      "options": {
+        "hy": [
+          "Թեթեւ մարդատար ավտոմոբիլը` ուղիղ, պարեկային ավտոմոբիլը` բոլոր ուղղություններով, ավտոբուսը` միայն աջ",
+          "Միայն պարեկային ավտոմոբիլը` բոլոր ուղղություններով",
+          "Պարեկային ավտոմոբիլը` բոլոր ուղղություններով, ավտոբուսը` միայն աջ"
+        ],
+        "en": [
+          "The passenger car straight ahead, the patrol vehicle in all directions, and the bus to the right only.",
+          "Only the patrol vehicle, in all directions.",
+          "The patrol vehicle in all directions and the bus to the right only."
+        ],
+        "ru": [
+          "Легковой автомобиль — прямо, патрульный автомобиль — во всех направлениях, автобус — только направо.",
+          "Только патрульный автомобиль — во всех направлениях.",
+          "Патрульный автомобиль — во всех направлениях, автобус — только направо."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-17-img-02.jpeg",
+      "imageFilename": "page-17-img-02.jpeg",
+      "page": 17
+    },
+    {
+      "id": "drv_t06_q041",
+      "testNumber": 6,
+      "sourceQuestionNumber": 41,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ է տեղեկացնում լուսացույցի ազդանշանը։",
+        "en": "What does the traffic signal indicate?",
+        "ru": "О чём информирует сигнал светофора?"
+      },
+      "options": {
+        "hy": [
+          "Լուսացույցն անսարք է",
+          "Խաչմերուկն անցնելիս վարորդները պետք է ղեկավարվեն ճանապարհային նշանի պահանջներով",
+          "Վարորդները պետք է սպասեն լուսացույցի թույլատրող ազդանշանին"
+        ],
+        "en": [
+          "The traffic signal is malfunctioning.",
+          "When proceeding through the intersection, drivers must follow the requirements of the traffic sign.",
+          "Drivers must wait for a permissive traffic signal."
+        ],
+        "ru": [
+          "Светофор неисправен.",
+          "При проезде перекрёстка водители должны руководствоваться требованиями дорожного знака.",
+          "Водители должны ожидать разрешающего сигнала светофора."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-18-img-01.jpeg",
+      "imageFilename": "page-18-img-01.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t06_q042",
+      "testNumber": 6,
+      "sourceQuestionNumber": 42,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է թեթեւ մարդատար ավտոմոբիլի վարորդին առաջ անցնել ավտոբուսից, երբ դարձափոխային լուսացույցն անջատված է։",
+        "en": "Is the passenger-car driver permitted to pass the bus when the reversible traffic signal is off?",
+        "ru": "Разрешается ли водителю легкового автомобиля опередить автобус при выключенном реверсивном светофоре?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Թույլատրվում է, եթե ավտոբուսը շարժվում է 30 կմ/ժ արագությամբ",
+          "Թույլատրվում է, եթե չկան հանդիպակաց երթեւեկող տրանսպորտային միջոցներ",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted if the bus is moving at 30 km/h.",
+          "Permitted if there are no oncoming vehicles.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается, если автобус движется со скоростью 30 км/ч.",
+          "Разрешается при отсутствии встречных транспортных средств.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-06/page-18-img-02.jpeg",
+      "imageFilename": "page-18-img-02.jpeg",
+      "page": 18
+    },
+    {
+      "id": "drv_t06_q043",
+      "testNumber": 6,
+      "sourceQuestionNumber": 43,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր տրանսպորտային միջոցը պետք է զիջի ճանապարհը։",
+        "en": "Which vehicle must yield?",
+        "ru": "Какое транспортное средство должно уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսը",
+          "Մոտոցիկլը եւ թեթեւ մարդատար ավտոմոբիլը"
+        ],
+        "en": [
+          "The bus.",
+          "The motorcycle and the passenger car."
+        ],
+        "ru": [
+          "Автобус.",
+          "Мотоцикл и легковой автомобиль."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-19-img-01.jpeg",
+      "imageFilename": "page-19-img-01.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t06_q044",
+      "testNumber": 6,
+      "sourceQuestionNumber": 44,
+      "category": "penalties",
+      "prompt": {
+        "hy": "Նշված հետագծերով երթեւեկությունը շարունակելու իրավունք ունեն",
+        "en": "The following drivers are permitted to continue along the indicated paths:",
+        "ru": "Продолжить движение по указанным траекториям имеют право:"
+      },
+      "options": {
+        "hy": [
+          "Բեռնատար ավտոմոբիլի վարորդը։",
+          "Ավտոբուսի եւ բեռնատար ավտոմոբիլների վարորդները։",
+          "Թեթեւ մարդատար ավտոմոբիլի եւ ավտոբուսի վարորդները։",
+          "Ավտոբուսի վարորդը։"
+        ],
+        "en": [
+          "The truck driver.",
+          "The bus driver and the truck driver.",
+          "The passenger-car driver and the bus driver.",
+          "The bus driver."
+        ],
+        "ru": [
+          "Водитель грузового автомобиля.",
+          "Водители автобуса и грузового автомобиля.",
+          "Водители легкового автомобиля и автобуса.",
+          "Водитель автобуса."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-06/page-19-img-02.jpeg",
+      "imageFilename": "page-19-img-02.jpeg",
+      "page": 19
+    },
+    {
+      "id": "drv_t06_q045",
+      "testNumber": 6,
+      "sourceQuestionNumber": 45,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը, թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը։",
+          "Թեթեւ մարդատար ավտոմոբիլը, տրամվայը, ավտոբուսը։",
+          "Թեթեւ մարդատար ավտոմոբիլը, ավտոբուսը, տրամվայը։"
+        ],
+        "en": [
+          "The tram, the passenger car, the bus.",
+          "The passenger car, the tram, the bus.",
+          "The passenger car, the bus, the tram."
+        ],
+        "ru": [
+          "Трамвай, легковой автомобиль, автобус.",
+          "Легковой автомобиль, трамвай, автобус.",
+          "Легковой автомобиль, автобус, трамвай."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-20-img-01.jpeg",
+      "imageFilename": "page-20-img-01.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t06_q046",
+      "testNumber": 6,
+      "sourceQuestionNumber": 46,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր ուղղությամբ կարող է վարորդը շարունակել երթեւեկությունը։",
+        "en": "In which direction may the driver continue?",
+        "ru": "В каком направлении водитель может продолжить движение?"
+      },
+      "options": {
+        "hy": [
+          "Դեպի աջ` առաջին անցումով",
+          "Դեպի աջ` առաջին եւ երկրորդ անցումներով",
+          "Դեպի ձախ` առաջին անցումով"
+        ],
+        "en": [
+          "To the right through the first passage.",
+          "To the right through the first and second passages.",
+          "To the left through the first passage."
+        ],
+        "ru": [
+          "Направо через первый проезд.",
+          "Направо через первый и второй проезды.",
+          "Налево через первый проезд."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-20-img-02.jpeg",
+      "imageFilename": "page-20-img-02.jpeg",
+      "page": 20
+    },
+    {
+      "id": "drv_t06_q047",
+      "testNumber": 6,
+      "sourceQuestionNumber": 47,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձի դեպքում վարորդը պարտավոր է ճանապարհը զիջել",
+        "en": "When making a right turn, the driver must yield to:",
+        "ru": "При повороте направо водитель обязан уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն հեծանվորդին։",
+          "Միայն հետիոտներին։",
+          "Հետիոտներին եւ հեծանվորդին։",
+          "Կարող է շարունակել երթեւեկությունը՝ առանց կանգ առնելու։"
+        ],
+        "en": [
+          "Only the bicyclist.",
+          "Only the pedestrians.",
+          "The pedestrians and the bicyclist.",
+          "The driver may continue without stopping."
+        ],
+        "ru": [
+          "Только велосипедисту.",
+          "Только пешеходам.",
+          "Пешеходам и велосипедисту.",
+          "Может продолжить движение без остановки."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-21-img-01.jpeg",
+      "imageFilename": "page-21-img-01.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t06_q048",
+      "testNumber": 6,
+      "sourceQuestionNumber": 48,
+      "category": "tram",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցները խաչմերուկը կանցնեն հետեւյալ հերթականությամբ՝",
+        "en": "The vehicles will proceed through the intersection in the following order:",
+        "ru": "Транспортные средства проедут перекрёсток в следующей последовательности:"
+      },
+      "options": {
+        "hy": [
+          "Տրամվայը, ավտոբուսը, բեռնատար ավտոմոբիլը, մոտոցիկլը։",
+          "Ավտոբուսը, բեռնատար ավտոմոբիլը, տրամվայը, մոտոցիկլը։",
+          "Ավտոբուսը, տրամվայը եւ մոտոցիկլը, բեռնատար ավտոմոբիլը։"
+        ],
+        "en": [
+          "The tram, the bus, the truck, the motorcycle.",
+          "The bus, the truck, the tram, the motorcycle.",
+          "The bus, then the tram and the motorcycle, then the truck."
+        ],
+        "ru": [
+          "Трамвай, автобус, грузовой автомобиль, мотоцикл.",
+          "Автобус, грузовой автомобиль, трамвай, мотоцикл.",
+          "Автобус, затем трамвай и мотоцикл, затем грузовой автомобиль."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-21-img-02.jpeg",
+      "imageFilename": "page-21-img-02.jpeg",
+      "page": 21
+    },
+    {
+      "id": "drv_t06_q049",
+      "testNumber": 6,
+      "sourceQuestionNumber": 49,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ո՞ր տրամվայի վարորդին պետք է զիջել ճանապարհը։",
+        "en": "In this situation, to which tram operator must you yield?",
+        "ru": "Водителю какого трамвая следует уступить дорогу в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ մեկին",
+          "Երկու տրամվայների",
+          "Միայն A"
+        ],
+        "en": [
+          "Neither of them.",
+          "Both tram operators.",
+          "Only A."
+        ],
+        "ru": [
+          "Ни одного.",
+          "Обоих трамваев.",
+          "Только трамвая A."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-22-img-01.jpeg",
+      "imageFilename": "page-22-img-01.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t06_q050",
+      "testNumber": 6,
+      "sourceQuestionNumber": 50,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր վարորդն ունի առաջնահերթ երթևեկության իրավունք։",
+        "en": "Which driver has the right-of-way?",
+        "ru": "Какой водитель имеет преимущество в движении?"
+      },
+      "options": {
+        "hy": [
+          "Ավտոբուսի վարորդը",
+          "Թեթև մարդատարի վարորդը"
+        ],
+        "en": [
+          "The bus driver.",
+          "The passenger-car driver."
+        ],
+        "ru": [
+          "Водитель автобуса.",
+          "Водитель легкового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-22-img-02.jpeg",
+      "imageFilename": "page-22-img-02.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t06_q051",
+      "testNumber": 6,
+      "sourceQuestionNumber": 51,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ձախ շրջադարձ կատարելիս",
+        "en": "In this situation, when making a left turn:",
+        "ru": "При повороте налево в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Կզիջեմ ճանապարհը տրամվային։",
+          "Խաչմերուկն առաջինը կանցնեմ։"
+        ],
+        "en": [
+          "I will yield to the tram.",
+          "I will proceed through the intersection first."
+        ],
+        "ru": [
+          "Я уступлю дорогу трамваю.",
+          "Я проеду перекрёсток первым."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-22-img-03.jpeg",
+      "imageFilename": "page-22-img-03.jpeg",
+      "page": 22
+    },
+    {
+      "id": "drv_t06_q052",
+      "testNumber": 6,
+      "sourceQuestionNumber": 52,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ինչպե՞ս վարվել այս իրավիճակում։",
+        "en": "What should you do in this situation?",
+        "ru": "Как следует поступить в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Մուտք գործել խաչմերուկ և, զիջելով ճանապարհը թեթև մարդատարի վարորդին, անցնել խաչմերուկը",
+          "Սպասել «Կանգ-գծի» առջև, մինչև թեթև մարդատարի վարորդը կանցնի խաչմերուկը",
+          "Անցնել առաջինը"
+        ],
+        "en": [
+          "Enter the intersection and, after yielding to the passenger-car driver, proceed through the intersection.",
+          "Wait before the “Stop Line” until the passenger-car driver has proceeded through the intersection.",
+          "Proceed first."
+        ],
+        "ru": [
+          "Въехать на перекрёсток и, уступив дорогу водителю легкового автомобиля, проехать перекрёсток.",
+          "Ожидать перед стоп-линией, пока водитель легкового автомобиля не проедет перекрёсток.",
+          "Проехать первым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-23-img-01.jpeg",
+      "imageFilename": "page-23-img-01.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t06_q053",
+      "testNumber": 6,
+      "sourceQuestionNumber": 53,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ո՞ր վարորդն է խախտում երթևեկության կանոնները շրջադարձ կատարելիս։",
+        "en": "Which driver violates the traffic rules when making the turn?",
+        "ru": "Какой водитель нарушает Правила дорожного движения при выполнении поворота?"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի",
+          "Մոտոցիկլի",
+          "Երկու վարորդներն էլ",
+          "Ոչ ոք"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The driver of the motorcycle.",
+          "Both drivers.",
+          "No one."
+        ],
+        "ru": [
+          "Водитель легкового автомобиля.",
+          "Водитель мотоцикла.",
+          "Оба водителя.",
+          "Никто."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-23-img-02.jpeg",
+      "imageFilename": "page-23-img-02.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t06_q054",
+      "testNumber": 6,
+      "sourceQuestionNumber": 54,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս այս իրավիճակում զիջել ճանապարհը",
+        "en": "In this situation, when making a right turn, must you yield?",
+        "ru": "При повороте направо в данной ситуации уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր եք։",
+          "Պարտավոր չեք։"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Вы обязаны.",
+          "Вы не обязаны."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-23-img-03.jpeg",
+      "imageFilename": "page-23-img-03.jpeg",
+      "page": 23
+    },
+    {
+      "id": "drv_t06_q055",
+      "testNumber": 6,
+      "sourceQuestionNumber": 55,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Աջ շրջադարձ թույլատրելի է՞ այս իրավիճակում։",
+        "en": "Is a right turn permitted in this situation?",
+        "ru": "Разрешается ли поворот направо в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Այո՝ չխոչընդոտելով հետիոտններին",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes, provided you do not interfere with pedestrians.",
+          "No."
+        ],
+        "ru": [
+          "Да, при условии, что не будут созданы помехи пешеходам.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-24-img-01.jpeg",
+      "imageFilename": "page-24-img-01.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t06_q056",
+      "testNumber": 6,
+      "sourceQuestionNumber": 56,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Զիջել ճանապարհը տրամվայի վարորդին այս իրավիճակում",
+        "en": "In this situation, must you yield to the tram operator?",
+        "ru": "Уступить дорогу водителю трамвая в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր չեք",
+          "Պարտավոր եք։"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Вы не обязаны.",
+          "Вы обязаны."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-24-img-02.jpeg",
+      "imageFilename": "page-24-img-02.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t06_q057",
+      "testNumber": 6,
+      "sourceQuestionNumber": 57,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Կանաչ ազդանշանը միանալու դեպքում վարորդը",
+        "en": "When the green traffic signal turns on, the driver:",
+        "ru": "После включения зелёного сигнала водитель:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է զիջի բեռնատարի վարորդին։",
+          "Ունի առաջնահերթ երթևեկելու իրավունք։"
+        ],
+        "en": [
+          "Must yield to the truck driver.",
+          "Has the right-of-way."
+        ],
+        "ru": [
+          "Должен уступить дорогу водителю грузового автомобиля.",
+          "Имеет преимущество в движении."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-24-img-03.jpeg",
+      "imageFilename": "page-24-img-03.jpeg",
+      "page": 24
+    },
+    {
+      "id": "drv_t06_q058",
+      "testNumber": 6,
+      "sourceQuestionNumber": 58,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս խաչմերուկում վարորդը",
+        "en": "At this intersection, the driver:",
+        "ru": "На данном перекрёстке водитель:"
+      },
+      "options": {
+        "hy": [
+          "Կանցնի առաջինը։",
+          "Պետք է զիջի ճանապարհը տրամվային։"
+        ],
+        "en": [
+          "Will proceed first.",
+          "Must yield to the tram."
+        ],
+        "ru": [
+          "Проедет первым.",
+          "Должен уступить дорогу трамваю."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-25-img-01.jpeg",
+      "imageFilename": "page-25-img-01.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t06_q059",
+      "testNumber": 6,
+      "sourceQuestionNumber": 59,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս վարորդը",
+        "en": "When proceeding straight through the intersection, the driver:",
+        "ru": "При проезде перекрёстка прямо водитель:"
+      },
+      "options": {
+        "hy": [
+          "Կարող է առաջինն անցնել։",
+          "Պետք է զիջի տրամվային։",
+          "Պետք է զիջի երկու վարորդներին։"
+        ],
+        "en": [
+          "May proceed first.",
+          "Must yield to the tram.",
+          "Must yield to both drivers."
+        ],
+        "ru": [
+          "Может проехать первым.",
+          "Должен уступить дорогу трамваю.",
+          "Должен уступить дорогу обоим водителям."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-25-img-02.jpeg",
+      "imageFilename": "page-25-img-02.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t06_q060",
+      "testNumber": 6,
+      "sourceQuestionNumber": 60,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Շրջադարձը կատարելիս վարորդը պարտավոր է ճանապարհը զիջել",
+        "en": "When making the turn, the driver must yield to:",
+        "ru": "При выполнении поворота водитель обязан уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն հետիոտներին։",
+          "Հեծանվորդին։",
+          "Հեծանվորդին և հետիոտներին։"
+        ],
+        "en": [
+          "Pedestrians only.",
+          "The bicyclist.",
+          "The bicyclist and the pedestrians."
+        ],
+        "ru": [
+          "Только пешеходам.",
+          "Велосипедисту.",
+          "Велосипедисту и пешеходам."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-25-img-03.jpeg",
+      "imageFilename": "page-25-img-03.jpeg",
+      "page": 25
+    },
+    {
+      "id": "drv_t06_q061",
+      "testNumber": 6,
+      "sourceQuestionNumber": 61,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս պարտավո՞ր եք զիջել ճանապարհը հանդիպակաց գոտուց մոտեցող վարորդին։",
+        "en": "When making a right turn, must you yield to the driver approaching in the oncoming lane?",
+        "ru": "Обязаны ли Вы при повороте направо уступить дорогу водителю, приближающемуся по встречной полосе?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-26-img-01.jpeg",
+      "imageFilename": "page-26-img-01.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t06_q062",
+      "testNumber": 6,
+      "sourceQuestionNumber": 62,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկն ուղիղ անցնելիս",
+        "en": "When proceeding straight through the intersection:",
+        "ru": "При проезде перекрёстка прямо:"
+      },
+      "options": {
+        "hy": [
+          "Կարող ենք անցնել առաջինը։",
+          "Պարտավոր ենք զիջել ճանապարհը թեթև մարդատարի վարորդին։"
+        ],
+        "en": [
+          "We may proceed first.",
+          "We must yield to the passenger-car driver."
+        ],
+        "ru": [
+          "Мы можем проехать первыми.",
+          "Мы обязаны уступить дорогу водителю легкового автомобиля."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-26-img-02.jpeg",
+      "imageFilename": "page-26-img-02.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t06_q063",
+      "testNumber": 6,
+      "sourceQuestionNumber": 63,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս պետք է զիջել",
+        "en": "When making a left turn, you must yield to:",
+        "ru": "При повороте налево следует уступить дорогу:"
+      },
+      "options": {
+        "hy": [
+          "Միայն թեթև մարդատարի վարորդին։",
+          "Միայն հետիոտներին։",
+          "Թեթև մարդատարի վարորդին և հետիոտներին։"
+        ],
+        "en": [
+          "Only the passenger-car driver.",
+          "Pedestrians only.",
+          "The passenger-car driver and the pedestrians."
+        ],
+        "ru": [
+          "Только водителю легкового автомобиля.",
+          "Только пешеходам.",
+          "Водителю легкового автомобиля и пешеходам."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-26-img-03.jpeg",
+      "imageFilename": "page-26-img-03.jpeg",
+      "page": 26
+    },
+    {
+      "id": "drv_t06_q064",
+      "testNumber": 6,
+      "sourceQuestionNumber": 64,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում աջ շրջադարձ թույլատրվո՞ւմ է։",
+        "en": "In this situation, is a right turn permitted?",
+        "ru": "Разрешается ли поворот направо в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ",
+          "Այո՝ չխոչընդոտելով հետիոտնին"
+        ],
+        "en": [
+          "No.",
+          "Yes, provided you do not interfere with the pedestrian."
+        ],
+        "ru": [
+          "Нет.",
+          "Да, при условии, что не будут созданы помехи пешеходу."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-27-img-01.jpeg",
+      "imageFilename": "page-27-img-01.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t06_q065",
+      "testNumber": 6,
+      "sourceQuestionNumber": 65,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ձախ շրջադարձը կատարելիս",
+        "en": "When making a left turn:",
+        "ru": "При повороте налево:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր եք զիջել տրամվայի վարորդին։",
+          "Խաչմերուկն անցնել առաջինը"
+        ],
+        "en": [
+          "You must yield to the tram operator.",
+          "You will proceed through the intersection first."
+        ],
+        "ru": [
+          "Вы обязаны уступить дорогу водителю трамвая.",
+          "Вы проедете перекрёсток первым."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-27-img-02.jpeg",
+      "imageFilename": "page-27-img-02.jpeg",
+      "page": 27
+    },
+    {
+      "id": "drv_t06_q066",
+      "testNumber": 6,
+      "sourceQuestionNumber": 66,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր ճանապարհային նշանները չեն գործում, երբ դրանց պահանջները հակասում են լուսացույցի ազդանշաններին:",
+        "en": "Which traffic signs do not apply when their requirements conflict with traffic signal indications?",
+        "ru": "Какие дорожные знаки не действуют, если их требования противоречат сигналам светофора?"
+      },
+      "options": {
+        "hy": [
+          "Առավելության նշանները",
+          "Արգելող նշանները",
+          "Թելադրող նշանները",
+          "Բոլոր թվարկվածները"
+        ],
+        "en": [
+          "Priority signs.",
+          "Prohibitory signs.",
+          "Mandatory signs.",
+          "All of the above."
+        ],
+        "ru": [
+          "Знаки приоритета.",
+          "Запрещающие знаки.",
+          "Предписывающие знаки.",
+          "Все перечисленные."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 27
+    },
+    {
+      "id": "drv_t06_q067",
+      "testNumber": 6,
+      "sourceQuestionNumber": 67,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ճանապարհը պարտավոր է զիջել",
+        "en": "In this situation, who must yield?",
+        "ru": "В данной ситуации уступить дорогу обязан:"
+      },
+      "options": {
+        "hy": [
+          "Թեթև մարդատարի վարորդը։",
+          "Տրամվայի վարորդը։"
+        ],
+        "en": [
+          "The passenger-car driver.",
+          "The tram operator."
+        ],
+        "ru": [
+          "Водитель легкового автомобиля.",
+          "Водитель трамвая."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-28-img-01.jpeg",
+      "imageFilename": "page-28-img-01.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t06_q068",
+      "testNumber": 6,
+      "sourceQuestionNumber": 68,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս",
+        "en": "When making a right turn:",
+        "ru": "При повороте направо:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր ենք զիջել ճանապարհը տրամվայի վարորդին։",
+          "Խաչմերուկը կանցնենք առաջինը։"
+        ],
+        "en": [
+          "We must yield to the tram operator.",
+          "We will proceed through the intersection first."
+        ],
+        "ru": [
+          "Мы обязаны уступить дорогу водителю трамвая.",
+          "Мы проедем перекрёсток первыми."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-28-img-02.jpeg",
+      "imageFilename": "page-28-img-02.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t06_q069",
+      "testNumber": 6,
+      "sourceQuestionNumber": 69,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Մտադիր եք կատարել ձախ շրջադարձ: Ո՞ւմ եք պարտավոր զիջել ճանապարհը։",
+        "en": "You intend to make a left turn. To whom must you yield?",
+        "ru": "Вы намерены выполнить поворот налево. Кому Вы обязаны уступить дорогу?"
+      },
+      "options": {
+        "hy": [
+          "Միայն տրամվայի վարորդին",
+          "Ոչ ոքի",
+          "Ավտոմոբիլի և տրամվայի վարորդներին"
+        ],
+        "en": [
+          "Only the tram operator.",
+          "No one.",
+          "The automobile driver and the tram operator."
+        ],
+        "ru": [
+          "Только водителю трамвая.",
+          "Никому.",
+          "Водителям автомобиля и трамвая."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-28-img-03.jpeg",
+      "imageFilename": "page-28-img-03.jpeg",
+      "page": 28
+    },
+    {
+      "id": "drv_t06_q070",
+      "testNumber": 6,
+      "sourceQuestionNumber": 70,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելիս",
+        "en": "When making a left turn:",
+        "ru": "При повороте налево:"
+      },
+      "options": {
+        "hy": [
+          "Մանևրը կկատարեմ՝ առանց կանգ առնելու:",
+          "Խաչմերուկ մուտք գործելուց հետո կկանգնեմ երկրորդ ՛՛Կանգ-գծի՛՛ առջև և կսպասեմ կանաչ ազդանշանի միանալուն"
+        ],
+        "en": [
+          "I will complete the maneuver without stopping.",
+          "After entering the intersection, I will stop before the second “Stop Line” and wait for the green signal."
+        ],
+        "ru": [
+          "Я выполню манёвр без остановки.",
+          "После въезда на перекрёсток я остановлюсь перед второй стоп-линией и буду ожидать включения зелёного сигнала."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-29-img-01.jpeg",
+      "imageFilename": "page-29-img-01.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t06_q071",
+      "testNumber": 6,
+      "sourceQuestionNumber": 71,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Պարտավոր ենք արդյո՞ք այս իրավիճակում զիջել բեռնատարի վարորդին։",
+        "en": "In this situation, must we yield to the truck driver?",
+        "ru": "Обязаны ли мы в данной ситуации уступить дорогу водителю грузового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-29-img-02.jpeg",
+      "imageFilename": "page-29-img-02.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t06_q072",
+      "testNumber": 6,
+      "sourceQuestionNumber": 72,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս իրադրությունում ձախ շրջադարձ կատարելիս պետք է",
+        "en": "In this situation, when making a left turn, you must:",
+        "ru": "При повороте налево в данной ситуации следует:"
+      },
+      "options": {
+        "hy": [
+          "Մուտք գործել խաչմերուկ և սպասել կարգավորողի՝ ձախ շրջադարձ թույլատրող ազդանշանին։",
+          "Կանգ առնել ՛՛Կանգ-գիծ՛՛ գծանշման առջև և սպասել կարգավորողի՝ ձախ շրջադարձ թույլատրող ազդանշանին։",
+          "Դուրս գալ խաչմերուկ և հանդիպակաց գոտուց մոտեցող վարորդին ճանապարհը զիջելուց հետո անցնել խաչմերուկը:"
+        ],
+        "en": [
+          "Enter the intersection and wait for the traffic controller’s signal permitting a left turn.",
+          "Stop before the “Stop Line” pavement marking and wait for the traffic controller’s signal permitting a left turn.",
+          "Enter the intersection and, after yielding to the driver approaching in the oncoming lane, proceed through the intersection."
+        ],
+        "ru": [
+          "Въехать на перекрёсток и ожидать сигнала регулировщика, разрешающего поворот налево.",
+          "Остановиться перед стоп-линией и ожидать сигнала регулировщика, разрешающего поворот налево.",
+          "Выехать на перекрёсток и, уступив дорогу водителю, приближающемуся по встречной полосе, проехать перекрёсток."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-29-img-03.jpeg",
+      "imageFilename": "page-29-img-03.jpeg",
+      "page": 29
+    },
+    {
+      "id": "drv_t06_q073",
+      "testNumber": 6,
+      "sourceQuestionNumber": 73,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում կարող եք խաչմերուկն անցնել առանց ճանապարհը զիջելու՝ երթևեկության այլ մասնակցին։",
+        "en": "In which case may you proceed through the intersection without yielding to another road user?",
+        "ru": "В каком случае Вы можете проехать перекрёсток, не уступая дорогу другому участнику движения?"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ անցնելու դեպքում",
+          "Աջ շրջադարձ կատարելիս",
+          "Ձախ շրջադարձ կատարելիս"
+        ],
+        "en": [
+          "When proceeding straight ahead.",
+          "When making a right turn.",
+          "When making a left turn."
+        ],
+        "ru": [
+          "При движении прямо.",
+          "При повороте направо.",
+          "При повороте налево."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-30-img-01.jpeg",
+      "imageFilename": "page-30-img-01.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t06_q074",
+      "testNumber": 6,
+      "sourceQuestionNumber": 74,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս պետք է",
+        "en": "When making a right turn, you must:",
+        "ru": "При повороте направо следует:"
+      },
+      "options": {
+        "hy": [
+          "Կանգ առնել «Կանգ-գծի» առջև՝ հետիոտններին չխոչընդոտելու նպատակով։",
+          "Մտնելով խաչմերուկ կանգ առնել՝ հետիոտններին չխոչընդոտելու նպատակով։",
+          "Անցնել խաչմերուկը՝ առանց կանգ առնելու։"
+        ],
+        "en": [
+          "Stop before the “Stop Line” so as not to interfere with pedestrians.",
+          "Enter the intersection and stop so as not to interfere with pedestrians.",
+          "Proceed through the intersection without stopping."
+        ],
+        "ru": [
+          "Остановиться перед стоп-линией, чтобы не создавать помех пешеходам.",
+          "Въехав на перекрёсток, остановиться, чтобы не создавать помех пешеходам.",
+          "Проехать перекрёсток без остановки."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-30-img-02.jpeg",
+      "imageFilename": "page-30-img-02.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t06_q075",
+      "testNumber": 6,
+      "sourceQuestionNumber": 75,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Աջ շրջադարձ կատարելիս",
+        "en": "When making a right turn:",
+        "ru": "При повороте направо:"
+      },
+      "options": {
+        "hy": [
+          "Պետք է զիջել ճանապարհը թեթև մարդատարի վարորդին։",
+          "Առաջինը անցնել խաչմերուկը։"
+        ],
+        "en": [
+          "You must yield to the passenger-car driver.",
+          "You will proceed through the intersection first."
+        ],
+        "ru": [
+          "Следует уступить дорогу водителю легкового автомобиля.",
+          "Следует проехать перекрёсток первым."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-30-img-03.jpeg",
+      "imageFilename": "page-30-img-03.jpeg",
+      "page": 30
+    },
+    {
+      "id": "drv_t06_q076",
+      "testNumber": 6,
+      "sourceQuestionNumber": 76,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի թույլատրող ազդանշանի միանալուց հետո խաչմերուկ մուտք գործել կարող ենք",
+        "en": "After the permissive traffic signal turns on, we may enter the intersection:",
+        "ru": "После включения разрешающего сигнала светофора въехать на перекрёсток можно:"
+      },
+      "options": {
+        "hy": [
+          "Միայն հետադարձ կամ շրջադարձ կատարելու դեպքում։",
+          "Բոլոր դեպքերում։"
+        ],
+        "en": [
+          "Only when making a turn or a U-turn.",
+          "In all cases."
+        ],
+        "ru": [
+          "Только при выполнении разворота или поворота.",
+          "Во всех случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-31-img-01.jpeg",
+      "imageFilename": "page-31-img-01.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t06_q077",
+      "testNumber": 6,
+      "sourceQuestionNumber": 77,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի կանաչ ազդանշանի միացման դեպքում պարտավոր ենք",
+        "en": "When the green traffic signal turns on, we must:",
+        "ru": "При включении зелёного сигнала светофора мы обязаны:"
+      },
+      "options": {
+        "hy": [
+          "համոզվել, որ հետիոտնային անցման չերևացող մասում չկան անցումը չավարտած հետիոտներ:",
+          "լուսացույցի ազդանշանի համաձայն անմիջապես սկսել երթևեկությունը:"
+        ],
+        "en": [
+          "Make sure that there are no pedestrians who have not finished crossing in the part of the pedestrian crossing that is not visible.",
+          "Immediately start moving in accordance with the traffic signal."
+        ],
+        "ru": [
+          "Убедиться, что на невидимой части пешеходного перехода отсутствуют пешеходы, не завершившие переход.",
+          "Немедленно начать движение в соответствии с сигналом светофора."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-31-img-02.jpeg",
+      "imageFilename": "page-31-img-02.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t06_q078",
+      "testNumber": 6,
+      "sourceQuestionNumber": 78,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում ձախ շրջվելիս պարտավոր եք ճանապարհը զիջել",
+        "en": "In this situation, when making a left turn, you must yield to:",
+        "ru": "Кому Вы обязаны уступить дорогу при повороте налево в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Միայն հետիոտնին։",
+          "Ավտոբուսի վարորդին։",
+          "Ավտոբուսի վարորդին և հետիոտնին։",
+          "Ոչ ոքի։"
+        ],
+        "en": [
+          "Only the pedestrian.",
+          "The bus driver.",
+          "The bus driver and the pedestrian.",
+          "No one."
+        ],
+        "ru": [
+          "Только пешеходу.",
+          "Водителю автобуса.",
+          "Водителю автобуса и пешеходу.",
+          "Никому."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-31-img-03.jpeg",
+      "imageFilename": "page-31-img-03.jpeg",
+      "page": 31
+    },
+    {
+      "id": "drv_t06_q079",
+      "testNumber": 6,
+      "sourceQuestionNumber": 79,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Պարտավո՞ր եք արդյոք ճանապարհը զիջել ավտոբուսին։",
+        "en": "Must you yield to the bus?",
+        "ru": "Обязаны ли Вы уступить дорогу автобусу?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-32-img-01.jpeg",
+      "imageFilename": "page-32-img-01.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t06_q080",
+      "testNumber": 6,
+      "sourceQuestionNumber": 80,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Այս իրավիճակում հետադարձ կատարելիս ճանապարհը զիջել մյուս վարորդին",
+        "en": "In this situation, when making a U-turn, must you yield to the other driver?",
+        "ru": "При выполнении разворота в данной ситуации уступить дорогу другому водителю:"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր չենք։",
+          "Պարտավոր ենք։"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Мы не обязаны.",
+          "Мы обязаны."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-32-img-02.jpeg",
+      "imageFilename": "page-32-img-02.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t06_q081",
+      "testNumber": 6,
+      "sourceQuestionNumber": 81,
+      "category": "other",
+      "prompt": {
+        "hy": "Այս իրավիճակում ո՞ր ուղղությամբ կարող է վարորդը շարունակել երթևեկությունը։",
+        "en": "In which direction or directions may the driver continue in this situation?",
+        "ru": "В каком направлении водитель может продолжить движение в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ուղիղ",
+          "Ուղիղ և աջ",
+          "Ուղիղ և ձախ",
+          "Բոլոր"
+        ],
+        "en": [
+          "Straight ahead only.",
+          "Straight ahead and to the right.",
+          "Straight ahead and to the left.",
+          "In all directions."
+        ],
+        "ru": [
+          "Только прямо.",
+          "Прямо и направо.",
+          "Прямо и налево.",
+          "Во всех направлениях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-32-img-03.jpeg",
+      "imageFilename": "page-32-img-03.jpeg",
+      "page": 32
+    },
+    {
+      "id": "drv_t06_q082",
+      "testNumber": 6,
+      "sourceQuestionNumber": 82,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Ո՞ր վարորդը կարող է շարունակել երթևեկությունը։",
+        "en": "Which driver may continue?",
+        "ru": "Какой водитель может продолжить движение?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ ոք",
+          "Միայն ավտոբուսի վարորդը",
+          "Երկու վարորդներն էլ"
+        ],
+        "en": [
+          "Neither driver.",
+          "Only the bus driver.",
+          "Both drivers."
+        ],
+        "ru": [
+          "Никто.",
+          "Только водитель автобуса.",
+          "Оба водителя."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-33-img-01.jpeg",
+      "imageFilename": "page-33-img-01.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t06_q083",
+      "testNumber": 6,
+      "sourceQuestionNumber": 83,
+      "category": "other",
+      "prompt": {
+        "hy": "Գծանցն անցնելը",
+        "en": "Proceeding across the railroad crossing is:",
+        "ru": "Проезд железнодорожного переезда:"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրված է։",
+          "Արգելված է։"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешён.",
+          "Запрещён."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-33-img-02.jpeg",
+      "imageFilename": "page-33-img-02.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t06_q084",
+      "testNumber": 6,
+      "sourceQuestionNumber": 84,
+      "category": "other",
+      "prompt": {
+        "hy": "Վարորդին խաչմերուկն անցնել",
+        "en": "The driver is:",
+        "ru": "Водителю проезд перекрёстка:"
+      },
+      "options": {
+        "hy": [
+          "արգելվում է։",
+          "թույլատրվում է բոլոր դեպքերում։",
+          "թույլատրվում է, եթե նա հնարավորություն չունի առանց կտրուկ արգելակելու կանգնել «Կանգ-գծի» առջև:"
+        ],
+        "en": [
+          "Prohibited from proceeding through the intersection.",
+          "Permitted to proceed through the intersection in all cases.",
+          "Permitted to proceed through the intersection if the driver cannot stop before the “Stop Line” without sudden braking."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается во всех случаях.",
+          "Разрешается, если он не может остановиться перед стоп-линией без применения экстренного торможения."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-33-img-03.jpeg",
+      "imageFilename": "page-33-img-03.jpeg",
+      "page": 33
+    },
+    {
+      "id": "drv_t06_q085",
+      "testNumber": 6,
+      "sourceQuestionNumber": 85,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի ազդանշանին ենթարկվելով՝ որտե՞ղ պետք է կանգնել։",
+        "en": "When complying with the traffic signal, where must the driver stop?",
+        "ru": "Где следует остановиться, выполняя требование сигнала светофора?"
+      },
+      "options": {
+        "hy": [
+          "Լուսացույցի առջև",
+          "Հատվող երթևեկելի մասի առջև",
+          "Ցանկացած տեղում"
+        ],
+        "en": [
+          "Before the traffic signal.",
+          "Before the intersecting roadway.",
+          "At any location."
+        ],
+        "ru": [
+          "Перед светофором.",
+          "Перед пересекаемой проезжей частью.",
+          "В любом месте."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-34-img-01.jpeg",
+      "imageFilename": "page-34-img-01.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t06_q086",
+      "testNumber": 6,
+      "sourceQuestionNumber": 86,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Ձախ շրջադարձ կատարելը թույլատրվում է",
+        "en": "A left turn is permitted:",
+        "ru": "Поворот налево разрешается выполнить:"
+      },
+      "options": {
+        "hy": [
+          "Դարձափոխային գոտուց։",
+          "Նկարում նշված գոտուց։"
+        ],
+        "en": [
+          "From the reversible traffic lane.",
+          "From the lane indicated in the image."
+        ],
+        "ru": [
+          "С полосы реверсивного движения.",
+          "С полосы, указанной на рисунке."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-34-img-02.jpeg",
+      "imageFilename": "page-34-img-02.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t06_q087",
+      "testNumber": 6,
+      "sourceQuestionNumber": 87,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթևեկությունը թույլատրվում է",
+        "en": "Traffic is permitted:",
+        "ru": "Движение разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Միայն ուղիղ։",
+          "Միայն աջ։",
+          "Ուղիղ և աջ։"
+        ],
+        "en": [
+          "Straight ahead only.",
+          "To the right only.",
+          "Straight ahead and to the right."
+        ],
+        "ru": [
+          "Только прямо.",
+          "Только направо.",
+          "Прямо и направо."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-34-img-03.jpeg",
+      "imageFilename": "page-34-img-03.jpeg",
+      "page": 34
+    },
+    {
+      "id": "drv_t06_q088",
+      "testNumber": 6,
+      "sourceQuestionNumber": 88,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթևեկությունը թույլատրվում է",
+        "en": "Traffic is permitted:",
+        "ru": "Движение разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ և աջ։",
+          "Միայն ուղիղ։",
+          "Միայն աջ։"
+        ],
+        "en": [
+          "Straight ahead and to the right.",
+          "Straight ahead only.",
+          "To the right only."
+        ],
+        "ru": [
+          "Прямо и направо.",
+          "Только прямо.",
+          "Только направо."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-35-img-01.jpeg",
+      "imageFilename": "page-35-img-01.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t06_q089",
+      "testNumber": 6,
+      "sourceQuestionNumber": 89,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Լուսացույցի կանաչ ազդանշանին պատկերված սլաքները տեղեկացնում են, որ",
+        "en": "The arrows shown in the green traffic signal indicate that:",
+        "ru": "Стрелки, изображённые на зелёном сигнале светофора, информируют о том, что:"
+      },
+      "options": {
+        "hy": [
+          "Աջ շրջադարձն արգելված է։",
+          "Աջ ուղղությամբ երթևեկությունը կարգավորվում է լրացուցիչ սեկցիայով:"
+        ],
+        "en": [
+          "A right turn is prohibited.",
+          "Traffic to the right is controlled by an additional traffic-signal section."
+        ],
+        "ru": [
+          "Поворот направо запрещён.",
+          "Движение направо регулируется дополнительной секцией."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-35-img-02.jpeg",
+      "imageFilename": "page-35-img-02.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t06_q090",
+      "testNumber": 6,
+      "sourceQuestionNumber": 90,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Վազանցել բեռնատարին թույլատրվու՞մ է։",
+        "en": "Is passing the truck permitted?",
+        "ru": "Разрешается ли обгон грузового автомобиля?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-35-img-03.jpeg",
+      "imageFilename": "page-35-img-03.jpeg",
+      "page": 35
+    },
+    {
+      "id": "drv_t06_q091",
+      "testNumber": 6,
+      "sourceQuestionNumber": 91,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր ուղղությամբ վարորդը կարող է շարունակել երթևեկությունը այս իրավիճակում։",
+        "en": "In which direction or directions may the driver continue in this situation?",
+        "ru": "В каком направлении водитель может продолжить движение в данной ситуации?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ձախ",
+          "Պետք է սպասի թույլատրող ազդանշանի",
+          "Ձախ և հակառակ"
+        ],
+        "en": [
+          "To the left only.",
+          "The driver must wait for a permissive signal.",
+          "To the left and by making a U-turn."
+        ],
+        "ru": [
+          "Только налево.",
+          "Следует ожидать разрешающего сигнала.",
+          "Налево и в обратном направлении."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-36-img-01.jpeg",
+      "imageFilename": "page-36-img-01.jpeg",
+      "page": 36
+    },
+    {
+      "id": "drv_t06_q092",
+      "testNumber": 6,
+      "sourceQuestionNumber": 92,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Այս իրավիճակում մուտք գործել դարձափոխային երթևեկության գոտի",
+        "en": "In this situation, entering the reversible traffic lane is:",
+        "ru": "Въезд на полосу реверсивного движения в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է։",
+          "Թույլատրվում է միայն վազանց կատարելու նպատակով։",
+          "Արգելվում է։"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted only for the purpose of passing.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается только для выполнения обгона.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-06/page-36-img-02.jpeg",
+      "imageFilename": "page-36-img-02.jpeg",
+      "page": 36
+    },
+    {
+      "id": "drv_t06_q093",
+      "testNumber": 6,
+      "sourceQuestionNumber": 93,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Նշված գոտուց ուղիղ երթևեկությունը",
+        "en": "Proceeding straight ahead from the indicated lane is:",
+        "ru": "Движение прямо с указанной полосы:"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է։",
+          "Թույլատրվում է միայն հիմնական կանաչ ազդանշանի միանալուց հետո։",
+          "Արգելվում է։"
+        ],
+        "en": [
+          "Permitted.",
+          "Permitted only after the main green signal turns on.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Разрешается только после включения основного зелёного сигнала.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-36-img-03.jpeg",
+      "imageFilename": "page-36-img-03.jpeg",
+      "page": 36
+    },
+    {
+      "id": "drv_t06_q094",
+      "testNumber": 6,
+      "sourceQuestionNumber": 94,
+      "category": "other",
+      "prompt": {
+        "hy": "Երթևեկությունը թույլատրվում է",
+        "en": "Traffic is permitted:",
+        "ru": "Движение разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Ուղիղ և աջ։",
+          "Միայն աջ։",
+          "Բոլոր ուղղություններով։"
+        ],
+        "en": [
+          "Straight ahead and to the right.",
+          "To the right only.",
+          "In all directions."
+        ],
+        "ru": [
+          "Прямо и направо.",
+          "Только направо.",
+          "Во всех направлениях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-06/page-37-img-01.jpeg",
+      "imageFilename": "page-37-img-01.jpeg",
+      "page": 37
+    },
+    {
+      "id": "drv_t06_q095",
+      "testNumber": 6,
+      "sourceQuestionNumber": 95,
+      "category": "other",
+      "prompt": {
+        "hy": "Այս իրավիճակում երթևեկությունը",
+        "en": "In this situation, traffic is:",
+        "ru": "Движение в данной ситуации:"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է։",
+          "Արգելվում է։"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-06/page-37-img-02.jpeg",
+      "imageFilename": "page-37-img-02.jpeg",
+      "page": 37
+    }
+  ]
+}

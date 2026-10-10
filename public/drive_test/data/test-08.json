@@ -1,0 +1,1823 @@
+{
+  "testNumber": 8,
+  "totalQuestions": 55,
+  "questions": [
+    {
+      "id": "drv_t08_q001",
+      "testNumber": 8,
+      "sourceQuestionNumber": 1,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրվում թեթեւ մարդատար ավտոմոբիլների երթեւեկությունը ճանապարհներին` բնակավայրերից դուրս։",
+        "en": "What is the maximum permitted speed for passenger cars on roads outside populated areas?",
+        "ru": "С какой максимальной скоростью разрешено движение легковых автомобилей по дорогам вне населённых пунктов?"
+      },
+      "options": {
+        "hy": [
+          "110կմ/ժ",
+          "100կմ/ժ",
+          "90կմ/ժ",
+          "80կմ/ժ",
+          "70կմ/ժ"
+        ],
+        "en": [
+          "110 km/h.",
+          "100 km/h.",
+          "90 km/h.",
+          "80 km/h.",
+          "70 km/h."
+        ],
+        "ru": [
+          "110 км/ч.",
+          "100 км/ч.",
+          "90 км/ч.",
+          "80 км/ч.",
+          "70 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-08/page-01-img-01.jpeg",
+      "imageFilename": "page-01-img-01.jpeg",
+      "page": 1
+    },
+    {
+      "id": "drv_t08_q002",
+      "testNumber": 8,
+      "sourceQuestionNumber": 2,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Կահավորված թափքում մարդ փոխադրող բեռնատար ավտոմոբիլների երթեւեկությունը թույլատրվում է ոչ ավել, քան",
+        "en": "Trucks carrying people in an equipped cargo bed are permitted to proceed at a speed not exceeding:",
+        "ru": "Движение грузовых автомобилей, перевозящих людей в оборудованном кузове, разрешается со скоростью не более:"
+      },
+      "options": {
+        "hy": [
+          "60կմ/ժ արագությամբ։",
+          "70կմ/ժ արագությամբ։",
+          "80կմ/ժ արագությամբ։"
+        ],
+        "en": [
+          "60 km/h.",
+          "70 km/h.",
+          "80 km/h."
+        ],
+        "ru": [
+          "60 км/ч.",
+          "70 км/ч.",
+          "80 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t08_q003",
+      "testNumber": 8,
+      "sourceQuestionNumber": 3,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Այս նախազգուշացնող նշանը բնակավայրերից դուրս՝ մինչեւ վտանգավոր հատվածի սկիզբը, ի՞նչ հեռավորության վրա է տեղադրվում։",
+        "en": "Outside populated areas, at what distance before the beginning of a hazardous section is this warning sign installed?",
+        "ru": "На каком расстоянии до начала опасного участка устанавливается данный предупреждающий знак вне населённых пунктов?"
+      },
+      "options": {
+        "hy": [
+          "50 - 100մ",
+          "150 - 300մ",
+          "300 - 500մ"
+        ],
+        "en": [
+          "50–100 m.",
+          "150–300 m.",
+          "300–500 m."
+        ],
+        "ru": [
+          "50–100 м.",
+          "150–300 м.",
+          "300–500 м."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t08_q004",
+      "testNumber": 8,
+      "sourceQuestionNumber": 4,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Երեխաների կազմակերպված խմբեր փոխադրող տրանսպորտային միջոցների երթեւեկությունը թույլատրվում է",
+        "en": "Vehicles transporting organized groups of children are permitted to proceed at a speed not exceeding:",
+        "ru": "Движение транспортных средств, осуществляющих организованную перевозку групп детей, разрешается со скоростью:"
+      },
+      "options": {
+        "hy": [
+          "ոչ ավել, քան 60կմ/ժ արագությամբ։",
+          "ոչ ավել, քան 70կմ/ժ արագությամբ։",
+          "ոչ ավել, քան 80կմ/ժ արագությամբ։"
+        ],
+        "en": [
+          "60 km/h.",
+          "70 km/h.",
+          "80 km/h."
+        ],
+        "ru": [
+          "Не более 60 км/ч.",
+          "Не более 70 км/ч.",
+          "Не более 80 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t08_q005",
+      "testNumber": 8,
+      "sourceQuestionNumber": 5,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցների երթեւեկությունը բնակավայրերում թույլատրվում է",
+        "en": "In populated areas, vehicles are permitted to proceed at a speed not exceeding:",
+        "ru": "Движение транспортных средств в населённых пунктах разрешается со скоростью:"
+      },
+      "options": {
+        "hy": [
+          "ոչ ավել, քան 60կմ/ժ արագությամբ։",
+          "ոչ ավել, քան 80կմ/ժ արագությամբ։",
+          "ոչ ավել, քան 90կմ/ժ արագությամբ։"
+        ],
+        "en": [
+          "60 km/h.",
+          "80 km/h.",
+          "90 km/h."
+        ],
+        "ru": [
+          "Не более 60 км/ч.",
+          "Не более 80 км/ч.",
+          "Не более 90 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-08/page-02-img-01.jpeg",
+      "imageFilename": "page-02-img-01.jpeg",
+      "page": 2
+    },
+    {
+      "id": "drv_t08_q006",
+      "testNumber": 8,
+      "sourceQuestionNumber": 6,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր ուղղությամբ է թույլատրվում երթեւեկությունը։",
+        "en": "In which direction is traffic permitted?",
+        "ru": "В каком направлении разрешено движение?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ուղիղ",
+          "Ուղիղ եւ դեպի աջ",
+          "Ուղիղ, դեպի աջ եւ դեպի ձախ",
+          "Բոլոր ուղղություններով"
+        ],
+        "en": [
+          "Straight ahead only.",
+          "Straight ahead and to the right.",
+          "Straight ahead, to the right, and to the left.",
+          "In all directions."
+        ],
+        "ru": [
+          "Только прямо.",
+          "Прямо и направо.",
+          "Прямо, направо и налево.",
+          "Во всех направлениях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t08_q007",
+      "testNumber": 8,
+      "sourceQuestionNumber": 7,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ արագությամբ է թույլատրվում երթեւեկել 3.5 տ ոչ ավելի թույլատրելի առավելագույն զանգված ունեցող բեռնատար ավտոմոբիլներով՝ բնակավայրերից դուրս։",
+        "en": "At what speed are trucks with a maximum authorized mass not exceeding 3.5 metric tons permitted to proceed outside populated areas?",
+        "ru": "С какой скоростью разрешено движение грузовых автомобилей с разрешённой максимальной массой не более 3,5 т вне населённых пунктов?"
+      },
+      "options": {
+        "hy": [
+          "ոչ ավել, քան 90կմ/ժ արագությամբ",
+          "ոչ ավել, քան 70կմ/ժ արագությամբ",
+          "ոչ ավել, քան 80կմ/ժ արագությամբ"
+        ],
+        "en": [
+          "Not exceeding 90 km/h.",
+          "Not exceeding 70 km/h.",
+          "Not exceeding 80 km/h."
+        ],
+        "ru": [
+          "Не более 90 км/ч.",
+          "Не более 70 км/ч.",
+          "Не более 80 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t08_q008",
+      "testNumber": 8,
+      "sourceQuestionNumber": 8,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Քարշակման ժամանակ՝ վթարային լուսային ազդանշանի բացակայության կամ անսարքության դեպքում, «Վթարային կանգառ» նշանը տեղադրվում է",
+        "en": "During towing, if the hazard warning lights are absent or malfunctioning, the emergency warning triangle must be placed:",
+        "ru": "При буксировке, в случае отсутствия или неисправности аварийной световой сигнализации, знак аварийной остановки устанавливается:"
+      },
+      "options": {
+        "hy": [
+          "Քարշակվող տրանսպորտային միջոցի հետեւի մասում։",
+          "Քարշակող տրանսպորտային միջոցի առջեւի մասում։",
+          "Վարորդի հայեցողությամբ` տրանսպորտային միջոցներից մեկի վրա` տեսանելի տեղում։"
+        ],
+        "en": [
+          "At the rear of the towed vehicle.",
+          "At the front of the towing vehicle.",
+          "On either vehicle, in a visible location, at the driver’s discretion."
+        ],
+        "ru": [
+          "На задней части буксируемого транспортного средства.",
+          "На передней части буксирующего транспортного средства.",
+          "На одном из транспортных средств в видимом месте — по усмотрению водителя."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t08_q009",
+      "testNumber": 8,
+      "sourceQuestionNumber": 9,
+      "category": "other",
+      "prompt": {
+        "hy": "Կոշտ կցիչով քարշակման ժամանակ տրանսպորտային միջոցների միջեւ հեռավորությունը չպետք է գերազանցի",
+        "en": "When towing with a rigid coupling, the distance between the vehicles must not exceed:",
+        "ru": "При буксировке на жёсткой сцепке расстояние между транспортными средствами не должно превышать:"
+      },
+      "options": {
+        "hy": [
+          "2 մ։",
+          "3 մ։",
+          "4 մ։",
+          "5 մ։",
+          "6 մ։"
+        ],
+        "en": [
+          "2 m.",
+          "3 m.",
+          "4 m.",
+          "5 m.",
+          "6 m."
+        ],
+        "ru": [
+          "2 м.",
+          "3 м.",
+          "4 м.",
+          "5 м.",
+          "6 м."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t08_q010",
+      "testNumber": 8,
+      "sourceQuestionNumber": 10,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք կոշտ կամ ճկուն կցիչով քարշակման ժամանակ մարդկանց փոխադրումը բեռնատար ավտոմոբիլի թափքում։",
+        "en": "When towing with a rigid or flexible coupling, is it permitted to carry people in the cargo bed of a truck?",
+        "ru": "Разрешается ли перевозка людей в кузове грузового автомобиля при буксировке на жёсткой или гибкой сцепке?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է քարշակող եւ քարշակվող ավտոմոբիլների թափքում",
+          "Թույլատրվում է միայն քարշակվող ավտոմոբիլի թափքում",
+          "Թույլատրվում է միայն քարշակող ավտոմոբիլի թափքում",
+          "Երկու ավտոմոբիլների թափքում էլ արգելվում է"
+        ],
+        "en": [
+          "Permitted in the cargo beds of both the towing and towed trucks.",
+          "Permitted only in the cargo bed of the towed truck.",
+          "Permitted only in the cargo bed of the towing truck.",
+          "Prohibited in the cargo beds of both trucks."
+        ],
+        "ru": [
+          "Разрешается в кузовах буксирующего и буксируемого автомобилей.",
+          "Разрешается только в кузове буксируемого автомобиля.",
+          "Разрешается только в кузове буксирующего автомобиля.",
+          "Запрещается в кузовах обоих автомобилей."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t08_q011",
+      "testNumber": 8,
+      "sourceQuestionNumber": 11,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Կոշտ կամ ճկուն կցիչով քարշակման ժամանակ նշվածներից ո՞ր դեպքում է թույլատրվում մարդկանց փոխադրումը քարշակվող ավտոմոբիլում։",
+        "en": "When towing with a rigid or flexible coupling, in which of the following cases is carrying people in the towed vehicle permitted?",
+        "ru": "В каком из указанных случаев при буксировке на жёсткой или гибкой сцепке разрешается перевозка людей в буксируемом автомобиле?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է ավտոբուսում",
+          "Թույլատրվում է թեթեւ մարդատար ավտոմոբիլում",
+          "Թույլատրվում է բեռնատար ավտոմոբիլի թափքում՝ կոշտ կցիչով քարշարկելիս"
+        ],
+        "en": [
+          "In a bus.",
+          "In a passenger car.",
+          "In the cargo bed of a truck when towing with a rigid coupling."
+        ],
+        "ru": [
+          "Разрешается в автобусе.",
+          "Разрешается в легковом автомобиле.",
+          "Разрешается в кузове грузового автомобиля при буксировке на жёсткой сцепке."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t08_q012",
+      "testNumber": 8,
+      "sourceQuestionNumber": 12,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրվում երթեւեկությունը՝ մեխանիկական տրանսպորտային միջոցներով քարշակում կատարելիս։",
+        "en": "What is the maximum permitted speed when towing with a motor vehicle?",
+        "ru": "С какой максимальной скоростью разрешено движение при буксировке механических транспортных средств?"
+      },
+      "options": {
+        "hy": [
+          "30 կմ/ժ",
+          "40 կմ/ժ",
+          "50 կմ/ժ",
+          "60 կմ/ժ",
+          "70 կմ/ժ"
+        ],
+        "en": [
+          "30 km/h.",
+          "40 km/h.",
+          "50 km/h.",
+          "60 km/h.",
+          "70 km/h."
+        ],
+        "ru": [
+          "30 км/ч.",
+          "40 км/ч.",
+          "50 км/ч.",
+          "60 км/ч.",
+          "70 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t08_q013",
+      "testNumber": 8,
+      "sourceQuestionNumber": 13,
+      "category": "other",
+      "prompt": {
+        "hy": "Քարշակումը մերկասառույցի պայմաններում արգելվում է",
+        "en": "Under icy road conditions, towing is prohibited:",
+        "ru": "Буксировка в условиях гололедицы запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Ճկուն կցիչով։",
+          "Կոշտ կցիչով։",
+          "Մասնակի բեռնման եղանակով։"
+        ],
+        "en": [
+          "With a flexible coupling.",
+          "With a rigid coupling.",
+          "By the partial-loading method."
+        ],
+        "ru": [
+          "На гибкой сцепке.",
+          "На жёсткой сцепке.",
+          "Методом частичной погрузки."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t08_q014",
+      "testNumber": 8,
+      "sourceQuestionNumber": 14,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ինչպիսի՞ առավելագույն արագությամբ կարող է իրականացվել քարշակումը տվյալ պայմաններում։",
+        "en": "What is the maximum speed at which towing may be performed under the indicated conditions?",
+        "ru": "С какой максимальной скоростью может осуществляться буксировка в данных условиях?"
+      },
+      "options": {
+        "hy": [
+          "30կմ/ժ",
+          "50կմ/ժ",
+          "70կմ/ժ",
+          "80կմ/ժ"
+        ],
+        "en": [
+          "30 km/h.",
+          "50 km/h.",
+          "70 km/h.",
+          "80 km/h."
+        ],
+        "ru": [
+          "30 км/ч.",
+          "50 км/ч.",
+          "70 км/ч.",
+          "80 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-08/page-04-img-01.jpeg",
+      "imageFilename": "page-04-img-01.jpeg",
+      "page": 4
+    },
+    {
+      "id": "drv_t08_q015",
+      "testNumber": 8,
+      "sourceQuestionNumber": 15,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք ճկուն կամ կոշտ կցիչով քարշակման դեպքում մարդկանց փոխադրումը քարշակվող մեխանիկական տրանսպորտային միջոցում։",
+        "en": "When towing with a flexible or rigid coupling, is carrying people in the towed motor vehicle permitted?",
+        "ru": "Разрешается ли перевозка людей в буксируемом механическом транспортном средстве при буксировке на гибкой или жёсткой сцепке?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է՝ ավտոբուսում եւ տրոլեյբուսում",
+          "Թույլատրվում է՝ միայն թեթեւ մարդատար ավտոմոբիլում",
+          "Թույլատրվում է՝ բեռնատար ավտոմոբիլի թափքում եւ թեթեւ մարդատար ավտոմոբիլում",
+          "Թույլատրվում է՝ բեռնատար ավտոմոբիլի խցիկում եւ թեթեւ մարդատար ավտոմոբիլում",
+          "Արգելվում է։"
+        ],
+        "en": [
+          "Permitted in a bus and trolleybus.",
+          "Permitted only in a passenger car.",
+          "Permitted in the cargo bed of a truck and in a passenger car.",
+          "Permitted in the cab of a truck and in a passenger car.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается в автобусе и троллейбусе.",
+          "Разрешается только в легковом автомобиле.",
+          "Разрешается в кузове грузового автомобиля и в легковом автомобиле.",
+          "Разрешается в кабине грузового автомобиля и в легковом автомобиле.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t08_q016",
+      "testNumber": 8,
+      "sourceQuestionNumber": 16,
+      "category": "other",
+      "prompt": {
+        "hy": "Քարշակումը մերկասառույցի պայմաններում",
+        "en": "Under icy road conditions, towing:",
+        "ru": "Буксировка в условиях гололедицы:"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է",
+          "Թույլատրվում է՝ կոշտ կցիչով կամ մասնակի բեռնման եղանակով քարշակելիս"
+        ],
+        "en": [
+          "Is prohibited.",
+          "Is permitted.",
+          "Is permitted when towing with a rigid coupling or by the partial-loading method."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается.",
+          "Разрешается на жёсткой сцепке или методом частичной погрузки."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t08_q017",
+      "testNumber": 8,
+      "sourceQuestionNumber": 17,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ինչպիսի՞ առավելագույն արագությամբ է թույլատրվում տրանսպորտային միջոցների քարշակումը ճկուն կցիչով։",
+        "en": "What is the maximum permitted speed when towing a vehicle with a flexible coupling?",
+        "ru": "С какой максимальной скоростью разрешается буксировка транспортных средств на гибкой сцепке?"
+      },
+      "options": {
+        "hy": [
+          "70կմ/ժ",
+          "60կմ/ժ",
+          "50կմ/ժ",
+          "40կմ/ժ",
+          "30կմ/ժ"
+        ],
+        "en": [
+          "70 km/h.",
+          "60 km/h.",
+          "50 km/h.",
+          "40 km/h.",
+          "30 km/h."
+        ],
+        "ru": [
+          "70 км/ч.",
+          "60 км/ч.",
+          "50 км/ч.",
+          "40 км/ч.",
+          "30 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t08_q018",
+      "testNumber": 8,
+      "sourceQuestionNumber": 18,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր դեպքում է արգելվում քարշակումը։",
+        "en": "In which case is towing prohibited?",
+        "ru": "В каком случае буксировка запрещается?"
+      },
+      "options": {
+        "hy": [
+          "Մերկասառույցի պայմաններում` կոշտ կցիչով",
+          "Մերկասառույցի պայմաններում` ճկուն կցիչով",
+          "Կողային կցորդով մոտոցիկլներով"
+        ],
+        "en": [
+          "Under icy road conditions with a rigid coupling.",
+          "Under icy road conditions with a flexible coupling.",
+          "By motorcycles with sidecars."
+        ],
+        "ru": [
+          "На жёсткой сцепке в условиях гололедицы.",
+          "На гибкой сцепке в условиях гололедицы.",
+          "Мотоциклами с боковым прицепом."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q019",
+      "testNumber": 8,
+      "sourceQuestionNumber": 19,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Բնակավայրերից դուրս մեխանիկական տրանսպորտային միջոցներ քարշակելիս երթեւեկության արագությունը չպետք է գերազանցի",
+        "en": "When towing motor vehicles outside populated areas, the speed must not exceed:",
+        "ru": "При буксировке механических транспортных средств вне населённых пунктов скорость движения не должна превышать:"
+      },
+      "options": {
+        "hy": [
+          "30կմ/ժ։",
+          "40կմ/ժ։",
+          "50կմ/ժ։",
+          "60կմ/ժ։",
+          "70կմ/ժ։"
+        ],
+        "en": [
+          "30 km/h.",
+          "40 km/h.",
+          "50 km/h.",
+          "60 km/h.",
+          "70 km/h."
+        ],
+        "ru": [
+          "30 км/ч.",
+          "40 км/ч.",
+          "50 км/ч.",
+          "60 км/ч.",
+          "70 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q020",
+      "testNumber": 8,
+      "sourceQuestionNumber": 20,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք մոտոցիկլների քարշակումը։",
+        "en": "Is towing motorcycles permitted?",
+        "ru": "Разрешается ли буксировка мотоциклов?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է կողային կցորդով մոտոցիկլների քարշակումը",
+          "Թույլատրվում է առանց կողային կցորդի մոտոցիկլների քարշակումը",
+          "Երկու դեպքում էլ թույլատրվում է"
+        ],
+        "en": [
+          "Towing motorcycles with sidecars is permitted.",
+          "Towing motorcycles without sidecars is permitted.",
+          "Permitted in both cases."
+        ],
+        "ru": [
+          "Разрешается буксировка мотоциклов с боковым прицепом.",
+          "Разрешается буксировка мотоциклов без бокового прицепа.",
+          "Разрешается в обоих случаях."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q021",
+      "testNumber": 8,
+      "sourceQuestionNumber": 21,
+      "category": "other",
+      "prompt": {
+        "hy": "Քարշարկման ժամանակ տրանսպորտային միջոցների միջեւ ի՞նչ հեռավորություն պետք է ապահովի ճկուն կցիչը։",
+        "en": "When towing, what distance between the vehicles must be maintained by a flexible coupling?",
+        "ru": "Какое расстояние между транспортными средствами должна обеспечивать гибкая сцепка при буксировке?"
+      },
+      "options": {
+        "hy": [
+          "1 - 3մ",
+          "2 - 4մ",
+          "3 - 6մ",
+          "4 - 6մ",
+          "4 - 8մ"
+        ],
+        "en": [
+          "1–3 m.",
+          "2–4 m.",
+          "3–6 m.",
+          "4–6 m.",
+          "4–8 m."
+        ],
+        "ru": [
+          "1–3 м.",
+          "2–4 м.",
+          "3–6 м.",
+          "4–6 м.",
+          "4–8 м."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q022",
+      "testNumber": 8,
+      "sourceQuestionNumber": 22,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրվում կցորդ քարշակող թեթեւ մարդատար ավտոմոբիլների երթեւեկությունն ավտոմայրուղիներով երթեւեկելիս։",
+        "en": "What is the maximum permitted speed on freeways for passenger cars towing a trailer?",
+        "ru": "С какой максимальной скоростью разрешено движение легковых автомобилей с прицепом по автомагистралям?"
+      },
+      "options": {
+        "hy": [
+          "110կմ/ժ",
+          "100կմ/ժ",
+          "90կմ/ժ",
+          "80կմ/ժ",
+          "70կմ/ժ"
+        ],
+        "en": [
+          "110 km/h.",
+          "100 km/h.",
+          "90 km/h.",
+          "80 km/h.",
+          "70 km/h."
+        ],
+        "ru": [
+          "110 км/ч.",
+          "100 км/ч.",
+          "90 км/ч.",
+          "80 км/ч.",
+          "70 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q023",
+      "testNumber": 8,
+      "sourceQuestionNumber": 23,
+      "category": "other",
+      "prompt": {
+        "hy": "Կոշտ կցիչով քարշակման ժամանակ հեռավորությունը տրանսպորտային միջոցների միջեւ պետք է լինի ոչ ավել, քան",
+        "en": "When towing with a rigid coupling, the distance between the vehicles must not exceed:",
+        "ru": "При буксировке на жёсткой сцепке расстояние между транспортными средствами должно составлять не более:"
+      },
+      "options": {
+        "hy": [
+          "4մ։",
+          "5մ։",
+          "6մ։"
+        ],
+        "en": [
+          "4 m.",
+          "5 m.",
+          "6 m."
+        ],
+        "ru": [
+          "4 м.",
+          "5 м.",
+          "6 м."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t08_q024",
+      "testNumber": 8,
+      "sourceQuestionNumber": 24,
+      "category": "other",
+      "prompt": {
+        "hy": "Մեխանիկական տրանսպորտային միջոցների մասնակի բեռնումով քարշակման ժամանակ ուղեւորների փոխադրում թույլատրվում է",
+        "en": "When towing a motor vehicle by the partial-loading method, carrying passengers is permitted:",
+        "ru": "При буксировке механического транспортного средства методом частичной погрузки перевозка пассажиров разрешается:"
+      },
+      "options": {
+        "hy": [
+          "Քարշակող ավտոմոբիլի թափքում։",
+          "Քարշակվող ավտոմոբիլի խցիկում։",
+          "Քարշակվող ավտոմոբիլի թափքում։",
+          "Քարշակող ավտոմոբիլի խցիկում։"
+        ],
+        "en": [
+          "In the cargo bed of the towing vehicle.",
+          "In the cab of the towed vehicle.",
+          "In the cargo bed of the towed vehicle.",
+          "In the cab of the towing vehicle."
+        ],
+        "ru": [
+          "В кузове буксирующего автомобиля.",
+          "В кабине буксируемого автомобиля.",
+          "В кузове буксируемого автомобиля.",
+          "В кабине буксирующего автомобиля."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q025",
+      "testNumber": 8,
+      "sourceQuestionNumber": 25,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք քարշակել կողային կցորդով մոտոցիկլները։",
+        "en": "Is towing motorcycles with sidecars permitted?",
+        "ru": "Разрешается ли буксировать мотоциклы с боковым прицепом?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է` միայն կոշտ կցիչով",
+          "Արգելվում է",
+          "Թույլատրվում է"
+        ],
+        "en": [
+          "Permitted only with a rigid coupling.",
+          "Prohibited.",
+          "Permitted."
+        ],
+        "ru": [
+          "Разрешается только на жёсткой сцепке.",
+          "Запрещается.",
+          "Разрешается."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q026",
+      "testNumber": 8,
+      "sourceQuestionNumber": 26,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրվում երթեւեկությունը ճկուն կցիչով քարշակելիս։",
+        "en": "What is the maximum permitted speed when towing with a flexible coupling?",
+        "ru": "С какой максимальной скоростью разрешается движение при буксировке на гибкой сцепке?"
+      },
+      "options": {
+        "hy": [
+          "70կմ/ժ",
+          "60կմ/ժ",
+          "50կմ/ժ",
+          "40կմ/ժ",
+          "30կմ/ժ"
+        ],
+        "en": [
+          "70 km/h.",
+          "60 km/h.",
+          "50 km/h.",
+          "40 km/h.",
+          "30 km/h."
+        ],
+        "ru": [
+          "70 км/ч.",
+          "60 км/ч.",
+          "50 км/ч.",
+          "40 км/ч.",
+          "30 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q027",
+      "testNumber": 8,
+      "sourceQuestionNumber": 27,
+      "category": "other",
+      "prompt": {
+        "hy": "Տրանսպորտային միջոցի վրա բեռը տեղաբաշխվում եւ անհրաժեշտության դեպքում նաեւ ամրացվում է այնպես, որպեսզի",
+        "en": "Cargo must be positioned and, when necessary, secured on the vehicle so that it:",
+        "ru": "Груз на транспортном средстве размещается и при необходимости закрепляется таким образом, чтобы:"
+      },
+      "options": {
+        "hy": [
+          "Չցցվի հարթակի կողերից բարձր։",
+          "Զգալի աղմուկ չհանի, փոշի չբարձրացնի կամ չաղտոտի ճանապարհն ու շրջակա միջավայրը։",
+          "Դուրս չցցվի տրանսպորտային միջոցի հետեւի եզրից 0,8 մ-ից ավելի։"
+        ],
+        "en": [
+          "Does not extend above the sides of the cargo bed.",
+          "Does not create significant noise, raise dust, or pollute the road or the environment.",
+          "Does not extend more than 0.8 m beyond the rear edge of the vehicle."
+        ],
+        "ru": [
+          "Не выступал выше бортов платформы.",
+          "Не создавал значительного шума, не поднимал пыль и не загрязнял дорогу и окружающую среду.",
+          "Не выступал более чем на 0,8 м за задний габарит транспортного средства."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q028",
+      "testNumber": 8,
+      "sourceQuestionNumber": 28,
+      "category": "other",
+      "prompt": {
+        "hy": "Թեթեւ մարդատար ավտոմոբիլի առջեւի նստատեղին, եթե այն կահավորված չէ երեխաներին պահող հարմարանքով, թույլատրվում է փոխադրել երեխաներ, եթե լրացել է նրանց",
+        "en": "Children may be carried in the front seat of a passenger car that is not equipped with a child restraint system if they have reached the age of:",
+        "ru": "На переднем сиденье легкового автомобиля, не оборудованном детским удерживающим устройством, разрешается перевозить детей, достигших возраста:"
+      },
+      "options": {
+        "hy": [
+          "10 տարին։",
+          "11 տարին",
+          "12 տարին։"
+        ],
+        "en": [
+          "10 years.",
+          "11 years.",
+          "12 years."
+        ],
+        "ru": [
+          "10 лет.",
+          "11 лет.",
+          "12 лет."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q029",
+      "testNumber": 8,
+      "sourceQuestionNumber": 29,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք մարդկանց փոխադրումը բեռնատար կցորդում։",
+        "en": "Is carrying people in a cargo trailer permitted?",
+        "ru": "Разрешается ли перевозка людей в грузовом прицепе?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է",
+          "Թույլատրվում է միայն բեռն ուղեկցող անձանց"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted.",
+          "Permitted only for persons accompanying the cargo."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается.",
+          "Разрешается только лицам, сопровождающим груз."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t08_q030",
+      "testNumber": 8,
+      "sourceQuestionNumber": 30,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք մինչեւ 12 տարեկան երեխաների փոխադրումը մոտոցիկլի հետևի նստատեղին։",
+        "en": "Is carrying children under 12 years of age on the rear seat of a motorcycle permitted?",
+        "ru": "Разрешается ли перевозка детей в возрасте до 12 лет на заднем сиденье мотоцикла?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q031",
+      "testNumber": 8,
+      "sourceQuestionNumber": 31,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվո՞ւմ է երթևեկության ընթացքում անձանց գտնվել բեռնատար ավտոմոբիլի թափքում, եթե այն կահավորված չէ մարդկանց փոխադրելու համար։",
+        "en": "While the vehicle is moving, are persons permitted to be in the cargo bed of a truck if it is not equipped for carrying people?",
+        "ru": "Разрешается ли во время движения нахождение людей в кузове грузового автомобиля, если он не оборудован для перевозки людей?"
+      },
+      "options": {
+        "hy": [
+          "Արգելվում է",
+          "Թույլատրվում է ավտոմայրուղի չհամարվող ճանապարհներին",
+          "Թույլատրվում է միայն բեռն ուղեկցող կամ այն ստանալու համար մեկնող անձանց՝ պայմանով, որ նրանք ապահովված են ավտոմոբիլի կողերի մակարդակից ցածր տեղադրված նստարաններով"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted on roads that are not freeways.",
+          "Permitted only for persons accompanying the cargo or proceeding to receive it, provided they are seated on seats installed below the level of the sides of the cargo bed."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается на дорогах, не являющихся автомагистралями.",
+          "Разрешается только лицам, сопровождающим груз или следующим за его получением, при условии, что они обеспечены сиденьями, расположенными ниже уровня бортов автомобиля."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q032",
+      "testNumber": 8,
+      "sourceQuestionNumber": 32,
+      "category": "other",
+      "prompt": {
+        "hy": "Մարդկանց փոխադրումը բեռնատար կցորդում",
+        "en": "Carrying people in a cargo trailer is:",
+        "ru": "Перевозка людей в грузовом прицепе:"
+      },
+      "options": {
+        "hy": [
+          "արգելվում է։",
+          "թույլատրվում է։",
+          "թույլատրվում է միայն բեռն ուղեկցող անձանց։"
+        ],
+        "en": [
+          "Prohibited.",
+          "Permitted.",
+          "Permitted only for persons accompanying the cargo."
+        ],
+        "ru": [
+          "Запрещается.",
+          "Разрешается.",
+          "Разрешается только лицам, сопровождающим груз."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q033",
+      "testNumber": 8,
+      "sourceQuestionNumber": 33,
+      "category": "bus_stop",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք ճկուն կամ կոշտ կցիչով քարշակման դեպքում մարդկանց փոխադրումը քարշակվող մեխանիկական տրանսպորտային միջոցում։",
+        "en": "When towing with a flexible or rigid coupling, is carrying people in the towed motor vehicle permitted?",
+        "ru": "Разрешается ли перевозка людей в буксируемом механическом транспортном средстве при буксировке на гибкой или жёсткой сцепке?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է ավտոբուսում եւ տրոլեյբուսում",
+          "Թույլատրվում է բեռնատար ավտոմոբիլի խցիկում եւ թեթեւ մարդատար ավտոմոբիլում",
+          "Թույլատրվում է բեռնատար ավտոմոբիլի թափքում եւ թեթեւ մարդատար ավտոմոբիլում",
+          "Արգելվում է"
+        ],
+        "en": [
+          "Permitted in a bus and trolleybus.",
+          "Permitted in the cab of a truck and in a passenger car.",
+          "Permitted in the cargo bed of a truck and in a passenger car.",
+          "Prohibited."
+        ],
+        "ru": [
+          "Разрешается в автобусе и троллейбусе.",
+          "Разрешается в кабине грузового автомобиля и в легковом автомобиле.",
+          "Разрешается в кузове грузового автомобиля и в легковом автомобиле.",
+          "Запрещается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q034",
+      "testNumber": 8,
+      "sourceQuestionNumber": 34,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրվում մոտոցիկլի երթեւեկությունը «Բնակելի գոտի» եւ «Բնակելի գոտու վերջը» նշաններով կահավորված տարածքներում։",
+        "en": "What is the maximum speed permitted for a motorcycle in areas designated by the “Residential Zone” and “End of Residential Zone” signs?",
+        "ru": "С какой максимальной скоростью разрешается движение мотоцикла на территориях, обозначенных знаками «Жилая зона» и «Конец жилой зоны»?"
+      },
+      "options": {
+        "hy": [
+          "20կմ/ժ",
+          "30կմ/ժ",
+          "40կմ/ժ"
+        ],
+        "en": [
+          "20 km/h.",
+          "30 km/h.",
+          "40 km/h."
+        ],
+        "ru": [
+          "20 км/ч.",
+          "30 км/ч.",
+          "40 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q035",
+      "testNumber": 8,
+      "sourceQuestionNumber": 35,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Կահավորված թափքում մարդկանց փոխադրելու դեպքում բեռնատար ավտոմոբիլի վարորդը պարտավոր է երթեւեկել ոչ ավել, քան",
+        "en": "When carrying people in an equipped cargo bed, the truck driver must proceed at a speed not exceeding:",
+        "ru": "При перевозке людей в оборудованном кузове водитель грузового автомобиля обязан двигаться со скоростью не более:"
+      },
+      "options": {
+        "hy": [
+          "50կմ/ժ արագությամբ։",
+          "60կմ/ժ արագությամբ։",
+          "70կմ/ժ արագությամբ։"
+        ],
+        "en": [
+          "50 km/h.",
+          "60 km/h.",
+          "70 km/h."
+        ],
+        "ru": [
+          "50 км/ч.",
+          "60 км/ч.",
+          "70 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t08_q036",
+      "testNumber": 8,
+      "sourceQuestionNumber": 36,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Քարշակման ժամանակ քարշակվող տրանսպորտային միջոցի վրա պետք է միացված լինեն",
+        "en": "During towing, the towed vehicle must have the following activated:",
+        "ru": "При буксировке на буксируемом транспортном средстве должна быть включена:"
+      },
+      "options": {
+        "hy": [
+          "Լապտերների հեռահար լույսերը։",
+          "Լապտերների մոտակա լույսերը։",
+          "Վթարային լուսային ազդանշանը։"
+        ],
+        "en": [
+          "High-beam headlights.",
+          "Low-beam headlights.",
+          "Hazard warning lights."
+        ],
+        "ru": [
+          "Дальний свет фар.",
+          "Ближний свет фар.",
+          "Аварийная световая сигнализация."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-08/page-08-img-01.jpeg",
+      "imageFilename": "page-08-img-01.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t08_q037",
+      "testNumber": 8,
+      "sourceQuestionNumber": 37,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ արագությամբ է թույլատրվում տրանսպորտային միջոցների երթեւեկությունը «Բնակելի գոտի» եւ «Բնակելի գոտու վերջ» ճանապարհային նշանների ազդեցության տարածքներում։",
+        "en": "What is the maximum permitted speed for vehicles within areas where the “Residential Zone” and “End of Residential Zone” traffic signs apply?",
+        "ru": "С какой скоростью разрешено движение транспортных средств на территориях, обозначенных дорожными знаками «Жилая зона» и «Конец жилой зоны»?"
+      },
+      "options": {
+        "hy": [
+          "ոչ ավել, քան 5կմ/ժ",
+          "ոչ ավել, քան 10կմ/ժ",
+          "ոչ ավել, քան 20կմ/ժ"
+        ],
+        "en": [
+          "Not exceeding 5 km/h.",
+          "Not exceeding 10 km/h.",
+          "Not exceeding 20 km/h."
+        ],
+        "ru": [
+          "Не более 5 км/ч.",
+          "Не более 10 км/ч.",
+          "Не более 20 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-08/page-08-img-02.jpeg",
+      "imageFilename": "page-08-img-02.jpeg",
+      "page": 8
+    },
+    {
+      "id": "drv_t08_q038",
+      "testNumber": 8,
+      "sourceQuestionNumber": 38,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ի՞նչ առավելագույն արագությամբ է թույլատրված երթևեկությունը 3,5 տոննայից ոչ ավել թույլատրելի առավելագույն զանգվածով բեռնատարի վարորդին տվյալ նշանների ազդման գոտում։",
+        "en": "What is the maximum permitted speed for the driver of a truck with a maximum authorized mass not exceeding 3.5 metric tons within the area of effect of these signs?",
+        "ru": "С какой максимальной скоростью разрешается движение водителю грузового автомобиля с разрешённой максимальной массой не более 3,5 т в зоне действия данных знаков?"
+      },
+      "options": {
+        "hy": [
+          "Ոչ ավել, քան 50 կմ/ժ",
+          "Ոչ ավել, քան 70 կմ/ժ",
+          "Ոչ ավել, քան 90 կմ/ժ"
+        ],
+        "en": [
+          "No more than 50 km/h.",
+          "No more than 70 km/h.",
+          "No more than 90 km/h."
+        ],
+        "ru": [
+          "Не более 50 км/ч.",
+          "Не более 70 км/ч.",
+          "Не более 90 км/ч."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t08_q039",
+      "testNumber": 8,
+      "sourceQuestionNumber": 39,
+      "category": "other",
+      "prompt": {
+        "hy": "Մեխանիկական տրանսպորտային միջոց քարշակելիս այս ճանապարհի ո՞ր գոտիով կարող եք շարունակել երթևեկությունը։",
+        "en": "When towing a motor vehicle, in which lane may you continue on this road?",
+        "ru": "По какой полосе данной дороги Вы можете продолжить движение при буксировке механического транспортного средства?"
+      },
+      "options": {
+        "hy": [
+          "Միայն աջ",
+          "Ցանկացած"
+        ],
+        "en": [
+          "The right lane only.",
+          "Any lane."
+        ],
+        "ru": [
+          "Только по правой.",
+          "По любой."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t08_q040",
+      "testNumber": 8,
+      "sourceQuestionNumber": 40,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Ի՞նչ պայմաններ պետք է հաշվի առնի վարորդը թույլատրված սահմաններում արագություն ընտրելիս։",
+        "en": "What conditions must a driver take into account when selecting a speed within the permitted limits?",
+        "ru": "Какие условия должен учитывать водитель при выборе скорости в разрешённых пределах?"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհային ծածկույթի վիճակը",
+          "Տեսանելիությունը՝ երթևեկության ուղղությամբ",
+          "Նշված երկու պայմանները"
+        ],
+        "en": [
+          "The condition of the road surface.",
+          "Visibility in the direction of movement.",
+          "Both of the above conditions."
+        ],
+        "ru": [
+          "Состояние дорожного покрытия.",
+          "Видимость в направлении движения.",
+          "Оба указанных условия."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-08/page-09-img-01.jpeg",
+      "imageFilename": "page-09-img-01.jpeg",
+      "page": 9
+    },
+    {
+      "id": "drv_t08_q041",
+      "testNumber": 8,
+      "sourceQuestionNumber": 41,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Թույլատրելի սահմաններում ի՞նչ առավելագույն արագություն պետք է ընտրի վարորդը։",
+        "en": "Within the permitted limits, what maximum speed should a driver select?",
+        "ru": "Какую максимальную скорость в разрешённых пределах должен выбрать водитель?"
+      },
+      "options": {
+        "hy": [
+          "Այնպիսի արագություն, որ ապահովի տրանսպորտային միջոցի լիարժեք կառավարումը",
+          "Ազատ է ընտրելու ցանկացած արագություն, որը չի գերազանցի առավելագույն թույլատրելին"
+        ],
+        "en": [
+          "A speed that ensures full control of the vehicle.",
+          "The driver may select any speed that does not exceed the maximum permitted speed."
+        ],
+        "ru": [
+          "Скорость, обеспечивающую полный контроль над транспортным средством.",
+          "Водитель вправе выбрать любую скорость, не превышающую максимально допустимую."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t08_q042",
+      "testNumber": 8,
+      "sourceQuestionNumber": 42,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Վարորդին արգելվում է",
+        "en": "A driver is prohibited from:",
+        "ru": "Водителю запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Գերազանցել տվյալ տրանսպորտային միջոցի տեխնիկական բնութագրով սահմանված առավելագույն արագությունը։",
+          "Գերազանցել տրանսպորտային միջոցի վրա տեղադրված «Արագության սահմանափակում» ճանաչման նշանով նախատեսված արագությունը։",
+          "առանց անհրաժեշտության ընթանալ շատ ցածր արագությամբ` խոչընդոտելով մյուս տրանսպորտային միջոցների երթևեկությունը։",
+          "կտրուկ արգելակել, եթե դա անհրաժեշտ չէ ճանապարհատրանսպորտային պատահար կանխելու համար։",
+          "Բոլոր նշված գործողությունները։"
+        ],
+        "en": [
+          "Exceeding the maximum speed specified by the technical characteristics of the vehicle.",
+          "Exceeding the speed specified by the “Speed Limit” identification sign displayed on the vehicle.",
+          "Driving at an unnecessarily low speed and thereby impeding the movement of other vehicles.",
+          "Braking suddenly unless necessary to prevent a traffic accident.",
+          "All of the above actions."
+        ],
+        "ru": [
+          "Превышать максимальную скорость, установленную технической характеристикой данного транспортного средства.",
+          "Превышать скорость, указанную на опознавательном знаке «Ограничение скорости», установленном на транспортном средстве.",
+          "Без необходимости двигаться с чрезмерно низкой скоростью, создавая помехи движению других транспортных средств.",
+          "Резко тормозить, если это не требуется для предотвращения дорожно-транспортного происшествия.",
+          "Все указанные действия."
+        ]
+      },
+      "correctIndex": 4,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t08_q043",
+      "testNumber": 8,
+      "sourceQuestionNumber": 43,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Ո՞ր նշանն է սահմանափակում արագությունը։",
+        "en": "Which sign limits speed?",
+        "ru": "Какой знак ограничивает скорость?"
+      },
+      "options": {
+        "hy": [
+          "1 և 3",
+          "1 և 4",
+          "2",
+          "2 և 3"
+        ],
+        "en": [
+          "1 and 3.",
+          "1 and 4.",
+          "2",
+          "2 and 3."
+        ],
+        "ru": [
+          "Знаки 1 и 3.",
+          "Знаки 1 и 4.",
+          "2",
+          "Знаки 2 и 3."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t08_q044",
+      "testNumber": 8,
+      "sourceQuestionNumber": 44,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "Վարորդին արգելվում է",
+        "en": "A driver is prohibited from:",
+        "ru": "Водителю запрещается:"
+      },
+      "options": {
+        "hy": [
+          "Երկաթուղային գծանցը հատել ավելի, քան 30կմ/ժ արագությամբ:",
+          "Երկաթուղային գծանցը հատել 30 կմ/ժ-ից ցածր արագությամբ։",
+          "Առանց երկաթգծի ուղեմասի պետի թույլտվության գծանցով երթևեկել դանդաղընթաց մեքենաներով` 8 կմ/ժ-ից ցածր արագությամբ, և տափանների հետ կցված տրակտորներով։"
+        ],
+        "en": [
+          "Crossing a railroad crossing at a speed greater than 30 km/h.",
+          "Crossing a railroad crossing at a speed below 30 km/h.",
+          "Proceeding across a railroad crossing, without the permission of the head of the railroad track section, in slow-moving vehicles with a speed below 8 km/h or in tractors coupled to sledges."
+        ],
+        "ru": [
+          "Пересекать железнодорожный переезд со скоростью более 30 км/ч.",
+          "Пересекать железнодорожный переезд со скоростью менее 30 км/ч.",
+          "Без разрешения начальника дистанции пути пересекать переезд на тихоходных машинах со скоростью менее 8 км/ч, а также на тракторах с прицепленными санями."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t08_q045",
+      "testNumber": 8,
+      "sourceQuestionNumber": 45,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Խաչմերուկին մոտենալիս վարորդը տրանսպորտային միջոցը պետք է վարի այնպիսի արագությամբ, որ",
+        "en": "When approaching an intersection, the driver must operate the vehicle at a speed that:",
+        "ru": "При приближении к перекрёстку водитель должен вести транспортное средство со скоростью, которая:"
+      },
+      "options": {
+        "hy": [
+          "չգերազանցի տվյալ հատվածում սահմանված առավելագույն թույլատրելին:",
+          "հնարավորություն ունենա կանգնելու և զիջելու անցման առաջնահերթության իրավունք ունեցող փոխադրամիջոցներին։"
+        ],
+        "en": [
+          "Does not exceed the maximum permitted speed established for that road section.",
+          "Allows the driver to stop and yield to vehicles having the right-of-way."
+        ],
+        "ru": [
+          "Не превышает максимально допустимую скорость, установленную на данном участке.",
+          "Позволяет остановиться и уступить дорогу транспортным средствам, имеющим преимущество."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q046",
+      "testNumber": 8,
+      "sourceQuestionNumber": 46,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "Վարորդին արգելվում է բարձրացնել արագությունը,",
+        "en": "A driver is prohibited from increasing speed:",
+        "ru": "Водителю запрещается увеличивать скорость:"
+      },
+      "options": {
+        "hy": [
+          "եթե, դա կխոչընդոտի իրեն վազանցող տրանսպորտային միջոցի վարորդին ավարտել վազանցը։",
+          "եթե, դա անհրաժեշտ է իրեն ճանապարհը զիջելու նպատակով կանգ առած վարորդի ճանապարհը ազատելու համար:",
+          "եթե դա կատարվում է խաչմերուկն ազատելու նպատակով։"
+        ],
+        "en": [
+          "If doing so would prevent a driver who is passing from completing the passing maneuver.",
+          "If doing so is necessary to clear the way for a driver who has stopped in order to yield.",
+          "If doing so is necessary to clear the intersection."
+        ],
+        "ru": [
+          "Если это помешает водителю обгоняющего его транспортного средства завершить обгон.",
+          "Если это необходимо для освобождения дороги водителю, остановившемуся с целью уступить ему дорогу.",
+          "Если это выполняется с целью освобождения перекрёстка."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q047",
+      "testNumber": 8,
+      "sourceQuestionNumber": 47,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Վարորդը պարտավոր է իջեցնել արագությունը",
+        "en": "A driver must reduce speed:",
+        "ru": "Водитель обязан снизить скорость:"
+      },
+      "options": {
+        "hy": [
+          "Երեխաների նստեցման և իջեցման ժամանակ «Երեխաների փոխադրում» ճանաչման նշանով կահավորված տրանսպորտային միջոցներին մոտենալիս:",
+          "շլանալու դեպքում",
+          "Երթևեկության համար խոչընդոտ կամ վտանգ առաջանալու դեպքում:",
+          "Կապույտ և կարմիր գույների առկայծող փարոսիկներ և հատուկ ձայնային ազդանշան միացրած տրանսպորտային միջոց մոտենալու դեպքում, ինչպես նաև կապույտ կամ կապույտ և կարմիր գույների առկայծող փարոսիկներ միացրած, կանգնած վիճակում գտնվող տրանսպորտային միջոցին մոտենալիս:",
+          "բոլոր նշված դեպքերում"
+        ],
+        "en": [
+          "When approaching a vehicle displaying the “Transportation of Children” identification sign while children are boarding or exiting.",
+          "If blinded.",
+          "When an obstruction or danger to traffic arises.",
+          "When approaching a vehicle displaying flashing blue and red beacons and using a special audible signal, as well as when approaching a stationary vehicle displaying flashing blue or flashing blue and red beacons.",
+          "In all of the above cases."
+        ],
+        "ru": [
+          "При приближении к транспортному средству, обозначенному опознавательным знаком «Перевозка детей», во время посадки или высадки детей.",
+          "В случае ослепления.",
+          "При возникновении препятствия или опасности для движения.",
+          "При приближении к транспортному средству с включёнными проблесковыми маячками синего и красного цветов и специальным звуковым сигналом, а также к стоящему транспортному средству с включёнными проблесковыми маячками синего либо синего и красного цветов.",
+          "Во всех указанных случаях."
+        ]
+      },
+      "correctIndex": 4,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q048",
+      "testNumber": 8,
+      "sourceQuestionNumber": 48,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Արդյոք պե՞տք է տրանսպորտային միջոցի կողքից` եզրաչափային լույսի արտաքին եզրից, 0,5 մ դուրս ցցվելու դեպքում բեռը օրվա լուսավոր ժամերին նշվի «Մեծ եզրաչափերով բեռ» ճանաչման նշանով, իսկ օրվա մութ ժամանակ և անբավարար տեսանելիության պայմաններում՝ նաև առջևից՝ սպիտակ, իսկ հետևից` կարմիր գույնի լապտերիկներով կամ լուսանդրադարձիչով:",
+        "en": "If cargo protrudes 0.5 m beyond the side of the vehicle, measured from the outer edge of the marker light, must it be marked during daylight hours with the “Oversized Cargo” identification sign and, at night or under conditions of insufficient visibility, additionally with a white light or reflector at the front and a red light or reflector at the rear?",
+        "ru": "Следует ли обозначать груз, выступающий сбоку транспортного средства на 0,5 м от внешнего края габаритного огня, в светлое время суток опознавательным знаком «Крупногабаритный груз», а в тёмное время суток и в условиях недостаточной видимости — также спереди фонарём или световозвращателем белого цвета, а сзади — красного цвета?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q049",
+      "testNumber": 8,
+      "sourceQuestionNumber": 49,
+      "category": "penalties",
+      "prompt": {
+        "hy": "Բեռնատարով, որի վարորդն ունի B և C կարգերի վարորդական իրավունք և ապահովված են բեռնատարներով մարդ փոխադրելու պայմանները, թույլատրվում է փոխադրել մինչև",
+        "en": "A truck whose driver holds a driver’s license for Categories B and C, and which meets the requirements for transporting people in a truck, may carry up to:",
+        "ru": "На грузовом автомобиле, водитель которого имеет водительское удостоверение категорий B и C и на котором обеспечены условия перевозки людей, разрешается перевозить не более:"
+      },
+      "options": {
+        "hy": [
+          "8 ուղևոր։",
+          "9 ուղևոր։",
+          "4 ուղևոր։"
+        ],
+        "en": [
+          "8 passengers.",
+          "9 passengers.",
+          "4 passengers."
+        ],
+        "ru": [
+          "8 пассажиров.",
+          "9 пассажиров.",
+          "4 пассажиров."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q050",
+      "testNumber": 8,
+      "sourceQuestionNumber": 50,
+      "category": "other",
+      "prompt": {
+        "hy": "Արգելվում է մինչև 12 տարեկան երեխաներին փոխադրել",
+        "en": "It is prohibited to transport children under 12 years of age:",
+        "ru": "Запрещается перевозить детей в возрасте до 12 лет:"
+      },
+      "options": {
+        "hy": [
+          "Կողավոր թափքով բեռնատար ավտոմոբիլի թափքում:",
+          "Ֆուրգոն թափքով բեռնատար ավտոմոբիլի թափքում։"
+        ],
+        "en": [
+          "In the cargo bed of a truck with sideboards.",
+          "In the enclosed cargo body of a truck."
+        ],
+        "ru": [
+          "В кузове грузового автомобиля с бортовой платформой.",
+          "В кузове-фургоне грузового автомобиля."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 10
+    },
+    {
+      "id": "drv_t08_q051",
+      "testNumber": 8,
+      "sourceQuestionNumber": 51,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Արդյոք պե՞տք է տրանսպորտային միջոցի հետևի եզրաչափից 1.2մ դուրս ցցված բեռը օրվա լուսավոր ժամերին նշվի «Մեծ եզրաչափերով բեռ» ճանաչման նշանով, իսկ օրվա մութ ժամանակ և անբավարար տեսանելիության պայմաններում՝ նաև առջևից՝ սպիտակ, իսկ հետևից` կարմիր գույնի լապտերիկներով կամ լուսանդրադարձիչով։",
+        "en": "If cargo protrudes 1.2 m beyond the rear end of the vehicle, must it be marked during daylight hours with the “Oversized Cargo” identification sign and, at night or under conditions of insufficient visibility, additionally with a white light or reflector at the front and a red light or reflector at the rear?",
+        "ru": "Следует ли обозначать груз, выступающий за задний габарит транспортного средства на 1,2 м, в светлое время суток опознавательным знаком «Крупногабаритный груз», а в тёмное время суток и в условиях недостаточной видимости — также спереди фонарём или световозвращателем белого цвета, а сзади — красного цвета?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t08_q052",
+      "testNumber": 8,
+      "sourceQuestionNumber": 52,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Բեռի փոխադրումն արգելվում է, եթե այն",
+        "en": "Transportation of cargo is prohibited if the cargo:",
+        "ru": "Перевозка груза запрещается, если он:"
+      },
+      "options": {
+        "hy": [
+          "սահմանափակում է վարորդի տեսադաշտը։",
+          "դժվարացնում է տրանսպորտային միջոցի ղեկավարումը և թուլացնում կայունությունը։",
+          "ծածկում է արտաքին լուսային սարքերն ու լուսանդրադարձիչները, համարանիշերը կամ ճանաչման նշանները, ինչպես նաև խանգարում ընկալել ձեռքով տրվող ազդանշանները։",
+          "Նշված բոլոր դեպքերում:"
+        ],
+        "en": [
+          "Restricts the driver’s field of vision.",
+          "Makes the vehicle difficult to control or reduces its stability.",
+          "Obscures exterior lights or reflectors, license plates, or identification signs, or prevents hand signals from being seen.",
+          "In all of the above cases."
+        ],
+        "ru": [
+          "Ограничивает водителю обзор.",
+          "Затрудняет управление транспортным средством и нарушает его устойчивость.",
+          "Закрывает внешние световые приборы и световозвращатели, государственные регистрационные знаки или опознавательные знаки, а также препятствует восприятию сигналов, подаваемых рукой.",
+          "Во всех указанных случаях."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t08_q053",
+      "testNumber": 8,
+      "sourceQuestionNumber": 53,
+      "category": "other",
+      "prompt": {
+        "hy": "Եթե բեռի վիճակն ու դասավորությունը հնարավորություն չեն տալիս կատարել դրա փոխադրումը կանոնների պահանջներին համապատասխան, ապա վարորդը պետք է",
+        "en": "If the condition or placement of the cargo does not allow it to be transported in compliance with the rules, the driver must:",
+        "ru": "Если состояние и размещение груза не позволяют перевозить его в соответствии с требованиями Правил, водитель должен:"
+      },
+      "options": {
+        "hy": [
+          "Բեռը բարեհաջող հասցնի մինչև մոտակա բեռնաթափման վայրը:",
+          "Վերացնի խախտումները կամ դադարեցնի հետագա երթևեկությունը։"
+        ],
+        "en": [
+          "Deliver the cargo safely to the nearest unloading location.",
+          "Correct the violations or stop proceeding."
+        ],
+        "ru": [
+          "Доставить груз до ближайшего места разгрузки.",
+          "Устранить нарушения или прекратить дальнейшее движение."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t08_q054",
+      "testNumber": 8,
+      "sourceQuestionNumber": 54,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Արդյոք պե՞տք է տրանսպորտային միջոցի հետևի եզրաչափից 0.6մ դուրս ցցված բեռը օրվա լուսավոր ժամերին նշվի «Մեծ եզրաչափերով բեռ» ճանաչման նշանով, իսկ օրվա մութ ժամանակ և անբավարար տեսանելիության պայմաններում՝ նաև առջևից՝ սպիտակ, իսկ հետևից` կարմիր գույնի լապտերիկներով կամ լուսանդրադարձիչով։",
+        "en": "If cargo protrudes 0.6 m beyond the rear end of the vehicle, must it be marked during daylight hours with the “Oversized Cargo” identification sign and, at night or under conditions of insufficient visibility, additionally with a white light or reflector at the front and a red light or reflector at the rear?",
+        "ru": "Следует ли обозначать груз, выступающий за задний габарит транспортного средства на 0,6 м, в светлое время суток опознавательным знаком «Крупногабаритный груз», а в тёмное время суток и в условиях недостаточной видимости — также спереди фонарём или световозвращателем белого цвета, а сзади — красного цвета?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t08_q055",
+      "testNumber": 8,
+      "sourceQuestionNumber": 55,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Արդյոք պե՞տք է տրանսպորտային միջոցի կողքից` եզրաչափային լույսի արտաքին եզրից, 0,3մ դուրս ցցվելու դեպքում բեռը օրվա լուսավոր ժամերին նշվի «Մեծ եզրաչափերով բեռ» ճանաչման նշանով, իսկ օրվա մութ ժամանակ և անբավարար տեսանելիության պայմաններում՝ նաև առջևից՝ սպիտակ, իսկ հետևից` կարմիր գույնի լապտերիկներով կամ լուսանդրադարձիչով:",
+        "en": "If cargo protrudes 0.3 m beyond the side of the vehicle, measured from the outer edge of the marker light, must it be marked during daylight hours with the “Oversized Cargo” identification sign and, at night or under conditions of insufficient visibility, additionally with a white light or reflector at the front and a red light or reflector at the rear?",
+        "ru": "Следует ли обозначать груз, выступающий сбоку транспортного средства на 0,3 м от внешнего края габаритного огня, в светлое время суток опознавательным знаком «Крупногабаритный груз», а в тёмное время суток и в условиях недостаточной видимости — также спереди фонарём или световозвращателем белого цвета, а сзади — красного цвета?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    }
+  ]
+}

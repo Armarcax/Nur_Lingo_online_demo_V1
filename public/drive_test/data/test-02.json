@@ -1,0 +1,2570 @@
+{
+  "testNumber": 2,
+  "totalQuestions": 82,
+  "questions": [
+    {
+      "id": "drv_t02_q001",
+      "testNumber": 2,
+      "sourceQuestionNumber": 1,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն ուղեւոր է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a passenger is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», пассажиром считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցի սրահում (խցիկում) կամ տրանսպորտային միջոցի վրա գտնվող անձը` բացառությամբ վարորդի եւ վարել սովորեցնողի։",
+          "Տրանսպորտային միջոցի սրահում (խցիկում) կամ տրանսպորտային միջոցի վրա գտնվող, ինչպես նաեւ տրանսպորտային միջոց նստող (բարձրացող) ու դրանից դուրս եկող (իջնող) անձը` բացառությամբ վարորդի եւ վարել սովորեցնողի։"
+        ],
+        "en": [
+          "A person located in the passenger compartment (cab) of a vehicle or on a vehicle, except the driver and the driving instructor.",
+          "A person located in the passenger compartment (cab) of a vehicle or on a vehicle, as well as a person entering or exiting the vehicle, except the driver and the driving instructor."
+        ],
+        "ru": [
+          "Лицо, находящееся в салоне (кабине) транспортного средства или на транспортном средстве, за исключением водителя и лица, обучающего вождению.",
+          "Лицо, находящееся в салоне (кабине) транспортного средства или на транспортном средстве, а также лицо, садящееся в транспортное средство (поднимающееся на него) или выходящее из него (спускающееся с него), за исключением водителя и лица, обучающего вождению."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t02_q002",
+      "testNumber": 2,
+      "sourceQuestionNumber": 2,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «A» կարգի տրանսպորտային միջոցներ վարելու իրավունքի վկայական կարող է տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a driver’s license authorizing the operation of category A vehicles may be issued to:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водительское удостоверение на право управления транспортными средствами категории «A» может быть выдано:"
+      },
+      "options": {
+        "hy": [
+          "16 տարին լրացած անձանց։",
+          "17 տարին լրացած անձանց։",
+          "18 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "Persons who have reached 16 years of age.",
+          "Persons who have reached 17 years of age.",
+          "Persons who have reached 18 years of age."
+        ],
+        "ru": [
+          "Лицам, достигшим 16-летнего возраста.",
+          "Лицам, достигшим 17-летнего возраста.",
+          "Лицам, достигшим 18-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t02_q003",
+      "testNumber": 2,
+      "sourceQuestionNumber": 3,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «BE» կարգի տրանսպորտային միջոցներ վարելու իրավունքի վկայական կարող է տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a driver’s license authorizing the operation of category BE vehicles may be issued to:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водительское удостоверение на право управления транспортными средствами категории «BE» может быть выдано:"
+      },
+      "options": {
+        "hy": [
+          "17 տարին լրացած անձանց։",
+          "18 տարին լրացած անձանց։",
+          "19 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "Persons who have reached 17 years of age.",
+          "Persons who have reached 18 years of age.",
+          "Persons who have reached 19 years of age."
+        ],
+        "ru": [
+          "Лицам, достигшим 17-летнего возраста.",
+          "Лицам, достигшим 18-летнего возраста.",
+          "Лицам, достигшим 19-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t02_q004",
+      "testNumber": 2,
+      "sourceQuestionNumber": 4,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն` ճանապարհի երթեւեկելի մաս է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a roadway is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», проезжей частью дороги считается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհի տարրը` նախատեսված տրանսպորտային միջոցների երթեւեկության համար։",
+          "Ճանապարհի տարրը` նախատեսված ոչ ռելսագնաց տրանսպորտային միջոցների երթեւեկության համար։"
+        ],
+        "en": [
+          "An element of a road intended for the movement of vehicles.",
+          "An element of a road intended for the movement of non-rail vehicles."
+        ],
+        "ru": [
+          "Элемент дороги, предназначенный для движения транспортных средств.",
+          "Элемент дороги, предназначенный для движения нерельсовых транспортных средств."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t02_q005",
+      "testNumber": 2,
+      "sourceQuestionNumber": 5,
+      "category": "other",
+      "prompt": {
+        "hy": "Պարտավո՞ր է արդյոք վարել սովորողն ուսումնական վարման ժամանակ ամրակապվել անվտանգության գոտիներով։",
+        "en": "During driving instruction, must the learner driver wear a seat belt?",
+        "ru": "Обязан ли обучаемый вождению пользоваться ремнями безопасности во время учебной езды?"
+      },
+      "options": {
+        "hy": [
+          "Պարտավոր է",
+          "Պարտավոր չէ",
+          "Պարտավոր չէ, եթե դա դժվարացնում է ավտոմոբիլ ղեկավարելը",
+          "Պարտավոր չէ, եթե թույլատրում է վարել սովորեցնողը"
+        ],
+        "en": [
+          "Yes.",
+          "No.",
+          "No, if it makes operating the vehicle difficult.",
+          "No, if permitted by the driving instructor."
+        ],
+        "ru": [
+          "Обязан.",
+          "Не обязан.",
+          "Не обязан, если это затрудняет управление автомобилем.",
+          "Не обязан, если это разрешает лицо, обучающее вождению."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 1
+    },
+    {
+      "id": "drv_t02_q006",
+      "testNumber": 2,
+      "sourceQuestionNumber": 6,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հետիոտն է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a pedestrian is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», пешеходом считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցից դուրս` ճանապարհի վրա գտնվող անձը` բացառությամբ ճանապարհի վրա աշխատանքներ իրականացնելու իրավասություն ունեցող եւ օրենսդրությամբ սահմանված կարգով այդ աշխատանքներն իրականացնող անձը։",
+          "Տրանսպորտային միջոցից դուրս` ճանապարհի վրա գտնվող, այդ թվում` ճանապարհի վրա աշխատանքներ իրականացնելու իրավասություն ունեցող եւ օրենսդրությամբ սահմանված կարգով այդ աշխատանքներն իրականացնող անձը։"
+        ],
+        "en": [
+          "A person who is outside a vehicle and on the road, except a person authorized to perform work on the road and performing that work in accordance with the procedure established by law.",
+          "A person who is outside a vehicle and on the road, including a person authorized to perform work on the road and performing that work in accordance with the procedure established by law."
+        ],
+        "ru": [
+          "Лицо, находящееся на дороге вне транспортного средства, за исключением лица, уполномоченного выполнять работы на дороге и осуществляющего такие работы в установленном законодательством порядке.",
+          "Лицо, находящееся на дороге вне транспортного средства, в том числе лицо, уполномоченное выполнять работы на дороге и осуществляющее такие работы в установленном законодательством порядке."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t02_q007",
+      "testNumber": 2,
+      "sourceQuestionNumber": 7,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցի գործնական վարման սկզբնական ուսուցումը իրականացվում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, initial practical driving instruction is conducted:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», первоначальное обучение практическому вождению транспортного средства осуществляется:"
+      },
+      "options": {
+        "hy": [
+          "Բնակավայրերից դուրս` ճանապարհներին` հաշվի առնելով տրանսպորտային միջոցների երթեւեկության ինտենսիվությունը։",
+          "Փակ հրապարակում կամ ավտոդրոմում։",
+          "Ցանկացած ճանապարհին (բացառությամբ ավտոմայրուղիների)` հաշվի առնելով տրանսպորտային միջոցների երթեւեկության ինտենսիվությունը։"
+        ],
+        "en": [
+          "On roads outside populated areas, taking into account the intensity of vehicle traffic.",
+          "On a closed training area or driving range.",
+          "On any road, except freeways, taking into account the intensity of vehicle traffic."
+        ],
+        "ru": [
+          "На дорогах вне населённых пунктов с учётом интенсивности движения транспортных средств.",
+          "На закрытой площадке или автодроме.",
+          "На любой дороге, за исключением автомагистралей, с учётом интенсивности движения транспортных средств."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t02_q008",
+      "testNumber": 2,
+      "sourceQuestionNumber": 8,
+      "category": "yards",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն` մերձակա տարածքից ելքը դեպի ճանապարհ համարվու՞մ է արդյոք խաչմերուկ։",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, is an exit from an adjacent area onto a road considered an intersection?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», считается ли выезд с прилегающей территории на дорогу перекрёстком?"
+      },
+      "options": {
+        "hy": [
+          "Չի համարվում",
+          "Համարվում է"
+        ],
+        "en": [
+          "No.",
+          "Yes."
+        ],
+        "ru": [
+          "Не считается.",
+          "Считается."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t02_q009",
+      "testNumber": 2,
+      "sourceQuestionNumber": 9,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «B», «C» եւ «D» կարգերի տրանսպորտային միջոցներ վարելու իրավունքի վկայական ունեցող անձանց թույլատրվում է դրանք վարել նաեւ կցորդներով, եթե կցորդի թույլատրելի առավելագույն զանգվածը չի գերազանցում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, persons holding a driver’s license for categories B, C, and D may also operate those vehicles with trailers if the trailer’s maximum authorized mass does not exceed:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», лицам, имеющим водительское удостоверение на право управления транспортными средствами категорий «B», «C» и «D», разрешается управлять ими также с прицепами, если разрешённая максимальная масса прицепа не превышает:"
+      },
+      "options": {
+        "hy": [
+          "750 կիլոգրամը։",
+          "800 կիլոգրամը։",
+          "1000 կիլոգրամը։"
+        ],
+        "en": [
+          "750 kg.",
+          "800 kg.",
+          "1,000 kg."
+        ],
+        "ru": [
+          "750 кг.",
+          "800 кг.",
+          "1000 кг."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t02_q010",
+      "testNumber": 2,
+      "sourceQuestionNumber": 10,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հեծանվորդներին արգելվում է երթեւեկել՝",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, bicyclists are prohibited from riding:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», велосипедистам запрещается движение:"
+      },
+      "options": {
+        "hy": [
+          "Առանց պաշտպանիչ ակնոցների։",
+          "Առանց սաղավարտի։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "Without protective eyewear.",
+          "Without a helmet.",
+          "In both cases."
+        ],
+        "ru": [
+          "Без защитных очков.",
+          "Без шлема.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 2
+    },
+    {
+      "id": "drv_t02_q011",
+      "testNumber": 2,
+      "sourceQuestionNumber": 11,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «B» եւ «C» կարգերի տրանսպորտային միջոցներ վարելու իրավունքի վկայական կարող է տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a driver’s license authorizing the operation of category B and C vehicles may be issued to:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водительское удостоверение на право управления транспортными средствами категорий «B» и «C» может быть выдано:"
+      },
+      "options": {
+        "hy": [
+          "16 տարին լրացած անձանց։",
+          "17 տարին լրացած անձանց։",
+          "18 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "Persons who have reached 16 years of age.",
+          "Persons who have reached 17 years of age.",
+          "Persons who have reached 18 years of age."
+        ],
+        "ru": [
+          "Лицам, достигшим 16-летнего возраста.",
+          "Лицам, достигшим 17-летнего возраста.",
+          "Лицам, достигшим 18-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t02_q012",
+      "testNumber": 2,
+      "sourceQuestionNumber": 12,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ մոպեդ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a moped is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», мопедом считается:"
+      },
+      "options": {
+        "hy": [
+          "Ոչ ավել, քան 50 սմ խորանարդ բանվորական ծավալի շարժիչով եւ ոչ ավել, քան 50 կմ/ժ առավելագույն արագությամբ երկանիվ կամ եռանիվ տրանսպորտային միջոցը։",
+          "Ոչ ավել, քան 60 սմ խորանարդ բանվորական ծավալի շարժիչով եւ ոչ ավել, քան 60 կմ/ժ առավելագույն արագությամբ երկանիվ կամ եռանիվ տրանսպորտային միջոցը։",
+          "Ոչ ավել, քան 70 սմ խորանարդ բանվորական ծավալի շարժիչով եւ ոչ ավել, քան 70 կմ/ժ առավելագույն արագությամբ երկանիվ կամ եռանիվ տրանսպորտային միջոցը։"
+        ],
+        "en": [
+          "A two- or three-wheeled vehicle with an engine displacement not exceeding 50 cm³ and a maximum speed not exceeding 50 km/h.",
+          "A two- or three-wheeled vehicle with an engine displacement not exceeding 60 cm³ and a maximum speed not exceeding 60 km/h.",
+          "A two- or three-wheeled vehicle with an engine displacement not exceeding 70 cm³ and a maximum speed not exceeding 70 km/h."
+        ],
+        "ru": [
+          "Двух- или трёхколёсное транспортное средство с рабочим объёмом двигателя не более 50 куб. см и максимальной скоростью не более 50 км/ч.",
+          "Двух- или трёхколёсное транспортное средство с рабочим объёмом двигателя не более 60 куб. см и максимальной скоростью не более 60 км/ч.",
+          "Двух- или трёхколёсное транспортное средство с рабочим объёмом двигателя не более 70 куб. см и максимальной скоростью не более 70 км/ч."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t02_q013",
+      "testNumber": 2,
+      "sourceQuestionNumber": 13,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հարկադրված կանգառ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a forced stop is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», вынужденной остановкой считается:"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկության ընդհատումը՝ կապված լուսացույցի արգելող ազդանշանի անսպասելի միացման հետ։",
+          "Երթեւեկության ընդհատումը՝ կապված ճանապարհին գոյացած խցանման հետ։",
+          "Տրանսպորտային միջոցի անսարքության, վարորդի (ուղեւորի) ֆիզիկական եւ (կամ) հոգեկան վիճակով եւ (կամ) բեռի փոխադրմամբ պայմանավորված՝ վտանգի կամ ճանապարհին ի հայտ եկած այլ խոչընդոտի պատճառով տրանսպորտային միջոցն անշարժ վիճակի բերելը։",
+          "Թվարկած բոլոր դեպքերը։"
+        ],
+        "en": [
+          "An interruption of movement caused by the unexpected activation of a prohibitory traffic signal.",
+          "An interruption of movement caused by a traffic jam on the road.",
+          "Bringing a vehicle to a stationary position because of a vehicle malfunction, the physical and/or mental condition of the driver or passenger, a hazard related to the cargo being transported, or another obstruction that has appeared on the road.",
+          "All of the listed cases."
+        ],
+        "ru": [
+          "Прекращение движения в связи с неожиданным включением запрещающего сигнала светофора.",
+          "Прекращение движения в связи с образовавшимся на дороге затором.",
+          "Приведение транспортного средства в неподвижное состояние вследствие его неисправности, физического и (или) психического состояния водителя (пассажира), опасности, связанной с перевозимым грузом, либо иного препятствия, возникшего на дороге.",
+          "Все перечисленные случаи."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t02_q014",
+      "testNumber": 2,
+      "sourceQuestionNumber": 14,
+      "category": "visibility",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ անբավարար տեսանելիություն է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, insufficient visibility is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», недостаточной видимостью считается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհի տեսանելիության հեռավորությունը՝ օրվա մութ ժամանակ։",
+          "Ճանապարհի տեսանելիության հեռավորությունը բնակավայրերում՝ երթեւեկելի մասի արհեստական լուսավորվածության բացակայության պայմաններում։",
+          "Մառախուղի, անձրեւի, ձյունաթափի եւ (կամ) ճանապարհային երթեւեկության անվտանգության ապահովման համար այլ անբարենպաստ եղանակի պայմաններում, ճանապարհի տեսանելիությունը եւ (կամ) մինչեւ 300 մետր տեսանելիության հեռավորությունը։"
+        ],
+        "en": [
+          "The visibility distance of the road during nighttime.",
+          "The visibility distance of the road in populated areas when the roadway has no artificial lighting.",
+          "Road visibility and/or a visibility distance of up to 300 meters in fog, rain, snowfall, and/or other adverse weather conditions affecting road traffic safety."
+        ],
+        "ru": [
+          "Расстояние видимости дороги в тёмное время суток.",
+          "Расстояние видимости дороги в населённых пунктах при отсутствии искусственного освещения проезжей части.",
+          "Видимость дороги и (или) расстояние видимости менее 300 метров в условиях тумана, дождя, снегопада и (или) иных неблагоприятных погодных условий для обеспечения безопасности дорожного движения."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t02_q015",
+      "testNumber": 2,
+      "sourceQuestionNumber": 15,
+      "category": "parking",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ կանգառ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, stopping is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», остановкой считается:"
+      },
+      "options": {
+        "hy": [
+          "Մինչեւ 5 րոպե կամ ուղեւորի նստելու, իջնելու եւ (կամ) տրանսպորտային միջոցը բեռնելու, բեռնաթափելու համար անհրաժեշտ ժամանակով տրանսպորտային միջոցն կանխամտածված անշարժ վիճակի բերելը։",
+          "5 րոպեից ավելի տրանսպորտային միջոցն անշարժ վիճակի բերելը, եթե դա կապված չէ ուղեւորների նստեցման, իջեցման կամ տրանսպորտային միջոցի բեռնման, բեռնաթափման հետ։"
+        ],
+        "en": [
+          "Intentionally bringing a vehicle to a stationary position for up to 5 minutes, or for the time necessary to pick up or drop off passengers and/or to load or unload the vehicle.",
+          "Bringing a vehicle to a stationary position for more than 5 minutes when this is not related to picking up or dropping off passengers or loading or unloading the vehicle."
+        ],
+        "ru": [
+          "Преднамеренное прекращение движения транспортного средства на срок до 5 минут либо на время, необходимое для посадки или высадки пассажиров и (или) загрузки или разгрузки транспортного средства.",
+          "Прекращение движения транспортного средства на срок более 5 минут, если это не связано с посадкой или высадкой пассажиров либо загрузкой или разгрузкой транспортного средства."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 3
+    },
+    {
+      "id": "drv_t02_q016",
+      "testNumber": 2,
+      "sourceQuestionNumber": 16,
+      "category": "parking",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ ընդհանուր օգտագործման տրանսպորտային միջոց է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a public transit vehicle is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», транспортным средством общего пользования считается:"
+      },
+      "options": {
+        "hy": [
+          "Կանգառի կետեր (կանգառներ) ունեցող, երթուղիներով շարժվող, ուղեւորներ եւ (կամ) ուղեբեռներ տեղափոխող տրանսպորտային միջոցը (տրամվայ, տրոլեյբուս, ավտոբուս)։",
+          "Կանգառի կետեր (կանգառներ) ունեցող, երթուղիներով շարժվող, ուղեւորներ եւ (կամ) ուղեբեռներ տեղափոխող տրանսպորտային միջոցը (տրամվայ, տրոլեյբուս, ավտոբուս), ինչպես նաեւ թեթեւ մարդատար տաքսի ավտոմոբիլը։"
+        ],
+        "en": [
+          "A vehicle that operates along a route, has designated stops, and carries passengers and/or baggage, including a tram, trolleybus, or bus.",
+          "A vehicle that operates along a route, has designated stops, and carries passengers and/or baggage, including a tram, trolleybus, or bus, as well as a passenger taxi."
+        ],
+        "ru": [
+          "Транспортное средство, движущееся по маршруту, имеющее остановочные пункты и предназначенное для перевозки пассажиров и (или) багажа (трамвай, троллейбус, автобус).",
+          "Транспортное средство, движущееся по маршруту, имеющее остановочные пункты и предназначенное для перевозки пассажиров и (или) багажа (трамвай, троллейбус, автобус), а также легковой автомобиль-такси."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t02_q017",
+      "testNumber": 2,
+      "sourceQuestionNumber": 17,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հետիոտներին են հավասարեցվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the following are considered equivalent to pedestrians:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», к пешеходам приравниваются:"
+      },
+      "options": {
+        "hy": [
+          "Առանց շարժիչի հաշմանդամային սայլակներով տեղաշարժվող հաշմանդամները։",
+          "Բեռնասայլակ, սահնակ, մանկասայլակ կամ հաշմանդամային սայլակ քաշող (հրող) անձինք։",
+          "Թվարկած բոլոր անձինք։"
+        ],
+        "en": [
+          "Persons with disabilities moving in non-motorized wheelchairs.",
+          "Persons pulling or pushing a handcart, sled, stroller, or wheelchair.",
+          "All of the listed persons."
+        ],
+        "ru": [
+          "Лица с инвалидностью, передвигающиеся в немоторизованных инвалидных колясках.",
+          "Лица, ведущие (толкающие) тележку, санки, детскую или инвалидную коляску.",
+          "Все перечисленные лица."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t02_q018",
+      "testNumber": 2,
+      "sourceQuestionNumber": 18,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ կցորդ (կիսակցորդ) է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a trailer (semitrailer) is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», прицепом (полуприцепом) считается:"
+      },
+      "options": {
+        "hy": [
+          "Կոշտ կցիչով քարշակվող ցանկացած մեխանիկական տրանսպորտային միջոցը։",
+          "Շարժիչով չկահավորված տրանսպորտային միջոցը, որը նախատեսված է մեխանիկական տրանսպորտային միջոցով շարժման մեջ դրվելու եւ դրա կազմում որպես մեկ ամբողջություն երթեւեկելու համար (ներառյալ՝ հատուկ կցորդը)։"
+        ],
+        "en": [
+          "Any motor vehicle towed by means of a rigid coupling.",
+          "A vehicle not equipped with an engine that is designed to be moved by a motor vehicle and to proceed with it as a single unit, including a special-purpose trailer."
+        ],
+        "ru": [
+          "Любое механическое транспортное средство, буксируемое на жёсткой сцепке.",
+          "Транспортное средство, не оборудованное двигателем, предназначенное для приведения в движение механическим транспортным средством и движения в его составе как единое целое, включая специальный прицеп."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t02_q019",
+      "testNumber": 2,
+      "sourceQuestionNumber": 19,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ Հայաստանի Հանրապետության ճանապարհներին սահմանվում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, traffic on the roads of the Republic of Armenia is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», на дорогах Республики Армения устанавливается:"
+      },
+      "options": {
+        "hy": [
+          "Աջակողմյան երթեւեկություն։",
+          "Ձախակողմյան երթեւեկություն։"
+        ],
+        "en": [
+          "Right-hand traffic.",
+          "Left-hand traffic."
+        ],
+        "ru": [
+          "Правостороннее движение.",
+          "Левостороннее движение."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t02_q020",
+      "testNumber": 2,
+      "sourceQuestionNumber": 20,
+      "category": "parking",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ կայանում է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, parking is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», стоянкой считается:"
+      },
+      "options": {
+        "hy": [
+          "5 րոպեից ավելի տրանսպորտային միջոցը կանխամտածված անշարժ վիճակի բերելը, եթե դա կապված չէ ուղեւորների նստեցման, իջեցման կամ տրանսպորտային միջոցի բեռնման, բեռնաթափման հետ։",
+          "5 րոպեից ավելի տրանսպորտային միջոցը կանխամտածված անշարժ վիճակի բերելը, բացառությամբ ճանապարհային երթեւեկության այլ մասնակցի կամ որեւէ արգելքի հետ ընդհարումը կանխելու, ուղեւորի նuտելու, իջնելու եւ (կամ) տրանuպորտային միջոցը բեռնելու, բեռնաթափելու, ինչպես նաև օրեսդրությամբ նախտեսված այլ դեպքերի։"
+        ],
+        "en": [
+          "Intentionally bringing a vehicle to a stationary position for more than 5 minutes when this is not related to picking up or dropping off passengers or loading or unloading the vehicle.",
+          "Intentionally bringing a vehicle to a stationary position for more than 5 minutes, except when necessary to prevent a collision with another road user or an obstruction, to pick up or drop off passengers and/or load or unload the vehicle, or in other cases provided by law."
+        ],
+        "ru": [
+          "Преднамеренное прекращение движения транспортного средства на срок более 5 минут, если это не связано с посадкой или высадкой пассажиров либо загрузкой или разгрузкой транспортного средства.",
+          "Преднамеренное прекращение движения транспортного средства на срок более 5 минут, за исключением случаев предотвращения столкновения с другим участником дорожного движения или препятствием, посадки или высадки пассажиров и (или) загрузки или разгрузки транспортного средства, а также иных случаев, предусмотренных законодательством."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 4
+    },
+    {
+      "id": "drv_t02_q021",
+      "testNumber": 2,
+      "sourceQuestionNumber": 21,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ ՀՀ զինված ուժեր եւ այլ զորքեր զորակոչված անձանց «D» կարգի եւ «D1» ենթակարգի տրանսպորտային միջոցներ վարելու իրավունքի վկայական կարող է տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, persons conscripted into the Armed Forces of the Republic of Armenia or other troops may be issued a driver’s license authorizing the operation of category D and subcategory D1 vehicles upon reaching:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водительское удостоверение на право управления транспортными средствами категории «D» и подкатегории «D1» может быть выдано лицам, призванным в Вооружённые силы Республики Армения и другие войска:"
+      },
+      "options": {
+        "hy": [
+          "18 տարին լրացած անձանց։",
+          "19 տարին լրացած անձանց։",
+          "20 տարին լրացած անձանց։",
+          "21 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "18 years of age.",
+          "19 years of age.",
+          "20 years of age.",
+          "21 years of age."
+        ],
+        "ru": [
+          "Достигшим 18-летнего возраста.",
+          "Достигшим 19-летнего возраста.",
+          "Достигшим 20-летнего возраста.",
+          "Достигшим 21-летнего возраста."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t02_q022",
+      "testNumber": 2,
+      "sourceQuestionNumber": 22,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցի ձեռք բերման օրվանից ի՞նչ ժամկետում այն պետք է ներկայացվի պետական գրանցման՝ Ներքին գործերի նախարարության հաշվառման-քննական բաժին։",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, within what period from the date a vehicle is acquired must it be presented for state registration to the registration and examination division of the Ministry of Internal Affairs?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», в течение какого срока со дня приобретения транспортное средство должно быть представлено на государственную регистрацию в регистрационно-экзаменационное подразделение Министерства внутренних дел?"
+      },
+      "options": {
+        "hy": [
+          "15 օրվա ընթացքում",
+          "10 օրվա ընթացքում",
+          "20 օրվա ընթացքում"
+        ],
+        "en": [
+          "Within 15 days.",
+          "Within 10 days.",
+          "Within 20 days."
+        ],
+        "ru": [
+          "В течение 15 дней.",
+          "В течение 10 дней.",
+          "В течение 20 дней."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t02_q023",
+      "testNumber": 2,
+      "sourceQuestionNumber": 23,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ ճանապարհային երթեւեկությանը մասնակցող տրանսպորտային միջոցը տեխնիկապես սարքին վիճակում պահպանելու համար պատասխանատվություն կրում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, responsibility for maintaining a vehicle participating in road traffic in technically sound condition is borne by:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», ответственность за содержание участвующего в дорожном движении транспортного средства в технически исправном состоянии несёт:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցի սեփականատերը կամ օգտագործողը։",
+          "Տրանսպորտային միջոցը վաճառած կազմակերպությունը։",
+          "Տրանսպորտային միջոցի՝ վերջին տարեկան տեխնիկական զննությունն իրականացրած կազմակերպությունը։",
+          "Թվարկած բոլոր անձինք եւ կազմակերպությունները։"
+        ],
+        "en": [
+          "The owner or user of the vehicle.",
+          "The organization that sold the vehicle.",
+          "The organization that performed the vehicle’s most recent annual technical inspection.",
+          "All of the listed persons and organizations."
+        ],
+        "ru": [
+          "Собственник или пользователь транспортного средства.",
+          "Организация, продавшая транспортное средство.",
+          "Организация, проводившая последний ежегодный технический осмотр транспортного средства.",
+          "Все перечисленные лица и организации."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t02_q024",
+      "testNumber": 2,
+      "sourceQuestionNumber": 24,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ երթեւեկությունը սկսելուց առաջ տրանսպորտային միջոցի վարորդը պարտավոր է ստուգել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, before starting to drive, the driver must check:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», перед началом движения водитель транспортного средства обязан проверить:"
+      },
+      "options": {
+        "hy": [
+          "Արգելակային համակարգի եւ ղեկային կառավարման սարքինությունը։",
+          "Անվադողերի պահպանաշերտի նախշանկարի մնացորդային բարձրության համապատասխանությունը սահմանված նորմերին։",
+          "Բոլոր թվարկածները։"
+        ],
+        "en": [
+          "The serviceability of the braking system and steering system.",
+          "Whether the remaining tire tread depth meets the established standards.",
+          "All of the listed items."
+        ],
+        "ru": [
+          "Исправность тормозной системы и рулевого управления.",
+          "Соответствие остаточной высоты рисунка протектора шин установленным нормам.",
+          "Всё перечисленное."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t02_q025",
+      "testNumber": 2,
+      "sourceQuestionNumber": 25,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցի վարորդը պարտավոր է օժանդակելու նպատակով տրամադրել տրանսպորտային միջոցը",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a driver must provide the vehicle for assistance:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водитель транспортного средства обязан предоставить транспортное средство для оказания содействия:"
+      },
+      "options": {
+        "hy": [
+          "Ոստիկանության ծառայողներին՝ շտապ բժշկական օգնության կարիք ունեցող անձանց բժշկական հաստատություն տեղափոխելու համար։",
+          "Բուժաշխատողներին, որոնք բուժօգնություն ցույց տալու համար մեկնում են համընթաց ուղղությամբ (վարորդի համաձայնությամբ)։",
+          "Երկու դեպքում էլ։"
+        ],
+        "en": [
+          "To police officers for transporting persons in need of urgent medical care to a medical facility.",
+          "To medical personnel proceeding in the same direction to provide medical assistance, with the driver’s consent.",
+          "In both cases."
+        ],
+        "ru": [
+          "Сотрудникам полиции — для доставки в медицинскую организацию лиц, нуждающихся в неотложной медицинской помощи.",
+          "Медицинским работникам, следующим в попутном направлении для оказания медицинской помощи, — с согласия водителя.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 5
+    },
+    {
+      "id": "drv_t02_q026",
+      "testNumber": 2,
+      "sourceQuestionNumber": 26,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցի վարորդը պարտավոր է ճանապարհատրանսպորտային պատահարին առընչություն ունենալու դեպքում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, if a driver is involved in a road traffic crash, the driver must:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водитель транспортного средства, причастный к дорожно-транспортному происшествию, обязан:"
+      },
+      "options": {
+        "hy": [
+          "Անմիջապես կանգնեցնել տրանսպորտային միջոցը։",
+          "Միացնել վթարային լուսային ազդանշանը։",
+          "Չտեղաշարժել պատահարի հետ կապված առարկաները։",
+          "Կատարել թվարկած բոլոր գործողությունները։"
+        ],
+        "en": [
+          "Immediately stop the vehicle.",
+          "Activate the hazard warning lights.",
+          "Not move objects related to the crash.",
+          "Perform all of the listed actions."
+        ],
+        "ru": [
+          "Немедленно остановить транспортное средство.",
+          "Включить аварийную световую сигнализацию.",
+          "Не перемещать предметы, имеющие отношение к происшествию.",
+          "Выполнить все перечисленные действия."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t02_q027",
+      "testNumber": 2,
+      "sourceQuestionNumber": 27,
+      "category": "yards",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ մեխանիկական տրանսպորտային միջոցի վարորդը պարտավոր է իր մոտ ունենալ",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the driver of a motor vehicle must carry:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водитель механического транспортного средства обязан иметь при себе:"
+      },
+      "options": {
+        "hy": [
+          "Տվյալ կարգի տրանսպորտային միջոցը վարելու վարորդական վկայականը եւ տրանսպորտային միջոցի հաշվառման փաստաթղթերը կամ ՀՀ տարածքում նաև դրանց թվային տարբերակները:",
+          "Լիազորագիր՝ այլ անձին պատկանող տրանսպորտային միջոցը վարելու դեպքում։",
+          "Թվարկած բոլոր փաստաթղթերը։"
+        ],
+        "en": [
+          "A driver’s license authorizing the operation of that category of vehicle and the vehicle registration documents, or, within the Republic of Armenia, their digital versions.",
+          "A power of attorney when operating a vehicle belonging to another person.",
+          "All of the listed documents."
+        ],
+        "ru": [
+          "Водительское удостоверение на право управления транспортным средством соответствующей категории и регистрационные документы на транспортное средство либо, на территории Республики Армения, их цифровые версии.",
+          "Доверенность — при управлении транспортным средством, принадлежащим другому лицу.",
+          "Все перечисленные документы."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t02_q028",
+      "testNumber": 2,
+      "sourceQuestionNumber": 28,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ երթեւեկության գոտի է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a traffic lane is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», полосой движения считается:"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկելի մասի գծանշված երկայնական գոտին, որի լայնությունը բավարար է տրանսպորտային միջոցների՝ մեկ շարքով երթեւեկության համար։",
+          "Երթեւեկելի մասի գծանշված կամ չգծանշված երկայնական գոտին, որի լայնությունը բավարար է տրանսպորտային միջոցների՝ մեկ շարքով երթեւեկության համար։"
+        ],
+        "en": [
+          "A marked longitudinal strip of the roadway wide enough for vehicles to proceed in a single line.",
+          "A marked or unmarked longitudinal strip of the roadway wide enough for vehicles to proceed in a single line."
+        ],
+        "ru": [
+          "Обозначенная дорожной разметкой продольная полоса проезжей части, ширина которой достаточна для движения транспортных средств в один ряд.",
+          "Обозначенная или не обозначенная дорожной разметкой продольная полоса проезжей части, ширина которой достаточна для движения транспортных средств в один ряд."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t02_q029",
+      "testNumber": 2,
+      "sourceQuestionNumber": 29,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ թույլատրելի առավելագույն զանգված է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, maximum authorized mass is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», разрешённой максимальной массой считается:"
+      },
+      "options": {
+        "hy": [
+          "Լրակազմված եւ լիցքավորված տրանսպորտային միջոցի զանգվածը։",
+          "Վարորդով, ուղեւորներով եւ բեռով բեռնված, լրակազմված ու լիցքավորված տրանսպորտային միջոցի զանգվածը, որն արտադրող կազմակերպությունը սահմանել է որպես առավելագույն թույլատրելի։"
+        ],
+        "en": [
+          "The mass of a fully equipped and fueled vehicle.",
+          "The mass of a fully equipped and fueled vehicle, including the driver, passengers and load, established by the manufacturer as the maximum permissible mass."
+        ],
+        "ru": [
+          "Масса укомплектованного и заправленного транспортного средства.",
+          "Масса полностью укомплектованного и заправленного транспортного средства с водителем, пассажирами и грузом, установленная организацией-изготовителем в качестве максимально допустимой."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t02_q030",
+      "testNumber": 2,
+      "sourceQuestionNumber": 30,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ կարգավորող է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a traffic controller is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», регулировщиком считается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհային երթեւեկությունը կարգավորելու իրավասություն ունեցող եւ օրենսդրությամբ սահմանված կարգով այդ կարգավորումն իրականացնող անձը։",
+          "Երթեւեկության ցանկացած մասնակից (վարորդ, ուղեւոր կամ հետիոտն), որը, անհրաժեշտություն առաջանալու դեպքում, կատարում է կարգավորող գործողություններ։",
+          "Թվարկած բոլոր անձինք։"
+        ],
+        "en": [
+          "A person authorized to regulate road traffic and carrying out that regulation in accordance with the procedure established by law.",
+          "Any road user, including a driver, passenger, or pedestrian, who performs traffic-control actions when necessary.",
+          "All of the listed persons."
+        ],
+        "ru": [
+          "Лицо, уполномоченное регулировать дорожное движение и осуществляющее такое регулирование в установленном законодательством порядке.",
+          "Любой участник дорожного движения — водитель, пассажир или пешеход, — который при возникновении необходимости выполняет функции регулировщика.",
+          "Все перечисленные лица."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 6
+    },
+    {
+      "id": "drv_t02_q031",
+      "testNumber": 2,
+      "sourceQuestionNumber": 31,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հեծանիվ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a bicycle is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», велосипедом считается:"
+      },
+      "options": {
+        "hy": [
+          "Առնվազն երկու անիվ ունեցող եւ որպես կանոն դրա վրա գտնվող մարդու մկանային ուժով, մասնավորապես ոտնակի կամ բռնակի օգնությամբ շարժման մեջ դրվող տրանսպորտային միջոցը, ինչպես նաեւ հաշմանդամային սայլակը։",
+          "Առնվազն երկու անիվ ունեցող եւ, որպես կանոն, դրա վրա գտնվող անձի մկանային ուժով, մասնավորապես ոտնակի կամ բռնակի օգնությամբ շարժման մեջ դրվող տրանսպորտային միջոցը՝ բացառությամբ հաշմանդամային սայլակի, որը կարող է ունենալ նաև երկարատև ծանրաբեռնվածության ռեժիմում 0\u000025 կՎտ-ը չգերազանցող նոմինալ առավելագույն հզորությամբ՝ 25կմ/ժ-ից ավելի արագության դեպքում ավտոմատ անջատվող էլեկտրական շարժիչ։"
+        ],
+        "en": [
+          "A vehicle with at least two wheels, normally propelled by the muscular power of a person on it, particularly by means of pedals or hand cranks, as well as a wheelchair.",
+          "A vehicle with at least two wheels, normally propelled by the muscular power of a person on it, particularly by means of pedals or hand cranks, excluding a wheelchair; it may also have an electric motor with a maximum continuous rated power not exceeding 0.25 kW that switches off automatically at speeds above 25 km/h."
+        ],
+        "ru": [
+          "Транспортное средство, имеющее не менее двух колёс и приводимое в движение, как правило, мускульной силой находящегося на нём человека, в частности посредством педалей или рукояток, а также инвалидная коляска.",
+          "Транспортное средство, имеющее не менее двух колёс и приводимое в движение, как правило, мускульной силой находящегося на нём лица, в частности посредством педалей или рукояток, за исключением инвалидной коляски; оно также может быть оборудовано электродвигателем номинальной максимальной мощностью в режиме длительной нагрузки не более 0,25 кВт, автоматически отключающимся при скорости свыше 25 км/ч."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t02_q032",
+      "testNumber": 2,
+      "sourceQuestionNumber": 32,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոց վարել սովորեցնողը",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a person providing driving instruction:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», лицо, обучающее вождению транспортного средства:"
+      },
+      "options": {
+        "hy": [
+          "Հավասարեցվում է վարորդին։",
+          "Չի հավասարեցվում վարորդին։"
+        ],
+        "en": [
+          "Is considered equivalent to a driver.",
+          "Is not considered equivalent to a driver."
+        ],
+        "ru": [
+          "Приравнивается к водителю.",
+          "Не приравнивается к водителю."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t02_q033",
+      "testNumber": 2,
+      "sourceQuestionNumber": 33,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ վթարային իրադրություն է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, an emergency situation is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», аварийной ситуацией считается:"
+      },
+      "options": {
+        "hy": [
+          "Երթեւեկության մասնակցի գործողության եւ (կամ) անգործության հետեւանքով առաջացած իրավիճակը, որի ժամանակ ստեղծվում է ճանապարհատրանսպորտային պատահարի իրական վտանգ։",
+          "Երթեւեկության մասնակցի եւ (կամ) կարգավորողի գործողության եւ (կամ) անգործության հետեւանքով առաջացած իրավիճակը, որի ժամանակ ստեղծվում է ճանապարհատրանսպորտային պատահարի իրական վտանգ։"
+        ],
+        "en": [
+          "A situation caused by the action and/or inaction of a road user in which a real danger of a road traffic crash is created.",
+          "A situation caused by the action and/or inaction of a road user and/or traffic controller in which a real danger of a road traffic crash is created."
+        ],
+        "ru": [
+          "Ситуация, возникшая вследствие действия и (или) бездействия участника дорожного движения, при которой создаётся реальная угроза дорожно-транспортного происшествия.",
+          "Ситуация, возникшая вследствие действия и (или) бездействия участника дорожного движения и (или) регулировщика, при которой создаётся реальная угроза дорожно-транспортного происшествия."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t02_q034",
+      "testNumber": 2,
+      "sourceQuestionNumber": 34,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ օրվա մութ ժամանակ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, nighttime is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», тёмным временем суток считается:"
+      },
+      "options": {
+        "hy": [
+          "Աշնանը եւ ձմռանը` երեկոյան ժամը 20.00-ից մինչեւ առավոտյան ժամը 8.00-ը, գարնանը եւ ամռանը` երեկոյան ժամը 22.00-ից մինչեւ առավոտյան ժամը 6.00-ն ընկած ժամանակահատվածը։",
+          "Մթնշաղի վերջի եւ աղջամուղջի սկզբի միջեւ ընկած ժամանակահատվածը։",
+          "Արեգակնային լուսավորության բացակայության ժամանակահատվածը։"
+        ],
+        "en": [
+          "In fall and winter, the period from 8:00 p.m. to 8:00 a.m.; in spring and summer, the period from 10:00 p.m. to 6:00 a.m.",
+          "The period between the end of evening twilight and the beginning of morning twilight.",
+          "The period during which sunlight is absent."
+        ],
+        "ru": [
+          "В осенний и зимний периоды — время с 20:00 до 08:00, а в весенний и летний периоды — время с 22:00 до 06:00.",
+          "Промежуток времени между окончанием вечерних сумерек и началом утренних сумерек.",
+          "Период отсутствия солнечного освещения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t02_q035",
+      "testNumber": 2,
+      "sourceQuestionNumber": 35,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ թեթեւ մարդատար ավտոմոբիլ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a passenger car is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», легковым автомобилем считается:"
+      },
+      "options": {
+        "hy": [
+          "Ուղեւորների համար նախատեսված 8-ից ոչ ավելի նստատեղ ունեցող, իր կառուցվածքով եւ կահավորվածությամբ ուղեւորների եւ ուղեբեռի անվտանգ եւ հարմարավետ փոխադրման համար նախատեսված ավտոմոբիլը։",
+          "Ուղեւորների (բացառությամբ մինչեւ 12 տարեկան երեխաների) համար նախատեսված 4-ից ոչ ավելի նստատեղ ունեցող, իր կառուցվածքով եւ կահավորվածությամբ ուղեւորների եւ ուղեբեռի անվտանգ եւ հարմարավետ փոխադրման համար նախատեսված ավտոմոբիլը։"
+        ],
+        "en": [
+          "An automobile with no more than 8 seats intended for passengers and designed and equipped for the safe and comfortable transportation of passengers and baggage.",
+          "An automobile with no more than 4 seats intended for passengers, excluding children under 12 years of age, and designed and equipped for the safe and comfortable transportation of passengers and baggage."
+        ],
+        "ru": [
+          "Автомобиль, имеющий не более восьми мест для сидения пассажиров и по своей конструкции и оборудованию предназначенный для безопасной и комфортной перевозки пассажиров и багажа.",
+          "Автомобиль, имеющий не более четырёх мест для сидения пассажиров, за исключением детей до 12 лет, и по своей конструкции и оборудованию предназначенный для безопасной и комфортной перевозки пассажиров и багажа."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 7
+    },
+    {
+      "id": "drv_t02_q036",
+      "testNumber": 2,
+      "sourceQuestionNumber": 36,
+      "category": "speed_limits",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ հետիոտներին են հավասարեցվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the following are considered equivalent to pedestrians:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», к пешеходам приравниваются:"
+      },
+      "options": {
+        "hy": [
+          "Շարժիչ ունեցող հաշմանդամային սայլակով` հետիոտնի արագությամբ տեղաշարժվող հաշմանդամները։",
+          "Հեծանիվ, մոպեդ կամ մոտոցիկլ տանող անձինք։",
+          "Բոլոր թվարկած անձինք։"
+        ],
+        "en": [
+          "Persons with disabilities moving at pedestrian speed in motorized wheelchairs.",
+          "Persons leading a bicycle, moped, or motorcycle.",
+          "All of the listed persons."
+        ],
+        "ru": [
+          "Лица с инвалидностью, передвигающиеся со скоростью пешехода в инвалидной коляске, оборудованной двигателем.",
+          "Лица, ведущие велосипед, мопед или мотоцикл.",
+          "Все перечисленные лица."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q037",
+      "testNumber": 2,
+      "sourceQuestionNumber": 37,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոց վարելու իրավունքը ծագում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the right to operate a vehicle arises:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», право на управление транспортными средствами возникает:"
+      },
+      "options": {
+        "hy": [
+          "Ներքին գործերի նախարարության հաշվառման-քննական բաժնում տրանսպորտային միջոց վարելու գործնական քննությունը դրական հանձնելու պահից։",
+          "Վարորդական իրավունքի վկայական ստանալու պահից։"
+        ],
+        "en": [
+          "Upon successfully passing the practical driving examination at the registration and examination division of the Ministry of Internal Affairs.",
+          "Upon receiving a driver’s license."
+        ],
+        "ru": [
+          "С момента успешной сдачи практического экзамена по управлению транспортным средством в регистрационно-экзаменационном подразделении Министерства внутренних дел.",
+          "С момента получения водительского удостоверения."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q038",
+      "testNumber": 2,
+      "sourceQuestionNumber": 38,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «A» եւ «B» կարգերի տրանսպորտային միջոցներ վարելու միջազգային վարորդական վկայականները կարող են տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, international driving permits authorizing the operation of category A and B vehicles may be issued to:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», международные водительские удостоверения на право управления транспортными средствами категорий «A» и «B» могут быть выданы:"
+      },
+      "options": {
+        "hy": [
+          "16 տարին լրացած անձանց։",
+          "17 տարին լրացած անձանց։",
+          "18 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "Persons who have reached 16 years of age.",
+          "Persons who have reached 17 years of age.",
+          "Persons who have reached 18 years of age."
+        ],
+        "ru": [
+          "Лицам, достигшим 16-летнего возраста.",
+          "Лицам, достигшим 17-летнего возраста.",
+          "Лицам, достигшим 18-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q039",
+      "testNumber": 2,
+      "sourceQuestionNumber": 39,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «C» կարգի տրանսպորտային միջոցներ վարելու միջազգային վարորդական վկայական կարող է տրվել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, an international driving permit authorizing the operation of category C vehicles may be issued to:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», международное водительское удостоверение на право управления транспортными средствами категории «C» может быть выдано:"
+      },
+      "options": {
+        "hy": [
+          "18 տարին լրացած անձանց։",
+          "20 տարին լրացած անձանց։",
+          "21 տարին լրացած անձանց։"
+        ],
+        "en": [
+          "Persons who have reached 18 years of age.",
+          "Persons who have reached 20 years of age.",
+          "Persons who have reached 21 years of age."
+        ],
+        "ru": [
+          "Лицам, достигшим 18-летнего возраста.",
+          "Лицам, достигшим 20-летнего возраста.",
+          "Лицам, достигшим 21-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q040",
+      "testNumber": 2,
+      "sourceQuestionNumber": 40,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ ազգային վարորդական վկայականը տրվում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a national driver’s license is issued for:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», национальное водительское удостоверение выдаётся:"
+      },
+      "options": {
+        "hy": [
+          "5 տարի ժամկետով։",
+          "10 տարի ժամկետով։",
+          "20 տարի ժամկետով",
+          "Անժամկետ։"
+        ],
+        "en": [
+          "5 years.",
+          "10 years.",
+          "20 years.",
+          "An unlimited period."
+        ],
+        "ru": [
+          "Сроком на 5 лет.",
+          "Сроком на 10 лет.",
+          "Сроком на 20 лет.",
+          "Бессрочно."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q041",
+      "testNumber": 2,
+      "sourceQuestionNumber": 41,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն` միջազգային վարորդական վկայականը տրվում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, an international driving permit is issued for:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», международное водительское удостоверение выдаётся:"
+      },
+      "options": {
+        "hy": [
+          "1 տարի ժամկետով։",
+          "3 տարի ժամկետով։",
+          "5 տարի ժամկետով։",
+          "Անժամկետ։"
+        ],
+        "en": [
+          "1 year.",
+          "3 years.",
+          "5 years.",
+          "An unlimited period."
+        ],
+        "ru": [
+          "Сроком на 1 год.",
+          "Сроком на 3 года.",
+          "Сроком на 5 лет.",
+          "Бессрочно."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 8
+    },
+    {
+      "id": "drv_t02_q042",
+      "testNumber": 2,
+      "sourceQuestionNumber": 42,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթևեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ վարորդի թեկնածու կարող է դառնալ (բացառությամբ «AM» ենթակարգի տրանսպորտային միջոցի վարորդի թեկնածուի)",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a person may become a driver candidate, except a candidate for a subcategory AM vehicle, upon reaching:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», кандидатом в водители, за исключением кандидата в водители транспортных средств подкатегории «AM», может стать:"
+      },
+      "options": {
+        "hy": [
+          "15 տարին լրացած անձը։",
+          "16 տարին լրացած անձը։",
+          "17 տարին լրացած անձը։"
+        ],
+        "en": [
+          "15 years of age.",
+          "16 years of age.",
+          "17 years of age."
+        ],
+        "ru": [
+          "Лицо, достигшее 15-летнего возраста.",
+          "Лицо, достигшее 16-летнего возраста.",
+          "Лицо, достигшее 17-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t02_q043",
+      "testNumber": 2,
+      "sourceQuestionNumber": 43,
+      "category": "parking",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ կանգառ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, stopping is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», остановкой считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցն անշարժ վիճակի բերելը` կապված ուղեւորի պահանջի հետ։",
+          "5 րոպեից ավելի ժամանակով տրանսպորտային միջոցը կանխամտածված անշարժ վիճակի բերելը, եթե դա կապված չէ ուղեւորների նստեցման, իջեցման կամ տրանսպորտային միջոցի բեռնման, բեռնաթափման հետ։",
+          "Մինչեւ 5 րոպե կամ ուղեւորի նստելու, իջնելու եւ (կամ) տրանսպորտային միջոցը բեռնելու, բեռնաթափելու համար անհրաժեշտ ժամանակով տրանսպորտային միջոցը կանխամտածված անշարժ վիճակի բերելը։"
+        ],
+        "en": [
+          "Bringing a vehicle to a stationary position in response to a passenger’s request.",
+          "Intentionally bringing a vehicle to a stationary position for more than 5 minutes when this is not related to picking up or dropping off passengers or loading or unloading the vehicle.",
+          "Intentionally bringing a vehicle to a stationary position for up to 5 minutes, or for the time necessary to pick up or drop off passengers and/or to load or unload the vehicle."
+        ],
+        "ru": [
+          "Приведение транспортного средства в неподвижное состояние в связи с требованием пассажира.",
+          "Преднамеренное прекращение движения транспортного средства на срок более 5 минут, если это не связано с посадкой или высадкой пассажиров либо загрузкой или разгрузкой транспортного средства.",
+          "Преднамеренное прекращение движения транспортного средства на срок до 5 минут либо на время, необходимое для посадки или высадки пассажиров и (или) загрузки или разгрузки транспортного средства."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t02_q044",
+      "testNumber": 2,
+      "sourceQuestionNumber": 44,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցի թույլատրելի առավելագույն զանգված է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the maximum authorized mass of a vehicle is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», разрешённой максимальной массой транспортного средства считается:"
+      },
+      "options": {
+        "hy": [
+          "Լրակազմված եւ լիցքավորված տրանսպորտային միջոցի առավելագույն զանգվածը։",
+          "Վարորդով, ուղեւորներով եւ բեռով բեռնված, լրակազմված ու լիցքավորված տրանսպորտային միջոցի զանգվածը, որն արտադրող կազմակերպությունը սահմանել է որպես առավելագույն թույլատրելի։",
+          "Վարորդով, ուղեւորներով եւ բեռով բեռնված տրանսպորտային միջոցի զանգվածը, որն արտադրող կազմակերպությունը սահմանել է որպես առավելագույն թույլատրելի։"
+        ],
+        "en": [
+          "The maximum mass of a fully equipped and fueled vehicle.",
+          "The mass of a fully equipped and fueled vehicle loaded with the driver, passengers, and cargo, established by the manufacturer as the maximum permitted mass.",
+          "The mass of a vehicle loaded with the driver, passengers, and cargo, established by the manufacturer as the maximum permitted mass."
+        ],
+        "ru": [
+          "Максимальная масса укомплектованного и заправленного транспортного средства.",
+          "Масса укомплектованного и заправленного транспортного средства с водителем, пассажирами и грузом, установленная организацией-изготовителем в качестве максимально допустимой.",
+          "Масса транспортного средства с водителем, пассажирами и грузом, установленная организацией-изготовителем в качестве максимально допустимой."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t02_q045",
+      "testNumber": 2,
+      "sourceQuestionNumber": 45,
+      "category": "penalties",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ «B», «C», «D» կարգերի եւ «C1», «D1» ենթակարգերի տրանսպորտային միջոցներ վարելու իրավունք ունեցող անձանց թույլատրվում է դրանք վարել նաեւ կցորդներով, եթե կցորդի առավելագույն թույլատրելի զանգվածը",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, persons authorized to operate category B, C, and D vehicles and subcategory C1 and D1 vehicles may also operate them with trailers if the trailer’s maximum authorized mass is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», лицам, имеющим право управления транспортными средствами категорий «B», «C», «D» и подкатегорий «C1», «D1», разрешается управлять ими также с прицепами, если разрешённая максимальная масса прицепа составляет:"
+      },
+      "options": {
+        "hy": [
+          "950 կիլոգրամ է։",
+          "850 կիլոգրամ է։",
+          "750 կիլոգրամ է։"
+        ],
+        "en": [
+          "950 kg.",
+          "850 kg.",
+          "750 kg."
+        ],
+        "ru": [
+          "950 кг.",
+          "850 кг.",
+          "750 кг."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 9
+    },
+    {
+      "id": "drv_t02_q046",
+      "testNumber": 2,
+      "sourceQuestionNumber": 46,
+      "category": "other",
+      "prompt": {
+        "hy": "Հողային ծածկույթով ճանապարհից դուրս գալով՝ ասֆալտբետոնե ծածկույթ ունեցող ճանապարհը",
+        "en": "When entering a road with an asphalt-concrete surface from an unpaved road, the asphalt-concrete road:",
+        "ru": "Выезжая с дороги с грунтовым покрытием на дорогу с асфальтобетонным покрытием, последнюю:"
+      },
+      "options": {
+        "hy": [
+          "պետք է համարենք գլխավոր ճանապարհ։",
+          "պետք է համարենք մեզ հավասարազոր ճանապարհ։"
+        ],
+        "en": [
+          "Must be considered the priority road.",
+          "Must be considered a road of equal priority."
+        ],
+        "ru": [
+          "Следует считать главной дорогой.",
+          "Следует считать равнозначной нашей дороге."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-02/page-10-img-01.jpeg",
+      "imageFilename": "page-10-img-01.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t02_q047",
+      "testNumber": 2,
+      "sourceQuestionNumber": 47,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ երթևեկության գոտի կա այս երթևեկելի մասում։",
+        "en": "How many traffic lanes are there on this roadway?",
+        "ru": "Сколько полос движения имеется на данной проезжей части?"
+      },
+      "options": {
+        "hy": [
+          "Մեկ",
+          "Երկու",
+          "Երեք"
+        ],
+        "en": [
+          "One.",
+          "Two.",
+          "Three."
+        ],
+        "ru": [
+          "Одна.",
+          "Две.",
+          "Три."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-02/page-10-img-02.jpeg",
+      "imageFilename": "page-10-img-02.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t02_q048",
+      "testNumber": 2,
+      "sourceQuestionNumber": 48,
+      "category": "other",
+      "prompt": {
+        "hy": "Թույլատրվու՞մ է արդյոք ընթանալ երթևեկելի մասի կենտրոնով նշված լայնության պայմաններում։",
+        "en": "Under the indicated roadway width, is it permitted to proceed along the center of the roadway?",
+        "ru": "Разрешается ли при данной ширине проезжей части двигаться по её центру?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Այո, երբ հանդիպակաց երթևեկությունը բացակայում է",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "Yes, when there is no oncoming traffic.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Да, при отсутствии встречного движения.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": "/drive_test/data/images/test-02/page-10-img-03.jpeg",
+      "imageFilename": "page-10-img-03.jpeg",
+      "page": 10
+    },
+    {
+      "id": "drv_t02_q049",
+      "testNumber": 2,
+      "sourceQuestionNumber": 49,
+      "category": "other",
+      "prompt": {
+        "hy": "Նշվածներից ո՞ր անշարժ օբյեկտը արգելք չի հանդիսանում։",
+        "en": "Which of the following stationary objects is not considered an obstruction?",
+        "ru": "Какой из указанных неподвижных объектов не является препятствием?"
+      },
+      "options": {
+        "hy": [
+          "Երթևեկելի մասի ծածկույթի վնասվածքը",
+          "Կողմնակի առարկան",
+          "Անսարք կամ անշարժ ավտոմեքենան",
+          "Խցանման պատճառով կանգ առած ավտոմեքնան"
+        ],
+        "en": [
+          "Damage to the roadway surface.",
+          "A foreign object.",
+          "A disabled or stationary automobile.",
+          "An automobile stopped because of traffic congestion."
+        ],
+        "ru": [
+          "Повреждение покрытия проезжей части.",
+          "Посторонний предмет.",
+          "Неисправное или неподвижное транспортное средство.",
+          "Транспортное средство, остановившееся из-за затора."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": "/drive_test/data/images/test-02/page-11-img-01.jpeg",
+      "imageFilename": "page-11-img-01.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t02_q050",
+      "testNumber": 2,
+      "sourceQuestionNumber": 50,
+      "category": "other",
+      "prompt": {
+        "hy": "Ճանապարհի մաս հանդիսանում են արդյո՞ք մայթը կամ կողնակները։",
+        "en": "Are the sidewalk and shoulders considered part of the road?",
+        "ru": "Являются ли тротуар или обочина частью дороги?"
+      },
+      "options": {
+        "hy": [
+          "Այո",
+          "Միայն կողնակը",
+          "Ոչ"
+        ],
+        "en": [
+          "Yes.",
+          "Only the shoulder.",
+          "No."
+        ],
+        "ru": [
+          "Да.",
+          "Только обочина.",
+          "Нет."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-02/page-11-img-02.jpeg",
+      "imageFilename": "page-11-img-02.jpeg",
+      "page": 11
+    },
+    {
+      "id": "drv_t02_q051",
+      "testNumber": 2,
+      "sourceQuestionNumber": 51,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ երթևեկելի մասեր ունի այս ճանապարհը։",
+        "en": "How many roadways does this road have?",
+        "ru": "Сколько проезжих частей имеет данная дорога?"
+      },
+      "options": {
+        "hy": [
+          "Մեկ",
+          "Երկու",
+          "Չորս"
+        ],
+        "en": [
+          "One.",
+          "Two.",
+          "Four."
+        ],
+        "ru": [
+          "Одну.",
+          "Две.",
+          "Четыре."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t02_q052",
+      "testNumber": 2,
+      "sourceQuestionNumber": 52,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ խաչմերուկ կա այս նկարում։",
+        "en": "How many intersections are shown in this image?",
+        "ru": "Сколько перекрёстков изображено на данном рисунке?"
+      },
+      "options": {
+        "hy": [
+          "Մեկ",
+          "Երկու",
+          "Չորս"
+        ],
+        "en": [
+          "One.",
+          "Two.",
+          "Four."
+        ],
+        "ru": [
+          "Один.",
+          "Два.",
+          "Четыре."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 11
+    },
+    {
+      "id": "drv_t02_q053",
+      "testNumber": 2,
+      "sourceQuestionNumber": 53,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ երթևեկելի մասերի հատում կա այս խաչմերուկում ։",
+        "en": "How many intersections of roadways are there at this intersection?",
+        "ru": "Сколько пересечений проезжих частей имеется на данном перекрёстке?"
+      },
+      "options": {
+        "hy": [
+          "Մեկ",
+          "Երկու"
+        ],
+        "en": [
+          "One.",
+          "Two."
+        ],
+        "ru": [
+          "Одно.",
+          "Два."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-02/page-12-img-01.jpeg",
+      "imageFilename": "page-12-img-01.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t02_q054",
+      "testNumber": 2,
+      "sourceQuestionNumber": 54,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ երթևեկության գոտիներ ունի այս ճանապարհը։",
+        "en": "How many traffic lanes does this road have?",
+        "ru": "Сколько полос движения имеет данная дорога?"
+      },
+      "options": {
+        "hy": [
+          "Երկու",
+          "Չորս"
+        ],
+        "en": [
+          "Two.",
+          "Four."
+        ],
+        "ru": [
+          "Две.",
+          "Четыре."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-02/page-12-img-02.jpeg",
+      "imageFilename": "page-12-img-02.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t02_q055",
+      "testNumber": 2,
+      "sourceQuestionNumber": 55,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում ճանապարհը բաժանարար գոտի ունի։",
+        "en": "In which image does the road have a median?",
+        "ru": "На каком рисунке дорога имеет разделительную полосу?"
+      },
+      "options": {
+        "hy": [
+          "Միայն աջ",
+          "Երկու նկարներում էլ",
+          "Միայն ձախ"
+        ],
+        "en": [
+          "Only in the right image.",
+          "In both images.",
+          "Only in the left image."
+        ],
+        "ru": [
+          "Только на правом.",
+          "На обоих рисунках.",
+          "Только на левом."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-02/page-12-img-03.jpeg",
+      "imageFilename": "page-12-img-03.jpeg",
+      "page": 12
+    },
+    {
+      "id": "drv_t02_q056",
+      "testNumber": 2,
+      "sourceQuestionNumber": 56,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "Զիջել ճանապարհն այլ տրանսպորտային միջոցներին նշանակում է, որ",
+        "en": "To yield to other vehicles means that:",
+        "ru": "Уступить дорогу другим транспортным средствам означает, что:"
+      },
+      "options": {
+        "hy": [
+          "Վարորդը չպետք է շարունակի կամ վերսկսի երթևեկությունը կամ կատարի որևէ մանևր, եթե դա կարող է այլ տրանսպորտային միջոցների վարորդներին ստիպել փոխել շարժման ուղղությունը կամ արագությունը:",
+          "Վարորդը չպետք է շարունակի կամ վերսկսի երթևեկությունը կամ կատարի որևէ մանևր, եթե դա կարող է այլ տրանսպորտային միջոցների վարորդներին ստիպել անսպասելի փոխել շարժման ուղղությունը կամ արագությունը",
+          "Վարորդը պետք է անվերապահորեն կանգնեցնի տրանսպորտային միջոցը:"
+        ],
+        "en": [
+          "The driver must not continue or resume driving or perform any maneuver if doing so could force the drivers of other vehicles to change direction or speed.",
+          "The driver must not continue or resume driving or perform any maneuver if doing so could force the drivers of other vehicles to unexpectedly change direction or speed.",
+          "The driver must stop the vehicle unconditionally."
+        ],
+        "ru": [
+          "Водитель не должен продолжать или возобновлять движение либо выполнять какой-либо манёвр, если это может вынудить водителей других транспортных средств изменить направление движения или скорость.",
+          "Водитель не должен продолжать или возобновлять движение либо выполнять какой-либо манёвр, если это может вынудить водителей других транспортных средств неожиданно изменить направление движения или скорость.",
+          "Водитель обязан безусловно остановить транспортное средство."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": "/drive_test/data/images/test-02/page-13-img-01.jpeg",
+      "imageFilename": "page-13-img-01.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t02_q057",
+      "testNumber": 2,
+      "sourceQuestionNumber": 57,
+      "category": "other",
+      "prompt": {
+        "hy": "Ո՞ր նկարում է խաչմերուկ պատկերված:",
+        "en": "In which image is an intersection shown?",
+        "ru": "На каком рисунке изображён перекрёсток?"
+      },
+      "options": {
+        "hy": [
+          "Միայն ձախ",
+          "Միայն աջ",
+          "Երկու նկարներում էլ"
+        ],
+        "en": [
+          "Only in the left image.",
+          "Only in the right image.",
+          "In both images."
+        ],
+        "ru": [
+          "Только на левом.",
+          "Только на правом.",
+          "На обоих рисунках."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": "/drive_test/data/images/test-02/page-13-img-02.jpeg",
+      "imageFilename": "page-13-img-02.jpeg",
+      "page": 13
+    },
+    {
+      "id": "drv_t02_q058",
+      "testNumber": 2,
+      "sourceQuestionNumber": 58,
+      "category": "other",
+      "prompt": {
+        "hy": "Քանի՞ երթևեկելի մասերի հատում կա խաչմերուկում։",
+        "en": "How many intersections of roadways are there at the intersection?",
+        "ru": "Сколько пересечений проезжих частей имеется на перекрёстке?"
+      },
+      "options": {
+        "hy": [
+          "Մեկ",
+          "Երկու",
+          "Չորս"
+        ],
+        "en": [
+          "One.",
+          "Two.",
+          "Four."
+        ],
+        "ru": [
+          "Одно.",
+          "Два.",
+          "Четыре."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t02_q059",
+      "testNumber": 2,
+      "sourceQuestionNumber": 59,
+      "category": "other",
+      "prompt": {
+        "hy": "Վերադասավորում է համարվում",
+        "en": "A lane change means:",
+        "ru": "Перестроением считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցի զբաղեցրած երթևեկության գոտուց երթևեկության սկզբնական ուղղությունը պահպանելով դուրս գալը։",
+          "Տրանսպորտային միջոցի գծանշված երթևեկության գոտու սահմաններում զբաղեցրած շարքից, երթևեկության սկզբնական ուղղությունը պահպանելով դուրս գալը։",
+          "Նշված երկու դեպքերն էլ։"
+        ],
+        "en": [
+          "Leaving the traffic lane occupied by the vehicle while maintaining the original direction of movement.",
+          "Leaving the row occupied by the vehicle within a marked traffic lane while maintaining the original direction of movement.",
+          "Both of the listed cases."
+        ],
+        "ru": [
+          "Выезд транспортного средства из занимаемой полосы движения с сохранением первоначального направления движения.",
+          "Выезд транспортного средства из занимаемого ряда в пределах обозначенной полосы движения с сохранением первоначального направления движения.",
+          "Оба указанных случая."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 13
+    },
+    {
+      "id": "drv_t02_q060",
+      "testNumber": 2,
+      "sourceQuestionNumber": 60,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Շրջադարձ է համարվում",
+        "en": "A turn means:",
+        "ru": "Поворотом считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցի` այլ ճանապարհ դուրս գալու նպատակով իրականացվող մանևրը։",
+          "Տրանսպորտային միջոցի` այլ ճանապարհ կամ ճանապարհից մերձակա տարածք դուրս գալու նպատակով իրականացվող մանևրը։"
+        ],
+        "en": [
+          "A maneuver performed for the purpose of entering another road.",
+          "A maneuver performed for the purpose of entering another road or an adjacent area from the road."
+        ],
+        "ru": [
+          "Манёвр, выполняемый с целью выезда транспортного средства на другую дорогу.",
+          "Манёвр, выполняемый с целью выезда транспортного средства на другую дорогу или с дороги на прилегающую территорию."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q061",
+      "testNumber": 2,
+      "sourceQuestionNumber": 61,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Հետադարձ է համարվում",
+        "en": "A U-turn means:",
+        "ru": "Разворотом считается:"
+      },
+      "options": {
+        "hy": [
+          "Տրանսպորտային միջոցը հանդիպակաց ուղղությամբ վարելը։",
+          "Տրանսպորտային միջոցի շարժման ուղղությունը հանդիպակաց ուղղությամբ փոխելու նպատակով իրականացվող մանևրը։"
+        ],
+        "en": [
+          "Driving a vehicle in the opposite direction.",
+          "A maneuver performed for the purpose of changing the vehicle’s direction of movement to the opposite direction."
+        ],
+        "ru": [
+          "Движение транспортного средства во встречном направлении.",
+          "Манёвр, выполняемый с целью изменения направления движения транспортного средства на противоположное."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q062",
+      "testNumber": 2,
+      "sourceQuestionNumber": 62,
+      "category": "other",
+      "prompt": {
+        "hy": "Կողանցում է համարվում",
+        "en": "Passing without leaving the lane means:",
+        "ru": "Опережением считается:"
+      },
+      "options": {
+        "hy": [
+          "Շարժման մեջ գտնվող մեկ կամ մի քանի տրանսպորտային միջոցներից առաջ անցնելը` առանց զբաղեցրած գոտուց դուրս գալու։",
+          "Շարժման մեջ գտնվող մեկ կամ մի քանի տրանսպորտային միջոցներից առաջ անցնելը` կապված զբաղեցրած գոտուց դուրս գալու հետ։"
+        ],
+        "en": [
+          "Proceeding ahead of one or more moving vehicles without leaving the occupied lane.",
+          "Proceeding ahead of one or more moving vehicles by leaving the occupied lane."
+        ],
+        "ru": [
+          "Движение с большей скоростью, чем скорость одного или нескольких движущихся транспортных средств, без выезда из занимаемой полосы.",
+          "Движение с большей скоростью, чем скорость одного или нескольких движущихся транспортных средств, связанное с выездом из занимаемой полосы."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q063",
+      "testNumber": 2,
+      "sourceQuestionNumber": 63,
+      "category": "parking",
+      "prompt": {
+        "hy": "Երթևեկության սկիզբ է համարվում",
+        "en": "Starting to move means:",
+        "ru": "Началом движения считается:"
+      },
+      "options": {
+        "hy": [
+          "Կանգառի կամ կայանման վայրից տրանսպորտային միջոցի շարժումն սկսելու պահը` կապված հարևան երթևեկության գոտի վերադասավորման հետ կամ առանց դրա։",
+          "Կանգառի կամ կայանման վայրից տրանսպորտային միջոցի շարժումն սկսելու պահը` կապված հարևան երթևեկության գոտի վերադասավորման հետ:"
+        ],
+        "en": [
+          "The moment a vehicle begins moving from a stopping or parking location, with or without changing to an adjacent traffic lane.",
+          "The moment a vehicle begins moving from a stopping or parking location while changing to an adjacent traffic lane."
+        ],
+        "ru": [
+          "Момент начала движения транспортного средства с места остановки или стоянки, связанный либо не связанный с перестроением на соседнюю полосу движения.",
+          "Момент начала движения транспортного средства с места остановки или стоянки, связанный с перестроением на соседнюю полосу движения."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q064",
+      "testNumber": 2,
+      "sourceQuestionNumber": 64,
+      "category": "maneuvers",
+      "prompt": {
+        "hy": "Մանևրում է համարվում",
+        "en": "Maneuvering means:",
+        "ru": "Маневрированием считается:"
+      },
+      "options": {
+        "hy": [
+          "տրանսպորտային միջոցի երթևեկության սկիզբ (կապված հարևան երթևեկության գոտի դուրս գալու հետ), վերադասավորում, երթևեկության ուղղության փոփոխություն, կանգառ (վերադասավորվելով) և հետընթաց կատարելը։",
+          "տրանսպորտային միջոցի երթևեկության սկիզբ, վերադասավորում, երթևեկության ուղղության փոփոխություն, կանգառ և հետընթաց կատարելը։"
+        ],
+        "en": [
+          "Starting to move a vehicle (involving entry into an adjacent traffic lane), changing lanes, changing direction, stopping (with a lane change), and backing.",
+          "Starting to move a vehicle, changing lanes, changing direction, stopping, and backing."
+        ],
+        "ru": [
+          "Начало движения транспортного средства, связанное с выездом на соседнюю полосу движения, перестроение, изменение направления движения, остановка с перестроением и движение задним ходом.",
+          "Начало движения транспортного средства, перестроение, изменение направления движения, остановка и движение задним ходом."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q065",
+      "testNumber": 2,
+      "sourceQuestionNumber": 65,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ բեռնատար ավտոմոբիլը",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a truck is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», грузовой автомобиль — это:"
+      },
+      "options": {
+        "hy": [
+          "իր կառուցվածքով և կահավորվածությամբ բեռների փոխադրման համար նախատեսված ավտոմոբիլն է։",
+          "իր կառուցվածքով և կահավորվածությամբ բեռների փոխադրման համար նախատեսված 3.5 տոննայից ավել կշռող ավտոմոբիլն է։"
+        ],
+        "en": [
+          "An automobile designed by its construction and equipment for the transportation of cargo.",
+          "An automobile weighing more than 3.5 metric tons and designed by its construction and equipment for the transportation of cargo."
+        ],
+        "ru": [
+          "Автомобиль, по своей конструкции и оборудованию предназначенный для перевозки грузов.",
+          "Автомобиль массой более 3,5 тонны, по своей конструкции и оборудованию предназначенный для перевозки грузов."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 14
+    },
+    {
+      "id": "drv_t02_q066",
+      "testNumber": 2,
+      "sourceQuestionNumber": 66,
+      "category": "road_signs",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ բաժանարար գոտի է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a median is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», разделительной полосой считается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհի հարակից երթևեկելի մասերը բաժանող, կառուցվածքորեն առանձնացված տարրը, որը նախատեսված չէ տրանսպորտային միջոցների և հետիոտների երթևեկության կամ կանգառի համար։",
+          "ճանապարհի հարակից երթևեկելի մասերը բաժանող, կառուցվածքորեն և (կամ) համապատասխան գծանշումով առանձնացված տարրը, որը նախատեսված չէ տրանսպորտային միջոցների և հետիոտների երթևեկության կամ կանգառի համար։"
+        ],
+        "en": [
+          "A structurally separated road element that divides adjacent roadways and is not intended for vehicle or pedestrian traffic or stopping.",
+          "A road element that divides adjacent roadways, is separated structurally and/or by appropriate pavement markings, and is not intended for vehicle or pedestrian traffic or stopping."
+        ],
+        "ru": [
+          "Конструктивно выделенный элемент дороги, разделяющий смежные проезжие части и не предназначенный для движения или остановки транспортных средств и пешеходов.",
+          "Конструктивно и (или) соответствующей разметкой выделенный элемент дороги, разделяющий смежные проезжие части и не предназначенный для движения или остановки транспортных средств и пешеходов."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t02_q067",
+      "testNumber": 2,
+      "sourceQuestionNumber": 67,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոց է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a vehicle is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», транспортным средством считается:"
+      },
+      "options": {
+        "hy": [
+          "Ավտոմոբիլն ու մոտոցիկլը։",
+          "Ճանապարհով մարդ, բեռ կամ վրան տեղադրված սարքավորում փոխադրելու համար նախատեսված սարքը։"
+        ],
+        "en": [
+          "An automobile and a motorcycle.",
+          "A device designed to transport a person, cargo, or equipment installed on it along a road."
+        ],
+        "ru": [
+          "Автомобиль и мотоцикл.",
+          "Устройство, предназначенное для перевозки по дороге людей, грузов или установленного на нём оборудования."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t02_q068",
+      "testNumber": 2,
+      "sourceQuestionNumber": 68,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ վարորդին են հավասարեցվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the following persons are considered equivalent to drivers:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», к водителю приравнивается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհով բեռնակիր և (կամ) հեծկան կենդանիներ կամ անասուններ քշող անձը։",
+          "Բեռնակիր և (կամ) հեծկան կենդանիներ կամ անասուններ քշող անձը։"
+        ],
+        "en": [
+          "A person driving pack and/or riding animals or livestock along a road.",
+          "A person driving pack and/or riding animals or livestock."
+        ],
+        "ru": [
+          "Лицо, ведущее по дороге вьючных и (или) верховых животных либо перегоняющее скот.",
+          "Лицо, ведущее вьючных и (или) верховых животных либо перегоняющее скот."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t02_q069",
+      "testNumber": 2,
+      "sourceQuestionNumber": 69,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ մոտոցիկլին են հավասարեցվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the following are considered equivalent to motorcycles:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», к мотоциклам приравниваются:"
+      },
+      "options": {
+        "hy": [
+          "Լրակազմված և լցավորված վիճակում առանց վարորդի, բեռի և ուղևորների` մինչև 400 կգ զանգվածով եռանիվ մեխանիկական տրանսպորտային միջոցները։",
+          "Մոտոամենագնացները (քվադրոցիկլերը)։",
+          "Մոտոցիկլային նստեցվածքով կամ մոտոցիկլային տեսակի ղեկով քվադրիցիկլները։"
+        ],
+        "en": [
+          "Three-wheeled motor vehicles with a mass of up to 400 kg in fully equipped and fueled condition, excluding the driver, cargo, and passengers.",
+          "All-terrain motor vehicles (quadricycles).",
+          "Quadricycles with a motorcycle-type seating position or motorcycle-type handlebars."
+        ],
+        "ru": [
+          "Трёхколёсные механические транспортные средства, масса которых в снаряжённом и заправленном состоянии без водителя, груза и пассажиров не превышает 400 кг.",
+          "Мотовездеходы (квадроциклы).",
+          "Квадрициклы с мотоциклетной посадкой или рулём мотоциклетного типа."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t02_q070",
+      "testNumber": 2,
+      "sourceQuestionNumber": 70,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ մայթ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a sidewalk is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», тротуаром считается:"
+      },
+      "options": {
+        "hy": [
+          "Օրենսդրությամբ սահմանված կարգով հետիոտնի տեղաշարժվելու համար նախատեսված երթևեկելի մասին հարող ճանապարհի տարրը։",
+          "Օրենսդրությամբ սահմանված կարգով հետիոտնի տեղաշարժվելու համար նախատեսված երթևեկելի մասից որևէ եղանակով առանձնացված ճանապարհի տարրը։",
+          "Նշված երկու դեպքերը։"
+        ],
+        "en": [
+          "A road element adjacent to the roadway and intended for pedestrian movement in accordance with the procedure established by law.",
+          "A road element separated from the roadway in any manner and intended for pedestrian movement in accordance with the procedure established by law.",
+          "Both of the listed cases."
+        ],
+        "ru": [
+          "Элемент дороги, примыкающий к проезжей части и предназначенный в установленном законодательством порядке для движения пешеходов.",
+          "Элемент дороги, отделённый от проезжей части любым способом и предназначенный в установленном законодательством порядке для движения пешеходов.",
+          "Оба указанных случая."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 15
+    },
+    {
+      "id": "drv_t02_q071",
+      "testNumber": 2,
+      "sourceQuestionNumber": 71,
+      "category": "other",
+      "prompt": {
+        "hy": "«Ճանապարհային երթեւեկության անվտանգության ապահովման մասին» ՀՀ օրենքի համաձայն՝ ավտոմոբիլ է համարվում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, an automobile is:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», автомобилем считается:"
+      },
+      "options": {
+        "hy": [
+          "Ճանապարհով մարդկանց կամ բեռներ փոխադրելու կամ բեռներ փոխադրելու համար օգտագործվող տրանսպորտային միջոցի քարշակման համար նախատեսված մեխանիկական տրանսպորտային միջոցը, բացառությամբ այնպիսի տրանսպորտային միջոցները, ինչպիսիք են գյուղատնտեսական տրակտորները, որոնց օգտագործումը ճանապարհով մարդկանց կամ բեռներ փոխադրելու կամ բեռներ փոխադրելու համար օգտագործվող տրանսպորտային միջոցի քարշակման համար հանդիսանում է լրացուցիչ գործառույթ։",
+          "Ճանապարհով մարդկանց կամ բեռներ փոխադրելու կամ բեռներ փոխադրելու համար օգտագործվող տրանսպորտային միջոցի քարշակման համար նախատեսված մեխանիկական տրանսպորտային միջոցը, այդ թվում այնպիսի տրանսպորտային միջոցները, ինչպիսիք են գյուղատնտեսական տրակտորները, որոնց օգտագործումը ճանապարհով մարդկանց կամ բեռներ փոխադրելու կամ բեռներ փոխադրելու համար օգտագործվող տրանսպորտային միջոցի քարշակման համար հանդիսանում է լրացուցիչ գործառույթ:"
+        ],
+        "en": [
+          "A motor vehicle designed for transporting people or cargo on a road, or for towing a vehicle used to transport cargo, excluding vehicles such as agricultural tractors for which transporting people or cargo on a road, or towing a vehicle used to transport cargo, is only an additional function.",
+          "A motor vehicle designed for transporting people or cargo on a road, or for towing a vehicle used to transport cargo, including vehicles such as agricultural tractors for which transporting people or cargo on a road, or towing a vehicle used to transport cargo, is only an additional function."
+        ],
+        "ru": [
+          "Механическое транспортное средство, предназначенное для перевозки по дороге людей или грузов либо для буксировки транспортных средств, используемых для перевозки грузов, за исключением таких транспортных средств, как сельскохозяйственные тракторы, для которых использование в указанных целях является дополнительной функцией.",
+          "Механическое транспортное средство, предназначенное для перевозки по дороге людей или грузов либо для буксировки транспортных средств, используемых для перевозки грузов, включая такие транспортные средства, как сельскохозяйственные тракторы, для которых использование в указанных целях является дополнительной функцией."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t02_q072",
+      "testNumber": 2,
+      "sourceQuestionNumber": 72,
+      "category": "penalties",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ «A» կարգի տրանսպորտային միջոցներ վարելու իրավունք վերապահող ՀՀ ազգային վարորդական վկայականն իրավունք է տալիս վարելու նաև",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a national driver’s license of the Republic of Armenia authorizing the operation of Category “A” vehicles also authorizes the operation of:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», национальное водительское удостоверение Республики Армения, предоставляющее право управления транспортными средствами категории «A», также даёт право управлять:"
+      },
+      "options": {
+        "hy": [
+          "«A1» ենթակարգի տրանսպորտային միջոցները։",
+          "«AM» ենթակարգի տրանսպորտային միջոցները։",
+          "«B1» ենթակարգի (մոտոցիկլային նստատեղ կամ ղեկ ունեցող) տրանսպորտային միջոցները։",
+          "Բոլոր թվարկված տրանսպորտային միջոցները։"
+        ],
+        "en": [
+          "Vehicles of subcategory “A1.”",
+          "Vehicles of subcategory “AM.”",
+          "Vehicles of subcategory “B1” having a motorcycle-type seat or handlebar.",
+          "All of the listed vehicles."
+        ],
+        "ru": [
+          "Транспортными средствами подкатегории «A1».",
+          "Транспортными средствами подкатегории «AM».",
+          "Транспортными средствами подкатегории «B1» с мотоциклетной посадкой или рулём.",
+          "Всеми перечисленными транспортными средствами."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t02_q073",
+      "testNumber": 2,
+      "sourceQuestionNumber": 73,
+      "category": "penalties",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ «B» կարգի տրանսպորտային միջոցներ վարելու իրավունք վերապահող ՀՀ ազգային վարորդական վկայականն իրավունք է տալիս վարելու նաև",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, a national driver’s license of the Republic of Armenia authorizing the operation of Category “B” vehicles also authorizes the operation of:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», национальное водительское удостоверение Республики Армения, предоставляющее право управления транспортными средствами категории «B», также даёт право управлять:"
+      },
+      "options": {
+        "hy": [
+          "«B1» ենթակարգի (բացառությամբ մոտոցիկլային նստատեղ կամ ղեկ ունեցող տրանսպորտային միջոցների) տրանսպորտային միջոցները։",
+          "«AM» ենթակարգի տրանսպորտային միջոցները։"
+        ],
+        "en": [
+          "Vehicles of subcategory “B1,” except vehicles having a motorcycle-type seat or handlebar.",
+          "Vehicles of subcategory “AM.”"
+        ],
+        "ru": [
+          "Транспортными средствами подкатегории «B1», за исключением транспортных средств с мотоциклетной посадкой или рулём.",
+          "Транспортными средствами подкатегории «AM»."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t02_q074",
+      "testNumber": 2,
+      "sourceQuestionNumber": 74,
+      "category": "yards",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ ՀՀ իրավասու մարմինների տված միջազգային վարորդական վկայականները ՀՀ տարածքում տրանսպորտային միջոցներ վարելու նպատակով համարվում են",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, international driving permits issued by the competent authorities of the Republic of Armenia are considered, for purposes of driving vehicles within the territory of the Republic of Armenia:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», международные водительские удостоверения, выданные компетентными органами Республики Армения, для управления транспортными средствами на территории Республики Армения считаются:"
+      },
+      "options": {
+        "hy": [
+          "Գործող։",
+          "Չգործող։"
+        ],
+        "en": [
+          "Valid.",
+          "Invalid."
+        ],
+        "ru": [
+          "Действительными.",
+          "Недействительными."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t02_q075",
+      "testNumber": 2,
+      "sourceQuestionNumber": 75,
+      "category": "penalties",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ տրանսպորտային միջոցներ վարելու իրավունքը ծագում է",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, the right to drive vehicles arises:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», право управления транспортными средствами возникает:"
+      },
+      "options": {
+        "hy": [
+          "Վարորդական իրավունքի վկայականը ստանալու պահից:",
+          "Վարորդական իրավունքի վկայականի թվային տարբերակը հատկացնելու պահից:",
+          "Երկու դեպքերում էլ։"
+        ],
+        "en": [
+          "Upon receipt of the driver’s license.",
+          "Upon assignment of the digital version of the driver’s license.",
+          "In either case."
+        ],
+        "ru": [
+          "С момента получения водительского удостоверения.",
+          "С момента предоставления цифровой версии водительского удостоверения.",
+          "В обоих случаях."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 16
+    },
+    {
+      "id": "drv_t02_q076",
+      "testNumber": 2,
+      "sourceQuestionNumber": 76,
+      "category": "yards",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ ՀՀ քաղաքացիների (այդ թվում՝ երկքաղաքացի հանդիսացող)` այլ երկրներում ստացած և Վիեննայի 1968 թվականի «Ճանապարհային երթևեկության մասին» կոնվենցիայով և դրա հետագա փոփոխություններով ու լրացումներով վարորդական վկայականներին ներկայացվող պահանջներին համապատասխանող վարորդական վկայականները Հայաստանի Հանրապետության տարածքում համարվում են գործող՝ այդ անձանց` Հայաստանի Հանրապետություն մուտք գործելու պահից",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, driver’s licenses obtained in other countries by citizens of the Republic of Armenia, including dual citizens, that comply with the requirements for driver’s licenses under the 1968 Vienna Convention on Road Traffic and its subsequent amendments and supplements are considered valid within the territory of the Republic of Armenia, from the date those persons enter the Republic of Armenia, for:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», водительские удостоверения граждан Республики Армения, включая лиц с двойным гражданством, полученные в других государствах и соответствующие требованиям Венской конвенции 1968 года «О дорожном движении» с последующими изменениями и дополнениями, считаются действительными на территории Республики Армения с момента въезда этих лиц в Республику Армения:"
+      },
+      "options": {
+        "hy": [
+          "Մեկ տարի ժամկետով։",
+          "Վեց ամիս ժամկետով:",
+          "Երեք ամիս ժամկետով:"
+        ],
+        "en": [
+          "One year.",
+          "Six months.",
+          "Three months."
+        ],
+        "ru": [
+          "В течение одного года.",
+          "В течение шести месяцев.",
+          "В течение трёх месяцев."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 17
+    },
+    {
+      "id": "drv_t02_q077",
+      "testNumber": 2,
+      "sourceQuestionNumber": 77,
+      "category": "right_of_way",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն՝ թվարկվածներից ո՞ր կարգերի տրանսպորտային միջոցներ վարելու վարորդական իրավունքի վկայական առաջին անգամ ստանալու համար դիմող անձինք պետք է Ներքին գործերի նախարարության հաշվառման-քննական բաժին ներկայացնեն բժշկական հավատարմագրում անցած լինելու մասին տեղեկանք:",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, persons applying for a driver’s license for the first time to operate vehicles of which of the following categories must submit to the registration and examination division of the Ministry of Internal Affairs a certificate confirming that they have undergone medical certification?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», лица, впервые обращающиеся за получением водительского удостоверения на право управления транспортными средствами каких из перечисленных категорий, должны представить в регистрационно-экзаменационное подразделение Министерства внутренних дел справку о прохождении медицинского освидетельствования?"
+      },
+      "options": {
+        "hy": [
+          "«B», «C», «D»",
+          "«C», «D», «T»",
+          "«B», «D», «T»",
+          "«B»,«C», «D»,"
+        ],
+        "en": [
+          "Categories “B,” “C,” and “D.”",
+          "Categories “C,” “D,” and “T.”",
+          "Categories “B,” “D,” and “T.”",
+          "Categories “B,” “C,” and “D.”"
+        ],
+        "ru": [
+          "Категорий «B», «C», «D».",
+          "Категорий «C», «D», «T».",
+          "Категорий «B», «D», «T».",
+          "Категорий «B», «C», «D»."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 17
+    },
+    {
+      "id": "drv_t02_q078",
+      "testNumber": 2,
+      "sourceQuestionNumber": 78,
+      "category": "other",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն` գործնական վարման ուսուցում անցնող վարորդի թեկնածուի կողմից ճանապարհային երթևեկության կանոնները խախտելու դեպքում՝ օրենքով սահմանված կարգով, պատասխանատվություն է կրում",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, if a driver candidate undergoing practical driving instruction violates the traffic rules, liability in accordance with the law is borne by:",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», при нарушении Правил дорожного движения кандидатом в водители, проходящим обучение практическому вождению, ответственность в установленном законом порядке несёт:"
+      },
+      "options": {
+        "hy": [
+          "Վարորդի թեկնածուն։",
+          "Ուսումնական կենտրոնի վարորդ-հրահանգիչը կամ անհատական կարգով գործնական վարել սովորեցնողը:",
+          "Երկուսն էլ։"
+        ],
+        "en": [
+          "The driver candidate.",
+          "The driving instructor of the training center or the person providing individual practical driving instruction.",
+          "Both."
+        ],
+        "ru": [
+          "Кандидат в водители.",
+          "Водитель-инструктор учебного центра либо лицо, обучающее практическому вождению в индивидуальном порядке.",
+          "Оба."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 17
+    },
+    {
+      "id": "drv_t02_q079",
+      "testNumber": 2,
+      "sourceQuestionNumber": 79,
+      "category": "other",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն` «BC» կարգերի ազգային վարորդական վկայական ունեցող 18 տարեկան անձը ե՞րբ կարող է ստանալ նույն կարգերի միջազգային վարորդական վկայական։",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, when may an 18-year-old who holds a national driver’s license for Categories “B” and “C” obtain an international driving permit for the same categories?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», когда 18-летнее лицо, имеющее национальное водительское удостоверение категорий «BC», может получить международное водительское удостоверение тех же категорий?"
+      },
+      "options": {
+        "hy": [
+          "Ազգային վարորդական վկայականը ստանալու հետ միաժամանակ",
+          "19 տարեկանը լրանալուց հետո",
+          "20 տարեկանը լրանալուց հետո",
+          "21 տարեկանը լրանալուց հետո"
+        ],
+        "en": [
+          "At the same time as the national driver’s license is obtained.",
+          "After reaching 19 years of age.",
+          "After reaching 20 years of age.",
+          "After reaching 21 years of age."
+        ],
+        "ru": [
+          "Одновременно с получением национального водительского удостоверения.",
+          "После достижения 19-летнего возраста.",
+          "После достижения 20-летнего возраста.",
+          "После достижения 21-летнего возраста."
+        ]
+      },
+      "correctIndex": 3,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 17
+    },
+    {
+      "id": "drv_t02_q080",
+      "testNumber": 2,
+      "sourceQuestionNumber": 80,
+      "category": "other",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն` «BE», «CE» կարգերի ազգային վարորդական վկայական ունեցող 19 տարեկան անձը ե՞րբ կարող է ստանալ նույն կարգերի միջազգային վարորդական վկայական։",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, when may a 19-year-old who holds a national driver’s license for Categories “BE” and “CE” obtain an international driving permit for the same categories?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», когда 19-летнее лицо, имеющее национальное водительское удостоверение категорий «BE», «CE», может получить международное водительское удостоверение тех же категорий?"
+      },
+      "options": {
+        "hy": [
+          "Ազգային վարորդական վկայականը ստանալու հետ միաժամանակ",
+          "20 տարեկանը լրանալուց հետո",
+          "21 տարեկանը լրանալուց հետո",
+          "22 տարեկանը լրանալուց հետո"
+        ],
+        "en": [
+          "At the same time as the national driver’s license is obtained.",
+          "After reaching 20 years of age.",
+          "After reaching 21 years of age.",
+          "After reaching 22 years of age."
+        ],
+        "ru": [
+          "Одновременно с получением национального водительского удостоверения.",
+          "После достижения 20-летнего возраста.",
+          "После достижения 21-летнего возраста.",
+          "После достижения 22-летнего возраста."
+        ]
+      },
+      "correctIndex": 2,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 18
+    },
+    {
+      "id": "drv_t02_q081",
+      "testNumber": 2,
+      "sourceQuestionNumber": 81,
+      "category": "other",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն` թույլատրվո՞ւմ է «C1» ենթակարգի վարորդական վկայական ունեցող անձին վարել բեռնատար ավտոմոբիլ, որի թույլատրելի առավելագույն զանգվածը գերազանցում է 8500 կգ-ը։",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, is a person holding a driver’s license for subcategory “C1” permitted to drive a truck whose maximum authorized mass exceeds 8500 kg?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», разрешается ли лицу, имеющему водительское удостоверение подкатегории «C1», управлять грузовым автомобилем, разрешённая максимальная масса которого превышает 8500 кг?"
+      },
+      "options": {
+        "hy": [
+          "Թույլատրվում է",
+          "Չի թույլատրվում"
+        ],
+        "en": [
+          "Permitted.",
+          "Not permitted."
+        ],
+        "ru": [
+          "Разрешается.",
+          "Не разрешается."
+        ]
+      },
+      "correctIndex": 1,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 18
+    },
+    {
+      "id": "drv_t02_q082",
+      "testNumber": 2,
+      "sourceQuestionNumber": 82,
+      "category": "other",
+      "prompt": {
+        "hy": "<<Ճանապարհային երթևեկության անվտանգության ապահովման մասին>> ՀՀ օրենքի համաձայն` ընդհանուր օգտագործման ճանապարհներին թույլատրվում է շահագործել",
+        "en": "According to the Law of the Republic of Armenia on Ensuring Road Traffic Safety, which of the following may be operated on public roads?",
+        "ru": "Согласно Закону Республики Армения «Об обеспечении безопасности дорожного движения», на дорогах общего пользования разрешается эксплуатировать:"
+      },
+      "options": {
+        "hy": [
+          "Քվադրիցիկլ։",
+          "Քվադրոցիկլ։",
+          "Երկուսն էլ։"
+        ],
+        "en": [
+          "A quadricycle.",
+          "An all-terrain vehicle (ATV).",
+          "Both."
+        ],
+        "ru": [
+          "Квадрицикл.",
+          "Квадроцикл.",
+          "Оба транспортных средства."
+        ]
+      },
+      "correctIndex": 0,
+      "imageUrl": null,
+      "imageFilename": null,
+      "page": 18
+    }
+  ]
+}

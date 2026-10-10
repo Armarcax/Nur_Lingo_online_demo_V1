@@ -1,8 +1,10 @@
 {
-  "version": "3.0",
-  "generatedAt": "2026-10-09T23:34:55.529035Z",
+  "version": "5.0",
+  "generatedAt": "2026-10-10T23:25:30.456527Z",
   "totalTests": 10,
   "totalQuestions": 1050,
+  "totalImages": 699,
+  "rawImageCount": 715,
   "byCategory": {
     "road_signs": 290,
     "maneuvers": 137,
@@ -22,7 +24,7 @@
     {
       "testNumber": 1,
       "questionCount": 145,
-      "imageCount": 124,
+      "imageCount": 123,
       "file": "test-01.json"
     },
     {
@@ -40,25 +42,25 @@
     {
       "testNumber": 4,
       "questionCount": 179,
-      "imageCount": 178,
+      "imageCount": 174,
       "file": "test-04.json"
     },
     {
       "testNumber": 5,
       "questionCount": 136,
-      "imageCount": 133,
+      "imageCount": 130,
       "file": "test-05.json"
     },
     {
       "testNumber": 6,
       "questionCount": 95,
-      "imageCount": 88,
+      "imageCount": 85,
       "file": "test-06.json"
     },
     {
       "testNumber": 7,
       "questionCount": 129,
-      "imageCount": 116,
+      "imageCount": 111,
       "file": "test-07.json"
     },
     {

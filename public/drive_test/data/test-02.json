@@ -29,6 +29,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 1
     },
     {
@@ -61,6 +63,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 1
     },
     {
@@ -93,6 +97,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 1
     },
     {
@@ -122,6 +128,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 1
     },
     {
@@ -157,6 +165,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 1
     },
     {
@@ -186,6 +196,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 2
     },
     {
@@ -218,6 +230,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 2
     },
     {
@@ -247,6 +261,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 2
     },
     {
@@ -279,6 +295,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 2
     },
     {
@@ -311,6 +329,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 2
     },
     {
@@ -343,6 +363,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 3
     },
     {
@@ -375,6 +397,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 3
     },
     {
@@ -410,6 +434,8 @@
       "correctIndex": 3,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 3
     },
     {
@@ -442,6 +468,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 3
     },
     {
@@ -471,6 +499,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 3
     },
     {
@@ -500,6 +530,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 4
     },
     {
@@ -532,6 +564,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 4
     },
     {
@@ -561,6 +595,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 4
     },
     {
@@ -590,6 +626,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 4
     },
     {
@@ -619,6 +657,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 4
     },
     {
@@ -654,6 +694,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 5
     },
     {
@@ -686,6 +728,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 5
     },
     {
@@ -721,6 +765,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 5
     },
     {
@@ -753,6 +799,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 5
     },
     {
@@ -785,6 +833,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 5
     },
     {
@@ -820,6 +870,8 @@
       "correctIndex": 3,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 6
     },
     {
@@ -852,6 +904,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 6
     },
     {
@@ -881,6 +935,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 6
     },
     {
@@ -910,6 +966,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 6
     },
     {
@@ -942,6 +1000,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 6
     },
     {
@@ -957,7 +1017,7 @@
       "options": {
         "hy": [
           "Առնվազն երկու անիվ ունեցող եւ որպես կանոն դրա վրա գտնվող մարդու մկանային ուժով, մասնավորապես ոտնակի կամ բռնակի օգնությամբ շարժման մեջ դրվող տրանսպորտային միջոցը, ինչպես նաեւ հաշմանդամային սայլակը։",
-          "Առնվազն երկու անիվ ունեցող եւ, որպես կանոն, դրա վրա գտնվող անձի մկանային ուժով, մասնավորապես ոտնակի կամ բռնակի օգնությամբ շարժման մեջ դրվող տրանսպորտային միջոցը՝ բացառությամբ հաշմանդամային սայլակի, որը կարող է ունենալ նաև երկարատև ծանրաբեռնվածության ռեժիմում 0\u000025 կՎտ-ը չգերազանցող նոմինալ առավելագույն հզորությամբ՝ 25կմ/ժ-ից ավելի արագության դեպքում ավտոմատ անջատվող էլեկտրական շարժիչ։"
+          "Առնվազն երկու անիվ ունեցող եւ, որպես կանոն, դրա վրա գտնվող անձի մկանային ուժով, մասնավորապես ոտնակի կամ բռնակի օգնությամբ շարժման մեջ դրվող տրանսպորտային միջոցը՝ բացառությամբ հաշմանդամային սայլակի, որը կարող է ունենալ նաև երկարատև ծանրաբեռնվածության ռեժիմում 0 \u000025 կՎտ-ը չգերազանցող նոմինալ առավելագույն հզորությամբ՝ 25կմ/ժ-ից ավելի արագության դեպքում ավտոմատ անջատվող էլեկտրական շարժիչ։"
         ],
         "en": [
           "A vehicle with at least two wheels, normally propelled by the muscular power of a person on it, particularly by means of pedals or hand cranks, as well as a wheelchair.",
@@ -971,6 +1031,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 7
     },
     {
@@ -1000,6 +1062,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 7
     },
     {
@@ -1029,6 +1093,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 7
     },
     {
@@ -1061,6 +1127,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 7
     },
     {
@@ -1090,6 +1158,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 7
     },
     {
@@ -1122,6 +1192,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1151,6 +1223,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1183,6 +1257,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1215,6 +1291,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1250,6 +1328,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1285,6 +1365,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 8
     },
     {
@@ -1317,6 +1399,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 9
     },
     {
@@ -1349,6 +1433,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 9
     },
     {
@@ -1381,6 +1467,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 9
     },
     {
@@ -1413,6 +1501,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 9
     },
     {
@@ -1440,8 +1530,10 @@
         ]
       },
       "correctIndex": 0,
-      "imageUrl": "/drive_test/data/images/test-02/page-10-img-01.jpeg",
-      "imageFilename": "page-10-img-01.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-046-c66531b7.jpeg",
+      "imageFilename": "q-046-c66531b7.jpeg",
+      "imageHash": "c66531b7",
+      "sharedByQuestions": [],
       "page": 10
     },
     {
@@ -1472,8 +1564,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": "/drive_test/data/images/test-02/page-10-img-02.jpeg",
-      "imageFilename": "page-10-img-02.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-047-2e8eec47.jpeg",
+      "imageFilename": "q-047-2e8eec47.jpeg",
+      "imageHash": "2e8eec47",
+      "sharedByQuestions": [],
       "page": 10
     },
     {
@@ -1504,8 +1598,10 @@
         ]
       },
       "correctIndex": 2,
-      "imageUrl": "/drive_test/data/images/test-02/page-10-img-03.jpeg",
-      "imageFilename": "page-10-img-03.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-048-a79e93c5.jpeg",
+      "imageFilename": "q-048-a79e93c5.jpeg",
+      "imageHash": "a79e93c5",
+      "sharedByQuestions": [],
       "page": 10
     },
     {
@@ -1539,8 +1635,10 @@
         ]
       },
       "correctIndex": 3,
-      "imageUrl": "/drive_test/data/images/test-02/page-11-img-01.jpeg",
-      "imageFilename": "page-11-img-01.jpeg",
+      "imageUrl": null,
+      "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 11
     },
     {
@@ -1571,8 +1669,10 @@
         ]
       },
       "correctIndex": 0,
-      "imageUrl": "/drive_test/data/images/test-02/page-11-img-02.jpeg",
-      "imageFilename": "page-11-img-02.jpeg",
+      "imageUrl": null,
+      "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 11
     },
     {
@@ -1603,8 +1703,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": null,
-      "imageFilename": null,
+      "imageUrl": "/drive_test/data/images/test-02/q-051-0d0ed244.jpeg",
+      "imageFilename": "q-051-0d0ed244.jpeg",
+      "imageHash": "0d0ed244",
+      "sharedByQuestions": [],
       "page": 11
     },
     {
@@ -1635,8 +1737,10 @@
         ]
       },
       "correctIndex": 0,
-      "imageUrl": null,
-      "imageFilename": null,
+      "imageUrl": "/drive_test/data/images/test-02/q-052-b78e776c.jpeg",
+      "imageFilename": "q-052-b78e776c.jpeg",
+      "imageHash": "b78e776c",
+      "sharedByQuestions": [],
       "page": 11
     },
     {
@@ -1664,8 +1768,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": "/drive_test/data/images/test-02/page-12-img-01.jpeg",
-      "imageFilename": "page-12-img-01.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-053-91b781e2.jpeg",
+      "imageFilename": "q-053-91b781e2.jpeg",
+      "imageHash": "91b781e2",
+      "sharedByQuestions": [],
       "page": 12
     },
     {
@@ -1693,8 +1799,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": "/drive_test/data/images/test-02/page-12-img-02.jpeg",
-      "imageFilename": "page-12-img-02.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-054-018bde88.jpeg",
+      "imageFilename": "q-054-018bde88.jpeg",
+      "imageHash": "018bde88",
+      "sharedByQuestions": [],
       "page": 12
     },
     {
@@ -1725,8 +1833,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": "/drive_test/data/images/test-02/page-12-img-03.jpeg",
-      "imageFilename": "page-12-img-03.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-055-6a587a85.jpeg",
+      "imageFilename": "q-055-6a587a85.jpeg",
+      "imageHash": "6a587a85",
+      "sharedByQuestions": [],
       "page": 12
     },
     {
@@ -1757,8 +1867,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": "/drive_test/data/images/test-02/page-13-img-01.jpeg",
-      "imageFilename": "page-13-img-01.jpeg",
+      "imageUrl": null,
+      "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 13
     },
     {
@@ -1789,8 +1901,10 @@
         ]
       },
       "correctIndex": 0,
-      "imageUrl": "/drive_test/data/images/test-02/page-13-img-02.jpeg",
-      "imageFilename": "page-13-img-02.jpeg",
+      "imageUrl": "/drive_test/data/images/test-02/q-057-ea0d154d.jpeg",
+      "imageFilename": "q-057-ea0d154d.jpeg",
+      "imageHash": "ea0d154d",
+      "sharedByQuestions": [],
       "page": 13
     },
     {
@@ -1821,8 +1935,10 @@
         ]
       },
       "correctIndex": 1,
-      "imageUrl": null,
-      "imageFilename": null,
+      "imageUrl": "/drive_test/data/images/test-02/q-058-dfe7f76a.jpeg",
+      "imageFilename": "q-058-dfe7f76a.jpeg",
+      "imageHash": "dfe7f76a",
+      "sharedByQuestions": [],
       "page": 13
     },
     {
@@ -1855,6 +1971,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 13
     },
     {
@@ -1884,6 +2002,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -1913,6 +2033,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -1942,6 +2064,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -1971,6 +2095,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -2000,6 +2126,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -2029,6 +2157,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 14
     },
     {
@@ -2058,6 +2188,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 15
     },
     {
@@ -2087,6 +2219,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 15
     },
     {
@@ -2116,6 +2250,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 15
     },
     {
@@ -2148,6 +2284,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 15
     },
     {
@@ -2180,6 +2318,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 15
     },
     {
@@ -2209,6 +2349,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 16
     },
     {
@@ -2244,6 +2386,8 @@
       "correctIndex": 3,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 16
     },
     {
@@ -2273,6 +2417,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 16
     },
     {
@@ -2302,6 +2448,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 16
     },
     {
@@ -2334,6 +2482,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 16
     },
     {
@@ -2366,6 +2516,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 17
     },
     {
@@ -2401,6 +2553,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 17
     },
     {
@@ -2433,6 +2587,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 17
     },
     {
@@ -2468,6 +2624,8 @@
       "correctIndex": 3,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 17
     },
     {
@@ -2503,6 +2661,8 @@
       "correctIndex": 2,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 18
     },
     {
@@ -2532,6 +2692,8 @@
       "correctIndex": 1,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 18
     },
     {
@@ -2564,6 +2726,8 @@
       "correctIndex": 0,
       "imageUrl": null,
       "imageFilename": null,
+      "imageHash": null,
+      "sharedByQuestions": [],
       "page": 18
     }
   ]

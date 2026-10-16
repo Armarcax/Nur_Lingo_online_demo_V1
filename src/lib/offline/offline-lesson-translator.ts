@@ -205,7 +205,7 @@ export function translateOfflineLessonForLang(
       translatedOptions = ex.options.map((opt) => {
         const t = translateWord(opt, lang, lookup);
         if (t !== opt) translatedOptionsCount += 1;
-        else if (lang !== "en") missingTranslations += 1;
+        else missingTranslations += 1;
         return t;
       });
     }

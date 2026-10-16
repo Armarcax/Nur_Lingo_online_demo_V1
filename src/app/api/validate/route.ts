@@ -4,6 +4,26 @@ import { fullValidationWithAI } from "@/lib/ai/evaluator";
 
 export const runtime = "edge";
 
+// ─── LANGUAGE CODE TYPE GUARD ───────────────────────────────────────
+
+type LangCode = "hy" | "en" | "ru";
+
+const VALID_LANGS: readonly LangCode[] = ["hy", "en", "ru"] as const;
+
+/**
+ * Narrow an unknown value to a valid LangCode, with a fallback.
+ * Replaces unsafe `String(...)` casts that break strict typing.
+ */
+function toLangCode(value: unknown, fallback: LangCode = "en"): LangCode {
+  if (
+    typeof value === "string" &&
+    (VALID_LANGS as readonly string[]).includes(value)
+  ) {
+    return value as LangCode;
+  }
+  return fallback;
+}
+
 // ─── CONSTANTS ──────────────────────────────────────────────────────
 
 const MAX_ANSWER_LENGTH = 500;
@@ -87,7 +107,10 @@ function sanitizeValidForms(value: unknown): string[] {
 /**
  * Compute ratio of words that appear in both lists (order-agnostic).
  */
-function wordSetRatio(a: string[], b: string[]): {
+function wordSetRatio(
+  a: string[],
+  b: string[]
+): {
   ratio: number;
   allPresent: boolean;
 } {
@@ -476,9 +499,7 @@ export async function POST(req: NextRequest) {
         const r = checkExactMatch(userAnswer, expectedAnswer, allValidAnswers);
         result.accepted = r.accepted;
         result.score = r.score;
-        result.feedback = r.accepted
-          ? "✅ Ճիշտ է"
-          : "❌ Փորձիր նորից";
+        result.feedback = r.accepted ? "✅ Ճիշտ է" : "❌ Փորձիր նորից";
         result.corrections = r.accepted ? undefined : [expectedAnswer];
         result.layer = "exact_match";
         break;
@@ -497,9 +518,10 @@ export async function POST(req: NextRequest) {
         const aiResult = await fullValidationWithAI({
           userAnswer,
           expectedAnswer,
-          sourceSentence: typeof englishOriginal === "string" ? englishOriginal : "",
-          sourceLanguage: String(sourceLanguage),
-          targetLanguage: String(targetLanguage),
+          sourceSentence:
+            typeof englishOriginal === "string" ? englishOriginal : "",
+          sourceLanguage: toLangCode(sourceLanguage, "en"),
+          targetLanguage: toLangCode(targetLanguage, "hy"),
           allValidForms: allValidAnswers,
         });
 

@@ -2,7 +2,6 @@
 
 import type { ContentLesson, QuickLesson } from "../types";
 import { expand } from "./helpers";
-import { NUMBERS_1_10 } from "../database";
 
 const QUICK_LESSONS: QuickLesson[] = [
   // ===== w1_l4 - Countries =====
@@ -84,16 +83,15 @@ const QUICK_LESSONS: QuickLesson[] = [
       },
     ],
 
-    // ✅ 16-րդ հարցը - Match Pairs (Երկրներ)
-    // @ts-ignore - exercises is a valid field for ContentLesson
+    // ✅ Custom match_pairs — split into 3 smaller exercises
     exercises: [
       {
-        id: "w1_l4_ex16",
+        id: "w1_l4_ex1",
         type: "match_pairs",
         prompt: {
-          hy: "Համապատասխանեցրու երկրների անունները հայերեն և անգլերեն։",
-          en: "Match the country names in Armenian and English.",
-          ru: "Сопоставьте названия стран на армянском и английском."
+          hy: "Համապատասխանեցրու առաջին 6 երկրների անունները։",
+          en: "Match the first 6 country names.",
+          ru: "Сопоставьте первые 6 стран.",
         },
         pairs: [
           ["Հայաստան", "Armenia"],
@@ -102,20 +100,6 @@ const QUICK_LESSONS: QuickLesson[] = [
           ["Անգլիա", "England"],
           ["Ֆրանսիա", "France"],
           ["Գերմանիա", "Germany"],
-          ["Իտալիա", "Italy"],
-          ["Իսպանիա", "Spain"],
-          ["Չինաստան", "China"],
-          ["Ճապոնիա", "Japan"],
-          ["Հնդկաստան", "India"],
-          ["Բրազիլիա", "Brazil"],
-          ["Թուրքիա", "Turkey"],
-          ["Իրան", "Iran"],
-          ["Վրաստան", "Georgia"],
-          ["Ուկրաինա", "Ukraine"],
-          ["Կանադա", "Canada"],
-          ["Մեքսիկա", "Mexico"],
-          ["Հունաստան", "Greece"],
-          ["Եգիպտոս", "Egypt"]
         ],
         targetAnswer: JSON.stringify({
           "Հայաստան": "Armenia",
@@ -124,12 +108,62 @@ const QUICK_LESSONS: QuickLesson[] = [
           "Անգլիա": "England",
           "Ֆրանսիա": "France",
           "Գերմանիա": "Germany",
+        }),
+        hint: {
+          hy: "Միացրու հայերեն և անգլերեն անունները։",
+          en: "Match Armenian and English names.",
+          ru: "Сопоставьте армянские и английские названия.",
+        },
+      },
+      {
+        id: "w1_l4_ex2",
+        type: "match_pairs",
+        prompt: {
+          hy: "Համապատասխանեցրու հաջորդ 6 երկրները։",
+          en: "Match the next 6 countries.",
+          ru: "Сопоставьте следующие 6 стран.",
+        },
+        pairs: [
+          ["Իտալիա", "Italy"],
+          ["Իսպանիա", "Spain"],
+          ["Չինաստան", "China"],
+          ["Ճապոնիա", "Japan"],
+          ["Հնդկաստան", "India"],
+          ["Բրազիլիա", "Brazil"],
+        ],
+        targetAnswer: JSON.stringify({
           "Իտալիա": "Italy",
           "Իսպանիա": "Spain",
           "Չինաստան": "China",
           "Ճապոնիա": "Japan",
           "Հնդկաստան": "India",
           "Բրազիլիա": "Brazil",
+        }),
+        hint: {
+          hy: "6 զույգ՝ միացրու ճիշտ ձևով։",
+          en: "6 pairs — match them correctly.",
+          ru: "6 пар — соедините правильно.",
+        },
+      },
+      {
+        id: "w1_l4_ex3",
+        type: "match_pairs",
+        prompt: {
+          hy: "Համապատասխանեցրու վերջին 8 երկրները։",
+          en: "Match the last 8 countries.",
+          ru: "Сопоставьте последние 8 стран.",
+        },
+        pairs: [
+          ["Թուրքիա", "Turkey"],
+          ["Իրան", "Iran"],
+          ["Վրաստան", "Georgia"],
+          ["Ուկրաինա", "Ukraine"],
+          ["Կանադա", "Canada"],
+          ["Մեքսիկա", "Mexico"],
+          ["Հունաստան", "Greece"],
+          ["Եգիպտոս", "Egypt"],
+        ],
+        targetAnswer: JSON.stringify({
           "Թուրքիա": "Turkey",
           "Իրան": "Iran",
           "Վրաստան": "Georgia",
@@ -137,39 +171,15 @@ const QUICK_LESSONS: QuickLesson[] = [
           "Կանադա": "Canada",
           "Մեքսիկա": "Mexico",
           "Հունաստան": "Greece",
-          "Եգիպտոս": "Egypt"
+          "Եգիպտոս": "Egypt",
         }),
-        acceptableAnswers: [
-          JSON.stringify({
-            "Հայաստան": "Armenia",
-            "Ռուսաստան": "Russia",
-            "Ամերիկա": "America",
-            "Անգլիա": "England",
-            "Ֆրանսիա": "France",
-            "Գերմանիա": "Germany",
-            "Իտալիա": "Italy",
-            "Իսպանիա": "Spain",
-            "Չինաստան": "China",
-            "Ճապոնիա": "Japan",
-            "Հնդկաստան": "India",
-            "Բրազիլիա": "Brazil",
-            "Թուրքիա": "Turkey",
-            "Իրան": "Iran",
-            "Վրաստան": "Georgia",
-            "Ուկրաինա": "Ukraine",
-            "Կանադա": "Canada",
-            "Մեքսիկա": "Mexico",
-            "Հունաստան": "Greece",
-            "Եգիպտոս": "Egypt"
-          })
-        ],
         hint: {
-          hy: "Պարզապես միացրու հայերեն և անգլերեն անունները։",
-          en: "Simply match the Armenian and English names.",
-          ru: "Просто сопоставьте армянские и английские названия."
-        }
-      }
-    ]
+          hy: "8 զույգ՝ վերջին երկրները։",
+          en: "8 pairs — the last countries.",
+          ru: "8 пар — последние страны.",
+        },
+      },
+    ],
   },
 
   // ===== w1_l5 - Nationalities =====
@@ -268,9 +278,10 @@ const QUICK_LESSONS: QuickLesson[] = [
       hy: "Խոսել քո լեզուների մասին։",
       ru: "Говорить о языках, которыми владеете.",
     },
+    // ✅ FIXED: consistent language names (no "(language)" suffix except native)
     vocab: [
-      ["հայերեն", "Armenian (language)", "армянский"],
-      ["ռուսերեն", "Russian (language)", "русский"],
+      ["հայերեն", "Armenian", "армянский"],
+      ["ռուսերեն", "Russian", "русский"],
       ["անգլերեն", "English", "английский"],
       ["ֆրանսերեն", "French", "французский"],
       ["գերմաներեն", "German", "немецкий"],
@@ -289,7 +300,7 @@ const QUICK_LESSONS: QuickLesson[] = [
       ["քերականություն", "grammar", "грамматика"],
       ["արտասանություն", "pronunciation", "произношение"],
       ["բառարան", "dictionary", "словарь"],
-      ["մայրենի", "native", "родной"],
+      ["մայրենի", "native (language)", "родной"],
       ["օտար", "foreign", "иностранный"],
       ["հեշտ", "easy", "лёгкий"],
       ["դժվար", "difficult", "трудный"],
@@ -352,6 +363,7 @@ const QUICK_LESSONS: QuickLesson[] = [
       hy: "Հարցնել ու ասել տարիքը։",
       ru: "Спрашивать и говорить о возрасте.",
     },
+    // ✅ FIXED: split ambiguous meanings (մեծ was "old/big")
     vocab: [
       ["մեկ", "one", "один"],
       ["երկու", "two", "два"],
@@ -375,8 +387,9 @@ const QUICK_LESSONS: QuickLesson[] = [
       ["տարեկան", "years old", "лет"],
       ["ծնունդ", "birthday", "день рождения"],
       ["երիտասարդ", "young", "молодой"],
-      ["մեծ", "old/big", "старый/большой"],
-      ["փոքր", "small/young", "маленький/молодой"],
+      ["մեծ", "big", "большой"],
+      ["փոքր", "small", "маленький"],
+      ["տարեց", "old (person)", "пожилой"],
     ],
     phrases: [
       ["Քանի՞ տարեկան ես։", "How old are you?", "Сколько тебе лет?"],
@@ -645,7 +658,8 @@ const QUICK_LESSONS: QuickLesson[] = [
       ["Իմ հայրը ինժեներ է։", "My father is an engineer.", "Мой отец инженер."],
       ["Աշխատանքս դժվար է, բայց սիրում եմ։", "My work is hard but I love it.", "Работа трудная, но я люблю её."],
       ["Ութ ժամ եմ աշխատում։", "I work eight hours.", "Я работаю восемь часов."],
-      ["Ես աշխատաթ չեմ։", "I am unemployed.", "Я безработный."],
+      // ✅ FIXED: "աշխատաթ" → "գործազուրկ եմ"
+      ["Ես գործազուրկ եմ։", "I am unemployed.", "Я безработный."],
     ],
     dialogues: [
       {

@@ -11,7 +11,6 @@ import {
   Flame,
   Coins,
   Heart,
-  Menu,
   X,
   Lock,
   Gift,
@@ -19,38 +18,23 @@ import {
   Clock,
   BookOpen,
   Sparkles,
-  Zap,
   TrendingUp,
-  Award,
   Target,
-  Calendar,
   Star,
   Crown,
-  Medal,
-  Users,
-  MessageSquare,
-  Music,
-  Mic,
   Settings,
-  ChevronDown,
-  ChevronUp,
   Grid3x3,
   List,
-  Filter,
   Search,
   ArrowUp,
-  RefreshCw,
   Loader2,
-  AlertCircle,
-  Check,
-  Share2,
-  Copy,
   Unlock,
   Lock as LockIcon,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import {
   loadRewards,
+  saveRewards,
   syncHearts,
   checkAndApplyFreeze,
   checkStreakMilestones,
@@ -69,8 +53,7 @@ import { hayqToLevel } from "@/lib/lessons/engine";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { loadLangConfig, LangCode } from "@/lib/i18n/index";
 import { GlassCard } from "@/components/ui/glass-card";
-import { PageLayout } from "@/components/PageLayout";
-import { useI18n } from "@/hooks/useI18n"; // ✅ ՃԻՇՏ import
+import { useI18n } from "@/hooks/useI18n";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 
@@ -85,6 +68,20 @@ interface WorldStats {
   bestStreak: number;
   totalHAYQ: number;
   totalSeeds: number;
+}
+
+// ✅ FIXED: canonical localStorage keys (must match seeds.ts)
+const STORAGE_KEYS = {
+  UNLOCK_ALL: "nurlingo_unlock_all",
+  COMPACT: "nurlingo_compact_world",
+  LANG_CONFIG: "nur_lang_config",
+} as const;
+
+// ─── HELPERS ──────────────────────────────────────────────────────────
+
+/** ✅ Case-insensitive search that handles Armenian, Cyrillic, Latin */
+function normalizeForSearch(s: string): string {
+  return s.toLocaleLowerCase("hy-AM").normalize("NFC");
 }
 
 // ─── CONFETTI ─────────────────────────────────────────────────────────
@@ -138,25 +135,21 @@ function SnakePath({
   isCompact?: boolean;
   isUnlocked?: boolean;
 }) {
-  const { t } = useI18n();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(400);
 
-  // 📱 Responsive: measure available width on the parent and scale all positions
   useEffect(() => {
     const measure = () => {
       const el = wrapperRef.current;
       if (!el || !el.parentElement) return;
-      // GlassCard has p-6 (24px each side = 48px total padding)
       const available = el.parentElement.clientWidth - 48;
       setContainerWidth(Math.max(260, Math.min(400, available)));
     };
-    // Let layout settle first
     const t = setTimeout(measure, 0);
-    window.addEventListener('resize', measure);
+    window.addEventListener("resize", measure);
     return () => {
       clearTimeout(t);
-      window.removeEventListener('resize', measure);
+      window.removeEventListener("resize", measure);
     };
   }, []);
 
@@ -304,21 +297,6 @@ function SnakePath({
   );
 }
 
-// ─── STAT COMPONENT ──────────────────────────────────────────────────
-
-function Stat({ icon, value, color, label, onClick }: { icon: string; value: string | number; color?: string; label?: string; onClick?: () => void }) {
-  return (
-    <div 
-      className={`bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-3 py-1.5 rounded-xl flex items-center gap-1 text-sm font-bold ${color || ""} ${onClick ? "cursor-pointer hover:border-white/40 dark:hover:border-white/20 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]" : ""}`}
-      onClick={onClick}
-    >
-      <span>{icon}</span>
-      <span>{value}</span>
-      {label && <span className="text-[8px] text-white/40 font-normal ml-0.5">{label}</span>}
-    </div>
-  );
-}
-
 // ─── STREAK MILESTONE MODAL ─────────────────────────────────────────
 
 function StreakMilestoneModal({
@@ -446,9 +424,8 @@ function UnitProgressBar({ completed, total }: { completed: number; total: numbe
 export default function WorldPage() {
   const router = useRouter();
   const { setPage } = useNuri();
-  const { t, locale } = useI18n(); // ✅ ՃԻՇՏ useI18n
+  const { t, locale } = useI18n();
   
-  // ─── LOCAL TOAST ──────────────────────────────────────────────────
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
   
@@ -471,20 +448,16 @@ export default function WorldPage() {
   const [pair, setPair] = useState<LangPair>("en-hy");
   const [quests, setQuests] = useState<Quest[]>([]);
   const [showStats, setShowStats] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [worldStats, setWorldStats] = useState<WorldStats | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
   const [unlockAllActive, setUnlockAllActive] = useState(false);
   
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const confettiRef = useRef<Record<string, boolean>>({});
 
   // ─── LOAD DATA ──────────────────────────────────────────────────────
 
@@ -496,12 +469,13 @@ export default function WorldPage() {
       setNative(nat);
       setPair(p);
 
+      // Sync rewards state
       const r = syncHearts();
       const withFreeze = checkAndApplyFreeze();
       const res = checkStreakMilestones();
       const goalRes = checkDailyGoalBonus();
       
-      const mergedRewards = {
+      const mergedRewards: UserRewards = {
         ...r,
         ...withFreeze,
         ...(res.rewards || {}),
@@ -512,8 +486,8 @@ export default function WorldPage() {
       if (res.milestone) setMilestone(res.milestone);
 
       const today = new Date().toISOString().split("T")[0];
-      const dailyActivity = goalRes.rewards?.dailyActivity?.[today] || 0;
-      const dailyGoal = goalRes.rewards?.dailyGoal || 50;
+      const dailyActivity = mergedRewards.dailyActivity?.[today] || 0;
+      const dailyGoal = mergedRewards.dailyGoal || 50;
       if (dailyActivity >= dailyGoal) {
         setGoalAchieved(true);
       }
@@ -534,18 +508,25 @@ export default function WorldPage() {
         setQuests([]);
       }
 
-      // ✅ Check unlock all setting from localStorage
+      // ✅ Read unlock setting from canonical key
       try {
-        const unlockSetting = localStorage.getItem("nurlingo_unlock_all");
+        const unlockSetting = localStorage.getItem(STORAGE_KEYS.UNLOCK_ALL);
         if (unlockSetting === "true") {
-          setIsUnlocked(true);
           setUnlockAllActive(true);
         }
       } catch {
         // Ignore
       }
 
-      const savedConfig = localStorage.getItem("nur_lang_config");
+      // Read compact preference
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.COMPACT);
+        if (saved) setIsCompact(saved === "true");
+      } catch {
+        // Ignore
+      }
+
+      const savedConfig = localStorage.getItem(STORAGE_KEYS.LANG_CONFIG);
       if (!savedConfig) {
         router.push("/onboarding");
         return;
@@ -570,8 +551,9 @@ export default function WorldPage() {
       ).length,
       overallProgress: Math.round((allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length / allLessons.length) * 100),
       totalCrowns: allLessons.reduce((sum, l) => sum + (rewards.crowns[l.id] || 0), 0),
+      // ✅ FIXED: use maxStreak for bestStreak
       currentStreak: rewards.streak || 0,
-      bestStreak: rewards.streak || 0,
+      bestStreak: rewards.maxStreak || rewards.streak || 0,
       totalHAYQ: rewards.totalHAYQ || 0,
       totalSeeds: rewards.totalSeeds || 0,
     };
@@ -597,7 +579,6 @@ export default function WorldPage() {
       }
       if (e.key === "Escape") {
         setShowStats(false);
-        setShowSettings(false);
         setShowSearch(false);
         setSearchQuery("");
       }
@@ -618,17 +599,10 @@ export default function WorldPage() {
     try {
       const reward = claimReward(questId);
       if (reward) {
-        addRewards(reward.hayq, reward.seeds || 0);
+        // ✅ addRewards already persists; no need to saveRewards here
+        const updated = addRewards(reward.hayq, reward.seeds || 0);
         setQuests(loadQuests() || []);
-        setRewards((prev) =>
-          prev
-            ? {
-                ...prev,
-                totalHAYQ: (prev.totalHAYQ || 0) + reward.hayq,
-                totalSeeds: (prev.totalSeeds || 0) + (reward.seeds || 0),
-              }
-            : null
-        );
+        setRewards(updated);
         showMessage(t("page_quest_claimed", { hayq: reward.hayq }), "success");
       }
     } catch (error) {
@@ -649,7 +623,7 @@ export default function WorldPage() {
     setIsCompact(prev => {
       const newVal = !prev;
       try {
-        localStorage.setItem("nurlingo_compact_world", String(newVal));
+        localStorage.setItem(STORAGE_KEYS.COMPACT, String(newVal));
       } catch {
         // Ignore
       }
@@ -659,54 +633,46 @@ export default function WorldPage() {
 
   // ─── TOGGLE UNLOCK ALL ────────────────────────────────────────────
 
+  /**
+   * ✅ FIXED: 
+   * - Uses canonical localStorage key from seeds.ts
+   * - No side effects inside setState callback
+   * - No full page reload
+   * - Immediately grants crowns to w1 lessons for visualization
+   */
   const toggleUnlockAll = useCallback(() => {
-    setIsUnlocked(prev => {
-      const newVal = !prev;
-      setUnlockAllActive(newVal);
-      try {
-        localStorage.setItem("nurlingo_unlock_all", String(newVal));
-      } catch {
-        // Ignore
-      }
-      showMessage(
-        newVal ? t("page_unlock_all_on") : t("page_unlock_all_off"),
-        newVal ? "success" : "info"
-      );
-      
-      // ✅ Refresh the page to apply changes
-      if (newVal) {
-        // Also add crowns for all w1 lessons to show them as completed
-        try {
-          const rewards = JSON.parse(localStorage.getItem("nurlingo_rewards") || "{}");
-          if (!rewards.crowns) rewards.crowns = {};
-          for (let i = 1; i <= 10; i++) {
-            rewards.crowns[`w1_l${i}`] = 3;
-          }
-          localStorage.setItem("nurlingo_rewards", JSON.stringify(rewards));
-        } catch {
-          // Ignore
-        }
-      }
-      
-      // Reload to apply changes
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-      
-      return newVal;
-    });
-  }, [showMessage, t]);
+    const newVal = !unlockAllActive;
 
-  // ─── LOAD COMPACT PREFERENCE ──────────────────────────────────────
-
-  useEffect(() => {
     try {
-      const saved = localStorage.getItem("nurlingo_compact_world");
-      if (saved) setIsCompact(saved === "true");
+      localStorage.setItem(STORAGE_KEYS.UNLOCK_ALL, String(newVal));
     } catch {
       // Ignore
     }
-  }, []);
+
+    if (newVal) {
+      // Grant 3 crowns to all w1 lessons so they appear as completed
+      try {
+        const current = loadRewards();
+        const updated = { ...current, crowns: { ...current.crowns } };
+        for (let i = 1; i <= 10; i++) {
+          const id = `w1_l${i}`;
+          if (!updated.crowns[id]) {
+            updated.crowns[id] = 3;
+          }
+        }
+        saveRewards(updated);
+        setRewards(updated);
+      } catch (error) {
+        console.warn("Failed to grant unlock-all crowns:", error);
+      }
+    }
+
+    setUnlockAllActive(newVal);
+    showMessage(
+      newVal ? t("page_unlock_all_on") : t("page_unlock_all_off"),
+      newVal ? "success" : "info"
+    );
+  }, [unlockAllActive, showMessage, t]);
 
   // ─── FILTERED UNITS ───────────────────────────────────────────────
 
@@ -718,19 +684,26 @@ export default function WorldPage() {
     }
     
     if (searchQuery.trim()) {
-      const q = searchQuery.trim().toLowerCase();
-      result = result.filter(u => 
-        (u.title[native] || u.title.en).toLowerCase().includes(q) ||
-        (u.description[native] || u.description.en).toLowerCase().includes(q)
-      );
+      // ✅ Use normalized search for all scripts
+      const q = normalizeForSearch(searchQuery.trim());
+      result = result.filter(u => {
+        const title = normalizeForSearch(u.title[native] || u.title.en || "");
+        const desc = normalizeForSearch(u.description[native] || u.description.en || "");
+        return title.includes(q) || desc.includes(q);
+      });
     }
     
     return result;
   }, [units, selectedUnit, searchQuery, native]);
 
-  if (!rewards) return null;
+  // ✅ FIXED: cache levels
+  const level = useMemo(
+    () => (rewards ? hayqToLevel(rewards.totalHAYQ || 0) : null),
+    [rewards]
+  );
 
-  const level = hayqToLevel(rewards.totalHAYQ || 0);
+  if (!rewards || !level) return null;
+
   const completedLessons = allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length;
   const totalLessons = allLessons.length;
   const overallProgress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
@@ -742,8 +715,8 @@ export default function WorldPage() {
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="relative z-10 flex flex-col">
         
-        {/* Nuri - վերևի աջ անկյունում */}
-        <div className="fixed top-24 right-6 z-50">
+        {/* Nuri - fixed top right */}
+        <div className="fixed top-24 right-6 z-50 pointer-events-none">
           <img 
             src="/images/nuri/nuri-learning.png" 
             alt="Nuri learning" 
@@ -769,7 +742,7 @@ export default function WorldPage() {
               </p>
             </div>
             
-            {/* ✅ Unlock All Toggle Button - top header */}
+            {/* ✅ Unlock All Toggle */}
             <button
               onClick={toggleUnlockAll}
               className={`p-2 rounded-xl border transition-all duration-300 ${
@@ -947,9 +920,8 @@ export default function WorldPage() {
               </div>
               <div className="space-y-2">
                 {quests.map((q) => {
-                  // ✅ Helper to get description
                   const getDescription = (q: Quest, lang: LangCode): string => {
-                    if (typeof q.description === 'string') return q.description;
+                    if (typeof q.description === "string") return q.description;
                     return q.description?.[lang] || q.description?.en || t("page_quest");
                   };
                   
@@ -1014,7 +986,6 @@ export default function WorldPage() {
             <Sparkles size={12} className="text-yellow-500" />
           </p>
           
-          {/* Progress overview */}
           <div className="mt-4 flex items-center justify-center gap-6 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
             <span className="flex items-center gap-1">
               <CheckCircle size={12} className="text-emerald-500" />
@@ -1053,7 +1024,6 @@ export default function WorldPage() {
             )}
           </div>
           
-          {/* 🔓 Unlock All Status Badge - Hero */}
           {unlockAllActive && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}

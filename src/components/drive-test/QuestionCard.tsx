@@ -47,6 +47,8 @@ interface QuestionCardProps {
   onAnswer: (isCorrect: boolean) => void;
   onNext: () => void;
   showExplanation?: boolean;
+  /** ✅ NEW: called when user answers incorrectly (before onAnswer) */
+  onMistake?: (question: DriveQuestion, userAnswer: string) => void;
 }
 
 // ─── TTS SANITIZER ────────────────────────────────────────────────
@@ -74,6 +76,7 @@ export function QuestionCard({
   onAnswer,
   onNext,
   showExplanation = true,
+  onMistake,
 }: QuestionCardProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -82,7 +85,7 @@ export function QuestionCard({
   const [showExplain, setShowExplain] = useState(false);
 
   // ═══════════════════════════════════════════════════════════════
-  // ─── AUDIO SYSTEM (learn/page.tsx-ի հետ սինխրոն) ───────────────
+  // ─── AUDIO SYSTEM ──────────────────────────────────────────────
   // ═══════════════════════════════════════════════════════════════
 
   const [audioEnabled, setAudioEnabled] = useState(true);
@@ -92,6 +95,8 @@ export function QuestionCard({
   const [isAudioReady, setIsAudioReady] = useState(false);
 
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // ✅ NEW: synchronous lock — prevents rapid double-click from firing twice
+  const speakingLockRef = useRef(false);
 
   // Drive-test-ը միշտ native → hy
   const pairKey = `${native}-hy`;
@@ -133,7 +138,7 @@ export function QuestionCard({
     }
   }, [isWAVAvailable]);
 
-  // Fallback: 2 վրկ-ից հետո, եթե ձայներ դեռ չեն բեռնվել, միևնույն է թույլ տանք աուդիո
+  // Fallback: after 2s, allow audio even if voices haven't loaded
   useEffect(() => {
     if (isAudioReady) return;
     const t = setTimeout(() => setIsAudioReady(true), 2000);
@@ -422,7 +427,7 @@ export function QuestionCard({
     [wavClient, isWAVAvailable, pairKey, playAudioWithFemaleVoice, audioEnabled]
   );
 
-  // ─── handleSpeak — wrapper ──────────────────────────────────
+  // ─── handleSpeak — wrapper with sync lock ───────────────────
   const handleSpeak = useCallback(
     async (
       text: string,
@@ -431,24 +436,31 @@ export function QuestionCard({
     ) => {
       if (!text || !audioEnabled) return;
 
-      if (isPlaying) {
+      // ✅ Synchronous lock: if currently playing, STOP and return.
+      // This prevents rapid double-click from firing twice.
+      if (speakingLockRef.current) {
         if (typeof window !== "undefined") {
           window.speechSynthesis?.cancel();
         }
+        speakingLockRef.current = false;
         setIsPlaying(false);
         return;
       }
 
+      // Lock synchronously BEFORE any async work
+      speakingLockRef.current = true;
       setIsPlaying(true);
+
       try {
         await playAudioWithFallback(text, lang, type);
       } catch (e) {
         console.warn("handleSpeak error:", e);
       } finally {
+        speakingLockRef.current = false;
         setIsPlaying(false);
       }
     },
-    [isPlaying, playAudioWithFallback, audioEnabled]
+    [playAudioWithFallback, audioEnabled]
   );
 
   // ─── toggle audio ──────────────────────────────────────────
@@ -458,6 +470,7 @@ export function QuestionCard({
         if (typeof window !== "undefined") {
           window.speechSynthesis?.cancel();
         }
+        speakingLockRef.current = false;
         setIsPlaying(false);
       }
       return !prev;
@@ -469,6 +482,7 @@ export function QuestionCard({
     if (typeof window !== "undefined") {
       window.speechSynthesis?.cancel();
     }
+    speakingLockRef.current = false;
     setIsPlaying(false);
   }, []);
 
@@ -557,8 +571,16 @@ export function QuestionCard({
 
   const handleSubmit = () => {
     if (selected === null) return;
+
+    const isCorrectAnswer = selected === correct;
     setSubmitted(true);
-    onAnswer(selected === correct);
+    onAnswer(isCorrectAnswer);
+
+    // ✅ Notify parent about the mistake
+    if (!isCorrectAnswer && onMistake) {
+      const userAnswer = options[selected] || "";
+      onMistake(question, userAnswer);
+    }
   };
 
   const handleExplain = async () => {

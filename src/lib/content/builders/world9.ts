@@ -2,17 +2,100 @@
 
 import type { QuickLesson } from "../types";
 
-const TOPICS = [
-  ["banking", "Banking", "Բանկային գործ", "Банковское дело"],
-  ["marketing", "Marketing", "Մարքեթինգ", "Маркетинг"],
-  ["management", "Management", "Կառավարում", "Управление"],
-  ["startup", "Startups", "Ստարտափներ", "Стартапы"],
-  ["sales", "Sales", "Վաճառք", "Продажи"],
-  ["accounting", "Accounting", "Հաշվապահություն", "Бухгалтерия"],
-  ["investing", "Investing", "Ներդրումներ", "Инвестиции"],
-  ["negotiation", "Business Negotiation", "Գործնական բանակցություններ", "Деловые переговоры"],
-  ["ecommerce", "E-commerce", "Էլեկտրոնային առևտուր", "Электронная коммерция"],
-  ["leadership", "Leadership", "Առաջնորդություն", "Лидерство"],
+// ✅ FIXED: added proper hy/ru concepts (was generic "Business topics: X")
+const TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "banking",
+    "Banking",
+    "Բանկային գործ",
+    "Банковское дело",
+    "Accounts, loans, transfers, and cards.",
+    "Հաշիվներ, վարկեր, փոխանցումներ և քարտեր։",
+    "Счета, кредиты, переводы и карты.",
+  ],
+  [
+    "marketing",
+    "Marketing",
+    "Մարքեթինգ",
+    "Маркетинг",
+    "Brands, campaigns, and reaching customers.",
+    "Բրենդներ, արշավներ և հաճախորդների ներգրավում։",
+    "Бренды, кампании и привлечение клиентов.",
+  ],
+  [
+    "management",
+    "Management",
+    "Կառավարում",
+    "Управление",
+    "Leading teams, delegating, and decisions.",
+    "Թիմերի ղեկավարում, պատվիրում և որոշումներ։",
+    "Управление командами, делегирование и решения.",
+  ],
+  [
+    "startup",
+    "Startups",
+    "Ստարտափներ",
+    "Стартапы",
+    "Ideas, funding, growth, and pivots.",
+    "Գաղափարներ, ֆինանսավորում, աճ և փիվոտ։",
+    "Идеи, финансирование, рост и пивоты.",
+  ],
+  [
+    "sales",
+    "Sales",
+    "Վաճառք",
+    "Продажи",
+    "Closing deals, quotas, and customers.",
+    "Գործարքների փակում, քվոտաներ և հաճախորդներ։",
+    "Закрытие сделок, квоты и клиенты.",
+  ],
+  [
+    "accounting",
+    "Accounting",
+    "Հաշվապահություն",
+    "Бухгалтерия",
+    "Invoices, taxes, reports, and audits.",
+    "Հաշիվներ, հարկեր, հաշվետվություններ և աուդիտ։",
+    "Счета, налоги, отчёты и аудиты.",
+  ],
+  [
+    "investing",
+    "Investing",
+    "Ներդրումներ",
+    "Инвестиции",
+    "Stocks, bonds, risk, and long-term growth.",
+    "Բաժնետոմսեր, պարտատոմսեր, ռիսկ և երկարաժամկետ աճ։",
+    "Акции, облигации, риск и долгосрочный рост.",
+  ],
+  [
+    "negotiation",
+    "Business Negotiation",
+    "Գործնական բանակցություններ",
+    "Деловые переговоры",
+    "Offers, concessions, and reaching agreement.",
+    "Առաջարկներ, զիջումներ և համաձայնության հասնելը։",
+    "Предложения, уступки и достижение согласия.",
+  ],
+  [
+    "ecommerce",
+    "E-commerce",
+    "Էլեկտրոնային առևտուր",
+    "Электронная коммерция",
+    "Online stores, orders, and delivery.",
+    "Առցանց խանութներ, պատվերներ և առաքում։",
+    "Интернет-магазины, заказы и доставка.",
+  ],
+  [
+    "leadership",
+    "Leadership",
+    "Առաջնորդություն",
+    "Лидерство",
+    "Vision, trust, and inspiring teams.",
+    "Տեսիլք, վստահություն և թիմերի ոգեշնչում։",
+    "Видение, доверие и вдохновение команд.",
+  ],
 ];
 
 const BANKS: Record<
@@ -64,7 +147,8 @@ const BANKS: Record<
       ["Կանխիկ, թե քարտով։", "Cash or card?", "Наличными или картой?"],
       ["Փոխանցում եմ անում։", "I'm making a transfer.", "Делаю перевод."],
       ["Իմ հաշվեկշիռը բացասական է։", "My balance is negative.", "Мой баланс отрицательный."],
-      ["Վարկ վերցնել չեմ ուզում։", "I don't want a loan.", "Не хочу брать кредит."],
+      // ✅ FIXED: awkward word order
+      ["Վարկ չեմ ուզում վերցնել։", "I don't want a loan.", "Не хочу брать кредит."],
       ["Խնայողություն եմ կուտակում։", "I'm accumulating savings.", "Накапливаю сбережения."],
       ["Տոկոսները բարձր են։", "Interest rates are high.", "Проценты высокие."],
       ["Ամեն ամիս վճարում եմ։", "I pay every month.", "Плачу каждый месяц."],
@@ -757,7 +841,8 @@ const BANKS: Record<
       ["տեսիլք", "vision", "видение"],
       ["առաքելություն", "mission", "миссия"],
       ["արժեք", "value", "ценность"],
-      ["ոլորտ", "inspiration", "вдохновение"],
+      // ✅ FIXED: "ոլորտ" (sphere) → "ոգեշնչում" (inspiration)
+      ["ոգեշնչում", "inspiration", "вдохновение"],
       ["օրինակ", "example", "пример"],
       ["վստահություն", "trust", "доверие"],
       ["հարգանք", "respect", "уважение"],
@@ -829,12 +914,16 @@ const BANKS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was generic "Business topics: X")
 function makeBizLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = BANKS[slug];
   return {
@@ -843,7 +932,7 @@ function makeBizLesson(
     slug,
     difficulty: "B1",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: `Business topics: ${enT}`, hy: `Բիզնես թեմա՝ ${hyT}`, ru: `Бизнес тема: ${ruT}` },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -853,8 +942,9 @@ function makeBizLesson(
   };
 }
 
-const QUICK_LESSONS = TOPICS.map(([slug, en, hy, ru], idx) =>
-  makeBizLesson(`w9_l${idx + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], idx) =>
+    makeBizLesson(`w9_l${idx + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W9_LESSONS = QUICK_LESSONS.map((ql) => ({

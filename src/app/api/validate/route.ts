@@ -4,257 +4,341 @@ import { fullValidationWithAI } from "@/lib/ai/evaluator";
 
 export const runtime = "edge";
 
-// ─── NORMALIZATION HELPERS ──────────────────────────────────────────
+// ─── CONSTANTS ──────────────────────────────────────────────────────
 
+const MAX_ANSWER_LENGTH = 500;
+const MAX_VALID_FORMS = 50;
+
+// ─── NORMALIZATION ──────────────────────────────────────────────────
+
+/**
+ * Normalize a string for comparison.
+ * Removes quotes (Armenian «», Russian «», Latin ""), collapses spaces,
+ * strips trailing punctuation.
+ */
 function normalize(str: string): string {
+  if (typeof str !== "string") return "";
   return str
     .trim()
     .toLowerCase()
+    // Remove quote characters from all supported languages
+    .replace(/[«»""''`´ʻʽ՚՛՜՝՞„‟‹›]/g, "")
+    // Collapse whitespace
     .replace(/\s+/g, " ")
-    .replace(/[.,!?;:()"']/g, "")
-    .replace(/«|»|"|'|`|’|‘/g, "")
-    .replace(/\s*([?.!,;:])\s*/g, "$1")
+    // Remove trailing punctuation (Armenian ։, Russian ., Latin .!?;:)
+    .replace(/[.,!?;:։՝]+$/g, "")
     .trim();
 }
 
+/**
+ * Tokenize into words, stripping ALL punctuation.
+ */
 function normalizeWords(str: string): string[] {
   return normalize(str)
-    .split(" ")
-    .filter(w => w.length > 0);
+    .replace(/[.,!?;:()[\]{}։՝]/g, " ")
+    .split(/\s+/)
+    .map((w) => w.trim())
+    .filter((w) => w.length > 0);
 }
 
-function removeSpaces(str: string): string {
-  return str.replace(/\s/g, "");
+// ─── VALIDATION GUARDS ──────────────────────────────────────────────
+
+/**
+ * Checks if a user answer is a valid non-empty string.
+ * Returns the trimmed string if valid, or null if invalid.
+ */
+function sanitizeUserAnswer(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (trimmed.length === 0) return null;
+  if (trimmed.length > MAX_ANSWER_LENGTH) return null;
+  // Must contain at least one alphanumeric or letter character
+  // (rejects punctuation-only answers like "..." or "!!!")
+  const stripped = trimmed.replace(
+    /[\s.,!?;:()"'\u00ab\u00bb\u2018\u2019\u201c\u201d`\u0589\u058a\u055d\u055e\u0589\u058a՝։]/g,
+    ""
+  );
+  if (stripped.length === 0) return null;
+  return trimmed;
 }
 
-// ─── EXACT MATCH WITH FLEXIBILITY ──────────────────────────────────
+/**
+ * Sanitize expected answer.
+ */
+function sanitizeExpectedAnswer(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (trimmed.length === 0) return null;
+  if (trimmed.length > MAX_ANSWER_LENGTH) return null;
+  return trimmed;
+}
 
-function checkExactMatch(userAnswer: string, expectedAnswer: string, allValidForms: string[] = []): { accepted: boolean; score: number } {
+/**
+ * Sanitize list of valid alternative forms.
+ */
+function sanitizeValidForms(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .slice(0, MAX_VALID_FORMS)
+    .filter((v) => typeof v === "string" && v.trim().length > 0)
+    .map((v) => (v as string).trim());
+}
+
+/**
+ * Compute ratio of words that appear in both lists (order-agnostic).
+ */
+function wordSetRatio(a: string[], b: string[]): {
+  ratio: number;
+  allPresent: boolean;
+} {
+  if (a.length === 0 || b.length === 0) {
+    return { ratio: 0, allPresent: false };
+  }
+  const setB = new Set(b);
+  const setA = new Set(a);
+  const aInB = a.filter((w) => setB.has(w)).length;
+  const bInA = b.filter((w) => setA.has(w)).length;
+  const allPresent = aInB === a.length && bInA === b.length;
+  const ratio = (aInB + bInA) / (a.length + b.length);
+  return { ratio, allPresent };
+}
+
+/**
+ * Compute positional match ratio (same word at same index).
+ */
+function positionalRatio(a: string[], b: string[]): number {
+  if (a.length === 0 || b.length !== a.length) return 0;
+  let matches = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] === b[i]) matches++;
+  }
+  return matches / a.length;
+}
+
+// ─── EXACT MATCH ────────────────────────────────────────────────────
+
+function checkExactMatch(
+  userAnswer: string,
+  expectedAnswer: string,
+  allValidForms: string[] = []
+): { accepted: boolean; score: number } {
   const userNorm = normalize(userAnswer);
   const expectedNorm = normalize(expectedAnswer);
-  const validNorm = allValidForms.map(f => normalize(f));
+  const validNorm = allValidForms.map(normalize).filter((v) => v.length > 0);
 
-  if (userNorm === expectedNorm) {
+  // 1. Exact match (after normalize)
+  if (userNorm.length > 0 && userNorm === expectedNorm) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (validNorm.some(v => v === userNorm)) {
+  // 2. Match against pre-approved alternatives
+  if (userNorm.length > 0 && validNorm.some((v) => v === userNorm)) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (removeSpaces(userNorm) === removeSpaces(expectedNorm)) {
-    return { accepted: true, score: 0.9 };
-  }
-
+  // 3. Word-level comparison (order-flexible, but ALL words must match)
   const userWords = normalizeWords(userNorm);
   const expectedWords = normalizeWords(expectedNorm);
-  
-  if (userWords.length > 0 && expectedWords.length > 0) {
-    const commonWords = userWords.filter(w => expectedWords.includes(w));
-    const ratio = commonWords.length / expectedWords.length;
-    
-    if (ratio >= 0.9) {
-      return { accepted: true, score: 0.85 };
-    }
-    if (ratio >= 0.7) {
-      return { accepted: true, score: 0.7 };
-    }
+
+  if (userWords.length === 0 || expectedWords.length === 0) {
+    return { accepted: false, score: 0 };
   }
 
-  if (userNorm.includes(expectedNorm) || expectedNorm.includes(userNorm)) {
+  // ❌ Do NOT use `includes()` — it fails for partial answers
+  // Instead, use strict word-set matching
+  const { allPresent } = wordSetRatio(userWords, expectedWords);
+
+  if (allPresent && userWords.length === expectedWords.length) {
+    // Same exact set of words
+    const posRatio = positionalRatio(userWords, expectedWords);
+
+    if (posRatio === 1.0) {
+      return { accepted: true, score: 1.0 };
+    }
+    if (posRatio >= 0.7) {
+      // Mostly same order — accept as valid alternative
+      return { accepted: true, score: 0.9 };
+    }
+    // Same words but radically different order
+    // Accept only with reduced score (intent-recognition)
     return { accepted: true, score: 0.8 };
   }
 
+  // User provided only subset of expected words — REJECT
   return { accepted: false, score: 0 };
 }
 
-// ─── MULTIPLE CHOICE MATCH ──────────────────────────────────────────
+// ─── MULTIPLE CHOICE ────────────────────────────────────────────────
 
 function checkMultipleChoice(
-  userAnswer: string, 
-  expectedAnswer: string, 
+  userAnswer: string,
+  expectedAnswer: string,
   options: string[] = [],
   allValidAnswers: string[] = []
 ): { accepted: boolean; score: number } {
   const userNorm = normalize(userAnswer);
   const expectedNorm = normalize(expectedAnswer);
-  const optionsNorm = options.map(o => normalize(o));
-  const validNorm = allValidAnswers.map(a => normalize(a));
+  const optionsNorm = options.map(normalize).filter((o) => o.length > 0);
+  const validNorm = allValidAnswers.map(normalize).filter((v) => v.length > 0);
 
+  if (userNorm.length === 0) {
+    return { accepted: false, score: 0 };
+  }
+
+  // Direct exact match with expected
   if (userNorm === expectedNorm) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (validNorm.some(v => v === userNorm)) {
+  // Match against valid alternatives
+  if (validNorm.some((v) => v === userNorm)) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (optionsNorm.some(o => o === userNorm)) {
-    if (userNorm === expectedNorm) {
-      return { accepted: true, score: 1.0 };
-    }
+  // If user's answer matches one of the options, it must be the correct one
+  const matchedOption = optionsNorm.find((o) => o === userNorm);
+  if (matchedOption) {
+    // User selected an option, but it's NOT the correct one
     return { accepted: false, score: 0 };
   }
 
-  if (userNorm.includes(expectedNorm) || expectedNorm.includes(userNorm)) {
-    return { accepted: true, score: 0.85 };
-  }
-
+  // No match at all
   return { accepted: false, score: 0 };
 }
 
-// ─── WORD ORDER MATCH ───────────────────────────────────────────────
+// ─── WORD ORDER ─────────────────────────────────────────────────────
 
 function checkWordOrder(
-  userAnswer: string, 
+  userAnswer: string,
   expectedAnswer: string,
   allValidAnswers: string[] = []
 ): { accepted: boolean; score: number } {
   const userNorm = normalize(userAnswer);
   const expectedNorm = normalize(expectedAnswer);
-  const validNorm = allValidAnswers.map(a => normalize(a));
+  const validNorm = allValidAnswers.map(normalize).filter((v) => v.length > 0);
 
+  if (userNorm.length === 0) {
+    return { accepted: false, score: 0 };
+  }
+
+  // 1. Exact match
   if (userNorm === expectedNorm) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (validNorm.some(v => v === userNorm)) {
+  // 2. Match against alternatives (which may have different valid orders)
+  if (validNorm.some((v) => v === userNorm)) {
     return { accepted: true, score: 1.0 };
   }
 
-  if (removeSpaces(userNorm) === removeSpaces(expectedNorm)) {
-    return { accepted: true, score: 0.95 };
-  }
-
-  if (validNorm.some(v => removeSpaces(v) === removeSpaces(userNorm))) {
-    return { accepted: true, score: 0.9 };
-  }
-
+  // 3. Position-based match — for word_order, this is critical
   const userWords = normalizeWords(userNorm);
   const expectedWords = normalizeWords(expectedNorm);
 
-  if (userWords.length === expectedWords.length) {
-    let matches = 0;
-    for (let i = 0; i < userWords.length; i++) {
-      if (userWords[i] === expectedWords[i]) {
-        matches++;
-      }
-    }
-    const ratio = matches / expectedWords.length;
-    if (ratio >= 0.9) {
-      return { accepted: true, score: ratio };
-    }
-    if (ratio >= 0.7 && ratio < 0.9) {
-      return { accepted: false, score: ratio };
-    }
-    return { accepted: false, score: ratio };
+  if (userWords.length !== expectedWords.length || userWords.length === 0) {
+    return { accepted: false, score: 0 };
   }
 
-  const sortedUser = [...userWords].sort();
-  const sortedExpected = [...expectedWords].sort();
-  if (sortedUser.join(" ") === sortedExpected.join(" ")) {
-    return { accepted: false, score: 0.5 };
+  const posRatio = positionalRatio(userWords, expectedWords);
+
+  // Require 100% positional match for word_order
+  // (this is the entire point of the exercise)
+  if (posRatio === 1.0) {
+    return { accepted: true, score: 1.0 };
   }
 
-  return { accepted: false, score: 0 };
+  // No partial acceptance — order must be exact
+  return { accepted: false, score: posRatio };
 }
 
-// ─── MATCH PAIRS MATCH ──────────────────────────────────────────────
+// ─── MATCH PAIRS ────────────────────────────────────────────────────
 
 function parseMatchPairsString(str: string): Record<string, string> | null {
   try {
     const result: Record<string, string> = {};
-    
+
     let pairs: string[] = [];
-    
-    if (str.includes(',')) {
-      pairs = str.split(',').map(p => p.trim());
-    } else if (str.includes(';')) {
-      pairs = str.split(';').map(p => p.trim());
-    } else if (str.includes('\n')) {
-      pairs = str.split('\n').map(p => p.trim());
-    } else {
-      pairs = [str];
-    }
-    
+    if (str.includes("\n")) pairs = str.split("\n");
+    else if (str.includes(";")) pairs = str.split(";");
+    else if (str.includes(",")) pairs = str.split(",");
+    else pairs = [str];
+
     for (const pair of pairs) {
-      if (!pair) continue;
-      
-      let key: string, value: string;
-      
-      if (pair.includes(' → ')) {
-        [key, value] = pair.split(' → ').map(s => s.trim());
-      } else if (pair.includes(' -> ')) {
-        [key, value] = pair.split(' -> ').map(s => s.trim());
-      } else if (pair.includes(':')) {
-        [key, value] = pair.split(':').map(s => s.trim());
-      } else if (pair.includes('=')) {
-        [key, value] = pair.split('=').map(s => s.trim());
+      if (!pair || !pair.trim()) continue;
+
+      let key = "";
+      let value = "";
+      if (pair.includes(" → ")) {
+        [key, value] = pair.split(" → ").map((s) => s.trim());
+      } else if (pair.includes(" -> ")) {
+        [key, value] = pair.split(" -> ").map((s) => s.trim());
+      } else if (pair.includes(":")) {
+        [key, value] = pair.split(":").map((s) => s.trim());
+      } else if (pair.includes("=")) {
+        [key, value] = pair.split("=").map((s) => s.trim());
       } else {
         continue;
       }
-      
-      if (key && value) {
-        result[key] = value;
-      }
+
+      if (key && value) result[key] = value;
     }
-    
+
     return Object.keys(result).length > 0 ? result : null;
   } catch {
     return null;
   }
 }
 
+function parseMatchPairs(str: string): Record<string, string> | null {
+  // Try JSON first
+  try {
+    const parsed = JSON.parse(str);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return parsed as Record<string, string>;
+    }
+  } catch {
+    // Fall through to string parsing
+  }
+  return parseMatchPairsString(str);
+}
+
 function checkMatchPairs(
-  userAnswer: string, 
+  userAnswer: string,
   expectedAnswer: string
 ): { accepted: boolean; score: number; matches: number; total: number } {
   try {
-    let userPairs: Record<string, string>;
-    let expectedPairs: Record<string, string>;
-    
-    try {
-      userPairs = JSON.parse(userAnswer);
-    } catch {
-      const parsed = parseMatchPairsString(userAnswer);
-      if (!parsed) {
-        return { accepted: false, score: 0, matches: 0, total: 0 };
-      }
-      userPairs = parsed;
-    }
-    
-    try {
-      expectedPairs = JSON.parse(expectedAnswer);
-    } catch {
-      const parsed = parseMatchPairsString(expectedAnswer);
-      if (!parsed) {
-        return { accepted: false, score: 0, matches: 0, total: 0 };
-      }
-      expectedPairs = parsed;
-    }
-    
+    const userPairs = parseMatchPairs(userAnswer);
+    const expectedPairs = parseMatchPairs(expectedAnswer);
+
     if (!userPairs || !expectedPairs) {
       return { accepted: false, score: 0, matches: 0, total: 0 };
     }
-    
-    let matches = 0;
+
     const total = Object.keys(expectedPairs).length;
-    
+    if (total === 0) {
+      return { accepted: false, score: 0, matches: 0, total: 0 };
+    }
+
+    let matches = 0;
     for (const [key, value] of Object.entries(expectedPairs)) {
-      const userValue = userPairs[key]?.trim().toLowerCase() || "";
-      const expectedValue = value.trim().toLowerCase();
-      
-      if (userValue === expectedValue) {
+      const userValue = userPairs[key];
+      if (userValue === undefined) continue;
+
+      // ✅ Use full normalize, not just toLowerCase
+      const userNorm = normalize(String(userValue));
+      const expectedNorm = normalize(String(value));
+
+      if (userNorm.length > 0 && userNorm === expectedNorm) {
         matches++;
       }
     }
-    
+
     const score = matches / total;
     const accepted = score >= 0.8;
-    
+
     return { accepted, score, matches, total };
   } catch (error) {
-    console.error("Match pairs error:", error);
+    console.error("[validate] match_pairs error:", error);
     return { accepted: false, score: 0, matches: 0, total: 0 };
   }
 }
@@ -263,28 +347,62 @@ function checkMatchPairs(
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { accepted: false, score: 0, error: "Invalid JSON body" },
+        { status: 400 }
+      );
+    }
 
     const {
-      userAnswer,
-      expectedAnswer,
-      englishOriginal,
+      userAnswer: rawUserAnswer,
+      expectedAnswer: rawExpectedAnswer,
+      englishOriginal = "",
       sourceLanguage = "en",
       targetLanguage = "hy",
-      allValidAnswers = [],
+      allValidAnswers: rawValidAnswers,
       exerciseType = "fill_in",
-      options = [],
+      options: rawOptions,
       useAI = true,
       legacy = false,
-    } = body;
+    } = body ?? {};
 
-    console.log(`📤 Validation request:`, {
-      exerciseType,
-      userAnswer,
-      expectedAnswer,
-      allValidAnswers,
-    });
+    // ─── SANITIZE INPUTS ───────────────────────────────────────────
+    const userAnswer = sanitizeUserAnswer(rawUserAnswer);
+    const expectedAnswer = sanitizeExpectedAnswer(rawExpectedAnswer);
+    const allValidAnswers = sanitizeValidForms(rawValidAnswers);
+    const options = sanitizeValidForms(rawOptions);
 
+    // ❌ Reject empty user answer EARLY
+    if (userAnswer === null) {
+      console.log("[validate] Rejected: empty or invalid userAnswer");
+      return NextResponse.json({
+        accepted: false,
+        score: 0,
+        feedback: "❌ Խնդրում ենք պատասխանել",
+        corrections: expectedAnswer ? [expectedAnswer] : [],
+        layer: "input_guard",
+      });
+    }
+
+    // ❌ Reject if expectedAnswer missing (data integrity)
+    if (expectedAnswer === null) {
+      console.error("[validate] Missing expectedAnswer");
+      return NextResponse.json(
+        {
+          accepted: false,
+          score: 0,
+          error: "Missing expectedAnswer",
+          feedback: "⚠️ Տվյալների սխալ",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Legacy mode (simple exact match)
     if (legacy) {
       const result = checkExactMatch(userAnswer, expectedAnswer, allValidAnswers);
       return NextResponse.json({
@@ -295,50 +413,59 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ✅ FIX: Add layer to result type
-    let result: { 
-      accepted: boolean; 
-      score: number; 
-      feedback: string; 
-      corrections?: string[]; 
+    // ─── RESULT OBJECT ─────────────────────────────────────────────
+    let result: {
+      accepted: boolean;
+      score: number;
+      feedback: string;
+      corrections?: string[];
       details?: any;
       layer?: string;
     } = {
       accepted: false,
       score: 0,
-      feedback: "❌ Try again",
+      feedback: "❌ Փորձիր նորից",
     };
 
+    // ─── ROUTE BY EXERCISE TYPE ────────────────────────────────────
     switch (exerciseType) {
       case "multiple_choice": {
-        const mcResult = checkMultipleChoice(userAnswer, expectedAnswer, options, allValidAnswers);
-        result.accepted = mcResult.accepted;
-        result.score = mcResult.score;
-        result.feedback = mcResult.accepted ? "feedback_correct" : "feedback_wrong";
-        result.corrections = mcResult.accepted ? undefined : [expectedAnswer];
+        const r = checkMultipleChoice(
+          userAnswer,
+          expectedAnswer,
+          options,
+          allValidAnswers
+        );
+        result.accepted = r.accepted;
+        result.score = r.score;
+        result.feedback = r.accepted ? "feedback_correct" : "feedback_wrong";
+        result.corrections = r.accepted ? undefined : [expectedAnswer];
+        result.layer = "multiple_choice";
         break;
       }
 
       case "word_order": {
-        const woResult = checkWordOrder(userAnswer, expectedAnswer, allValidAnswers);
-        result.accepted = woResult.accepted;
-        result.score = woResult.score;
-        result.feedback = woResult.accepted 
-          ? `✅ Ճիշտ հերթականություն (${Math.round(woResult.score * 100)}%)` 
+        const r = checkWordOrder(userAnswer, expectedAnswer, allValidAnswers);
+        result.accepted = r.accepted;
+        result.score = r.score;
+        result.feedback = r.accepted
+          ? "✅ Ճիշտ հերթականություն"
           : "❌ Սխալ հերթականություն, փորձիր նորից";
-        result.corrections = woResult.accepted ? undefined : [expectedAnswer];
+        result.corrections = r.accepted ? undefined : [expectedAnswer];
+        result.layer = "word_order";
         break;
       }
 
       case "match_pairs": {
-        const mpResult = checkMatchPairs(userAnswer, expectedAnswer);
-        result.accepted = mpResult.accepted;
-        result.score = mpResult.score;
-        result.feedback = mpResult.accepted 
-          ? `✅ ${mpResult.matches}/${mpResult.total} զույգ ճիշտ է` 
-          : `❌ ${mpResult.matches}/${mpResult.total} զույգ ճիշտ է, փորձիր նորից`;
-        result.corrections = mpResult.accepted ? undefined : [expectedAnswer];
-        result.details = { matches: mpResult.matches, total: mpResult.total };
+        const r = checkMatchPairs(userAnswer, expectedAnswer);
+        result.accepted = r.accepted;
+        result.score = r.score;
+        result.feedback = r.accepted
+          ? `✅ ${r.matches}/${r.total} զույգ ճիշտ է`
+          : `❌ ${r.matches}/${r.total} զույգ ճիշտ է`;
+        result.corrections = r.accepted ? undefined : [expectedAnswer];
+        result.details = { matches: r.matches, total: r.total };
+        result.layer = "match_pairs";
         break;
       }
 
@@ -346,26 +473,33 @@ export async function POST(req: NextRequest) {
       case "speaking":
       case "fill_in":
       default: {
-        const exactResult = checkExactMatch(userAnswer, expectedAnswer, allValidAnswers);
-        result.accepted = exactResult.accepted;
-        result.score = exactResult.score;
-        result.feedback = exactResult.accepted 
-          ? `✅ Ընդունված է (${Math.round(exactResult.score * 100)}%)` 
+        const r = checkExactMatch(userAnswer, expectedAnswer, allValidAnswers);
+        result.accepted = r.accepted;
+        result.score = r.score;
+        result.feedback = r.accepted
+          ? "✅ Ճիշտ է"
           : "❌ Փորձիր նորից";
-        result.corrections = exactResult.accepted ? undefined : [expectedAnswer];
+        result.corrections = r.accepted ? undefined : [expectedAnswer];
+        result.layer = "exact_match";
         break;
       }
     }
 
-    if (useAI && !result.accepted && body.userAnswer && body.userAnswer.trim().length > 2) {
+    // ─── AI FALLBACK (only if rule-based rejected) ─────────────────
+    if (
+      useAI &&
+      !result.accepted &&
+      userAnswer.length >= 3 &&
+      exerciseType !== "match_pairs" // AI doesn't handle pairs
+    ) {
       try {
-        console.log("🤖 AI fallback validation...");
+        console.log("[validate] AI fallback triggered");
         const aiResult = await fullValidationWithAI({
-          userAnswer: body.userAnswer,
-          expectedAnswer: body.expectedAnswer,
-          sourceSentence: body.englishOriginal || "",
-          sourceLanguage: sourceLanguage,
-          targetLanguage: targetLanguage,
+          userAnswer,
+          expectedAnswer,
+          sourceSentence: typeof englishOriginal === "string" ? englishOriginal : "",
+          sourceLanguage: String(sourceLanguage),
+          targetLanguage: String(targetLanguage),
           allValidForms: allValidAnswers,
         });
 
@@ -373,17 +507,19 @@ export async function POST(req: NextRequest) {
           result.accepted = true;
           result.score = Math.max(result.score, aiResult.score || 0.7);
           result.feedback = aiResult.feedback || "✅ AI-ն հաստատեց";
+          result.corrections = undefined;
           result.layer = "ai_fallback";
         }
       } catch (error) {
-        console.warn("⚠️ AI validation failed:", error);
+        console.warn("[validate] AI fallback failed:", error);
       }
     }
 
-    console.log(`📥 Validation result:`, {
+    console.log("[validate] result:", {
+      exerciseType,
       accepted: result.accepted,
       score: result.score,
-      feedback: result.feedback,
+      layer: result.layer,
     });
 
     return NextResponse.json({
@@ -397,8 +533,8 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("[NUR Lingo API Error]:", error);
     return NextResponse.json(
-      { 
-        error: "Internal server error", 
+      {
+        error: "Internal server error",
         accepted: false,
         score: 0,
         feedback: "⚠️ Տեխնիկական սխալ, փորձեք կրկին",

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen,
-  Globe,
   ChevronDown,
   ChevronUp,
   Printer,
@@ -14,37 +13,16 @@ import {
   Search,
   X,
   Filter,
-  Sparkles,
-  Users,
   MessageSquare,
   BookMarked,
   GraduationCap,
-  Target,
-  Clock,
-  CheckCircle,
-  AlertCircle,
-  ArrowUp,
-  Eye,
-  EyeOff,
   BarChart3,
-  TrendingUp,
-  Award,
-  Flame,
-  Calendar,
-  Share2,
   Copy,
   Check,
   Loader2,
-  RefreshCw,
-  Settings,
   List,
   Grid3x3,
-  SortAsc,
-  SortDesc,
-  FileText,
-  Book,
   Star,
-  Heart,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -53,7 +31,6 @@ import { CONTENT_LESSONS, WORLDS, type ContentLesson } from "@/lib/content/datab
 import type { LangCode } from "@/lib/i18n/multilingual";
 import { useNuri } from "@/hooks/useNuri";
 import { GlassCard } from "@/components/ui/glass-card";
-import { PageLayout } from "@/components/PageLayout";
 import { useI18n } from "@/hooks/useI18n";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
@@ -94,28 +71,48 @@ const STORAGE_KEYS = {
   LESSON_PROGRESS: "nurlingo_lesson_progress",
   CURRICULUM_VIEW: "nurlingo_curriculum_view",
   CURRICULUM_FAVORITES: "nurlingo_curriculum_favorites",
-};
+  CURRICULUM_EXPANDED: "nurlingo_curriculum_expanded",
+} as const;
 
-// ─── CHARACTER NAMES (for translations) ─────────────────────────────
+// ─── CHARACTER NAMES ─────────────────────────────────────────────────
 
 const CHARACTER_NAMES: Record<string, Record<LangCode, string>> = {
   nurik: { hy: "Նուրիկ", en: "Nurik", ru: "Нурик" },
   user: { hy: "Դուք", en: "You", ru: "Вы" },
 };
 
-// ─── EXTRA TRANSLATIONS (fallback for missing keys) ──────────────
+const SPEAKER_EMOJI: Record<string, string> = {
+  nurik: "🐿️",
+  user: "🧑",
+};
 
-const EXTRA_TR: Record<string, Record<string, string>> = {
+// ─── EXTRA TRANSLATIONS (fallback for missing keys) ──────────────
+// NOTE: These should eventually move into translations.json.
+
+const EXTRA_TR: Record<string, Partial<Record<LangCode, string>>> = {
   page_print: { hy: "Տպել", en: "Print", ru: "Печать" },
   page_not_started: { hy: "Չսկսված", en: "Not started", ru: "Не начато" },
   page_in_progress: { hy: "Ընթացքի մեջ", en: "In progress", ru: "В процессе" },
   page_completed: { hy: "Ավարտված", en: "Completed", ru: "Завершено" },
-  page__vocab_count: { hy: "📖 {count} բառ", en: "📖 {count} words", ru: "📖 {count} слов" },
-  page__phrase_count: { hy: "💬 {count} արտահայտություն", en: "💬 {count} phrases", ru: "💬 {count} фраз" },
-  page__dialogue_count: { hy: "🗣️ {count} երկխոսություն", en: "🗣️ {count} dialogues", ru: "🗣️ {count} диалогов" },
+  page_vocab_count: {
+    hy: "📖 {count} բառ",
+    en: "📖 {count} words",
+    ru: "📖 {count} слов",
+  },
+  page_phrase_count: {
+    hy: "💬 {count} արտահայտություն",
+    en: "💬 {count} phrases",
+    ru: "💬 {count} фраз",
+  },
+  page_dialogue_count: {
+    hy: "🗣️ {count} երկխոսություն",
+    en: "🗣️ {count} dialogues",
+    ru: "🗣️ {count} диалогов",
+  },
+  page_progress_percent: { hy: "{progress}%", en: "{progress}%", ru: "{progress}%" },
 };
 
-function applyParams(str: string, params?: Record<string, any>): string {
+function applyParams(str: string, params?: Record<string, unknown>): string {
   if (!params) return str;
   return str.replace(/\{(\w+)\}/g, (_, key) =>
     params[key] !== undefined ? String(params[key]) : `{${key}}`
@@ -125,32 +122,48 @@ function applyParams(str: string, params?: Record<string, any>): string {
 function tr(
   key: string,
   locale: string,
-  t: (k: string, p?: any) => string,
-  params?: Record<string, any>
+  t: (k: string, p?: Record<string, unknown>) => string,
+  params?: Record<string, unknown>
 ): string {
   const extra = EXTRA_TR[key];
   if (extra) {
-    const localized = extra[locale] || extra.en || extra.hy;
+    const localized =
+      extra[locale as LangCode] || extra.en || extra.hy || key;
     return applyParams(localized, params);
   }
   return t(key, params);
 }
 
-// ─── HELPER: Get localized text ─────────────────────────────────────
+// ─── HELPERS ─────────────────────────────────────────────────────────
 
+type LocalizedObj = { hy?: string; en?: string; ru?: string } | undefined;
+
+/**
+ * Localized text with a consistent fallback chain:
+ * requested locale → hy → ru → en → fallback
+ */
 function getLocalizedText(
-  obj: { hy?: string; en?: string; ru?: string } | undefined,
+  obj: LocalizedObj,
   lang: LangCode,
   fallback: string = ""
 ): string {
   if (!obj) return fallback;
-  return obj[lang] || obj.en || fallback;
+  return obj[lang] || obj.hy || obj.ru || obj.en || fallback;
 }
-
-// ─── HELPER: Get speaker name ─────────────────────────────────────
 
 function getSpeakerName(speaker: string, lang: LangCode): string {
   return CHARACTER_NAMES[speaker]?.[lang] || speaker;
+}
+
+function getWorldLessonsSync(worldId: string): ContentLesson[] {
+  return CONTENT_LESSONS.filter((l) => l.worldId === worldId);
+}
+
+function getProgressColor(score: number): string {
+  if (score >= 80) return "bg-emerald-500";
+  if (score >= 50) return "bg-yellow-500";
+  if (score >= 20) return "bg-orange-500";
+  return "bg-gray-500";
 }
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────
@@ -158,27 +171,34 @@ function getSpeakerName(speaker: string, lang: LangCode): string {
 export default function CurriculumPage() {
   const { setPage } = useNuri();
   const { t, locale } = useI18n();
+  const lang = locale as LangCode;
 
-  // ─── LOCAL TOAST ──────────────────────────────────────────────────
+  // ─── TOAST ────────────────────────────────────────────────────────
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showMessage = useCallback(
     (text: string, type: "success" | "error" | "info" = "info") => {
       setToastMessage(text);
       setToastType(type);
-      setTimeout(() => setToastMessage(""), 3000);
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = setTimeout(() => setToastMessage(""), 3000);
     },
     []
   );
 
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
   useEffect(() => setPage("curriculum"), [setPage]);
 
-  // ─── STATE ──────────────────────────────────────────────────────────
-
+  // ─── STATE ────────────────────────────────────────────────────────
   const [selectedWorld, setSelectedWorld] = useState<string | null>(null);
   const [expandedLesson, setExpandedLesson] = useState<string | null>(null);
-  const [nativeLang, setNativeLang] = useState<LangCode>("en");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [filterOption, setFilterOption] = useState<FilterOption>("all");
@@ -192,18 +212,14 @@ export default function CurriculumPage() {
   const [isPrinting, setIsPrinting] = useState(false);
   const [expandedWorlds, setExpandedWorlds] = useState<Set<string>>(new Set());
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const printRef = useRef<HTMLDivElement>(null);
 
-  // ─── LOAD PROGRESS & FAVORITES ────────────────────────────────────
-
+  // ─── LOAD PROGRESS & FAVORITES & EXPANDED ─────────────────────────
   useEffect(() => {
     try {
-      const savedLang = localStorage.getItem("nur_source_lang");
-      if (savedLang) setNativeLang(savedLang as LangCode);
-
       const savedProgress = localStorage.getItem(STORAGE_KEYS.LESSON_PROGRESS);
       if (savedProgress) setLessonProgress(JSON.parse(savedProgress));
 
@@ -217,11 +233,15 @@ export default function CurriculumPage() {
 
       const savedFavorites = localStorage.getItem(STORAGE_KEYS.CURRICULUM_FAVORITES);
       if (savedFavorites) setFavorites(new Set(JSON.parse(savedFavorites)));
-    } catch {}
+
+      const savedExpanded = localStorage.getItem(STORAGE_KEYS.CURRICULUM_EXPANDED);
+      if (savedExpanded) setExpandedWorlds(new Set(JSON.parse(savedExpanded)));
+    } catch {
+      // ignore malformed localStorage
+    }
   }, []);
 
   // ─── SAVE VIEW PREFERENCES ────────────────────────────────────────
-
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -231,16 +251,51 @@ export default function CurriculumPage() {
     } catch {}
   }, [viewMode, filterOption, sortOption]);
 
-  // ─── SCROLL EVENT ──────────────────────────────────────────────────
+  // ─── PERSIST FAVORITES (moved out of state updater) ───────────────
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STORAGE_KEYS.CURRICULUM_FAVORITES,
+        JSON.stringify([...favorites])
+      );
+    } catch {}
+  }, [favorites]);
 
+  // ─── PERSIST EXPANDED WORLDS ─────────────────────────────────────
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STORAGE_KEYS.CURRICULUM_EXPANDED,
+        JSON.stringify([...expandedWorlds])
+      );
+    } catch {}
+  }, [expandedWorlds]);
+
+  // ─── SCROLL EVENT ─────────────────────────────────────────────────
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
+  // ─── COPY ID TIMER CLEANUP ────────────────────────────────────────
+  useEffect(() => {
+    return () => {
+      if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+    };
+  }, []);
 
+  // ─── HANDLE PRINT ─────────────────────────────────────────────────
+  const handlePrint = useCallback(() => {
+    setIsPrinting(true);
+    // Use rAF to let the spinner render before the blocking print dialog
+    requestAnimationFrame(() => {
+      window.print();
+      setIsPrinting(false);
+    });
+  }, []);
+
+  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
@@ -259,16 +314,9 @@ export default function CurriculumPage() {
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [handlePrint]);
 
-  // ─── GET WORLD LESSONS ─────────────────────────────────────────────
-
-  const getWorldLessons = useCallback((worldId: string): ContentLesson[] => {
-    return CONTENT_LESSONS.filter((l) => l.worldId === worldId);
-  }, []);
-
-  // ─── CALCULATE STATS ──────────────────────────────────────────────
-
+  // ─── STATS ────────────────────────────────────────────────────────
   const stats = useMemo((): CurriculumStats => {
     const totalLessons = CONTENT_LESSONS.length;
     const totalVocabulary = CONTENT_LESSONS.reduce((s, l) => s + l.vocabulary.length, 0);
@@ -280,7 +328,7 @@ export default function CurriculumPage() {
     const byWorld: Record<string, WorldProgress> = {};
 
     for (const world of WORLDS) {
-      const worldLessons = getWorldLessons(world.id);
+      const worldLessons = getWorldLessonsSync(world.id);
       let completed = 0;
       let totalScore = 0;
       let lastActivity = "";
@@ -323,31 +371,40 @@ export default function CurriculumPage() {
       overallProgress,
       byWorld,
     };
-  }, [lessonProgress, getWorldLessons]);
+  }, [lessonProgress]);
 
-  // ─── FILTERED & SORTED WORLDS ─────────────────────────────────────
+  // ─── NURI MOOD: react to progress ─────────────────────────────────
+  const prevCompletedRef = useRef(stats.completedLessons);
+  useEffect(() => {
+    if (stats.completedLessons > prevCompletedRef.current) {
+      setNuriMood("happy");
+      const timer = setTimeout(() => setNuriMood("idle"), 2500);
+      prevCompletedRef.current = stats.completedLessons;
+      return () => clearTimeout(timer);
+    }
+    prevCompletedRef.current = stats.completedLessons;
+  }, [stats.completedLessons]);
 
-  const filteredWorlds = useMemo(() => {
-    let worlds = WORLDS;
-    if (selectedWorld) worlds = worlds.filter((w) => w.id === selectedWorld);
-    return worlds;
-  }, [selectedWorld]);
+  // ─── FILTERED LESSONS (per world, memoized) ───────────────────────
+  const lessonsByWorld = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    const map: Record<string, ContentLesson[]> = {};
 
-  // ─── FILTERED & SORTED LESSONS ────────────────────────────────────
+    for (const world of WORLDS) {
+      let lessons = getWorldLessonsSync(world.id);
 
-  const getFilteredLessons = useCallback(
-    (worldId: string) => {
-      let lessons = getWorldLessons(worldId);
-
-      const q = searchQuery.trim().toLowerCase();
       if (q) {
         lessons = lessons.filter(
           (l) =>
             l.title.en.toLowerCase().includes(q) ||
             l.title.hy?.toLowerCase().includes(q) ||
+            l.title.ru?.toLowerCase().includes(q) ||
             l.concept.en.toLowerCase().includes(q) ||
             l.vocabulary.some(
-              (v) => v.hy.toLowerCase().includes(q) || v.en.toLowerCase().includes(q)
+              (v) =>
+                v.hy.toLowerCase().includes(q) ||
+                v.en.toLowerCase().includes(q) ||
+                v.ru.toLowerCase().includes(q)
             )
         );
       }
@@ -373,19 +430,19 @@ export default function CurriculumPage() {
           break;
       }
 
+      // Non-mutating sort
+      const sorted = [...lessons];
       switch (sortOption) {
         case "alphabetical":
-          lessons.sort((a, b) => a.title.en.localeCompare(b.title.en));
+          sorted.sort((a, b) => a.title.en.localeCompare(b.title.en));
           break;
         case "progress":
-          lessons.sort((a, b) => {
-            const progA = lessonProgress[a.id]?.score || 0;
-            const progB = lessonProgress[b.id]?.score || 0;
-            return progB - progA;
-          });
+          sorted.sort(
+            (a, b) => (lessonProgress[b.id]?.score || 0) - (lessonProgress[a.id]?.score || 0)
+          );
           break;
         case "recent":
-          lessons.sort((a, b) => {
+          sorted.sort((a, b) => {
             const dateA = lessonProgress[a.id]?.lastAttempt || "";
             const dateB = lessonProgress[b.id]?.lastAttempt || "";
             return dateB.localeCompare(dateA);
@@ -395,24 +452,41 @@ export default function CurriculumPage() {
           break;
       }
 
-      return lessons;
-    },
-    [getWorldLessons, searchQuery, filterOption, sortOption, lessonProgress]
-  );
+      map[world.id] = sorted;
+    }
 
-  // ─── TOGGLE FAVORITE ──────────────────────────────────────────────
+    return map;
+  }, [searchQuery, filterOption, sortOption, lessonProgress]);
 
+  // ─── VISIBLE WORLDS (world filter + hide empty when filtering/searching) ──
+  const visibleWorlds = useMemo(() => {
+    const isFiltering =
+      searchQuery.trim() !== "" ||
+      filterOption !== "all" ||
+      sortOption !== "default";
+
+    return WORLDS.filter((w) => {
+      if (selectedWorld && w.id !== selectedWorld) return false;
+      if (isFiltering && (lessonsByWorld[w.id]?.length ?? 0) === 0) return false;
+      return true;
+    });
+  }, [selectedWorld, searchQuery, filterOption, sortOption, lessonsByWorld]);
+
+  const isFiltered =
+    searchQuery !== "" ||
+    filterOption !== "all" ||
+    sortOption !== "default" ||
+    selectedWorld !== null;
+
+  // ─── HANDLERS ─────────────────────────────────────────────────────
   const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem(STORAGE_KEYS.CURRICULUM_FAVORITES, JSON.stringify([...next]));
       return next;
     });
   }, []);
-
-  // ─── TOGGLE WORLD EXPAND ──────────────────────────────────────────
 
   const toggleWorldExpand = useCallback((worldId: string) => {
     setExpandedWorlds((prev) => {
@@ -422,18 +496,6 @@ export default function CurriculumPage() {
       return next;
     });
   }, []);
-
-  // ─── HANDLE PRINT ──────────────────────────────────────────────────
-
-  const handlePrint = useCallback(() => {
-    setIsPrinting(true);
-    setTimeout(() => {
-      window.print();
-      setIsPrinting(false);
-    }, 500);
-  }, []);
-
-  // ─── EXPORT CURRICULUM ────────────────────────────────────────────
 
   const handleExport = useCallback(() => {
     try {
@@ -463,25 +525,20 @@ export default function CurriculumPage() {
     }
   }, [lessonProgress, stats, showMessage, t]);
 
-  // ─── COPY LESSON ID ───────────────────────────────────────────────
-
   const copyId = useCallback(
     (id: string) => {
-      navigator.clipboard.writeText(id);
+      navigator.clipboard.writeText(id).catch(() => {});
       setCopiedId(id);
-      setTimeout(() => setCopiedId(null), 2000);
+      if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+      copiedTimerRef.current = setTimeout(() => setCopiedId(null), 2000);
       showMessage(t("page_id_copied"), "info");
     },
     [showMessage, t]
   );
 
-  // ─── SCROLL TO TOP ─────────────────────────────────────────────────
-
   const scrollToTop = useCallback(() => {
-    topRef.current?.scrollIntoView({ behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-
-  // ─── RESET FILTERS ─────────────────────────────────────────────────
 
   const resetFilters = useCallback(() => {
     setSearchQuery("");
@@ -491,34 +548,32 @@ export default function CurriculumPage() {
     setShowFilters(false);
   }, []);
 
-  // ─── GET LESSON STATUS ────────────────────────────────────────────
-
   const getLessonStatus = useCallback(
     (lessonId: string) => {
       const progress = lessonProgress[lessonId];
       if (!progress)
         return {
-          status: "not-started",
+          status: "not-started" as const,
           labelKey: "page_not_started",
           color: "text-gray-400",
           icon: "⏳",
         };
       if (progress.completed)
         return {
-          status: "completed",
+          status: "completed" as const,
           labelKey: "page_completed",
           color: "text-emerald-400",
           icon: "✅",
         };
       if (progress.score > 0)
         return {
-          status: "in-progress",
+          status: "in-progress" as const,
           labelKey: "page_in_progress",
           color: "text-yellow-400",
           icon: "🔄",
         };
       return {
-        status: "not-started",
+        status: "not-started" as const,
         labelKey: "page_not_started",
         color: "text-gray-400",
         icon: "⏳",
@@ -527,23 +582,7 @@ export default function CurriculumPage() {
     [lessonProgress]
   );
 
-  // ─── GET PROGRESS COLOR ───────────────────────────────────────────
-
-  const getProgressColor = useCallback((score: number) => {
-    if (score >= 80) return "bg-emerald-500";
-    if (score >= 50) return "bg-yellow-500";
-    if (score >= 20) return "bg-orange-500";
-    return "bg-gray-500";
-  }, []);
-
-  const isFiltered =
-    searchQuery !== "" ||
-    filterOption !== "all" ||
-    sortOption !== "default" ||
-    selectedWorld !== null;
-
-  // ─── MAIN RENDER ────────────────────────────────────────────────────
-
+  // ─── MAIN RENDER ──────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="container-main py-6">
@@ -575,43 +614,33 @@ export default function CurriculumPage() {
           <div className="flex gap-2 flex-wrap no-print">
             {/* View Mode */}
             <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-              <button
-                onClick={() => setViewMode("list")}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "list"
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
-                }`}
-                title={t("page_list_view")}
-              >
-                <List size={14} />
-              </button>
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "grid"
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
-                }`}
-                title={t("page_grid_view")}
-              >
-                <Grid3x3 size={14} />
-              </button>
-              <button
-                onClick={() => setViewMode("compact")}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === "compact"
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
-                }`}
-                title={t("page_compact")}
-              >
-                <ChevronDown size={14} />
-              </button>
+              {(
+                [
+                  { mode: "list" as const, icon: <List size={14} />, label: "page_list_view" },
+                  { mode: "grid" as const, icon: <Grid3x3 size={14} />, label: "page_grid_view" },
+                  { mode: "compact" as const, icon: <ChevronDown size={14} />, label: "page_compact" },
+                ]
+              ).map(({ mode, icon, label }) => (
+                <button
+                  key={mode}
+                  onClick={() => setViewMode(mode)}
+                  aria-label={t(label)}
+                  aria-pressed={viewMode === mode}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    viewMode === mode
+                      ? "bg-blue-500 text-white"
+                      : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  }`}
+                  title={t(label)}
+                >
+                  {icon}
+                </button>
+              ))}
             </div>
 
             <button
               onClick={() => setShowFilters(!showFilters)}
+              aria-expanded={showFilters}
               className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
                 showFilters
                   ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
@@ -625,6 +654,7 @@ export default function CurriculumPage() {
 
             <button
               onClick={() => setShowStats(!showStats)}
+              aria-expanded={showStats}
               className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
                 showStats
                   ? "bg-indigo-500 text-white"
@@ -638,7 +668,7 @@ export default function CurriculumPage() {
             <button
               onClick={handlePrint}
               disabled={isPrinting}
-              className="px-3 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-blue-500/20"
+              className="px-3 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-blue-500/20 disabled:opacity-50"
             >
               {isPrinting ? (
                 <Loader2 size={14} className="animate-spin" />
@@ -672,6 +702,7 @@ export default function CurriculumPage() {
         <AnimatePresence>
           {showStats && (
             <motion.div
+              key="stats-panel"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -679,66 +710,14 @@ export default function CurriculumPage() {
             >
               <GlassCard variant="premium" className="p-4">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-500">{stats.totalLessons}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_lessons")}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-500">
-                      {stats.completedLessons}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {tr("page_completed", locale, t)}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-500">
-                      {stats.inProgressLessons}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {tr("page_in_progress", locale, t)}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-500">
-                      {stats.overallProgress}%
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_overall_progress")}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-500">
-                      {stats.totalVocabulary}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_vocabulary")}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-500">
-                      {stats.totalPhrases}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_phrases")}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-pink-500">
-                      {stats.totalDialogues}
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_dialogues")}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-500">{favorites.size}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {t("page_favorites")}
-                    </div>
-                  </div>
+                  <StatCell value={stats.totalLessons} label={t("page_lessons")} color="text-red-500" />
+                  <StatCell value={stats.completedLessons} label={tr("page_completed", locale, t)} color="text-emerald-500" />
+                  <StatCell value={stats.inProgressLessons} label={tr("page_in_progress", locale, t)} color="text-yellow-500" />
+                  <StatCell value={`${stats.overallProgress}%`} label={t("page_overall_progress")} color="text-blue-500" />
+                  <StatCell value={stats.totalVocabulary} label={t("page_vocabulary")} color="text-purple-500" />
+                  <StatCell value={stats.totalPhrases} label={t("page_phrases")} color="text-orange-500" />
+                  <StatCell value={stats.totalDialogues} label={t("page_dialogues")} color="text-pink-500" />
+                  <StatCell value={favorites.size} label={t("page_favorites")} color="text-amber-500" />
                 </div>
               </GlassCard>
             </motion.div>
@@ -749,6 +728,7 @@ export default function CurriculumPage() {
         <AnimatePresence>
           {showFilters && (
             <motion.div
+              key="filters-panel"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -756,67 +736,54 @@ export default function CurriculumPage() {
             >
               <GlassCard variant="premium" className="p-4">
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                  {/* World Filter */}
-                  <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-                      {t("page__world")}
-                    </label>
-                    <select
-                      value={selectedWorld || ""}
-                      onChange={(e) => setSelectedWorld(e.target.value || null)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
-                    >
-                      <option value="">{t("page_all")}</option>
-                      {WORLDS.map((w) => (
-                        <option key={w.id} value={w.id}>
-                          {w.iconEmoji}{" "}
-                          {getLocalizedText(w.title, locale as LangCode, w.title.en)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <FilterSelect
+                    id="filter-world"
+                    label={t("page__world")}
+                    value={selectedWorld || ""}
+                    onChange={(v) => setSelectedWorld(v || null)}
+                  >
+                    <option value="">{t("page_all")}</option>
+                    {WORLDS.map((w) => (
+                      <option key={w.id} value={w.id}>
+                        {w.iconEmoji} {getLocalizedText(w.title, lang, w.title.en)}
+                      </option>
+                    ))}
+                  </FilterSelect>
 
-                  {/* Status Filter */}
-                  <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-                      {t("page_status")}
-                    </label>
-                    <select
-                      value={filterOption}
-                      onChange={(e) => setFilterOption(e.target.value as FilterOption)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
-                    >
-                      <option value="all">{t("page_all")}</option>
-                      <option value="completed">{tr("page_completed", locale, t)}</option>
-                      <option value="in-progress">{tr("page_in_progress", locale, t)}</option>
-                      <option value="not-started">{tr("page_not_started", locale, t)}</option>
-                    </select>
-                  </div>
+                  <FilterSelect
+                    id="filter-status"
+                    label={t("page_status")}
+                    value={filterOption}
+                    onChange={(v) => setFilterOption(v as FilterOption)}
+                  >
+                    <option value="all">{t("page_all")}</option>
+                    <option value="completed">{tr("page_completed", locale, t)}</option>
+                    <option value="in-progress">{tr("page_in_progress", locale, t)}</option>
+                    <option value="not-started">{tr("page_not_started", locale, t)}</option>
+                  </FilterSelect>
 
-                  {/* Sort */}
-                  <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
-                      {t("page_sort")}
-                    </label>
-                    <select
-                      value={sortOption}
-                      onChange={(e) => setSortOption(e.target.value as SortOption)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
-                    >
-                      <option value="default">{t("page_default")}</option>
-                      <option value="alphabetical">{t("page_alphabetical")}</option>
-                      <option value="progress">{t("page_progress")}</option>
-                      <option value="recent">{t("page_recently_viewed")}</option>
-                    </select>
-                  </div>
+                  <FilterSelect
+                    id="filter-sort"
+                    label={t("page_sort")}
+                    value={sortOption}
+                    onChange={(v) => setSortOption(v as SortOption)}
+                  >
+                    <option value="default">{t("page_default")}</option>
+                    <option value="alphabetical">{t("page_alphabetical")}</option>
+                    <option value="progress">{t("page_progress")}</option>
+                    <option value="recent">{t("page_recently_viewed")}</option>
+                  </FilterSelect>
 
-                  {/* Search */}
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                    <label
+                      htmlFor="filter-search"
+                      className="text-xs text-gray-500 dark:text-gray-400 mb-1 block"
+                    >
                       {t("page_search")}
                     </label>
                     <div className="relative">
                       <input
+                        id="filter-search"
                         ref={searchInputRef}
                         type="text"
                         value={searchQuery}
@@ -827,6 +794,7 @@ export default function CurriculumPage() {
                       {searchQuery && (
                         <button
                           onClick={() => setSearchQuery("")}
+                          aria-label={t("page_clear_filters")}
                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300"
                         >
                           <X size={14} />
@@ -848,7 +816,6 @@ export default function CurriculumPage() {
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
             />
             <input
-              ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -858,6 +825,7 @@ export default function CurriculumPage() {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
+                aria-label={t("page_clear_filters")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg hover:bg-white/10 text-gray-500 transition-colors"
               >
                 <X size={16} />
@@ -872,7 +840,13 @@ export default function CurriculumPage() {
             <span className="text-sm text-gray-500 dark:text-gray-400">
               {t("page_progress")}
             </span>
-            <div className="flex-1 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+            <div
+              role="progressbar"
+              aria-valuenow={stats.overallProgress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              className="flex-1 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden"
+            >
               <motion.div
                 className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
                 initial={{ width: 0 }}
@@ -881,14 +855,14 @@ export default function CurriculumPage() {
               />
             </div>
             <span className="text-sm font-bold text-gray-900 dark:text-white">
-              {t("page__stats_overallprogress_", { progress: stats.overallProgress })}
+              {tr("page_progress_percent", locale, t, { progress: stats.overallProgress })}
             </span>
           </div>
         </div>
 
         {/* ─── CURRICULUM CONTENT ─── */}
         <div className="space-y-6">
-          {filteredWorlds.length === 0 ? (
+          {visibleWorlds.length === 0 ? (
             <div className="text-center py-16">
               <div className="text-5xl mb-4">🌍</div>
               <p className="text-gray-600 dark:text-gray-400 font-medium">
@@ -896,27 +870,17 @@ export default function CurriculumPage() {
               </p>
             </div>
           ) : (
-            filteredWorlds.map((world) => {
-              const lessons = getFilteredLessons(world.id);
+            visibleWorlds.map((world) => {
+              const lessons = lessonsByWorld[world.id] || [];
               const isExpanded = expandedWorlds.has(world.id);
               const worldProgress = stats.byWorld[world.id];
-              const completedCount = worldProgress?.completedLessons || 0;
-              const totalCount = worldProgress?.totalLessons || 0;
+              const completedCount = worldProgress?.completedLessons ?? 0;
+              const totalCount = worldProgress?.totalLessons ?? 0;
               const worldProgressPercent =
                 totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-              if (lessons.length === 0 && searchQuery) return null;
-
-              const worldTitle = getLocalizedText(
-                world.title,
-                locale as LangCode,
-                world.title.en
-              );
-              const worldDesc = getLocalizedText(
-                world.description,
-                locale as LangCode,
-                world.description.en
-              );
+              const worldTitle = getLocalizedText(world.title, lang, world.title.en);
+              const worldDesc = getLocalizedText(world.description, lang, world.description.en);
 
               return (
                 <GlassCard
@@ -925,20 +889,17 @@ export default function CurriculumPage() {
                   className="print-world overflow-hidden p-0"
                 >
                   {/* ─── WORLD HEADER ─── */}
-                  <div
-                    className="p-4 border-b border-white/20 dark:border-white/5 cursor-pointer no-print hover:bg-white/5 dark:hover:bg-white/5 transition-colors"
+                  <button
+                    type="button"
                     onClick={() => toggleWorldExpand(world.id)}
+                    aria-expanded={isExpanded}
+                    className="w-full text-left p-4 border-b border-white/20 dark:border-white/5 cursor-pointer no-print hover:bg-white/5 dark:hover:bg-white/5 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <div>
                         <h2 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
                           <span>{world.iconEmoji}</span>
                           <span>{worldTitle}</span>
-                          {world.title.hy && world.title.hy !== worldTitle && (
-                            <span className="text-sm font-normal text-gray-400">
-                              ({world.title.hy})
-                            </span>
-                          )}
                         </h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {worldDesc}
@@ -966,12 +927,13 @@ export default function CurriculumPage() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </button>
 
                   {/* ─── EXPANDED LESSONS ─── */}
-                  <AnimatePresence>
+                  <AnimatePresence initial={false}>
                     {isExpanded && (
                       <motion.div
+                        key={`world-${world.id}-lessons`}
                         initial={{ height: 0 }}
                         animate={{ height: "auto" }}
                         exit={{ height: 0 }}
@@ -995,358 +957,28 @@ export default function CurriculumPage() {
                                   : "space-y-3"
                               }
                             >
-                              {lessons.map((lesson) => {
-                                const status = getLessonStatus(lesson.id);
-                                const progress = lessonProgress[lesson.id];
-                                const score = progress?.score || 0;
-                                const isFavorite = favorites.has(lesson.id);
-                                const isExpandedLesson = expandedLesson === lesson.id;
-
-                                const lessonTitle = getLocalizedText(
-                                  lesson.title,
-                                  locale as LangCode,
-                                  lesson.title.en
-                                );
-
-                                // ✅ Fallback chain: locale → hy → ru → en
-                                const lessonConcept =
-                                  lesson.concept?.[locale as LangCode] ||
-                                  lesson.concept?.hy ||
-                                  lesson.concept?.ru ||
-                                  lesson.concept?.en ||
-                                  "";
-
-                                return (
-                                  <GlassCard
-                                    key={lesson.id}
-                                    variant={viewMode === "compact" ? "compact" : "lesson"}
-                                    className={`${viewMode === "compact" ? "p-2" : "p-4"} ${
-                                      isFavorite ? "border-yellow-500/50" : ""
-                                    }`}
-                                    glow={isFavorite}
-                                  >
-                                    {/* ─── LESSON HEADER ─── */}
-                                    <div
-                                      className={`flex items-center justify-between cursor-pointer ${
-                                        viewMode === "compact" ? "gap-2" : ""
-                                      }`}
-                                      onClick={() =>
-                                        setExpandedLesson(
-                                          isExpandedLesson ? null : lesson.id
-                                        )
-                                      }
-                                    >
-                                      <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                          <span
-                                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                                              status.status === "completed"
-                                                ? "bg-emerald-500/20 text-emerald-500"
-                                                : status.status === "in-progress"
-                                                ? "bg-yellow-500/20 text-yellow-500"
-                                                : "bg-gray-500/20 text-gray-400"
-                                            }`}
-                                          >
-                                            {status.icon}{" "}
-                                            {tr(status.labelKey, locale, t)}
-                                          </span>
-                                          {isFavorite && (
-                                            <span className="text-[10px] text-yellow-400">
-                                              ⭐
-                                            </span>
-                                          )}
-                                          {lesson.dialogues.length > 0 && (
-                                            <span className="text-[10px] text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full">
-                                              💬 {lesson.dialogues.length}
-                                            </span>
-                                          )}
-                                        </div>
-                                        <h3
-                                          className={`font-bold text-gray-900 dark:text-white truncate ${
-                                            viewMode === "compact" ? "text-sm" : "text-base"
-                                          }`}
-                                        >
-                                          {lessonTitle}
-                                        </h3>
-                                        <p
-                                          className={`text-gray-500 dark:text-gray-400 truncate ${
-                                            viewMode === "compact" ? "text-xs" : "text-sm"
-                                          }`}
-                                        >
-                                          {lessonConcept}
-                                        </p>
-                                        {viewMode !== "compact" && (
-                                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                            <span>
-                                              {tr("page__vocab_count", locale, t, {
-                                                count: lesson.vocabulary.length,
-                                              })}
-                                            </span>
-                                            <span>
-                                              {tr("page__phrase_count", locale, t, {
-                                                count: lesson.phrases.length,
-                                              })}
-                                            </span>
-                                            <span>
-                                              {tr("page__dialogue_count", locale, t, {
-                                                count: lesson.dialogues.length,
-                                              })}
-                                            </span>
-                                          </div>
-                                        )}
-                                      </div>
-                                      <div className="flex items-center gap-2">
-                                        {viewMode !== "compact" && (
-                                          <>
-                                            <button
-                                              onClick={(e) => {
-                                                e.stopPropagation();
-                                                toggleFavorite(lesson.id);
-                                              }}
-                                              className={`p-1 rounded-lg transition-colors ${
-                                                isFavorite
-                                                  ? "text-yellow-400"
-                                                  : "text-gray-400 hover:text-yellow-400"
-                                              }`}
-                                            >
-                                              <Star
-                                                size={16}
-                                                fill={isFavorite ? "currentColor" : "none"}
-                                              />
-                                            </button>
-                                            <button
-                                              onClick={(e) => {
-                                                e.stopPropagation();
-                                                copyId(lesson.id);
-                                              }}
-                                              className="p-1 rounded-lg text-gray-400 hover:text-gray-300 transition-colors"
-                                            >
-                                              {copiedId === lesson.id ? (
-                                                <Check
-                                                  size={14}
-                                                  className="text-emerald-500"
-                                                />
-                                              ) : (
-                                                <Copy size={14} />
-                                              )}
-                                            </button>
-                                          </>
-                                        )}
-                                        <div className="flex items-center gap-2">
-                                          {viewMode !== "compact" && (
-                                            <div className="text-right">
-                                              <div className="text-sm font-medium text-gray-900 dark:text-white">
-                                                {score}%
-                                              </div>
-                                              <div className="w-12 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                                                <div
-                                                  className={`h-full rounded-full ${getProgressColor(
-                                                    score
-                                                  )} transition-all`}
-                                                  style={{ width: `${score}%` }}
-                                                />
-                                              </div>
-                                            </div>
-                                          )}
-                                          {isExpandedLesson ? (
-                                            <ChevronUp
-                                              size={viewMode === "compact" ? 14 : 20}
-                                              className="text-gray-500"
-                                            />
-                                          ) : (
-                                            <ChevronDown
-                                              size={viewMode === "compact" ? 14 : 20}
-                                              className="text-gray-500"
-                                            />
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    {/* ─── EXPANDED LESSON CONTENT ─── */}
-                                    <AnimatePresence>
-                                      {isExpandedLesson && viewMode !== "compact" && (
-                                        <motion.div
-                                          initial={{ height: 0, opacity: 0 }}
-                                          animate={{ height: "auto", opacity: 1 }}
-                                          exit={{ height: 0, opacity: 0 }}
-                                          transition={{ duration: 0.3 }}
-                                          className="overflow-hidden"
-                                        >
-                                          <div className="mt-3 pt-3 border-t border-white/20 dark:border-white/5 space-y-4">
-                                            {/* Vocabulary */}
-                                            <div>
-                                              <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                📖 {t("page_vocabulary")} (
-                                                {lesson.vocabulary.length})
-                                              </h4>
-                                              <div className="grid grid-cols-1 gap-1">
-                                                {lesson.vocabulary.map((v) => (
-                                                  <div
-                                                    key={v.id}
-                                                    className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
-                                                  >
-                                                    <span className="text-red-600 dark:text-red-400 w-1/3">
-                                                      {v.hy}
-                                                    </span>
-                                                    <span className="text-blue-600 dark:text-blue-400 w-1/3">
-                                                      {v.en}
-                                                    </span>
-                                                    <span className="text-green-600 dark:text-green-400 w-1/3">
-                                                      {v.ru}
-                                                    </span>
-                                                  </div>
-                                                ))}
-                                              </div>
-                                            </div>
-
-                                            {/* Phrases */}
-                                            {lesson.phrases.length > 0 && (
-                                              <div>
-                                                <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                  💬 {t("page_phrases")} (
-                                                  {lesson.phrases.length})
-                                                </h4>
-                                                <div className="grid grid-cols-1 gap-1">
-                                                  {lesson.phrases.map((p, i) => (
-                                                    <div
-                                                      key={i}
-                                                      className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
-                                                    >
-                                                      <span className="text-red-600 dark:text-red-400 w-1/3">
-                                                        {p.hy}
-                                                      </span>
-                                                      <span className="text-blue-600 dark:text-blue-400 w-1/3">
-                                                        {p.en}
-                                                      </span>
-                                                      <span className="text-green-600 dark:text-green-400 w-1/3">
-                                                        {p.ru}
-                                                      </span>
-                                                    </div>
-                                                  ))}
-                                                </div>
-                                              </div>
-                                            )}
-
-                                            {/* Dialogues */}
-                                            {lesson.dialogues.map((d, i) => {
-                                              const dialogueTitle = getLocalizedText(
-                                                d.title,
-                                                locale as LangCode,
-                                                d.title.en
-                                              );
-                                              return (
-                                                <div key={i}>
-                                                  <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
-                                                    🗣️ {dialogueTitle}{" "}
-                                                    {d.title.hy &&
-                                                      d.title.hy !== dialogueTitle &&
-                                                      `/ ${d.title.hy}`}
-                                                  </h4>
-                                                  <div className="space-y-2 border border-white/20 dark:border-white/5 rounded-lg p-3 bg-white/20 dark:bg-gray-800/30 backdrop-blur-sm">
-                                                    {d.turns.map((turn, j) => {
-                                                      const speakerName = getSpeakerName(
-                                                        turn.speaker,
-                                                        locale as LangCode
-                                                      );
-                                                      return (
-                                                        <div
-                                                          key={j}
-                                                          className={`p-2 rounded ${
-                                                            turn.speaker === "nurik"
-                                                              ? "bg-blue-50/50 dark:bg-blue-950/30"
-                                                              : "bg-green-50/50 dark:bg-green-950/30"
-                                                          }`}
-                                                        >
-                                                          <div className="font-bold text-xs mb-1 text-gray-900 dark:text-white">
-                                                            {turn.speaker === "nurik"
-                                                              ? "🐿️ "
-                                                              : "🧑 "}
-                                                            {speakerName}
-                                                          </div>
-                                                          <div className="text-red-600 dark:text-red-400">
-                                                            {turn.hy}
-                                                          </div>
-                                                          <div className="text-blue-600 dark:text-blue-400 text-sm">
-                                                            {turn.en}
-                                                          </div>
-                                                          <div className="text-green-600 dark:text-green-400 text-sm">
-                                                            {turn.ru}
-                                                          </div>
-                                                        </div>
-                                                      );
-                                                    })}
-                                                  </div>
-                                                </div>
-                                              );
-                                            })}
-
-                                            {/* Actions */}
-                                            <div className="flex flex-wrap gap-2 pt-2">
-                                              <Link
-                                                href={`/learn?lesson=${lesson.id}`}
-                                                className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-bold text-white transition flex items-center gap-1 shadow-[0_4px_16px_rgba(239,68,68,0.3)]"
-                                              >
-                                                <GraduationCap size={16} />
-                                                {t("page_start_lesson")}
-                                              </Link>
-                                              <Link
-                                                href={`/dialogues?lesson=${lesson.id}`}
-                                                className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg text-sm font-medium text-blue-400 transition flex items-center gap-1 border border-blue-500/20"
-                                              >
-                                                <MessageSquare size={16} />
-                                                {t("page_dialogues")}
-                                              </Link>
-                                              <button
-                                                onClick={() => toggleFavorite(lesson.id)}
-                                                className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
-                                                  isFavorite
-                                                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                                                    : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                                                }`}
-                                              >
-                                                {isFavorite ? (
-                                                  <BookMarked size={16} />
-                                                ) : (
-                                                  <BookOpen size={16} />
-                                                )}
-                                                {isFavorite
-                                                  ? t("page_favorite")
-                                                  : t("page_save")}
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </motion.div>
-                                      )}
-                                    </AnimatePresence>
-
-                                    {/* Compact view actions */}
-                                    {viewMode === "compact" && (
-                                      <div className="mt-1 flex items-center gap-2">
-                                        <Link
-                                          href={`/learn?lesson=${lesson.id}`}
-                                          className="px-2 py-1 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg text-[10px] font-medium transition"
-                                        >
-                                          {t("page_start")}
-                                        </Link>
-                                        <button
-                                          onClick={() => toggleFavorite(lesson.id)}
-                                          className={`p-1 rounded-lg transition-colors ${
-                                            isFavorite
-                                              ? "text-yellow-400"
-                                              : "text-gray-400 hover:text-yellow-400"
-                                          }`}
-                                        >
-                                          <Star
-                                            size={12}
-                                            fill={isFavorite ? "currentColor" : "none"}
-                                          />
-                                        </button>
-                                      </div>
-                                    )}
-                                  </GlassCard>
-                                );
-                              })}
+                              {lessons.map((lesson) => (
+                                <LessonCard
+                                  key={lesson.id}
+                                  lesson={lesson}
+                                  lang={lang}
+                                  locale={locale}
+                                  t={t}
+                                  viewMode={viewMode}
+                                  progress={lessonProgress[lesson.id]}
+                                  isFavorite={favorites.has(lesson.id)}
+                                  isExpanded={expandedLesson === lesson.id}
+                                  copiedId={copiedId}
+                                  onToggleExpand={() =>
+                                    setExpandedLesson(
+                                      expandedLesson === lesson.id ? null : lesson.id
+                                    )
+                                  }
+                                  onToggleFavorite={() => toggleFavorite(lesson.id)}
+                                  onCopyId={() => copyId(lesson.id)}
+                                  getLessonStatus={getLessonStatus}
+                                />
+                              ))}
                             </div>
                           )}
                         </div>
@@ -1360,10 +992,30 @@ export default function CurriculumPage() {
         </div>
       </div>
 
-      {/* ─── TOAST MESSAGE ─── */}
+      {/* ─── SCROLL TO TOP ─── */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            key="scroll-top"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            aria-label="Scroll to top"
+            className="fixed bottom-28 right-4 z-40 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-white/20 dark:border-white/5 shadow-lg flex items-center justify-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white no-print"
+          >
+            <ChevronUp size={20} />
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* ─── TOAST ─── */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
+            key="toast"
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -1382,5 +1034,361 @@ export default function CurriculumPage() {
 
       <BottomNav />
     </div>
+  );
+}
+
+// ─── SUBCOMPONENTS ───────────────────────────────────────────────────
+
+function StatCell({
+  value,
+  label,
+  color,
+}: {
+  value: number | string;
+  label: string;
+  color: string;
+}) {
+  return (
+    <div className="text-center">
+      <div className={`text-2xl font-bold ${color}`}>{value}</div>
+      <div className="text-xs text-gray-500 dark:text-gray-400">{label}</div>
+    </div>
+  );
+}
+
+function FilterSelect({
+  id,
+  label,
+  value,
+  onChange,
+  children,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+        {label}
+      </label>
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+      >
+        {children}
+      </select>
+    </div>
+  );
+}
+
+interface LessonCardProps {
+  lesson: ContentLesson;
+  lang: LangCode;
+  locale: string;
+  t: (k: string, p?: Record<string, unknown>) => string;
+  viewMode: ViewMode;
+  progress: LessonProgress | undefined;
+  isFavorite: boolean;
+  isExpanded: boolean;
+  copiedId: string | null;
+  onToggleExpand: () => void;
+  onToggleFavorite: () => void;
+  onCopyId: () => void;
+  getLessonStatus: (id: string) => {
+    status: string;
+    labelKey: string;
+    color: string;
+    icon: string;
+  };
+}
+
+function LessonCard({
+  lesson,
+  lang,
+  locale,
+  t,
+  viewMode,
+  progress,
+  isFavorite,
+  isExpanded,
+  copiedId,
+  onToggleExpand,
+  onToggleFavorite,
+  onCopyId,
+  getLessonStatus,
+}: LessonCardProps) {
+  const status = getLessonStatus(lesson.id);
+  const score = progress?.score || 0;
+  const isCompact = viewMode === "compact";
+
+  const lessonTitle = getLocalizedText(lesson.title, lang, lesson.title.en);
+  const lessonConcept = getLocalizedText(lesson.concept, lang, "");
+
+  return (
+    <GlassCard
+      variant={isCompact ? "compact" : "lesson"}
+      className={`${isCompact ? "p-2" : "p-4"} ${
+        isFavorite ? "border-yellow-500/50" : ""
+      }`}
+      glow={isFavorite}
+    >
+      <button
+        type="button"
+        onClick={onToggleExpand}
+        aria-expanded={isExpanded}
+        className={`w-full text-left flex items-center justify-between ${
+          isCompact ? "gap-2" : ""
+        }`}
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                status.status === "completed"
+                  ? "bg-emerald-500/20 text-emerald-500"
+                  : status.status === "in-progress"
+                  ? "bg-yellow-500/20 text-yellow-500"
+                  : "bg-gray-500/20 text-gray-400"
+              }`}
+            >
+              {status.icon} {tr(status.labelKey, locale, t)}
+            </span>
+            {isFavorite && <span className="text-[10px] text-yellow-400">⭐</span>}
+            {lesson.dialogues.length > 0 && (
+              <span className="text-[10px] text-purple-400 bg-purple-500/20 px-1.5 py-0.5 rounded-full">
+                💬 {lesson.dialogues.length}
+              </span>
+            )}
+          </div>
+          <h3
+            className={`font-bold text-gray-900 dark:text-white truncate ${
+              isCompact ? "text-sm" : "text-base"
+            }`}
+          >
+            {lessonTitle}
+          </h3>
+          <p
+            className={`text-gray-500 dark:text-gray-400 truncate ${
+              isCompact ? "text-xs" : "text-sm"
+            }`}
+          >
+            {lessonConcept}
+          </p>
+          {!isCompact && (
+            <div className="flex items-center gap-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <span>{tr("page_vocab_count", locale, t, { count: lesson.vocabulary.length })}</span>
+              <span>{tr("page_phrase_count", locale, t, { count: lesson.phrases.length })}</span>
+              <span>{tr("page_dialogue_count", locale, t, { count: lesson.dialogues.length })}</span>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {!isCompact && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleFavorite();
+                }}
+                aria-label={isFavorite ? t("page_favorite") : t("page_save")}
+                className={`p-1 rounded-lg transition-colors ${
+                  isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"
+                }`}
+              >
+                <Star size={16} fill={isFavorite ? "currentColor" : "none"} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCopyId();
+                }}
+                aria-label="Copy lesson ID"
+                className="p-1 rounded-lg text-gray-400 hover:text-gray-300 transition-colors"
+              >
+                {copiedId === lesson.id ? (
+                  <Check size={14} className="text-emerald-500" />
+                ) : (
+                  <Copy size={14} />
+                )}
+              </button>
+            </>
+          )}
+          <div className="flex items-center gap-2">
+            {!isCompact && (
+              <div className="text-right">
+                <div className="text-sm font-medium text-gray-900 dark:text-white">
+                  {score}%
+                </div>
+                <div className="w-12 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${getProgressColor(score)} transition-all`}
+                    style={{ width: `${score}%` }}
+                  />
+                </div>
+              </div>
+            )}
+            {isExpanded ? (
+              <ChevronUp size={isCompact ? 14 : 20} className="text-gray-500" />
+            ) : (
+              <ChevronDown size={isCompact ? 14 : 20} className="text-gray-500" />
+            )}
+          </div>
+        </div>
+      </button>
+
+      {/* ─── EXPANDED LESSON CONTENT ─── */}
+      <AnimatePresence initial={false}>
+        {isExpanded && !isCompact && (
+          <motion.div
+            key={`lesson-${lesson.id}-content`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="mt-3 pt-3 border-t border-white/20 dark:border-white/5 space-y-4">
+              {/* Vocabulary */}
+              <div>
+                <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
+                  📖 {t("page_vocabulary")} ({lesson.vocabulary.length})
+                </h4>
+                <div className="grid grid-cols-1 gap-1">
+                  {lesson.vocabulary.map((v) => (
+                    <div
+                      key={v.id}
+                      className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
+                    >
+                      <span className="text-red-600 dark:text-red-400 w-1/3">{v.hy}</span>
+                      <span className="text-blue-600 dark:text-blue-400 w-1/3">{v.en}</span>
+                      <span className="text-green-600 dark:text-green-400 w-1/3">{v.ru}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Phrases */}
+              {lesson.phrases.length > 0 && (
+                <div>
+                  <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
+                    💬 {t("page_phrases")} ({lesson.phrases.length})
+                  </h4>
+                  <div className="grid grid-cols-1 gap-1">
+                    {lesson.phrases.map((p, i) => (
+                      <div
+                        key={i}
+                        className="flex gap-4 text-sm py-1 border-b border-white/10 dark:border-white/5 last:border-0"
+                      >
+                        <span className="text-red-600 dark:text-red-400 w-1/3">{p.hy}</span>
+                        <span className="text-blue-600 dark:text-blue-400 w-1/3">{p.en}</span>
+                        <span className="text-green-600 dark:text-green-400 w-1/3">{p.ru}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Dialogues */}
+              {lesson.dialogues.map((d, i) => {
+                const dialogueTitle = getLocalizedText(d.title, lang, d.title.en);
+                return (
+                  <div key={i}>
+                    <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
+                      🗣️ {dialogueTitle}
+                    </h4>
+                    <div className="space-y-2 border border-white/20 dark:border-white/5 rounded-lg p-3 bg-white/20 dark:bg-gray-800/30 backdrop-blur-sm">
+                      {d.turns.map((turn, j) => {
+                        const speakerName = getSpeakerName(turn.speaker, lang);
+                        const emoji = SPEAKER_EMOJI[turn.speaker] || "🧑";
+                        return (
+                          <div
+                            key={j}
+                            className={`p-2 rounded ${
+                              turn.speaker === "nurik"
+                                ? "bg-blue-50/50 dark:bg-blue-950/30"
+                                : "bg-green-50/50 dark:bg-green-950/30"
+                            }`}
+                          >
+                            <div className="font-bold text-xs mb-1 text-gray-900 dark:text-white">
+                              {emoji} {speakerName}
+                            </div>
+                            <div className="text-red-600 dark:text-red-400">{turn.hy}</div>
+                            <div className="text-blue-600 dark:text-blue-400 text-sm">
+                              {turn.en}
+                            </div>
+                            <div className="text-green-600 dark:text-green-400 text-sm">
+                              {turn.ru}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Actions */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                <Link
+                  href={`/learn?lesson=${lesson.id}`}
+                  className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-bold text-white transition flex items-center gap-1 shadow-[0_4px_16px_rgba(239,68,68,0.3)]"
+                >
+                  <GraduationCap size={16} />
+                  {t("page_start_lesson")}
+                </Link>
+                <Link
+                  href={`/dialogues?lesson=${lesson.id}`}
+                  className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg text-sm font-medium text-blue-400 transition flex items-center gap-1 border border-blue-500/20"
+                >
+                  <MessageSquare size={16} />
+                  {t("page_dialogues")}
+                </Link>
+                <button
+                  type="button"
+                  onClick={onToggleFavorite}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
+                    isFavorite
+                      ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                      : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+                  }`}
+                >
+                  {isFavorite ? <BookMarked size={16} /> : <BookOpen size={16} />}
+                  {isFavorite ? t("page_favorite") : t("page_save")}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Compact view actions */}
+      {isCompact && (
+        <div className="mt-1 flex items-center gap-2">
+          <Link
+            href={`/learn?lesson=${lesson.id}`}
+            className="px-2 py-1 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg text-[10px] font-medium transition"
+          >
+            {t("page_start")}
+          </Link>
+          <button
+            type="button"
+            onClick={onToggleFavorite}
+            aria-label={isFavorite ? t("page_favorite") : t("page_save")}
+            className={`p-1 rounded-lg transition-colors ${
+              isFavorite ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"
+            }`}
+          >
+            <Star size={12} fill={isFavorite ? "currentColor" : "none"} />
+          </button>
+        </div>
+      )}
+    </GlassCard>
   );
 }

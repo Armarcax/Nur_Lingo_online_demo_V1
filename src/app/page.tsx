@@ -1,20 +1,54 @@
 // src/app/page.tsx
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Flame, BookOpen, Globe, Sparkles, ArrowRight, Zap, Heart, MessageSquare, Leaf, LayoutGrid,
-  Trophy, Target, Settings, Languages, RotateCcw, Loader2, XCircle, Users
+  Flame,
+  BookOpen,
+  Globe,
+  Sparkles,
+  ArrowRight,
+  Zap,
+  Heart,
+  MessageSquare,
+  Leaf,
+  LayoutGrid,
+  Trophy,
+  Target,
+  Settings,
+  Languages,
+  RotateCcw,
+  Loader2,
+  XCircle,
+  Users,
 } from "lucide-react";
-import Nuri, { NuriSpeech } from "@/components/Nuri";
+import type { LucideIcon } from "lucide-react";
+import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import ThemeToggle from "@/components/ThemeToggle";
 import { NuriRain } from "@/components/NuriRain";
-import { syncHearts, loadRewards, type UserRewards } from "@/lib/rewards/seeds";
-import { loadQuests, type Quest } from "@/lib/rewards/seeds";
-import { loadLangConfig, saveLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
+import {
+  syncHearts,
+  loadQuests,
+  claimReward,
+  addRewards,
+  type UserRewards,
+  type Quest,
+} from "@/lib/rewards/seeds";
+import {
+  loadLangConfig,
+  saveLangConfig,
+  type LangCode,
+  type LangPair,
+} from "@/lib/i18n/index";
 import { useI18n } from "@/hooks/useI18n";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
@@ -30,21 +64,29 @@ interface HomeStats {
 
 interface QuickLink {
   href: string;
-  icon: any;
+  icon: LucideIcon;
   labelKey: string;
   color?: string;
-  badge?: string;
 }
 
-// ─── LANGUAGE OPTIONS ───────────────────────────────────────────────
+// ─── CONSTANTS ────────────────────────────────────────────────────────
 
-const LANGUAGE_OPTIONS: { code: LangCode; label: string; flag: string; color: string }[] = [
+const LANGUAGE_OPTIONS: ReadonlyArray<{
+  code: LangCode;
+  label: string;
+  flag: string;
+  color: string;
+}> = [
   { code: "hy", label: "Հայերեն", flag: "🇦🇲", color: "text-red-400" },
   { code: "en", label: "English", flag: "🇬🇧", color: "text-blue-400" },
   { code: "ru", label: "Русский", flag: "🇷🇺", color: "text-green-400" },
 ];
 
-// ─── QUICK LINKS ─────────────────────────────────────────────────────
+const LANG_BY_CODE: Record<LangCode, (typeof LANGUAGE_OPTIONS)[number]> =
+  Object.fromEntries(LANGUAGE_OPTIONS.map((l) => [l.code, l])) as Record<
+    LangCode,
+    (typeof LANGUAGE_OPTIONS)[number]
+  >;
 
 const QUICK_LINKS: QuickLink[] = [
   { href: "/world", icon: Globe, labelKey: "page__world", color: "text-blue-400" },
@@ -55,41 +97,173 @@ const QUICK_LINKS: QuickLink[] = [
   { href: "/user-dictionary", icon: Users, labelKey: "page_user_dictionary", color: "text-yellow-400" },
 ];
 
+const FALLBACK_STATS: HomeStats = {
+  streak: 0,
+  totalHAYQ: 0,
+  hearts: 5,
+  hasStarted: false,
+  dailyProgress: 0,
+  dailyGoal: 50,
+};
+
+const DEFAULT_DAILY_GOAL = 50;
+
+// ─── MODAL WRAPPER (accessible, focus-trapped) ───────────────────────
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  labelledBy: string;
+  children: React.ReactNode;
+  maxWidth?: string;
+  zIndex?: number;
+}
+
+function Modal({
+  isOpen,
+  onClose,
+  labelledBy,
+  children,
+  maxWidth = "max-w-sm",
+  zIndex = 100,
+}: ModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    const raf = requestAnimationFrame(() => first?.focus());
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || focusable.length === 0) return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    };
+
+    dialog.addEventListener("keydown", onKeyDown);
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      cancelAnimationFrame(raf);
+      dialog.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+      previousFocusRef.current?.focus?.();
+    };
+  }, [isOpen, onClose]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+          style={{ zIndex }}
+          onClick={onClose}
+        >
+          <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={labelledBy}
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            onClick={(e) => e.stopPropagation()}
+            className={`bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl p-6 ${maxWidth} w-full max-h-[80vh] overflow-y-auto shadow-2xl`}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────
 
 export default function Home() {
   const router = useRouter();
   const { t, locale, setLanguage } = useI18n();
+  const lang = locale as LangCode;
+
+  // ─── STATE ────────────────────────────────────────────────────────
   const [stats, setStats] = useState<HomeStats | null>(null);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [rewards, setRewards] = useState<UserRewards | null>(null);
   const [quests, setQuests] = useState<Quest[]>([]);
-  const [nuriMood, setNuriMood] = useState<"happy" | "excited" | "encouraging" | "idle">("happy");
+  const [nuriMood, setNuriMood] = useState<NuriMood>("happy");
   const [isLoading, setIsLoading] = useState(true);
   const [isResetting, setIsResetting] = useState(false);
-  
-  // ─── LANGUAGE STATE ────────────────────────────────────────────────
+
+  // ─── LANGUAGE STATE ───────────────────────────────────────────────
   const [currentNative, setCurrentNative] = useState<LangCode>("hy");
   const [currentLearning, setCurrentLearning] = useState<LangCode>("en");
   const [selectedNative, setSelectedNative] = useState<LangCode>("hy");
   const [selectedLearning, setSelectedLearning] = useState<LangCode>("en");
 
-  // ─── LOAD DATA ──────────────────────────────────────────────────────
+  // ─── TIMER CLEANUP ────────────────────────────────────────────────
+  const nuriTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    return () => {
+      if (nuriTimerRef.current) clearTimeout(nuriTimerRef.current);
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
+
+  /** Set mood temporarily, then revert. Cancels any pending timer. */
+  const setMoodTemporarily = useCallback(
+    (mood: NuriMood, duration: number, resetTo: NuriMood = "happy") => {
+      setNuriMood(mood);
+      if (nuriTimerRef.current) clearTimeout(nuriTimerRef.current);
+      nuriTimerRef.current = setTimeout(() => setNuriMood(resetTo), duration);
+    },
+    []
+  );
+
+  // ─── LOAD DATA ────────────────────────────────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+
     const loadData = async () => {
       setIsLoading(true);
 
+      // ─── 1. Language config check ─────────────────────────────────
       try {
-        const langConfig = localStorage.getItem("nur_lang_config");
-        if (!langConfig) {
+        const langConfigRaw = localStorage.getItem("nur_lang_config");
+        if (!langConfigRaw) {
           router.replace("/onboarding");
           return;
         }
-        
         const config = loadLangConfig();
+        if (cancelled) return;
         if (config) {
           setCurrentNative(config.native as LangCode);
           setCurrentLearning(config.learning as LangCode);
@@ -97,60 +271,73 @@ export default function Home() {
           setSelectedLearning(config.learning as LangCode);
         }
       } catch {
-        router.replace("/onboarding");
+        if (!cancelled) router.replace("/onboarding");
         return;
       }
 
+      // ─── 2. Rewards + quests ──────────────────────────────────────
       try {
         const rewardsData = syncHearts();
+        if (cancelled) return;
         setRewards(rewardsData);
 
         const questsData = loadQuests() || [];
+        if (cancelled) return;
         setQuests(questsData);
 
         const today = new Date().toISOString().split("T")[0];
-        const dailyActivity = rewardsData.dailyActivity?.[today] || 0;
-        const dailyGoal = rewardsData.dailyGoal || 50;
+        const dailyActivity = rewardsData.dailyActivity?.[today] ?? 0;
+        const dailyGoal = rewardsData.dailyGoal ?? DEFAULT_DAILY_GOAL;
+        const totalHAYQ = rewardsData.totalHAYQ ?? 0;
+        const streak = rewardsData.streak ?? 0;
 
+        if (cancelled) return;
         setStats({
-          streak: rewardsData.streak || 0,
-          totalHAYQ: rewardsData.totalHAYQ || 0,
-          hearts: rewardsData.hearts || 5,
-          hasStarted: (rewardsData.totalHAYQ || 0) > 0 || (rewardsData.streak || 0) > 0,
+          streak,
+          totalHAYQ,
+          hearts: rewardsData.hearts ?? 5,
+          hasStarted: totalHAYQ > 0 || streak > 0,
           dailyProgress: Math.min(dailyActivity, dailyGoal),
-          dailyGoal: dailyGoal,
+          dailyGoal,
         });
 
         if (dailyActivity >= dailyGoal) {
-          setNuriMood("excited");
-          setTimeout(() => setNuriMood("happy"), 3000);
+          setMoodTemporarily("excited", 3000, "happy");
         }
-
       } catch (error) {
         console.error("Failed to load data:", error);
-        setStats({
-          streak: 0,
-          totalHAYQ: 0,
-          hearts: 5,
-          hasStarted: false,
-          dailyProgress: 0,
-          dailyGoal: 50,
-        });
+        if (!cancelled) setStats(FALLBACK_STATS);
       } finally {
-        setIsLoading(false);
+        if (!cancelled) setIsLoading(false);
       }
     };
 
     loadData();
-  }, [router]);
 
-  // ─── HANDLERS ──────────────────────────────────────────────────────
+    return () => {
+      cancelled = true;
+    };
+  }, [router, setMoodTemporarily]);
 
-  const handleStatsClick = useCallback(() => {
-    setShowStatsModal(true);
-  }, []);
+  // ─── DERIVED ──────────────────────────────────────────────────────
+  const claimableQuests = useMemo(
+    () => quests.filter((q) => q.completed && !q.claimed),
+    [quests]
+  );
+  const claimableCount = claimableQuests.length;
 
-  const handleSettingsClick = useCallback(() => {
+  const currentNativeInfo = LANG_BY_CODE[currentNative];
+  const currentLearningInfo = LANG_BY_CODE[currentLearning];
+
+  const hearts = stats?.hearts ?? rewards?.hearts ?? 5;
+  const streak = stats?.streak ?? rewards?.streak ?? 0;
+  const totalHAYQ = stats?.totalHAYQ ?? rewards?.totalHAYQ ?? 0;
+
+  // ─── HANDLERS ─────────────────────────────────────────────────────
+
+  const openStatsModal = useCallback(() => setShowStatsModal(true), []);
+
+  const openSettingsModal = useCallback(() => {
     const config = loadLangConfig();
     if (config) {
       setSelectedNative(config.native as LangCode);
@@ -159,42 +346,44 @@ export default function Home() {
     setShowSettingsModal(true);
   }, []);
 
-  const handleClaimQuest = useCallback(async (questId: string) => {
-    try {
-      const { claimReward } = await import("@/lib/rewards/seeds");
-      const reward = claimReward(questId);
-      
-      if (reward) {
-        const { addRewards } = await import("@/lib/rewards/seeds");
-        addRewards(reward.hayq, reward.seeds || 0);
-        
+  const handleClaimQuest = useCallback(
+    async (questId: string) => {
+      // Defensive: only claim if the quest is actually claimable.
+      const quest = quests.find((q) => q.id === questId);
+      if (!quest || !quest.completed || quest.claimed) return;
+
+      try {
+        const reward = claimReward(questId);
+        if (!reward) return;
+
+        addRewards(reward.hayq ?? 0, reward.seeds ?? 0);
+
         const questsData = loadQuests() || [];
         setQuests(questsData);
-        
+
         const rewardsData = syncHearts();
         setRewards(rewardsData);
-        
+
         setStats((prev) =>
           prev
             ? {
                 ...prev,
-                totalHAYQ: rewardsData.totalHAYQ,
+                totalHAYQ: rewardsData.totalHAYQ ?? prev.totalHAYQ,
                 hasStarted: true,
               }
-            : null
+            : prev
         );
 
-        setNuriMood("excited");
-        setTimeout(() => setNuriMood("happy"), 2000);
+        setMoodTemporarily("excited", 2000, "happy");
+      } catch (error) {
+        console.error("Failed to claim quest:", error);
       }
-    } catch (error) {
-      console.error("Failed to claim quest:", error);
-    }
-  }, []);
-
-  // ─── SAVE LANGUAGE SETTINGS ───────────────────────────────────────
+    },
+    [quests, setMoodTemporarily]
+  );
 
   const handleSaveLanguage = useCallback(() => {
+    if (selectedNative === selectedLearning) return;
     try {
       saveLangConfig({
         native: selectedNative,
@@ -205,39 +394,40 @@ export default function Home() {
       setCurrentNative(selectedNative);
       setCurrentLearning(selectedLearning);
       setShowSettingsModal(false);
-      
-      setNuriMood("excited");
-      setTimeout(() => setNuriMood("happy"), 2000);
-      
-      router.refresh();
+
+      setMoodTemporarily("excited", 2000, "happy");
+      // NOTE: router.refresh() removed — everything here is client-side.
     } catch (error) {
       console.error("Failed to save language settings:", error);
     }
-  }, [selectedNative, selectedLearning, router, setLanguage]);
-
-  // ─── RESET ONBOARDING ─────────────────────────────────────────────
+  }, [selectedNative, selectedLearning, setLanguage, setMoodTemporarily]);
 
   const handleResetOnboarding = useCallback(() => {
     setIsResetting(true);
-    
+
     try {
-      localStorage.removeItem("nur_lang_config");
-      localStorage.removeItem("nurlingo_rewards");
-      localStorage.removeItem("nurlingo_quests");
-      localStorage.removeItem("nurlingo_hearts");
-      localStorage.removeItem("nurlingo_streak");
-      localStorage.removeItem("nur_device_id");
-      localStorage.removeItem("nur_lesson_mistakes_v2");
-      
-      const keys = Object.keys(localStorage);
-      keys.forEach(key => {
+      const keysToRemove = [
+        "nur_lang_config",
+        "nurlingo_rewards",
+        "nurlingo_quests",
+        "nurlingo_hearts",
+        "nurlingo_streak",
+        "nur_device_id",
+        "nur_lesson_mistakes_v2",
+      ];
+      for (const key of keysToRemove) localStorage.removeItem(key);
+
+      // WAV caches
+      const allKeys = Object.keys(localStorage);
+      for (const key of allKeys) {
         if (key.startsWith("wav_audio_")) {
           localStorage.removeItem(key);
           localStorage.removeItem(key + "_time");
         }
-      });
-      
-      setTimeout(() => {
+      }
+
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = setTimeout(() => {
         setIsResetting(false);
         setShowResetConfirm(false);
         setShowSettingsModal(false);
@@ -250,14 +440,15 @@ export default function Home() {
     }
   }, [router]);
 
-  // ─── LOADING STATE ─────────────────────────────────────────────────
-
+  // ─── LOADING / ERROR STATES ───────────────────────────────────────
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#FFA500] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-[var(--color-text-muted)] text-sm font-medium">{t("page_loading")}</p>
+          <p className="text-[var(--color-text-muted)] text-sm font-medium">
+            {t("page_loading")}
+          </p>
         </div>
       </div>
     );
@@ -268,12 +459,15 @@ export default function Home() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-[var(--color-text-muted)] text-sm font-medium">{t("page_something_went_wrong")}</p>
+          <p className="text-[var(--color-text-muted)] text-sm font-medium">
+            {t("home_error_title")}
+          </p>
           <button
+            type="button"
             onClick={() => window.location.reload()}
             className="mt-4 px-6 py-2 bg-red-500/20 text-red-400 rounded-xl hover:bg-red-500/30 transition"
           >
-            {t("page__reload")}
+            {t("home_error_reload")}
           </button>
         </div>
       </div>
@@ -281,40 +475,47 @@ export default function Home() {
   }
 
   const isReturning = stats.hasStarted;
-  const completedQuests = quests.filter(q => q.completed && !q.claimed).length;
 
-  // ─── MAIN RENDER ──────────────────────────────────────────────────
-
+  // ─── RENDER ───────────────────────────────────────────────────────
   return (
     <main className="min-h-screen overflow-hidden relative">
-
-      <NuriRain langs={["hy"]} count={35} speed={0.7} />
+      <NuriRain langs={[currentNative]} count={35} speed={0.7} />
 
       {/* ─── HEADER ACTIONS ─── */}
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-        {isReturning && completedQuests > 0 && (
-          <div className="relative">
+        {isReturning && claimableCount > 0 && (
+          <button
+            type="button"
+            onClick={openStatsModal}
+            className="relative p-1"
+            title={t("home_quest_badge_title", { count: claimableCount })}
+            aria-label={t("home_quest_badge_aria", { count: claimableCount })}
+          >
             <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-[10px] font-bold text-black animate-pulse">
-              {completedQuests}
+              {claimableCount}
             </div>
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-ping" />
-          </div>
+          </button>
         )}
-        
+
         <button
-          onClick={handleSettingsClick}
+          type="button"
+          onClick={openSettingsModal}
           className="p-2 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/20 transition-all"
           title={t("page_settings")}
+          aria-label={t("page_settings")}
         >
-          <Settings size={20} className="text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition" />
+          <Settings
+            size={20}
+            className="text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition"
+          />
         </button>
-        
+
         <ThemeToggle size="lg" />
       </div>
 
       {/* ─── MAIN CONTENT ─── */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
-
         {/* ─── NURI ─── */}
         <motion.div
           animate={{ y: [0, -12, 0] }}
@@ -327,8 +528,8 @@ export default function Home() {
         <NuriSpeech
           text={
             isReturning
-              ? completedQuests > 0
-                ? t("page_nuri_quests_ready", { count: completedQuests })
+              ? claimableCount > 0
+                ? t("page_nuri_quests_ready", { count: claimableCount })
                 : t("page_nuri_continue")
               : t("page_nuri_welcome")
           }
@@ -349,24 +550,37 @@ export default function Home() {
         {isReturning && (
           <div className="flex items-center gap-3 mb-6 flex-wrap justify-center">
             <button
-              onClick={handleStatsClick}
+              type="button"
+              onClick={openStatsModal}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/20 transition-all"
+              aria-label={t("page_stats")}
             >
               <Flame size={14} className="text-orange-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">{stats.streak}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">
+                {streak}
+              </span>
             </button>
+
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Zap size={14} className="text-yellow-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">{stats.totalHAYQ}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">
+                {totalHAYQ}
+              </span>
             </div>
+
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Heart size={14} className="text-red-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">{stats.hearts}</span>
+              <span className="text-sm font-bold text-[var(--color-text)]">
+                {hearts}
+              </span>
             </div>
-            {rewards && rewards.streakFreeze > 0 && (
+
+            {rewards && (rewards.streakFreeze ?? 0) > 0 && (
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-500/30">
                 <span className="text-xs">🛡️</span>
-                <span className="text-xs font-bold text-blue-500">{rewards.streakFreeze}</span>
+                <span className="text-xs font-bold text-blue-500">
+                  {rewards.streakFreeze}
+                </span>
               </div>
             )}
           </div>
@@ -378,9 +592,15 @@ export default function Home() {
             href={isReturning ? "/world" : "/onboarding"}
             className="w-full bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-red-500/20 text-lg backdrop-blur-soft group"
           >
-            <Sparkles size={22} className="group-hover:rotate-12 transition-transform" />
+            <Sparkles
+              size={22}
+              className="group-hover:rotate-12 transition-transform"
+            />
             {isReturning ? t("page_continue") : t("page_start")}
-            <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight
+              size={22}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </Link>
         </div>
 
@@ -392,7 +612,12 @@ export default function Home() {
               href={item.href}
               className="bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-2xl p-2.5 text-center hover:bg-white/50 dark:hover:bg-white/20 hover:scale-105 transition-all group"
             >
-              <item.icon size={20} className={`mx-auto ${item.color || 'text-[var(--color-text-secondary)]'} mb-0.5 group-hover:scale-110 transition-transform`} />
+              <item.icon
+                size={20}
+                className={`mx-auto ${
+                  item.color || "text-[var(--color-text-secondary)]"
+                } mb-0.5 group-hover:scale-110 transition-transform`}
+              />
               <span className="text-[8px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
                 {t(item.labelKey)}
               </span>
@@ -408,12 +633,22 @@ export default function Home() {
                 <Target size={12} />
                 {t("page_daily_goal")}
               </span>
-              <span>{Math.round(stats.dailyProgress)} / {stats.dailyGoal} XP</span>
+              <span>
+                {Math.round(stats.dailyProgress)} / {stats.dailyGoal} XP
+              </span>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm overflow-hidden">
+            <div
+              role="progressbar"
+              aria-valuenow={Math.round(stats.dailyProgress)}
+              aria-valuemin={0}
+              aria-valuemax={stats.dailyGoal}
+              className="w-full h-1.5 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm overflow-hidden"
+            >
               <motion.div
                 initial={{ width: 0 }}
-                animate={{ width: `${Math.min((stats.dailyProgress / stats.dailyGoal) * 100, 100)}%` }}
+                animate={{
+                  width: `${(stats.dailyProgress / stats.dailyGoal) * 100}%`,
+                }}
                 className="h-full rounded-full bg-gradient-to-r from-[#D90012] via-[#F2A800] to-[#0033A0]"
               />
             </div>
@@ -427,280 +662,322 @@ export default function Home() {
       </div>
 
       {/* ─── STATS MODAL ─── */}
-      <AnimatePresence>
-        {showStatsModal && rewards && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
-            onClick={() => setShowStatsModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto shadow-2xl"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
-                  <Trophy size={20} className="text-yellow-500" />
-                  {t("page_stats") || "Stats"}
-                </h3>
-                <button
-                  onClick={() => setShowStatsModal(false)}
-                  className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__streak") || "Streak"}</span>
-                  <span className="font-bold text-[var(--color-text)]">{rewards.streak}</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__hayq") || "HAYQ"}</span>
-                  <span className="font-bold text-yellow-500">{rewards.totalHAYQ}</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__seeds") || "Seeds"}</span>
-                  <span className="font-bold text-emerald-500">{rewards.totalSeeds}</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__hearts") || "Hearts"}</span>
-                  <span className="font-bold text-red-500">{rewards.hearts}</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__freeze") || "Freeze"}</span>
-                  <span className="font-bold text-blue-500">{rewards.streakFreeze}</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__crowns") || "Crowns"}</span>
-                  <span className="font-bold text-amber-500">
-                    {Object.values(rewards.crowns || {}).reduce((a, b) => a + b, 0)}
-                  </span>
-                </div>
-              </div>
-
-              {quests.filter(q => q.completed && !q.claimed).length > 0 && (
-                <div className="mt-4">
-                  <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-2">{t("page__completed_quests") || "Completed Quests"}</p>
-                  <div className="space-y-1.5">
-                    {quests.filter(q => q.completed && !q.claimed).map((q) => (
-                      <div key={q.id} className="flex items-center justify-between p-2 bg-white/40 dark:bg-white/5 rounded-lg text-xs">
-                        <span className="text-[var(--color-text-secondary)]">
-                           {q.description?.[locale as keyof typeof q.description] || q.description?.en || q.id}
-                        </span>
-                        <button
-                          onClick={() => handleClaimQuest(q.id)}
-                          className="px-2 py-0.5 bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-colors text-[10px] font-bold"
-                        >
-                          {t("page_claim")}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <button
-                onClick={() => setShowStatsModal(false)}
-                className="w-full mt-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white font-bold text-sm"
+      <Modal
+        isOpen={showStatsModal && !!rewards}
+        onClose={() => setShowStatsModal(false)}
+        labelledBy="stats-modal-title"
+      >
+        {rewards && (
+          <>
+            <div className="flex items-center justify-between mb-4">
+              <h3
+                id="stats-modal-title"
+                className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2"
               >
-                {t("page_close")}
+                <Trophy size={20} className="text-yellow-500" />
+                {t("page_stats")}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowStatsModal(false)}
+                className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors p-1 rounded-lg"
+                aria-label={t("page_close")}
+              >
+                ✕
               </button>
-            </motion.div>
-          </motion.div>
+            </div>
+
+            <div className="space-y-3">
+              <StatRow
+                label={t("page__streak")}
+                value={rewards.streak ?? 0}
+                valueClass="text-[var(--color-text)]"
+              />
+              <StatRow
+                label={t("page__hayq")}
+                value={rewards.totalHAYQ ?? 0}
+                valueClass="text-yellow-500"
+              />
+              <StatRow
+                label={t("page__seeds")}
+                value={rewards.totalSeeds ?? 0}
+                valueClass="text-emerald-500"
+              />
+              <StatRow
+                label={t("page__hearts")}
+                value={rewards.hearts ?? 0}
+                valueClass="text-red-500"
+              />
+              <StatRow
+                label={t("page__freeze")}
+                value={rewards.streakFreeze ?? 0}
+                valueClass="text-blue-500"
+              />
+              <StatRow
+                label={t("page__crowns")}
+                value={Object.values(rewards.crowns || {}).reduce(
+                  (a, b) => a + b,
+                  0
+                )}
+                valueClass="text-amber-500"
+              />
+            </div>
+
+            {claimableQuests.length > 0 && (
+              <div className="mt-4">
+                <p className="text-xs text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+                  {t("page__completed_quests")}
+                </p>
+                <div className="space-y-1.5">
+                  {claimableQuests.map((q) => (
+                    <div
+                      key={q.id}
+                      className="flex items-center justify-between p-2 bg-white/40 dark:bg-white/5 rounded-lg text-xs"
+                    >
+                      <span className="text-[var(--color-text-secondary)]">
+                        {q.description?.[lang] ?? q.description?.en ?? q.id}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleClaimQuest(q.id)}
+                        className="px-2 py-0.5 bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-colors text-[10px] font-bold"
+                      >
+                        {t("page_claim")}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setShowStatsModal(false)}
+              className="w-full mt-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white font-bold text-sm"
+            >
+              {t("page_close")}
+            </button>
+          </>
         )}
-      </AnimatePresence>
+      </Modal>
 
       {/* ─── SETTINGS MODAL ─── */}
-      <AnimatePresence>
-        {showSettingsModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
-            onClick={() => setShowSettingsModal(false)}
+      <Modal
+        isOpen={showSettingsModal}
+        onClose={() => setShowSettingsModal(false)}
+        labelledBy="settings-modal-title"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h3
+            id="settings-modal-title"
+            className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/40 dark:border-white/20 rounded-2xl p-6 max-w-sm w-full max-h-[80vh] overflow-y-auto shadow-2xl"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
-                  <Settings size={20} className="text-[var(--color-text-secondary)]" />
-                  {t("page_settings")}
-                </h3>
-                <button
-                  onClick={() => setShowSettingsModal(false)}
-                  className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
-                >
-                  ✕
-                </button>
-              </div>
+            <Settings size={20} className="text-[var(--color-text-secondary)]" />
+            {t("page_settings")}
+          </h3>
+          <button
+            type="button"
+            onClick={() => setShowSettingsModal(false)}
+            className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors p-1 rounded-lg"
+            aria-label={t("page_close")}
+          >
+            ✕
+          </button>
+        </div>
 
-              <div className="bg-white/40 dark:bg-white/5 rounded-xl p-3 mb-4">
-                <p className="text-xs text-[var(--color-text-muted)] mb-1">{t("page_current_languages")}</p>
-                <div className="flex items-center gap-3 text-sm">
-                  <span className="text-[var(--color-text-secondary)]">{t("page__native_") || "Native"}</span>
-                  <span className="font-bold text-[var(--color-text)]">
-                    {LANGUAGE_OPTIONS.find(l => l.code === currentNative)?.flag} {LANGUAGE_OPTIONS.find(l => l.code === currentNative)?.label}
-                  </span>
-                  <span className="text-[var(--color-text-muted)]">→</span>
-                  <span className="font-bold text-[#FFA500]">
-                    {LANGUAGE_OPTIONS.find(l => l.code === currentLearning)?.flag} {LANGUAGE_OPTIONS.find(l => l.code === currentLearning)?.label}
-                  </span>
-                </div>
-              </div>
+        <div className="bg-white/40 dark:bg-white/5 rounded-xl p-3 mb-4">
+          <p className="text-xs text-[var(--color-text-muted)] mb-1">
+            {t("page_current_languages")}
+          </p>
+          <div className="flex items-center gap-3 text-sm">
+            <span className="text-[var(--color-text-secondary)]">
+              {t("page__native_")}
+            </span>
+            <span className="font-bold text-[var(--color-text)]">
+              {currentNativeInfo?.flag} {currentNativeInfo?.label}
+            </span>
+            <span className="text-[var(--color-text-muted)]">→</span>
+            <span className="font-bold text-[#FFA500]">
+              {currentLearningInfo?.flag} {currentLearningInfo?.label}
+            </span>
+          </div>
+        </div>
 
-              <div className="mb-4">
-                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">{t("page__native_") || "Native"}</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {LANGUAGE_OPTIONS.map((lang) => (
-                    <button
-                      key={`native-${lang.code}`}
-                      onClick={() => setSelectedNative(lang.code)}
-                      className={`p-3 rounded-xl border-2 text-center transition-all ${
-                        selectedNative === lang.code
-                          ? `border-[#FFA500] bg-[#FFA500]/10 ${lang.color}`
-                          : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
-                      }`}
-                    >
-                      <div className="text-2xl">{lang.flag}</div>
-                      <div className="text-[10px] font-medium mt-1">{lang.label}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <label className="text-xs text-[var(--color-text-muted)] mb-2 block">{t("page__learning_") || "Learning"}</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {LANGUAGE_OPTIONS.filter(l => l.code !== selectedNative).map((lang) => (
-                    <button
-                      key={`learning-${lang.code}`}
-                      onClick={() => setSelectedLearning(lang.code)}
-                      className={`p-3 rounded-xl border-2 text-center transition-all ${
-                        selectedLearning === lang.code
-                          ? `border-[#FFA500] bg-[#FFA500]/10 ${lang.color}`
-                          : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
-                      }`}
-                    >
-                      <div className="text-2xl">{lang.flag}</div>
-                      <div className="text-[10px] font-medium mt-1">{lang.label}</div>
-                    </button>
-                  ))}
-                </div>
-                {selectedNative === selectedLearning && (
-                  <p className="text-xs text-red-500 mt-2">⚠️ {t("page_language_same_error")}</p>
-                )}
-              </div>
-
+        {/* Native language selector */}
+        <div className="mb-4">
+          <label className="text-xs text-[var(--color-text-muted)] mb-2 block">
+            {t("page__native_")}
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {LANGUAGE_OPTIONS.map((lng) => (
               <button
-                onClick={handleSaveLanguage}
-                disabled={selectedNative === selectedLearning}
-                className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
-                  selectedNative === selectedLearning
-                    ? "bg-white/20 dark:bg-white/5 text-[var(--color-text-muted)] cursor-not-allowed"
-                    : "bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white hover:scale-105"
+                key={`native-${lng.code}`}
+                type="button"
+                onClick={() => setSelectedNative(lng.code)}
+                aria-pressed={selectedNative === lng.code}
+                className={`p-3 rounded-xl border-2 text-center transition-all ${
+                  selectedNative === lng.code
+                    ? `border-[#FFA500] bg-[#FFA500]/10 ${lng.color}`
+                    : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                 }`}
               >
-                <Languages size={16} />
-                {t("page_save_languages")}
+                <div className="text-2xl">{lng.flag}</div>
+                <div className="text-[10px] font-medium mt-1">{lng.label}</div>
               </button>
+            ))}
+          </div>
+        </div>
 
-              <div className="relative my-4">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/20 dark:border-white/10" />
-                </div>
-                <div className="relative flex justify-center text-xs">
-                  <span className="bg-transparent px-2 text-[var(--color-text-muted)]">⚠️ {t("page_danger_zone")}</span>
-                </div>
-              </div>
+        {/* Learning language selector */}
+        <div className="mb-4">
+          <label className="text-xs text-[var(--color-text-muted)] mb-2 block">
+            {t("page__learning_")}
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {LANGUAGE_OPTIONS.filter((l) => l.code !== selectedNative).map(
+              (lng) => (
+                <button
+                  key={`learning-${lng.code}`}
+                  type="button"
+                  onClick={() => setSelectedLearning(lng.code)}
+                  aria-pressed={selectedLearning === lng.code}
+                  className={`p-3 rounded-xl border-2 text-center transition-all ${
+                    selectedLearning === lng.code
+                      ? `border-[#FFA500] bg-[#FFA500]/10 ${lng.color}`
+                      : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+                  }`}
+                >
+                  <div className="text-2xl">{lng.flag}</div>
+                  <div className="text-[10px] font-medium mt-1">{lng.label}</div>
+                </button>
+              )
+            )}
+          </div>
+          {selectedNative === selectedLearning && (
+            <p className="text-xs text-red-500 mt-2">
+              ⚠️ {t("page_language_same_error")}
+            </p>
+          )}
+        </div>
 
-              <button
-                onClick={() => setShowResetConfirm(true)}
-                className="w-full py-3 rounded-xl border-2 border-red-500/30 bg-red-500/10 text-red-500 font-bold text-sm hover:bg-red-500/20 transition-all flex items-center justify-center gap-2"
-              >
-                <RotateCcw size={16} />
-                {t("page__onboarding_") || "Reset Onboarding"}
-              </button>
-              <p className="text-[10px] text-[var(--color-text-muted)] text-center mt-2">
-                {t("page_reset_warning") || "All data will be lost!"}
-              </p>
+        <button
+          type="button"
+          onClick={handleSaveLanguage}
+          disabled={selectedNative === selectedLearning}
+          className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+            selectedNative === selectedLearning
+              ? "bg-white/20 dark:bg-white/5 text-[var(--color-text-muted)] cursor-not-allowed"
+              : "bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white hover:scale-105"
+          }`}
+        >
+          <Languages size={16} />
+          {t("page_save_languages")}
+        </button>
 
-              <button
-                onClick={() => setShowSettingsModal(false)}
-                className="w-full mt-3 py-2.5 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors text-sm font-medium"
-              >
-                {t("page_cancel")}
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/20 dark:border-white/10" />
+          </div>
+          <div className="relative flex justify-center text-xs">
+            <span className="bg-transparent px-2 text-[var(--color-text-muted)]">
+              ⚠️ {t("page_danger_zone")}
+            </span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setShowResetConfirm(true)}
+          className="w-full py-3 rounded-xl border-2 border-red-500/30 bg-red-500/10 text-red-500 font-bold text-sm hover:bg-red-500/20 transition-all flex items-center justify-center gap-2"
+        >
+          <RotateCcw size={16} />
+          {t("page__onboarding_")}
+        </button>
+        <p className="text-[10px] text-[var(--color-text-muted)] text-center mt-2">
+          {t("page_reset_warning")}
+        </p>
+
+        <button
+          type="button"
+          onClick={() => setShowSettingsModal(false)}
+          className="w-full mt-3 py-2.5 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors text-sm font-medium"
+        >
+          {t("page_cancel")}
+        </button>
+      </Modal>
 
       {/* ─── RESET CONFIRMATION MODAL ─── */}
-      <AnimatePresence>
-        {showResetConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[101] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
-            onClick={() => setShowResetConfirm(false)}
+      <Modal
+        isOpen={showResetConfirm}
+        onClose={() => setShowResetConfirm(false)}
+        labelledBy="reset-modal-title"
+        zIndex={101}
+      >
+        <div className="text-center">
+          <div className="text-5xl mb-4" aria-hidden="true">
+            ⚠️
+          </div>
+          <h3
+            id="reset-modal-title"
+            className="text-xl font-bold text-[var(--color-text)] mb-2"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white/90 dark:bg-gray-900/95 backdrop-blur-xl border border-red-500/30 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl"
+            {t("page_reset_onboarding_title")}
+          </h3>
+          <p className="text-sm text-[var(--color-text-secondary)] mb-6">
+            {t("page_reset_onboarding_description")}
+            <br />
+            <span className="text-red-500 font-bold">
+              {t("page_reset_irreversible")}
+            </span>
+          </p>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => setShowResetConfirm(false)}
+              className="flex-1 py-3 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors font-medium"
             >
-              <div className="text-5xl mb-4">⚠️</div>
-              <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">{t("page_reset_onboarding_title")}</h3>
-              <p className="text-sm text-[var(--color-text-secondary)] mb-6">
-                {t("page_reset_onboarding_description")}
-                <br />
-                <span className="text-red-500 font-bold">{t("page_reset_irreversible")}</span>
-              </p>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 py-3 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors font-medium"
-                >
-                  {t("page_cancel")}
-                </button>
-                <button
-                  onClick={handleResetOnboarding}
-                  disabled={isResetting}
-                  className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  {isResetting ? (
-                    <>
-                      <Loader2 size={16} className="animate-spin" />
-                      {t("page_deleting")}
-                    </>
-                  ) : (
-                    <>
-                      <XCircle size={16} />
-                      {t("page_confirm")}
-                    </>
-                  )}
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {t("page_cancel")}
+            </button>
+            <button
+              type="button"
+              onClick={handleResetOnboarding}
+              disabled={isResetting}
+              className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {isResetting ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  {t("page_deleting")}
+                </>
+              ) : (
+                <>
+                  <XCircle size={16} />
+                  {t("page_confirm")}
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </main>
+  );
+}
+
+// ─── SUB-COMPONENTS ──────────────────────────────────────────────────
+
+function StatRow({
+  label,
+  value,
+  valueClass = "text-[var(--color-text)]",
+}: {
+  label: string;
+  value: number | string;
+  valueClass?: string;
+}) {
+  return (
+    <div className="flex items-center justify-between p-3 bg-white/40 dark:bg-white/5 rounded-xl">
+      <span className="text-[var(--color-text-secondary)]">{label}</span>
+      <span className={`font-bold ${valueClass}`}>{value}</span>
+    </div>
   );
 }

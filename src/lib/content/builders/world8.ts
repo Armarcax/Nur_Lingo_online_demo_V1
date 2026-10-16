@@ -2,17 +2,100 @@
 
 import type { QuickLesson } from "../types";
 
-const TOPICS = [
-  ["climate", "Climate Change", "Կլիմայի փոփոխություն", "Изменение климата"],
-  ["animals", "Wild Animals", "Վայրի կենդանիներ", "Дикие животные"],
-  ["plants", "Plants & Forests", "Բույսեր և անտառներ", "Растения и леса"],
-  ["pollution", "Pollution", "Աղտոտում", "Загрязнение"],
-  ["recycling", "Recycling", "Վերամշակում", "Переработка"],
-  ["energy", "Renewable Energy", "Վերականգնվող էներգիա", "Возобновляемая энергия"],
-  ["water", "Water Conservation", "Ջրի պահպանություն", "Сохранение воды"],
-  ["eco_friendly", "Eco-friendly Living", "Էկո-բարեկամական կյանք", "Эко-жизнь"],
-  ["disasters", "Natural Disasters", "Բնական աղետներ", "Стихийные бедствия"],
-  ["activism", "Environmental Activism", "Բնապահպանական ակտիվիզմ", "Экологический активизм"],
+// ✅ FIXED: added proper hy/ru concepts (was generic "Discussing X")
+const TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "climate",
+    "Climate Change",
+    "Կլիմայի փոփոխություն",
+    "Изменение климата",
+    "Causes and effects of a warming planet.",
+    "Տաքացող մոլորակի պատճառներն ու հետևանքները։",
+    "Причины и последствия потепления планеты.",
+  ],
+  [
+    "animals",
+    "Wild Animals",
+    "Վայրի կենդանիներ",
+    "Дикие животные",
+    "Wildlife, habitats, and conservation.",
+    "Վայրի բնություն, միջավայրեր և պահպանություն։",
+    "Дикая природа, места обитания и охрана.",
+  ],
+  [
+    "plants",
+    "Plants & Forests",
+    "Բույսեր և անտառներ",
+    "Растения и леса",
+    "Trees, flowers, and the importance of forests.",
+    "Ծառեր, ծաղիկներ և անտառների կարևորությունը։",
+    "Деревья, цветы и важность лесов.",
+  ],
+  [
+    "pollution",
+    "Pollution",
+    "Աղտոտում",
+    "Загрязнение",
+    "Air, water, and land pollution.",
+    "Օդի, ջրի և հողի աղտոտում։",
+    "Загрязнение воздуха, воды и земли.",
+  ],
+  [
+    "recycling",
+    "Recycling",
+    "Վերամշակում",
+    "Переработка",
+    "Sorting, reusing, and reducing waste.",
+    "Տեսակավորում, վերօգտագործում և թափոնի կրճատում։",
+    "Сортировка, повторное использование и сокращение отходов.",
+  ],
+  [
+    "energy",
+    "Renewable Energy",
+    "Վերականգնվող էներգիա",
+    "Возобновляемая энергия",
+    "Solar, wind, and clean power sources.",
+    "Արևային, հողմային և մաքուր էներգիայի աղբյուրներ։",
+    "Солнечные, ветровые и чистые источники энергии.",
+  ],
+  [
+    "water",
+    "Water Conservation",
+    "Ջրի պահպանություն",
+    "Сохранение воды",
+    "Saving and protecting our freshwater.",
+    "Քաղցրահամ ջրի խնայում և պաշտպանություն։",
+    "Экономия и защита пресной воды.",
+  ],
+  [
+    "eco_friendly",
+    "Eco-friendly Living",
+    "Էկո-բարեկամական կյանք",
+    "Эко-жизнь",
+    "Small daily choices that help the planet.",
+    "Փոքր ամենօրյա ընտրություններ, որ օգնում են մոլորակին։",
+    "Маленькие ежедневные выборы, помогающие планете.",
+  ],
+  [
+    "disasters",
+    "Natural Disasters",
+    "Բնական աղետներ",
+    "Стихийные бедствия",
+    "Earthquakes, floods, and emergency response.",
+    "Երկրաշարժեր, ջրհեղեղներ և արտակարգ արձագանք։",
+    "Землетрясения, наводнения и реагирование на ЧС.",
+  ],
+  [
+    "activism",
+    "Environmental Activism",
+    "Բնապահպանական ակտիվիզմ",
+    "Экологический активизм",
+    "Movements, campaigns, and volunteering.",
+    "Շարժումներ, քարոզարշավներ և կամավորություն։",
+    "Движения, кампании и волонтёрство.",
+  ],
 ];
 
 const BANKS: Record<
@@ -41,7 +124,7 @@ const BANKS: Record<
       ["ջերմոցային էֆեկտ", "greenhouse effect", "парниковый эффект"],
       ["կլիմայական գոտի", "climate zone", "климатическая зона"],
       ["երաշտ", "drought", "засуха"],
-      ["հեղեղ", "flood", "наводнение"],
+      ["ջրհեղեղ", "flood", "наводнение"],
       ["փոթորիկ", "storm", "шторм"],
       ["մակընթացություն", "tide", "прилив"],
       ["մակարդակ", "level", "уровень"],
@@ -355,7 +438,8 @@ const BANKS: Record<
       ["թափոն", "waste", "отходы"],
       ["աղբ", "trash", "мусор"],
       ["տարա", "container", "контейнер"],
-      ["թղթ", "paper", "бумага"],
+      // ✅ FIXED: "թղթ" (Eastern) → "թուղթ" (standard)
+      ["թուղթ", "paper", "бумага"],
       ["ապակի", "glass", "стекло"],
       ["պլաստիկ", "plastic", "пластик"],
       ["մետաղ", "metal", "металл"],
@@ -829,12 +913,16 @@ const BANKS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was generic "Discussing X")
 function makeEnvLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = BANKS[slug];
   return {
@@ -843,7 +931,7 @@ function makeEnvLesson(
     slug,
     difficulty: "B1",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: `Discussing ${enT}.`, hy: `Քննարկել ${hyT}.`, ru: `Обсуждение ${ruT}.` },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -853,8 +941,9 @@ function makeEnvLesson(
   };
 }
 
-const QUICK_LESSONS = TOPICS.map(([slug, en, hy, ru], idx) =>
-  makeEnvLesson(`w8_l${idx + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], idx) =>
+    makeEnvLesson(`w8_l${idx + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W8_LESSONS = QUICK_LESSONS.map((ql) => ({

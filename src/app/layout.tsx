@@ -13,42 +13,47 @@ import { ThemeBackground } from "@/components/ThemeBackground";
 import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+// ─── FONTS ────────────────────────────────────────────────────────────
+// Variable fonts are used automatically when `weight` is omitted,
+// dramatically reducing payload size.
+
 const notoSansArmenian = Noto_Sans_Armenian({
   subsets: ["armenian", "latin"],
   variable: "--font-armenian",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 const notoSerifArmenian = Noto_Serif_Armenian({
   subsets: ["armenian", "latin"],
   variable: "--font-armenian-serif",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "700"],
+  weight: ["400", "700"], // Space Mono has no variable variant
 });
 
+// ─── METADATA ─────────────────────────────────────────────────────────
+
+const SITE_URL = "https://nurlingo.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nurlingo.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
     template: "%s | NUR Lingo",
   },
   description:
-    "AI-native Armenian ↔ English language learning platform. Semantic understanding, HAYQ rewards, interactive lessons with Nuri mascot.",
+    "Learn Armenian, English, and Russian with an AI-native platform. Interactive lessons, real dialogues, and HAYQ rewards with Nuri.",
   keywords: [
     "Armenian",
     "հայերեն",
@@ -60,8 +65,10 @@ export const metadata: Metadata = {
     "NUR Lingo",
     "semantic engine",
     "language education",
+    "Armenian language",
+    "learn Armenian",
   ],
-  authors: [{ name: "NUR Lingo Team", url: "https://nurlingo.app" }],
+  authors: [{ name: "NUR Lingo Team", url: SITE_URL }],
   creator: "NUR Lingo",
   publisher: "NUR Lingo",
   robots: {
@@ -73,6 +80,14 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      "hy-AM": SITE_URL,
+      "en-US": `${SITE_URL}/en`,
+      "ru-RU": `${SITE_URL}/ru`,
     },
   },
   icons: {
@@ -87,10 +102,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "hy_AM",
     alternateLocale: ["en_US", "ru_RU"],
-    url: "https://nurlingo.app",
+    url: SITE_URL,
     title: "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
     description:
-      "Սովորիր հայերեն AI-ի հետ — semantic understanding, HAYQ reward system, interactive lessons",
+      "Սովորիր հայերեն, անգլերեն կամ ռուսերեն AI-ի հետ — интерактивные դասեր, երկխոսություններ, HAYQ պարգևներ։",
     siteName: "NUR Lingo",
     images: [
       {
@@ -104,17 +119,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
-    description: "Սովորիր հայերեն AI-ի հետ — semantic understanding, HAYQ rewards",
+    description:
+      "Սովորիր հայերեն AI-ի հետ — interactive lessons, real dialogues, HAYQ rewards",
     images: ["/og-image.jpg"],
     site: "@nurlingo",
     creator: "@nurlingo",
   },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-  },
   category: "education",
-  classification: "language learning, AI education, Armenian language",
 };
 
 export const viewport: Viewport = {
@@ -126,8 +137,52 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#faf8f6" },
     { media: "(prefers-color-scheme: dark)", color: "#0c0c12" },
   ],
-  colorScheme: "light dark",
 };
+
+// ─── INLINE BOOT SCRIPT ──────────────────────────────────────────────
+// Runs before paint to prevent FOUC of theme and language.
+
+const BOOT_SCRIPT = `
+(function () {
+  var root = document.documentElement;
+  try {
+    // ─── THEME ───
+    var stored = localStorage.getItem('nurlingo_theme');
+    var isDark;
+    if (stored === 'dark') isDark = true;
+    else if (stored === 'light') isDark = false;
+    else isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (isDark) {
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
+    }
+
+    // ─── LANGUAGE ───
+    try {
+      var cfg = localStorage.getItem('nur_lang_config');
+      if (cfg) {
+        var parsed = JSON.parse(cfg);
+        var lang = parsed && parsed.native;
+        if (lang === 'hy' || lang === 'en' || lang === 'ru') {
+          root.setAttribute('lang', lang);
+        }
+      }
+    } catch (_) { /* ignore */ }
+  } catch (_) {
+    // localStorage disabled — fall back to OS preference.
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
+    }
+  }
+})();
+`;
+
+// ─── LAYOUT ───────────────────────────────────────────────────────────
 
 export default function RootLayout({
   children,
@@ -142,72 +197,24 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('nur_theme');
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                  } else if (theme === 'light') {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.setAttribute('data-theme', 'light');
-                  } else {
-                    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    if (isDark) {
-                      document.documentElement.classList.add('dark');
-                      document.documentElement.setAttribute('data-theme', 'dark');
-                    } else {
-                      document.documentElement.classList.remove('dark');
-                      document.documentElement.setAttribute('data-theme', 'light');
-                    }
-                    localStorage.setItem('nur_theme', isDark ? 'dark' : 'light');
-                  }
-                } catch (_) {
-                  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                  }
-                }
-              })();
-            `,
-          }}
-        />
-
-        {/* ✅ CACHE BUSTING */}
-        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
+        <meta charSet="utf-8" />
+        <meta name="color-scheme" content="light dark" />
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
       </head>
 
-      <body className="min-h-screen antialiased transition-colors duration-300 bg-transparent">
+      <body className="min-h-screen antialiased bg-transparent">
         <I18nProvider>
           <NuriProvider>
-            <ThemeBackground language="hy" showSelector={true}>
-              {/* Background subtle gradient */}
-              <div className="fixed inset-0 -z-20 pointer-events-none">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 dark:to-black/20" />
-              </div>
+            <ThemeBackground showSelector>
+              {/* ─── Content ─── */}
+              <div className="relative z-10 container-main">{children}</div>
 
-              {/* Service Worker Register */}
+              {/* ─── Service worker ─── */}
               <ServiceWorkerRegister />
-
-              {/* Content */}
-              <div className="relative z-10 container-main">
-                {children}
-              </div>
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>
+
         <SpeedInsights />
       </body>
     </html>

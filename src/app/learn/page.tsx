@@ -1,9 +1,8 @@
-// src/app/learn/page.tsx - I18N THARMACVATS TARBERAK
+// src/app/learn/page.tsx
 "use client";
 
-import { useState, useEffect, useCallback, Suspense, useRef, useMemo } from "react"
-import { offlineLessonEngine } from '@/lib/offline/OfflineLessonEngine';
-import { offlineAudioManager } from '@/lib/offline/OfflineAudioManager';
+import { useState, useEffect, useCallback, Suspense, useRef } from "react";
+import { offlineLessonEngine } from "@/lib/offline/OfflineLessonEngine";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -19,44 +18,18 @@ import {
   Clock,
   Sparkles,
   Brain,
-  Target,
   Flame,
-  Award,
   BarChart3,
-  Share2,
-  Copy,
-  Check,
   Loader2,
-  Zap,
   BookOpen,
-  Users,
-  MessageSquare,
-  Eye,
-  EyeOff,
-  Settings,
-  ChevronDown,
-  ChevronUp,
-  Star,
-  Gift,
-  Calendar,
-  TrendingUp,
   AlertCircle,
-  Info,
-  Mic,
-  VolumeX,
   Play,
-  Pause,
-  Unlock,
-  Music,
-  Radio,
-  Speaker,
-  Volume,
   VolumeOff,
   GraduationCap,
   Gamepad2,
   MousePointerClick,
 } from "lucide-react";
-import Nuri, { NuriSpeech, getMoodFromScore, type NuriMood } from "@/components/Nuri";
+import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
 import { loadLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
 import { getLessonById, type MultiLesson, type MultiExercise } from "@/lib/i18n/multilingual";
@@ -78,11 +51,10 @@ import { supabase } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useAudioManager } from "@/lib/hooks/useAudioManager";
 import { getWavClient, WavClient } from "@/lib/audio/WavClient";
-import type { LanguageCode } from "@/lib/audio";
-import { resolveExerciseAudio, resolveOfflineAudio } from '@/lib/offline/offline-audio-resolver';
 import { useI18n } from "@/hooks/useI18n";
 import { translateOfflineLessonForLang } from "@/lib/offline/offline-lesson-translator";
 import { CorrectAnswerEffect } from "@/components/CorrectAnswerEffect";
+
 // ─── TYPES ────────────────────────────────────────────────────────────
 
 interface MistakeRecord {
@@ -90,20 +62,6 @@ interface MistakeRecord {
   exercise: MultiExercise;
   attempts: number;
   revealed: boolean;
-}
-
-function sanitizeForTTS(text: string): string {
-  if (!text) return text;
-  
-  return text
-    .replace(/[«»""'']/g, '')
-    .replace(/՛/g, '')
-    .replace(/՝/g, ',')
-    .replace(/։/g, '.')
-    .replace(/[.,;:!?։»«]+\s*$/g, '')
-    .replace(/[։»«]+/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
 }
 
 interface ExState {
@@ -134,7 +92,20 @@ interface LessonStats {
   timeSpent: number;
 }
 
-// ─── SMART RETRY HELPERS ─────────────────────────────────────────────
+// ─── HELPERS ──────────────────────────────────────────────────────────
+
+function sanitizeForTTS(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/[«»""'']/g, "")
+    .replace(/՛/g, "")
+    .replace(/՝/g, ",")
+    .replace(/։/g, ".")
+    .replace(/[.,;:!?։»«]+\s*$/g, "")
+    .replace(/[։»«]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 const MISTAKES_KEY = "nur_lesson_mistakes_v2";
 
@@ -144,7 +115,7 @@ function logMistake(lessonId: string, ex: MultiExercise, attempts: number, revea
     const raw = localStorage.getItem(MISTAKES_KEY);
     const all: Record<string, MistakeRecord[]> = raw ? JSON.parse(raw) : {};
     const list = all[lessonId] ?? [];
-    const existing = list.findIndex(m => m.exerciseId === ex.id);
+    const existing = list.findIndex((m) => m.exerciseId === ex.id);
     const rec: MistakeRecord = { exerciseId: ex.id, exercise: ex, attempts, revealed };
     if (existing >= 0) list[existing] = rec;
     else list.push(rec);
@@ -177,13 +148,11 @@ function clearMistakes(lessonId: string) {
 }
 
 function buildRetryQueue(lessonId: string): MultiExercise[] {
-  return getMistakes(lessonId).map(m => ({
+  return getMistakes(lessonId).map((m) => ({
     ...m.exercise,
     id: `${m.exercise.id}_retry`,
   }));
 }
-
-// ─── HELPERS ──────────────────────────────────────────────────────────
 
 function getOrCreateDeviceId(): string {
   const key = "nur_device_id";
@@ -214,155 +183,74 @@ function formatTime(ms: number): string {
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
 
 function getInitialLanguage(): LangCode {
-  if (typeof window === 'undefined') return 'en';
-  
+  if (typeof window === "undefined") return "en";
+
   const params = new URLSearchParams(window.location.search);
-  const pair = params.get('pair');
+  const pair = params.get("pair");
   if (pair) {
-    const parts = pair.split('-');
+    const parts = pair.split("-");
     if (parts.length === 2) {
       const native = parts[0] as LangCode;
-      if (['en', 'hy', 'ru'].includes(native)) {
-        console.log(`📍 Native language from URL: ${native}`);
-        return native;
-      }
+      if (["en", "hy", "ru"].includes(native)) return native;
     }
   }
-  
+
   try {
-    const saved = localStorage.getItem('nur_language_preference');
-    if (saved && ['en', 'hy', 'ru'].includes(saved)) {
-      console.log(`📍 Native language from localStorage: ${saved}`);
-      return saved as LangCode;
-    }
+    const saved = localStorage.getItem("nur_language_preference");
+    if (saved && ["en", "hy", "ru"].includes(saved)) return saved as LangCode;
   } catch {}
-  
+
   try {
-    const browserLang = navigator.language.split('-')[0];
-    if (['hy', 'ru'].includes(browserLang)) {
-      console.log(`📍 Native language from browser: ${browserLang}`);
-      return browserLang as LangCode;
-    }
+    const browserLang = navigator.language.split("-")[0];
+    if (["hy", "ru"].includes(browserLang)) return browserLang as LangCode;
   } catch {}
-  
-  console.log(`📍 Default native language: en`);
-  return 'en';
+
+  return "en";
 }
 
 function getLearningLanguage(): LangCode {
-  if (typeof window === 'undefined') return 'hy';
-  
+  if (typeof window === "undefined") return "hy";
+
   const params = new URLSearchParams(window.location.search);
-  const pair = params.get('pair');
+  const pair = params.get("pair");
   if (pair) {
-    const parts = pair.split('-');
+    const parts = pair.split("-");
     if (parts.length === 2) {
       const learning = parts[1] as LangCode;
-      if (['en', 'hy', 'ru'].includes(learning)) {
-        return learning;
-      }
+      if (["en", "hy", "ru"].includes(learning)) return learning;
     }
   }
-  
+
   const native = getInitialLanguage();
-  return native === 'hy' ? 'en' : 'hy';
+  return native === "hy" ? "en" : "hy";
 }
 
 function getPairKey(native: LangCode, learning: LangCode): string {
   return `${native}-${learning}`;
 }
 
-/// ─── NURI LINES (3 languages) ────────────────────────────────────────
+// ─── NURI LINES ─────────────────────────────────────────────────────
 
 const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
   correct_perfect: {
-    hy: [
-      "🏆 Վայ, HAYQ վաստակեցիր!",
-      "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!",
-      "🔥 Դու այսօր շատ լավն ես!",
-      "💪 Դու հանճար ես!",
-      "🌟 Հիանալի աշխատանք!",
-    ],
-    en: [
-      "🏆 Wow, you earned HAYQ!",
-      "🎉 I can't believe how well you've learned!",
-      "🔥 You're on fire today!",
-      "💪 You're a genius!",
-      "🌟 Excellent work!",
-    ],
-    ru: [
-      "🏆 Вау, ты заработал HAYQ!",
-      "🎉 Не верю, как хорошо ты выучил!",
-      "🔥 Ты сегодня в ударе!",
-      "💪 Ты гений!",
-      "🌟 Отличная работа!",
-    ],
+    hy: ["🏆 Վայ, HAYQ վաստակեցիր!", "🎉 Չեմ հավատում, թե որքան լավ ես սովորել!", "🔥 Դու այսօր շատ լավն ես!", "💪 Դու հանճար ես!", "🌟 Հիանալի աշխատանք!"],
+    en: ["🏆 Wow, you earned HAYQ!", "🎉 I can't believe how well you've learned!", "🔥 You're on fire today!", "💪 You're a genius!", "🌟 Excellent work!"],
+    ru: ["🏆 Вау, ты заработал HAYQ!", "🎉 Не верю, как хорошо ты выучил!", "🔥 Ты сегодня в ударе!", "💪 Ты гений!", "🌟 Отличная работа!"],
   },
   correct: {
-    hy: [
-      "✅ Շատ լավ!",
-      "👍 Այո! Հայերեն գիտես!",
-      "💪 Ճիշտ է! Շարունակիր նույն ոգով!",
-      "🎯 Ճիշտ ուղղությամբ ես շարժվում!",
-      "🌟 Հիանալի է, շարունակիր!",
-    ],
-    en: [
-      "✅ Very good!",
-      "👍 Yes! You know it!",
-      "💪 Correct! Keep it up!",
-      "🎯 You're on the right track!",
-      "🌟 Excellent, continue!",
-    ],
-    ru: [
-      "✅ Очень хорошо!",
-      "👍 Да! Ты знаешь!",
-      "💪 Правильно! Продолжай в том же духе!",
-      "🎯 Ты движешься в правильном направлении!",
-      "🌟 Отлично, продолжай!",
-    ],
+    hy: ["✅ Շատ լավ!", "👍 Այո! Հայերեն գիտես!", "💪 Ճիշտ է! Շարունակիր նույն ոգով!", "🎯 Ճիշտ ուղղությամբ ես շարժվում!", "🌟 Հիանալի է, շարունակիր!"],
+    en: ["✅ Very good!", "👍 Yes! You know it!", "💪 Correct! Keep it up!", "🎯 You're on the right track!", "🌟 Excellent, continue!"],
+    ru: ["✅ Очень хорошо!", "👍 Да! Ты знаешь!", "💪 Правильно! Продолжай в том же духе!", "🎯 Ты движешься в правильном направлении!", "🌟 Отлично, продолжай!"],
   },
   almost: {
-    hy: [
-      "💪 Գրեթե! Կրկին փորձիր",
-      "🤏 Մոտ էր!",
-      "🧐 Քիչ էր մնում...",
-      "📖 Մի քիչ էլ, և կստացվի!",
-    ],
-    en: [
-      "💪 Almost! Try again",
-      "🤏 So close!",
-      "🧐 Almost had it...",
-      "📖 A little more and you'll get it!",
-    ],
-    ru: [
-      "💪 Почти! Попробуй снова",
-      "🤏 Так близко!",
-      "🧐 Чуть-чуть не хватило...",
-      "📖 Ещё немного, и получится!",
-    ],
+    hy: ["💪 Գրեթե! Կրկին փորձիր", "🤏 Մոտ էր!", "🧐 Քիչ էր մնում...", "📖 Մի քիչ էլ, և կստացվի!"],
+    en: ["💪 Almost! Try again", "🤏 So close!", "🧐 Almost had it...", "📖 A little more and you'll get it!"],
+    ru: ["💪 Почти! Попробуй снова", "🤏 Так близко!", "🧐 Чуть-чуть не хватило...", "📖 Ещё немного, и получится!"],
   },
   incorrect: {
-    hy: [
-      "💪 Մի տխրիր! Կարող ես ավելի լավ",
-      "🔄 Կրկնիր, և կստացվի!",
-      "💪 Շատ մոտ էր, բայց կփորձենք նորից!",
-      "📖 Եկեք նորից փորձենք միասին",
-      "💪 Հաջորդ անգամ կստացվի:",
-    ],
-    en: [
-      "💪 Don't be sad! You can do better",
-      "🔄 Try again, you'll get it!",
-      "💪 So close, let's try again!",
-      "📖 Let's try together again",
-      "💪 Next time you'll get it!",
-    ],
-    ru: [
-      "💪 Не грусти! Ты можешь лучше",
-      "🔄 Попробуй снова, получится!",
-      "💪 Так близко, попробуем ещё раз!",
-      "📖 Давай попробуем вместе снова",
-      "💪 В следующий раз получится!",
-    ],
+    hy: ["💪 Մի տխրիր! Կարող ես ավելի լավ", "🔄 Կրկնիր, և կստացվի!", "💪 Շատ մոտ էր, բայց կփորձենք նորից!", "📖 Եկեք նորից փորձենք միասին", "💪 Հաջորդ անգամ կստացվի:"],
+    en: ["💪 Don't be sad! You can do better", "🔄 Try again, you'll get it!", "💪 So close, let's try again!", "📖 Let's try together again", "💪 Next time you'll get it!"],
+    ru: ["💪 Не грусти! Ты можешь лучше", "🔄 Попробуй снова, получится!", "💪 Так близко, попробуем ещё раз!", "📖 Давай попробуем вместе снова", "💪 В следующий раз получится!"],
   },
   reveal: {
     hy: ["🍎 Արի սովորենք միասին", "📖 Ահա ճիշտ պատասխանը"],
@@ -380,21 +268,9 @@ const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
     ru: ["🍎 Привет! Давай учиться вместе!", "💪 Как дела? Готов?", "🪙 Учиться весело"],
   },
   relax: {
-    hy: [
-      "☕ Ժամանակն է մի փոքր հանգստանալ:",
-      "🧘 Եկեք մի փոքր հանգստանանք!",
-      "🍵 5 րոպե հանգիստ, հետո կշարունակենք!",
-    ],
-    en: [
-      "☕ Time to take a short break.",
-      "🧘 Let's take a short break!",
-      "🍵 5 minutes rest, then we'll continue!",
-    ],
-    ru: [
-      "☕ Время немного отдохнуть.",
-      "🧘 Давай немного отдохнём!",
-      "🍵 5 минут отдыха, потом продолжим!",
-    ],
+    hy: ["☕ Ժամանակն է մի փոքր հանգստանալ:", "🧘 Եկեք մի փոքր հանգստանանք!", "🍵 5 րոպե հանգիստ, հետո կշարունակենք!"],
+    en: ["☕ Time to take a short break.", "🧘 Let's take a short break!", "🍵 5 minutes rest, then we'll continue!"],
+    ru: ["☕ Время немного отдохнуть.", "🧘 Давай немного отдохнём!", "🍵 5 минут отдыха, потом продолжим!"],
   },
   surprised: {
     hy: ["😲 Վա՜յ, դու շատ արագ ես սովորում!", "🤯 Անհավատալի!", "🌟 Դու ինձ զարմացնում ես!"],
@@ -410,11 +286,6 @@ const NURI_LINES: Record<string, Record<LangCode, string[]>> = {
     hy: ["😢 Մի տխրիր, հաջորդ անգամ կստացվի!", "💪 Մի հանձնվիր:"],
     en: ["😢 Don't be sad, next time you'll get it!", "💪 Don't give up!"],
     ru: ["😢 Не грусти, в следующий раз получится!", "💪 Не сдавайся!"],
-  },
-  angry: {
-    hy: ["😤 Հանգստացիր, ամեն ինչ լավ կլինի!", "🧘 Շնչիր խորը..."],
-    en: ["😤 Calm down, everything will be fine!", "🧘 Take a deep breath..."],
-    ru: ["😤 Успокойся, всё будет хорошо!", "🧘 Дыши глубоко..."],
   },
   excited: {
     hy: ["🤩 Հիանալի է, շարունակիր:", "🎉 Վա՜յ, դու առաջընթաց ունես!"],
@@ -434,7 +305,8 @@ function randomLine(key: string, lang: LangCode = "hy"): string {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// ─── FEEDBACK TRANSLATION (locale-aware, doesn't use translations.json) ──────
+// ─── FEEDBACK TRANSLATION ──────────────────────────────────────────
+
 const FEEDBACK_MAP: Record<string, Record<string, string>> = {
   hy: {
     feedback_correct: "✅ Ճիշտ է!",
@@ -456,27 +328,16 @@ const FEEDBACK_MAP: Record<string, Record<string, string>> = {
 function translateFeedback(fb: string, locale: string): string {
   if (typeof fb !== "string" || !fb) return fb;
   const map = FEEDBACK_MAP[locale] || FEEDBACK_MAP.en;
-
-  // Direct key match
   if (map[fb]) return map[fb];
 
-  // InteractiveLesson__correct / feedback_correct and variants
   const lower = fb.toLowerCase();
-  if (lower.endsWith("_correct") || lower.endsWith("__correct") || lower.includes("correct")) {
-    return map.feedback_correct;
-  }
-  if (lower.endsWith("_wrong") || lower.endsWith("__wrong") || lower.includes("wrong") || lower.includes("incorrect")) {
-    return map.feedback_wrong;
-  }
-  if (lower.endsWith("_perfect") || lower.endsWith("__perfect") || lower.includes("perfect")) {
-    return map.feedback_perfect;
-  }
-
-  // Not a known key — return as-is
+  if (lower.endsWith("_correct") || lower.endsWith("__correct") || lower.includes("correct")) return map.feedback_correct;
+  if (lower.endsWith("_wrong") || lower.endsWith("__wrong") || lower.includes("wrong") || lower.includes("incorrect")) return map.feedback_wrong;
+  if (lower.endsWith("_perfect") || lower.endsWith("__perfect") || lower.includes("perfect")) return map.feedback_perfect;
   return fb;
 }
 
-// ─── WORD ORDER INPUT ────────────────────────────────────────────────
+// ─── INPUT COMPONENTS ──────────────────────────────────────────────
 
 interface WordOrderInputProps {
   selected: string[];
@@ -527,8 +388,6 @@ function WordOrderInput({ selected, available, onSelect, onDeselect, disabled, t
   );
 }
 
-// ─── MULTIPLE CHOICE INPUT ──────────────────────────────────────────
-
 interface MultipleChoiceInputProps {
   options: string[];
   targetAnswer: string;
@@ -550,18 +409,11 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
         const isCorrect = isAnswered && isCorrectAnswer;
 
         let className = "p-4 rounded-xl border-2 transition-all text-left ";
-
-        if (isCorrect) {
-          className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
-        } else if (isWrong) {
-          className += "border-red-500 bg-red-500/10 line-through opacity-70";
-        } else if (isPicked && !isAnswered) {
-          className += "border-red-500 bg-red-500/10";
-        } else if (isAnswered && !isCorrectAnswer && !isPicked) {
-          className += "opacity-50";
-        } else {
-          className += "border-white/20 dark:border-gray-700 bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-800";
-        }
+        if (isCorrect) className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
+        else if (isWrong) className += "border-red-500 bg-red-500/10 line-through opacity-70";
+        else if (isPicked && !isAnswered) className += "border-red-500 bg-red-500/10";
+        else if (isAnswered && !isCorrectAnswer && !isPicked) className += "opacity-50";
+        else className += "border-white/20 dark:border-gray-700 bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white/30 dark:hover:bg-gray-800";
 
         return (
           <button
@@ -579,8 +431,6 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
     </div>
   );
 }
-
-// ─── MATCH PAIRS INPUT ──────────────────────────────────────────────
 
 interface MatchPairsInputProps {
   leftItems: string[];
@@ -611,9 +461,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
     }
   };
 
-  const isRightMatched = (right: string) => {
-    return Object.values(matched).includes(right);
-  };
+  const isRightMatched = (right: string) => Object.values(matched).includes(right);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -659,7 +507,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
   );
 }
 
-// ─── HAYQ COIN ANIMATION (Super Mario style) ────────────────────────
+// ─── HAYQ COIN ANIMATION ────────────────────────────────────────────
 
 function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
   if (!show) return null;
@@ -678,15 +526,13 @@ function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
         style={{ willChange: "transform, opacity" }}
       >
         <div className="text-6xl">🪙</div>
-        <div className="text-3xl font-black text-yellow-400 whitespace-nowrap">
-          +{amount} HAYQ
-        </div>
+        <div className="text-3xl font-black text-yellow-400 whitespace-nowrap">+{amount} HAYQ</div>
       </motion.div>
     </div>
   );
 }
 
-// ─── LISTENING INPUT ─────────────────────────────────────────────────
+// ─── LISTENING INPUT ────────────────────────────────────────────────
 
 interface ListeningInputProps {
   ttsText: string;
@@ -757,7 +603,7 @@ function ListeningInput({
   );
 }
 
-// ─── FREE TEXT INPUT ─────────────────────────────────────────────────
+// ─── FREE TEXT INPUT ────────────────────────────────────────────────
 
 interface FreeTextInputProps {
   value: string;
@@ -792,7 +638,7 @@ function FreeTextInput({ value, onChange, disabled, placeholder, onSpeak, textTo
   );
 }
 
-// ─── MAIN COMPONENT ──────────────────────────────────────────────────
+// ─── MAIN COMPONENT ─────────────────────────────────────────────────
 
 function LearnInner() {
   const router = useRouter();
@@ -804,32 +650,29 @@ function LearnInner() {
   const { t, locale } = useI18n();
 
   const [isProfessional, setIsProfessional] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('nur_learning_mode') === 'professional';
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("nur_learning_mode") === "professional";
     }
     return false;
   });
 
   const [audioEnabled, setAudioEnabled] = useState(true);
 
-  const { 
-    play: playAudio, 
-    stop, 
-    isPlaying, 
-    isLoading, 
-    isTTSFallback, 
-    preload 
-  } = useAudioManager();
+  // ✅ Removed unused: playAudio, isLoading, isTTSFallback, preload
+  const { stop, isPlaying } = useAudioManager();
 
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
   const [isWAVAvailable, setIsWAVAvailable] = useState(false);
-  const [audioMode] = useState<"wav" | "tts" | "mp3">("wav");
-  const [selectedVoice] = useState<string>("Ani");
-
   const [isAudioReady, setIsAudioReady] = useState(false);
-  const firstAutoPlayAttempted = useRef(false);
 
   const loadedLessonRef = useRef<string | null>(null);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const exerciseStartTime = useRef<number>(Date.now());
+  const breakTimerRef = useRef<NodeJS.Timeout | null>(null);
+  // ✅ Synchronous lock for double-click protection
+  const speakingLockRef = useRef(false);
+  // ✅ Guard against double-advance
+  const advancingRef = useRef(false);
 
   useEffect(() => {
     const initWAV = async () => {
@@ -847,17 +690,13 @@ function LearnInner() {
   }, []);
 
   useEffect(() => {
-    if (wavClient && isWAVAvailable) {
-      setIsAudioReady(true);
-    }
+    if (wavClient && isWAVAvailable) setIsAudioReady(true);
   }, [wavClient, isWAVAvailable]);
 
   useEffect(() => {
-    if (!isWAVAvailable && typeof window !== 'undefined') {
+    if (!isWAVAvailable && typeof window !== "undefined") {
       const checkVoices = () => {
-        if (window.speechSynthesis.getVoices().length > 0) {
-          setIsAudioReady(true);
-        }
+        if (window.speechSynthesis.getVoices().length > 0) setIsAudioReady(true);
       };
       window.speechSynthesis.onvoiceschanged = checkVoices;
       checkVoices();
@@ -909,11 +748,14 @@ function LearnInner() {
   const [showCorrectEffect, setShowCorrectEffect] = useState(false);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
-  const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
-  }, []);
+  const showMessage = useCallback(
+    (text: string, type: "success" | "error" | "info" = "info") => {
+      setToastMessage(text);
+      setToastType(type);
+      setTimeout(() => setToastMessage(""), 3000);
+    },
+    []
+  );
 
   const [selectedWords, setSW] = useState<string[]>([]);
   const [availWords, setAW] = useState<string[]>([]);
@@ -938,28 +780,25 @@ function LearnInner() {
     showListenButton: false,
   });
 
-  const exerciseStartTime = useRef<number>(Date.now());
-  const breakTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
   const current = lesson?.exercises[ex.index];
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
 
+  // ─── TOGGLE MODE ────────────────────────────────────────────────
+
   const toggleMode = useCallback(() => {
-    setIsProfessional(prev => {
+    setIsProfessional((prev) => {
       const newMode = !prev;
-      localStorage.setItem('nur_learning_mode', newMode ? 'professional' : 'amateur');
-      showMessage(
-        newMode ? t("page_professional_mode") : t("page_amateur_mode"),
-        "info"
-      );
+      localStorage.setItem("nur_learning_mode", newMode ? "professional" : "amateur");
+      showMessage(newMode ? t("page_professional_mode") : t("page_amateur_mode"), "info");
       loadedLessonRef.current = null;
       setLesson(null);
       return newMode;
     });
   }, [showMessage, t]);
+
+  // ─── RELAX MUSIC ────────────────────────────────────────────────
 
   const playRelaxMusic = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -977,9 +816,7 @@ function LearnInner() {
         relaxAudio.play().catch(() => {});
         setIsRelaxing(true);
       }
-    } catch {
-      // Silent fail
-    }
+    } catch {}
   }, [relaxAudio]);
 
   const stopRelaxMusic = useCallback(() => {
@@ -996,291 +833,234 @@ function LearnInner() {
         relaxAudio.pause();
         relaxAudio.currentTime = 0;
       }
-      if (autoPlayTimeoutRef.current) {
-        clearTimeout(autoPlayTimeoutRef.current);
-      }
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     };
   }, [relaxAudio]);
 
-  const playAudioWithFemaleVoice = useCallback((text: string, lang: string) => {
-    return new Promise((resolve, reject) => {
-      if (typeof window === 'undefined' || !window.speechSynthesis) {
-        reject(new Error('Speech synthesis not supported'));
-        return;
-      }
+  // ─── AUDIO: FEMALE VOICE ────────────────────────────────────────
 
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      if (lang === 'hy') {
-        utterance.rate = 1.5;
-      } else if (lang === 'en') {
-        utterance.rate = 1.1;
-      } else {
-        utterance.rate = 1.15;
-      }
-      utterance.pitch = 1.3;
-      utterance.volume = 1.0;
-
-      const voices = window.speechSynthesis.getVoices();
-      
-      const femaleVoiceNames = [
-        'Samantha', 'Google UK English Female', 'Karen', 'Zira', 
-        'Alice', 'Victoria', 'Emma', 'Susan', 'Tessa',
-        'Google русский', 'Anna', 'Elena', 'Katya', 'Marina', 'Natalia', 'Alena',
-        'Ani', 'Google Հայերեն', 'Armine', 'Lusine',
-      ];
-      
-      let selectedVoice = null;
-      
-      for (const name of femaleVoiceNames) {
-        const found = voices.find(v => 
-          v.lang.startsWith(lang) && 
-          v.name.toLowerCase() === name.toLowerCase()
-        );
-        if (found) {
-          selectedVoice = found;
-          break;
+  const playAudioWithFemaleVoice = useCallback(
+    (text: string, lang: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        if (typeof window === "undefined" || !window.speechSynthesis) {
+          reject(new Error("Speech synthesis not supported"));
+          return;
         }
-      }
-      
-      if (!selectedVoice) {
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        if (lang === "hy") utterance.rate = 1.5;
+        else if (lang === "en") utterance.rate = 1.1;
+        else utterance.rate = 1.15;
+        utterance.pitch = 1.3;
+        utterance.volume = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoiceNames = [
+          "Samantha", "Google UK English Female", "Karen", "Zira",
+          "Alice", "Victoria", "Emma", "Susan", "Tessa",
+          "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena",
+          "Ani", "Google Հայերեն", "Armine", "Lusine",
+        ];
+
+        let selected: SpeechSynthesisVoice | null = null;
         for (const name of femaleVoiceNames) {
-          const found = voices.find(v => 
-            v.lang.startsWith(lang) && 
-            v.name.toLowerCase().includes(name.toLowerCase())
+          const found = voices.find(
+            (v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase()
           );
           if (found) {
-            selectedVoice = found;
+            selected = found;
             break;
           }
         }
-      }
-      
-      if (!selectedVoice) {
-        selectedVoice = voices.find(v => 
-          v.lang.startsWith(lang) && 
-          (v.name.toLowerCase().includes('female') ||
-           v.name.toLowerCase().includes('samantha') ||
-           v.name.toLowerCase().includes('zira') ||
-           v.name.toLowerCase().includes('karen') ||
-           v.name.toLowerCase().includes('anna'))
-        );
-      }
-      
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-        console.log(`🎤 Female voice: ${selectedVoice.name}`);
-      } else {
-        utterance.pitch = 1.5;
-        console.warn(`⚠️ No female voice found, using high pitch (1.5)`);
-      }
+        if (!selected) {
+          for (const name of femaleVoiceNames) {
+            const found = voices.find(
+              (v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase())
+            );
+            if (found) {
+              selected = found;
+              break;
+            }
+          }
+        }
+        if (!selected) {
+          selected = voices.find(
+            (v) =>
+              v.lang.startsWith(lang) &&
+              (v.name.toLowerCase().includes("female") ||
+                v.name.toLowerCase().includes("samantha") ||
+                v.name.toLowerCase().includes("zira") ||
+                v.name.toLowerCase().includes("karen") ||
+                v.name.toLowerCase().includes("anna"))
+          ) ?? null;
+        }
 
-      utterance.onend = () => {
-        resolve(undefined);
-      };
+        if (selected) utterance.voice = selected;
+        else utterance.pitch = 1.5;
 
-      utterance.onerror = (e) => {
-        console.error('Speech error:', e);
-        reject(e);
-      };
+        utterance.onend = () => resolve();
+        utterance.onerror = (e) => reject(e);
 
-      window.speechSynthesis.speak(utterance);
-    });
-  }, []);
+        window.speechSynthesis.speak(utterance);
+      });
+    },
+    []
+  );
 
-  const playAudioWithFallback = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
-    if (!audioEnabled) {
-      console.log(`🔇 Audio disabled, skipping: "${text}"`);
-      return;
-    }
+  // ─── AUDIO: MASTER FALLBACK ─────────────────────────────────────
 
-    if (!text) return;
+  const playAudioWithFallback = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!audioEnabled) return;
+      if (!text) return;
 
-    text = sanitizeForTTS(text);
-    if (!text) return;
+      text = sanitizeForTTS(text);
+      if (!text) return;
 
-    console.log(`🔊 Playing ${type}: "${text}" (${lang})`);
+      const pairKey = getPairKey(native, learningLang);
 
-    const pairKey = getPairKey(native, learningLang);
-    
-    if (type === 'prompt') {
-      if (lang === 'hy') {
-        if (wavClient && isWAVAvailable) {
+      if (type === "prompt") {
+        if (lang === "hy") {
+          if (wavClient && isWAVAvailable) {
+            try {
+              await wavClient.playPrompt(text, pairKey, "Ani");
+              return;
+            } catch (error: any) {
+              if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+                try {
+                  await playAudioWithFemaleVoice(text, "hy");
+                  return;
+                } catch {}
+              }
+            }
+          }
           try {
-            await wavClient.playPrompt(text, pairKey, 'Ani');
-            console.log(`✅ WAV (Ani) for prompt (hy): ${text}`);
+            await playAudioWithFemaleVoice(text, "hy");
+            return;
+          } catch {}
+        }
+
+        if (lang === "en") {
+          try {
+            const r = await fetch("/api/generate-tts-en", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (r.ok) {
+              const d = await r.json();
+              if (d.success && d.audioUrl) {
+                await new Audio(d.audioUrl).play();
+                return;
+              }
+            }
+          } catch {}
+        }
+
+        if (lang === "ru") {
+          try {
+            const r = await fetch("/api/generate-tts-ru", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (r.ok) {
+              const d = await r.json();
+              if (d.success && d.audioUrl) {
+                await new Audio(d.audioUrl).play();
+                return;
+              }
+            }
+          } catch {}
+        }
+
+        try {
+          await playAudioWithFemaleVoice(text, lang);
+        } catch {}
+      }
+
+      if (type === "answer") {
+        if (learningLang === "hy" && wavClient && isWAVAvailable) {
+          try {
+            await wavClient.playAnswer(text, pairKey, "Ani");
             return;
           } catch (error: any) {
-            if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-              console.log('⏸️ WAV autoplay blocked, falling back to TTS');
+            if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
               try {
-                await playAudioWithFemaleVoice(text, 'hy');
-                console.log(`✅ TTS (hy) for prompt: ${text}`);
+                await playAudioWithFemaleVoice(text, "hy");
                 return;
-              } catch (ttsError) {
-                console.warn("TTS also failed:", ttsError);
-              }
-            } else {
-              console.warn("WAV failed:", error);
+              } catch {}
             }
           }
         }
-        
-        try {
-          await playAudioWithFemaleVoice(text, 'hy');
-          console.log(`✅ Female TTS (hy) for prompt: ${text}`);
-          return;
-        } catch (error) {
-          console.warn("Female TTS failed:", error);
-        }
-      }
-      
-      if (lang === 'en') {
-        try {
-          const response = await fetch('/api/generate-tts-en', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.audioUrl) {
-              const audio = new Audio(data.audioUrl);
-              await audio.play();
-              console.log(`✅ English TTS for prompt: ${text}`);
-              return;
-            }
-          }
-        } catch (error) {
-          console.warn("English TTS failed:", error);
-        }
-      }
-      
-      if (lang === 'ru') {
-        try {
-          const response = await fetch('/api/generate-tts-ru', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.audioUrl) {
-              const audio = new Audio(data.audioUrl);
-              await audio.play();
-              console.log(`✅ Russian TTS for prompt: ${text}`);
-              return;
-            }
-          }
-        } catch (error) {
-          console.warn("Russian TTS failed:", error);
-        }
-      }
-      
-      try {
-        await playAudioWithFemaleVoice(text, lang);
-        console.log(`✅ TTS (${lang}) for prompt (fallback): ${text}`);
-        return;
-      } catch (error) {
-        console.warn("TTS failed:", error);
-      }
-    }
-
-    if (type === 'answer') {
-      if (learningLang === 'hy') {
-        if (wavClient && isWAVAvailable) {
+        if (learningLang === "en") {
           try {
-            await wavClient.playAnswer(text, pairKey, 'Ani');
-            console.log(`✅ WAV (Ani) for answer (${pairKey}): ${text}`);
-            return;
-          } catch (error: any) {
-            if (error.message === 'AUTOPLAY_BLOCKED' || error.name === 'NotAllowedError') {
-              console.log('⏸️ WAV autoplay blocked for answer, falling back to TTS');
-              try {
-                await playAudioWithFemaleVoice(text, learningLang);
-                console.log(`✅ TTS (${learningLang}) for answer (fallback): ${text}`);
+            const r = await fetch("/api/generate-tts-en", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (r.ok) {
+              const d = await r.json();
+              if (d.success && d.audioUrl) {
+                await new Audio(d.audioUrl).play();
                 return;
-              } catch (ttsError) {
-                console.warn("TTS also failed:", ttsError);
               }
-            } else {
-              console.warn("WAV failed:", error);
             }
-          }
+          } catch {}
         }
-      }
-      
-      if (learningLang === 'en') {
+        if (learningLang === "ru") {
+          try {
+            const r = await fetch("/api/generate-tts-ru", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text }),
+            });
+            if (r.ok) {
+              const d = await r.json();
+              if (d.success && d.audioUrl) {
+                await new Audio(d.audioUrl).play();
+                return;
+              }
+            }
+          } catch {}
+        }
         try {
-          const response = await fetch('/api/generate-tts-en', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.audioUrl) {
-              const audio = new Audio(data.audioUrl);
-              await audio.play();
-              console.log(`✅ English TTS for answer: ${text}`);
-              return;
-            }
-          }
-        } catch (error) {
-          console.warn("English TTS failed:", error);
-        }
+          await playAudioWithFemaleVoice(text, learningLang);
+        } catch {}
       }
-      
-      if (learningLang === 'ru') {
-        try {
-          const response = await fetch('/api/generate-tts-ru', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
-          });
-          
-          if (response.ok) {
-            const data = await response.json();
-            if (data.success && data.audioUrl) {
-              const audio = new Audio(data.audioUrl);
-              await audio.play();
-              console.log(`✅ Russian TTS for answer: ${text}`);
-              return;
-            }
-          }
-        } catch (error) {
-          console.warn("Russian TTS failed:", error);
-        }
-      }
-      
-      try {
-        await playAudioWithFemaleVoice(text, learningLang);
-        console.log(`✅ TTS (${learningLang}) for answer (fallback): ${text}`);
+    },
+    [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice, audioEnabled]
+  );
+
+  // ✅ handleSpeak with SYNC LOCK
+  const handleSpeak = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!text || !audioEnabled) return;
+
+      // ✅ Synchronous lock — prevents double-click
+      if (speakingLockRef.current) {
+        if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+        speakingLockRef.current = false;
         return;
-      } catch (error) {
-        console.warn("TTS failed:", error);
       }
-    }
 
-    console.warn(`❌ No audio available for ${type}: "${text}"`);
-    throw new Error('AUDIO_FAILED');
-  }, [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice, audioEnabled]);
+      speakingLockRef.current = true;
+      try {
+        await playAudioWithFallback(text, lang, type);
+      } catch (e) {
+        console.warn("handleSpeak error:", e);
+      } finally {
+        speakingLockRef.current = false;
+      }
+    },
+    [playAudioWithFallback, audioEnabled]
+  );
 
-  const handleSpeak = useCallback(async (text: string, lang: string = "hy", type: 'prompt' | 'answer' = 'prompt') => {
-    if (!text || !audioEnabled) return;
-
-    if (isPlaying) {
-      stop();
-      return;
-    }
-
-    await playAudioWithFallback(text, lang, type);
-  }, [isPlaying, stop, playAudioWithFallback, audioEnabled]);
+  // ─── AUTO-PLAY PROMPT ───────────────────────────────────────────
 
   useEffect(() => {
     if (!audioEnabled) return;
@@ -1289,33 +1069,28 @@ function LearnInner() {
     const promptText = current.prompt?.[native] || current.prompt?.en || "";
     if (!promptText) return;
 
-    const delay = 50;
-    
-    if (autoPlayTimeoutRef.current) {
-      clearTimeout(autoPlayTimeoutRef.current);
-    }
+    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
 
     autoPlayTimeoutRef.current = setTimeout(() => {
-      playAudioWithFallback(promptText, native, 'prompt')
-        .catch(() => {
-          setEx(prev => ({ ...prev, showListenButton: true }));
-        });
-      firstAutoPlayAttempted.current = true;
-    }, delay);
+      playAudioWithFallback(promptText, native, "prompt").catch(() => {
+        setEx((prev) => ({ ...prev, showListenButton: true }));
+      });
+    }, 50);
 
     return () => {
-      if (autoPlayTimeoutRef.current) {
-        clearTimeout(autoPlayTimeoutRef.current);
-      }
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     };
   }, [current, native, isAudioReady, playAudioWithFallback, audioEnabled]);
+
+  // ─── RESET PER EXERCISE ────────────────────────────────────────
 
   useEffect(() => {
     if (!current) return;
 
     exerciseStartTime.current = Date.now();
     setShowHint(false);
-    setEx(prev => ({ ...prev, showListenButton: false }));
+    setEx((prev) => ({ ...prev, showListenButton: false }));
+    advancingRef.current = false;
 
     if (current.type === "word_order" && current.words) {
       setAW([...current.words]);
@@ -1342,64 +1117,46 @@ function LearnInner() {
     setBreakTimer(null);
   }, [current]);
 
+  // ─── LOAD LESSON ────────────────────────────────────────────────
+
   const loadLesson = useCallback(() => {
-    if (loadedLessonRef.current === lessonId) {
-      console.log('⏭️ Lesson already loaded, skipping duplicate load');
-      return;
-    }
+    if (loadedLessonRef.current === lessonId) return;
 
     try {
       const nativeLang = getInitialLanguage();
       const learnLang = getLearningLanguage();
       setNative(nativeLang);
       setLearningLang(learnLang);
-      
+
       try {
-        localStorage.setItem('nur_language_preference', nativeLang);
+        localStorage.setItem("nur_language_preference", nativeLang);
       } catch {}
-      
+
       const cfg = loadLangConfig();
       const pair = pairParam ?? cfg?.pair ?? `${nativeLang}-${learnLang}`;
-      
-      console.log('📍 Pair:', pair, 'Native:', nativeLang, 'Learning:', learnLang);
-      console.log(`📚 Mode: ${isProfessional ? 'PROFESSIONAL' : 'AMATEUR'}`);
 
       let l = null;
 
       if (isProfessional) {
-        console.log('🔍 Trying offline dictionary (professional mode)...');
         l = offlineLessonEngine.getLesson(lessonId);
         if (!l) {
-          console.warn('❌ Professional lesson not found in offline dictionary:', lessonId);
           const found = getLessonById(pair as LangPair, lessonId);
-          if (found) {
-            console.log('📚 Using multilingual as fallback (professional mode)');
-            l = found;
-          }
+          if (found) l = found;
         } else {
-          console.log(`✅ Professional lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
           l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
         }
       } else {
-        console.log('🎮 Trying multilingual (amateur mode)...');
         l = getLessonById(pair as LangPair, lessonId);
         if (!l) {
-          console.warn('❌ Amateur lesson not found in multilingual:', lessonId);
           l = offlineLessonEngine.getLesson(lessonId);
-          if (l) {
-            console.log(`📚 Using offline dictionary as fallback (amateur mode): ${l.id}`);
-          }
-        } else {
-          console.log(`✅ Amateur lesson loaded: ${l.id} with ${l.exercises?.length || 0} exercises`);
         }
       }
-      
+
       if (!l) {
-        console.warn('❌ Lesson not found in any source:', lessonId);
         if (lessonId) router.push("/world");
         return;
       }
-      
+
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
 
@@ -1418,7 +1175,6 @@ function LearnInner() {
 
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {
-      console.log('⏳ OfflineLessonEngine not ready, waiting for professional mode...');
       const checkReady = setInterval(() => {
         if (offlineLessonEngine.isAvailable()) {
           clearInterval(checkReady);
@@ -1430,34 +1186,29 @@ function LearnInner() {
     loadLesson();
   }, [loadLesson, isProfessional]);
 
-  // ─── PRELOAD WAV AUDIO IN BACKGROUND ────────────────────────────
+  // ─── PRELOAD WAV ────────────────────────────────────────────────
+
   useEffect(() => {
     if (!lesson || !wavClient || !isWAVAvailable) return;
 
-    const preloadPrompts = async () => {
+    const preload = async () => {
       const textsToPreload: string[] = [];
-
       lesson.exercises.slice(0, 8).forEach((ex) => {
-        // Prompt text (always)
-        const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || '');
+        const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || "");
         if (promptText) textsToPreload.push(promptText);
-
-        // ✅ Answer text (only if learning Armenian — uses WAV)
-        if (learningLang === 'hy' && ex.targetAnswer) {
+        if (learningLang === "hy" && ex.targetAnswer) {
           const answerText = sanitizeForTTS(ex.targetAnswer);
-          if (answerText && answerText !== promptText) {
-            textsToPreload.push(answerText);
-          }
+          if (answerText && answerText !== promptText) textsToPreload.push(answerText);
         }
       });
-
-      console.log(`🎯 Preloading ${textsToPreload.length} texts (prompts + answers)...`);
-      await wavClient.preloadBatch(textsToPreload, 'Ani');
+      await wavClient.preloadBatch(textsToPreload, "Ani");
     };
 
-    const timer = setTimeout(preloadPrompts, 1500);
+    const timer = setTimeout(preload, 1500);
     return () => clearTimeout(timer);
-  }, [lesson, wavClient, isWAVAvailable, native, learningLang]); 
+  }, [lesson, wavClient, isWAVAvailable, native, learningLang]);
+
+  // ─── HEART COUNTDOWN ────────────────────────────────────────────
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1465,12 +1216,77 @@ function LearnInner() {
         const nextH = syncHearts();
         if (nextH.hearts !== hearts) setHearts(nextH.hearts);
         setCountdown(getNextHeartCountdown(nextH));
-      } catch (error) {
-        // silent fail
-      }
+      } catch {}
     }, 1000);
     return () => clearInterval(timer);
   }, [hearts]);
+
+  // ─── BREAK TIMER ────────────────────────────────────────────────
+
+  const startBreakTimer = useCallback((minutes: number) => {
+    if (breakTimerRef.current) {
+      clearInterval(breakTimerRef.current);
+      breakTimerRef.current = null;
+    }
+
+    let remainingSeconds = minutes * 60;
+    setBreakTimer(remainingSeconds);
+
+    breakTimerRef.current = setInterval(() => {
+      remainingSeconds -= 1;
+      setBreakTimer(remainingSeconds);
+
+      if (remainingSeconds <= 0) {
+        clearInterval(breakTimerRef.current!);
+        breakTimerRef.current = null;
+        handleBreakChoiceRef.current?.(false);
+      }
+    }, 1000);
+  }, []);
+
+  const formatBreakTime = useCallback((seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  }, []);
+
+  const handleBreakChoice = useCallback(
+    (takeBreak: boolean) => {
+      setShowBreak(false);
+      if (breakTimerRef.current) {
+        clearInterval(breakTimerRef.current);
+        breakTimerRef.current = null;
+        setBreakTimer(null);
+      }
+
+      if (takeBreak) {
+        startBreakTimer(2);
+        setEx((prev) => ({
+          ...prev,
+          customImage: "/images/nuri/nuri-relax.png",
+          nuriSpeech: t("page_relax_message"),
+        }));
+        showMessage(t("page_take_break"), "info");
+        playRelaxMusic();
+      } else {
+        stopRelaxMusic();
+        setEx((prev) => ({
+          ...prev,
+          customImage: "/images/nuri/nuri-thinking.png",
+          nuriSpeech: randomLine("thinking", native),
+        }));
+        exerciseStartTime.current = Date.now();
+        showMessage(t("page_continue_learning"), "success");
+        setBreakShown(true);
+      }
+    },
+    [startBreakTimer, showMessage, playRelaxMusic, stopRelaxMusic, t, native]
+  );
+
+  const handleBreakChoiceRef = useRef(handleBreakChoice);
+  useEffect(() => {
+    handleBreakChoiceRef.current = handleBreakChoice;
+  }, [handleBreakChoice]);
 
   useEffect(() => {
     const checkTime = setInterval(() => {
@@ -1488,40 +1304,15 @@ function LearnInner() {
     }, 600000);
 
     return () => clearInterval(checkTime);
-  }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown]);
+  }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown, native, startBreakTimer]);
 
-  const startBreakTimer = useCallback((minutes: number) => {
-    if (breakTimerRef.current) {
-      clearInterval(breakTimerRef.current);
-      breakTimerRef.current = null;
-    }
-    
-    let remainingSeconds = minutes * 60;
-    setBreakTimer(remainingSeconds);
-    
-    breakTimerRef.current = setInterval(() => {
-      remainingSeconds -= 1;
-      setBreakTimer(remainingSeconds);
-      
-      if (remainingSeconds <= 0) {
-        clearInterval(breakTimerRef.current!);
-        breakTimerRef.current = null;
-        handleBreakChoice(false);
-      }
-    }, 1000);
-  }, []);
-
-  const formatBreakTime = useCallback((seconds: number): string => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  }, []);
+  // ─── HINT + AUDIO TOGGLE ────────────────────────────────────────
 
   const toggleHint = useCallback(() => {
-    setShowHint(prev => !prev);
+    setShowHint((prev) => !prev);
     if (!showHint && current?.hint) {
-      const hintText = current.hint?.[native] || current.hint?.en || "💡 Think about the word order!";
-      setEx(prev => ({
+      const hintText = current.hint?.[native] || current.hint?.en || "💡 Think!";
+      setEx((prev) => ({
         ...prev,
         nuriSpeech: `${t("page_hint_prefix")} ${hintText}`,
       }));
@@ -1529,190 +1320,106 @@ function LearnInner() {
   }, [showHint, current, native, t]);
 
   const toggleAudio = useCallback(() => {
-    setAudioEnabled(prev => !prev);
-    if (audioEnabled) {
-      stop();
-    }
-    showMessage(
-      audioEnabled ? t("page_audio_disabled") : t("page_audio_enabled"),
-      "info"
-    );
+    setAudioEnabled((prev) => !prev);
+    if (audioEnabled) stop();
+    showMessage(audioEnabled ? t("page_audio_disabled") : t("page_audio_enabled"), "info");
   }, [audioEnabled, stop, showMessage, t]);
 
-  const submit = useCallback(async (overrideAnswer?: string) => {
-    if (!current || ex.state === "submitting") return;
+  // ─── SUBMIT ────────────────────────────────────────────────────
 
-    let answerForApi: string = "";
-    let userAnswerText: string = "";
+  const submit = useCallback(
+    async (overrideAnswer?: string) => {
+      if (!current || ex.state === "submitting") return;
 
-    if (current.type === "word_order") {
-      if (selectedWords.length === 0) {
-        showMessage(t("page_please_arrange_words"), "info");
-        return;
-      }
-      answerForApi = selectedWords.join(" ");
-      userAnswerText = answerForApi;
-    } else if (current.type === "match_pairs") {
-      const totalPairs = current.pairs?.length || 0;
-      const matchedCount = Object.keys(matchPairsMap).length;
-      
-      if (matchedCount !== totalPairs) {
-        showMessage(t("page_please_match_all_pairs", { matched: matchedCount, total: totalPairs }), "info");
-        return;
-      }
-      
-      let correctCount = 0;
-      let allCorrect = true;
-      
-      if (current.pairs) {
-        for (const [left, right] of current.pairs) {
-          if (matchPairsMap[left] === right) {
-            correctCount++;
-          } else {
-            allCorrect = false;
+      let answerForApi: string = "";
+
+      if (current.type === "word_order") {
+        if (selectedWords.length === 0) {
+          showMessage(t("page_please_arrange_words"), "info");
+          return;
+        }
+        answerForApi = selectedWords.join(" ");
+      } else if (current.type === "match_pairs") {
+        const totalPairs = current.pairs?.length || 0;
+        const matchedCount = Object.keys(matchPairsMap).length;
+
+        if (matchedCount !== totalPairs) {
+          showMessage(t("page_please_match_all_pairs", { matched: matchedCount, total: totalPairs }), "info");
+          return;
+        }
+
+        let correctCount = 0;
+        let allCorrect = true;
+
+        if (current.pairs) {
+          for (const [left, right] of current.pairs) {
+            if (matchPairsMap[left] === right) correctCount++;
+            else allCorrect = false;
           }
         }
-      }
-      
-      if (allCorrect && current.pairs && correctCount === totalPairs) {
-        const score = 1;
-        const hayq = 10;
-        const seeds = 1;
-        
-        setStats((prev) => ({
-          ...prev,
-          correct: prev.correct + 1,
-          total: prev.total + 1,
-          hayqEarned: prev.hayqEarned + hayq,
-          seedsEarned: prev.seedsEarned + seeds,
-        }));
-        
-        setAttempts(0);
-        onCorrect();
-        
-        try {
-          const rewards = loadRewards();
-          const updated = addHAYQ(updateStreak(rewards), hayq);
-          if (seeds > 0) updated.totalSeeds += seeds;
-          saveRewards(updated);
-          setTotal(updated.totalHAYQ);
-          setStreak(updated.streak);
-          updateQuestProgress("earn_hayq", hayq);
-        } catch {
-          // silent fail
+
+        if (allCorrect && current.pairs && correctCount === totalPairs) {
+          const hayq = 10;
+          const seeds = 1;
+
+          setStats((prev) => ({
+            ...prev,
+            correct: prev.correct + 1,
+            total: prev.total + 1,
+            hayqEarned: prev.hayqEarned + hayq,
+            seedsEarned: prev.seedsEarned + seeds,
+          }));
+
+          setAttempts(0);
+          onCorrect();
+
+          try {
+            const rewards = loadRewards();
+            const updated = addHAYQ(updateStreak(rewards), hayq);
+            if (seeds > 0) updated.totalSeeds += seeds;
+            saveRewards(updated);
+            setTotal(updated.totalHAYQ);
+            setStreak(updated.streak);
+            updateQuestProgress("earn_hayq", hayq);
+          } catch {}
+
+          setEx((s) => ({
+            ...s,
+            state: "correct",
+            feedback: t("page_all_pairs_correct"),
+            score: 1,
+            hayqEarned: hayq,
+            corrections: [],
+            nuriMood: "excited",
+            nuriSpeech: randomLine("correct_perfect", native),
+            customImage: "/images/nuri/nuri-encouraging.png",
+            showHint: false,
+            showCoinAnimation: true,
+          }));
+
+          // ✅ FIXED: coin animation lasts min 2.5s, controlled by ref-guard
+          setTimeout(() => {
+            setEx((s) => ({ ...s, showCoinAnimation: false }));
+          }, 2500);
+
+          if (current.pairs) {
+            const correctPairs = current.pairs.map(([l, r]) => `${l} → ${r}`).join(", ");
+            await new Promise((r) => setTimeout(r, 200));
+            await handleSpeak(correctPairs, learningLang, "answer");
+          }
+          return;
         }
-        
+
         setEx((s) => ({
           ...s,
-          state: "correct",
-          feedback: t("page_all_pairs_correct"),
-          score: score,
-          hayqEarned: hayq,
-          corrections: [],
-          nuriMood: "excited",
-          nuriSpeech: randomLine("correct_perfect", native),
-          customImage: "/images/nuri/nuri-encouraging.png",
+          state: "incorrect",
+          feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }),
+          nuriMood: "sad",
+          nuriSpeech: randomLine("almost", native),
+          customImage: "/images/nuri/nuri-confused.png",
           showHint: false,
         }));
-        
-        if (current.pairs) {
-          const correctPairs = current.pairs.map(([l, r]) => `${l} → ${r}`).join(", ");
-          await new Promise(resolve => setTimeout(resolve, 200));
-          await handleSpeak(correctPairs, learningLang, 'answer');
-        }
-        
-        return;
-      }
-      
-      setEx((s) => ({
-        ...s,
-        state: "incorrect",
-        feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }),
-        nuriMood: "sad",
-        nuriSpeech: randomLine("almost", native),
-        customImage: "/images/nuri/nuri-confused.png",
-        showHint: false,
-      }));
-      
-      const newAttempts = attempts + 1;
-      setAttempts(newAttempts);
-      
-      if (newAttempts >= 2) {
-        try {
-          const updated = deductHeart();
-          setHearts(updated.hearts);
-        } catch {
-          // silent fail
-        }
-      
-        if (lesson) logMistake(lesson.id, current, newAttempts, false);
-      }
-      onWrong();
-      return;
-    } else if (current.type === "multiple_choice") {
-      const answerToUse = overrideAnswer ?? ex.userAnswer;
-      if (!answerToUse) {
-        showMessage(t("page_please_select_answer"), "info");
-        return;
-      }
-      answerForApi = answerToUse;
-      const selectedOption = current.options?.find(opt => opt === answerToUse);
-      userAnswerText = selectedOption || answerToUse;
-    } else {
-      if (!ex.userAnswer.trim()) {
-        showMessage(t("page_please_enter_answer"), "info");
-        return;
-      }
-      answerForApi = ex.userAnswer.trim();
-      userAnswerText = answerForApi;
-    }
 
-    setEx((s) => ({
-      ...s,
-      state: "submitting",
-      nuriMood: "thinking",
-      nuriSpeech: randomLine("thinking", native),
-      customImage: "/images/nuri/nuri-thinking.png",
-    }));
-
-    try {
-      if (isPlaying) {
-        stop();
-      }
-
-      const res = await fetch("/api/validate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userAnswer: answerForApi,
-          expectedAnswer: current.targetAnswer,
-          englishOriginal: current.prompt["en"] ?? current.prompt[native] ?? current.targetAnswer,
-          allValidAnswers: current.acceptableAnswers || [],
-          sourceLanguage: native,
-          targetLanguage: learningLang,
-          exerciseType: current.type,
-          useAI: false,
-        }),
-      });
-      const data = await res.json();
-      const correct = data.accepted;
-      const score = data.score ?? 0;
-      const hayq = correct ? 10 : 0;
-      const seeds = correct && score >= 0.98 ? 1 : 0;
-
-      const timeSpent = Date.now() - exerciseStartTime.current;
-      setEx(prev => ({ ...prev, timeSpent: prev.timeSpent + timeSpent }));
-
-      setStats((prev) => ({
-        ...prev,
-        correct: prev.correct + (correct ? 1 : 0),
-        total: prev.total + 1,
-        hayqEarned: prev.hayqEarned + hayq,
-        seedsEarned: prev.seedsEarned + seeds,
-        timeSpent: prev.timeSpent + timeSpent,
-      }));
-
-      if (!correct) {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
 
@@ -1720,146 +1427,199 @@ function LearnInner() {
           try {
             const updated = deductHeart();
             setHearts(updated.hearts);
-          } catch {
-            // silent fail
-          }
+          } catch {}
           if (lesson) logMistake(lesson.id, current, newAttempts, false);
         }
         onWrong();
+        return;
+      } else if (current.type === "multiple_choice") {
+        const answerToUse = overrideAnswer ?? ex.userAnswer;
+        if (!answerToUse) {
+          showMessage(t("page_please_select_answer"), "info");
+          return;
+        }
+        answerForApi = answerToUse;
+      } else {
+        if (!ex.userAnswer.trim()) {
+          showMessage(t("page_please_enter_answer"), "info");
+          return;
+        }
+        answerForApi = ex.userAnswer.trim();
+      }
 
+      setEx((s) => ({
+        ...s,
+        state: "submitting",
+        nuriMood: "thinking",
+        nuriSpeech: randomLine("thinking", native),
+        customImage: "/images/nuri/nuri-thinking.png",
+      }));
+
+      try {
+        if (isPlaying) stop();
+
+        const res = await fetch("/api/validate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userAnswer: answerForApi,
+            expectedAnswer: current.targetAnswer,
+            englishOriginal: current.prompt["en"] ?? current.prompt[native] ?? current.targetAnswer,
+            allValidAnswers: current.acceptableAnswers || [],
+            sourceLanguage: native,
+            targetLanguage: learningLang,
+            exerciseType: current.type,
+            useAI: false,
+          }),
+        });
+
+        const data = await res.json();
+        const correct = data.accepted;
+        const score = data.score ?? 0;
+        const hayq = correct ? 10 : 0;
+        const seeds = correct && score >= 0.98 ? 1 : 0;
+
+        const timeSpent = Date.now() - exerciseStartTime.current;
+        setEx((prev) => ({ ...prev, timeSpent: prev.timeSpent + timeSpent }));
+
+        setStats((prev) => ({
+          ...prev,
+          correct: prev.correct + (correct ? 1 : 0),
+          total: prev.total + 1,
+          hayqEarned: prev.hayqEarned + hayq,
+          seedsEarned: prev.seedsEarned + seeds,
+          timeSpent: prev.timeSpent + timeSpent,
+        }));
+
+        if (!correct) {
+          const newAttempts = attempts + 1;
+          setAttempts(newAttempts);
+
+          if (newAttempts >= 2) {
+            try {
+              const updated = deductHeart();
+              setHearts(updated.hearts);
+            } catch {}
+            if (lesson) logMistake(lesson.id, current, newAttempts, false);
+          }
+          onWrong();
+
+          setEx((s) => ({
+            ...s,
+            state: "incorrect",
+            feedback: data.feedback || t("page_try_again"),
+            score,
+            hayqEarned: 0,
+            corrections: data.corrections,
+            nuriMood: "sad",
+            nuriSpeech: randomLine("incorrect", native),
+            customImage: "/images/nuri/nuri-confused.png",
+            showHint: false,
+          }));
+        } else {
+          setAttempts(0);
+          onCorrect();
+          setCurrentStreak((prev) => {
+            const ns = prev + 1;
+            setStats((s) => ({ ...s, streaks: s.streaks + 1, bestStreak: Math.max(s.bestStreak, ns) }));
+            return ns;
+          });
+
+          setShowCorrectEffect(true);
+          setTimeout(() => setShowCorrectEffect(false), 2200);
+
+          setEx((s) => ({
+            ...s,
+            state: "correct",
+            feedback: data.feedback || t("page_correct"),
+            score,
+            hayqEarned: hayq,
+            corrections: data.corrections,
+            nuriMood: score >= 0.98 ? "excited" : "happy",
+            nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct", native),
+            customImage: "/images/nuri/nuri-encouraging.png",
+            showHint: false,
+            showCoinAnimation: true,
+          }));
+
+          // ✅ FIXED: coin animation clear with proper timing
+          setTimeout(() => {
+            setEx((s) => ({ ...s, showCoinAnimation: false }));
+          }, 2500);
+        }
+
+        if (correct) {
+          try {
+            const rewards = loadRewards();
+            const updated = addHAYQ(updateStreak(rewards), hayq);
+            if (seeds > 0) updated.totalSeeds += seeds;
+            saveRewards(updated);
+            setTotal(updated.totalHAYQ);
+            setStreak(updated.streak);
+            updateQuestProgress("earn_hayq", hayq);
+          } catch {}
+        }
+
+        // ✅ FIXED: Auto-advance AFTER audio completes (no fixed 2.5s)
+        if (correct) {
+          let audioPromise: Promise<void> = Promise.resolve();
+          if (current.targetAnswer) {
+            audioPromise = handleSpeak(current.targetAnswer, learningLang, "answer").catch(() => {});
+          }
+
+          audioPromise.finally(() => {
+            // Wait at least 500ms after audio for user to see feedback
+            setTimeout(() => {
+              // ✅ Guard against double-advance
+              if (!advancingRef.current) {
+                advancingRef.current = true;
+                try {
+                  nextRef.current?.();
+                } catch {}
+              }
+            }, 500);
+          });
+        }
+
+        // ❌ Incorrect: NO auto-advance
+      } catch (error) {
+        console.error("Submit error:", error);
         setEx((s) => ({
           ...s,
           state: "incorrect",
-          feedback: data.feedback || t("page_try_again"),
-          score: score,
-          hayqEarned: hayq,
-          corrections: data.corrections,
+          feedback: t("page_network_error"),
           nuriMood: "sad",
-          nuriSpeech: randomLine("incorrect", native),
+          nuriSpeech: t("page_oops"),
           customImage: "/images/nuri/nuri-confused.png",
-          showHint: false,
-        }));
-
-      } else {
-        setAttempts(0);
-        onCorrect();
-        setEx((prev) => ({ ...prev, customImage: "/images/nuri/nuri-encouraging.png" }));
-        setCurrentStreak(prev => {
-          const newStreak = prev + 1;
-          setStats(s => ({ ...s, streaks: s.streaks + 1, bestStreak: Math.max(s.bestStreak, newStreak) }));
-          return newStreak;
-        });
-
-        // 🎉 Trigger correct answer effect
-        setShowCorrectEffect(true);
-        setTimeout(() => setShowCorrectEffect(false), 2200);
-
-        setEx((s) => ({
-          ...s,
-          state: "correct",
-          feedback: data.feedback || t("page_correct"),
-          score: score,
-          hayqEarned: hayq,
-          corrections: data.corrections,
-          nuriMood: score >= 0.98 ? "excited" : "happy",
-          nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct", native),
-          customImage: "/images/nuri/nuri-encouraging.png",
-          showHint: false,
         }));
       }
+    },
+    [
+      current,
+      ex.userAnswer,
+      ex.state,
+      selectedWords,
+      matchPairsMap,
+      lesson,
+      native,
+      learningLang,
+      attempts,
+      onCorrect,
+      onWrong,
+      handleSpeak,
+      stop,
+      isPlaying,
+      showMessage,
+      t,
+    ]
+  );
 
-      if (correct) {
-        try {
-          const rewards = loadRewards();
-          const updated = addHAYQ(updateStreak(rewards), hayq);
-          if (seeds > 0) updated.totalSeeds += seeds;
-          saveRewards(updated);
-          setTotal(updated.totalHAYQ);
-          setStreak(updated.streak);
-          updateQuestProgress("earn_hayq", hayq);
-        } catch {
-          // silent fail
-        }
-      }
+  const submitRef = useRef(submit);
+  useEffect(() => {
+    submitRef.current = submit;
+  }, [submit]);
 
-      // ✅ Play answer audio and WAIT for it before advancing
-      let answerAudioPromise: Promise<void> = Promise.resolve();
-      if (current.targetAnswer) {
-        answerAudioPromise = handleSpeak(current.targetAnswer, learningLang, 'answer')
-          .catch(() => {});
-      }
-
-      let mood: NuriMood = "idle";
-      let speechKey = "idle";
-
-      if (correct) {
-        mood = score >= 0.98 ? "excited" : "happy";
-        speechKey = score >= 0.98 ? "correct_perfect" : "correct";
-      } else {
-        mood = attempts >= 2 ? "sad" : "idle";
-        speechKey = attempts >= 2 ? "almost" : "incorrect";
-      }
-
-      setEx((s) => ({
-        ...s,
-        nuriMood: mood,
-        nuriSpeech: randomLine(speechKey, native),
-        customImage: s.customImage,
-      }));
-
-            // 🪙 HAYQ coin animation + auto-advance (only for correct)
-      if (correct) {
-        setEx((s) => ({ ...s, showCoinAnimation: true }));
-
-        // Hide coin animation after 2 seconds
-        setTimeout(() => {
-          setEx((s) => ({ ...s, showCoinAnimation: false }));
-        }, 2000);
-
-        // ✅ Auto-advance after 2.5 seconds (enough to see feedback + confetti)
-        answerAudioPromise.finally(() => {
-          setTimeout(() => {
-            try { nextRef.current?.(); } catch {}
-          }, 2500);
-        });
-      }
-      // ❌ Wrong answer: NO auto-advance — user clicks Retry button
-      // ✅ User clicks "Next" button manually — no auto-advance
-
-    } catch (error) {
-      console.error("Submit error:", error);
-      setEx((s) => ({
-        ...s,
-        state: "incorrect",
-        feedback: t("page_network_error"),
-        nuriMood: "sad",
-        nuriSpeech: t("page_oops"),
-        customImage: "/images/nuri/nuri-confused.png",
-      }));
-    }
-  }, [
-    current, 
-    ex.userAnswer, 
-    ex.state, 
-    selectedWords, 
-    matchPairsMap, 
-    matchLeftItems.length, 
-    lesson, 
-    streak, 
-    native, 
-    learningLang,
-    attempts, 
-    onCorrect, 
-    onWrong, 
-    startTime, 
-    stats.correct, 
-    lesson?.exercises?.length, 
-    handleSpeak, 
-    stop, 
-    isPlaying, 
-    showMessage,
-    t
-  ]);
+  // ─── COMPLETE LESSON ───────────────────────────────────────────
 
   const completeLesson = useCallback(() => {
     if (!lesson) return;
@@ -1879,9 +1639,7 @@ function LearnInner() {
         sessionLevel,
         Date.now() - startTime
       );
-    } catch {
-      // silent fail
-    }
+    } catch {}
 
     clearMistakes(lesson.id);
     onLessonComplete(accuracy >= 90);
@@ -1889,16 +1647,14 @@ function LearnInner() {
     setComplete(true);
   }, [lesson, stats, sessionLevel, startTime, onLessonComplete]);
 
-  const submitRef = useRef(submit);
-  useEffect(() => {
-    submitRef.current = submit;
-  }, [submit]);
+  // ─── NEXT ──────────────────────────────────────────────────────
 
   const next = useCallback(() => {
     if (!lesson) return;
 
     const totalExercises = lesson.exercises?.length || 0;
     const nextIdx = ex.index + 1;
+    advancingRef.current = false;
 
     if (ex.index >= totalExercises - 1 && phase === "main") {
       const retryQ = buildRetryQueue(lesson.id);
@@ -1909,10 +1665,7 @@ function LearnInner() {
 
         setLesson((prev) => {
           if (!prev) return prev;
-          return {
-            ...prev,
-            exercises: [...prev.exercises, ...retryQ],
-          };
+          return { ...prev, exercises: [...prev.exercises, ...retryQ] };
         });
 
         setEx({
@@ -1935,7 +1688,6 @@ function LearnInner() {
         setAW([]);
         setMatchPairsMap({});
         setAttempts(0);
-        firstAutoPlayAttempted.current = false;
         return;
       }
 
@@ -1977,33 +1729,30 @@ function LearnInner() {
       }
       exerciseStartTime.current = Date.now();
     }
-  }, [lesson, ex.index, phase, completeLesson]);
+  }, [lesson, ex.index, phase, completeLesson, native]);
 
   const nextRef = useRef(next);
   useEffect(() => {
     nextRef.current = next;
   }, [next]);
 
+  // ─── KEYBOARD ──────────────────────────────────────────────────
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        if (ex.state === "idle") {
-          submitRef.current();
-        } else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 3)) {
-          nextRef.current();
-        }
+        if (ex.state === "idle") submitRef.current();
+        else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 3)) nextRef.current();
       }
-      if (e.key === "h" || e.key === "H") {
-        toggleHint();
-      }
-      if (e.key === "Escape" && ex.state !== "submitting") {
-        setShowExitConfirm(true);
-      }
+      if (e.key === "h" || e.key === "H") toggleHint();
+      if (e.key === "Escape" && ex.state !== "submitting") setShowExitConfirm(true);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [ex.state, attempts, toggleHint, setShowExitConfirm]);
+  }, [ex.state, attempts, toggleHint]);
+
+  // ─── RETRY ─────────────────────────────────────────────────────
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({
@@ -2031,37 +1780,9 @@ function LearnInner() {
       setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
     }
     exerciseStartTime.current = Date.now();
-  }, [current]);
+  }, [current, native]);
 
-  const handleBreakChoice = useCallback((takeBreak: boolean) => {
-    setShowBreak(false);
-    if (breakTimerRef.current) {
-      clearInterval(breakTimerRef.current);
-      breakTimerRef.current = null;
-      setBreakTimer(null);
-    }
-    
-    if (takeBreak) {
-      startBreakTimer(2);
-      setEx((prev) => ({
-        ...prev,
-        customImage: "/images/nuri/nuri-relax.png",
-        nuriSpeech: t("page_relax_message"),
-      }));
-      showMessage(t("page_take_break"), "info");
-      playRelaxMusic();
-    } else {
-      stopRelaxMusic();
-      setEx((prev) => ({
-        ...prev,
-        customImage: "/images/nuri/nuri-thinking.png",
-        nuriSpeech: randomLine("thinking", native),
-      }));
-      exerciseStartTime.current = Date.now();
-      showMessage(t("page_continue_learning"), "success");
-      setBreakShown(true);
-    }
-  }, [startBreakTimer, showMessage, playRelaxMusic, stopRelaxMusic, t]);
+  // ─── HEARTS HANDLERS ───────────────────────────────────────────
 
   const handleRefill = useCallback(() => {
     try {
@@ -2072,7 +1793,7 @@ function LearnInner() {
       } else {
         showMessage(result.error || t("page_refill_failed"), "error");
       }
-    } catch (error) {
+    } catch {
       showMessage(t("page_something_went_wrong"), "error");
     }
   }, [showMessage, t]);
@@ -2080,12 +1801,9 @@ function LearnInner() {
   const handlePractice = useCallback(() => {
     try {
       const result = earnHeartByPractice();
-      if (result.success) {
-        setHearts(result.rewards.hearts);
-      } else {
-        showMessage(t("page_already_full_hearts"), "info");
-      }
-    } catch (error) {
+      if (result.success) setHearts(result.rewards.hearts);
+      else showMessage(t("page_already_full_hearts"), "info");
+    } catch {
       showMessage(t("page_something_went_wrong"), "error");
     }
   }, [showMessage, t]);
@@ -2095,24 +1813,7 @@ function LearnInner() {
     router.push("/world");
   }, [router, stopRelaxMusic]);
 
-  const unlockAllLessons = useCallback(() => {
-    if (!lesson) return;
-    
-    const unlockedExercises = lesson.exercises.map((ex) => ({
-      ...ex,
-      unlocked: true,
-    }));
-    
-    setLesson((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        exercises: unlockedExercises,
-      };
-    });
-    
-    showMessage(t("page_all_lessons_unlocked"), "success");
-  }, [lesson, showMessage, t]);
+  // ─── SUPABASE SAVE ─────────────────────────────────────────────
 
   async function saveCompletionToSupabase(
     lessonId: string,
@@ -2134,15 +1835,16 @@ function LearnInner() {
         },
         { onConflict: "device_id,lesson_id" }
       );
-    } catch {
-      // silently ignore
-    }
+    } catch {}
   }
+
+  // ─── RENDER: COMPLETE ──────────────────────────────────────────
 
   if (complete && lesson) {
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
     const crownCount = accuracy >= 90 ? 3 : accuracy >= 70 ? 2 : 1;
-    const lessonTitle = typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en;
+    const lessonTitle =
+      typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en;
 
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
@@ -2163,7 +1865,7 @@ function LearnInner() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl font-bold mb-1 text-gray-900 dark:text-white"
+          className="text-3xl font-bold mb-1"
         >
           {accuracy >= 90 ? t("page_perfect") : accuracy >= 70 ? t("page_great") : t("page_good_job")}
         </motion.h1>
@@ -2203,7 +1905,9 @@ function LearnInner() {
         >
           <GlassCard variant="compact" className="p-3 text-center">
             <p className="text-2xl font-bold text-emerald-500">{accuracy}%</p>
-            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_accuracy")}</p>
+            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              {t("page_accuracy")}
+            </p>
           </GlassCard>
           <GlassCard variant="compact" className="p-3 text-center">
             <p className="text-2xl font-bold text-yellow-500">+{stats.hayqEarned}</p>
@@ -2211,18 +1915,11 @@ function LearnInner() {
           </GlassCard>
           <GlassCard variant="compact" className="p-3 text-center">
             <p className="text-2xl font-bold text-blue-500">{formatTime(Date.now() - startTime)}</p>
-            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_time")}</p>
+            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              {t("page_time")}
+            </p>
           </GlassCard>
         </motion.div>
-
-        <div className="w-full max-w-xs bg-white/10 dark:bg-gray-700 rounded-full h-2.5 mb-6 overflow-hidden">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
-            initial={{ width: 0 }}
-            animate={{ width: `${accuracy}%` }}
-            transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
-          />
-        </div>
 
         <motion.button
           initial={{ opacity: 0, y: 20 }}
@@ -2238,6 +1935,8 @@ function LearnInner() {
     );
   }
 
+  // ─── RENDER: NO HEARTS ─────────────────────────────────────────
+
   if (hearts <= 0) {
     const minutesLeft = Math.ceil(countdown / 60000);
 
@@ -2245,7 +1944,7 @@ function LearnInner() {
       <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
         <GlassCard variant="premium" className="p-8 max-w-sm w-full">
           <div className="text-6xl mb-4">💔</div>
-          <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{t("page_no_hearts")}</h1>
+          <h1 className="text-2xl font-bold mb-2">{t("page_no_hearts")}</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
             {t("page_next_heart_in", { minutes: minutesLeft })}
           </p>
@@ -2253,7 +1952,7 @@ function LearnInner() {
           <div className="space-y-3">
             <button
               onClick={handlePractice}
-              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"
+              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"
             >
               <RefreshCw size={16} />
               {t("page_practice_for_heart")}
@@ -2279,6 +1978,8 @@ function LearnInner() {
 
   if (!lesson || !current) return null;
 
+  // ─── RENDER: MAIN ──────────────────────────────────────────────
+
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
       <header className="sticky top-0 z-40 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border-b border-white/20 dark:border-white/5 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
@@ -2287,19 +1988,22 @@ function LearnInner() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowExitConfirm(true)}
-                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-900 dark:text-white"
+                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
                 aria-label={t("page_back")}
               >
                 <ArrowLeft size={20} />
               </button>
               <div>
-                <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none text-gray-900 dark:text-white">
+                <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none">
                   {typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en}
                 </h2>
                 <p className="text-[10px] text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   {isRetryPhase && <span>{t("page_review")} · </span>}
                   <span className="text-blue-500">{t("page_online")} · </span>
-                  {t("page_lesson_x_of_y", { current: ex.index + 1, total: lesson.exercises?.length || 0 })}
+                  {t("page_lesson_x_of_y", {
+                    current: ex.index + 1,
+                    total: lesson.exercises?.length || 0,
+                  })}
                 </p>
               </div>
             </div>
@@ -2335,28 +2039,28 @@ function LearnInner() {
                 </span>
               </button>
 
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
                 <Heart size={16} className="text-red-500" />
-                <span className="text-sm font-bold text-gray-900 dark:text-white">{hearts}</span>
+                <span className="text-sm font-bold">{hearts}</span>
               </div>
 
               {attempts > 0 && ex.state !== "correct" && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
                   <span className="text-xs text-yellow-500">❌</span>
                   <span className="text-sm font-bold text-yellow-500">{attempts}/3</span>
                 </div>
               )}
 
               {currentStreak > 1 && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30">
                   <Flame size={14} className="text-orange-500" />
                   <span className="text-sm font-bold text-orange-500">{currentStreak}</span>
                 </div>
               )}
 
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
                 <Coins size={16} className="text-yellow-500" />
-                <span className="text-sm font-bold text-gray-900 dark:text-white">{totalHAYQ}</span>
+                <span className="text-sm font-bold">{totalHAYQ}</span>
               </div>
 
               <button
@@ -2380,11 +2084,10 @@ function LearnInner() {
 
           {isPlaying && (
             <p className="text-xs text-blue-400 animate-pulse mt-1.5 flex items-center gap-1">
-              <Mic size={12} className="animate-pulse" />
-              {t("page_speaking")}
+              🔊 {t("page_speaking")}
             </p>
           )}
-          
+
           {breakTimer !== null && (
             <p className="text-xs text-green-400 animate-pulse mt-1.5 flex items-center gap-1">
               <Clock size={12} className="animate-pulse" />
@@ -2401,10 +2104,8 @@ function LearnInner() {
         </div>
       </header>
 
-      {/* 🪙 HAYQ Coin Animation — OUTSIDE flex to prevent shaking */}
       <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
 
-      {/* 🎉 Correct Answer Effect — confetti burst */}
       <CorrectAnswerEffect
         show={showCorrectEffect}
         intensity={ex.score >= 0.98 ? "perfect" : "normal"}
@@ -2439,7 +2140,9 @@ function LearnInner() {
                   </div>
                   <div>
                     <div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_best_streak")}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-400">
+                      {t("page_best_streak")}
+                    </div>
                   </div>
                   <div>
                     <div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div>
@@ -2447,7 +2150,11 @@ function LearnInner() {
                   </div>
                 </div>
                 <div className="mt-2 text-center text-xs text-blue-500">
-                  {t("page_online_mode_detail", { native, learning: learningLang, wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only") })}
+                  {t("page_online_mode_detail", {
+                    native,
+                    learning: learningLang,
+                    wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only"),
+                  })}
                 </div>
               </GlassCard>
             </div>
@@ -2460,15 +2167,10 @@ function LearnInner() {
           <div className="min-h-[80px] w-full flex items-start justify-center">
             <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
           </div>
-          
-          
+
           {ex.customImage ? (
             <div className="w-[100px] h-[100px] relative">
-              <img
-                src={ex.customImage}
-                alt={t("page_nuri")}
-                className="w-full h-full object-contain"
-              />
+              <img src={ex.customImage} alt={t("page_nuri")} className="w-full h-full object-contain" />
             </div>
           ) : (
             <Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />
@@ -2482,14 +2184,14 @@ function LearnInner() {
             )}
 
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white flex-1">
+              <h3 className="text-lg font-bold flex-1">
                 {current.prompt[native] ?? current.prompt["en"]}
               </h3>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   onClick={() => {
                     const promptText = current.prompt?.[native] || current.prompt?.en || "";
-                    playAudioWithFallback(promptText, native, 'prompt').catch(() => {});
+                    playAudioWithFallback(promptText, native, "prompt").catch(() => {});
                   }}
                   className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
                   title={t("page_listen")}
@@ -2523,7 +2225,7 @@ function LearnInner() {
                 <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-2 flex items-center gap-1">
                   <BookOpen size={12} /> {t("page_lets_learn_from_answer")}
                 </p>
-                <p className="text-lg font-bold text-gray-900 dark:text-white mb-2">✅ {current.targetAnswer}</p>
+                <p className="text-lg font-bold mb-2">✅ {current.targetAnswer}</p>
                 {current.acceptableAnswers && current.acceptableAnswers.length > 1 && (
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}
@@ -2582,9 +2284,7 @@ function LearnInner() {
                     delete newMap[left];
                     setMatchPairsMap(newMap);
                     setEx((prev) => ({ ...prev, matchPairsAnswer: newMap }));
-                    if (right) {
-                      setMatchRightItems((prev) => [...prev, right]);
-                    }
+                    if (right) setMatchRightItems((prev) => [...prev, right]);
                   }}
                   disabled={ex.state !== "idle"}
                 />
@@ -2628,14 +2328,18 @@ function LearnInner() {
                 {current?.type === "multiple_choice" && (
                   <div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2">
                     <MousePointerClick size={16} />
-                    {native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}
+                    {native === "hy"
+                      ? "Ընտրիր պատասխանը"
+                      : native === "ru"
+                      ? "Выберите ответ"
+                      : "Choose an answer"}
                   </div>
                 )}
               </div>
             ) : ex.state === "incorrect" && attempts < 2 ? (
               <button
                 onClick={retrySameStep}
-                className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium text-gray-700 dark:text-gray-300"
+                className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"
               >
                 <RefreshCw size={18} />
                 {t("page_try_again_left", { count: attemptsLeft })}
@@ -2659,14 +2363,12 @@ function LearnInner() {
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900 dark:text-white">
-                      {translateFeedback(ex.feedback, locale)}
-                    </p>
+                    <p className="font-medium">{translateFeedback(ex.feedback, locale)}</p>
                     {ex.corrections && ex.corrections.length > 0 && (
                       <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                         <ul className="list-disc list-inside">
                           {ex.corrections
-                            .map((c) => typeof c === 'string' ? c.trim() : '')
+                            .map((c) => (typeof c === "string" ? c.trim() : ""))
                             .filter((c) => c.length > 0)
                             .map((c, i) => (
                               <li key={i}>{c}</li>
@@ -2724,14 +2426,14 @@ function LearnInner() {
             >
               <GlassCard variant="premium" className="max-w-sm w-full p-6 text-center">
                 <Nuri mood="sad" size={80} />
-                <h3 className="text-xl font-black text-gray-900 dark:text-white mt-3 mb-2">{t("page_exit_lesson_title")}</h3>
+                <h3 className="text-xl font-black mt-3 mb-2">{t("page_exit_lesson_title")}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
                   {t("page_exit_lesson_description")}
                 </p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowExitConfirm(false)}
-                    className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold text-gray-700 dark:text-gray-300 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
+                    className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
                   >
                     {t("page_stay")}
                   </button>

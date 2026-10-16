@@ -2,17 +2,100 @@
 
 import type { QuickLesson } from "../types";
 
-const TOPICS = [
-  ["computers", "Computers", "Համակարգիչներ", "Компьютеры"],
-  ["internet", "Internet", "Ինտերնետ", "Интернет"],
-  ["smartphones", "Smartphones", "Խելացի հեռախոսներ", "Смартфоны"],
-  ["social_media", "Social Media", "Սոցիալական ցանցեր", "Социальные сети"],
-  ["apps", "Apps", "Հավելվածներ", "Приложения"],
-  ["ai", "Artificial Intelligence", "Արհեստական բանականություն", "Искусственный интеллект"],
-  ["cybersecurity", "Cybersecurity", "Կիբերանվտանգություն", "Кибербезопасность"],
-  ["gaming", "Gaming", "Խաղեր", "Игры"],
-  ["cloud", "Cloud Computing", "Ամպային հաշվարկ", "Облачные вычисления"],
-  ["future_tech", "Future Tech", "Ապագայի տեխնոլոգիաներ", "Технологии будущего"],
+// ✅ FIXED: added proper hy/ru concepts (was generic "Discussing X")
+const TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "computers",
+    "Computers",
+    "Համակարգիչներ",
+    "Компьютеры",
+    "Hardware, software, and daily computer use.",
+    "Սարքավորում, ծրագրեր և ամենօրյա համակարգչային օգտագործում։",
+    "Аппаратное обеспечение, программы и ежедневное использование ПК.",
+  ],
+  [
+    "internet",
+    "Internet",
+    "Ինտերնետ",
+    "Интернет",
+    "Browsing, downloading, and staying safe online.",
+    "Զննարկում, ներբեռնում և անվտանգ ցանցային օգտագործում։",
+    "Сёрфинг, скачивание и безопасность в сети.",
+  ],
+  [
+    "smartphones",
+    "Smartphones",
+    "Խելացի հեռախոսներ",
+    "Смартфоны",
+    "Phones, apps, and mobile features.",
+    "Հեռախոսներ, հավելվածներ և բջջային հնարավորություններ։",
+    "Телефоны, приложения и мобильные функции.",
+  ],
+  [
+    "social_media",
+    "Social Media",
+    "Սոցիալական ցանցեր",
+    "Социальные сети",
+    "Platforms, engagement, and digital wellbeing.",
+    "Հարթակներ, ներգրավվածություն և թվային բարեկեցություն։",
+    "Платформы, вовлечённость и цифровое благополучие.",
+  ],
+  [
+    "apps",
+    "Apps",
+    "Հավելվածներ",
+    "Приложения",
+    "Installing, using, and managing applications.",
+    "Տեղադրում, օգտագործում և հավելվածների կառավարում։",
+    "Установка, использование и управление приложениями.",
+  ],
+  [
+    "ai",
+    "Artificial Intelligence",
+    "Արհեստական բանականություն",
+    "Искусственный интеллект",
+    "AI tools, applications, and their impact.",
+    "AI գործիքներ, կիրառություններ և դրանց ազդեցությունը։",
+    "Инструменты ИИ, применение и их влияние.",
+  ],
+  [
+    "cybersecurity",
+    "Cybersecurity",
+    "Կիբերանվտանգություն",
+    "Кибербезопасность",
+    "Passwords, phishing, and protecting your data.",
+    "Գաղտնաբառեր, ֆիշինգ և տվյալների պաշտպանություն։",
+    "Пароли, фишинг и защита данных.",
+  ],
+  [
+    "gaming",
+    "Gaming",
+    "Խաղեր",
+    "Игры",
+    "Video games, platforms, and community.",
+    "Տեսախաղեր, հարթակներ և համայնք։",
+    "Видеоигры, платформы и сообщество.",
+  ],
+  [
+    "cloud",
+    "Cloud Computing",
+    "Ամպային հաշվարկ",
+    "Облачные вычисления",
+    "Storage, sync, and accessing data anywhere.",
+    "Պահոց, համաժամեցում և տվյալների հասանելիություն ամենուր։",
+    "Хранилище, синхронизация и доступ к данным везде.",
+  ],
+  [
+    "future_tech",
+    "Future Tech",
+    "Ապագայի տեխնոլոգիաներ",
+    "Технологии будущего",
+    "Robots, quantum, and what's coming next.",
+    "Ռոբոտներ, կվանտային և ինչ է սպասվում հետո։",
+    "Роботы, квантовые и что будет дальше.",
+  ],
 ];
 
 const BANKS: Record<
@@ -123,7 +206,8 @@ const BANKS: Record<
       ["վերբեռնել", "to upload", "загрузить"],
       ["կապ", "connection", "соединение"],
       ["արագություն", "speed", "скорость"],
-      ["wifi", "wifi", "wifi"],
+      // ✅ FIXED: "wifi" → "վայ-ֆայ" (Armenian)
+      ["վայ-ֆայ", "wifi", "wifi"],
       ["երթուղղիչ", "router", "роутер"],
       ["սերվեր", "server", "сервер"],
       ["տվյալներ", "data", "данные"],
@@ -143,7 +227,7 @@ const BANKS: Record<
       ["Այս հղումը ուղարկիր։", "Send this link.", "Отправь эту ссылку."],
       ["Google-ով փնտրիր։", "Search on Google.", "Поищи в Google."],
       ["Ֆիլմը ներբեռնում եմ։", "I'm downloading a movie.", "Скачиваю фильм."],
-      ["Wifi-ի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
+      ["Վայ-ֆայի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
       ["Չկա կապ։", "No connection.", "Нет соединения."],
       ["Արագությունն իջել է։", "The speed has dropped.", "Скорость упала."],
       ["Զգույշ եղիր վտանգավոր կայքերից։", "Be careful with dangerous sites.", "Осторожно с опасными сайтами."],
@@ -199,12 +283,14 @@ const BANKS: Record<
       ["մարտկոց", "battery", "батарея"],
       ["լիցքավորիչ", "charger", "зарядка"],
       ["ականջակալ", "headphones", "наушники"],
-      ["bluetooth", "bluetooth", "bluetooth"],
+      // ✅ FIXED: "bluetooth" → "բլութուս" (Armenian)
+      ["բլութուս", "bluetooth", "bluetooth"],
       ["հավելված", "app", "приложение"],
       ["ծանուցում", "notification", "уведомление"],
       ["զանգ", "call", "звонок"],
       ["հաղորդագրություն", "message", "сообщение"],
-      ["SMS", "SMS", "SMS"],
+      // ✅ FIXED: "SMS" → "կարճ հաղորդագրություն" (Armenian)
+      ["կարճ հաղորդագրություն", "SMS", "SMS"],
       ["նկար", "photo", "фото"],
       ["տեսանյութ", "video", "видео"],
       ["պահոց", "storage", "память"],
@@ -227,7 +313,7 @@ const BANKS: Record<
       ["Պահոցը լցված է։", "The storage is full.", "Память заполнена."],
       ["Մատնահետքով բացում եմ։", "I unlock with fingerprint.", "Разблокирую отпечатком."],
       ["Ծանուցումները շատ են։", "Too many notifications.", "Слишком много уведомлений."],
-      ["Bluetooth-ը միացրու։", "Turn on Bluetooth.", "Включи Bluetooth."],
+      ["Բլութուսը միացրու։", "Turn on Bluetooth.", "Включи Bluetooth."],
       ["Ականջակալս կորցրի։", "I lost my headphones.", "Потерял наушники."],
       ["Հեռախոսը ջրի մեջ ընկավ։", "The phone fell in water.", "Телефон упал в воду."],
     ],
@@ -547,7 +633,7 @@ const BANKS: Record<
       ["Հաշիվս կոտրել են։", "My account was hacked.", "Мой аккаунт взломали."],
       ["Գաղտնաբառս փոխեմ։", "I need to change my password.", "Нужно сменить пароль."],
       ["Երբեք չկիսվիր գաղտնաբառով։", "Never share your password.", "Никогда не делись паролем."],
-      ["Հանրային wifi-ով զգույշ եղիր։", "Be careful on public wifi.", "Осторожен в публичном wifi."],
+      ["Հանրային վայ-ֆայի ժամանակ զգույշ եղիր։", "Be careful on public wifi.", "Осторожен в публичном wifi."],
       ["Կայքը վտանգավոր է։", "The website is dangerous.", "Сайт опасный."],
       ["Անվտանգությունը կարևոր է։", "Security is important.", "Безопасность важна."],
     ],
@@ -829,12 +915,16 @@ const BANKS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was generic "Discussing X")
 function makeTechLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = BANKS[slug];
   return {
@@ -843,7 +933,7 @@ function makeTechLesson(
     slug,
     difficulty: "B1",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: `Discussing ${enT}.`, hy: `Քննարկել ${hyT}.`, ru: `Обсуждение ${ruT}.` },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -853,8 +943,9 @@ function makeTechLesson(
   };
 }
 
-const QUICK_LESSONS = TOPICS.map(([slug, en, hy, ru], idx) =>
-  makeTechLesson(`w7_l${idx + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], idx) =>
+    makeTechLesson(`w7_l${idx + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W7_LESSONS = QUICK_LESSONS.map((ql) => ({

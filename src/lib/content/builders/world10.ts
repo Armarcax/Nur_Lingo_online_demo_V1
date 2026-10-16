@@ -2,17 +2,100 @@
 
 import type { QuickLesson } from "../types";
 
-const TOPICS = [
-  ["painting", "Painting", "Նկարչություն", "Живопись"],
-  ["music", "Music Genres", "Երաժշտական ժանրեր", "Музыкальные жанры"],
-  ["literature", "Literature", "Գրականություն", "Литература"],
-  ["poetry", "Poetry", "Պոեզիա", "Поэзия"],
-  ["cinema", "Cinema", "Կինո", "Кино"],
-  ["theater", "Theatre", "Թատրոն", "Театр"],
-  ["sculpture", "Sculpture", "Քանդակագործություն", "Скульптура"],
-  ["architecture", "Architecture", "Ճարտարապետություն", "Архитектура"],
-  ["dance", "Dance Art", "Պարարվեստ", "Танцевальное искусство"],
-  ["photography_art", "Fine Art Photography", "Գեղարվեստական լուսանկարչություն", "Художественная фотография"],
+// ✅ FIXED: added proper hy/ru concepts (was generic "Exploring X")
+const TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "painting",
+    "Fine Art Painting",
+    "Գեղանկարչություն",
+    "Живопись",
+    "Painting styles, masters, and masterpieces.",
+    "Գեղանկարչական ոճեր, վարպետներ և գլուխգործոցներ։",
+    "Стили живописи, мастера и шедевры.",
+  ],
+  [
+    "music",
+    "Music Genres",
+    "Երաժշտական ժանրեր",
+    "Музыкальные жанры",
+    "Rock, jazz, classical, and more.",
+    "Ռոք, ջազ, դասական և այլն։",
+    "Рок, джаз, классика и другое.",
+  ],
+  [
+    "literature",
+    "Literature",
+    "Գրականություն",
+    "Литература",
+    "Novels, authors, and literary classics.",
+    "Վեպեր, հեղինակներ և գրական դասականներ։",
+    "Романы, авторы и литературная классика.",
+  ],
+  [
+    "poetry",
+    "Poetry",
+    "Պոեզիա",
+    "Поэзия",
+    "Poems, poets, and the language of emotion.",
+    "Բանաստեղծություններ, բանաստեղծներ և զգացմունքների լեզու։",
+    "Стихи, поэты и язык эмоций.",
+  ],
+  [
+    "cinema",
+    "Cinema",
+    "Կինո",
+    "Кино",
+    "Films, directors, and film genres.",
+    "Ֆիլմեր, ռեժիսորներ և կինոժանրեր։",
+    "Фильмы, режиссёры и киножанры.",
+  ],
+  [
+    "theater",
+    "Theatre",
+    "Թատրոն",
+    "Театр",
+    "Plays, performances, and stage arts.",
+    "Պիեսներ, ներկայացումներ և բեմարվեստ։",
+    "Пьесы, спектакли и сценическое искусство.",
+  ],
+  [
+    "sculpture",
+    "Sculpture",
+    "Քանդակագործություն",
+    "Скульптура",
+    "Statues, monuments, and three-dimensional art.",
+    "Արձաններ, հուշարձաններ և եռաչափ արվեստ։",
+    "Статуи, памятники и трёхмерное искусство.",
+  ],
+  [
+    "architecture",
+    "Architecture",
+    "Ճարտարապետություն",
+    "Архитектура",
+    "Buildings, styles, and urban design.",
+    "Շենքեր, ոճեր և քաղաքային դիզայն։",
+    "Здания, стили и городской дизайн.",
+  ],
+  [
+    "dance",
+    "Dance Art",
+    "Պարարվեստ",
+    "Танцевальное искусство",
+    "Ballet, folk, and contemporary dance.",
+    "Բալետ, ժողովրդական և ժամանակակից պար։",
+    "Балет, народный и современный танец.",
+  ],
+  [
+    "photography_art",
+    "Fine Art Photography",
+    "Գեղարվեստական լուսանկարչություն",
+    "Художественная фотография",
+    "Composition, light, and photographic art.",
+    "Կոմպոզիցիա, լույս և լուսանկարչական արվեստ։",
+    "Композиция, свет и фотографическое искусство.",
+  ],
 ];
 
 const BANKS: Record<
@@ -28,12 +111,11 @@ const BANKS: Record<
     }>;
   }
 > = {
-  // ═══ 1. PAINTING ═══
+  // ═══ 1. PAINTING (Fine Art) ═══
   painting: {
     vocab: [
-      ["նկարչություն", "painting", "живопись"],
+      ["գեղանկարչություն", "painting", "живопись"],
       ["նկարիչ", "painter", "художник"],
-      ["նկար", "painting", "картина"],
       ["կտավ", "canvas", "холст"],
       ["վրձին", "brush", "кисть"],
       ["ներկ", "paint", "краска"],
@@ -56,9 +138,10 @@ const BANKS: Record<
       ["գնահատել", "to appreciate", "оценивать"],
       ["ոգեշնչել", "to inspire", "вдохновлять"],
       ["վարպետ", "master", "мастер"],
+      ["գլուխգործոց", "masterpiece", "шедевр"],
     ],
     phrases: [
-      ["Սիրում եմ նկարչություն։", "I love painting.", "Люблю живопись."],
+      ["Սիրում եմ գեղանկարչություն։", "I love painting.", "Люблю живопись."],
       ["Ի՞նչ ուղղություն ես սիրում։", "What style do you like?", "Какое направление любишь?"],
       ["Իմպրեսիոնիզմը գեղեցիկ է։", "Impressionism is beautiful.", "Импрессионизм красив."],
       ["Մոնեն մեծ վարպետ էր։", "Monet was a great master.", "Моне был великим мастером."],
@@ -69,7 +152,7 @@ const BANKS: Record<
       ["Նկարիչը եզակի ոճ ունի։", "The painter has a unique style.", "У художника уникальный стиль."],
       ["Աբստրակտը դժվար է հասկանալ։", "Abstract is hard to understand.", "Абстракцию сложно понять."],
       ["Ռեալիզմը ինձ մոտ է։", "Realism is close to me.", "Реализм мне близок."],
-      ["Նկարչությունը հոգու լեզու է։", "Painting is the language of the soul.", "Живопись — язык души."],
+      ["Գեղանկարչությունը հոգու լեզու է։", "Painting is the language of the soul.", "Живопись — язык души."],
     ],
     dialogues: [
       {
@@ -275,7 +358,8 @@ const BANKS: Record<
       ["բանաստեղծ", "poet", "поэт"],
       ["բանաստեղծություն", "poem", "стихотворение"],
       ["տող", "line", "строка"],
-      ["տուն", "stanza", "строфа"],
+      // ✅ FIXED: "տուն" is also "house", clarified with context
+      ["տուն (տաղ)", "stanza", "строфа"],
       ["հանգ", "rhyme", "рифма"],
       ["ռիթմ", "rhythm", "ритм"],
       ["մետր", "meter", "размер"],
@@ -358,7 +442,7 @@ const BANKS: Record<
       ["դերասանուհի", "actress", "актриса"],
       ["դեր", "role", "роль"],
       ["սցենար", "script", "сценарий"],
-      ["կադր", "scene", "кадр"],
+      ["կադր", "shot", "кадр"],
       ["տեսարան", "scene", "сцена"],
       ["մոնտաժ", "montage", "монтаж"],
       ["երաժշտություն", "soundtrack", "саундтрек"],
@@ -521,7 +605,8 @@ const BANKS: Record<
       ["բրոնզ", "bronze", "бронза"],
       ["փայտ", "wood", "дерево"],
       ["կավ", "clay", "глина"],
-      ["մուրճ", "hammer", "молоток"],
+      // ✅ FIXED: unclear tools — replaced with general term
+      ["գործիքներ", "tools", "инструменты"],
       ["սղոց", "chisel", "резец"],
       ["ձև", "form", "форма"],
       ["համամասնություն", "proportion", "пропорция"],
@@ -829,12 +914,16 @@ const BANKS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was generic "Exploring X")
 function makeArtLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = BANKS[slug];
   return {
@@ -843,7 +932,7 @@ function makeArtLesson(
     slug,
     difficulty: "B1",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: `Exploring ${enT}`, hy: `Ուսումնասիրել ${hyT}`, ru: `Изучаем ${ruT}` },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -853,8 +942,9 @@ function makeArtLesson(
   };
 }
 
-const QUICK_LESSONS = TOPICS.map(([slug, en, hy, ru], idx) =>
-  makeArtLesson(`w10_l${idx + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], idx) =>
+    makeArtLesson(`w10_l${idx + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W10_LESSONS = QUICK_LESSONS.map((ql) => ({

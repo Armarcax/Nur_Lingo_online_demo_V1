@@ -25,8 +25,9 @@ export const LANG_EMOJIS: Record<LangCode, string> = {
   ru: "🇷🇺",
 };
 
+// ✅ FIXED: use 🇬🇧 (renders on all platforms) instead of England ZWJ sequence
 export const LANG_FLAGS: Record<LangCode, string> = {
-  en: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  en: "🇬🇧",
   hy: "🇦🇲",
   ru: "🇷🇺",
 };
@@ -122,7 +123,6 @@ export interface UIStrings {
   reset: string;
   submit: string;
   retry: string;
-  // ✅ ՀԱՎԵԼՑՎԱԾ KEY-ԵՐ
   home: string;
   worldNav: string;
   dict: string;
@@ -790,7 +790,7 @@ const STORAGE_KEYS = {
 
 export function loadLangConfig(): LangConfig | null {
   if (typeof window === "undefined") return null;
-  
+
   try {
     const unified = localStorage.getItem(STORAGE_KEYS.config);
     if (unified) {
@@ -798,7 +798,7 @@ export function loadLangConfig(): LangConfig | null {
       if (parsed?.native && parsed?.learning) {
         const native = parsed.native as LangCode;
         const learning = parsed.learning as LangCode;
-        if (['en', 'hy', 'ru'].includes(native) && ['en', 'hy', 'ru'].includes(learning)) {
+        if (["en", "hy", "ru"].includes(native) && ["en", "hy", "ru"].includes(learning)) {
           return {
             native,
             learning,
@@ -810,14 +810,19 @@ export function loadLangConfig(): LangConfig | null {
 
     const source = localStorage.getItem(STORAGE_KEYS.native) as LangCode;
     const target = localStorage.getItem(STORAGE_KEYS.learning) as LangCode;
-    if (source && target && ['en', 'hy', 'ru'].includes(source) && ['en', 'hy', 'ru'].includes(target)) {
+    if (
+      source &&
+      target &&
+      ["en", "hy", "ru"].includes(source) &&
+      ["en", "hy", "ru"].includes(target)
+    ) {
       return { native: source, learning: target, pair: `${source}-${target}` as LangPair };
     }
 
     const pref = localStorage.getItem(STORAGE_KEYS.preference) as LangCode;
-    if (pref && ['en', 'hy', 'ru'].includes(pref)) {
+    if (pref && ["en", "hy", "ru"].includes(pref)) {
       const native = pref;
-      const learning = native === 'hy' ? 'en' : 'hy';
+      const learning = native === "hy" ? "en" : "hy";
       return { native, learning, pair: `${native}-${learning}` as LangPair };
     }
 
@@ -830,30 +835,34 @@ export function loadLangConfig(): LangConfig | null {
 export function saveLangConfig(config: LangConfig): void {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(STORAGE_KEYS.config, JSON.stringify({
-      native: config.native,
-      learning: config.learning,
-    }));
-    
+    localStorage.setItem(
+      STORAGE_KEYS.config,
+      JSON.stringify({
+        native: config.native,
+        learning: config.learning,
+      })
+    );
+
     localStorage.setItem(STORAGE_KEYS.native, config.native);
     localStorage.setItem(STORAGE_KEYS.learning, config.learning);
     localStorage.setItem(STORAGE_KEYS.pair, config.pair);
     localStorage.setItem(STORAGE_KEYS.preference, config.native);
-    
+
     window.dispatchEvent(new CustomEvent("langchange", { detail: config }));
   } catch {
     // localStorage unavailable
   }
 }
 
+// ✅ FIXED: English-browser users now correctly get English as native
 export function getDefaultLangConfig(): LangConfig {
   if (typeof window === "undefined") {
     return { pair: "hy-en", native: "hy", learning: "en" };
   }
-  
+
   const stored = loadLangConfig();
   if (stored) return stored;
-  
+
   try {
     const browserLang = navigator.language.split("-")[0] as LangCode;
     if (browserLang === "hy") {
@@ -862,8 +871,12 @@ export function getDefaultLangConfig(): LangConfig {
     if (browserLang === "ru") {
       return { pair: "ru-en", native: "ru", learning: "en" };
     }
+    if (browserLang === "en") {
+      return { pair: "en-hy", native: "en", learning: "hy" };
+    }
   } catch {}
-  
+
+  // Fallback for unknown browsers
   return { pair: "hy-en", native: "hy", learning: "en" };
 }
 

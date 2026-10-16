@@ -3,15 +3,82 @@
 import type { QuickLesson } from "../types";
 import { expand } from "./helpers";
 
-const WORLD3_TOPICS: Array<[string, string, string, string, string]> = [
-  ["airport", "Airport", "Օդանավակայան", "Аэропорт", "At the airport."],
-  ["taxi", "Taxi", "Տաքսի", "Такси", "Catching a taxi."],
-  ["hotel", "Hotel", "Հյուրանոց", "Отель", "Hotel check-in and stay."],
-  ["directions", "Directions", "Ուղղություններ", "Маршруты", "Asking directions."],
-  ["train", "Train", "Գնացք", "Поезд", "Train travel."],
-  ["bus", "Bus", "Ավտոբուս", "Автобус", "Bus travel."],
-  ["tourism", "Tourism", "Զբոսաշրջություն", "Туризм", "Sightseeing."],
-  ["emergency", "Emergencies", "Արտակարգ իրավիճակներ", "Экстренные ситуации", "Calling for help."],
+// ✅ FIXED: added hy/ru concepts (was using title as concept)
+const WORLD3_TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "airport",
+    "Airport",
+    "Օդանավակայան",
+    "Аэропорт",
+    "At the airport.",
+    "Օդանավակայանում՝ գրանցում, մաքսային և թռիչք։",
+    "В аэропорту — регистрация, таможня и полёт.",
+  ],
+  [
+    "taxi",
+    "Taxi",
+    "Տաքսի",
+    "Такси",
+    "Catching a taxi.",
+    "Տաքսի բռնելը, հասցե և վճարում։",
+    "Поймать такси, адрес и оплата.",
+  ],
+  [
+    "hotel",
+    "Hotel",
+    "Հյուրանոց",
+    "Отель",
+    "Hotel check-in and stay.",
+    "Հյուրանոցում մուտք, կացություն և հեռանալ։",
+    "Заселение в отель, проживание и выезд.",
+  ],
+  [
+    "directions",
+    "Directions",
+    "Ուղղություններ",
+    "Маршруты",
+    "Asking directions.",
+    "Ուղղություն հարցնելը և հասկանալը։",
+    "Спросить дорогу и понять ответ.",
+  ],
+  [
+    "train",
+    "Train",
+    "Գնացք",
+    "Поезд",
+    "Train travel.",
+    "Գնացքով ճանապարհորդություն, տոմս և կայարան։",
+    "Путешествие на поезде, билет и вокзал.",
+  ],
+  [
+    "bus",
+    "Bus",
+    "Ավտոբուս",
+    "Автобус",
+    "Bus travel.",
+    "Ավտոբուսով ճանապարհորդություն և երթուղիներ։",
+    "Поездка на автобусе и маршруты.",
+  ],
+  [
+    "tourism",
+    "Tourism",
+    "Զբոսաշրջություն",
+    "Туризм",
+    "Sightseeing.",
+    "Տեսարժան վայրեր, թանգարաններ և հուշանվերներ։",
+    "Достопримечательности, музеи и сувениры.",
+  ],
+  [
+    "emergency",
+    "Emergencies",
+    "Արտակարգ իրավիճակներ",
+    "Экстренные ситуации",
+    "Calling for help.",
+    "Օգնություն կանչելը և արտակարգ իրավիճակները։",
+    "Вызов помощи и экстренные ситуации.",
+  ],
 ];
 
 const BANKS: Record<
@@ -52,7 +119,8 @@ const BANKS: Record<
       ["հետաձգում", "postponement", "отложение"],
       ["չեղարկում", "cancellation", "отмена"],
       ["ստուգում", "inspection", "проверка"],
-      ["դույլ", "tray", "поднос"],
+      // ✅ FIXED: "դույլ" (bucket) → "սկուտեղ" (tray)
+      ["սկուտեղ", "tray", "поднос"],
       ["պայուսակ", "bag", "сумка"],
     ],
     phrases: [
@@ -115,8 +183,9 @@ const BANKS: Record<
       ["կանգառ", "stop", "остановка"],
       ["փողոց", "street", "улица"],
       ["պողոտա", "avenue", "проспект"],
-      ["քառուղի", "intersection", "перекрёсток"],
-      ["լույս", "light", "светофор"],
+      // ✅ FIXED: "քառուղի" (not standard) → "խաչմերուկ" (standard)
+      ["խաչմերուկ", "intersection", "перекрёсток"],
+      ["լույս", "traffic light", "светофор"],
       ["աջ", "right", "право"],
       ["ձախ", "left", "лево"],
       ["ուղիղ", "straight", "прямо"],
@@ -125,7 +194,7 @@ const BANKS: Record<
       ["դանդաղ", "slow", "медленно"],
       ["կանգնել", "to stop", "остановиться"],
       ["գնալ", "to go", "ехать"],
-      ["շրջել", "to turn", "повернуть"],
+      ["շրջվել", "to turn", "повернуть"],
       ["կամուրջ", "bridge", "мост"],
       ["քիլոմետր", "kilometer", "километр"],
       ["քարտեզ", "map", "карта"],
@@ -200,8 +269,9 @@ const BANKS: Record<
       ["նախաճաշ", "breakfast", "завтрак"],
       ["ճաշ", "lunch", "обед"],
       ["ընթրիք", "dinner", "ужин"],
-      ["wifi", "wifi", "wifi"],
-      ["կլիմայատար", "air conditioner", "кондиционер"],
+      ["վայ-ֆայ", "wifi", "wifi"],
+      // ✅ FIXED: "կլիմայատար" (not standard) → "օդորակիչ" (standard)
+      ["օդորակիչ", "air conditioner", "кондиционер"],
       ["հեռուստացույց", "TV", "телевизор"],
       ["պատուհան", "window", "окно"],
       ["հանգիստ", "quiet", "тихий"],
@@ -218,9 +288,9 @@ const BANKS: Record<
       ["Որքա՞ն արժե գիշերը։", "How much per night?", "Сколько за ночь?"],
       ["Նախաճաշը ներառվա՞ծ է։", "Is breakfast included?", "Завтрак включён?"],
       ["Որտե՞ղ է վերելակը։", "Where is the elevator?", "Где лифт?"],
-      ["Կլիմայատարը չի աշխատում։", "The AC doesn't work.", "Кондиционер не работает."],
+      ["Օդորակիչը չի աշխատում։", "The AC doesn't work.", "Кондиционер не работает."],
       ["Կարո՞ղ եմ լիցքավորիչ ստանալ։", "Can I get a charger?", "Можно зарядку?"],
-      ["Wifi-ի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
+      ["Վայ-ֆայի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
       ["Ի՞նչ ժամին է նախաճաշը։", "What time is breakfast?", "Во сколько завтрак?"],
       ["Ուզում եմ դուրս գալ։", "I want to check out.", "Хочу выехать."],
       ["Շատ լավ սենյակ էր։", "It was a great room.", "Очень хороший номер."],
@@ -239,10 +309,10 @@ const BANKS: Record<
       },
       {
         en: "Broken AC",
-        hy: "Փչացած կլիմայատար",
+        hy: "Փչացած օդորակիչ",
         ru: "Сломанный кондиционер",
         turns: [
-          ["user", "Կլիմայատարը չի աշխատում։", "The AC isn't working.", "Кондиционер не работает."],
+          ["user", "Օդորակիչը չի աշխատում։", "The AC isn't working.", "Кондиционер не работает."],
           ["nurik", "Հիմա կուղարկեմ մեկին։", "I'll send someone now.", "Сейчас пришлю кого-нибудь."],
           ["user", "Շնորհակալություն։", "Thank you.", "Спасибо."],
           ["nurik", "Ներեցեք անհանգստության համար։", "Sorry for the trouble.", "Извините за неудобства."],
@@ -352,14 +422,15 @@ const BANKS: Record<
       ["ժամանում", "arrival", "прибытие"],
       ["ուղիղ", "direct", "прямой"],
       ["անցում", "transfer", "пересадка"],
-      ["գիշերային", "night", "ночной"],
-      ["ցերեկային", "day", "дневной"],
+      // ✅ FIXED: adjectives used as standalone nouns → compound forms
+      ["գիշերային գնացք", "night train", "ночной поезд"],
+      ["ցերեկային գնացք", "day train", "дневной поезд"],
       ["դանդաղ", "slow", "медленный"],
       ["արագ", "fast", "быстрый"],
       ["մետրո", "metro", "метро"],
       ["էլեկտրագնացք", "electric train", "электричка"],
-      ["ուղեկից", "conductor", "проводник"],
-      ["հատատորեն", "specifically", "конкретно"],
+      // ✅ FIXED: "ուղեկից" (companion) → "ուղեկցորդ" (conductor)
+      ["ուղեկցորդ", "conductor", "проводник"],
       ["ուղևոր", "passenger", "пассажир"],
       ["դուռ", "door", "дверь"],
       ["պատուհան", "window", "окно"],
@@ -426,7 +497,9 @@ const BANKS: Record<
       ["վարորդ", "driver", "водитель"],
       ["տոմս", "ticket", "билет"],
       ["անցաթուղթ", "pass", "проездной"],
-      ["կանգնել", "to stop", "остановиться"],
+      // ✅ FIXED: "կանգնել" appeared twice with different meanings
+      //           → split into "կանգ առնել" (to stop) + "կանգնել" (to stand)
+      ["կանգ առնել", "to stop", "остановиться"],
       ["հաջորդ", "next", "следующий"],
       ["նախորդ", "previous", "предыдущий"],
       ["մարդաշատ", "crowded", "переполненный"],
@@ -443,7 +516,8 @@ const BANKS: Record<
       ["տրոլեյբուս", "trolleybus", "троллейбус"],
       ["մետրո", "metro", "метро"],
       ["քարտ", "card", "карта"],
-      ["փոխվճար", "transfer", "пересадка"],
+      // ✅ FIXED: "փոխվճար" (surcharge) → "փոխադրում" (transfer)
+      ["փոխադրում", "transfer", "пересадка"],
     ],
     phrases: [
       ["Ո՞ր ավտոբուսը գնում է կենտրոն։", "Which bus goes to center?", "Какой автобус едет в центр?"],
@@ -456,7 +530,7 @@ const BANKS: Record<
       ["Մարդաշատ է։", "It's crowded.", "Переполнено."],
       ["Որքա՞ն ժամ է գնում։", "How long does it take?", "Сколько идёт?"],
       ["Քաղաքից դուրս է գնում։", "It goes out of the city.", "Едет за город."],
-      ["Փոխվճար անհրաժե՞շտ է։", "Is a transfer needed?", "Нужна пересадка?"],
+      ["Փոխադրում անհրաժե՞շտ է։", "Is a transfer needed?", "Нужна пересадка?"],
       ["Որտե՞ղ է կանգառը։", "Where is the stop?", "Где остановка?"],
     ],
     dialogues: [
@@ -653,13 +727,16 @@ const BANKS: Record<
   },
 };
 
+// ✅ FIXED: concept now has proper hy/ru translations
 function makeTravelLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
   ruT: string,
-  conceptEn: string
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = BANKS[slug];
   return {
@@ -668,7 +745,7 @@ function makeTravelLesson(
     slug,
     difficulty: "A2",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: conceptEn, hy: hyT, ru: ruT },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl: any) => ({
@@ -678,8 +755,9 @@ function makeTravelLesson(
   };
 }
 
-const QUICK_LESSONS = WORLD3_TOPICS.map(([slug, en, hy, ru, desc], i) =>
-  makeTravelLesson(`w3_l${i + 1}`, slug, en, hy, ru, desc)
+const QUICK_LESSONS = WORLD3_TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], i) =>
+    makeTravelLesson(`w3_l${i + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W3_LESSONS = QUICK_LESSONS.map((ql) => ({

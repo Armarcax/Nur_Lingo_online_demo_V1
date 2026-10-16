@@ -1,14 +1,13 @@
 ﻿// src/app/dictionary/page.tsx
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react"
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, BookOpen, X, Filter, ChevronDown, ChevronUp, Sparkles, Play,
-  Loader2, ArrowUp, Star, RefreshCw, CheckCircle, AlertCircle, Users,
+  Loader2, ArrowUp, Star, CheckCircle,
   Check, Tag, BarChart3, List, Grid3x3, FilterX, Clock, Volume2,
-  Download, Music,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
@@ -21,7 +20,7 @@ import type { LangCode } from "@/lib/i18n/multilingual";
 import type { LanguageCode } from "@/lib/audio";
 import { useI18n } from "@/hooks/useI18n";
 
-// ─── TYPES ────────────────────────────────────────────────────────────
+// ─── TYPES ────────────────────────────────────────────────────────
 
 interface DictionaryEntry {
   id: string;
@@ -58,7 +57,6 @@ interface WordStats {
 
 import baseDict from "../../../data/dictionaries/unified-dictionary.json";
 
-// ✅ FLAG ONLY (no label)
 const LANGS: { code: LangCode; flagUrl: string }[] = [
   { code: "hy", flagUrl: "https://flagcdn.com/24x18/am.png" },
   { code: "en", flagUrl: "https://flagcdn.com/24x18/gb.png" },
@@ -73,7 +71,10 @@ interface ActivePlay {
 
 type ViewMode = "list" | "grid" | "compact";
 type SortOption = "default" | "popular" | "alphabetical" | "reverse-alpha" | "newest" | "oldest";
-type FilterOption = "all" | "vocab" | "phrase" | "dialogue" | "beginner" | "intermediate" | "advanced" | "has-audio" | "no-audio";
+type FilterOption =
+  | "all" | "vocab" | "phrase" | "dialogue"
+  | "beginner" | "intermediate" | "advanced"
+  | "has-audio" | "no-audio";
 
 const STORAGE_KEYS = {
   WAV_MANIFEST: "nurlingo_wav_manifest",
@@ -81,56 +82,71 @@ const STORAGE_KEYS = {
   VIEW_PREFERENCES: "nurlingo_view_preferences",
   DICTIONARY_HISTORY: "nurlingo_dictionary_history",
   FAVORITE_WORDS: "nurlingo_favorite_words",
-};
+} as const;
 
-const formatDate = (dateString?: string) => {
+// ✅ Locale-aware date
+function formatDate(dateString: string | undefined, locale: LangCode): string {
   if (!dateString) return "—";
   try {
-    return new Date(dateString).toLocaleDateString("hy-AM", {
+    const localeMap: Record<LangCode, string> = {
+      hy: "hy-AM", en: "en-GB", ru: "ru-RU",
+    };
+    return new Date(dateString).toLocaleDateString(localeMap[locale] || "en-GB", {
       year: "numeric", month: "short", day: "numeric",
     });
-  } catch { return dateString; }
+  } catch {
+    return dateString;
+  }
+}
+
+// ✅ Safe localStorage
+const safeStorage = {
+  get(key: string): string | null {
+    try { return localStorage.getItem(key); } catch { return null; }
+  },
+  set(key: string, value: string): boolean {
+    try { localStorage.setItem(key, value); return true; } catch { return false; }
+  },
 };
 
-const getDifficultyColor = (difficulty?: string) => {
+function getDifficultyColor(difficulty?: string): string {
   switch (difficulty) {
     case "beginner": return "text-green-400 bg-green-500/20";
     case "intermediate": return "text-yellow-400 bg-yellow-500/20";
     case "advanced": return "text-red-400 bg-red-500/20";
     default: return "text-gray-400 bg-gray-500/20";
   }
-};
+}
 
-const getDifficultyLabel = (difficulty?: string, t?: (key: string) => string) => {
-  if (t) {
-    switch (difficulty) {
-      case "beginner": return `🌱 ${t("page_beginner")}`;
-      case "intermediate": return `📈 ${t("page_intermediate")}`;
-      case "advanced": return `🔥 ${t("page_advanced")}`;
-      default: return "📚 Ընդհանուր";
-    }
-  }
+function getDifficultyEmoji(difficulty?: string): string {
   switch (difficulty) {
-    case "beginner": return "🌱 Սկսնակ";
-    case "intermediate": return "📈 Միջին";
-    case "advanced": return "🔥 Առաջադեմ";
-    default: return "📚 Ընդհանուր";
+    case "beginner": return "🌱";
+    case "intermediate": return "📈";
+    case "advanced": return "🔥";
+    default: return "📚";
   }
-};
+}
+
+// ─── COMPONENT ────────────────────────────────────────────────────
 
 export default function DictionaryPage() {
   const { play, stop, isPlaying, isLoading } = useAudioManager();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const { setPage } = useNuri();
+
+  const native: LangCode = (locale as LangCode) || "en";
 
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
-  const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
-  }, []);
+  const showMessage = useCallback(
+    (text: string, type: "success" | "error" | "info" = "info") => {
+      setToastMessage(text);
+      setToastType(type);
+      setTimeout(() => setToastMessage(""), 3000);
+    },
+    []
+  );
 
   useEffect(() => setPage("dictionary"), [setPage]);
 
@@ -158,72 +174,66 @@ export default function DictionaryPage() {
 
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
 
-  // LOAD FAVORITES
+  // ✅ Synchronous locks
+  const speakingLockRef = useRef(false);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // ─── LOAD FAVORITES + HISTORY ──────────────────────────────
+
   useEffect(() => {
-    try {
-      const savedFavorites = localStorage.getItem(STORAGE_KEYS.FAVORITE_WORDS);
-      if (savedFavorites) setFavorites(new Set(JSON.parse(savedFavorites)));
-      const savedHistory = localStorage.getItem(STORAGE_KEYS.DICTIONARY_HISTORY);
-      if (savedHistory) setRecentlyViewed(JSON.parse(savedHistory));
-    } catch {}
+    const savedFavorites = safeStorage.get(STORAGE_KEYS.FAVORITE_WORDS);
+    if (savedFavorites) {
+      try { setFavorites(new Set(JSON.parse(savedFavorites))); } catch {}
+    }
+    const savedHistory = safeStorage.get(STORAGE_KEYS.DICTIONARY_HISTORY);
+    if (savedHistory) {
+      try { setRecentlyViewed(JSON.parse(savedHistory)); } catch {}
+    }
   }, []);
 
   const toggleFavorite = useCallback((id: string) => {
-    setFavorites(prev => {
+    setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      try { localStorage.setItem(STORAGE_KEYS.FAVORITE_WORDS, JSON.stringify([...next])); } catch {}
+      safeStorage.set(STORAGE_KEYS.FAVORITE_WORDS, JSON.stringify([...next]));
       return next;
     });
   }, []);
 
   const trackWordView = useCallback((id: string) => {
-    setRecentlyViewed(prev => {
-      const filtered = prev.filter(w => w !== id);
+    setRecentlyViewed((prev) => {
+      const filtered = prev.filter((w) => w !== id);
       const updated = [id, ...filtered].slice(0, 20);
-      try { localStorage.setItem(STORAGE_KEYS.DICTIONARY_HISTORY, JSON.stringify(updated)); } catch {}
+      safeStorage.set(STORAGE_KEYS.DICTIONARY_HISTORY, JSON.stringify(updated));
       return updated;
     });
   }, []);
 
-  // LOAD VIEW PREFS
+  // ─── VIEW PREFS ────────────────────────────────────────────
+
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.VIEW_PREFERENCES);
-      if (saved) {
+    const saved = safeStorage.get(STORAGE_KEYS.VIEW_PREFERENCES);
+    if (saved) {
+      try {
         const prefs = JSON.parse(saved);
         if (prefs.viewMode) setViewMode(prefs.viewMode);
         if (prefs.sortOption) setSortOption(prefs.sortOption);
         if (prefs.filterOption) setFilterOption(prefs.filterOption);
-      }
-    } catch {}
+      } catch {}
+    }
   }, []);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEYS.VIEW_PREFERENCES, JSON.stringify({
-        viewMode, sortOption, filterOption,
-      }));
-    } catch {}
+    safeStorage.set(
+      STORAGE_KEYS.VIEW_PREFERENCES,
+      JSON.stringify({ viewMode, sortOption, filterOption })
+    );
   }, [viewMode, sortOption, filterOption]);
 
-  // LOAD WAV MANIFEST
-  const loadWavManifestFromStorage = useCallback(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEYS.WAV_MANIFEST);
-      if (stored) {
-        const data = JSON.parse(stored) as WavManifest;
-        setWavManifest(data);
-        return data;
-      }
-    } catch {}
-    return null;
-  }, []);
+  // ─── WAV INIT ──────────────────────────────────────────────
 
-  // INIT WAV CLIENT
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -233,35 +243,55 @@ export default function DictionaryPage() {
           setIsWAVAvailable(true);
           const voices = client.getAvailableVoices();
           if (voices.length > 0) {
-            const savedVoice = localStorage.getItem(STORAGE_KEYS.SELECTED_VOICE);
+            const savedVoice = safeStorage.get(STORAGE_KEYS.SELECTED_VOICE);
             setSelectedVoice(savedVoice && voices.includes(savedVoice) ? savedVoice : voices[0]);
           }
-          loadWavManifestFromStorage();
+          const stored = safeStorage.get(STORAGE_KEYS.WAV_MANIFEST);
+          if (stored) {
+            try { setWavManifest(JSON.parse(stored)); } catch {}
+          }
         }
       } catch {
         setIsWAVAvailable(false);
       }
     };
     initWAV();
-  }, [loadWavManifestFromStorage]);
+  }, []);
 
-  // LOAD DICTIONARY
+  // ─── LOAD DICTIONARY ──────────────────────────────────────
+
   useEffect(() => {
     try {
       const data = baseDict as DictionaryEntry[];
-      const enrichedData = data.map(entry => ({
+      const enrichedData = data.map((entry) => ({
         ...entry,
         category: entry.category || "general",
         difficulty: entry.difficulty || "intermediate",
         tags: entry.tags || [],
-        popularity: entry.popularity || Math.floor(Math.random() * 100),
-        createdAt: entry.createdAt || new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
+        popularity: entry.popularity ?? 0, // ✅ No random — use real or 0
+        createdAt: entry.createdAt || new Date().toISOString(),
         updatedAt: entry.updatedAt || new Date().toISOString(),
       }));
 
       const sortedData = enrichedData.sort((a, b) => parseInt(a.id) - parseInt(b.id));
       setVocab(sortedData);
-      updateStats(sortedData);
+
+      // ✅ Compute stats inline instead of separate function
+      const stats: WordStats = {
+        total: sortedData.length,
+        byType: {},
+        byCategory: {},
+        byDifficulty: {},
+        withAudio: sortedData.filter((e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)).length,
+        withWAV: sortedData.filter((e) => e.hasWAV).length,
+      };
+      sortedData.forEach((e) => {
+        stats.byType[e.type] = (stats.byType[e.type] || 0) + 1;
+        stats.byCategory[e.category || "general"] = (stats.byCategory[e.category || "general"] || 0) + 1;
+        stats.byDifficulty[e.difficulty || "intermediate"] = (stats.byDifficulty[e.difficulty || "intermediate"] || 0) + 1;
+      });
+      setWordStats(stats);
+
       setIsLoadingData(false);
     } catch (error) {
       console.error("❌ Failed to load dictionary:", error);
@@ -270,22 +300,7 @@ export default function DictionaryPage() {
     }
   }, []);
 
-  const updateStats = useCallback((data: DictionaryEntry[]) => {
-    const stats: WordStats = {
-      total: data.length,
-      byType: {},
-      byCategory: {},
-      byDifficulty: {},
-      withAudio: data.filter(e => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)).length,
-      withWAV: data.filter(e => e.hasWAV).length,
-    };
-    data.forEach(e => {
-      stats.byType[e.type] = (stats.byType[e.type] || 0) + 1;
-      stats.byCategory[e.category || "general"] = (stats.byCategory[e.category || "general"] || 0) + 1;
-      stats.byDifficulty[e.difficulty || "intermediate"] = (stats.byDifficulty[e.difficulty || "intermediate"] || 0) + 1;
-    });
-    setWordStats(stats);
-  }, []);
+  // ─── SCROLL / EFFECTS ──────────────────────────────────────
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -316,20 +331,12 @@ export default function DictionaryPage() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [searchQuery, showFilters, showStats]);
 
-  useEffect(() => {
-    if (!searchQuery) { setNuriMood("idle"); return; }
-    const filtered = vocab.filter(
-      (entry) =>
-        entry.hy?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        entry.en?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        entry.ru?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setNuriMood(filtered.length === 0 ? "sad" : "happy");
-  }, [searchQuery, vocab]);
+  // ─── FILTERED WORDS ────────────────────────────────────────
 
   const filteredVocab = useMemo(() => {
     let items = [...vocab];
     const q = searchQuery.trim().toLowerCase();
+
     if (q) {
       items = items.filter(
         (item) =>
@@ -337,20 +344,21 @@ export default function DictionaryPage() {
           (item.en || "").toLowerCase().includes(q) ||
           (item.ru || "").toLowerCase().includes(q) ||
           (item.id || "").toLowerCase().includes(q) ||
-          (item.tags && item.tags.some(tag => tag.toLowerCase().includes(q)))
+          (item.tags && item.tags.some((tag) => tag.toLowerCase().includes(q)))
       );
     }
+
     switch (filterOption) {
-      case "vocab": items = items.filter(e => e.type === "vocab"); break;
-      case "phrase": items = items.filter(e => e.type === "phrase"); break;
-      case "dialogue": items = items.filter(e => e.type === "dialogue"); break;
-      case "beginner": items = items.filter(e => e.difficulty === "beginner"); break;
-      case "intermediate": items = items.filter(e => e.difficulty === "intermediate"); break;
-      case "advanced": items = items.filter(e => e.difficulty === "advanced"); break;
-      case "has-audio": items = items.filter(e => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)); break;
-      case "no-audio": items = items.filter(e => !e.audio || (!e.audio.hy && !e.audio.en && !e.audio.ru)); break;
-      default: break;
+      case "vocab": items = items.filter((e) => e.type === "vocab"); break;
+      case "phrase": items = items.filter((e) => e.type === "phrase"); break;
+      case "dialogue": items = items.filter((e) => e.type === "dialogue"); break;
+      case "beginner": items = items.filter((e) => e.difficulty === "beginner"); break;
+      case "intermediate": items = items.filter((e) => e.difficulty === "intermediate"); break;
+      case "advanced": items = items.filter((e) => e.difficulty === "advanced"); break;
+      case "has-audio": items = items.filter((e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)); break;
+      case "no-audio": items = items.filter((e) => !e.audio || (!e.audio.hy && !e.audio.en && !e.audio.ru)); break;
     }
+
     switch (sortOption) {
       case "popular": items.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)); break;
       case "alphabetical": items.sort((a, b) => a.hy.localeCompare(b.hy)); break;
@@ -359,24 +367,80 @@ export default function DictionaryPage() {
       case "oldest": items.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()); break;
       default: items.sort((a, b) => parseInt(a.id) - parseInt(b.id)); break;
     }
+
     return items;
   }, [vocab, searchQuery, filterOption, sortOption]);
 
-  // SPEECH SYNTHESIS
-  const speakWithFemaleVoice = useCallback((text: string, lang: string) => {
-    return new Promise<boolean>((resolve, reject) => {
-      if (typeof window === 'undefined' || !window.speechSynthesis) {
-        reject(new Error('Speech synthesis not supported'));
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.rate = 0.9;
-      utterance.pitch = 1.2;
-      utterance.volume = 1;
+  // ✅ Nuri mood computed via useMemo, not side-effect
+  const computedNuriMood: NuriMood = useMemo(() => {
+    if (!searchQuery) return "idle";
+    return filteredVocab.length === 0 ? "sad" : "happy";
+  }, [searchQuery, filteredVocab.length]);
 
-      const getVoices = () => {
+  useEffect(() => {
+    setNuriMood(computedNuriMood);
+  }, [computedNuriMood]);
+
+  // ─── TTS FALLBACK ──────────────────────────────────────────
+
+  const speakWithFemaleVoice = useCallback(
+    (text: string, lang: string): Promise<boolean> => {
+      return new Promise((resolve, reject) => {
+        if (typeof window === "undefined" || !window.speechSynthesis) {
+          reject(new Error("Speech synthesis not supported"));
+          return;
+        }
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.9;
+        utterance.pitch = 1.2;
+        utterance.volume = 1;
+
+        const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
+          const femaleVoiceNames = [
+            "Samantha", "Google UK English Female", "Karen", "Zira",
+            "Alice", "Victoria", "Emma", "Susan", "Tessa",
+            "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena",
+            "Ani", "Google Հայերեն", "Armine", "Lusine",
+          ];
+          let picked: SpeechSynthesisVoice | null = null;
+
+          for (const name of femaleVoiceNames) {
+            const found = voices.find(
+              (v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase()
+            );
+            if (found) { picked = found; break; }
+          }
+          if (!picked) {
+            for (const name of femaleVoiceNames) {
+              const found = voices.find(
+                (v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase())
+              );
+              if (found) { picked = found; break; }
+            }
+          }
+          if (!picked) {
+            picked = voices.find(
+              (v) =>
+                v.lang.startsWith(lang) &&
+                (v.name.toLowerCase().includes("female") ||
+                  v.name.toLowerCase().includes("samantha") ||
+                  v.name.toLowerCase().includes("zira") ||
+                  v.name.toLowerCase().includes("karen") ||
+                  v.name.toLowerCase().includes("anna"))
+            ) ?? null;
+          }
+
+          if (picked) utterance.voice = picked;
+          else utterance.pitch = 1.5;
+
+          utterance.onend = () => resolve(true);
+          utterance.onerror = (e) => reject(e);
+          window.speechSynthesis.speak(utterance);
+        };
+
         const voices = window.speechSynthesis.getVoices();
         if (voices.length === 0) {
           window.speechSynthesis.onvoiceschanged = () => {
@@ -385,138 +449,124 @@ export default function DictionaryPage() {
           return;
         }
         findAndSpeak(voices);
+      });
+    },
+    []
+  );
+
+  // ─── PLAY VIA API (with cleanup) ───────────────────────────
+
+  const playAudioViaAPI = useCallback(
+    async (text: string, lang: LangCode): Promise<boolean> => {
+      if (!text) return false;
+
+      // ✅ Cleanup previous
+      if (currentAudioRef.current) {
+        try {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.src = "";
+        } catch {}
+        currentAudioRef.current = null;
+      }
+
+      const tryApiThenTTS = async (endpoint: string, fallbackLang: string): Promise<boolean> => {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            const src = data.audio || data.url || data.audioUrl;
+            if (src) {
+              const audio = new Audio(src);
+              currentAudioRef.current = audio;
+              await audio.play();
+              audio.onended = () => { currentAudioRef.current = null; };
+              return true;
+            }
+          }
+        } catch (error) {
+          console.warn(`${fallbackLang} API failed:`, error);
+        }
+        try {
+          await speakWithFemaleVoice(text, fallbackLang);
+          return true;
+        } catch { return false; }
       };
 
-      const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
-        const femaleVoiceNames = [
-          'Samantha', 'Google UK English Female', 'Karen', 'Zira',
-          'Alice', 'Victoria', 'Emma', 'Susan', 'Tessa',
-          'Google русский', 'Anna', 'Elena', 'Katya', 'Marina', 'Natalia', 'Alena',
-          'Ani', 'Google Հայերեն', 'Armine', 'Lusine',
-        ];
-        let picked: SpeechSynthesisVoice | null = null;
-        for (const name of femaleVoiceNames) {
-          const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase());
-          if (found) { picked = found; break; }
-        }
-        if (!picked) {
-          for (const name of femaleVoiceNames) {
-            const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase()));
-            if (found) { picked = found; break; }
+      if (lang === "hy") {
+        if (wavClient && isWAVAvailable) {
+          try {
+            await wavClient.playGeneratedAudio(text, selectedVoice);
+            return true;
+          } catch (error) {
+            console.warn("WAV Client failed:", error);
           }
         }
-        if (!picked) {
-          picked = voices.find(v =>
-            v.lang.startsWith(lang) &&
-            (v.name.toLowerCase().includes('female') ||
-             v.name.toLowerCase().includes('samantha') ||
-             v.name.toLowerCase().includes('zira') ||
-             v.name.toLowerCase().includes('karen') ||
-             v.name.toLowerCase().includes('anna'))
-          ) || null;
-        }
-        if (picked) utterance.voice = picked;
-        else utterance.pitch = 1.5;
-        utterance.onend = () => resolve(true);
-        utterance.onerror = (e) => reject(e);
-        window.speechSynthesis.speak(utterance);
-      };
-      getVoices();
-    });
-  }, []);
-
-  // PLAY VIA API (WAV → API → TTS)
-  const playAudioViaAPI = useCallback(async (text: string, lang: LangCode): Promise<boolean> => {
-    if (!text) return false;
-
-    if (lang === 'hy') {
-      if (wavClient && isWAVAvailable) {
-        try { await wavClient.playGeneratedAudio(text, selectedVoice); return true; }
-        catch (error) { console.warn("WAV Client failed:", error); }
+        return tryApiThenTTS("/api/generate-wav", "hy");
       }
-      try {
-        const response = await fetch('/api/generate-wav', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, voice: selectedVoice }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("WAV API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'hy'); return true; }
-      catch { return false; }
-    }
+      if (lang === "en") return tryApiThenTTS("/api/generate-tts-en", "en");
+      if (lang === "ru") return tryApiThenTTS("/api/generate-tts-ru", "ru");
+      return false;
+    },
+    [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]
+  );
 
-    if (lang === 'en') {
-      try {
-        const response = await fetch('/api/generate-tts-en', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("English TTS API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'en'); return true; }
-      catch { return false; }
-    }
+  // ─── HANDLE SPEAK ──────────────────────────────────────────
 
-    if (lang === 'ru') {
-      try {
-        const response = await fetch('/api/generate-tts-ru', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("Russian TTS API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'ru'); return true; }
-      catch { return false; }
-    }
-    return false;
-  }, [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]);
-
-  // HANDLE SPEAK
   const handleSpeak = useCallback(
     async (item: DictionaryEntry, lang: LangCode) => {
       const text = item[lang] || "";
-      if (!text) { showMessage(t("page_no_text"), "error"); return; }
-      if (isPlaying) { stop(); setActivePlay(null); return; }
+      if (!text) {
+        showMessage(t("page_text_empty"), "error");
+        return;
+      }
 
+      // ✅ Sync lock
+      if (speakingLockRef.current) {
+        if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+        if (currentAudioRef.current) {
+          try {
+            currentAudioRef.current.pause();
+            currentAudioRef.current.src = "";
+          } catch {}
+          currentAudioRef.current = null;
+        }
+        speakingLockRef.current = false;
+        setActivePlay(null);
+        return;
+      }
+
+      if (isPlaying) {
+        stop();
+        setActivePlay(null);
+        return;
+      }
+
+      speakingLockRef.current = true;
       setActivePlay({ wordId: item.id, lang, source: "tts" });
       setNuriMood("happy");
 
       try {
-        // ✅ API PRIORITY — same as user-dictionary
         const success = await playAudioViaAPI(text, lang);
-        if (success) {
-          setActivePlay(null);
-          return;
-        }
-        // Fallback to useAudioManager
+        if (success) return;
         play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
       } catch (error) {
         console.error("Playback error:", error);
         try { play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`); } catch {}
+      } finally {
+        speakingLockRef.current = false;
+        setActivePlay(null);
       }
     },
     [isPlaying, stop, play, showMessage, playAudioViaAPI, t]
   );
 
   const isWordPlaying = useCallback(
-    (id: string, lang: LangCode) => {
-      return activePlay?.wordId === id && activePlay?.lang === lang && (isPlaying || isLoading);
-    },
+    (id: string, lang: LangCode) =>
+      activePlay?.wordId === id && activePlay?.lang === lang && (isPlaying || isLoading),
     [activePlay, isPlaying, isLoading]
   );
 
@@ -540,18 +590,17 @@ export default function DictionaryPage() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const copyId = useCallback((id: string) => {
-    try {
-      navigator.clipboard.writeText(id);
+  const copyId = useCallback(
+    (id: string) => {
+      try {
+        navigator.clipboard.writeText(id);
+      } catch {}
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2000);
       showMessage(t("page_id_copied"), "info");
-    } catch {
-      setCopiedId(id);
-      setTimeout(() => setCopiedId(null), 2000);
-      showMessage(t("page_id_copied"), "info");
-    }
-  }, [showMessage, t]);
+    },
+    [showMessage, t]
+  );
 
   const resetFilters = useCallback(() => {
     setFilterOption("all");
@@ -563,23 +612,32 @@ export default function DictionaryPage() {
   const totalWords = vocab.length;
   const isFiltered = filterOption !== "all" || sortOption !== "default" || searchQuery !== "";
 
+  // ─── RENDER: LOADING ──────────────────────────────────────
+
   if (isLoadingData) {
-    return <div className="min-h-screen bg-transparent flex items-center justify-center" />;
+    return (
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="opacity-70">{t("page_loading")}</p>
+        </div>
+      </div>
+    );
   }
+
+  // ─── RENDER: MAIN ─────────────────────────────────────────
 
   return (
     <div className="min-h-screen bg-transparent pb-24">
       <div ref={topRef} className="container-main py-6">
-
-        <div className="fixed top-20 left-4 z-50">
+        <div className="fixed top-20 left-4 z-50 pointer-events-none">
           <img
             src="/images/nuri/nuri-listening.png"
-            alt={t("page_nuri_listening")}
+            alt={t("page_listening")}
             className="w-16 h-16 object-contain animate-pulse"
           />
         </div>
 
-        {/* HEADER */}
         <header className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
@@ -587,8 +645,10 @@ export default function DictionaryPage() {
               <NuriSpeech
                 text={
                   nuriMood === "happy"
-                    ? t("page_nuri_happy_dict", { count: filteredVocab.length })
-                    : searchQuery ? t("page_nuri_sad_dict") : t("page_nuri_idle_dict")
+                    ? t("page_nuri_happy", { count: filteredVocab.length })
+                    : searchQuery
+                    ? t("page_nuri_sad")
+                    : t("page_nuri_idle")
                 }
                 mood={nuriMood}
               />
@@ -603,7 +663,8 @@ export default function DictionaryPage() {
                 <span className="text-gradient">{t("page_dictionary")}</span>
               </h1>
               <p className="text-sm opacity-70">
-                {t("page__wordstats_total_", { total: vocab.length })}
+                {/* ✅ Fixed broken key */}
+                {t("page_words_total", { total: vocab.length })}
               </p>
             </div>
 
@@ -611,19 +672,22 @@ export default function DictionaryPage() {
               <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10">
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`px-2.5 py-1.5 rounded-lg ${viewMode === "list" ? "bg-blue-500 text-white" : ""}`}
+                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "list" ? "bg-blue-500 text-white" : ""}`}
+                  aria-label={t("page_view_list")}
                 >
                   <List size={14} />
                 </button>
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`px-2.5 py-1.5 rounded-lg ${viewMode === "grid" ? "bg-blue-500 text-white" : ""}`}
+                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "grid" ? "bg-blue-500 text-white" : ""}`}
+                  aria-label={t("page_view_grid")}
                 >
                   <Grid3x3 size={14} />
                 </button>
                 <button
                   onClick={() => setViewMode("compact")}
-                  className={`px-2.5 py-1.5 rounded-lg ${viewMode === "compact" ? "bg-blue-500 text-white" : ""}`}
+                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "compact" ? "bg-blue-500 text-white" : ""}`}
+                  aria-label={t("page_view_compact")}
                 >
                   <ChevronDown size={14} />
                 </button>
@@ -631,7 +695,9 @@ export default function DictionaryPage() {
 
               <button
                 onClick={() => setShowStats(!showStats)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 ${showStats ? "bg-indigo-500 text-white" : "bg-indigo-500/20"}`}
+                className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 transition-colors ${
+                  showStats ? "bg-indigo-500 text-white" : "bg-indigo-500/20"
+                }`}
               >
                 <BarChart3 size={14} />
                 <span className="hidden sm:inline">{t("page_stats")}</span>
@@ -639,7 +705,7 @@ export default function DictionaryPage() {
 
               <Link
                 href="/admin/dictionary"
-                className="px-4 py-2 rounded-xl text-sm font-medium bg-white/10 dark:bg-white/5 border border-white/5 flex items-center gap-2"
+                className="px-4 py-2 rounded-xl text-sm font-medium bg-white/10 dark:bg-white/5 border border-white/5 flex items-center gap-2 hover:bg-white/20 transition-colors"
               >
                 <Sparkles size={16} />
                 <span className="hidden sm:inline">{t("page_edit")}</span>
@@ -657,7 +723,7 @@ export default function DictionaryPage() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
-              <div ref={statsRef} className="rounded-xl p-4 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/5">
+              <div className="rounded-xl p-4 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/5">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">{wordStats.total}</div>
@@ -680,7 +746,9 @@ export default function DictionaryPage() {
                     <div className="text-xs opacity-70">{t("page_has_audio")}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-400">{Object.keys(wordStats.byCategory).length}</div>
+                    <div className="text-2xl font-bold text-yellow-400">
+                      {Object.keys(wordStats.byCategory).length}
+                    </div>
                     <div className="text-xs opacity-70">{t("page_categories")}</div>
                   </div>
                   <div className="text-center">
@@ -691,9 +759,15 @@ export default function DictionaryPage() {
 
                 <div className="mt-3 flex gap-3 justify-center flex-wrap">
                   <span className="text-xs opacity-70">📊 {t("page_difficulty")}:</span>
-                  <span className="text-xs text-green-400">🌱 {t("page_beginner")} {wordStats.byDifficulty.beginner || 0}</span>
-                  <span className="text-xs text-yellow-400">📈 {t("page_intermediate")} {wordStats.byDifficulty.intermediate || 0}</span>
-                  <span className="text-xs text-red-400">🔥 {t("page_advanced")} {wordStats.byDifficulty.advanced || 0}</span>
+                  <span className="text-xs text-green-400">
+                    🌱 {t("page_beginner")} {wordStats.byDifficulty.beginner || 0}
+                  </span>
+                  <span className="text-xs text-yellow-400">
+                    📈 {t("page_intermediate")} {wordStats.byDifficulty.intermediate || 0}
+                  </span>
+                  <span className="text-xs text-red-400">
+                    🔥 {t("page_advanced")} {wordStats.byDifficulty.advanced || 0}
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -716,6 +790,7 @@ export default function DictionaryPage() {
               <button
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg"
+                aria-label={t("page_clear_search")}
               >
                 <X size={16} />
               </button>
@@ -723,14 +798,16 @@ export default function DictionaryPage() {
           </div>
 
           <div className="flex gap-2 flex-wrap">
-            {/* FLAG ONLY — filter */}
             <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10">
               {LANGS.map(({ code, flagUrl }) => (
                 <button
                   key={code}
                   onClick={() => setFilterLang(code)}
-                  className={`px-3 py-2 rounded-lg transition-all ${filterLang === code ? "bg-primary" : "hover:bg-white/10"}`}
+                  className={`px-3 py-2 rounded-lg transition-all ${
+                    filterLang === code ? "bg-primary" : "hover:bg-white/10"
+                  }`}
                   title={code.toUpperCase()}
+                  aria-label={`Filter by ${code.toUpperCase()}`}
                 >
                   <img src={flagUrl} alt={code} className="w-5 h-3.5" loading="lazy" />
                 </button>
@@ -739,7 +816,9 @@ export default function DictionaryPage() {
 
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 ${showFilters ? "bg-yellow-500/20" : "bg-white/10 dark:bg-white/5"} ${isFiltered ? "border border-yellow-500/50" : ""}`}
+              className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 transition-colors ${
+                showFilters ? "bg-yellow-500/20" : "bg-white/10 dark:bg-white/5"
+              } ${isFiltered ? "border border-yellow-500/50" : ""}`}
             >
               <Filter size={14} />
               <span className="hidden sm:inline">{t("page_filters")}</span>
@@ -749,7 +828,7 @@ export default function DictionaryPage() {
             {isFiltered && (
               <button
                 onClick={resetFilters}
-                className="px-3 py-2 rounded-xl text-xs font-medium bg-red-500/20 flex items-center gap-1"
+                className="px-3 py-2 rounded-xl text-xs font-medium bg-red-500/20 flex items-center gap-1 hover:bg-red-500/30 transition-colors"
               >
                 <FilterX size={14} />
                 <span className="hidden sm:inline">{t("page_clear_filters")}</span>
@@ -787,6 +866,7 @@ export default function DictionaryPage() {
                       <option value="no-audio">🔇 {t("page_no_audio")}</option>
                     </select>
                   </div>
+
                   <div>
                     <label className="text-xs opacity-70 mb-1 block">🔄 {t("page_sort")}</label>
                     <select
@@ -802,6 +882,7 @@ export default function DictionaryPage() {
                       <option value="oldest">📅 {t("page_oldest")}</option>
                     </select>
                   </div>
+
                   <div>
                     <label className="text-xs opacity-70 mb-1 block">📊 {t("page_stats")}</label>
                     <div className="flex items-center gap-2 text-xs opacity-70">
@@ -834,15 +915,24 @@ export default function DictionaryPage() {
             )}
           </div>
           <div className="flex items-center gap-2 text-xs opacity-70">
-            <span>{t("page__id_")}</span>
+            {/* ✅ Fixed broken key */}
+            <span>{t("page_id_range")}:</span>
             <span className="font-mono">
-              {vocab.length > 0 ? `${vocab[0]?.id} - ${vocab[vocab.length-1]?.id}` : "—"}
+              {vocab.length > 0 ? `${vocab[0]?.id} - ${vocab[vocab.length - 1]?.id}` : "—"}
             </span>
           </div>
         </div>
 
         {/* LIST */}
-        <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-3" : viewMode === "compact" ? "space-y-1" : "space-y-3"}>
+        <div
+          className={
+            viewMode === "grid"
+              ? "grid grid-cols-1 md:grid-cols-2 gap-3"
+              : viewMode === "compact"
+              ? "space-y-1"
+              : "space-y-3"
+          }
+        >
           {filteredVocab.length === 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
@@ -851,7 +941,9 @@ export default function DictionaryPage() {
             >
               <div className="text-5xl mb-4">{searchQuery ? "🔍" : "📖"}</div>
               <p className="font-medium">
-                {searchQuery ? t("page_no_results_query", { query: searchQuery }) : t("page_no_words_message")}
+                {searchQuery
+                  ? t("page_no_results_query", { query: searchQuery })
+                  : t("page_no_words_message")}
               </p>
               <p className="text-sm opacity-70 mt-1">
                 {searchQuery ? t("page_try_different_search") : t("page_no_vocab")}
@@ -859,7 +951,7 @@ export default function DictionaryPage() {
               {isFiltered && (
                 <button
                   onClick={resetFilters}
-                  className="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 rounded-xl text-white font-bold"
+                  className="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 rounded-xl text-white font-bold transition-colors"
                 >
                   <FilterX size={18} className="inline mr-1" />
                   {t("page_clear_filters")}
@@ -880,12 +972,17 @@ export default function DictionaryPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(index * 0.015, 0.3) }}
-                  className={`rounded-xl p-${isCompact ? "2" : "4"} bg-white/10 dark:bg-white/5 border ${isFavorite ? "border-yellow-500/50" : "border-white/20 dark:border-white/5"}`}
+                  className={`rounded-xl ${isCompact ? "p-2" : "p-4"} bg-white/10 dark:bg-white/5 border ${
+                    isFavorite ? "border-yellow-500/50" : "border-white/20 dark:border-white/5"
+                  }`}
                 >
-                  {/* HEADER */}
                   <div className={`flex items-center justify-between ${isCompact ? "mb-1" : "mb-3"}`}>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${typeColors[item.type] || "bg-white/10"}`}>
+                      <span
+                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+                          typeColors[item.type] || "bg-white/10"
+                        }`}
+                      >
                         {item.type?.toUpperCase() || t("page_vocab")}
                       </span>
                       <button
@@ -896,8 +993,10 @@ export default function DictionaryPage() {
                         {copiedId === item.id && <Check size={10} className="text-emerald-500" />}
                       </button>
                       {item.difficulty && (
-                        <span className={`text-[8px] px-1.5 py-0.5 rounded-full ${getDifficultyColor(item.difficulty)}`}>
-                          {getDifficultyLabel(item.difficulty, t)}
+                        <span
+                          className={`text-[8px] px-1.5 py-0.5 rounded-full ${getDifficultyColor(item.difficulty)}`}
+                        >
+                          {getDifficultyEmoji(item.difficulty)} {t(`page_${item.difficulty}`)}
                         </span>
                       )}
                       {hasAudio && (
@@ -911,37 +1010,51 @@ export default function DictionaryPage() {
                         </span>
                       )}
                       {isFavorite && (
-                        <span className="text-[8px] bg-yellow-500/20 px-1.5 py-0.5 rounded-full">⭐</span>
+                        <span className="text-[8px] bg-yellow-500/20 px-1.5 py-0.5 rounded-full">
+                          ⭐
+                        </span>
                       )}
                     </div>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => toggleFavorite(item.id)}
-                        className={`p-1 rounded-lg ${isFavorite ? "text-yellow-400" : "opacity-60"}`}
+                        className={`p-1 rounded-lg transition-colors ${
+                          isFavorite ? "text-yellow-400" : "opacity-60 hover:opacity-100"
+                        }`}
+                        aria-label={t("page_favorites")}
                       >
                         <Star size={isCompact ? 12 : 14} fill={isFavorite ? "currentColor" : "none"} />
                       </button>
                       <button
                         onClick={() => toggleExpand(item.id)}
-                        className="p-1 rounded-lg opacity-60"
+                        className="p-1 rounded-lg opacity-60 hover:opacity-100 transition-opacity"
+                        aria-label="Toggle details"
                       >
-                        {isExpanded ? <ChevronUp size={isCompact ? 14 : 16} /> : <ChevronDown size={isCompact ? 14 : 16} />}
+                        {isExpanded ? (
+                          <ChevronUp size={isCompact ? 14 : 16} />
+                        ) : (
+                          <ChevronDown size={isCompact ? 14 : 16} />
+                        )}
                       </button>
                     </div>
                   </div>
 
-                  {/* LANGUAGES — FLAG ONLY */}
                   <div className={isCompact ? "space-y-1" : "space-y-2.5"}>
                     {LANGS.map(({ code, flagUrl }) => {
                       const playing = isWordPlaying(item.id, code);
-                      const loading = activePlay?.wordId === item.id && activePlay.lang === code && isLoading;
+                      const loading =
+                        activePlay?.wordId === item.id &&
+                        activePlay.lang === code &&
+                        isLoading;
                       const text = item[code] || "—";
                       const isCurrentFilter = filterLang === code;
 
                       return (
                         <div
                           key={code}
-                          className={`flex items-center justify-between gap-3 p-${isCompact ? "1" : "2"} rounded-xl transition-all ${isCurrentFilter ? "bg-white/5" : ""}`}
+                          className={`flex items-center justify-between gap-3 ${
+                            isCompact ? "p-1" : "p-2"
+                          } rounded-xl transition-all ${isCurrentFilter ? "bg-white/5" : ""}`}
                         >
                           <div className="flex-1 min-w-0 flex items-center gap-3">
                             <img
@@ -950,7 +1063,11 @@ export default function DictionaryPage() {
                               className={`${isCompact ? "w-5 h-3.5" : "w-6 h-4"} flex-shrink-0`}
                               loading="lazy"
                             />
-                            <div className={`${isCompact ? "text-base" : "text-lg"} font-semibold truncate ${text === "—" ? "opacity-50" : ""}`}>
+                            <div
+                              className={`${isCompact ? "text-base" : "text-lg"} font-semibold truncate ${
+                                text === "—" ? "opacity-50" : ""
+                              }`}
+                            >
                               {text}
                             </div>
                           </div>
@@ -958,16 +1075,25 @@ export default function DictionaryPage() {
                           <button
                             onClick={() => handleSpeak(item, code)}
                             disabled={text === "—"}
-                            className={`relative flex-shrink-0 w-${isCompact ? "9" : "11"} h-${isCompact ? "9" : "11"} rounded-xl transition-all flex items-center justify-center ${
+                            className={`relative flex-shrink-0 ${
+                              isCompact ? "w-9 h-9" : "w-11 h-11"
+                            } rounded-xl transition-all flex items-center justify-center ${
                               playing
                                 ? "bg-emerald-500 text-white"
                                 : loading
                                 ? "bg-yellow-500/30 animate-pulse"
                                 : text === "—"
                                 ? "bg-white/5 opacity-30 cursor-not-allowed"
-                                : "bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10"
+                                : "bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10"
                             }`}
-                            title={code === "hy" ? "WAV (hy)" : code === "en" ? "TTS (en)" : "TTS (ru)"}
+                            title={
+                              code === "hy"
+                                ? "WAV (hy)"
+                                : code === "en"
+                                ? "TTS (en)"
+                                : "TTS (ru)"
+                            }
+                            aria-label={`Play ${code}`}
                           >
                             {loading ? (
                               <Loader2 size={isCompact ? 14 : 18} className="animate-spin" />
@@ -982,7 +1108,6 @@ export default function DictionaryPage() {
                     })}
                   </div>
 
-                  {/* EXPANDED */}
                   <AnimatePresence>
                     {isExpanded && !isCompact && (
                       <motion.div
@@ -994,8 +1119,11 @@ export default function DictionaryPage() {
                         <div className="mt-3 pt-3 border-t border-white/10 space-y-3">
                           {item.tags && item.tags.length > 0 && (
                             <div className="flex gap-1 flex-wrap">
-                              {item.tags.map(tag => (
-                                <span key={tag} className="text-[8px] bg-white/10 dark:bg-white/5 px-2 py-0.5 rounded-full opacity-70">
+                              {item.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-[8px] bg-white/10 dark:bg-white/5 px-2 py-0.5 rounded-full opacity-70"
+                                >
                                   <Tag size={10} className="inline mr-0.5" />
                                   {tag}
                                 </span>
@@ -1012,13 +1140,19 @@ export default function DictionaryPage() {
                             )}
                             <span className="flex items-center gap-1">
                               <Clock size={12} />
-                              {wavManifest?.lastUpdated ? formatDate(wavManifest.lastUpdated) : t("page_na")}
+                              {wavManifest?.lastUpdated
+                                ? formatDate(wavManifest.lastUpdated, native)
+                                : t("page_na")}
                             </span>
                           </div>
 
                           <div className="flex items-center gap-3">
                             <span className="text-xs opacity-60">🎙️</span>
-                            <UserRecordingButton wordId={item.id} word={item.hy} onRecordingChange={() => {}} />
+                            <UserRecordingButton
+                              wordId={item.id}
+                              word={item.hy}
+                              onRecordingChange={() => {}}
+                            />
                           </div>
                         </div>
                       </motion.div>
@@ -1037,7 +1171,6 @@ export default function DictionaryPage() {
         )}
       </div>
 
-      {/* TOAST */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
@@ -1045,8 +1178,11 @@ export default function DictionaryPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 px-6 py-3 max-w-sm rounded-xl text-center shadow-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border ${
-              toastType === "success" ? "border-emerald-500/30" :
-              toastType === "error" ? "border-red-500/30" : "border-blue-500/30"
+              toastType === "success"
+                ? "border-emerald-500/30"
+                : toastType === "error"
+                ? "border-red-500/30"
+                : "border-blue-500/30"
             }`}
           >
             <p className="text-sm font-medium">{toastMessage}</p>
@@ -1054,7 +1190,6 @@ export default function DictionaryPage() {
         )}
       </AnimatePresence>
 
-      {/* SCROLL TOP */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -1062,7 +1197,8 @@ export default function DictionaryPage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToTop}
-            className="fixed bottom-24 right-6 z-50 p-3.5 rounded-2xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10"
+            className="fixed bottom-24 right-6 z-50 p-3.5 rounded-2xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:shadow-lg transition-shadow"
+            aria-label={t("page_scroll_top")}
           >
             <ArrowUp size={20} />
           </motion.button>

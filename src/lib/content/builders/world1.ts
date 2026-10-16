@@ -7,7 +7,7 @@ const LESSONS = [
   // ===== w1_l1 - Meeting Someone =====
   qL(
     "w1_l1",
-    "w1",
+    "w1",                  // ✅ OK
     "meeting-someone",
     "Meeting Someone",
     "Ծանոթություն",
@@ -89,7 +89,7 @@ const LESSONS = [
   // ===== w1_l2 - Greetings =====
   qL(
     "w1_l2",
-    "w2",
+    "w1",                  // ✅ FIXED: was "w2"
     "greetings",
     "Greetings",
     "Ողջույններ",
@@ -170,7 +170,7 @@ const LESSONS = [
   // ===== w1_l3 - Introductions =====
   qL(
     "w1_l3",
-    "w2",
+    "w1",                  // ✅ FIXED: was "w2"
     "introductions",
     "Introductions",
     "Ներկայացում",
@@ -249,7 +249,6 @@ const LESSONS = [
   ),
 ];
 
-// ✅ ՈՒՂՂՎԱԾ - ճիշտ ContentLesson ձևաչափով
 export const W1_LESSONS: ContentLesson[] = LESSONS.map((ql) => ({
   id: ql.id,
   worldId: ql.worldId,

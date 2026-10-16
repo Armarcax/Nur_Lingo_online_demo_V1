@@ -3,13 +3,64 @@
 import type { QuickLesson } from "../types";
 import { expand } from "./helpers";
 
-const WORLD4_TOPICS: Array<[string, string, string, string]> = [
-  ["school", "School", "Դպրոց", "Школа"],
-  ["university", "University", "Համալսարան", "Университет"],
-  ["office", "Office", "Գրասենյակ", "Офис"],
-  ["professions", "Professions", "Մասնագիտություններ", "Профессии"],
-  ["meetings", "Meetings", "Հանդիպումներ", "Встречи"],
-  ["technology", "Technology", "Տեխնոլոգիա", "Технология"],
+// ✅ FIXED: added hy/ru concepts (was using titles as concepts)
+const WORLD4_TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "school",
+    "School",
+    "Դպրոց",
+    "Школа",
+    "School life — classes, subjects, homework.",
+    "Դպրոցական կյանք՝ դասեր, առարկաներ, տնային։",
+    "Школьная жизнь — уроки, предметы, домашка.",
+  ],
+  [
+    "university",
+    "University",
+    "Համալսարան",
+    "Университет",
+    "Higher education, lectures, and exams.",
+    "Բարձրագույն կրթություն, դասախոսություններ և քննություններ։",
+    "Высшее образование, лекции и экзамены.",
+  ],
+  [
+    "office",
+    "Office",
+    "Գրասենյակ",
+    "Офис",
+    "Office work — meetings, documents, deadlines.",
+    "Գրասենյակային աշխատանք՝ հանդիպումներ, փաստաթղթեր, վերջնաժամկետներ։",
+    "Офисная работа — встречи, документы, дедлайны.",
+  ],
+  [
+    "professions",
+    "Professions",
+    "Մասնագիտություններ",
+    "Профессии",
+    "Common jobs and careers.",
+    "Տարածված մասնագիտություններ և կարիերաներ։",
+    "Популярные профессии и карьеры.",
+  ],
+  [
+    "meetings",
+    "Meetings",
+    "Հանդիպումներ",
+    "Встречи",
+    "Business meetings and discussions.",
+    "Գործնական հանդիպումներ և քննարկումներ։",
+    "Деловые встречи и обсуждения.",
+  ],
+  [
+    "technology",
+    "Technology",
+    "Տեխնոլոգիա",
+    "Технология",
+    "Computers, internet, and daily tech.",
+    "Համակարգիչներ, ինտերնետ և ամենօրյա տեխնոլոգիա։",
+    "Компьютеры, интернет и ежедневные технологии.",
+  ],
 ];
 
 const SEEDS: Record<
@@ -143,7 +194,7 @@ const SEEDS: Record<
       ["Գրադարանում եմ սովորում։", "I study in the library.", "Учусь в библиотеке."],
       ["Թեզ եմ գրում։", "I'm writing a thesis.", "Пишу диссертацию."],
       ["Մագիստրատուրա կընդունվեմ։", "I'll enter master's program.", "Поступлю в магистратуру."],
-      ["Համալսարանն մեծ է։", "The university is big.", "Университет большой."],
+      ["Համալսարանը մեծ է։", "The university is big.", "Университет большой."],
     ],
     dialogues: [
       {
@@ -283,9 +334,11 @@ const SEEDS: Record<
       ["դիզայներ", "designer", "дизайнер"],
       ["հաշվապահ", "accountant", "бухгалтер"],
       ["բանվոր", "worker", "рабочий"],
-      ["գյուղացի", "farmer", "фермер"],
+      // ✅ FIXED: "գյուղացի" (villager) → "ֆերմեր" (farmer)
+      ["ֆերմեր", "farmer", "фермер"],
       ["զինվոր", "soldier", "солдат"],
-      ["հոգևորական", "priest", "священник"],
+      // ✅ FIXED: "հոգևորական" (priest) → "մարզիչ" (coach)
+      ["մարզիչ", "coach", "тренер"],
     ],
     phrases: [
       ["Ինչով ե՞ս զբաղվում։", "What do you do?", "Чем занимаешься?"],
@@ -297,7 +350,7 @@ const SEEDS: Record<
       ["Ուզում եմ մասնագիտություն փոխել։", "I want to change profession.", "Хочу сменить профессию."],
       ["Բժիշկը հանճար է։", "The doctor is a genius.", "Врач — гений."],
       ["Իմ եղբայրը ինժեներ է։", "My brother is an engineer.", "Брат — инженер."],
-      ["Աշխատանքս կանգուն է։", "My job is stable.", "Работа стабильная."],
+      ["Աշխատանքս կայուն է։", "My job is stable.", "Работа стабильная."],
       ["Աշխատավարձը բարձր է։", "Salary is high.", "Зарплата высокая."],
       ["Ուսուցիչը պատասխանատու մասնագիտություն է։", "Teacher is a responsible profession.", "Учитель — ответственная профессия."],
     ],
@@ -309,8 +362,9 @@ const SEEDS: Record<
         turns: [
           ["nurik", "Ինչով ե՞ս զբաղվում։", "What do you do?", "Чем занимаешься?"],
           ["user", "Ես լրագրող եմ։", "I'm a journalist.", "Я журналист."],
-          ["nurik", "Որ թերթում։", "At what newspaper?", "В какой газете?"],
-          ["user", "Ազատամտություն։", "Azatamtutyun.", "Азатамтутюн."],
+          // ✅ FIXED: "Ազատամտություն" (fictional newspaper) → generic response
+          ["nurik", "Ո՞ր թերթում ես աշխատում։", "Which newspaper do you work at?", "В какой газете работаешь?"],
+          ["user", "Հանրահայտ թերթում։", "A well-known newspaper.", "В известной газете."],
         ],
       },
       {
@@ -359,8 +413,10 @@ const SEEDS: Record<
       ["կողմ", "for", "за"],
       ["ձեռնպահ", "abstain", "воздержался"],
       ["արձանագրություն", "minutes", "протокол"],
-      ["պաշտոնական", "official", "официальный"],
-      ["ոչ պաշտոնական", "informal", "неформальный"],
+      // ✅ FIXED: removed "պաշտոնական"/"ոչ պաշտոնական" (not useful in meetings ctx)
+      //           added meeting-specific terms
+      ["քվորում", "quorum", "кворум"],
+      ["հաշվետվություն", "accountability", "отчётность"],
       ["հեռակա", "remote", "удалённый"],
       ["տեսազանգ", "video call", "видеозвонок"],
       ["ընդմիջում", "break", "перерыв"],
@@ -435,7 +491,8 @@ const SEEDS: Record<
       ["օգտանուն", "username", "имя пользователя"],
       ["հաշիվ", "account", "аккаунт"],
       ["ինտերնետ", "internet", "интернет"],
-      ["wifi", "wifi", "wifi"],
+      // ✅ FIXED: "wifi" (Latin) → "վայ-ֆայ" (Armenian)
+      ["վայ-ֆայ", "wifi", "wifi"],
       ["ցանց", "network", "сеть"],
       ["տվյալներ", "data", "данные"],
       ["կրկնօրինակ", "backup", "резервная копия"],
@@ -446,7 +503,7 @@ const SEEDS: Record<
     phrases: [
       ["Համակարգիչը կախված է։", "The computer is frozen.", "Компьютер завис."],
       ["Վերաբեռնիր։", "Restart it.", "Перезагрузи."],
-      ["Wifi-ի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
+      ["Վայ-ֆայի գաղտնաբառը։", "Wifi password.", "Пароль от wifi."],
       ["Մոռացել եմ գաղտնաբառս։", "I forgot my password.", "Забыл пароль."],
       ["Ստեղծիր նոր հաշիվ։", "Create a new account.", "Создай новый аккаунт."],
       ["Ուղարկիր ֆայլը։", "Send the file.", "Отправь файл."],
@@ -495,12 +552,16 @@ const SEEDS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was title reused)
 function makeWorkEduLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = SEEDS[slug] ?? SEEDS.school;
   return {
@@ -509,7 +570,7 @@ function makeWorkEduLesson(
     slug,
     difficulty: "A2",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: enT, hy: hyT, ru: ruT },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -519,8 +580,9 @@ function makeWorkEduLesson(
   };
 }
 
-const QUICK_LESSONS = WORLD4_TOPICS.map(([slug, en, hy, ru], i) =>
-  makeWorkEduLesson(`w4_l${i + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = WORLD4_TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], i) =>
+    makeWorkEduLesson(`w4_l${i + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W4_LESSONS = QUICK_LESSONS.map((ql) => ({

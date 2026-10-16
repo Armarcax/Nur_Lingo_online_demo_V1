@@ -2,11 +2,10 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search, BookOpen, X, Plus, Play, Loader2, ArrowUp, CheckCircle,
-  AlertCircle, Clock, Download, RefreshCw, ChevronDown, ChevronUp,
+  Clock, Download, RefreshCw, ChevronDown, ChevronUp,
   Trash2, Edit, Save, Filter, Copy, Check, Upload, Star,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
@@ -52,7 +51,6 @@ interface WordStats {
   byLanguage: { [key: string]: number };
 }
 
-// ✅ Flag only (no label)
 const LANGS: { code: LangCode; flagUrl: string }[] = [
   { code: "hy", flagUrl: "https://flagcdn.com/24x18/am.png" },
   { code: "en", flagUrl: "https://flagcdn.com/24x18/gb.png" },
@@ -65,10 +63,23 @@ const STORAGE_KEYS = {
   DICTIONARY_BACKUP: "nurlingo_dictionary_backup",
   USER_FAVORITES: "nurlingo_user_favorites",
   SELECTED_VOICE: "nurlingo_selected_voice",
-};
+} as const;
 
 type SortOption = "newest" | "oldest" | "alphabetical" | "reverse-alpha" | "favorites";
 type FilterOption = "all" | "user" | "system" | "has-audio" | "no-audio" | "favorites";
+
+// ✅ Safe localStorage wrapper (Safari private mode)
+const safeStorage = {
+  get(key: string): string | null {
+    try { return localStorage.getItem(key); } catch { return null; }
+  },
+  set(key: string, value: string): boolean {
+    try { localStorage.setItem(key, value); return true; } catch { return false; }
+  },
+  remove(key: string): boolean {
+    try { localStorage.removeItem(key); return true; } catch { return false; }
+  },
+};
 
 const formatDate = (dateString?: string) => {
   if (!dateString) return "—";
@@ -78,13 +89,9 @@ const formatDate = (dateString?: string) => {
       year: "numeric", month: "short", day: "numeric",
       hour: "2-digit", minute: "2-digit",
     });
-  } catch { return dateString; }
-};
-
-const generateId = () => {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 6);
-  return `900${timestamp}${random}`.slice(0, 10);
+  } catch {
+    return dateString;
+  }
 };
 
 export default function UserDictionaryPage() {
@@ -95,16 +102,18 @@ export default function UserDictionaryPage() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
-  const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
-  }, []);
+  const showMessage = useCallback(
+    (text: string, type: "success" | "error" | "info" = "info") => {
+      setToastMessage(text);
+      setToastType(type);
+      setTimeout(() => setToastMessage(""), 3000);
+    },
+    []
+  );
 
   useEffect(() => setPage("dictionary"), [setPage]);
 
   const [words, setWords] = useState<UserDictionaryEntry[]>([]);
-  const [filteredWords, setFilteredWords] = useState<UserDictionaryEntry[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activePlay, setActivePlay] = useState<ActivePlay | null>(null);
   const [nuriMood, setNuriMood] = useState<NuriMood>("idle");
@@ -112,7 +121,10 @@ export default function UserDictionaryPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editData, setEditData] = useState<{ hy: string; en: string; ru: string; tags?: string[]; category?: string; difficulty?: "easy" | "medium" | "hard" } | null>(null);
+  const [editData, setEditData] = useState<{
+    hy: string; en: string; ru: string;
+    tags?: string[]; category?: string; difficulty?: "easy" | "medium" | "hard";
+  } | null>(null);
   const [sortOption, setSortOption] = useState<SortOption>("newest");
   const [filterOption, setFilterOption] = useState<FilterOption>("all");
   const [showFilters, setShowFilters] = useState(false);
@@ -132,69 +144,46 @@ export default function UserDictionaryPage() {
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
   const [selectedVoice, setSelectedVoice] = useState<string>("Avet");
 
+  // ✅ Synchronous lock — prevents double-play
+  const speakingLockRef = useRef(false);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+
   const [showAddWord, setShowAddWord] = useState(false);
   const [newWordHy, setNewWordHy] = useState("");
   const [newWordEn, setNewWordEn] = useState("");
   const [newWordRu, setNewWordRu] = useState("");
   const [newWordTags, setNewWordTags] = useState("");
   const [newWordCategory, setNewWordCategory] = useState("");
-  const [addWordStatus, setAddWordStatus] = useState<"idle" | "saving" | "success" | "error" | "duplicate">("idle");
+  const [addWordStatus, setAddWordStatus] = useState<
+    "idle" | "saving" | "success" | "error" | "duplicate"
+  >("idle");
   const [addWordMessage, setAddWordMessage] = useState("");
 
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // ✅ Load favorites on mount
+  useEffect(() => {
+    const saved = safeStorage.get(STORAGE_KEYS.USER_FAVORITES);
+    if (saved) {
+      try {
+        setFavorites(new Set(JSON.parse(saved)));
+      } catch {}
+    }
+  }, []);
+
+  // ✅ Load words — depends ONLY on nothing (mounts once)
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEYS.USER_FAVORITES);
-      if (saved) setFavorites(new Set(JSON.parse(saved)));
-    } catch {}
-  }, []);
-
-  const toggleFavorite = useCallback((id: string) => {
-    setFavorites(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      localStorage.setItem(STORAGE_KEYS.USER_FAVORITES, JSON.stringify([...next]));
-      setWords(prevWords => prevWords.map(w => w.id === id ? { ...w, isFavorite: next.has(id) } : w));
-      return next;
-    });
-  }, []);
-
-  const getNextId = useCallback(() => {
-    const maxId = words.reduce((max, w) => {
-      const num = parseInt(w.id);
-      return num > max ? num : max;
-    }, 900000);
-    return String(maxId + 1);
-  }, [words]);
-
-  const updateStats = useCallback((data: UserDictionaryEntry[]) => {
-    const stats: WordStats = {
-      total: data.length,
-      userAdded: data.filter(w => w.isUserAdded).length,
-      hasAudio: data.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)).length,
-      byLanguage: {
-        hy: data.filter(w => w.hy).length,
-        en: data.filter(w => w.en).length,
-        ru: data.filter(w => w.ru).length,
-      },
-    };
-    setWordStats(stats);
-  }, []);
-
-  const loadWords = useCallback(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.USER_WORDS);
+      const saved = safeStorage.get(STORAGE_KEYS.USER_WORDS);
       let data: UserDictionaryEntry[] = [];
 
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            data = parsed.map(w => ({ ...w, isFavorite: favorites.has(w.id) }));
+            data = parsed;
           }
         } catch {}
       }
@@ -202,7 +191,7 @@ export default function UserDictionaryPage() {
       if (data.length === 0) {
         const rawData = userDictData as any[];
         data = rawData.map((w: any) => ({
-          id: w.id || w.word_id || generateId(),
+          id: w.id || w.word_id || crypto.randomUUID(),
           hy: w.hy || "",
           en: w.en || "",
           ru: w.ru || "",
@@ -215,7 +204,6 @@ export default function UserDictionaryPage() {
           tags: w.tags || [],
           category: w.category || "general",
           difficulty: w.difficulty || "medium",
-          isFavorite: favorites.has(w.id || w.word_id),
           audio: {
             hy: w.audio?.hy || `/audio/hy_user/${w.id || w.word_id}.mp3`,
             en: w.audio?.en || `/audio/en_user/${w.id || w.word_id}.mp3`,
@@ -226,26 +214,67 @@ export default function UserDictionaryPage() {
 
       data.sort((a, b) => parseInt(a.id) - parseInt(b.id));
       setWords(data);
-      setFilteredWords(data);
-      updateStats(data);
-      localStorage.setItem(STORAGE_KEYS.USER_WORDS, JSON.stringify(data));
+      safeStorage.set(STORAGE_KEYS.USER_WORDS, JSON.stringify(data));
       setIsLoadingData(false);
     } catch (error) {
       console.error("Failed to load user dictionary:", error);
       setIsLoadingData(false);
       showMessage(t("page_load_failed"), "error");
     }
-  }, [favorites, showMessage, t, updateStats]);
+  }, []); // ✅ Mounts once, does NOT depend on favorites
 
-  const saveWords = useCallback((newWords: UserDictionaryEntry[]) => {
-    localStorage.setItem(STORAGE_KEYS.USER_WORDS, JSON.stringify(newWords));
-    setWords(newWords);
-    updateStats(newWords);
-  }, [updateStats]);
+  // ✅ Memoize favorites on words (instead of merging on every load)
+  const wordsWithFavorites = useMemo(
+    () => words.map((w) => ({ ...w, isFavorite: favorites.has(w.id) })),
+    [words, favorites]
+  );
 
-  const filteredAndSortedWords = useMemo(() => {
-    let result = [...words];
+  // ✅ Compute stats via useMemo, not setState inside useMemo
+  const wordStatsMemo = useMemo<WordStats>(() => {
+    const data = wordsWithFavorites;
+    return {
+      total: data.length,
+      userAdded: data.filter((w) => w.isUserAdded).length,
+      hasAudio: data.filter((w) => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)).length,
+      byLanguage: {
+        hy: data.filter((w) => w.hy).length,
+        en: data.filter((w) => w.en).length,
+        ru: data.filter((w) => w.ru).length,
+      },
+    };
+  }, [wordsWithFavorites]);
+
+  // ✅ Sync stats to state only when changed
+  useEffect(() => {
+    setWordStats(wordStatsMemo);
+  }, [wordStatsMemo]);
+
+  // ✅ Compute nuriMood via useMemo, not side-effect
+  const computedNuriMood: NuriMood = useMemo(() => {
+    const result = wordsWithFavorites.filter((w) => {
+      const q = searchQuery.trim().toLowerCase();
+      if (!q) return true;
+      return (
+        w.hy.toLowerCase().includes(q) ||
+        w.en.toLowerCase().includes(q) ||
+        w.ru.toLowerCase().includes(q) ||
+        w.id.includes(q) ||
+        (w.tags && w.tags.some((tag) => tag.toLowerCase().includes(q)))
+      );
+    });
+    return result.length === 0 ? (searchQuery ? "sad" : "idle") : "happy";
+  }, [wordsWithFavorites, searchQuery]);
+
+  // ✅ Sync mood to state only when changed
+  useEffect(() => {
+    setNuriMood(computedNuriMood);
+  }, [computedNuriMood]);
+
+  // ✅ Single source of truth for filtered + sorted words
+  const filteredWords = useMemo(() => {
+    let result = [...wordsWithFavorites];
     const q = searchQuery.trim().toLowerCase();
+
     if (q) {
       result = result.filter(
         (w) =>
@@ -253,34 +282,70 @@ export default function UserDictionaryPage() {
           w.en.toLowerCase().includes(q) ||
           w.ru.toLowerCase().includes(q) ||
           w.id.includes(q) ||
-          (w.tags && w.tags.some(tag => tag.toLowerCase().includes(q)))
+          (w.tags && w.tags.some((tag) => tag.toLowerCase().includes(q)))
       );
     }
+
     switch (filterOption) {
-      case "user": result = result.filter(w => w.isUserAdded); break;
-      case "system": result = result.filter(w => !w.isUserAdded); break;
-      case "has-audio": result = result.filter(w => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)); break;
-      case "no-audio": result = result.filter(w => !w.audio || (!w.audio.hy && !w.audio.en && !w.audio.ru)); break;
-      case "favorites": result = result.filter(w => favorites.has(w.id)); break;
-      default: break;
+      case "user": result = result.filter((w) => w.isUserAdded); break;
+      case "system": result = result.filter((w) => !w.isUserAdded); break;
+      case "has-audio": result = result.filter((w) => w.audio && (w.audio.hy || w.audio.en || w.audio.ru)); break;
+      case "no-audio": result = result.filter((w) => !w.audio || (!w.audio.hy && !w.audio.en && !w.audio.ru)); break;
+      case "favorites": result = result.filter((w) => favorites.has(w.id)); break;
     }
+
     switch (sortOption) {
-      case "newest": result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()); break;
-      case "oldest": result.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()); break;
-      case "alphabetical": result.sort((a, b) => a.hy.localeCompare(b.hy)); break;
-      case "reverse-alpha": result.sort((a, b) => b.hy.localeCompare(a.hy)); break;
-      case "favorites": result.sort((a, b) => (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0)); break;
-      default: break;
+      case "newest":
+        result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        break;
+      case "oldest":
+        result.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime());
+        break;
+      case "alphabetical":
+        result.sort((a, b) => a.hy.localeCompare(b.hy));
+        break;
+      case "reverse-alpha":
+        result.sort((a, b) => b.hy.localeCompare(a.hy));
+        break;
+      case "favorites":
+        result.sort((a, b) => (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0));
+        break;
     }
-    setNuriMood(result.length === 0 ? (searchQuery ? "sad" : "idle") : "happy");
+
     return result;
-  }, [words, searchQuery, filterOption, sortOption, favorites]);
+  }, [wordsWithFavorites, searchQuery, filterOption, sortOption, favorites]);
 
-  useEffect(() => {
-    setFilteredWords(filteredAndSortedWords);
-  }, [filteredAndSortedWords]);
+  // ─── FAVORITES ─────────────────────────────────────────────────
 
-  // INIT WAV CLIENT
+  const toggleFavorite = useCallback((id: string) => {
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      safeStorage.set(STORAGE_KEYS.USER_FAVORITES, JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
+
+  // ─── SAVE ──────────────────────────────────────────────────────
+
+  const saveWords = useCallback((newWords: UserDictionaryEntry[]) => {
+    safeStorage.set(STORAGE_KEYS.USER_WORDS, JSON.stringify(newWords));
+    setWords(newWords);
+  }, []);
+
+  // ─── NEXT ID ───────────────────────────────────────────────────
+
+  const getNextId = useCallback(() => {
+    const maxId = words.reduce((max, w) => {
+      const num = parseInt(w.id, 10);
+      return Number.isFinite(num) && num > max ? num : max;
+    }, 900000);
+    return String(maxId + 1);
+  }, [words]);
+
+  // ─── INIT WAV CLIENT ───────────────────────────────────────────
+
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -290,7 +355,7 @@ export default function UserDictionaryPage() {
           setIsWAVAvailable(true);
           const voices = client.getAvailableVoices();
           if (voices.length > 0) {
-            const savedVoice = localStorage.getItem(STORAGE_KEYS.SELECTED_VOICE);
+            const savedVoice = safeStorage.get(STORAGE_KEYS.SELECTED_VOICE);
             setSelectedVoice(savedVoice && voices.includes(savedVoice) ? savedVoice : voices[0]);
           }
         }
@@ -301,21 +366,70 @@ export default function UserDictionaryPage() {
     initWAV();
   }, []);
 
-  // SPEECH SYNTHESIS
-  const speakWithFemaleVoice = useCallback((text: string, lang: string) => {
-    return new Promise<boolean>((resolve, reject) => {
-      if (typeof window === 'undefined' || !window.speechSynthesis) {
-        reject(new Error('Speech synthesis not supported'));
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.rate = 0.9;
-      utterance.pitch = 1.2;
-      utterance.volume = 1;
+  // ─── SPEECH SYNTHESIS ──────────────────────────────────────────
 
-      const getVoices = () => {
+  const speakWithFemaleVoice = useCallback(
+    (text: string, lang: string): Promise<boolean> => {
+      return new Promise((resolve, reject) => {
+        if (typeof window === "undefined" || !window.speechSynthesis) {
+          reject(new Error("Speech synthesis not supported"));
+          return;
+        }
+
+        // ✅ Cancel and wait a tick before speaking to avoid double-play
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.9;
+        utterance.pitch = 1.2;
+        utterance.volume = 1;
+
+        const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
+          const femaleVoiceNames = [
+            "Samantha", "Google UK English Female", "Karen", "Zira",
+            "Alice", "Victoria", "Emma", "Susan", "Tessa",
+            "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena",
+            "Ani", "Google Հայերեն", "Armine", "Lusine",
+          ];
+
+          let pickedVoice: SpeechSynthesisVoice | null = null;
+
+          for (const name of femaleVoiceNames) {
+            const found = voices.find(
+              (v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase()
+            );
+            if (found) { pickedVoice = found; break; }
+          }
+          if (!pickedVoice) {
+            for (const name of femaleVoiceNames) {
+              const found = voices.find(
+                (v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase())
+              );
+              if (found) { pickedVoice = found; break; }
+            }
+          }
+          if (!pickedVoice) {
+            pickedVoice = voices.find(
+              (v) =>
+                v.lang.startsWith(lang) &&
+                (v.name.toLowerCase().includes("female") ||
+                  v.name.toLowerCase().includes("samantha") ||
+                  v.name.toLowerCase().includes("zira") ||
+                  v.name.toLowerCase().includes("karen") ||
+                  v.name.toLowerCase().includes("anna"))
+            ) ?? null;
+          }
+
+          if (pickedVoice) utterance.voice = pickedVoice;
+          else utterance.pitch = 1.5;
+
+          utterance.onend = () => resolve(true);
+          utterance.onerror = (e) => reject(e);
+
+          window.speechSynthesis.speak(utterance);
+        };
+
         const voices = window.speechSynthesis.getVoices();
         if (voices.length === 0) {
           window.speechSynthesis.onvoiceschanged = () => {
@@ -324,119 +438,128 @@ export default function UserDictionaryPage() {
           return;
         }
         findAndSpeak(voices);
+      });
+    },
+    []
+  );
+
+  // ─── PLAY VIA API (with cleanup) ───────────────────────────────
+
+  const playAudioViaAPI = useCallback(
+    async (text: string, lang: LangCode): Promise<boolean> => {
+      if (!text) return false;
+
+      // ✅ Cleanup previous audio
+      if (currentAudioRef.current) {
+        try {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.src = "";
+        } catch {}
+        currentAudioRef.current = null;
+      }
+
+      const tryApiThenTTS = async (
+        endpoint: string,
+        fallbackLang: string
+      ): Promise<boolean> => {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            const src = data.audio || data.url || data.audioUrl;
+            if (src) {
+              const audio = new Audio(src);
+              currentAudioRef.current = audio;
+              await audio.play();
+              // ✅ Release reference when done
+              audio.onended = () => {
+                currentAudioRef.current = null;
+              };
+              return true;
+            }
+          }
+        } catch (error) {
+          console.warn(`${fallbackLang} API failed:`, error);
+        }
+        try {
+          await speakWithFemaleVoice(text, fallbackLang);
+          return true;
+        } catch {
+          return false;
+        }
       };
 
-      const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
-        const femaleVoiceNames = [
-          'Samantha', 'Google UK English Female', 'Karen', 'Zira',
-          'Alice', 'Victoria', 'Emma', 'Susan', 'Tessa',
-          'Google русский', 'Anna', 'Elena', 'Katya', 'Marina', 'Natalia', 'Alena',
-          'Ani', 'Google Հայերեն', 'Armine', 'Lusine',
-        ];
-        let pickedVoice: SpeechSynthesisVoice | null = null;
-        for (const name of femaleVoiceNames) {
-          const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase());
-          if (found) { pickedVoice = found; break; }
-        }
-        if (!pickedVoice) {
-          for (const name of femaleVoiceNames) {
-            const found = voices.find(v => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase()));
-            if (found) { pickedVoice = found; break; }
+      if (lang === "hy") {
+        if (wavClient && isWAVAvailable) {
+          try {
+            await wavClient.playGeneratedAudio(text, selectedVoice);
+            return true;
+          } catch (error) {
+            console.warn("WAV Client failed:", error);
           }
         }
-        if (!pickedVoice) {
-          pickedVoice = voices.find(v =>
-            v.lang.startsWith(lang) &&
-            (v.name.toLowerCase().includes('female') ||
-             v.name.toLowerCase().includes('samantha') ||
-             v.name.toLowerCase().includes('zira') ||
-             v.name.toLowerCase().includes('karen') ||
-             v.name.toLowerCase().includes('anna'))
-          ) || null;
-        }
-        if (pickedVoice) utterance.voice = pickedVoice;
-        else utterance.pitch = 1.5;
-        utterance.onend = () => resolve(true);
-        utterance.onerror = (e) => reject(e);
-        window.speechSynthesis.speak(utterance);
-      };
-      getVoices();
-    });
-  }, []);
-
-  // PLAY VIA API
-  const playAudioViaAPI = useCallback(async (text: string, lang: LangCode): Promise<boolean> => {
-    if (!text) return false;
-    if (lang === 'hy') {
-      if (wavClient && isWAVAvailable) {
-        try { await wavClient.playGeneratedAudio(text, selectedVoice); return true; }
-        catch (error) { console.warn("WAV Client failed:", error); }
+        return tryApiThenTTS("/api/generate-wav", "hy");
       }
-      try {
-        const response = await fetch('/api/generate-wav', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text, voice: selectedVoice }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("WAV API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'hy'); return true; }
-      catch { return false; }
-    }
-    if (lang === 'en') {
-      try {
-        const response = await fetch('/api/generate-tts-en', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("English TTS API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'en'); return true; }
-      catch { return false; }
-    }
-    if (lang === 'ru') {
-      try {
-        const response = await fetch('/api/generate-tts-ru', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const src = data.audio || data.url || data.audioUrl;
-          if (src) { await new Audio(src).play(); return true; }
-        }
-      } catch (error) { console.warn("Russian TTS API failed:", error); }
-      try { await speakWithFemaleVoice(text, 'ru'); return true; }
-      catch { return false; }
-    }
-    return false;
-  }, [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]);
 
-  // HANDLE SPEAK
+      if (lang === "en") return tryApiThenTTS("/api/generate-tts-en", "en");
+      if (lang === "ru") return tryApiThenTTS("/api/generate-tts-ru", "ru");
+
+      return false;
+    },
+    [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]
+  );
+
+  // ─── HANDLE SPEAK (with SYNC LOCK) ─────────────────────────────
+
   const handleSpeak = useCallback(
     async (item: UserDictionaryEntry, lang: LangCode) => {
       const text = item[lang] || "";
-      if (!text) { showMessage(t("page_text_empty"), "error"); return; }
-      if (isPlaying) { stop(); setActivePlay(null); return; }
+      if (!text) {
+        showMessage(t("page_text_empty"), "error");
+        return;
+      }
+
+      // ✅ Synchronous lock
+      if (speakingLockRef.current) {
+        if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+        if (currentAudioRef.current) {
+          try {
+            currentAudioRef.current.pause();
+            currentAudioRef.current.src = "";
+          } catch {}
+          currentAudioRef.current = null;
+        }
+        speakingLockRef.current = false;
+        setActivePlay(null);
+        return;
+      }
+
+      if (isPlaying) {
+        stop();
+        setActivePlay(null);
+        return;
+      }
+
+      speakingLockRef.current = true;
       setActivePlay({ wordId: item.id, lang, source: "tts" });
       setNuriMood("happy");
+
       try {
         const success = await playAudioViaAPI(text, lang);
-        if (success) { setActivePlay(null); return; }
+        if (success) return;
         play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
       } catch (error) {
         console.error("Playback error:", error);
-        try { play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`); } catch {}
+        try {
+          play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
+        } catch {}
+      } finally {
+        speakingLockRef.current = false;
+        setActivePlay(null);
       }
     },
     [isPlaying, stop, play, showMessage, playAudioViaAPI, t]
@@ -462,102 +585,140 @@ export default function UserDictionaryPage() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  useEffect(() => { loadWords(); }, [loadWords]);
+  const copyId = useCallback(
+    (id: string) => {
+      try {
+        navigator.clipboard.writeText(id);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+        showMessage(t("page_id_copied"), "info");
+      } catch {
+        showMessage(t("page_something_went_wrong"), "error");
+      }
+    },
+    [showMessage, t]
+  );
 
-  const copyId = useCallback((id: string) => {
-    navigator.clipboard.writeText(id);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-    showMessage(t("page_id_copied"), "info");
-  }, [showMessage, t]);
+  // ─── ADD WORD ──────────────────────────────────────────────────
 
   const handleAddWord = useCallback(() => {
     const hy = newWordHy.trim();
     const en = newWordEn.trim();
     const ru = newWordRu.trim();
+
     if (!hy) {
       setAddWordStatus("error");
       setAddWordMessage(t("page_hy_required"));
       return;
     }
-    const exists = words.some(w => w.hy.toLowerCase() === hy.toLowerCase());
+
+    const exists = words.some((w) => w.hy.toLowerCase() === hy.toLowerCase());
     if (exists) {
       setAddWordStatus("duplicate");
       setAddWordMessage(t("page_word_exists", { word: hy }));
       return;
     }
+
     setAddWordStatus("saving");
     const newId = getNextId();
-    const tags = newWordTags.split(",").map(t => t.trim()).filter(Boolean);
+    const tags = newWordTags.split(",").map((s) => s.trim()).filter(Boolean);
     const category = newWordCategory.trim() || "general";
+
     const newWord: UserDictionaryEntry = {
-      id: newId, hy,
-      en: en || hy, ru: ru || hy,
-      type: "user", isUserAdded: true, audioGenerated: true,
+      id: newId,
+      hy,
+      en: en || hy,
+      ru: ru || hy,
+      type: "user",
+      isUserAdded: true,
+      audioGenerated: true,
       translationSource: "manual",
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       tags: tags.length > 0 ? tags : undefined,
-      category, difficulty: "medium", isFavorite: false,
+      category,
+      difficulty: "medium",
+      isFavorite: false,
       audio: {
         hy: `/audio/hy_user/${newId}.mp3`,
         en: `/audio/en_user/${newId}.mp3`,
         ru: `/audio/ru_user/${newId}.mp3`,
       },
     };
+
     saveWords([...words, newWord]);
     setAddWordStatus("success");
     setAddWordMessage(t("page_word_added", { word: hy, id: newId }));
     showMessage(t("page_word_added_to_dict", { word: hy }), "success");
+
     setTimeout(() => {
       setShowAddWord(false);
-      setNewWordHy(""); setNewWordEn(""); setNewWordRu("");
-      setNewWordTags(""); setNewWordCategory("");
+      setNewWordHy("");
+      setNewWordEn("");
+      setNewWordRu("");
+      setNewWordTags("");
+      setNewWordCategory("");
       setAddWordStatus("idle");
       setAddWordMessage("");
     }, 1500);
   }, [newWordHy, newWordEn, newWordRu, newWordTags, newWordCategory, words, getNextId, saveWords, showMessage, t]);
 
-  const handleDelete = useCallback((id: string) => {
-    if (confirm(t("page_confirm_delete"))) {
-      saveWords(words.filter(w => w.id !== id));
-      showMessage(t("page_word_deleted_success"), "success");
-    }
-  }, [words, saveWords, showMessage, t]);
+  // ─── DELETE ────────────────────────────────────────────────────
+
+  const handleDelete = useCallback(
+    (id: string) => {
+      if (confirm(t("page_confirm_delete"))) {
+        saveWords(words.filter((w) => w.id !== id));
+        showMessage(t("page_word_deleted_success"), "success");
+      }
+    },
+    [words, saveWords, showMessage, t]
+  );
 
   const handleBatchDelete = useCallback(() => {
     if (selectedWords.size === 0) return;
     if (confirm(t("page_confirm_batch_delete", { count: selectedWords.size }))) {
-      saveWords(words.filter(w => !selectedWords.has(w.id)));
+      const count = selectedWords.size;
+      saveWords(words.filter((w) => !selectedWords.has(w.id)));
       setSelectedWords(new Set());
       setIsBatchMode(false);
-      showMessage(t("page_batch_deleted", { count: selectedWords.size }), "success");
+      showMessage(t("page_batch_deleted", { count }), "success");
     }
   }, [selectedWords, words, saveWords, showMessage, t]);
+
+  // ─── EDIT ──────────────────────────────────────────────────────
 
   const startEdit = useCallback((word: UserDictionaryEntry) => {
     setEditingId(word.id);
     setEditData({
-      hy: word.hy, en: word.en, ru: word.ru,
-      tags: word.tags, category: word.category, difficulty: word.difficulty,
+      hy: word.hy,
+      en: word.en,
+      ru: word.ru,
+      tags: word.tags,
+      category: word.category,
+      difficulty: word.difficulty,
     });
   }, []);
 
   const saveEdit = useCallback(() => {
     if (!editingId || !editData) return;
     if (!editData.hy.trim()) return;
-    const updated = words.map(w =>
-      w.id === editingId ? {
-        ...w,
-        hy: editData.hy.trim(),
-        en: editData.en.trim() || editData.hy.trim(),
-        ru: editData.ru.trim() || editData.hy.trim(),
-        tags: editData.tags || w.tags,
-        category: editData.category || w.category,
-        difficulty: editData.difficulty || w.difficulty,
-        updatedAt: new Date().toISOString(),
-      } : w
+
+    const updated = words.map((w) =>
+      w.id === editingId
+        ? {
+            ...w,
+            hy: editData.hy.trim(),
+            en: editData.en.trim() || editData.hy.trim(),
+            ru: editData.ru.trim() || editData.hy.trim(),
+            tags: editData.tags || w.tags,
+            category: editData.category || w.category,
+            difficulty: editData.difficulty || w.difficulty,
+            updatedAt: new Date().toISOString(),
+          }
+        : w
     );
+
     saveWords(updated);
     setEditingId(null);
     setEditData(null);
@@ -568,6 +729,8 @@ export default function UserDictionaryPage() {
     setEditingId(null);
     setEditData(null);
   }, []);
+
+  // ─── EXPORT / IMPORT ───────────────────────────────────────────
 
   const handleExport = useCallback(async () => {
     setIsExporting(true);
@@ -580,60 +743,75 @@ export default function UserDictionaryPage() {
         stats: wordStats,
         favorites: [...favorites],
       };
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = `nurlingo-user-dictionary-${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `nurlingo-user-dictionary-${new Date().toISOString().slice(0, 10)}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+
       showMessage(t("page_export_success", { count: words.length }), "success");
-    } catch (error) {
+    } catch {
       showMessage(t("page_export_failed"), "error");
     } finally {
       setIsExporting(false);
     }
   }, [words, wordStats, favorites, showMessage, t]);
 
-  const handleImport = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    setIsImporting(true);
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      try {
-        const content = e.target?.result as string;
-        const data = JSON.parse(content);
-        let importedWords: UserDictionaryEntry[] = [];
-        if (data.version && data.words && Array.isArray(data.words)) importedWords = data.words;
-        else if (Array.isArray(data)) importedWords = data;
-        else throw new Error("Invalid format");
-        if (importedWords.length === 0) {
-          showMessage(t("page_warning_prefix") + t("page_import_empty"), "info");
-          return;
+  const handleImport = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      setIsImporting(true);
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        try {
+          const content = e.target?.result as string;
+          const data = JSON.parse(content);
+
+          let importedWords: UserDictionaryEntry[] = [];
+          if (data.version && Array.isArray(data.words)) importedWords = data.words;
+          else if (Array.isArray(data)) importedWords = data;
+          else throw new Error("Invalid format");
+
+          if (importedWords.length === 0) {
+            showMessage(t("page_warning_prefix") + t("page_import_empty"), "info");
+            return;
+          }
+
+          const existingIds = new Set(words.map((w) => w.id));
+          const newWords = importedWords.filter((w) => !existingIds.has(w.id));
+
+          if (newWords.length === 0) {
+            showMessage(t("page_warning_prefix") + t("page_import_all_exist"), "info");
+            return;
+          }
+
+          saveWords([...words, ...newWords]);
+          showMessage(t("page_import_success", { count: newWords.length }), "success");
+        } catch {
+          showMessage(t("page_import_failed"), "error");
+        } finally {
+          setIsImporting(false);
+          if (fileInputRef.current) fileInputRef.current.value = "";
         }
-        const existingIds = new Set(words.map(w => w.id));
-        const newWords = importedWords.filter(w => !existingIds.has(w.id));
-        if (newWords.length === 0) {
-          showMessage(t("page_warning_prefix") + t("page_import_all_exist"), "info");
-          return;
-        }
-        saveWords([...words, ...newWords]);
-        showMessage(t("page_import_success", { count: newWords.length }), "success");
-      } catch (error) {
-        showMessage(t("page_import_failed"), "error");
-      } finally {
-        setIsImporting(false);
-        if (fileInputRef.current) fileInputRef.current.value = "";
-      }
-    };
-    reader.readAsText(file);
-  }, [words, saveWords, showMessage, t]);
+      };
+
+      reader.readAsText(file);
+    },
+    [words, saveWords, showMessage, t]
+  );
+
+  // ─── SELECTION ─────────────────────────────────────────────────
 
   const toggleSelect = useCallback((id: string) => {
-    setSelectedWords(prev => {
+    setSelectedWords((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -642,9 +820,14 @@ export default function UserDictionaryPage() {
   }, []);
 
   const toggleSelectAll = useCallback(() => {
-    if (selectedWords.size === filteredWords.length) setSelectedWords(new Set());
-    else setSelectedWords(new Set(filteredWords.map(w => w.id)));
+    if (selectedWords.size === filteredWords.length) {
+      setSelectedWords(new Set());
+    } else {
+      setSelectedWords(new Set(filteredWords.map((w) => w.id)));
+    }
   }, [selectedWords, filteredWords]);
+
+  // ─── SCROLL / KEYBOARD ─────────────────────────────────────────
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -659,7 +842,10 @@ export default function UserDictionaryPage() {
         searchInputRef.current?.focus();
       }
       if (e.key === "Escape") {
-        if (showAddWord) { setShowAddWord(false); setAddWordStatus("idle"); }
+        if (showAddWord) {
+          setShowAddWord(false);
+          setAddWordStatus("idle");
+        }
         if (editingId) cancelEdit();
         if (searchQuery) setSearchQuery("");
       }
@@ -667,6 +853,8 @@ export default function UserDictionaryPage() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showAddWord, editingId, searchQuery, cancelEdit]);
+
+  // ─── RENDER: LOADING ───────────────────────────────────────────
 
   if (isLoadingData) {
     return (
@@ -679,10 +867,11 @@ export default function UserDictionaryPage() {
     );
   }
 
+  // ─── RENDER: MAIN ──────────────────────────────────────────────
+
   return (
     <div className="min-h-screen bg-transparent pb-24">
       <div ref={topRef} className="container-main py-6">
-
         <header className="mb-6">
           <div className="flex items-center gap-4 mb-4">
             <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
@@ -727,7 +916,11 @@ export default function UserDictionaryPage() {
               </button>
               <button
                 onClick={() => setIsBatchMode(!isBatchMode)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 ${isBatchMode ? "bg-blue-500 text-white" : "bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10"}`}
+                className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 ${
+                  isBatchMode
+                    ? "bg-blue-500 text-white"
+                    : "bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10"
+                }`}
               >
                 <Check size={14} /> {t("page_select")}
               </button>
@@ -748,12 +941,6 @@ export default function UserDictionaryPage() {
                 {t("page_import")}
               </button>
               <input ref={fileInputRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
-              <button
-                onClick={loadWords}
-                className="px-3 py-2 bg-blue-500/20 text-blue-500 dark:text-blue-400 rounded-xl text-xs font-medium flex items-center gap-1 border border-blue-500/20"
-              >
-                <RefreshCw size={14} /> {t("page_reload")}
-              </button>
             </div>
           </div>
         </header>
@@ -782,7 +969,11 @@ export default function UserDictionaryPage() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1 ${showFilters ? "bg-yellow-500/20 text-yellow-500 dark:text-yellow-400 border border-yellow-500/30" : "bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1 ${
+                showFilters
+                  ? "bg-yellow-500/20 text-yellow-500 dark:text-yellow-400 border border-yellow-500/30"
+                  : "bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10"
+              }`}
             >
               <Filter size={14} /> {t("page_filters")}
               {(filterOption !== "all" || sortOption !== "newest") && (
@@ -822,7 +1013,10 @@ export default function UserDictionaryPage() {
                 </select>
                 {(filterOption !== "all" || sortOption !== "newest") && (
                   <button
-                    onClick={() => { setFilterOption("all"); setSortOption("newest"); }}
+                    onClick={() => {
+                      setFilterOption("all");
+                      setSortOption("newest");
+                    }}
                     className="px-3 py-1.5 text-xs text-red-500"
                   >
                     ✕ {t("page_clear")}
@@ -860,7 +1054,10 @@ export default function UserDictionaryPage() {
                 </button>
               )}
               <button
-                onClick={() => { setIsBatchMode(false); setSelectedWords(new Set()); }}
+                onClick={() => {
+                  setIsBatchMode(false);
+                  setSelectedWords(new Set());
+                }}
                 className="px-3 py-1.5 bg-white/20 dark:bg-white/5 rounded-lg text-xs font-medium opacity-70"
               >
                 ✕ {t("page_close")}
@@ -878,7 +1075,7 @@ export default function UserDictionaryPage() {
           <div className="flex items-center gap-2 text-xs opacity-70">
             <span>{t("page__id_")}</span>
             <span className="font-mono">
-              {words.length > 0 ? `${words[0]?.id} - ${words[words.length-1]?.id}` : "—"}
+              {words.length > 0 ? `${words[0]?.id} - ${words[words.length - 1]?.id}` : "—"}
             </span>
           </div>
         </div>
@@ -923,15 +1120,21 @@ export default function UserDictionaryPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(index * 0.02, 0.3) }}
                   className={`bg-white/40 dark:bg-white/5 backdrop-blur-sm border ${
-                    isSelected ? "border-blue-500" : isFavorite ? "border-yellow-500/50" : "border-white/20 dark:border-white/10"
+                    isSelected
+                      ? "border-blue-500"
+                      : isFavorite
+                      ? "border-yellow-500/50"
+                      : "border-white/20 dark:border-white/10"
                   } p-4 rounded-xl relative`}
                   onClick={() => isBatchMode && toggleSelect(item.id)}
                 >
                   {isBatchMode && (
                     <div className="absolute top-2 right-2">
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        isSelected ? "bg-blue-500 border-blue-500" : "border-gray-400"
-                      }`}>
+                      <div
+                        className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
+                          isSelected ? "bg-blue-500 border-blue-500" : "border-gray-400"
+                        }`}
+                      >
                         {isSelected && <Check size={14} className="text-white" />}
                       </div>
                     </div>
@@ -950,7 +1153,9 @@ export default function UserDictionaryPage() {
                         {isCopied ? <Check size={10} className="text-emerald-500" /> : <Copy size={10} />}
                       </button>
                       {isFavorite && (
-                        <span className="text-[8px] text-yellow-500 bg-yellow-500/20 px-1.5 py-0.5 rounded-full">⭐</span>
+                        <span className="text-[8px] text-yellow-500 bg-yellow-500/20 px-1.5 py-0.5 rounded-full">
+                          ⭐
+                        </span>
                       )}
                       {item.audioGenerated && (
                         <span className="text-[8px] text-emerald-500 bg-emerald-500/20 px-1.5 py-0.5 rounded-full">
@@ -965,7 +1170,10 @@ export default function UserDictionaryPage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <button
-                        onClick={(e) => { e.stopPropagation(); toggleFavorite(item.id); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(item.id);
+                        }}
                         className={`p-1 rounded-lg ${isFavorite ? "text-yellow-400" : "opacity-60"}`}
                       >
                         <Star size={14} fill={isFavorite ? "currentColor" : "none"} />
@@ -986,10 +1194,7 @@ export default function UserDictionaryPage() {
                           </button>
                         </>
                       )}
-                      <button
-                        onClick={() => toggleExpand(item.id)}
-                        className="p-1 rounded-lg opacity-60"
-                      >
+                      <button onClick={() => toggleExpand(item.id)} className="p-1 rounded-lg opacity-60">
                         {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                       </button>
                     </div>
@@ -998,7 +1203,8 @@ export default function UserDictionaryPage() {
                   <div className="space-y-2.5">
                     {LANGS.map(({ code, flagUrl }) => {
                       const playing = isWordPlaying(item.id, code);
-                      const loading = activePlay?.wordId === item.id && activePlay.lang === code && isLoading;
+                      const loading =
+                        activePlay?.wordId === item.id && activePlay.lang === code && isLoading;
                       const text = item[code] || "—";
 
                       return (
@@ -1015,13 +1221,25 @@ export default function UserDictionaryPage() {
                             />
                             {isEditing && editingId === item.id ? (
                               <input
-                                value={code === 'hy' ? editData?.hy || '' : code === 'en' ? editData?.en || '' : editData?.ru || ''}
-                                onChange={(e) => setEditData(prev => ({ ...prev!, [code]: e.target.value }))}
+                                value={
+                                  code === "hy"
+                                    ? editData?.hy || ""
+                                    : code === "en"
+                                    ? editData?.en || ""
+                                    : editData?.ru || ""
+                                }
+                                onChange={(e) =>
+                                  setEditData((prev) => ({ ...prev!, [code]: e.target.value }))
+                                }
                                 className="w-full bg-white/20 dark:bg-white/5 border border-white/20 dark:border-white/10 rounded-lg px-2 py-1 text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                                autoFocus={code === 'hy'}
+                                autoFocus={code === "hy"}
                               />
                             ) : (
-                              <div className={`text-lg font-semibold truncate ${text === "—" ? "opacity-50" : ""}`}>
+                              <div
+                                className={`text-lg font-semibold truncate ${
+                                  text === "—" ? "opacity-50" : ""
+                                }`}
+                              >
                                 {text}
                               </div>
                             )}
@@ -1084,15 +1302,24 @@ export default function UserDictionaryPage() {
                             <span>{t("page__item_id_", { id: item.id })}</span>
                             <span>{t("page__item_type_user_", { type: item.type || "user" })}</span>
                             {item.category && (
-                              <span>{t("page__item_category_", { category: item.category })}</span>
+                              <span>
+                                {t("page__item_category_", { category: item.category })}
+                              </span>
                             )}
                             <Clock size={12} />
-                            <span>{t("page__formatdate_item_createdat_", { date: formatDate(item.createdAt) })}</span>
+                            <span>
+                              {t("page__formatdate_item_createdat_", {
+                                date: formatDate(item.createdAt),
+                              })}
+                            </span>
                           </div>
                           {item.tags && item.tags.length > 0 && (
                             <div className="flex gap-1 flex-wrap">
-                              {item.tags.map(tag => (
-                                <span key={tag} className="text-[8px] bg-white/20 dark:bg-white/5 px-2 py-0.5 rounded-full">
+                              {item.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="text-[8px] bg-white/20 dark:bg-white/5 px-2 py-0.5 rounded-full"
+                                >
                                   #{tag}
                                 </span>
                               ))}
@@ -1189,7 +1416,12 @@ export default function UserDictionaryPage() {
               <div className="px-6 py-5 space-y-4">
                 <div>
                   <label className="block mb-1">
-                    <img src="https://flagcdn.com/24x18/am.png" alt="AM" className="w-6 h-4" loading="lazy" />
+                    <img
+                      src="https://flagcdn.com/24x18/am.png"
+                      alt="AM"
+                      className="w-6 h-4"
+                      loading="lazy"
+                    />
                   </label>
                   <input
                     value={newWordHy}
@@ -1203,7 +1435,12 @@ export default function UserDictionaryPage() {
 
                 <div>
                   <label className="block mb-1">
-                    <img src="https://flagcdn.com/24x18/gb.png" alt="GB" className="w-6 h-4" loading="lazy" />
+                    <img
+                      src="https://flagcdn.com/24x18/gb.png"
+                      alt="GB"
+                      className="w-6 h-4"
+                      loading="lazy"
+                    />
                   </label>
                   <input
                     value={newWordEn}
@@ -1216,7 +1453,12 @@ export default function UserDictionaryPage() {
 
                 <div>
                   <label className="block mb-1">
-                    <img src="https://flagcdn.com/24x18/ru.png" alt="RU" className="w-6 h-4" loading="lazy" />
+                    <img
+                      src="https://flagcdn.com/24x18/ru.png"
+                      alt="RU"
+                      className="w-6 h-4"
+                      loading="lazy"
+                    />
                   </label>
                   <input
                     value={newWordRu}
@@ -1228,7 +1470,9 @@ export default function UserDictionaryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs mb-1 uppercase tracking-wide opacity-70">{t("page__tags_")}</label>
+                  <label className="block text-xs mb-1 uppercase tracking-wide opacity-70">
+                    {t("page__tags_")}
+                  </label>
                   <input
                     value={newWordTags}
                     onChange={(e) => setNewWordTags(e.target.value)}
@@ -1238,7 +1482,9 @@ export default function UserDictionaryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs mb-1 uppercase tracking-wide opacity-70">{t("page__category")}</label>
+                  <label className="block text-xs mb-1 uppercase tracking-wide opacity-70">
+                    {t("page__category")}
+                  </label>
                   <input
                     value={newWordCategory}
                     onChange={(e) => setNewWordCategory(e.target.value)}
@@ -1248,11 +1494,15 @@ export default function UserDictionaryPage() {
                 </div>
 
                 {addWordMessage && (
-                  <div className={`text-sm font-medium ${
-                    addWordStatus === "success" ? "text-emerald-500" :
-                    addWordStatus === "error" || addWordStatus === "duplicate" ? "text-red-500" :
-                    "text-yellow-500"
-                  }`}>
+                  <div
+                    className={`text-sm font-medium ${
+                      addWordStatus === "success"
+                        ? "text-emerald-500"
+                        : addWordStatus === "error" || addWordStatus === "duplicate"
+                        ? "text-red-500"
+                        : "text-yellow-500"
+                    }`}
+                  >
                     {addWordMessage}
                   </div>
                 )}
@@ -1264,9 +1514,13 @@ export default function UserDictionaryPage() {
                     className="flex-1 py-3 bg-yellow-500 hover:bg-yellow-600 disabled:opacity-50 rounded-xl font-black text-white flex items-center justify-center gap-2"
                   >
                     {addWordStatus === "saving" ? (
-                      <><Loader2 size={18} className="animate-spin" /> {t("page_saving")}</>
+                      <>
+                        <Loader2 size={18} className="animate-spin" /> {t("page_saving")}
+                      </>
                     ) : (
-                      <><Plus size={18} /> {t("page_add")}</>
+                      <>
+                        <Plus size={18} /> {t("page_add")}
+                      </>
                     )}
                   </button>
                   <button

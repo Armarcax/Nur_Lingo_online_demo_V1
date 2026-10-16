@@ -1,8 +1,22 @@
 // src/lib/content/worlds.ts
+//
+// v2 improvements (optional):
+// - WORLDS is frozen (prevents accidental mutation)
+// - getWorlds returns frozen reference (same)
+// - getWorldById uses O(1) Map lookup
+// - World ID union type for autocomplete
 
 import type { World } from "./types";
 
-export const WORLDS: World[] = [
+// ─── KNOWN WORLD IDS ──────────────────────────────────────────────────
+
+export type WorldId =
+  | "w1" | "w2" | "w3" | "w4" | "w5"
+  | "w6" | "w7" | "w8" | "w9" | "w10";
+
+// ─── WORLDS (FROZEN) ──────────────────────────────────────────────────
+
+const WORLDS_DATA: World[] = [
   {
     id: "w1",
     title: { en: "First Contact", hy: "Առաջին Հանդիպում", ru: "Первый Контакт" },
@@ -135,5 +149,22 @@ export const WORLDS: World[] = [
   },
 ];
 
-export const getWorlds = () => WORLDS;
-export const getWorldById = (id: string) => WORLDS.find((w) => w.id === id);
+/**
+ * ✅ Frozen to prevent accidental mutation.
+ * TypeScript `Readonly` ensures compile-time safety.
+ */
+export const WORLDS: readonly World[] = Object.freeze(WORLDS_DATA);
+
+// ✅ Pre-built Map for O(1) lookups
+const WORLD_BY_ID = new Map<string, World>(
+  WORLDS.map((w) => [w.id, w])
+);
+
+// ─── PUBLIC API ───────────────────────────────────────────────────────
+
+/** Returns the frozen list of all worlds. */
+export const getWorlds = (): readonly World[] => WORLDS;
+
+/** O(1) lookup by ID. */
+export const getWorldById = (id: string): World | undefined =>
+  WORLD_BY_ID.get(id);

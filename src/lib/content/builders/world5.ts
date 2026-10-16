@@ -3,13 +3,64 @@
 import type { QuickLesson } from "../types";
 import { expand } from "./helpers";
 
-const WORLD5_TOPICS: Array<[string, string, string, string]> = [
-  ["opinions", "Opinions", "Կարծիքներ", "Мнения"],
-  ["emotions", "Emotions", "Զգացմունքներ", "Эмоции"],
-  ["storytelling", "Storytelling", "Պատմվածք", "Рассказы"],
-  ["problem-solving", "Problem Solving", "Խնդիրների լուծում", "Решение проблем"],
-  ["negotiation", "Negotiation", "Բանակցություն", "Переговоры"],
-  ["culture", "Culture", "Մշակույթ", "Культура"],
+// ✅ FIXED: added hy/ru concepts (was using titles as concepts)
+const WORLD5_TOPICS: Array<
+  [slug: string, en: string, hy: string, ru: string, conceptEn: string, conceptHy: string, conceptRu: string]
+> = [
+  [
+    "opinions",
+    "Opinions",
+    "Կարծիքներ",
+    "Мнения",
+    "Express and defend your viewpoint.",
+    "Արտահայտիր և պաշտպանիր քո տեսակետը։",
+    "Выражай и защищай свою точку зрения.",
+  ],
+  [
+    "emotions",
+    "Emotions",
+    "Զգացմունքներ",
+    "Эмоции",
+    "Talk about how you feel.",
+    "Խոսիր այն մասին, թե ինչպես ես զգում։",
+    "Говори о том, что чувствуешь.",
+  ],
+  [
+    "storytelling",
+    "Storytelling",
+    "Պատմվածք",
+    "Рассказы",
+    "Tell a story from beginning to end.",
+    "Պատմիր պատմություն սկզբից մինչև վերջ։",
+    "Расскажи историю от начала до конца.",
+  ],
+  [
+    "problem-solving",
+    "Problem Solving",
+    "Խնդիրների լուծում",
+    "Решение проблем",
+    "Analyze problems and find solutions.",
+    "Վերլուծիր խնդիրները և գտիր լուծումներ։",
+    "Анализируй проблемы и находи решения.",
+  ],
+  [
+    "negotiation",
+    "Negotiation",
+    "Բանակցություն",
+    "Переговоры",
+    "Reach agreements and find compromises.",
+    "Հասիր համաձայնության և գտիր փոխզիջումներ։",
+    "Достигай согласия и находи компромиссы.",
+  ],
+  [
+    "culture",
+    "Culture",
+    "Մշակույթ",
+    "Культура",
+    "Traditions, holidays, and identity.",
+    "Ավանդույթներ, տոներ և ինքնություն։",
+    "Традиции, праздники и идентичность.",
+  ],
 ];
 
 const ADVANCED_BANKS: Record<
@@ -105,6 +156,7 @@ const ADVANCED_BANKS: Record<
   },
   emotions: {
     vocab: [
+      // ✅ ADJECTIVES (emotions)
       ["երջանիկ", "happy", "счастливый"],
       ["տխուր", "sad", "грустный"],
       ["զայրացած", "angry", "злой"],
@@ -118,18 +170,21 @@ const ADVANCED_BANKS: Record<
       ["հպարտ", "proud", "гордый"],
       ["ամաչկոտ", "shy", "стеснительный"],
       ["սիրահարված", "in love", "влюблённый"],
-      ["ատելի", "hateful", "ненавистный"],
       ["ուրախ", "joyful", "радостный"],
       ["հիասթափված", "disappointed", "разочарованный"],
       ["շփոթված", "confused", "растерянный"],
       ["համբերատար", "patient", "терпеливый"],
       ["անհամբեր", "impatient", "нетерпеливый"],
       ["ընկճված", "depressed", "подавленный"],
+      // ✅ NOUNS (emotions)
       ["զգացմունք", "feeling", "чувство"],
       ["տրամադրություն", "mood", "настроение"],
       ["արցունք", "tear", "слеза"],
       ["ծիծաղ", "laughter", "смех"],
       ["ժպիտ", "smile", "улыбка"],
+      // ✅ FIXED: added missing common emotions
+      ["հանգստացած", "relaxed", "расслабленный"],
+      ["նյարդային", "nervous", "нервный"],
     ],
     phrases: [
       ["Ինչպե՞ս ես իրեն զգում։", "How do you feel?", "Как себя чувствуешь?"],
@@ -203,7 +258,8 @@ const ADVANCED_BANKS: Record<
       ["պատմել", "to tell", "рассказать"],
       ["հիշել", "to remember", "помнить"],
       ["մոռանալ", "to forget", "забыть"],
-      ["հնում", "long ago", "давным-давно"],
+      // ✅ FIXED: "հնում" (in antiquity) → "վաղուց" (long ago — common usage)
+      ["վաղուց", "long ago", "давно"],
       ["հանկարծ", "suddenly", "вдруг"],
       ["վերջապես", "finally", "наконец"],
       ["հետո", "then", "потом"],
@@ -226,12 +282,12 @@ const ADVANCED_BANKS: Record<
     dialogues: [
       {
         en: "Long Ago",
-        hy: "Հնում",
+        hy: "Վաղուց",
         ru: "Давным-давно",
         turns: [
           ["nurik", "Պատմություն պատմեմ։", "Let me tell a story.", "Расскажу историю."],
           ["user", "Լսում եմ։", "I'm listening.", "Слушаю."],
-          ["nurik", "Հնում, երբ ես երեխա էի…", "Long ago when I was a child…", "Давно, когда я был ребёнком…"],
+          ["nurik", "Վաղուց, երբ ես երեխա էի…", "Long ago when I was a child…", "Давно, когда я был ребёнком…"],
           ["user", "Հետո՞։", "Then?", "А потом?"],
         ],
       },
@@ -285,7 +341,8 @@ const ADVANCED_BANKS: Record<
       ["համբերություն", "patience", "терпение"],
       ["աշխատանք", "work", "работа"],
       ["պլան", "plan", "план"],
-      ["հանգստություն", "calmness", "спокойствие"],
+      // ✅ FIXED: "հանգստություն" (calmness) — off-topic. → "համագործակցություն" (cooperation)
+      ["համագործակցություն", "cooperation", "сотрудничество"],
     ],
     phrases: [
       ["Խնդիր ունենք։", "We have a problem.", "У нас проблема."],
@@ -430,8 +487,9 @@ const ADVANCED_BANKS: Record<
       ["գրականություն", "literature", "литература"],
       ["պոեզիա", "poetry", "поэзия"],
       ["պատմություն", "history", "история"],
-      ["ժողովուրդ", "people", "народ"],
-      ["ազգ", "nation", "нация"],
+      // ✅ FIXED: "ժողովուրդ" and "ազգ" are distinct — clarified with context
+      ["ժողովուրդ", "people (nation)", "народ"],
+      ["ազգ", "ethnic group", "национальность"],
       ["հայրենիք", "homeland", "родина"],
       ["արմատներ", "roots", "корни"],
       ["ինքնություն", "identity", "идентичность"],
@@ -495,12 +553,16 @@ const ADVANCED_BANKS: Record<
   },
 };
 
+// ✅ FIXED: proper hy/ru concepts (was title reused)
 function makeAdvancedLesson(
   id: string,
   slug: string,
   enT: string,
   hyT: string,
-  ruT: string
+  ruT: string,
+  conceptEn: string,
+  conceptHy: string,
+  conceptRu: string
 ): QuickLesson {
   const bank = ADVANCED_BANKS[slug];
   return {
@@ -509,7 +571,7 @@ function makeAdvancedLesson(
     slug,
     difficulty: "B1",
     title: { en: enT, hy: hyT, ru: ruT },
-    concept: { en: enT, hy: hyT, ru: ruT },
+    concept: { en: conceptEn, hy: conceptHy, ru: conceptRu },
     vocab: bank.vocab,
     phrases: bank.phrases as any,
     dialogues: bank.dialogues.map((dl) => ({
@@ -519,8 +581,9 @@ function makeAdvancedLesson(
   };
 }
 
-const QUICK_LESSONS = WORLD5_TOPICS.map(([slug, en, hy, ru], i) =>
-  makeAdvancedLesson(`w5_l${i + 1}`, slug, en, hy, ru)
+const QUICK_LESSONS = WORLD5_TOPICS.map(
+  ([slug, en, hy, ru, descEn, descHy, descRu], i) =>
+    makeAdvancedLesson(`w5_l${i + 1}`, slug, en, hy, ru, descEn, descHy, descRu)
 );
 
 export const W5_LESSONS = QUICK_LESSONS.map((ql) => ({

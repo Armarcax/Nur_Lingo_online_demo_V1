@@ -1,10 +1,9 @@
-// src/app/drive-test/[testNum]/DriveTestRunner.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   Loader2,
@@ -13,6 +12,9 @@ import {
   Coins,
   Target,
   BookOpen,
+  XCircle,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -43,6 +45,14 @@ const LABELS = {
     nuriBad: "📖 Մի քիչ էլ պարապենք",
     hayqEarned: "HAYQ վաստակած",
     notFound: "Թեստ չի գտնվել",
+    // ✅ NEW
+    mistakesTitle: "📋 Սխալների վերանայում",
+    mistakesSubtitle: "Այս հարցերում սխալվել ես — վերանայենք միասին",
+    yourAnswer: "Քո պատասխանը",
+    correctAnswer: "Ճիշտ պատասխանը",
+    retryMistakes: "Կրկին փորձել միայն սխալները",
+    viewResults: "Տես արդյունքները",
+    noMistakes: "🎉 Դու ոչ մի սխալ չե՞ս արել:",
   },
   en: {
     back: "Back",
@@ -61,6 +71,13 @@ const LABELS = {
     nuriBad: "📖 Let's practice more",
     hayqEarned: "HAYQ earned",
     notFound: "Test not found",
+    mistakesTitle: "📋 Mistakes Review",
+    mistakesSubtitle: "You got these questions wrong — let's review together",
+    yourAnswer: "Your answer",
+    correctAnswer: "Correct answer",
+    retryMistakes: "Retry only mistakes",
+    viewResults: "View results",
+    noMistakes: "🎉 You made no mistakes!",
   },
   ru: {
     back: "Назад",
@@ -79,8 +96,21 @@ const LABELS = {
     nuriBad: "📖 Ещё попрактикуемся",
     hayqEarned: "HAYQ заработано",
     notFound: "Тест не найден",
+    mistakesTitle: "📋 Просмотр ошибок",
+    mistakesSubtitle: "Эти вопросы были неверными — давай разберём",
+    yourAnswer: "Твой ответ",
+    correctAnswer: "Правильный ответ",
+    retryMistakes: "Повторить только ошибки",
+    viewResults: "Смотреть результаты",
+    noMistakes: "🎉 Ты не сделал ни одной ошибки!",
   },
 };
+
+interface MistakeRecord {
+  question: DriveQuestion;
+  userAnswer: string;
+  index: number;
+}
 
 export default function DriveTestRunner() {
   const params = useParams();
@@ -95,11 +125,15 @@ export default function DriveTestRunner() {
   const L = LABELS[locale as keyof typeof LABELS] || LABELS.hy;
 
   const [questions, setQuestions] = useState<DriveQuestion[]>([]);
+  const [originalQuestions, setOriginalQuestions] = useState<DriveQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [finished, setFinished] = useState(false);
   const [hayqEarned, setHayqEarned] = useState(0);
+  const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
+  const [showingMistakes, setShowingMistakes] = useState(false);
+  const [retryMode, setRetryMode] = useState(false);
 
   useEffect(() => {
     setPage("drive-test" as any);
@@ -112,7 +146,9 @@ export default function DriveTestRunner() {
     fetch(`/drive_test/data/test-${String(testNum).padStart(2, "0")}.json`)
       .then((r) => r.json())
       .then((data) => {
-        setQuestions(data.questions || []);
+        const qs = data.questions || [];
+        setQuestions(qs);
+        setOriginalQuestions(qs);
         setLoading(false);
       })
       .catch((e) => {
@@ -121,7 +157,6 @@ export default function DriveTestRunner() {
       });
   }, [testNum]);
 
-  // Stop browser speech when component unmounts
   useEffect(() => {
     return () => {
       if (typeof window !== "undefined") {
@@ -137,17 +172,27 @@ export default function DriveTestRunner() {
     }
   };
 
+  const handleMistake = (question: DriveQuestion, userAnswer: string) => {
+    setMistakes((prev) => {
+      if (prev.some((m) => m.question.id === question.id)) return prev;
+      return [...prev, { question, userAnswer, index: currentIdx }];
+    });
+  };
+
   const handleNext = () => {
     if (currentIdx + 1 >= questions.length) {
       setFinished(true);
       saveProgress();
+      if (mistakes.length > 0) {
+        setShowingMistakes(true);
+      }
     } else {
       setCurrentIdx((i) => i + 1);
     }
   };
 
   const saveProgress = () => {
-    if (mode !== "test") return;
+    if (mode !== "test" || retryMode) return;
     const total = questions.length;
     if (total === 0) return;
 
@@ -170,11 +215,33 @@ export default function DriveTestRunner() {
     }
   };
 
-  const handleRetry = () => {
+  const handleRetryAll = () => {
+    setQuestions(originalQuestions);
     setCurrentIdx(0);
     setCorrectCount(0);
     setFinished(false);
     setHayqEarned(0);
+    setMistakes([]);
+    setRetryMode(false);
+    setShowingMistakes(false);
+  };
+
+  const handleRetryMistakes = () => {
+    const mistakeQs = mistakes.map((m) => m.question);
+    if (mistakeQs.length === 0) return;
+
+    setQuestions(mistakeQs);
+    setCurrentIdx(0);
+    setCorrectCount(0);
+    setHayqEarned(0);
+    setFinished(false);
+    setMistakes([]);
+    setShowingMistakes(false);
+    setRetryMode(true);
+  };
+
+  const handleViewResults = () => {
+    setShowingMistakes(false);
   };
 
   // ─── Loading ───────────────────────────────────────────────
@@ -203,6 +270,122 @@ export default function DriveTestRunner() {
         >
           ← {L.back}
         </Link>
+      </div>
+    );
+  }
+
+  // ─── Mistake Review Screen ─────────────────────────────────
+  if (showingMistakes && mistakes.length > 0) {
+    return (
+      <div className="min-h-screen bg-transparent pb-24">
+        <div className="container-main py-6 max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-6"
+          >
+            <div className="text-5xl mb-3">📋</div>
+            <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-2">
+              {L.mistakesTitle}
+            </h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {L.mistakesSubtitle} ({mistakes.length})
+            </p>
+          </motion.div>
+
+          <div className="space-y-4 mb-6">
+            {mistakes.map((m, i) => {
+              const prompt =
+                m.question.prompt[locale as "hy" | "en" | "ru"] ||
+                m.question.prompt.hy ||
+                "";
+              const options =
+                m.question.options[locale as "hy" | "en" | "ru"] ||
+                m.question.options.hy ||
+                [];
+              const correctAnswer = options[m.question.correctIndex] || "";
+
+              return (
+                <motion.div
+                  key={m.question.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="p-4 rounded-xl border border-red-500/30 bg-red-500/5"
+                >
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="flex-shrink-0 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">
+                      {i + 1}
+                    </div>
+                    <p className="font-bold text-gray-900 dark:text-white flex-1 leading-relaxed">
+                      {prompt}
+                    </p>
+                  </div>
+
+                  {m.question.imageUrl && (
+                    <div className="mb-3 rounded-lg overflow-hidden">
+                      <img
+                        src={m.question.imageUrl}
+                        alt=""
+                        className="w-full max-h-[200px] object-contain"
+                      />
+                    </div>
+                  )}
+
+                  <div className="space-y-2 pl-10">
+                    <div className="flex items-start gap-2 text-sm">
+                      <XCircle
+                        size={16}
+                        className="text-red-500 flex-shrink-0 mt-0.5"
+                      />
+                      <div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 block">
+                          {L.yourAnswer}:
+                        </span>
+                        <span className="text-red-500 line-through">
+                          {m.userAnswer}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2 text-sm">
+                      <CheckCircle
+                        size={16}
+                        className="text-emerald-500 flex-shrink-0 mt-0.5"
+                      />
+                      <div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 block">
+                          {L.correctAnswer}:
+                        </span>
+                        <span className="text-emerald-500 font-bold">
+                          {correctAnswer}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={handleRetryMistakes}
+              className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition flex items-center justify-center gap-1.5"
+            >
+              <RotateCcw size={16} />
+              {L.retryMistakes} ({mistakes.length})
+            </button>
+            <button
+              onClick={handleViewResults}
+              className="flex-1 py-3 rounded-xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 text-gray-900 dark:text-white text-sm font-bold transition flex items-center justify-center gap-1.5"
+            >
+              <Home size={16} />
+              {L.viewResults}
+            </button>
+          </div>
+        </div>
+
+        <BottomNav />
       </div>
     );
   }
@@ -244,6 +427,7 @@ export default function DriveTestRunner() {
 
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
             {L.test} {testNum} · {mode === "study" ? L.study : L.test}
+            {retryMode && " · Retry"}
           </p>
 
           <motion.div
@@ -300,7 +484,7 @@ export default function DriveTestRunner() {
 
           <div className="flex gap-3 w-full max-w-sm">
             <button
-              onClick={handleRetry}
+              onClick={handleRetryAll}
               className="flex-1 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition flex items-center justify-center gap-1.5"
             >
               <RotateCcw size={16} />
@@ -327,7 +511,6 @@ export default function DriveTestRunner() {
 
   return (
     <div className="min-h-screen bg-transparent pb-24">
-      {/* Header */}
       <header className="sticky top-0 z-40 bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl border-b border-white/20 dark:border-white/10">
         <div className="container-main py-3">
           <div className="flex items-center justify-between">
@@ -347,9 +530,15 @@ export default function DriveTestRunner() {
                     <Target size={16} className="text-red-500" />
                   )}
                   {L.test} {testNum}
+                  {retryMode && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-500">
+                      Retry
+                    </span>
+                  )}
                 </h1>
                 <p className="text-[10px] text-gray-500 dark:text-gray-400">
                   {mode === "study" ? L.study : L.test} · {questions.length}
+                  {mistakes.length > 0 && ` · ⚠️ ${mistakes.length} mistakes`}
                 </p>
               </div>
             </div>
@@ -370,7 +559,6 @@ export default function DriveTestRunner() {
         </div>
       </header>
 
-      {/* Question */}
       <div className="container-main py-6">
         <QuestionCard
           key={current.id}
@@ -381,6 +569,7 @@ export default function DriveTestRunner() {
           native={(locale as "hy" | "en" | "ru") || "hy"}
           onAnswer={handleAnswer}
           onNext={handleNext}
+          onMistake={handleMistake}
         />
       </div>
 

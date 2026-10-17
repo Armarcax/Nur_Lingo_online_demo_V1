@@ -658,7 +658,6 @@ function LearnInner() {
 
   const [audioEnabled, setAudioEnabled] = useState(true);
 
-  // ✅ Removed unused: playAudio, isLoading, isTTSFallback, preload
   const { stop, isPlaying } = useAudioManager();
 
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
@@ -669,9 +668,7 @@ function LearnInner() {
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const exerciseStartTime = useRef<number>(Date.now());
   const breakTimerRef = useRef<NodeJS.Timeout | null>(null);
-  // ✅ Synchronous lock for double-click protection
   const speakingLockRef = useRef(false);
-  // ✅ Guard against double-advance
   const advancingRef = useRef(false);
 
   useEffect(() => {
@@ -785,8 +782,6 @@ function LearnInner() {
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
 
-  // ─── TOGGLE MODE ────────────────────────────────────────────────
-
   const toggleMode = useCallback(() => {
     setIsProfessional((prev) => {
       const newMode = !prev;
@@ -797,8 +792,6 @@ function LearnInner() {
       return newMode;
     });
   }, [showMessage, t]);
-
-  // ─── RELAX MUSIC ────────────────────────────────────────────────
 
   const playRelaxMusic = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -836,8 +829,6 @@ function LearnInner() {
       if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     };
   }, [relaxAudio]);
-
-  // ─── AUDIO: FEMALE VOICE ────────────────────────────────────────
 
   const playAudioWithFemaleVoice = useCallback(
     (text: string, lang: string): Promise<void> => {
@@ -909,8 +900,6 @@ function LearnInner() {
     },
     []
   );
-
-  // ─── AUDIO: MASTER FALLBACK ─────────────────────────────────────
 
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
@@ -1036,12 +1025,10 @@ function LearnInner() {
     [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice, audioEnabled]
   );
 
-  // ✅ handleSpeak with SYNC LOCK
   const handleSpeak = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
       if (!text || !audioEnabled) return;
 
-      // ✅ Synchronous lock — prevents double-click
       if (speakingLockRef.current) {
         if (typeof window !== "undefined") window.speechSynthesis?.cancel();
         speakingLockRef.current = false;
@@ -1059,8 +1046,6 @@ function LearnInner() {
     },
     [playAudioWithFallback, audioEnabled]
   );
-
-  // ─── AUTO-PLAY PROMPT ───────────────────────────────────────────
 
   useEffect(() => {
     if (!audioEnabled) return;
@@ -1081,8 +1066,6 @@ function LearnInner() {
       if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     };
   }, [current, native, isAudioReady, playAudioWithFallback, audioEnabled]);
-
-  // ─── RESET PER EXERCISE ────────────────────────────────────────
 
   useEffect(() => {
     if (!current) return;
@@ -1116,8 +1099,6 @@ function LearnInner() {
     }
     setBreakTimer(null);
   }, [current]);
-
-  // ─── LOAD LESSON ────────────────────────────────────────────────
 
   const loadLesson = useCallback(() => {
     if (loadedLessonRef.current === lessonId) return;
@@ -1186,8 +1167,6 @@ function LearnInner() {
     loadLesson();
   }, [loadLesson, isProfessional]);
 
-  // ─── PRELOAD WAV ────────────────────────────────────────────────
-
   useEffect(() => {
     if (!lesson || !wavClient || !isWAVAvailable) return;
 
@@ -1208,8 +1187,6 @@ function LearnInner() {
     return () => clearTimeout(timer);
   }, [lesson, wavClient, isWAVAvailable, native, learningLang]);
 
-  // ─── HEART COUNTDOWN ────────────────────────────────────────────
-
   useEffect(() => {
     const timer = setInterval(() => {
       try {
@@ -1220,8 +1197,6 @@ function LearnInner() {
     }, 1000);
     return () => clearInterval(timer);
   }, [hearts]);
-
-  // ─── BREAK TIMER ────────────────────────────────────────────────
 
   const startBreakTimer = useCallback((minutes: number) => {
     if (breakTimerRef.current) {
@@ -1306,8 +1281,6 @@ function LearnInner() {
     return () => clearInterval(checkTime);
   }, [startSessionTime, showBreak, ex.state, breakDuration, breakTimer, breakShown, native, startBreakTimer]);
 
-  // ─── HINT + AUDIO TOGGLE ────────────────────────────────────────
-
   const toggleHint = useCallback(() => {
     setShowHint((prev) => !prev);
     if (!showHint && current?.hint) {
@@ -1324,8 +1297,6 @@ function LearnInner() {
     if (audioEnabled) stop();
     showMessage(audioEnabled ? t("page_audio_disabled") : t("page_audio_enabled"), "info");
   }, [audioEnabled, stop, showMessage, t]);
-
-  // ─── SUBMIT ────────────────────────────────────────────────────
 
   const submit = useCallback(
     async (overrideAnswer?: string) => {
@@ -1397,7 +1368,6 @@ function LearnInner() {
             showCoinAnimation: true,
           }));
 
-          // ✅ FIXED: coin animation lasts min 2.5s, controlled by ref-guard
           setTimeout(() => {
             setEx((s) => ({ ...s, showCoinAnimation: false }));
           }, 2500);
@@ -1542,7 +1512,6 @@ function LearnInner() {
             showCoinAnimation: true,
           }));
 
-          // ✅ FIXED: coin animation clear with proper timing
           setTimeout(() => {
             setEx((s) => ({ ...s, showCoinAnimation: false }));
           }, 2500);
@@ -1560,7 +1529,6 @@ function LearnInner() {
           } catch {}
         }
 
-        // ✅ FIXED: Auto-advance AFTER audio completes (no fixed 2.5s)
         if (correct) {
           let audioPromise: Promise<void> = Promise.resolve();
           if (current.targetAnswer) {
@@ -1568,9 +1536,7 @@ function LearnInner() {
           }
 
           audioPromise.finally(() => {
-            // Wait at least 500ms after audio for user to see feedback
             setTimeout(() => {
-              // ✅ Guard against double-advance
               if (!advancingRef.current) {
                 advancingRef.current = true;
                 try {
@@ -1580,8 +1546,6 @@ function LearnInner() {
             }, 500);
           });
         }
-
-        // ❌ Incorrect: NO auto-advance
       } catch (error) {
         console.error("Submit error:", error);
         setEx((s) => ({
@@ -1619,8 +1583,6 @@ function LearnInner() {
     submitRef.current = submit;
   }, [submit]);
 
-  // ─── COMPLETE LESSON ───────────────────────────────────────────
-
   const completeLesson = useCallback(() => {
     if (!lesson) return;
 
@@ -1646,8 +1608,6 @@ function LearnInner() {
 
     setComplete(true);
   }, [lesson, stats, sessionLevel, startTime, onLessonComplete]);
-
-  // ─── NEXT ──────────────────────────────────────────────────────
 
   const next = useCallback(() => {
     if (!lesson) return;
@@ -1736,14 +1696,13 @@ function LearnInner() {
     nextRef.current = next;
   }, [next]);
 
-  // ─── KEYBOARD ──────────────────────────────────────────────────
-
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
+        // ✅ FIX: allow Enter to go next if attempts >= 2 (instead of 3)
         if (ex.state === "idle") submitRef.current();
-        else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 3)) nextRef.current();
+        else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 2)) nextRef.current();
       }
       if (e.key === "h" || e.key === "H") toggleHint();
       if (e.key === "Escape" && ex.state !== "submitting") setShowExitConfirm(true);
@@ -1751,8 +1710,6 @@ function LearnInner() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [ex.state, attempts, toggleHint]);
-
-  // ─── RETRY ─────────────────────────────────────────────────────
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({
@@ -1781,8 +1738,6 @@ function LearnInner() {
     }
     exerciseStartTime.current = Date.now();
   }, [current, native]);
-
-  // ─── HEARTS HANDLERS ───────────────────────────────────────────
 
   const handleRefill = useCallback(() => {
     try {
@@ -1813,8 +1768,6 @@ function LearnInner() {
     router.push("/world");
   }, [router, stopRelaxMusic]);
 
-  // ─── SUPABASE SAVE ─────────────────────────────────────────────
-
   async function saveCompletionToSupabase(
     lessonId: string,
     accuracy: number,
@@ -1837,8 +1790,6 @@ function LearnInner() {
       );
     } catch {}
   }
-
-  // ─── RENDER: COMPLETE ──────────────────────────────────────────
 
   if (complete && lesson) {
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
@@ -1935,8 +1886,6 @@ function LearnInner() {
     );
   }
 
-  // ─── RENDER: NO HEARTS ─────────────────────────────────────────
-
   if (hearts <= 0) {
     const minutesLeft = Math.ceil(countdown / 60000);
 
@@ -1977,8 +1926,6 @@ function LearnInner() {
   }
 
   if (!lesson || !current) return null;
-
-  // ─── RENDER: MAIN ──────────────────────────────────────────────
 
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
@@ -2393,14 +2340,23 @@ function LearnInner() {
                     />
                   </div>
                 ) : (
-                  <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 2.8, ease: "linear" }}
-                      className="h-full bg-red-500"
-                    />
-                  </div>
+                  <>
+                    <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 2.8, ease: "linear" }}
+                        className="h-full bg-red-500"
+                      />
+                    </div>
+                    {/* ✅ FIX: Added "Next" button for incorrect answers when attempts >= 2 */}
+                    <button
+                      onClick={() => nextRef.current()}
+                      className="w-full mt-4 py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2"
+                    >
+                      {t("page_continue")} →
+                    </button>
+                  </>
                 )}
               </motion.div>
             )}

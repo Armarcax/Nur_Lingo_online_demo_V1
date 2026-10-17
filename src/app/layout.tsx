@@ -14,8 +14,6 @@ import { I18nProvider } from "@/components/I18nProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // ─── FONTS ────────────────────────────────────────────────────────────
-// Variable fonts are used automatically when `weight` is omitted,
-// dramatically reducing payload size.
 
 const notoSansArmenian = Noto_Sans_Armenian({
   subsets: ["armenian", "latin"],
@@ -39,7 +37,7 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "700"], // Space Mono has no variable variant
+  weight: ["400", "700"],
 });
 
 // ─── METADATA ─────────────────────────────────────────────────────────
@@ -55,84 +53,43 @@ export const metadata: Metadata = {
   description:
     "Learn Armenian, English, and Russian with an AI-native platform. Interactive lessons, real dialogues, and HAYQ rewards with Nuri.",
   keywords: [
-    "Armenian",
-    "հայերեն",
-    "language learning",
-    "AI",
-    "HAYQ",
-    "NLP",
-    "Armenia",
-    "NUR Lingo",
-    "semantic engine",
-    "language education",
-    "Armenian language",
-    "learn Armenian",
+    "Armenian", "հայերեն", "language learning", "AI", "HAYQ", "NLP",
+    "Armenia", "NUR Lingo", "semantic engine", "language education",
   ],
   authors: [{ name: "NUR Lingo Team", url: SITE_URL }],
   creator: "NUR Lingo",
   publisher: "NUR Lingo",
   robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    index: true, follow: true,
+    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
   },
   alternates: {
     canonical: SITE_URL,
-    languages: {
-      "hy-AM": SITE_URL,
-      "en-US": `${SITE_URL}/en`,
-      "ru-RU": `${SITE_URL}/ru`,
-    },
+    languages: { "hy-AM": SITE_URL, "en-US": `${SITE_URL}/en`, "ru-RU": `${SITE_URL}/ru` },
   },
   icons: {
-    icon: [
-      { url: "/logo.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
+    icon: [{ url: "/logo.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "any" }],
     apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
   },
   manifest: "/manifest.json",
   openGraph: {
-    type: "website",
-    locale: "hy_AM",
-    alternateLocale: ["en_US", "ru_RU"],
-    url: SITE_URL,
+    type: "website", locale: "hy_AM", alternateLocale: ["en_US", "ru_RU"], url: SITE_URL,
     title: "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
-    description:
-      "Սովորիր հայերեն, անգլերեն կամ ռուսերեն AI-ի հետ — интерактивные դասեր, երկխոսություններ, HAYQ պարգևներ։",
+    description: "Սովորիր հայերեն, անգլերեն կամ ռուսերեն AI-ի հետ — интерактивные դասեր, երկխոսություններ, HAYQ պարգևներ։",
     siteName: "NUR Lingo",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "NUR Lingo — Learn Armenian with AI",
-      },
-    ],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NUR Lingo — Learn Armenian with AI" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "NUR Lingo — Հայկական AI Լեզվի Հարթակ",
-    description:
-      "Սովորիր հայերեն AI-ի հետ — interactive lessons, real dialogues, HAYQ rewards",
-    images: ["/og-image.jpg"],
-    site: "@nurlingo",
-    creator: "@nurlingo",
+    description: "Սովորիր հայերեն AI-ի հետ — interactive lessons, real dialogues, HAYQ rewards",
+    images: ["/og-image.jpg"], site: "@nurlingo", creator: "@nurlingo",
   },
   category: "education",
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
+  width: "device-width", initialScale: 1, maximumScale: 5, userScalable: true,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#faf8f6" },
     { media: "(prefers-color-scheme: dark)", color: "#0c0c12" },
@@ -140,17 +97,17 @@ export const viewport: Viewport = {
 };
 
 // ─── INLINE BOOT SCRIPT ──────────────────────────────────────────────
-// Runs before paint to prevent FOUC of theme and language.
+// Runs before paint to prevent FOUC of theme, language, font, and color.
 
 const BOOT_SCRIPT = `
 (function () {
   var root = document.documentElement;
   try {
     // ─── THEME ───
-    var stored = localStorage.getItem('nurlingo_theme');
+    var storedTheme = localStorage.getItem('nurlingo_theme');
     var isDark;
-    if (stored === 'dark') isDark = true;
-    else if (stored === 'light') isDark = false;
+    if (storedTheme === 'dark') isDark = true;
+    else if (storedTheme === 'light') isDark = false;
     else isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (isDark) {
@@ -172,8 +129,16 @@ const BOOT_SCRIPT = `
         }
       }
     } catch (_) { /* ignore */ }
+
+    // ─── FONT & COLOR PALETTE ───
+    try {
+      var font = localStorage.getItem('nur_font') || 'sans';
+      var color = localStorage.getItem('nur_color') || 'red';
+      root.setAttribute('data-font', font);
+      root.setAttribute('data-color', color);
+    } catch (_) { /* ignore */ }
+
   } catch (_) {
-    // localStorage disabled — fall back to OS preference.
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       root.classList.add('dark');
       root.setAttribute('data-theme', 'dark');
@@ -193,6 +158,8 @@ export default function RootLayout({
     <html
       lang="hy"
       dir="ltr"
+      data-font="sans"
+      data-color="red"
       className={`${notoSansArmenian.variable} ${notoSerifArmenian.variable} ${inter.variable} ${spaceMono.variable}`}
       suppressHydrationWarning
     >
@@ -206,15 +173,11 @@ export default function RootLayout({
         <I18nProvider>
           <NuriProvider>
             <ThemeBackground showSelector>
-              {/* ─── Content ─── */}
               <div className="relative z-10 container-main">{children}</div>
-
-              {/* ─── Service worker ─── */}
               <ServiceWorkerRegister />
             </ThemeBackground>
           </NuriProvider>
         </I18nProvider>
-
         <SpeedInsights />
       </body>
     </html>

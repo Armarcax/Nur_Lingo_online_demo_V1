@@ -227,6 +227,10 @@ export default function Home() {
   const [selectedNative, setSelectedNative] = useState<LangCode>("hy");
   const [selectedLearning, setSelectedLearning] = useState<LangCode>("en");
 
+  // ─── APPEARANCE STATE ─────────────────────────────────────────────
+  const [selectedFont, setSelectedFont] = useState("sans");
+  const [selectedColor, setSelectedColor] = useState("red");
+
   // ─── TIMER CLEANUP ────────────────────────────────────────────────
   const nuriTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -275,7 +279,11 @@ export default function Home() {
         return;
       }
 
-      // ─── 2. Rewards + quests ──────────────────────────────────────
+      // ─── 2. Load Appearance Settings ─────────────────────────────
+      setSelectedFont(localStorage.getItem("nur_font") || "sans");
+      setSelectedColor(localStorage.getItem("nur_color") || "red");
+
+      // ─── 3. Rewards + quests ──────────────────────────────────────
       try {
         const rewardsData = syncHearts();
         if (cancelled) return;
@@ -343,12 +351,26 @@ export default function Home() {
       setSelectedNative(config.native as LangCode);
       setSelectedLearning(config.learning as LangCode);
     }
+    // Sync appearance state with current localStorage on open
+    setSelectedFont(localStorage.getItem("nur_font") || "sans");
+    setSelectedColor(localStorage.getItem("nur_color") || "red");
     setShowSettingsModal(true);
+  }, []);
+
+  const updateAppearance = useCallback((type: 'font' | 'color', value: string) => {
+    if (type === 'font') {
+      setSelectedFont(value);
+      localStorage.setItem("nur_font", value);
+      document.documentElement.setAttribute("data-font", value);
+    } else {
+      setSelectedColor(value);
+      localStorage.setItem("nur_color", value);
+      document.documentElement.setAttribute("data-color", value);
+    }
   }, []);
 
   const handleClaimQuest = useCallback(
     async (questId: string) => {
-      // Defensive: only claim if the quest is actually claimable.
       const quest = quests.find((q) => q.id === questId);
       if (!quest || !quest.completed || quest.claimed) return;
 
@@ -396,7 +418,6 @@ export default function Home() {
       setShowSettingsModal(false);
 
       setMoodTemporarily("excited", 2000, "happy");
-      // NOTE: router.refresh() removed — everything here is client-side.
     } catch (error) {
       console.error("Failed to save language settings:", error);
     }
@@ -414,6 +435,8 @@ export default function Home() {
         "nurlingo_streak",
         "nur_device_id",
         "nur_lesson_mistakes_v2",
+        "nur_font",     // Reset appearance too
+        "nur_color",
       ];
       for (const key of keysToRemove) localStorage.removeItem(key);
 
@@ -538,7 +561,7 @@ export default function Home() {
 
         {/* ─── TITLE ─── */}
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mt-4 mb-1">
-          <span className="bg-gradient-to-r from-[#D90012] via-[#F2A800] to-[#0033A0] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[var(--palette-primary)] via-[var(--palette-accent)] to-[#0033A0] bg-clip-text text-transparent">
             NUR Lingo
           </span>
         </h1>
@@ -590,7 +613,7 @@ export default function Home() {
         <div className="w-full max-w-sm">
           <Link
             href={isReturning ? "/world" : "/onboarding"}
-            className="w-full bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-red-500/20 text-lg backdrop-blur-soft group"
+            className="w-full bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-[var(--palette-primary-dim)] text-lg backdrop-blur-soft group"
           >
             <Sparkles
               size={22}
@@ -649,7 +672,7 @@ export default function Home() {
                 animate={{
                   width: `${(stats.dailyProgress / stats.dailyGoal) * 100}%`,
                 }}
-                className="h-full rounded-full bg-gradient-to-r from-[#D90012] via-[#F2A800] to-[#0033A0]"
+                className="h-full rounded-full bg-gradient-to-r from-[var(--palette-primary)] via-[var(--palette-accent)] to-[#0033A0]"
               />
             </div>
           </div>
@@ -753,7 +776,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setShowStatsModal(false)}
-              className="w-full mt-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white font-bold text-sm"
+              className="w-full mt-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white font-bold text-sm"
             >
               {t("page_close")}
             </button>
@@ -797,7 +820,7 @@ export default function Home() {
               {currentNativeInfo?.flag} {currentNativeInfo?.label}
             </span>
             <span className="text-[var(--color-text-muted)]">→</span>
-            <span className="font-bold text-[#FFA500]">
+            <span className="font-bold text-[var(--palette-accent)]">
               {currentLearningInfo?.flag} {currentLearningInfo?.label}
             </span>
           </div>
@@ -817,7 +840,7 @@ export default function Home() {
                 aria-pressed={selectedNative === lng.code}
                 className={`p-3 rounded-xl border-2 text-center transition-all ${
                   selectedNative === lng.code
-                    ? `border-[#FFA500] bg-[#FFA500]/10 ${lng.color}`
+                    ? `border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 ${lng.color}`
                     : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                 }`}
               >
@@ -843,7 +866,7 @@ export default function Home() {
                   aria-pressed={selectedLearning === lng.code}
                   className={`p-3 rounded-xl border-2 text-center transition-all ${
                     selectedLearning === lng.code
-                      ? `border-[#FFA500] bg-[#FFA500]/10 ${lng.color}`
+                      ? `border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 ${lng.color}`
                       : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
                   }`}
                 >
@@ -864,16 +887,68 @@ export default function Home() {
           type="button"
           onClick={handleSaveLanguage}
           disabled={selectedNative === selectedLearning}
-          className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 mb-6 ${
             selectedNative === selectedLearning
               ? "bg-white/20 dark:bg-white/5 text-[var(--color-text-muted)] cursor-not-allowed"
-              : "bg-gradient-to-r from-[#D90012] to-[#FFA500] text-white hover:scale-105"
+              : "bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white hover:scale-105"
           }`}
         >
           <Languages size={16} />
           {t("page_save_languages")}
         </button>
 
+        {/* ─── 🎨 APPEARANCE SECTION ─── */}
+        <div className="mb-6 pt-4 border-t border-white/20 dark:border-white/10">
+          <label className="text-xs text-[var(--color-text-muted)] mb-2 block font-bold">
+            🎨 Տառատեսակ (Font)
+          </label>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            {[
+              { id: "sans", label: "Sans", class: "font-sans" },
+              { id: "serif", label: "Serif", class: "font-serif" },
+              { id: "mono", label: "Mono", class: "font-mono" },
+            ].map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => updateAppearance("font", f.id)}
+                className={`p-2 rounded-xl border-2 transition-all ${f.class} ${
+                  selectedFont === f.id
+                    ? "border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 text-[var(--color-text)]"
+                    : "border-white/20 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)]"
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <label className="text-xs text-[var(--color-text-muted)] mb-2 block font-bold">
+            🖌️ Հիմնական գույն (Accent)
+          </label>
+          <div className="flex gap-3 justify-center">
+            {[
+              { id: "red", color: "bg-[#d90012]" },
+              { id: "blue", color: "bg-[#0033a0]" },
+              { id: "emerald", color: "bg-[#059669]" },
+              { id: "purple", color: "bg-[#7c3aed]" },
+            ].map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => updateAppearance("color", c.id)}
+                className={`w-10 h-10 rounded-full ${c.color} transition-all ${
+                  selectedColor === c.id
+                    ? "ring-4 ring-[var(--palette-accent)] scale-110"
+                    : "opacity-60 hover:opacity-100"
+                }`}
+                aria-label={`Color ${c.id}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ─── DANGER ZONE ─── */}
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-white/20 dark:border-white/10" />

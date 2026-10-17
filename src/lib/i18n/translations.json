@@ -1131,7 +1131,12 @@
     "theme_yinYangSwan": "Յին և Յան կարապներ",
     "theme_modern_mesh": "Ժամանակակից",
     "theme_aurora": "Բևեռափայլ",
-    "theme_grid": "Ցանց"
+    "theme_grid": "Ցանց",
+    "theme_liquid": "Հեղուկ գրադիենտ",
+    "theme_glass_panels": "Ապակե պանելներ",
+    "theme_geo_hex": "Վեցանկյուն ցանց",
+    "theme_aero": "Ռետրո-ֆուտուրիզմ",
+    "theme_lines": "Մինիմալիստական գծեր"
   },
 
 
@@ -2264,7 +2269,12 @@
     "theme_yinYangSwan": "Yin-Yang Swans",
     "theme_modern_mesh": "Modern",
     "theme_aurora": "Aurora",
-    "theme_grid": "Grid"
+    "theme_grid": "Grid",
+    "theme_liquid": "Liquid Gradient",
+    "theme_glass_panels": "Glass Panels",
+    "theme_geo_hex": "Hexagon Grid",
+    "theme_aero": "Frutiger Aero",
+    "theme_lines": "Minimalist Lines"
   },
 
 
@@ -3397,6 +3407,11 @@
     "theme_yinYangSwan": "Лебеди Инь-Ян",
     "theme_modern_mesh": "Современный",
     "theme_aurora": "Полярное сияние",
-    "theme_grid": "Сетка"
+    "theme_grid": "Сетка",
+    "theme_liquid": "Жидкий градиент",
+    "theme_glass_panels": "Стеклянные панели",
+    "theme_geo_hex": "Шестиугольная сетка",
+    "theme_aero": "Ретро-футуризм",
+    "theme_lines": "Минималистичные линии"
   }
 }

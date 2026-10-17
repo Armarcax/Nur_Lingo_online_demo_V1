@@ -156,6 +156,37 @@ export const THEME_BACKGROUNDS: ReadonlyArray<ThemeBackgroundItem> =
       light: "/images/yin-yang-swan-light.jpeg",
       preview: "/images/yin-yang-swan-light.jpeg",
     },
+
+        {
+      id: "liquid",
+      titleKey: "theme_liquid",
+      cssClass: "bg-liquid",
+      hasBlobs: false,
+    },
+    {
+      id: "glassPanels",
+      titleKey: "theme_glass_panels",
+      cssClass: "bg-glass-panels",
+      hasBlobs: false,
+    },
+    {
+      id: "geoHex",
+      titleKey: "theme_geo_hex",
+      cssClass: "bg-geo-hex",
+      hasBlobs: false,
+    },
+    {
+      id: "aero",
+      titleKey: "theme_aero",
+      cssClass: "bg-aero",
+      hasBlobs: false,
+    },
+    {
+      id: "lines",
+      titleKey: "theme_lines",
+      cssClass: "bg-lines",
+      hasBlobs: false,
+    },
   ]);
 
 // ─── HELPERS ──────────────────────────────────────────────────────────

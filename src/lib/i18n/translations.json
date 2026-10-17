@@ -1128,7 +1128,8 @@
     "theme_dictionary": "Բառարան",
     "theme_pistol": "Ատրճանակ",
     "theme_im": "Ես եմ",
-    "theme_yinYangSwan": "Յին և Յան կարապներ"
+    "theme_yinYangSwan": "Յին և Յան կարապներ",
+    "theme_modern_mesh": "Ժամանակակից"
   },
 
 
@@ -2258,7 +2259,8 @@
     "theme_dictionary": "Dictionary",
     "theme_pistol": "Pistol",
     "theme_im": "I'm",
-    "theme_yinYangSwan": "Yin-Yang Swans"
+    "theme_yinYangSwan": "Yin-Yang Swans",
+    "theme_modern_mesh": "Modern"
   },
 
 
@@ -3388,6 +3390,7 @@
     "theme_dictionary": "Словарь",
     "theme_pistol": "Пистолет",
     "theme_im": "Я",
-    "theme_yinYangSwan": "Лебеди Инь-Ян"
+    "theme_yinYangSwan": "Лебеди Инь-Ян",
+    "theme_modern_mesh": "Современный"
   }
 }

@@ -21,17 +21,22 @@ export type AppLanguage = LangCode;
 
 export interface ThemeBackgroundItem {
   id: string;
-  /** Translation key — resolved at render time via t() */
   titleKey: string;
-  dark: string;
-  light: string;
-  preview: string;
+  dark?: string;
+  light?: string;
+  preview?: string;
+  isCss?: boolean;
 }
 
-// ─── DATA (frozen to prevent accidental mutation) ─────────────────────
+// ─── DATA ─────────────────────────────────────────────────────────────
 
 export const THEME_BACKGROUNDS: ReadonlyArray<ThemeBackgroundItem> =
   Object.freeze([
+    {
+      id: "modernMesh",
+      titleKey: "theme_modern_mesh", // ✅ Նոր CSS ֆոնը
+      isCss: true,
+    },
     {
       id: "pomegranate",
       titleKey: "theme_pomegranate",
@@ -142,7 +147,7 @@ export const THEME_BACKGROUNDS: ReadonlyArray<ThemeBackgroundItem> =
 // ─── HELPERS ──────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "nurlingo_background_id";
-const DEFAULT_BACKGROUND_ID = "pomegranate";
+const DEFAULT_BACKGROUND_ID = "modernMesh"; // Որպես լռելյայն դարձնում ենք նորը
 
 export function getThemeBackground(id: string): ThemeBackgroundItem {
   return (
@@ -166,10 +171,13 @@ function getInitialBackgroundId(background?: string): string {
 function preloadAllBackgrounds() {
   if (typeof window === "undefined") return;
   for (const bg of THEME_BACKGROUNDS) {
+    if (bg.isCss) continue; // ✅ Բաց ենք թողնում CSS ֆոնը
     for (const src of [bg.dark, bg.light, bg.preview]) {
-      const img = new window.Image();
-      img.decoding = "async";
-      img.src = src;
+      if (src) {
+        const img = new window.Image();
+        img.decoding = "async";
+        img.src = src;
+      }
     }
   }
 }
@@ -179,9 +187,7 @@ function preloadAllBackgrounds() {
 export interface ThemeBackgroundProps {
   children: ReactNode;
   className?: string;
-  /** When provided, overrides the persisted selection and syncs to storage. */
   background?: string;
-  /** Optional override for the UI language. Defaults to useI18n().locale. */
   language?: AppLanguage;
   showSelector?: boolean;
 }
@@ -197,12 +203,9 @@ export function ThemeBackground({
 }: ThemeBackgroundProps) {
   const { t, locale } = useI18n();
 
-  // UI language: explicit prop wins, else fall back to i18n locale.
   const activeLanguage: AppLanguage =
     language ?? ((locale as AppLanguage) || "hy");
 
-  // ─── STATE ────────────────────────────────────────────────────────
-  // Lazy init from storage — prevents Flash of Unstyled Content (FOUC).
   const [activeId, setActiveId] = useState<string>(() =>
     getInitialBackgroundId(background)
   );
@@ -220,9 +223,7 @@ export function ThemeBackground({
     setImageError(false);
     try {
       localStorage.setItem(STORAGE_KEY, background);
-    } catch {
-      // ignore
-    }
+    } catch {}
   }, [background]);
 
   // ─── DARK MODE DETECTION ─────────────────────────────────────────
@@ -246,7 +247,8 @@ export function ThemeBackground({
 
   // ─── RESET IMAGE ERROR WHEN SOURCE CHANGES ───────────────────────
   const activeItem = useMemo(() => getThemeBackground(activeId), [activeId]);
-  const currentImage = isDark ? activeItem.dark : activeItem.light;
+  const isCssTheme = activeItem.isCss;
+  const currentImage = isCssTheme ? "" : (isDark ? activeItem.dark : activeItem.light);
 
   useEffect(() => {
     setImageError(false);
@@ -276,7 +278,6 @@ export function ThemeBackground({
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
 
-    // Focus first focusable element
     const raf = requestAnimationFrame(() => first?.focus());
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -314,10 +315,7 @@ export function ThemeBackground({
     setImageError(false);
     try {
       localStorage.setItem(STORAGE_KEY, id);
-    } catch {
-      // ignore
-    }
-    // Modal stays open so the user can preview several themes.
+    } catch {}
   }, []);
 
   const handleCloseModal = useCallback(() => setIsOpen(false), []);
@@ -325,38 +323,48 @@ export function ThemeBackground({
   // ─── RENDER ───────────────────────────────────────────────────────
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ─── BACKGROUND (cross-fade, no remount flicker) ─── */}
+      {/* ─── BACKGROUND ─── */}
       <div
         className="fixed inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
       >
         <AnimatePresence initial={false}>
           <motion.div
-            key={currentImage}
+            key={activeId}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="absolute inset-0"
+            className={`absolute inset-0 ${isCssTheme ? "bg-mesh-light dark:bg-mesh-dark bg-noise" : ""}`}
           >
-            {!imageError ? (
-              <Image
-                src={currentImage}
-                alt=""
-                fill
-                sizes="100vw"
-                className="object-cover"
-                onError={() => setImageError(true)}
-              />
+            {isCssTheme ? (
+              // ✅ CSS Ժամանակակից ֆոն
+              <div className="blob-container">
+                <div className="blob blob-1"></div>
+                <div className="blob blob-2"></div>
+                <div className="blob blob-3"></div>
+              </div>
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800" />
+              // ✅ Հին նկարներով ֆոն
+              !imageError ? (
+                <Image
+                  src={currentImage || ""}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800" />
+              )
             )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* ─── DARK MODE OVERLAY ─── */}
-      {isDark && (
+      {/* ─── DARK MODE OVERLAY (Միայն նկարների համար) ─── */}
+      {isDark && !isCssTheme && (
         <div
           className="fixed inset-0 -z-10 pointer-events-none bg-black/25"
           aria-hidden="true"
@@ -452,15 +460,25 @@ export function ThemeBackground({
                             }`}
                           >
                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-                              <Image
-                                src={bg.preview}
-                                alt={t(bg.titleKey)}
-                                fill
-                                sizes="(max-width: 640px) 50vw, 33vw"
-                                loading="lazy"
-                                decoding="async"
-                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                              />
+                              {bg.isCss ? (
+                                // ✅ CSS Ֆոնի փոքրիկ նախադիտում
+                                <div className="w-full h-full bg-mesh-light dark:bg-mesh-dark relative overflow-hidden">
+                                  <div className="absolute inset-0 bg-noise opacity-30"></div>
+                                  <div className="blob" style={{ width: '80px', height: '80px', background: '#fca5a5', top: '-10%', left: '-10%', filter: 'blur(20px)' }}></div>
+                                  <div className="blob" style={{ width: '100px', height: '100px', background: '#93c5fd', bottom: '-10%', right: '-10%', filter: 'blur(20px)' }}></div>
+                                </div>
+                              ) : (
+                                // ✅ Հին նկարի նախադիտում
+                                <Image
+                                  src={bg.preview || ""}
+                                  alt={t(bg.titleKey)}
+                                  fill
+                                  sizes="(max-width: 640px) 50vw, 33vw"
+                                  loading="lazy"
+                                  decoding="async"
+                                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                />
+                              )}
                               {isActive && (
                                 <div className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-500 flex items-center justify-center shadow-lg">
                                   <Check

@@ -92,7 +92,7 @@ export const viewport: Viewport = {
   width: "device-width", initialScale: 1, maximumScale: 5, userScalable: true,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#faf8f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0c12" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f172a" }, // ✅ Թարմացված գույն (համապատասխանում է նոր ֆոնին)
   ],
 };
 

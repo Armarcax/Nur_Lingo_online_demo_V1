@@ -193,7 +193,6 @@
     color-scheme: light dark;
   }
 
-  /* ✅ Միավորված body (օգտագործում է --font-current-ը) */
   body {
     font-family: var(--font-current); 
     font-weight: 400;
@@ -240,6 +239,75 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--color-text-muted); border-radius: 8px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--color-text-secondary); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎨 NEW MODERN BACKGROUNDS (Mesh + Noise + Blobs)
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* 1. Mesh Gradients */
+  .bg-mesh-light {
+    background-color: #faf8f6;
+    background-image: 
+      radial-gradient(at 10% 20%, hsla(340, 100%, 76%, 0.25) 0px, transparent 50%),
+      radial-gradient(at 90% 10%, hsla(190, 100%, 76%, 0.25) 0px, transparent 50%),
+      radial-gradient(at 50% 90%, hsla(40, 100%, 76%, 0.25) 0px, transparent 50%),
+      radial-gradient(at 10% 90%, hsla(280, 100%, 76%, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  .dark .bg-mesh-dark {
+    background-color: #0f172a;
+    background-image: 
+      radial-gradient(at 10% 20%, hsla(340, 80%, 60%, 0.12) 0px, transparent 50%),
+      radial-gradient(at 90% 10%, hsla(190, 80%, 60%, 0.12) 0px, transparent 50%),
+      radial-gradient(at 50% 90%, hsla(40, 80%, 60%, 0.12) 0px, transparent 50%),
+      radial-gradient(at 10% 90%, hsla(280, 80%, 60%, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* 2. Noise Texture */
+  .bg-noise::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -9;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* 3. Organic Blobs (Դանդաղ շարժվող գնդեր) */
+  @keyframes float-slow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  .blob-container {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float-slow 25s infinite ease-in-out;
+  }
+
+  .blob-1 { width: 400px; height: 400px; background: #fca5a5; top: -10%; left: -10%; }
+  .blob-2 { width: 500px; height: 500px; background: #93c5fd; bottom: -20%; right: -10%; animation-delay: -5s; }
+  .blob-3 { width: 350px; height: 350px; background: #fcd34d; top: 40%; left: 40%; animation-delay: -10s; }
+
+  .dark .blob-1 { background: #7f1d1d; opacity: 0.15; }
+  .dark .blob-2 { background: #1e3a8a; opacity: 0.15; }
+  .dark .blob-3 { background: #78350f; opacity: 0.15; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -707,6 +775,7 @@
 /* ─── PRINT ─── */
 @media print {
   .no-print { display: none !important; }
+  .blob-container, .bg-noise::before { display: none !important; } /* Թաքցնում ենք ֆոնը տպելիս */
   body { background: white !important; }
   .glass, .glass-premium, .glass-card { backdrop-filter: none !important; background: white !important; box-shadow: none !important; }
   .print-world { break-inside: avoid; }

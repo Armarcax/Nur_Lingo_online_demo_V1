@@ -57,3 +57,6 @@ data/dictionary/
 project-analysis/
 scripts-analysis/
 scripts-analysis/
+
+# Test reports
+test_reports/

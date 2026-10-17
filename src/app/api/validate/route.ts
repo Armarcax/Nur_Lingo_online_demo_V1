@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fullValidationWithAI } from "@/lib/ai/evaluator";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 // ─── LANGUAGE CODE TYPE GUARD ───────────────────────────────────────
 
@@ -41,6 +41,14 @@ function normalize(str: string): string {
   return str
     .trim()
     .toLowerCase()
+    // ─── Armenian ligature normalization ─────────────────────────
+    // Treat all 3 variants of "և" as the same:
+    //   և  (U+0587)          → եվ (U+0565 U+057E)
+    //   եւ  (U+0565 U+0582)  → եվ (U+0565 U+057E)
+    //   եվ  (U+0565 U+057E)  → եվ (already modern)
+    // This makes "բարև", "բարեւ", "բարեվ" all equal.
+    .replace(/\u0587/g, "\u0565\u057E")           // և → եվ
+    .replace(/\u0565\u0582/g, "\u0565\u057E")     // եւ → եվ
     // Remove quote characters from all supported languages
     .replace(/[«»""''`´ʻʽ՚՛՜՝՞„‟‹›]/g, "")
     // Collapse whitespace

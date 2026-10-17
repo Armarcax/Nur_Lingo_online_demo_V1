@@ -1129,7 +1129,9 @@
     "theme_pistol": "Ատրճանակ",
     "theme_im": "Ես եմ",
     "theme_yinYangSwan": "Յին և Յան կարապներ",
-    "theme_modern_mesh": "Ժամանակակից"
+    "theme_modern_mesh": "Ժամանակակից",
+    "theme_aurora": "Բևեռափայլ",
+    "theme_grid": "Ցանց"
   },
 
 
@@ -2260,7 +2262,9 @@
     "theme_pistol": "Pistol",
     "theme_im": "I'm",
     "theme_yinYangSwan": "Yin-Yang Swans",
-    "theme_modern_mesh": "Modern"
+    "theme_modern_mesh": "Modern",
+    "theme_aurora": "Aurora",
+    "theme_grid": "Grid"
   },
 
 
@@ -3391,6 +3395,8 @@
     "theme_pistol": "Пистолет",
     "theme_im": "Я",
     "theme_yinYangSwan": "Лебеди Инь-Ян",
-    "theme_modern_mesh": "Современный"
+    "theme_modern_mesh": "Современный",
+    "theme_aurora": "Полярное сияние",
+    "theme_grid": "Сетка"
   }
 }

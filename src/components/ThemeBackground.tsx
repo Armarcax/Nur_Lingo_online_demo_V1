@@ -25,7 +25,8 @@ export interface ThemeBackgroundItem {
   dark?: string;
   light?: string;
   preview?: string;
-  isCss?: boolean;
+  cssClass?: string; // ✅ Ավելացվել է CSS ֆոների համար
+  hasBlobs?: boolean;
 }
 
 // ─── DATA ─────────────────────────────────────────────────────────────
@@ -34,8 +35,21 @@ export const THEME_BACKGROUNDS: ReadonlyArray<ThemeBackgroundItem> =
   Object.freeze([
     {
       id: "modernMesh",
-      titleKey: "theme_modern_mesh", // ✅ Նոր CSS ֆոնը
-      isCss: true,
+      titleKey: "theme_modern_mesh",
+      cssClass: "bg-mesh-light dark:bg-mesh-dark bg-noise",
+      hasBlobs: true,
+    },
+    {
+      id: "aurora",
+      titleKey: "theme_aurora",
+      cssClass: "bg-aurora-light dark:bg-aurora",
+      hasBlobs: false,
+    },
+    {
+      id: "grid",
+      titleKey: "theme_grid",
+      cssClass: "bg-grid bg-[#faf8f6] dark:bg-[#0f172a]",
+      hasBlobs: false,
     },
     {
       id: "pomegranate",
@@ -147,7 +161,7 @@ export const THEME_BACKGROUNDS: ReadonlyArray<ThemeBackgroundItem> =
 // ─── HELPERS ──────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "nurlingo_background_id";
-const DEFAULT_BACKGROUND_ID = "modernMesh"; // Որպես լռելյայն դարձնում ենք նորը
+const DEFAULT_BACKGROUND_ID = "modernMesh";
 
 export function getThemeBackground(id: string): ThemeBackgroundItem {
   return (
@@ -161,17 +175,14 @@ function getInitialBackgroundId(background?: string): string {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && THEME_BACKGROUNDS.some((b) => b.id === saved)) return saved;
-  } catch {
-    // ignore
-  }
+  } catch {}
   return DEFAULT_BACKGROUND_ID;
 }
 
-/** Preload all theme images once so switching is instant. */
 function preloadAllBackgrounds() {
   if (typeof window === "undefined") return;
   for (const bg of THEME_BACKGROUNDS) {
-    if (bg.isCss) continue; // ✅ Բաց ենք թողնում CSS ֆոնը
+    if (bg.cssClass) continue;
     for (const src of [bg.dark, bg.light, bg.preview]) {
       if (src) {
         const img = new window.Image();
@@ -202,9 +213,7 @@ export function ThemeBackground({
   showSelector = true,
 }: ThemeBackgroundProps) {
   const { t, locale } = useI18n();
-
-  const activeLanguage: AppLanguage =
-    language ?? ((locale as AppLanguage) || "hy");
+  const activeLanguage: AppLanguage = language ?? ((locale as AppLanguage) || "hy");
 
   const [activeId, setActiveId] = useState<string>(() =>
     getInitialBackgroundId(background)
@@ -216,81 +225,50 @@ export function ThemeBackground({
   const dialogRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
-  // ─── SYNC background PROP ↔ STORAGE ──────────────────────────────
   useEffect(() => {
     if (!background) return;
     setActiveId(background);
     setImageError(false);
-    try {
-      localStorage.setItem(STORAGE_KEY, background);
-    } catch {}
+    try { localStorage.setItem(STORAGE_KEY, background); } catch {}
   }, [background]);
 
-  // ─── DARK MODE DETECTION ─────────────────────────────────────────
   useEffect(() => {
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
+    const checkTheme = () => setIsDark(document.documentElement.classList.contains("dark"));
     checkTheme();
     const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
   }, []);
 
-  // ─── PRELOAD IMAGES ONCE ─────────────────────────────────────────
-  useEffect(() => {
-    preloadAllBackgrounds();
-  }, []);
+  useEffect(() => { preloadAllBackgrounds(); }, []);
 
-  // ─── RESET IMAGE ERROR WHEN SOURCE CHANGES ───────────────────────
   const activeItem = useMemo(() => getThemeBackground(activeId), [activeId]);
-  const isCssTheme = activeItem.isCss;
+  const isCssTheme = !!activeItem.cssClass;
   const currentImage = isCssTheme ? "" : (isDark ? activeItem.dark : activeItem.light);
 
-  useEffect(() => {
-    setImageError(false);
-  }, [currentImage]);
+  useEffect(() => { setImageError(false); }, [currentImage]);
 
-  // ─── ESCAPE KEY CLOSES MODAL ─────────────────────────────────────
   useEffect(() => {
     if (!isOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === "Escape") setIsOpen(false); };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
 
-  // ─── FOCUS TRAP + FOCUS RESTORE ──────────────────────────────────
   useEffect(() => {
     if (!isOpen) return;
-
     previousFocusRef.current = document.activeElement as HTMLElement | null;
     const dialog = dialogRef.current;
     if (!dialog) return;
-
-    const focusable = dialog.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    const focusable = dialog.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
-
     const raf = requestAnimationFrame(() => first?.focus());
-
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab" || focusable.length === 0) return;
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last?.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first?.focus();
-      }
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
     };
-
     dialog.addEventListener("keydown", onKeyDown);
     return () => {
       cancelAnimationFrame(raf);
@@ -299,35 +277,24 @@ export function ThemeBackground({
     };
   }, [isOpen]);
 
-  // ─── LOCK BODY SCROLL WHILE MODAL IS OPEN ────────────────────────
   useEffect(() => {
     if (!isOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return () => { document.body.style.overflow = prev; };
   }, [isOpen]);
 
-  // ─── HANDLERS ─────────────────────────────────────────────────────
   const changeBackground = useCallback((id: string) => {
     setActiveId(id);
     setImageError(false);
-    try {
-      localStorage.setItem(STORAGE_KEY, id);
-    } catch {}
+    try { localStorage.setItem(STORAGE_KEY, id); } catch {}
   }, []);
 
   const handleCloseModal = useCallback(() => setIsOpen(false), []);
 
-  // ─── RENDER ───────────────────────────────────────────────────────
   return (
     <div className={`relative min-h-screen ${className}`}>
-      {/* ─── BACKGROUND ─── */}
-      <div
-        className="fixed inset-0 -z-10 pointer-events-none"
-        aria-hidden="true"
-      >
+      <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
         <AnimatePresence initial={false}>
           <motion.div
             key={activeId}
@@ -335,17 +302,17 @@ export function ThemeBackground({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className={`absolute inset-0 ${isCssTheme ? "bg-mesh-light dark:bg-mesh-dark bg-noise" : ""}`}
+            className={`absolute inset-0 ${activeItem.cssClass || ""}`}
           >
             {isCssTheme ? (
-              // ✅ CSS Ժամանակակից ֆոն
-              <div className="blob-container">
-                <div className="blob blob-1"></div>
-                <div className="blob blob-2"></div>
-                <div className="blob blob-3"></div>
-              </div>
+              activeItem.hasBlobs ? (
+                <div className="blob-container">
+                  <div className="blob blob-1"></div>
+                  <div className="blob blob-2"></div>
+                  <div className="blob blob-3"></div>
+                </div>
+              ) : null
             ) : (
-              // ✅ Հին նկարներով ֆոն
               !imageError ? (
                 <Image
                   src={currentImage || ""}
@@ -363,18 +330,12 @@ export function ThemeBackground({
         </AnimatePresence>
       </div>
 
-      {/* ─── DARK MODE OVERLAY (Միայն նկարների համար) ─── */}
       {isDark && !isCssTheme && (
-        <div
-          className="fixed inset-0 -z-10 pointer-events-none bg-black/25"
-          aria-hidden="true"
-        />
+        <div className="fixed inset-0 -z-10 pointer-events-none bg-black/25" aria-hidden="true" />
       )}
 
-      {/* ─── CONTENT ─── */}
       {children}
 
-      {/* ─── PALETTE BUTTON + MODAL ─── */}
       {showSelector && (
         <>
           <button
@@ -412,21 +373,14 @@ export function ThemeBackground({
                   onClick={(e) => e.stopPropagation()}
                   className="w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/20 dark:border-gray-700 shadow-2xl flex flex-col"
                 >
-                  {/* ─── HEADER ─── */}
                   <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center gap-2">
                       <Palette size={20} className="text-red-500" />
                       <div>
-                        <h3
-                          id="theme-bg-title"
-                          className="font-bold text-gray-900 dark:text-white"
-                        >
+                        <h3 id="theme-bg-title" className="font-bold text-gray-900 dark:text-white">
                           {t("theme_background_title")}
                         </h3>
-                        <p
-                          id="theme-bg-subtitle"
-                          className="text-xs text-gray-500 dark:text-gray-400"
-                        >
+                        <p id="theme-bg-subtitle" className="text-xs text-gray-500 dark:text-gray-400">
                           {t("theme_background_subtitle")}
                         </p>
                       </div>
@@ -441,7 +395,6 @@ export function ThemeBackground({
                     </button>
                   </div>
 
-                  {/* ─── GRID ─── */}
                   <div className="p-5 overflow-y-auto">
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {THEME_BACKGROUNDS.map((bg) => {
@@ -460,15 +413,17 @@ export function ThemeBackground({
                             }`}
                           >
                             <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
-                              {bg.isCss ? (
-                                // ✅ CSS Ֆոնի փոքրիկ նախադիտում
-                                <div className="w-full h-full bg-mesh-light dark:bg-mesh-dark relative overflow-hidden">
-                                  <div className="absolute inset-0 bg-noise opacity-30"></div>
-                                  <div className="blob" style={{ width: '80px', height: '80px', background: '#fca5a5', top: '-10%', left: '-10%', filter: 'blur(20px)' }}></div>
-                                  <div className="blob" style={{ width: '100px', height: '100px', background: '#93c5fd', bottom: '-10%', right: '-10%', filter: 'blur(20px)' }}></div>
+                              {bg.cssClass ? (
+                                <div className={`w-full h-full relative overflow-hidden ${bg.cssClass}`}>
+                                  {bg.hasBlobs && (
+                                    <>
+                                      <div className="absolute inset-0 bg-noise opacity-30"></div>
+                                      <div className="blob" style={{ width: '80px', height: '80px', background: '#fca5a5', top: '-10%', left: '-10%', filter: 'blur(20px)' }}></div>
+                                      <div className="blob" style={{ width: '100px', height: '100px', background: '#93c5fd', bottom: '-10%', right: '-10%', filter: 'blur(20px)' }}></div>
+                                    </>
+                                  )}
                                 </div>
                               ) : (
-                                // ✅ Հին նկարի նախադիտում
                                 <Image
                                   src={bg.preview || ""}
                                   alt={t(bg.titleKey)}
@@ -481,11 +436,7 @@ export function ThemeBackground({
                               )}
                               {isActive && (
                                 <div className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-red-500 flex items-center justify-center shadow-lg">
-                                  <Check
-                                    size={14}
-                                    className="text-white"
-                                    strokeWidth={3}
-                                  />
+                                  <Check size={14} className="text-white" strokeWidth={3} />
                                 </div>
                               )}
                             </div>
@@ -500,7 +451,6 @@ export function ThemeBackground({
                     </div>
                   </div>
 
-                  {/* ─── FOOTER (Apply / Done) ─── */}
                   <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                     <button
                       type="button"

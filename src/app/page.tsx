@@ -559,9 +559,9 @@ export default function Home() {
           mood={nuriMood}
         />
 
-        {/* ─── TITLE ─── */}
+        {/* ─── TITLE (✨ Text Shimmer Effect) ─── */}
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mt-4 mb-1">
-          <span className="bg-gradient-to-r from-[var(--palette-primary)] via-[var(--palette-accent)] to-[#0033A0] bg-clip-text text-transparent">
+          <span className="text-shimmer">
             NUR Lingo
           </span>
         </h1>
@@ -609,11 +609,11 @@ export default function Home() {
           </div>
         )}
 
-        {/* ─── MAIN BUTTON ─── */}
+        {/* ─── MAIN BUTTON (✨ Glow Edge Effect) ─── */}
         <div className="w-full max-w-sm">
           <Link
             href={isReturning ? "/world" : "/onboarding"}
-            className="w-full bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-[var(--palette-primary-dim)] text-lg backdrop-blur-soft group"
+            className="glow-edge w-full bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-[var(--palette-primary-dim)] text-lg backdrop-blur-soft group"
           >
             <Sparkles
               size={22}

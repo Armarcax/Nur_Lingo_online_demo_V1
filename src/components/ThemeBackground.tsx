@@ -345,7 +345,6 @@ export function ThemeBackground({
                 alt=""
                 fill
                 sizes="100vw"
-                priority
                 className="object-cover"
                 onError={() => setImageError(true)}
               />

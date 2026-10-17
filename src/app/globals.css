@@ -143,9 +143,7 @@
 
 /* ─── RESET & BASE ─── */
 @layer base {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
@@ -158,6 +156,7 @@
     color-scheme: light dark;
   }
 
+  /* ✅ Միավորված body (հիմնական ձևաչափում և գույն) */
   body {
     font-family: var(--font-armenian), var(--font-inter), system-ui, sans-serif;
     font-weight: 400;
@@ -169,30 +168,21 @@
     overflow-x: hidden;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-armenian), var(--font-inter), system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--color-text);
   }
 
-  code,
-  pre,
-  .font-mono {
+  code, pre, .font-mono {
     font-family: var(--font-mono), "Courier New", monospace;
   }
 
-  /* Armenian typography */
   :lang(hy) {
     font-feature-settings: "kern" 1;
   }
 
-  /* Focus ring — consistent across themes */
   :focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
@@ -204,161 +194,67 @@
     color: #ffffff;
   }
 
-  /* Scrollbar — modern + fallback */
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-text-muted) transparent;
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-text-muted);
-    border-radius: 8px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-text-secondary);
-  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-text-muted); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-text-secondary); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   TEXT COLORS — Theme-aware
+   TEXT COLORS — Theme-aware (Force overrides)
    ─────────────────────────────────────────────────────────────────
-   STRATEGY:
-   1. Base text color = var(--color-text)  [black/off-black in light,
-                                            off-white in dark]
-   2. Inherit by default — children automatically follow body.
-   3. Override ONLY hardcoded Tailwind classes that break theming.
-   4. PRESERVE all colored accents (red, blue, green, yellow, etc.)
-   5. PRESERVE white text on colored backgrounds (buttons, badges).
+   Այս բլոկը պարունակում է !important-ներ, որոնք անհրաժեշտ են,
+   որպեսզի Tailwind-ի hardcoded դասերը չկոտրեն Light/Dark Mode-ը։
    ═══════════════════════════════════════════════════════════════════ */
 
-@layer base {
-  /* ─── 1. Base text color — inherits automatically ─── */
-  body {
-    color: var(--color-text);
-  }
-
-  /* Headings inherit too */
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--color-text);
-  }
-
-  /* Form elements */
-  input, textarea, select {
-    color: var(--color-text);
-  }
-
-  /* Links — theme-aware */
-  a:not([class*="text-"]) {
-    color: inherit;
-  }
-}
-
 @layer utilities {
-  /* ─── 2. Hardcoded Tailwind overrides ───
-     These classes appear in legacy code and break theming.
-     We force them to use the semantic token instead. */
-
-  /* Dark text → theme text (in dark mode becomes light) */
-  .text-black,
-  .text-gray-900,
-  .text-gray-800,
-  .text-gray-700,
-  .text-slate-900,
-  .text-slate-800,
-  .text-slate-700,
-  .text-zinc-900,
-  .text-zinc-800,
-  .text-neutral-900,
-  .text-neutral-800 {
+  /* 1. Base overrides */
+  .text-black, .text-gray-900, .text-gray-800, .text-gray-700,
+  .text-slate-900, .text-slate-800, .text-slate-700, .text-zinc-900,
+  .text-zinc-800, .text-neutral-900, .text-neutral-800 {
     color: var(--color-text) !important;
   }
 
-  /* Muted gray → secondary text */
-  .text-gray-600,
-  .text-gray-500,
-  .text-slate-600,
-  .text-slate-500,
-  .text-zinc-600,
-  .text-zinc-500 {
+  .text-gray-600, .text-gray-500, .text-slate-600, .text-slate-500,
+  .text-zinc-600, .text-zinc-500 {
     color: var(--color-text-secondary) !important;
   }
 
-  /* Light gray → muted text */
-  .text-gray-400,
-  .text-gray-300,
-  .text-slate-400,
-  .text-slate-300 {
+  .text-gray-400, .text-gray-300, .text-slate-400, .text-slate-300 {
     color: var(--color-text-muted) !important;
   }
 
-  /* ─── 3. text-white handling ───
-     PROBLEM: text-white is used in 2 contexts:
-       (a) On colored backgrounds (buttons) — MUST stay white
-       (b) On transparent backgrounds — should follow theme
-
-     SOLUTION: Default text-white → theme text.
-     Then preserve white ONLY where parent has colored bg. */
-
+  /* 2. text-white handling */
   .text-white {
     color: var(--color-text) !important;
   }
 
   /* Preserve white on solid colored backgrounds */
-  .bg-red-500 > .text-white,
-  .bg-red-600 > .text-white,
-  .bg-blue-500 > .text-white,
-  .bg-blue-600 > .text-white,
-  .bg-green-500 > .text-white,
-  .bg-emerald-500 > .text-white,
-  .bg-yellow-500 > .text-white,
-  .bg-orange-500 > .text-white,
-  .bg-purple-500 > .text-white,
-  .bg-pink-500 > .text-white,
-  .bg-indigo-500 > .text-white,
-  .bg-primary > .text-white,
-  .bg-gradient-to-r > .text-white,
-  .bg-gradient-to-br > .text-white,
-  [class*="from-[#D90012]"] .text-white,
-  [class*="from-[#FFA500]"] .text-white {
+  .bg-red-500 > .text-white, .bg-red-600 > .text-white, .bg-blue-500 > .text-white,
+  .bg-blue-600 > .text-white, .bg-green-500 > .text-white, .bg-emerald-500 > .text-white,
+  .bg-yellow-500 > .text-white, .bg-orange-500 > .text-white, .bg-purple-500 > .text-white,
+  .bg-pink-500 > .text-white, .bg-indigo-500 > .text-white, .bg-primary > .text-white,
+  .bg-gradient-to-r > .text-white, .bg-gradient-to-br > .text-white,
+  [class*="from-[#D90012]"] .text-white, [class*="from-[#FFA500]"] .text-white {
     color: #ffffff !important;
   }
 
-  /* Same for direct combination (single element) */
-  .bg-red-500.text-white,
-  .bg-red-600.text-white,
-  .bg-blue-500.text-white,
-  .bg-blue-600.text-white,
-  .bg-green-500.text-white,
-  .bg-emerald-500.text-white,
-  .bg-yellow-500.text-white,
-  .bg-orange-500.text-white,
-  .bg-purple-500.text-white,
-  .bg-pink-500.text-white,
-  .bg-indigo-500.text-white,
-  .bg-primary.text-white,
-  .bg-gradient-to-r.text-white,
-  .bg-gradient-to-br.text-white {
-    color: #ffffff !important;
-  }
-
-  /* Buttons always keep white text when they have a colored bg */
-  button[class*="bg-"].text-white,
-  a[class*="bg-"].text-white,
+  .bg-red-500.text-white, .bg-red-600.text-white, .bg-blue-500.text-white,
+  .bg-blue-600.text-white, .bg-green-500.text-white, .bg-emerald-500.text-white,
+  .bg-yellow-500.text-white, .bg-orange-500.text-white, .bg-purple-500.text-white,
+  .bg-pink-500.text-white, .bg-indigo-500.text-white, .bg-primary.text-white,
+  .bg-gradient-to-r.text-white, .bg-gradient-to-br.text-white,
+  button[class*="bg-"].text-white, a[class*="bg-"].text-white,
   [role="button"][class*="bg-"].text-white {
     color: #ffffff !important;
   }
 
-  /* ─── 4. text-white/X opacity classes ─── */
+  /* 3. text-white/X opacity classes */
   html:not(.dark) .text-white\/70 { color: rgba(10, 10, 26, 0.75) !important; }
   html:not(.dark) .text-white\/60 { color: rgba(10, 10, 26, 0.65) !important; }
   html:not(.dark) .text-white\/50 { color: rgba(10, 10, 26, 0.55) !important; }
@@ -374,97 +270,67 @@
   .dark .text-white\/30 { color: rgba(255, 255, 255, 0.35) !important; }
   .dark .text-white\/20 { color: rgba(255, 255, 255, 0.25) !important; }
   .dark .text-white\/10 { color: rgba(255, 255, 255, 0.15) !important; }
-}
 
-/* ─── 5. PRESERVE colored accents ───
-   These rules come LAST so they have higher priority in cascade.
-   They ensure colored text stays colored in both themes. */
-
-@layer utilities {
-  /* RED */
+  /* 4. PRESERVE colored accents */
   .text-red-400 { color: #f87171 !important; }
   .text-red-500 { color: #ef4444 !important; }
   .text-red-600 { color: #dc2626 !important; }
-  html:not(.dark) .text-red-400 { color: #dc2626 !important; }
-  html:not(.dark) .text-red-500 { color: #dc2626 !important; }
+  html:not(.dark) .text-red-400, html:not(.dark) .text-red-500 { color: #dc2626 !important; }
 
-  /* BLUE */
   .text-blue-400 { color: #60a5fa !important; }
   .text-blue-500 { color: #3b82f6 !important; }
   .text-blue-600 { color: #2563eb !important; }
-  html:not(.dark) .text-blue-400 { color: #2563eb !important; }
-  html:not(.dark) .text-blue-500 { color: #2563eb !important; }
+  html:not(.dark) .text-blue-400, html:not(.dark) .text-blue-500 { color: #2563eb !important; }
 
-  /* GREEN */
   .text-green-400 { color: #4ade80 !important; }
   .text-green-500 { color: #22c55e !important; }
   .text-green-600 { color: #16a34a !important; }
-  html:not(.dark) .text-green-400 { color: #16a34a !important; }
-  html:not(.dark) .text-green-500 { color: #16a34a !important; }
+  html:not(.dark) .text-green-400, html:not(.dark) .text-green-500 { color: #16a34a !important; }
 
-  /* EMERALD */
   .text-emerald-400 { color: #34d399 !important; }
   .text-emerald-500 { color: #10b981 !important; }
   .text-emerald-600 { color: #059669 !important; }
-  html:not(.dark) .text-emerald-400 { color: #059669 !important; }
-  html:not(.dark) .text-emerald-500 { color: #059669 !important; }
+  html:not(.dark) .text-emerald-400, html:not(.dark) .text-emerald-500 { color: #059669 !important; }
 
-  /* YELLOW */
   .text-yellow-400 { color: #facc15 !important; }
   .text-yellow-500 { color: #eab308 !important; }
   .text-yellow-600 { color: #ca8a04 !important; }
-  html:not(.dark) .text-yellow-400 { color: #ca8a04 !important; }
-  html:not(.dark) .text-yellow-500 { color: #ca8a04 !important; }
+  html:not(.dark) .text-yellow-400, html:not(.dark) .text-yellow-500 { color: #ca8a04 !important; }
 
-  /* AMBER */
   .text-amber-400 { color: #fbbf24 !important; }
   .text-amber-500 { color: #f59e0b !important; }
   .text-amber-600 { color: #d97706 !important; }
-  html:not(.dark) .text-amber-400 { color: #d97706 !important; }
-  html:not(.dark) .text-amber-500 { color: #d97706 !important; }
+  html:not(.dark) .text-amber-400, html:not(.dark) .text-amber-500 { color: #d97706 !important; }
 
-  /* ORANGE */
   .text-orange-400 { color: #fb923c !important; }
   .text-orange-500 { color: #f97316 !important; }
   .text-orange-600 { color: #ea580c !important; }
-  html:not(.dark) .text-orange-400 { color: #ea580c !important; }
-  html:not(.dark) .text-orange-500 { color: #ea580c !important; }
+  html:not(.dark) .text-orange-400, html:not(.dark) .text-orange-500 { color: #ea580c !important; }
 
-  /* PURPLE */
   .text-purple-400 { color: #c084fc !important; }
   .text-purple-500 { color: #a855f7 !important; }
   .text-purple-600 { color: #9333ea !important; }
-  html:not(.dark) .text-purple-400 { color: #9333ea !important; }
-  html:not(.dark) .text-purple-500 { color: #9333ea !important; }
+  html:not(.dark) .text-purple-400, html:not(.dark) .text-purple-500 { color: #9333ea !important; }
 
-  /* INDIGO */
   .text-indigo-400 { color: #818cf8 !important; }
   .text-indigo-500 { color: #6366f1 !important; }
   .text-indigo-600 { color: #4f46e5 !important; }
-  html:not(.dark) .text-indigo-400 { color: #4f46e5 !important; }
-  html:not(.dark) .text-indigo-500 { color: #4f46e5 !important; }
+  html:not(.dark) .text-indigo-400, html:not(.dark) .text-indigo-500 { color: #4f46e5 !important; }
 
-  /* PINK / ROSE */
   .text-pink-400 { color: #f472b6 !important; }
   .text-pink-500 { color: #ec4899 !important; }
   .text-rose-400 { color: #fb7185 !important; }
   .text-rose-500 { color: #f43f5e !important; }
-  html:not(.dark) .text-pink-400 { color: #db2777 !important; }
-  html:not(.dark) .text-pink-500 { color: #db2777 !important; }
-  html:not(.dark) .text-rose-400 { color: #e11d48 !important; }
-  html:not(.dark) .text-rose-500 { color: #e11d48 !important; }
+  html:not(.dark) .text-pink-400, html:not(.dark) .text-pink-500 { color: #db2777 !important; }
+  html:not(.dark) .text-rose-400, html:not(.dark) .text-rose-500 { color: #e11d48 !important; }
 
-  /* CYAN / TEAL */
   .text-cyan-400 { color: #22d3ee !important; }
   .text-cyan-500 { color: #06b6d4 !important; }
   .text-teal-400 { color: #2dd4bf !important; }
   .text-teal-500 { color: #14b8a6 !important; }
-  html:not(.dark) .text-cyan-400 { color: #0891b2 !important; }
-  html:not(.dark) .text-cyan-500 { color: #0891b2 !important; }
-  html:not(.dark) .text-teal-400 { color: #0d9488 !important; }
-  html:not(.dark) .text-teal-500 { color: #0d9488 !important; }
+  html:not(.dark) .text-cyan-400, html:not(.dark) .text-cyan-500 { color: #0891b2 !important; }
+  html:not(.dark) .text-teal-400, html:not(.dark) .text-teal-500 { color: #0d9488 !important; }
 
-  /* Armenian tricolor */
   html:not(.dark) .text-\[\#D90012\] { color: #d90012 !important; }
   html:not(.dark) .text-\[\#0033A0\] { color: #0033a0 !important; }
   html:not(.dark) .text-\[\#F2A800\] { color: #c47c00 !important; }
@@ -502,17 +368,13 @@
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .dark .glass-premium {
     background: rgba(17, 17, 17, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .glass-card {
@@ -553,26 +415,11 @@
     margin: 0 auto;
     padding: 0 1rem;
   }
-
-  @media (min-width: 640px) {
-    .container-main {
-      padding: 0 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container-main {
-      padding: 0 2rem;
-    }
-  }
+  @media (min-width: 640px) { .container-main { padding: 0 1.5rem; } }
+  @media (min-width: 1024px) { .container-main { padding: 0 2rem; } }
 
   .flag-stripe {
-    background: linear-gradient(
-      90deg,
-      #d90012 0% 33.3%,
-      #0033a0 33.3% 66.6%,
-      #f2a800 66.6% 100%
-    );
+    background: linear-gradient(90deg, #d90012 0% 33.3%, #0033a0 33.3% 66.6%, #f2a800 66.6% 100%);
   }
 }
 
@@ -583,17 +430,8 @@
     background: linear-gradient(135deg, #d90012, #a00028);
     box-shadow: 0 4px 24px rgba(217, 0, 18, 0.3);
   }
-
-  .btn-primary:hover {
-    filter: brightness(1.08);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 32px rgba(217, 0, 18, 0.4);
-  }
-
-  .btn-primary:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
+  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 6px 32px rgba(217, 0, 18, 0.4); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
 
   .btn-secondary {
     @apply px-6 py-3 rounded-xl font-medium transition-all active:scale-[0.97];
@@ -603,10 +441,7 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-
-  .btn-secondary:hover {
-    background: var(--color-card);
-  }
+  .btn-secondary:hover { background: var(--color-card); }
 
   .btn-orange {
     @apply px-5 py-2.5 rounded-xl font-semibold text-sm transition-all active:scale-95;
@@ -620,11 +455,7 @@
     color: #1a1a1a;
     box-shadow: 0 4px 24px rgba(242, 168, 0, 0.3);
   }
-
-  .btn-accent:hover {
-    filter: brightness(1.05);
-    transform: translateY(-1px);
-  }
+  .btn-accent:hover { filter: brightness(1.05); transform: translateY(-1px); }
 
   .btn-ghost {
     @apply px-4 py-2 rounded-xl text-sm transition-all;
@@ -634,21 +465,14 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-
-  .btn-ghost:hover {
-    color: var(--color-text);
-  }
+  .btn-ghost:hover { color: var(--color-text); }
 
   .btn-check {
     @apply px-4 py-2 rounded-xl font-semibold text-sm transition-all active:scale-95;
     background: linear-gradient(135deg, #d90012, #0033a0);
     color: white;
   }
-
-  .btn-check:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
+  .btn-check:disabled { opacity: 0.35; cursor: not-allowed; }
 }
 
 /* ─── CARDS ─── */
@@ -661,24 +485,11 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
+  .card:hover { border-color: rgba(217, 0, 18, 0.18); }
 
-  .card:hover {
-    border-color: rgba(217, 0, 18, 0.18);
-  }
-
-  .card-3d {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .card-3d:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  }
-
-  .dark .card-3d:hover {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
+  .card-3d { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .card-3d:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12); }
+  .dark .card-3d:hover { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
 
   .exercise-card {
     background: var(--color-card);
@@ -689,10 +500,7 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
-
-  .exercise-card:hover {
-    border-color: var(--color-primary-dim);
-  }
+  .exercise-card:hover { border-color: var(--color-primary-dim); }
 }
 
 /* ─── INPUTS ─── */
@@ -706,21 +514,10 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
+  .answer-input:focus { border-color: rgba(242, 168, 0, 0.4); }
+  .answer-input::placeholder { color: var(--color-text-muted); }
 
-  .answer-input:focus {
-    border-color: rgba(242, 168, 0, 0.4);
-  }
-
-  .answer-input::placeholder {
-    color: var(--color-text-muted);
-  }
-
-  /* iOS: prevent input zoom on focus */
-  input,
-  textarea,
-  select {
-    font-size: max(16px, 1em);
-  }
+  input, textarea, select { font-size: max(16px, 1em); }
 }
 
 /* ─── WORD CHIPS ─── */
@@ -733,20 +530,9 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-
-  .word-chip:hover {
-    border-color: var(--color-primary-dim);
-    transform: translateY(-1px);
-  }
-
-  .word-chip:active {
-    transform: scale(0.97);
-  }
-
-  .word-chip.selected {
-    border-color: var(--color-primary);
-    background: var(--color-primary-dim);
-  }
+  .word-chip:hover { border-color: var(--color-primary-dim); transform: translateY(-1px); }
+  .word-chip:active { transform: scale(0.97); }
+  .word-chip.selected { border-color: var(--color-primary); background: var(--color-primary-dim); }
 
   .word-chip-available {
     @apply px-3 py-1.5 rounded-xl text-sm font-medium transition-all active:scale-95 cursor-pointer select-none;
@@ -754,10 +540,7 @@
     border: 1px solid rgba(0, 51, 160, 0.3);
     color: #4a63c8;
   }
-
-  .dark .word-chip-available {
-    color: #a0b4ff;
-  }
+  .dark .word-chip-available { color: #a0b4ff; }
 
   .word-chip-selected {
     @apply px-3 py-1.5 rounded-xl text-sm font-medium transition-all active:scale-95 cursor-pointer select-none;
@@ -765,35 +548,15 @@
     border: 1px solid rgba(242, 168, 0, 0.35);
     color: #b87c00;
   }
-
-  .dark .word-chip-selected {
-    color: #f2a800;
-  }
+  .dark .word-chip-selected { color: #f2a800; }
 }
 
 /* ─── FEEDBACK ─── */
 @layer components {
-  .feedback-correct {
-    border-top: 2px solid #f2a800;
-    background: rgba(220, 255, 220, 0.97);
-    color: #1a4a1a;
-  }
-
-  .dark .feedback-correct {
-    background: rgba(15, 50, 25, 0.97);
-    color: #d0ffd0;
-  }
-
-  .feedback-wrong {
-    border-top: 2px solid var(--hy-red);
-    background: rgba(255, 220, 220, 0.97);
-    color: #4a1a1a;
-  }
-
-  .dark .feedback-wrong {
-    background: rgba(50, 10, 10, 0.97);
-    color: #ffd0d0;
-  }
+  .feedback-correct { border-top: 2px solid #f2a800; background: rgba(220, 255, 220, 0.97); color: #1a4a1a; }
+  .dark .feedback-correct { background: rgba(15, 50, 25, 0.97); color: #d0ffd0; }
+  .feedback-wrong { border-top: 2px solid var(--hy-red); background: rgba(255, 220, 220, 0.97); color: #4a1a1a; }
+  .dark .feedback-wrong { background: rgba(50, 10, 10, 0.97); color: #ffd0d0; }
 }
 
 /* ─── DIALOGUE BUBBLES ─── */
@@ -805,7 +568,6 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-
   .dialogue-bubble-r {
     @apply rounded-2xl rounded-tr-sm p-3.5 text-sm;
     background: rgba(217, 0, 18, 0.1);
@@ -822,16 +584,12 @@
     background: var(--color-primary-dim);
     color: var(--color-primary);
   }
-
   .badge-accent {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
     background: rgba(242, 168, 0, 0.15);
     color: #b87c00;
   }
-
-  .dark .badge-accent {
-    color: #f2a800;
-  }
+  .dark .badge-accent { color: #f2a800; }
 
   .hayq-chip {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold;
@@ -839,246 +597,80 @@
     color: #b87c00;
     border: 1px solid rgba(242, 168, 0, 0.25);
   }
-
-  .dark .hayq-chip {
-    color: #f2a800;
-  }
+  .dark .hayq-chip { color: #f2a800; }
 }
 
 /* ─── 3D FLIP ─── */
 @layer utilities {
-  .perspective {
-    perspective: 1000px;
-  }
-
-  .transform-style-3d {
-    transform-style: preserve-3d;
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
+  .perspective { perspective: 1000px; }
+  .transform-style-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+  .rotate-y-180 { transform: rotateY(180deg); }
 }
 
 /* ─── ANIMATIONS ─── */
 @layer base {
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.82); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes nuriFloat {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-8px) rotate(2deg); }
-  }
-
-  @keyframes confettiFall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-1deg); }
-    50% { transform: translateY(-12px) rotate(1deg); }
-  }
-
-  @keyframes slideUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulseSoft {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  @keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1) rotate(180deg); }
-  }
-
-  @keyframes mascot-bounce {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-10px) rotate(2deg); }
-  }
-
-  @keyframes letterFall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(calc(100vh + 50px)) rotate(720deg); opacity: 0; }
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes nuriGlow {
-    0%, 100% { filter: drop-shadow(0 0 20px rgba(217, 0, 18, 0.15)); }
-    50% { filter: drop-shadow(0 0 40px rgba(217, 0, 18, 0.3)); }
-  }
-
-  @keyframes nuriThink {
-    0%, 100% { transform: rotate(-3deg) scale(1); }
-    50% { transform: rotate(3deg) scale(1.02); }
-  }
-
-  @keyframes nuriSleepy {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(0.95); }
-  }
-
-  @keyframes nuriCelebrate {
-    0%, 100% { transform: rotate(-5deg) scale(1); }
-    25% { transform: rotate(5deg) scale(1.05); }
-    50% { transform: rotate(-5deg) scale(1); }
-    75% { transform: rotate(5deg) scale(1.05); }
-  }
-
-  @keyframes nuriProud {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-8px) scale(1.03); }
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.82); } to { opacity: 1; transform: scale(1); } }
+  @keyframes nuriFloat { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+  @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
+  @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+  @keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  @keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(180deg); } }
+  @keyframes mascot-bounce { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+  @keyframes letterFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(calc(100vh + 50px)) rotate(720deg); opacity: 0; } }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  @keyframes nuriGlow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(217, 0, 18, 0.15)); } 50% { filter: drop-shadow(0 0 40px rgba(217, 0, 18, 0.3)); } }
+  @keyframes nuriThink { 0%, 100% { transform: rotate(-3deg) scale(1); } 50% { transform: rotate(3deg) scale(1.02); } }
+  @keyframes nuriSleepy { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.95); } }
+  @keyframes nuriCelebrate { 0%, 100% { transform: rotate(-5deg) scale(1); } 25% { transform: rotate(5deg) scale(1.05); } 50% { transform: rotate(-5deg) scale(1); } 75% { transform: rotate(5deg) scale(1.05); } }
+  @keyframes nuriProud { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.03); } }
+  @keyframes shake { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
 }
 
 @layer utilities {
-  .animate-fade-up {
-    animation: fadeUp 0.38s ease-out forwards;
-  }
-
-  .animate-pop-in {
-    animation: popIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-
-  .animate-nuri {
-    animation: nuriFloat 3s ease-in-out infinite;
-  }
-
-  .confetti-piece {
-    animation: confettiFall 2s ease-in forwards;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .mascot-bounce {
-    animation: mascot-bounce 3s ease-in-out infinite;
-  }
-
+  .animate-fade-up { animation: fadeUp 0.38s ease-out forwards; }
+  .animate-pop-in { animation: popIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-nuri { animation: nuriFloat 3s ease-in-out infinite; }
+  .confetti-piece { animation: confettiFall 2s ease-in forwards; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .mascot-bounce { animation: mascot-bounce 3s ease-in-out infinite; }
   .sparkle-1 { animation: sparkle 2.5s ease-in-out infinite 0s; }
   .sparkle-2 { animation: sparkle 2.5s ease-in-out infinite 0.8s; }
   .sparkle-3 { animation: sparkle 2.5s ease-in-out infinite 1.6s; }
-
-  .letter-rain {
-    animation: letterFall 8s linear infinite;
-  }
-
+  .letter-rain { animation: letterFall 8s linear infinite; }
   .nuri-float { animation: nuriFloat 3.5s ease-in-out infinite; }
   .nuri-glow { animation: nuriGlow 3s ease-in-out infinite; }
   .nuri-think { animation: nuriThink 2s ease-in-out infinite; }
   .nuri-sleepy { animation: nuriSleepy 2.5s ease-in-out infinite; }
   .nuri-celebrate { animation: nuriCelebrate 0.8s ease-in-out infinite; }
   .nuri-proud { animation: nuriProud 2s ease-in-out infinite; }
-
-  .animated-bg {
-    background: linear-gradient(270deg, #d90012, #f2a800, #0033a0, #d90012);
-    background-size: 400% 400%;
-    animation: gradientShift 25s ease infinite;
-  }
+  .animated-bg { background: linear-gradient(270deg, #d90012, #f2a800, #0033a0, #d90012); background-size: 400% 400%; animation: gradientShift 25s ease infinite; }
 }
 
 /* ─── TEXT UTILITIES ─── */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-gradient {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .text-gradient-accent {
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
-  }
-
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
-  }
+  .text-balance { text-wrap: balance; }
+  .text-gradient { background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .text-gradient-accent { background: var(--gradient-accent); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .bg-gradient-hero { background: var(--gradient-hero); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
 }
 
 /* ─── BACKDROP UTILITIES ─── */
 @layer utilities {
-  .backdrop-blur-none {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .backdrop-blur-glass {
-    backdrop-filter: blur(16px) saturate(1.4);
-    -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  }
-
-  .backdrop-blur-soft {
-    backdrop-filter: blur(8px) saturate(1.2);
-    -webkit-backdrop-filter: blur(8px) saturate(1.2);
-  }
+  .backdrop-blur-none { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .backdrop-blur-glass { backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+  .backdrop-blur-soft { backdrop-filter: blur(8px) saturate(1.2); -webkit-backdrop-filter: blur(8px) saturate(1.2); }
 }
 
 /* ─── PRINT ─── */
 @media print {
-  .no-print {
-    display: none !important;
-  }
-
-  body {
-    background: white !important;
-  }
-
-  .glass,
-  .glass-premium,
-  .glass-card {
-    backdrop-filter: none !important;
-    background: white !important;
-    box-shadow: none !important;
-  }
-
-  .print-world {
-    break-inside: avoid;
-  }
+  .no-print { display: none !important; }
+  body { background: white !important; }
+  .glass, .glass-premium, .glass-card { backdrop-filter: none !important; background: white !important; box-shadow: none !important; }
+  .print-world { break-inside: avoid; }
 }

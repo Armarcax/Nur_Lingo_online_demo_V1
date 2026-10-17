@@ -1,18 +1,12 @@
 // src/app/api/generate-tts-ru/route.ts
 
 import { NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
 
-const execAsync = promisify(exec);
-import fs from 'fs';
-import path from 'path';
-
-// ─── CONSTANTS ──────────────────────────────────────────────────────
+export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 const VOICE = 'ru-RU-SvetlanaNeural';
-
-// ─── GENERATE TTS (ONLINE ONLY, NO SAVE) ──────────────────────────
 
 async function generateTts(text: string): Promise<Buffer | null> {
   try {
@@ -22,62 +16,51 @@ async function generateTts(text: string): Promise<Buffer | null> {
       .replace(/[—–-]/g, '-')
       .replace(/\s+/g, ' ')
       .trim();
+
+    const tts = new MsEdgeTTS();
     
-    const tempFile = path.join(process.cwd(), 'temp', `ru_${Date.now()}.mp3`);
-    const tempDir = path.join(process.cwd(), 'temp');
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true });
-    }
+    await tts.setMetadata(VOICE, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
     
-    const command = `edge-tts --voice "${VOICE}" --text "${cleanText.replace(/"/g, '\\"')}" --write-media "${tempFile}"`;
+    // ✅ ՆՈՐ API: toStream()-ը վերադարձնում է { audioStream, metadataStream }
+    const { audioStream } = tts.toStream(cleanText);
     
-    await execAsync(command, { timeout: 30000 });
-    
-    if (!fs.existsSync(tempFile)) {
-      throw new Error('File not created');
-    }
-    
-    const stats = fs.statSync(tempFile);
-    if (stats.size < 100) {
-      throw new Error('File too small');
-    }
-    
-    const buffer = fs.readFileSync(tempFile);
-    fs.unlinkSync(tempFile);
-    return buffer;
-    
+    return new Promise((resolve, reject) => {
+      const chunks: Buffer[] = [];
+      
+      audioStream.on('data', (chunk: Buffer) => chunks.push(chunk));
+      audioStream.on('end', () => {
+        const buffer = Buffer.concat(chunks);
+        if (buffer.length < 100) {
+          reject(new Error('Audio too small'));
+        } else {
+          resolve(buffer);
+        }
+      });
+      audioStream.on('error', (err: Error) => reject(err));
+    });
+
   } catch (error) {
-    console.error('❌ TTS generation failed:', error);
+    console.error('❌ Russian TTS generation failed:', error);
     return null;
   }
 }
-
-// ─── POST HANDLER ──────────────────────────────────────────────────
 
 export async function POST(request: Request) {
   try {
     const { text } = await request.json();
 
     if (!text) {
-      return NextResponse.json(
-        { error: 'Text is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     console.log(`🔊 Russian TTS: "${text}"`);
 
-    // Generate audio
     const audioBuffer = await generateTts(text);
     
     if (!audioBuffer) {
-      return NextResponse.json(
-        { error: 'Failed to generate audio' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Failed to generate audio' }, { status: 500 });
     }
 
-    // ✅ Return audio as base64 for client playback (ONLINE ONLY)
     const base64Audio = audioBuffer.toString('base64');
     const audioDataUrl = `data:audio/mp3;base64,${base64Audio}`;
 
@@ -98,12 +81,10 @@ export async function POST(request: Request) {
   }
 }
 
-// ─── GET HANDLER ──────────────────────────────────────────────────
-
 export async function GET() {
   return NextResponse.json({
     success: true,
-    message: 'Russian TTS API is running - Online only (no saving)',
+    message: 'Russian TTS API is running - Online only (Node.js msedge-tts)',
     voice: VOICE,
     language: 'ru',
   });

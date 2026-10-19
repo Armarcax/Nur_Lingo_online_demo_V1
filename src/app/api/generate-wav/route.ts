@@ -8,14 +8,6 @@ export const dynamic = "force-dynamic";
 const BASE_URL = "https://wav.am";
 
 // ─── TOKEN POOL ─────────────────────────────────────────────────────
-// Configure up to 4 tokens via env vars:
-//   WAV_ACCESS_TOKEN_1, WAV_PROJECT_ID_1
-//   WAV_ACCESS_TOKEN_2, WAV_PROJECT_ID_2
-//   WAV_ACCESS_TOKEN_3, WAV_PROJECT_ID_3
-//   WAV_ACCESS_TOKEN_4, WAV_PROJECT_ID_4
-//
-// Legacy single-token env vars (WAV_ACCESS_TOKEN / WAV_PROJECT_ID)
-// are still supported and will be tried first if present.
 
 interface TokenConfig {
   index: number;
@@ -27,7 +19,6 @@ interface TokenConfig {
 function loadTokenPool(): TokenConfig[] {
   const pool: TokenConfig[] = [];
 
-  // Legacy single-token (optional)
   const legacyToken = process.env.WAV_ACCESS_TOKEN;
   const legacyProjectId = process.env.WAV_PROJECT_ID;
   if (legacyToken && legacyProjectId) {
@@ -39,7 +30,6 @@ function loadTokenPool(): TokenConfig[] {
     });
   }
 
-  // Numbered tokens (1..4)
   for (let i = 1; i <= 4; i++) {
     const token = process.env[`WAV_ACCESS_TOKEN_${i}`];
     const projectId = process.env[`WAV_PROJECT_ID_${i}`];
@@ -56,24 +46,60 @@ function loadTokenPool(): TokenConfig[] {
   return pool;
 }
 
-// ─── ROTATION STATE (per-instance, best-effort) ────────────────────
-// Just a hint to prefer the last-working token. On cold start, resets.
-// Correctness doesn't depend on this — we always fall through on failure.
-
+// ─── ROTATION STATE ────────────────────────────────────────────────
 let lastWorkingIndex = 0;
+
+// ─── IN-MEMORY LRU CACHE ───────────────────────────────────────────
+
+const CACHE_MAX_SIZE = 300;
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+interface CacheEntry {
+  buffer: Buffer;
+  timestamp: number;
+}
+
+const audioCache = new Map<string, CacheEntry>();
+
+function getCacheKey(text: string, voice: string): string {
+  return `${voice}:${text}`;
+}
+
+function getCached(key: string): Buffer | null {
+  const entry = audioCache.get(key);
+  if (!entry) return null;
+
+  if (Date.now() - entry.timestamp > CACHE_TTL_MS) {
+    audioCache.delete(key);
+    return null;
+  }
+
+  audioCache.delete(key);
+  audioCache.set(key, entry);
+  return entry.buffer;
+}
+
+function setCached(key: string, buffer: Buffer): void {
+  if (audioCache.size >= CACHE_MAX_SIZE) {
+    const firstKey = audioCache.keys().next().value;
+    if (firstKey) audioCache.delete(firstKey);
+  }
+  audioCache.set(key, { buffer, timestamp: Date.now() });
+}
+
+// ─── PROMISE DEDUPLICATION ─────────────────────────────────────────
+
+const inflightRequests = new Map<string, Promise<Buffer>>();
 
 // ─── ERROR CLASSIFICATION ──────────────────────────────────────────
 
-/**
- * Does this error mean "this token is exhausted/invalid, try next one"?
- */
 function shouldTryNextToken(status: number, errorText: string): boolean {
-  if (status === 401) return true; // Unauthorized
-  if (status === 402) return true; // Payment Required
-  if (status === 403) return true; // Forbidden (often quota)
-  if (status === 404) return true; // Project not found (wrong project_id)
-  if (status === 429) return true; // Too Many Requests
-  if (status >= 500) return true;  // Upstream server error
+  if (status === 401) return true;
+  if (status === 402) return true;
+  if (status === 403) return true;
+  if (status === 404) return true;
+  if (status === 429) return true;
+  if (status >= 500) return true;
 
   const lower = errorText.toLowerCase();
   if (
@@ -166,11 +192,10 @@ async function generateAudioWithRotation(
 ): Promise<{ buffer: Buffer; usedToken: TokenConfig }> {
   if (tokenPool.length === 0) {
     throw new Error(
-      "No WAV tokens configured. Set WAV_ACCESS_TOKEN_1..4 and WAV_PROJECT_ID_1..4 in env."
+      "No WAV tokens configured. Set WAV_ACCESS_TOKEN_1..4 and WAV_PROJECT_ID_1..4."
     );
   }
 
-  // Order: last-known-working first, then remaining in index order
   const sorted = [...tokenPool].sort((a, b) => {
     if (a.index === lastWorkingIndex) return -1;
     if (b.index === lastWorkingIndex) return 1;
@@ -194,7 +219,6 @@ async function generateAudioWithRotation(
       const status = err.status || 0;
       const errorText = err.errorText || err.message || "";
 
-      // Hard failure (bad text, etc.) — no point trying other tokens
       if (status === 400 && !shouldTryNextToken(status, errorText)) {
         console.error(`❌ WAV hard failure on ${cfg.label}:`, err.message);
         throw err;
@@ -203,8 +227,9 @@ async function generateAudioWithRotation(
       console.warn(
         `⚠️ WAV token ${cfg.label} failed (status ${status}): ${err.message}`
       );
-      errors.push(`${cfg.label}: status=${status} ${err.message.slice(0, 120)}`);
-      // Continue to next token
+      errors.push(
+        `${cfg.label}: status=${status} ${err.message.slice(0, 120)}`
+      );
     }
   }
 
@@ -213,9 +238,17 @@ async function generateAudioWithRotation(
   );
 }
 
+// ─── SHARED CACHE HEADERS ──────────────────────────────────────────
+
+const CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=31536000, immutable",
+} as const;
+
 // ─── POST HANDLER ──────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  const startTime = Date.now();
+
   try {
     const body = await req.json();
     const { text, voice = "Ani" } = body;
@@ -227,39 +260,118 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const tokenPool = loadTokenPool();
-    if (tokenPool.length === 0) {
+    const format = new URL(req.url).searchParams.get("format") || "json";
+
+    const cacheKey = getCacheKey(text, voice);
+
+    // ─── 1. CACHE HIT (instant) ─────────────────────────────────
+    const cached = getCached(cacheKey);
+    if (cached) {
+      console.log(
+        `⚡ WAV cache HIT: "${text.slice(0, 30)}..." (${cached.length}B, ${Date.now() - startTime}ms)`
+      );
+
+      if (format === "binary") {
+        // ✅ TS fix: cast Buffer to BodyInit (runtime-safe)
+        return new NextResponse(cached as unknown as BodyInit, {
+          status: 200,
+          headers: {
+            "Content-Type": "audio/mpeg",
+            "Content-Length": String(cached.length),
+            ...CACHE_HEADERS,
+            "X-WAV-Cache": "hit",
+            "X-WAV-Voice": voice,
+          },
+        });
+      }
+
+      const base64 = cached.toString("base64");
       return NextResponse.json(
         {
-          error:
-            "WAV tokens not configured. Set WAV_ACCESS_TOKEN_1..4 and WAV_PROJECT_ID_1..4.",
+          success: true,
+          voice,
+          audio: base64,
+          audioUrl: `data:audio/mp3;base64,${base64}`,
+          text,
+          language: "hy",
+          _cache: "hit",
         },
-        { status: 500 }
+        {
+          headers: CACHE_HEADERS,
+        }
       );
     }
 
-    console.log(
-      `🔊 Generating WAV: "${text.slice(0, 50)}..." voice=${voice} pool=${tokenPool.length}`
+    // ─── 2. PROMISE DEDUPLICATION (in-flight) ───────────────────
+    let bufferPromise = inflightRequests.get(cacheKey);
+    const wasInflight = !!bufferPromise;
+
+    if (!bufferPromise) {
+      const tokenPool = loadTokenPool();
+      if (tokenPool.length === 0) {
+        return NextResponse.json(
+          {
+            error:
+              "WAV tokens not configured. Set WAV_ACCESS_TOKEN_1..4 and WAV_PROJECT_ID_1..4.",
+          },
+          { status: 500 }
+        );
+      }
+
+      console.log(
+        `🔊 Generating WAV: "${text.slice(0, 50)}..." voice=${voice} pool=${tokenPool.length}`
+      );
+
+      bufferPromise = generateAudioWithRotation(text, voice, tokenPool)
+        .then(({ buffer }) => {
+          setCached(cacheKey, buffer);
+          inflightRequests.delete(cacheKey);
+          return buffer;
+        })
+        .catch((err) => {
+          inflightRequests.delete(cacheKey);
+          throw err;
+        });
+
+      inflightRequests.set(cacheKey, bufferPromise);
+    } else {
+      console.log(
+        `🔗 WAV dedup HIT: "${text.slice(0, 30)}..." — joining in-flight request`
+      );
+    }
+
+    const buffer = await bufferPromise;
+
+    // ─── 3. RETURN ─────────────────────────────────────────────
+    if (format === "binary") {
+      // ✅ TS fix: cast Buffer to BodyInit (runtime-safe)
+      return new NextResponse(buffer as unknown as BodyInit, {
+        status: 200,
+        headers: {
+          "Content-Type": "audio/mpeg",
+          "Content-Length": String(buffer.length),
+          ...CACHE_HEADERS,
+          "X-WAV-Cache": wasInflight ? "dedup" : "miss",
+          "X-WAV-Voice": voice,
+        },
+      });
+    }
+
+    const base64 = buffer.toString("base64");
+    return NextResponse.json(
+      {
+        success: true,
+        voice,
+        audio: base64,
+        audioUrl: `data:audio/mp3;base64,${base64}`,
+        text,
+        language: "hy",
+        _cache: wasInflight ? "dedup" : "miss",
+      },
+      {
+        headers: CACHE_HEADERS,
+      }
     );
-
-    const { buffer, usedToken } = await generateAudioWithRotation(
-      text,
-      voice,
-      tokenPool
-    );
-
-    const base64Audio = buffer.toString("base64");
-    const audioDataUrl = `data:audio/mp3;base64,${base64Audio}`;
-
-    return NextResponse.json({
-      success: true,
-      voice,
-      audio: base64Audio,
-      audioUrl: audioDataUrl,
-      text,
-      language: "hy",
-      _token: usedToken.label, // useful for debugging; safe to remove
-    });
   } catch (error) {
     console.error("❌ WAV generation error:", error);
     return NextResponse.json(
@@ -271,14 +383,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ─── GET HANDLER (health check / diagnostics) ─────────────────────
+// ─── GET HANDLER (diagnostics) ────────────────────────────────────
 
 export async function GET() {
   const pool = loadTokenPool();
 
   return NextResponse.json({
     success: true,
-    message: "WAV API running with token rotation",
+    message: "WAV API running with token rotation + LRU cache",
     defaultVoice: "Ani",
     availableVoices: ["Ani", "Avet", "Areg", "Luse", "Tigran"],
     supportedLanguages: ["hy"],
@@ -287,5 +399,11 @@ export async function GET() {
       projectId: t.projectId,
     })),
     lastWorkingIndex,
+    cache: {
+      size: audioCache.size,
+      maxSize: CACHE_MAX_SIZE,
+      ttlHours: CACHE_TTL_MS / (60 * 60 * 1000),
+    },
+    inflight: inflightRequests.size,
   });
 }

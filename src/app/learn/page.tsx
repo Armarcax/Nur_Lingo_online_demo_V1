@@ -401,14 +401,17 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
   const isAnswered = state === "correct" || state === "incorrect";
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    // ✅ grid-cols-2-ը թույլ կտա հեռախոսում էլ 2 սյունակ լինի
+    <div className="grid grid-cols-2 gap-2 sm:gap-3">
       {options.map((opt) => {
         const isPicked = userAnswer === opt;
         const isCorrectAnswer = opt === targetAnswer;
         const isWrong = isAnswered && isPicked && !isCorrectAnswer;
         const isCorrect = isAnswered && isCorrectAnswer;
 
-        let className = "p-4 rounded-xl border-2 transition-all text-left ";
+        // ✅ Փոխեցինք text-left-ը text-center-ի, որ 2 սյունակում ավելի գեղեցիկ նայի
+        // ✅ p-4-ը փոխեցինք p-3-ի, որ հեռախոսի նեղ էկրանին տեքստը տեղավորվի
+        let className = "p-3 sm:p-4 rounded-xl border-2 transition-all text-center flex items-center justify-center min-h-[60px] ";
         if (isCorrect) className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
         else if (isWrong) className += "border-red-500 bg-red-500/10 line-through opacity-70";
         else if (isPicked && !isAnswered) className += "border-red-500 bg-red-500/10";

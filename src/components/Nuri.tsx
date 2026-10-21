@@ -80,6 +80,48 @@ export const moodEmojis: Record<NuriMood, string> = {
   shy: "😊",
 };
 
+// ─── NURI IMAGE MAPPING (16 ՆՈՐ 3D ՆԿԱՐՆԵՐ) ─────────────────────────
+
+export const nuriImages: Record<NuriMood, string> = {
+  idle: "/images/nuri/nuri-idle.png",
+  happy: "/images/nuri/nuri-happy.png",
+  thinking: "/images/nuri/nuri-thinking.png",
+  celebrating: "/images/nuri/nuri-celebrating.png",
+  sad: "/images/nuri/nuri-sad.png",
+  wrong: "/images/nuri/nuri-wrong.png",
+  encouraging: "/images/nuri/nuri-encouraging.png",
+  excited: "/images/nuri/nuri-excited.png",
+  surprised: "/images/nuri/nuri-surprised.png",
+  confused: "/images/nuri/nuri-confused.png",
+  proud: "/images/nuri/nuri-proud.png",
+  listening: "/images/nuri/nuri-learning.png", // Օգտագործում ենք գրքով նկարը
+  sleepy: "/images/nuri/nuri-sleepy.png",
+  wink: "/images/nuri/nuri-wink.png",
+  learning: "/images/nuri/nuri-learning.png",
+  relax: "/images/nuri/nuri-relax.png",
+  shy: "/images/nuri/nuri-shy.png",
+};
+
+export const moodLabels: Record<NuriMood, string> = {
+  idle: "nuri_mood_idle",
+  happy: "nuri_mood_happy",
+  thinking: "nuri_mood_thinking",
+  celebrating: "nuri_mood_celebrating",
+  sad: "nuri_mood_sad",
+  wrong: "nuri_mood_wrong",
+  encouraging: "nuri_mood_encouraging",
+  excited: "nuri_mood_excited",
+  surprised: "nuri_mood_surprised",
+  confused: "nuri_mood_confused",
+  proud: "nuri_mood_proud",
+  listening: "nuri_mood_listening",
+  sleepy: "nuri_mood_sleepy",
+  wink: "nuri_mood_wink",
+  learning: "nuri_mood_learning",
+  relax: "nuri_mood_relax",
+  shy: "nuri_mood_shy",
+};
+
 // ─── MOOD COLORS ──────────────────────────────────────────────────────
 
 export const moodColors: Record<NuriMood, string> = {
@@ -102,8 +144,6 @@ export const moodColors: Record<NuriMood, string> = {
   shy: "border-pink-400/40 bg-pink-950/30 backdrop-blur-soft",
 };
 
-// ─── GLOW COLORS ──────────────────────────────────────────────────────
-
 export const glowColors: Record<NuriMood, string> = {
   idle: "bg-white/10",
   happy: "bg-emerald-400/30",
@@ -122,50 +162,6 @@ export const glowColors: Record<NuriMood, string> = {
   learning: "bg-blue-500/30",
   relax: "bg-purple-400/25",
   shy: "bg-pink-400/25",
-};
-
-// ─── NURI IMAGE MAPPING ──────────────────────────────────────────────
-
-export const nuriImages: Record<NuriMood, string> = {
-  idle: "/images/nuri/nuri-idle.png",
-  happy: "/images/nuri/nuri-happy.png",
-  thinking: "/images/nuri/nuri-thinking.png",
-  celebrating: "/images/nuri/nuri-celebrating.png",
-  sad: "/images/nuri/nuri-sad.png",
-  wrong: "/images/nuri/nuri-confused.png",
-  encouraging: "/images/nuri/nuri-encouraging.png",
-  excited: "/images/nuri/nuri-excited.png",
-  surprised: "/images/nuri/nuri-surprised.png",
-  confused: "/images/nuri/nuri-confused.png",
-  proud: "/images/nuri/nuri-proud.png",
-  listening: "/images/nuri/nuri-listening.png",
-  sleepy: "/images/nuri/nuri-sleepy.png",
-  wink: "/images/nuri/nuri-wink.png",
-  learning: "/images/nuri/nuri-learning.png",
-  relax: "/images/nuri/nuri-relax.png",
-  shy: "/images/nuri/nuri-shy.png",
-};
-
-// ─── MOOD LABELS ──────────────────────────────────────────────────────
-
-export const moodLabels: Record<NuriMood, string> = {
-  idle: "nuri_mood_idle",
-  happy: "nuri_mood_happy",
-  thinking: "nuri_mood_thinking",
-  celebrating: "nuri_mood_celebrating",
-  sad: "nuri_mood_sad",
-  wrong: "nuri_mood_wrong",
-  encouraging: "nuri_mood_encouraging",
-  excited: "nuri_mood_excited",
-  surprised: "nuri_mood_surprised",
-  confused: "nuri_mood_confused",
-  proud: "nuri_mood_proud",
-  listening: "nuri_mood_listening",
-  sleepy: "nuri_mood_sleepy",
-  wink: "nuri_mood_wink",
-  learning: "nuri_mood_learning",
-  relax: "nuri_mood_relax",
-  shy: "nuri_mood_shy",
 };
 
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────
@@ -365,10 +361,6 @@ export default function Nuri({
     if (effectiveMood === "sleepy") {
       particles.push({ emoji: "💤", position: { top: "-10px", right: "20%" } });
     }
-    
-    if (effectiveMood === "excited") {
-      particles.push({ emoji: "🔥", position: { top: "-24px", left: "50%", transform: "translateX(-50%)" } });
-    }
 
     if (effectiveMood === "wrong") {
       particles.push(
@@ -394,22 +386,10 @@ export default function Nuri({
     return particles;
   };
 
-  const getStateClassName = () => {
-    const stateMap: Record<string, string> = {
-      idle: "nuri-state-idle",
-      thinking: "nuri-state-thinking",
-      sleepy: "nuri-state-sleepy",
-      celebrating: "nuri-state-celebrating",
-      proud: "nuri-state-proud",
-      learning: "nuri-state-learning",
-    };
-    return state ? stateMap[state] || "" : "";
-  };
-
   return (
     <div className={`relative inline-flex flex-col items-center ${getPositionClasses()}`} style={getPositionStyles()}>
       <motion.div
-        className={`relative inline-block cursor-${interactive ? 'pointer' : 'default'} ${className} ${getStateClassName()}`}
+        className={`relative inline-block cursor-${interactive ? 'pointer' : 'default'} ${className}`}
         animate={getAnimation()}
         transition={getTransition()}
         style={{ width: size, height: size }}
@@ -419,7 +399,6 @@ export default function Nuri({
         whileHover={interactive ? { scale: 1.08, transition: { duration: 0.2 } } : undefined}
         whileTap={interactive ? { scale: 0.95 } : undefined}
       >
-        {/* Glow Effect */}
         {glow && (
           <motion.div
             animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
@@ -428,7 +407,6 @@ export default function Nuri({
           />
         )}
 
-        {/* Auto-rotate glow ring */}
         {autoRotate && (
           <motion.div
             className="absolute -inset-2 rounded-full border-2 border-red-500/20 dark:border-red-400/20 -z-5"
@@ -437,11 +415,10 @@ export default function Nuri({
           />
         )}
 
-        {/* Decorative Particles */}
         {renderParticles().map((particle, index) => (
           <motion.div
             key={index}
-            className="absolute text-base pointer-events-none"
+            className="absolute text-base pointer-events-none z-20"
             style={{
               top: particle.position.top,
               left: particle.position.left,
@@ -473,41 +450,26 @@ export default function Nuri({
           </motion.div>
         ))}
 
-        {/* Main Image */}
         <Image
           src={effectiveImage}
           alt={`Nuri mascot - ${effectiveMood}`}
           width={size}
           height={size}
           priority={["happy", "idle", "encouraging", "sad", "wrong"].includes(effectiveMood)}
-          className={`transition-all duration-300 ${isHovered && interactive ? 'scale-105' : ''}`}
+          className={`transition-all duration-300 drop-shadow-xl ${isHovered && interactive ? 'scale-105' : ''}`}
         />
 
-        {/* Tear Effect */}
-        {(tear || effectiveMood === "wrong") && (effectiveMood === "sad" || effectiveMood === "wrong") && (
-          <motion.div
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 20, opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-            className="absolute top-1/2 left-[60%] text-xl pointer-events-none"
-          >
-            💧
-          </motion.div>
-        )}
-
-        {/* Heart animation on hover */}
         {isHovered && (effectiveMood === "happy" || effectiveMood === "proud") && (
           <motion.div
             initial={{ scale: 0, y: 0 }}
             animate={{ scale: 1, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="absolute -top-4 -right-4 text-lg pointer-events-none"
+            className="absolute -top-4 -right-4 text-lg pointer-events-none z-20"
           >
             ❤️
           </motion.div>
         )}
 
-        {/* Interactive indicator */}
         {interactive && (
           <motion.div
             className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-emerald-400"
@@ -517,7 +479,6 @@ export default function Nuri({
         )}
       </motion.div>
 
-      {/* Speech Bubble */}
       <AnimatePresence>
         {showMessage && message && (
           <motion.div
@@ -536,12 +497,7 @@ export default function Nuri({
 
 // ─── HELPER FUNCTIONS ────────────────────────────────────────────────
 
-export function getMoodFromScore(
-  score: number, 
-  accepted: boolean, 
-  streak: number = 0,
-  attempts: number = 0
-): NuriMood {
+export function getMoodFromScore(score: number, accepted: boolean, streak: number = 0, attempts: number = 0): NuriMood {
   if (!accepted) {
     if (attempts >= 2) return "wrong";
     return "confused";
@@ -551,18 +507,6 @@ export function getMoodFromScore(
   if (streak >= 3) return "happy";
   if (score > 80) return "proud";
   return "encouraging";
-}
-
-export function getRandomMood(): NuriMood {
-  const moods: NuriMood[] = ["happy", "thinking", "wink", "idle", "encouraging"];
-  return moods[Math.floor(Math.random() * moods.length)];
-}
-
-export function getMoodFromTime(seconds: number): NuriMood {
-  if (seconds > 600) return "sleepy";
-  if (seconds > 300) return "relax";
-  if (seconds > 120) return "thinking";
-  return "happy";
 }
 
 export function getMoodFromProgress(progress: number, total: number): NuriMood {
@@ -584,13 +528,7 @@ interface NuriSpeechProps {
   onComplete?: () => void;
 }
 
-export function NuriSpeech({ 
-  text, 
-  mood = "idle", 
-  className = "",
-  animated = true,
-  onComplete 
-}: NuriSpeechProps) {
+export function NuriSpeech({ text, mood = "idle", className = "", animated = true, onComplete }: NuriSpeechProps) {
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
@@ -599,7 +537,6 @@ export function NuriSpeech({
       setDisplayText(text);
       return;
     }
-
     setIsTyping(true);
     let index = 0;
     const interval = setInterval(() => {
@@ -612,7 +549,6 @@ export function NuriSpeech({
         if (onComplete) onComplete();
       }
     }, 30);
-
     return () => clearInterval(interval);
   }, [text, animated, onComplete]);
 
@@ -623,48 +559,19 @@ export function NuriSpeech({
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       className={`relative ${className}`}
     >
-      <div className={`rounded-2xl border border-white/10 bg-background/60 backdrop-blur-xl px-5 py-3 text-sm text-foreground/90 max-w-[220px] shadow-glass`}>
-        <div className="absolute -top-2 left-5 w-3 h-3 rotate-45 border-l border-t bg-inherit border-inherit" />
-        <span className="font-medium">
+      <div className={`rounded-2xl border border-white/20 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl px-5 py-3 text-sm text-gray-900 dark:text-white max-w-[220px] shadow-lg`}>
+        <div className="absolute -top-2 left-5 w-3 h-3 rotate-45 border-l border-t border-white/20 bg-white/80 dark:bg-gray-800/80" />
+        <span className="font-bold">
           {displayText}
           {isTyping && (
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 0.6, repeat: Infinity }}
-              className="inline-block w-0.5 h-4 ml-0.5 bg-foreground/60"
+              className="inline-block w-0.5 h-4 ml-0.5 bg-gray-900 dark:bg-white"
             />
           )}
         </span>
       </div>
     </motion.div>
-  );
-}
-
-// ─── MOOD BADGE ───────────────────────────────────────────────────────
-
-interface NuriMoodBadgeProps {
-  mood: NuriMood;
-  size?: "sm" | "md" | "lg";
-  showLabel?: boolean;
-}
-
-export function NuriMoodBadge({ mood, size = "md", showLabel = true }: NuriMoodBadgeProps) {
-  const { t } = useI18n();
-  
-  const sizeClasses = {
-    sm: "text-xs px-2 py-0.5",
-    md: "text-sm px-3 py-1",
-    lg: "text-base px-4 py-1.5",
-  };
-
-  return (
-    <div className={`inline-flex items-center gap-1.5 rounded-full ${moodColors[mood]} border ${sizeClasses[size]}`}>
-      <span>{moodEmojis[mood]}</span>
-      {showLabel && (
-        <span className="text-foreground/70 text-xs font-medium">
-          {t(moodLabels[mood])}
-        </span>
-      )}
-    </div>
   );
 }

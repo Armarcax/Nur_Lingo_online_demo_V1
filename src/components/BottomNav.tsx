@@ -3,21 +3,15 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import ThemeToggle from "@/components/ThemeToggle";
-import { resolveOfflineAudio } from "@/lib/offline/offline-audio-resolver";
 import { useI18n } from "@/hooks/useI18n";
 import {
   Home,
   Globe,
   BookOpen,
-  LayoutGrid,
   Sparkles,
-  Settings,
   User,
   Users,
-  Volume2,
-  Car,
-  ShieldAlert,
+  Settings,
 } from "lucide-react";
 
 interface NavItem {
@@ -30,15 +24,9 @@ interface NavItem {
 
 interface BottomNavProps {
   showProfile?: boolean;
-  onTestAudio?: () => void;
-  isOffline?: boolean;
 }
 
-export default function BottomNav({
-  showProfile = false,
-  onTestAudio,
-  isOffline = false,
-}: BottomNavProps) {
+export default function BottomNav({ showProfile = false }: BottomNavProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { t } = useI18n();
@@ -64,20 +52,6 @@ export default function BottomNav({
       fallbackLabel: "Լեզու",
     },
     {
-      href: "/drive-test",
-      labelKey: "BottomNav_drive",
-      icon: <Car size={20} strokeWidth={2} />,
-      activeIcon: <Car size={20} strokeWidth={2.5} />,
-      fallbackLabel: "Վարորդ.",
-    },
-    {
-      href: "/world/qaghaqpashtpanutyun",
-      labelKey: "BottomNav_civil",
-      icon: <ShieldAlert size={20} strokeWidth={2} />,
-      activeIcon: <ShieldAlert size={20} strokeWidth={2.5} />,
-      fallbackLabel: "Քաղ.",
-    },
-    {
       href: "/dictionary",
       labelKey: "BottomNav_dict",
       icon: <BookOpen size={20} strokeWidth={2} />,
@@ -90,13 +64,6 @@ export default function BottomNav({
       icon: <Users size={20} strokeWidth={2} />,
       activeIcon: <Users size={20} strokeWidth={2.5} />,
       fallbackLabel: "Օգտ.",
-    },
-    {
-      href: "/curriculum",
-      labelKey: "BottomNav_prog_",
-      icon: <LayoutGrid size={20} strokeWidth={2} />,
-      activeIcon: <LayoutGrid size={20} strokeWidth={2.5} />,
-      fallbackLabel: "Ծրագիր",
     },
     {
       href: "/dialogues",
@@ -132,35 +99,9 @@ export default function BottomNav({
     return pathname === href || pathname.startsWith(href + "/");
   };
 
-  const handleTestAudio = () => {
-    if (onTestAudio) {
-      onTestAudio();
-      return;
-    }
-    const testPath = resolveOfflineAudio("greet_hello", "hy")?.url;
-    if (!testPath) return;
-    const audio = new Audio(testPath);
-    audio.play().catch((err) => console.error("❌ Playback error:", err));
-  };
-
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50">
       <div className="relative mx-2 mb-2 md:mx-auto md:max-w-3xl">
-        <div className="absolute -top-14 right-0 flex items-center gap-2">
-          <button
-            onClick={handleTestAudio}
-            className={`p-2.5 rounded-xl transition-all duration-200 border shadow-sm active:translate-y-1 ${
-              isOffline
-                ? "bg-green-500/20 text-green-600 border-green-500/30"
-                : "bg-yellow-500/20 text-yellow-600 border-yellow-500/30"
-            }`}
-            aria-label={isOffline ? "Offline audio" : "Test audio"}
-          >
-            <Volume2 size={18} />
-          </button>
-          <ThemeToggle size="sm" />
-        </div>
-
         {/* 3D Glass BottomNav */}
         <div className="rounded-2xl px-1 py-2 shadow-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl">
           <div className="flex items-center justify-around gap-0.5">

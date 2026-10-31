@@ -8,26 +8,26 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
-  X,
   Lock,
+  Unlock,
   Gift,
   CheckCircle,
   Clock,
   Sparkles,
   Target,
   ArrowUp,
-  Unlock,
-  HelpCircle, // ✅ Ավելացվել է «?» կոճակի համար
+  Palette,
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import ThemeToggle from "@/components/ThemeToggle"; // ✅ Մութ/Լույս կոճակը
 import {
-  loadRewards,
-  saveRewards,
   syncHearts,
   checkAndApplyFreeze,
   checkStreakMilestones,
   checkDailyGoalBonus,
   addRewards,
+  loadRewards,
+  saveRewards,
   type UserRewards,
 } from "@/lib/rewards/seeds";
 import { loadQuests, claimReward, type Quest } from "@/lib/rewards/seeds";
@@ -43,7 +43,7 @@ import { loadLangConfig, LangCode } from "@/lib/i18n/index";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useI18n } from "@/hooks/useI18n";
 
-// ─── TYPES ────────────────────────────────────────────────────────────
+// ─── TYPES & HELPERS ──────────────────────────────────────────────────
 
 interface WorldStats {
   totalLessons: number;
@@ -58,16 +58,8 @@ interface WorldStats {
   totalSeeds: number;
 }
 
-const STORAGE_KEYS = {
-  UNLOCK_ALL: "nurlingo_unlock_all",
-  LANG_CONFIG: "nur_lang_config",
-} as const;
-
-// ─── CONFETTI ─────────────────────────────────────────────────────────
-
 function Confetti({ color, count = 30, active = true }: { color: string; count?: number; active?: boolean }) {
   if (!active) return null;
-  
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-visible">
       {Array.from({ length: count }).map((_, i) => (
@@ -81,12 +73,7 @@ function Confetti({ color, count = 30, active = true }: { color: string; count?:
             rotate: Math.random() * 720,
             scale: 0,
           }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            repeatDelay: Math.random() * 4 + 1,
-            ease: "easeOut",
-          }}
+          transition={{ duration: 2.5, repeat: Infinity, repeatDelay: Math.random() * 4 + 1, ease: "easeOut" }}
           className="absolute w-2.5 h-2.5 rounded-sm"
           style={{ backgroundColor: color, left: "50%", top: "50%" }}
         />
@@ -95,22 +82,13 @@ function Confetti({ color, count = 30, active = true }: { color: string; count?:
   );
 }
 
-// ─── SNAKE PATH ──────────────────────────────────────────────────────
+// ─── SNAKE PATH & PROGRESS BAR ───────────────────────────────────────
 
 function SnakePath({
-  lessons,
-  unit,
-  crowns,
-  onStart,
-  native,
-  isUnlocked = false,
+  lessons, unit, crowns, onStart, native, isUnlocked = false,
 }: {
-  lessons: MultiLesson[];
-  unit: MultiUnit;
-  crowns: Record<string, number>;
-  onStart: (l: MultiLesson) => void;
-  native: LangCode;
-  isUnlocked?: boolean;
+  lessons: MultiLesson[]; unit: MultiUnit; crowns: Record<string, number>;
+  onStart: (l: MultiLesson) => void; native: LangCode; isUnlocked?: boolean;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(400);
@@ -124,10 +102,7 @@ function SnakePath({
     };
     const t = setTimeout(measure, 0);
     window.addEventListener("resize", measure);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("resize", measure);
-    };
+    return () => { clearTimeout(t); window.removeEventListener("resize", measure); };
   }, []);
 
   const WIDTH = containerWidth;
@@ -136,20 +111,15 @@ function SnakePath({
   const AMPLITUDE = 140 * scale;
   const centerX = WIDTH / 2;
   const height = Math.max(160 * scale, lessons.length * STEP_Y + 40);
-
   const NODES_PER_SWING = 3.5;
-  const nodeX = (i: number) => {
-    const angle = (i / NODES_PER_SWING) * Math.PI;
-    return centerX + Math.sin(angle) * AMPLITUDE;
-  };
+
+  const nodeX = (i: number) => centerX + Math.sin((i / NODES_PER_SWING) * Math.PI) * AMPLITUDE;
   const nodeY = (i: number) => 50 + i * STEP_Y;
 
   const pathD = lessons.reduce((acc, _, i) => {
-    const x = nodeX(i);
-    const y = nodeY(i);
+    const x = nodeX(i); const y = nodeY(i);
     if (i === 0) return `M ${x} ${y}`;
-    const prevX = nodeX(i - 1);
-    const prevY = nodeY(i - 1);
+    const prevX = nodeX(i - 1); const prevY = nodeY(i - 1);
     const midY = (prevY + y) / 2;
     return `${acc} C ${prevX} ${midY}, ${x} ${midY}, ${x} ${y}`;
   }, "");
@@ -160,34 +130,20 @@ function SnakePath({
   const isLessonUnlocked = (index: number) => {
     if (isUnlocked) return true;
     if (index === 0) return true;
-    const prevLesson = lessons[index - 1];
-    return (crowns[prevLesson.id] || 0) > 0;
+    return (crowns[lessons[index - 1].id] || 0) > 0;
   };
 
   return (
     <div ref={wrapperRef} className="relative mx-auto" style={{ width: WIDTH, height }}>
       <svg className="absolute inset-0 pointer-events-none" width={WIDTH} height={height}>
-        <path
-          d={pathD}
-          fill="none"
-          stroke={unit.colorFrom || "#D90012"}
-          strokeOpacity={0.35}
-          strokeWidth={4}
-          strokeDasharray="8 10"
-          strokeLinecap="round"
-        />
+        <path d={pathD} fill="none" stroke={unit.colorFrom || "#D90012"} strokeOpacity={0.35} strokeWidth={4} strokeDasharray="8 10" strokeLinecap="round" />
       </svg>
-
       {lessons.map((l, i) => {
         const done = (crowns[l.id] || 0) > 0;
         const isCurrent = i === currentIdx && !isUnitComplete;
         const isReview = l.id.startsWith("review_");
         const unlocked = isLessonUnlocked(i) || isUnlocked;
-        const x = nodeX(i);
-        const y = nodeY(i);
         const crownLevel = crowns[l.id] || 0;
-        const size = "w-16 h-16 md:w-20 md:h-20";
-        const textSize = "text-3xl";
 
         return (
           <motion.button
@@ -200,53 +156,29 @@ function SnakePath({
             onClick={() => unlocked && onStart(l)}
             disabled={!unlocked}
             className={`absolute -translate-x-1/2 -translate-y-1/2 group ${isCurrent ? "animate-bob" : ""}`}
-            style={{ left: x, top: y }}
+            style={{ left: nodeX(i), top: nodeY(i) }}
           >
             {done && (
               <div className="absolute -top-2 -right-2 flex gap-0.5 z-10">
                 {[1, 2, 3].map((level) => (
-                  <motion.div
-                    key={level}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: crownLevel >= level ? 1 : 0 }}
-                    className="w-5 h-5 text-[9px] bg-yellow-400 rounded-full flex items-center justify-center shadow-lg border border-yellow-600"
-                  >
-                    ⭐
-                  </motion.div>
+                  <motion.div key={level} initial={{ scale: 0 }} animate={{ scale: crownLevel >= level ? 1 : 0 }} className="w-5 h-5 text-[9px] bg-yellow-400 rounded-full flex items-center justify-center shadow-lg border border-yellow-600">⭐</motion.div>
                 ))}
               </div>
             )}
-
             {!unlocked && !done && (
               <div className="absolute -top-2 -right-2 z-10">
-                <div className="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-600">
-                  <Lock size={12} className="text-gray-400" />
-                </div>
+                <div className="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-600"><Lock size={12} className="text-gray-400" /></div>
               </div>
             )}
-
             <div
-              className={`${size} rounded-[35%_65%_70%_30%/30%_30%_70%_70%] flex items-center justify-center ${textSize} shadow-2xl border-4 transition-all ${
-                !unlocked
-                  ? "border-white/10 opacity-40 grayscale"
-                  : done
-                    ? "border-yellow-400 shadow-glow"
-                    : isReview
-                      ? "border-purple-400/60"
-                      : "border-white/20"
+              className={`w-16 h-16 md:w-20 md:h-20 rounded-[35%_65%_70%_30%/30%_30%_70%_70%] flex items-center justify-center text-3xl shadow-2xl border-4 transition-all ${
+                !unlocked ? "border-white/10 opacity-40 grayscale" : done ? "border-yellow-400 shadow-glow" : isReview ? "border-purple-400/60" : "border-white/20"
               }`}
-              style={{
-                background: unlocked
-                  ? `linear-gradient(135deg, ${isReview ? "#9333ea" : unit.colorFrom || "#D90012"}, ${isReview ? "#581c87" : unit.colorTo || "#F2A800"})`
-                  : "rgba(255,255,255,0.05)",
-              }}
+              style={{ background: unlocked ? `linear-gradient(135deg, ${isReview ? "#9333ea" : unit.colorFrom || "#D90012"}, ${isReview ? "#581c87" : unit.colorTo || "#F2A800"})` : "rgba(255,255,255,0.05)" }}
             >
               <span className="drop-shadow-lg">{!unlocked ? "🔒" : isReview ? "🏆" : unit.iconEmoji}</span>
             </div>
-
-            <p className="mt-2 text-[10px] font-bold text-white/70 max-w-[90px] truncate text-center">
-              {l.title[native] || l.title.en}
-            </p>
+            <p className="mt-2 text-[10px] font-bold text-white/70 max-w-[90px] truncate text-center">{l.title[native] || l.title.en}</p>
           </motion.button>
         );
       })}
@@ -254,24 +186,14 @@ function SnakePath({
   );
 }
 
-// ─── UNIT PROGRESS BAR ──────────────────────────────────────────────
-
 function UnitProgressBar({ completed, total }: { completed: number; total: number }) {
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-  
   return (
     <div className="flex items-center gap-3 mt-3 w-full">
       <div className="flex-1 h-1.5 rounded-full bg-white/10 dark:bg-gray-700 overflow-hidden">
-        <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-[#FFA500] to-[#D90012]"
-          initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        />
+        <motion.div className="h-full rounded-full bg-gradient-to-r from-[#FFA500] to-[#D90012]" initial={{ width: 0 }} animate={{ width: `${percentage}%` }} transition={{ duration: 0.8 }} />
       </div>
-      <span className="text-[10px] font-medium text-gray-400 dark:text-gray-400 min-w-[32px] text-right">
-        {percentage}%
-      </span>
+      <span className="text-[10px] font-medium text-gray-400 min-w-[32px] text-right">{percentage}%</span>
     </div>
   );
 }
@@ -281,20 +203,15 @@ function UnitProgressBar({ completed, total }: { completed: number; total: numbe
 export default function WorldPage() {
   const router = useRouter();
   const { setPage } = useNuri();
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
-  
   const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
+    setToastMessage(text); setToastType(type); setTimeout(() => setToastMessage(""), 3000);
   }, []);
   
   useEffect(() => setPage("world"), [setPage]);
-  
-  // ─── STATE ──────────────────────────────────────────────────────────
   
   const [rewards, setRewards] = useState<UserRewards | null>(null);
   const [units, setUnits] = useState<MultiUnit[]>([]);
@@ -303,142 +220,88 @@ export default function WorldPage() {
   const [pair, setPair] = useState<LangPair>("en-hy");
   const [quests, setQuests] = useState<Quest[]>([]);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
-  const [worldStats, setWorldStats] = useState<WorldStats | null>(null);
   const [unlockAllActive, setUnlockAllActive] = useState(false);
+  const [worldStats, setWorldStats] = useState<WorldStats | null>(null);
   
   const topRef = useRef<HTMLDivElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
-
-  // ─── LOAD DATA ──────────────────────────────────────────────────────
 
   useEffect(() => {
     try {
       const config = loadLangConfig();
       const p = (config?.pair || "en-hy") as LangPair;
-      const nat = (config?.native || "en") as LangCode;
-      setNative(nat);
-      setPair(p);
+      setNative((config?.native || "en") as LangCode); setPair(p);
 
-      const r = syncHearts();
-      const withFreeze = checkAndApplyFreeze();
-      const res = checkStreakMilestones();
-      const goalRes = checkDailyGoalBonus();
-      
-      const mergedRewards: UserRewards = {
-        ...r,
-        ...withFreeze,
-        ...(res.rewards || {}),
-        ...(goalRes.rewards || {}),
-      };
+      const r = syncHearts(); const withFreeze = checkAndApplyFreeze(); const res = checkStreakMilestones(); const goalRes = checkDailyGoalBonus();
+      const mergedRewards: UserRewards = { ...r, ...withFreeze, ...(res.rewards || {}), ...(goalRes.rewards || {}) };
       setRewards(mergedRewards);
 
       try {
-        const data = getLessonsForPair(p);
-        setUnits(data.units || []);
-        setAllLessons(data.lessons || []);
-      } catch (error) {
-        console.error("Failed to load lessons:", error);
-        setUnits([]);
-        setAllLessons([]);
-      }
+        const data = getLessonsForPair(p); setUnits(data.units || []); setAllLessons(data.lessons || []);
+      } catch { setUnits([]); setAllLessons([]); }
       
-      try {
-        setQuests(loadQuests() || []);
-      } catch {
-        setQuests([]);
-      }
+      try { setQuests(loadQuests() || []); } catch { setQuests([]); }
+      try { if (localStorage.getItem("nurlingo_unlock_all") === "true") setUnlockAllActive(true); } catch {}
 
-      try {
-        const unlockSetting = localStorage.getItem(STORAGE_KEYS.UNLOCK_ALL);
-        if (unlockSetting === "true") {
-          setUnlockAllActive(true);
-        }
-      } catch {
-        // Ignore
-      }
-
-      const savedConfig = localStorage.getItem(STORAGE_KEYS.LANG_CONFIG);
-      if (!savedConfig) {
-        router.push("/onboarding");
-        return;
-      }
-    } catch (error) {
-      console.error("Failed to load data:", error);
-      setRewards(syncHearts());
-    }
+      if (!localStorage.getItem("nur_lang_config")) { router.push("/onboarding"); return; }
+    } catch (error) { setRewards(syncHearts()); }
   }, [router]);
-
-  // ─── CALCULATE STATS ──────────────────────────────────────────────
 
   useEffect(() => {
     if (!rewards || !allLessons.length) return;
-    
-    const stats: WorldStats = {
+    setWorldStats({
       totalLessons: allLessons.length,
       completedLessons: allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length,
       totalUnits: units.length,
-      completedUnits: units.filter(u => 
-        allLessons.filter(l => l.unitId === u.id).every(l => (rewards.crowns[l.id] || 0) > 0)
-      ).length,
+      completedUnits: units.filter(u => allLessons.filter(l => l.unitId === u.id).every(l => (rewards.crowns[l.id] || 0) > 0)).length,
       overallProgress: Math.round((allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length / allLessons.length) * 100),
       totalCrowns: allLessons.reduce((sum, l) => sum + (rewards.crowns[l.id] || 0), 0),
-      currentStreak: rewards.streak || 0,
-      bestStreak: rewards.maxStreak || rewards.streak || 0,
-      totalHAYQ: rewards.totalHAYQ || 0,
-      totalSeeds: rewards.totalSeeds || 0,
-    };
-    setWorldStats(stats);
+      currentStreak: rewards.streak || 0, bestStreak: rewards.maxStreak || rewards.streak || 0,
+      totalHAYQ: rewards.totalHAYQ || 0, totalSeeds: rewards.totalSeeds || 0,
+    });
   }, [rewards, allLessons, units]);
-
-  // ─── SCROLL EVENT ──────────────────────────────────────────────────
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll); return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ─── START LESSON ──────────────────────────────────────────────────
-
-  const startLesson = useCallback((l: MultiLesson) => {
-    router.push(`/learn?lesson=${l.id}&pair=${pair}`);
-  }, [router, pair]);
-
-  // ─── CLAIM QUEST ───────────────────────────────────────────────────
+  const startLesson = useCallback((l: MultiLesson) => { router.push(`/learn?lesson=${l.id}&pair=${pair}`); }, [router, pair]);
 
   const handleClaimQuest = useCallback((questId: string) => {
     try {
       const reward = claimReward(questId);
       if (reward) {
-        const updated = addRewards(reward.hayq, reward.seeds || 0);
+        setRewards(addRewards(reward.hayq, reward.seeds || 0));
         setQuests(loadQuests() || []);
-        setRewards(updated);
         showMessage(t("page_quest_claimed", { hayq: reward.hayq }), "success");
       }
-    } catch (error) {
-      console.error("Failed to claim quest:", error);
-      showMessage(t("page_quest_claim_failed"), "error");
-    }
+    } catch (error) { showMessage(t("page_quest_claim_failed"), "error"); }
   }, [showMessage, t]);
 
-  // ─── SCROLL TO TOP ─────────────────────────────────────────────────
+  // ✅ Կողպել/Բացել բոլոր դասերը ֆունկցիան
+  const toggleUnlockAll = useCallback(() => {
+    const newVal = !unlockAllActive;
+    try { localStorage.setItem("nurlingo_unlock_all", String(newVal)); } catch {}
 
-  const scrollToTop = useCallback(() => {
-    topRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
-  const filteredUnits = useMemo(() => {
-    let result = units;
-    if (selectedUnit) {
-      result = result.filter(u => u.id === selectedUnit);
+    if (newVal) {
+      try {
+        const current = loadRewards();
+        const updated = { ...current, crowns: { ...current.crowns } };
+        for (let i = 1; i <= 10; i++) {
+          const id = `w1_l${i}`;
+          if (!updated.crowns[id]) updated.crowns[id] = 3;
+        }
+        saveRewards(updated);
+        setRewards(updated);
+      } catch (error) { console.warn("Failed to grant unlock-all crowns:", error); }
     }
-    return result;
-  }, [units, selectedUnit]);
+    setUnlockAllActive(newVal);
+    showMessage(newVal ? "Բոլոր դասերը բացված են" : "Դասերը կողպված են", newVal ? "success" : "info");
+  }, [unlockAllActive, showMessage]);
 
-  const level = useMemo(
-    () => (rewards ? hayqToLevel(rewards.totalHAYQ || 0) : null),
-    [rewards]
-  );
+  const filteredUnits = useMemo(() => selectedUnit ? units.filter(u => u.id === selectedUnit) : units, [units, selectedUnit]);
+  const level = useMemo(() => (rewards ? hayqToLevel(rewards.totalHAYQ || 0) : null), [rewards]);
 
   if (!rewards || !level) return null;
 
@@ -446,41 +309,43 @@ export default function WorldPage() {
   const totalLessons = allLessons.length;
   const overallProgress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
-  // ─── RENDER ────────────────────────────────────────────────────────
-
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="relative z-10 flex flex-col">
         
-        {/* Nuri - fixed top right */}
-        <div className="fixed top-24 right-6 z-50 pointer-events-none">
-          <img 
-            src="/images/nuri/nuri-learning.png" 
-            alt="Nuri learning" 
-            className="w-20 h-20 object-contain animate-float"
-          />
-        </div>
-
         {/* ─── HEADER ─── */}
-        <nav className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-white/20 dark:border-white/5 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-30 flex-wrap gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
+        <nav className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-white/20 dark:border-white/5 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-30 shadow-sm">
           <div className="flex items-center gap-3">
-            <Link href="/" className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D90012] to-[#FFA500] flex items-center justify-center font-black text-xl shadow-lg border border-white/20">
-              Ն
-            </Link>
+            <Link href="/" className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D90012] to-[#FFA500] flex items-center justify-center font-black text-xl shadow-lg border border-white/20">Ն</Link>
             <span className="font-black tracking-tighter text-xl uppercase italic text-gray-900 dark:text-white">NUR Lingo</span>
           </div>
           
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* ✅ Տեղափոխված «?» (Nuri/Օգնություն) կոճակը վերև աջ */}
+          {/* ✅ ՎԵՐԵՎԻ ԱՋ ԱՆԿՅՈՒՆԻ 3 ԿՈՃԱԿՆԵՐԸ */}
+          <div className="flex items-center gap-2">
+            
+            {/* 1. Ֆոնի ընտրություն */}
             <button
-              onClick={() => {
-                // Այստեղ ավելացրու Nuri օգնականի բացման տրամաբանությունը, եթե կա
-                // Օրինակ՝ setShowNuri(true)
-              }}
-              className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 dark:hover:border-white/20 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              title="Օգնություն / Nuri"
+              onClick={() => window.dispatchEvent(new Event("nur-open-bg"))}
+              className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm"
+              title="Ֆոնի ընտրություն"
             >
-              <HelpCircle size={20} />
+              <Palette size={20} />
+            </button>
+
+            {/* 2. Մութ/Լույս ռեժիմ */}
+            <ThemeToggle size="md" />
+
+            {/* 3. Կողպել/Բացել դասերը */}
+            <button
+              onClick={toggleUnlockAll}
+              className={`p-2 rounded-xl backdrop-blur-sm border transition-all shadow-sm ${
+                unlockAllActive 
+                  ? "bg-amber-500/20 border-amber-500/30 text-amber-500" 
+                  : "bg-white/40 dark:bg-gray-900/50 border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+              }`}
+              title={unlockAllActive ? "Կողպել դասերը" : "Բացել բոլոր դասերը"}
+            >
+              {unlockAllActive ? <Unlock size={20} /> : <Lock size={20} />}
             </button>
           </div>
         </nav>
@@ -713,8 +578,8 @@ export default function WorldPage() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            className="fixed bottom-24 right-6 z-50 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 p-3.5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all"
+            onClick={() => topRef.current?.scrollIntoView({ behavior: "smooth" })}
+            className="fixed bottom-24 right-6 z-50 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 p-3.5 rounded-2xl shadow-lg transition-all"
           >
             <ArrowUp size={20} className="text-gray-900 dark:text-white" />
           </motion.button>

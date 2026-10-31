@@ -16,7 +16,6 @@ import {
   BookOpen,
   Globe,
   Sparkles,
-  ArrowRight,
   Zap,
   Heart,
   MessageSquare,
@@ -30,6 +29,8 @@ import {
   Loader2,
   XCircle,
   Users,
+  Car,
+  ShieldAlert,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
@@ -69,6 +70,16 @@ interface QuickLink {
   color?: string;
 }
 
+interface ModuleCard {
+  id: string;
+  href: string;
+  icon: LucideIcon;
+  titleKey: string;
+  descKey: string;
+  gradient: string;
+  shadow: string;
+}
+
 // ─── CONSTANTS ────────────────────────────────────────────────────────
 
 const LANGUAGE_OPTIONS: ReadonlyArray<{
@@ -88,14 +99,85 @@ const LANG_BY_CODE: Record<LangCode, (typeof LANGUAGE_OPTIONS)[number]> =
     (typeof LANGUAGE_OPTIONS)[number]
   >;
 
+// ✅ 3 գլխավոր մոդուլները
+const MODULES: ModuleCard[] = [
+  {
+    id: "languages",
+    href: "/world",
+    icon: Globe,
+    titleKey: "onboarding_path_languages",
+    descKey: "onboarding_path_languages_desc",
+    gradient: "from-blue-500 to-cyan-400",
+    shadow: "shadow-blue-500/30",
+  },
+  {
+    id: "drive",
+    href: "/drive-test",
+    icon: Car,
+    titleKey: "onboarding_path_drive",
+    descKey: "onboarding_path_drive_desc",
+    gradient: "from-orange-500 to-amber-400",
+    shadow: "shadow-orange-500/30",
+  },
+  {
+    id: "civil",
+    href: "/world/qaghaqpashtpanutyun",
+    icon: ShieldAlert,
+    titleKey: "onboarding_path_civil",
+    descKey: "onboarding_path_civil_desc",
+    gradient: "from-red-500 to-pink-500",
+    shadow: "shadow-red-500/30",
+  },
+];
+
+// ✅ Quick links (առանց World-ի, քանի որ այն արդեն մոդուլների մեջ է)
 const QUICK_LINKS: QuickLink[] = [
-  { href: "/world", icon: Globe, labelKey: "page__world", color: "text-blue-400" },
   { href: "/dictionary", icon: BookOpen, labelKey: "page_dictionary", color: "text-emerald-400" },
   { href: "/dialogues", icon: MessageSquare, labelKey: "page_dialogues", color: "text-purple-400" },
   { href: "/curriculum", icon: LayoutGrid, labelKey: "page_curriculum", color: "text-amber-400" },
   { href: "/garden", icon: Leaf, labelKey: "page_garden", color: "text-green-400" },
   { href: "/user-dictionary", icon: Users, labelKey: "page_user_dictionary", color: "text-yellow-400" },
 ];
+
+// ✅ Fallback translations (եթե translations.json-ում բացակայում են)
+const EXTRA_TR: Record<string, Record<string, string>> = {
+  onboarding_path_civil: {
+    hy: "Քաղպաշտպանություն",
+    en: "Civil Defense",
+    ru: "Гражданская оборона",
+  },
+  onboarding_path_civil_desc: {
+    hy: "Անվտանգություն և առաջին օգնություն",
+    en: "Safety and first aid",
+    ru: "Безопасность и первая помощь",
+  },
+  onboarding_path_languages: {
+    hy: "Լեզուներ",
+    en: "Languages",
+    ru: "Языки",
+  },
+  onboarding_path_languages_desc: {
+    hy: "Սովորիր 3 լեզու Նուրիի հետ",
+    en: "Learn 3 languages with Nuri",
+    ru: "Учи 3 языка с Нури",
+  },
+  onboarding_path_drive: {
+    hy: "Վարորդական թեստ",
+    en: "Drive Test",
+    ru: "Водительский тест",
+  },
+  onboarding_path_drive_desc: {
+    hy: "10 թեստ, 1050 հարց",
+    en: "10 tests, 1050 questions",
+    ru: "10 тестов, 1050 вопросов",
+  },
+};
+
+function tr(key: string, locale: LangCode, t: (k: string) => string): string {
+  const extra = EXTRA_TR[key];
+  if (extra) return extra[locale] || extra.en || extra.hy || t(key);
+  return t(key);
+}
 
 const FALLBACK_STATS: HomeStats = {
   streak: 0,
@@ -108,7 +190,7 @@ const FALLBACK_STATS: HomeStats = {
 
 const DEFAULT_DAILY_GOAL = 50;
 
-// ─── MODAL WRAPPER (accessible, focus-trapped) ───────────────────────
+// ─── MODAL WRAPPER ───────────────────────────────────────────────────
 
 interface ModalProps {
   isOpen: boolean;
@@ -210,7 +292,6 @@ export default function Home() {
   const { t, locale, setLanguage } = useI18n();
   const lang = locale as LangCode;
 
-  // ─── STATE ────────────────────────────────────────────────────────
   const [stats, setStats] = useState<HomeStats | null>(null);
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -221,17 +302,14 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isResetting, setIsResetting] = useState(false);
 
-  // ─── LANGUAGE STATE ───────────────────────────────────────────────
   const [currentNative, setCurrentNative] = useState<LangCode>("hy");
   const [currentLearning, setCurrentLearning] = useState<LangCode>("en");
   const [selectedNative, setSelectedNative] = useState<LangCode>("hy");
   const [selectedLearning, setSelectedLearning] = useState<LangCode>("en");
 
-  // ─── APPEARANCE STATE ─────────────────────────────────────────────
   const [selectedFont, setSelectedFont] = useState("sans");
   const [selectedColor, setSelectedColor] = useState("red");
 
-  // ─── TIMER CLEANUP ────────────────────────────────────────────────
   const nuriTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -242,7 +320,6 @@ export default function Home() {
     };
   }, []);
 
-  /** Set mood temporarily, then revert. Cancels any pending timer. */
   const setMoodTemporarily = useCallback(
     (mood: NuriMood, duration: number, resetTo: NuriMood = "happy") => {
       setNuriMood(mood);
@@ -252,14 +329,12 @@ export default function Home() {
     []
   );
 
-  // ─── LOAD DATA ────────────────────────────────────────────────────
   useEffect(() => {
     let cancelled = false;
 
     const loadData = async () => {
       setIsLoading(true);
 
-      // ─── 1. Language config check ─────────────────────────────────
       try {
         const langConfigRaw = localStorage.getItem("nur_lang_config");
         if (!langConfigRaw) {
@@ -279,11 +354,9 @@ export default function Home() {
         return;
       }
 
-      // ─── 2. Load Appearance Settings ─────────────────────────────
       setSelectedFont(localStorage.getItem("nur_font") || "sans");
       setSelectedColor(localStorage.getItem("nur_color") || "red");
 
-      // ─── 3. Rewards + quests ──────────────────────────────────────
       try {
         const rewardsData = syncHearts();
         if (cancelled) return;
@@ -327,7 +400,6 @@ export default function Home() {
     };
   }, [router, setMoodTemporarily]);
 
-  // ─── DERIVED ──────────────────────────────────────────────────────
   const claimableQuests = useMemo(
     () => quests.filter((q) => q.completed && !q.claimed),
     [quests]
@@ -341,8 +413,6 @@ export default function Home() {
   const streak = stats?.streak ?? rewards?.streak ?? 0;
   const totalHAYQ = stats?.totalHAYQ ?? rewards?.totalHAYQ ?? 0;
 
-  // ─── HANDLERS ─────────────────────────────────────────────────────
-
   const openStatsModal = useCallback(() => setShowStatsModal(true), []);
 
   const openSettingsModal = useCallback(() => {
@@ -351,14 +421,13 @@ export default function Home() {
       setSelectedNative(config.native as LangCode);
       setSelectedLearning(config.learning as LangCode);
     }
-    // Sync appearance state with current localStorage on open
     setSelectedFont(localStorage.getItem("nur_font") || "sans");
     setSelectedColor(localStorage.getItem("nur_color") || "red");
     setShowSettingsModal(true);
   }, []);
 
-  const updateAppearance = useCallback((type: 'font' | 'color', value: string) => {
-    if (type === 'font') {
+  const updateAppearance = useCallback((type: "font" | "color", value: string) => {
+    if (type === "font") {
       setSelectedFont(value);
       localStorage.setItem("nur_font", value);
       document.documentElement.setAttribute("data-font", value);
@@ -379,7 +448,6 @@ export default function Home() {
         if (!reward) return;
 
         addRewards(reward.hayq ?? 0, reward.seeds ?? 0);
-
         const questsData = loadQuests() || [];
         setQuests(questsData);
 
@@ -388,11 +456,7 @@ export default function Home() {
 
         setStats((prev) =>
           prev
-            ? {
-                ...prev,
-                totalHAYQ: rewardsData.totalHAYQ ?? prev.totalHAYQ,
-                hasStarted: true,
-              }
+            ? { ...prev, totalHAYQ: rewardsData.totalHAYQ ?? prev.totalHAYQ, hasStarted: true }
             : prev
         );
 
@@ -416,7 +480,6 @@ export default function Home() {
       setCurrentNative(selectedNative);
       setCurrentLearning(selectedLearning);
       setShowSettingsModal(false);
-
       setMoodTemporarily("excited", 2000, "happy");
     } catch (error) {
       console.error("Failed to save language settings:", error);
@@ -425,7 +488,6 @@ export default function Home() {
 
   const handleResetOnboarding = useCallback(() => {
     setIsResetting(true);
-
     try {
       const keysToRemove = [
         "nur_lang_config",
@@ -435,12 +497,11 @@ export default function Home() {
         "nurlingo_streak",
         "nur_device_id",
         "nur_lesson_mistakes_v2",
-        "nur_font",     // Reset appearance too
+        "nur_font",
         "nur_color",
       ];
       for (const key of keysToRemove) localStorage.removeItem(key);
 
-      // WAV caches
       const allKeys = Object.keys(localStorage);
       for (const key of allKeys) {
         if (key.startsWith("wav_audio_")) {
@@ -463,7 +524,6 @@ export default function Home() {
     }
   }, [router]);
 
-  // ─── LOADING / ERROR STATES ───────────────────────────────────────
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -499,12 +559,11 @@ export default function Home() {
 
   const isReturning = stats.hasStarted;
 
-  // ─── RENDER ───────────────────────────────────────────────────────
   return (
     <main className="min-h-screen overflow-hidden relative">
       <NuriRain langs={[currentNative]} count={35} speed={0.7} />
 
-      {/* ─── HEADER ACTIONS ─── */}
+      {/* HEADER ACTIONS */}
       <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
         {isReturning && claimableCount > 0 && (
           <button
@@ -512,7 +571,6 @@ export default function Home() {
             onClick={openStatsModal}
             className="relative p-1"
             title={t("home_quest_badge_title", { count: claimableCount })}
-            aria-label={t("home_quest_badge_aria", { count: claimableCount })}
           >
             <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-[10px] font-bold text-black animate-pulse">
               {claimableCount}
@@ -525,7 +583,6 @@ export default function Home() {
           type="button"
           onClick={openSettingsModal}
           className="p-2 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/20 transition-all"
-          title={t("page_settings")}
           aria-label={t("page_settings")}
         >
           <Settings
@@ -537,15 +594,15 @@ export default function Home() {
         <ThemeToggle size="lg" />
       </div>
 
-      {/* ─── MAIN CONTENT ─── */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12">
-        {/* ─── NURI ─── */}
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 flex flex-col items-center min-h-screen px-6 py-16">
+        {/* NURI */}
         <motion.div
           animate={{ y: [0, -12, 0] }}
           transition={{ duration: 3.5, repeat: Infinity }}
           className="mb-3"
         >
-          <Nuri mood={nuriMood} size={160} glow />
+          <Nuri mood={nuriMood} size={140} glow />
         </motion.div>
 
         <NuriSpeech
@@ -559,17 +616,45 @@ export default function Home() {
           mood={nuriMood}
         />
 
-        {/* ─── TITLE (✨ Text Shimmer Effect) ─── */}
+        {/* TITLE */}
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mt-4 mb-1">
-          <span className="text-shimmer">
-            NUR Lingo
-          </span>
+          <span className="text-shimmer">NUR Lingo</span>
         </h1>
-        <p className="text-[var(--color-text-muted)] text-sm font-bold uppercase tracking-[0.3em] mb-6">
+        <p className="text-[var(--color-text-muted)] text-sm font-bold uppercase tracking-[0.3em] mb-8">
           {t("page_subtitle")}
         </p>
 
-        {/* ─── STATS ─── */}
+        {/* ═══════════════════════════════════════════════════════ */}
+        {/* ✅ 3 ԳԼԽԱՎՈՐ ՄՈԴՈՒԼՆԵՐԸ — ԻՐԱՐ ԿՈՂՔ                    */}
+        {/* ═══════════════════════════════════════════════════════ */}
+        <div className="grid grid-cols-3 gap-3 w-full max-w-md mb-8">
+          {MODULES.map((m) => {
+            const Icon = m.icon;
+            return (
+              <Link
+                key={m.id}
+                href={m.href}
+                className="group flex flex-col items-center gap-2 p-3 rounded-2xl bg-white/40 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/10 hover:bg-white/50 dark:hover:bg-white/20 transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+              >
+                <div
+                  className={`p-3 rounded-2xl bg-gradient-to-br ${m.gradient} ${m.shadow} shadow-lg group-hover:scale-110 transition-transform`}
+                >
+                  <Icon size={24} className="text-white" strokeWidth={2.5} />
+                </div>
+                <div className="text-center min-w-0 w-full">
+                  <h3 className="text-[11px] font-black text-gray-900 dark:text-white leading-tight line-clamp-2">
+                    {tr(m.titleKey, lang, t)}
+                  </h3>
+                  <p className="text-[9px] text-[var(--color-text-muted)] leading-tight mt-0.5 line-clamp-2">
+                    {tr(m.descKey, lang, t)}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* STATS */}
         {isReturning && (
           <div className="flex items-center gap-3 mb-6 flex-wrap justify-center">
             <button
@@ -579,78 +664,31 @@ export default function Home() {
               aria-label={t("page_stats")}
             >
               <Flame size={14} className="text-orange-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">
-                {streak}
-              </span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{streak}</span>
             </button>
 
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Zap size={14} className="text-yellow-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">
-                {totalHAYQ}
-              </span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{totalHAYQ}</span>
             </div>
 
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10">
               <Heart size={14} className="text-red-500" />
-              <span className="text-sm font-bold text-[var(--color-text)]">
-                {hearts}
-              </span>
+              <span className="text-sm font-bold text-[var(--color-text)]">{hearts}</span>
             </div>
 
             {rewards && (rewards.streakFreeze ?? 0) > 0 && (
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-500/30">
                 <span className="text-xs">🛡️</span>
-                <span className="text-xs font-bold text-blue-500">
-                  {rewards.streakFreeze}
-                </span>
+                <span className="text-xs font-bold text-blue-500">{rewards.streakFreeze}</span>
               </div>
             )}
           </div>
         )}
 
-        {/* ─── MAIN BUTTON (✨ Glow Edge Effect) ─── */}
-        <div className="w-full max-w-sm">
-          <Link
-            href={isReturning ? "/world" : "/onboarding"}
-            className="glow-edge w-full bg-gradient-to-r from-[var(--palette-primary)] to-[var(--palette-accent)] text-white font-bold py-5 px-8 rounded-2xl flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-lg shadow-[var(--palette-primary-dim)] text-lg backdrop-blur-soft group"
-          >
-            <Sparkles
-              size={22}
-              className="group-hover:rotate-12 transition-transform"
-            />
-            {isReturning ? t("page_continue") : t("page_start")}
-            <ArrowRight
-              size={22}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </Link>
-        </div>
-
-        {/* ─── QUICK LINKS ─── */}
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-6 w-full max-w-sm">
-          {QUICK_LINKS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-2xl p-2.5 text-center hover:bg-white/50 dark:hover:bg-white/20 hover:scale-105 transition-all group"
-            >
-              <item.icon
-                size={20}
-                className={`mx-auto ${
-                  item.color || "text-[var(--color-text-secondary)]"
-                } mb-0.5 group-hover:scale-110 transition-transform`}
-              />
-              <span className="text-[8px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
-                {t(item.labelKey)}
-              </span>
-            </Link>
-          ))}
-        </div>
-
-        {/* ─── DAILY PROGRESS ─── */}
+        {/* DAILY PROGRESS */}
         {isReturning && (
-          <div className="w-full max-w-sm mt-4">
+          <div className="w-full max-w-md mb-6">
             <div className="flex items-center justify-between text-xs text-[var(--color-text-muted)] mb-1">
               <span className="flex items-center gap-1.5">
                 <Target size={12} />
@@ -669,22 +707,46 @@ export default function Home() {
             >
               <motion.div
                 initial={{ width: 0 }}
-                animate={{
-                  width: `${(stats.dailyProgress / stats.dailyGoal) * 100}%`,
-                }}
+                animate={{ width: `${(stats.dailyProgress / stats.dailyGoal) * 100}%` }}
                 className="h-full rounded-full bg-gradient-to-r from-[var(--palette-primary)] via-[var(--palette-accent)] to-[#0033A0]"
               />
             </div>
           </div>
         )}
 
-        {/* ─── FOOTER ─── */}
+        {/* QUICK LINKS — փոքրիկներ */}
+        <div className="w-full max-w-md">
+          <p className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2 text-center">
+            {t("page_main")}
+          </p>
+          <div className="grid grid-cols-5 gap-2">
+            {QUICK_LINKS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-xl p-2 text-center hover:bg-white/50 dark:hover:bg-white/20 hover:scale-105 transition-all group"
+              >
+                <item.icon
+                  size={18}
+                  className={`mx-auto ${
+                    item.color || "text-[var(--color-text-secondary)]"
+                  } mb-0.5 group-hover:scale-110 transition-transform`}
+                />
+                <span className="text-[8px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider block truncate">
+                  {t(item.labelKey)}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* FOOTER */}
         <p className="text-[var(--color-text-muted)] text-[10px] font-bold uppercase tracking-[0.2em] mt-8 opacity-40">
           {t("page_footer_platform")}
         </p>
       </div>
 
-      {/* ─── STATS MODAL ─── */}
+      {/* ═══════════ STATS MODAL ═══════════ */}
       <Modal
         isOpen={showStatsModal && !!rewards}
         onClose={() => setShowStatsModal(false)}
@@ -693,17 +755,14 @@ export default function Home() {
         {rewards && (
           <>
             <div className="flex items-center justify-between mb-4">
-              <h3
-                id="stats-modal-title"
-                className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2"
-              >
+              <h3 id="stats-modal-title" className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
                 <Trophy size={20} className="text-yellow-500" />
                 {t("page_stats")}
               </h3>
               <button
                 type="button"
                 onClick={() => setShowStatsModal(false)}
-                className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors p-1 rounded-lg"
+                className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] p-1 rounded-lg"
                 aria-label={t("page_close")}
               >
                 ✕
@@ -711,37 +770,14 @@ export default function Home() {
             </div>
 
             <div className="space-y-3">
-              <StatRow
-                label={t("page__streak")}
-                value={rewards.streak ?? 0}
-                valueClass="text-[var(--color-text)]"
-              />
-              <StatRow
-                label={t("page__hayq")}
-                value={rewards.totalHAYQ ?? 0}
-                valueClass="text-yellow-500"
-              />
-              <StatRow
-                label={t("page__seeds")}
-                value={rewards.totalSeeds ?? 0}
-                valueClass="text-emerald-500"
-              />
-              <StatRow
-                label={t("page__hearts")}
-                value={rewards.hearts ?? 0}
-                valueClass="text-red-500"
-              />
-              <StatRow
-                label={t("page__freeze")}
-                value={rewards.streakFreeze ?? 0}
-                valueClass="text-blue-500"
-              />
+              <StatRow label={t("page__streak")} value={rewards.streak ?? 0} valueClass="text-[var(--color-text)]" />
+              <StatRow label={t("page__hayq")} value={rewards.totalHAYQ ?? 0} valueClass="text-yellow-500" />
+              <StatRow label={t("page__seeds")} value={rewards.totalSeeds ?? 0} valueClass="text-emerald-500" />
+              <StatRow label={t("page__hearts")} value={rewards.hearts ?? 0} valueClass="text-red-500" />
+              <StatRow label={t("page__freeze")} value={rewards.streakFreeze ?? 0} valueClass="text-blue-500" />
               <StatRow
                 label={t("page__crowns")}
-                value={Object.values(rewards.crowns || {}).reduce(
-                  (a, b) => a + b,
-                  0
-                )}
+                value={Object.values(rewards.crowns || {}).reduce((a, b) => a + b, 0)}
                 valueClass="text-amber-500"
               />
             </div>
@@ -763,7 +799,7 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => handleClaimQuest(q.id)}
-                        className="px-2 py-0.5 bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-colors text-[10px] font-bold"
+                        className="px-2 py-0.5 bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 rounded-lg hover:bg-yellow-500/30 text-[10px] font-bold"
                       >
                         {t("page_claim")}
                       </button>
@@ -784,24 +820,21 @@ export default function Home() {
         )}
       </Modal>
 
-      {/* ─── SETTINGS MODAL ─── */}
+      {/* ═══════════ SETTINGS MODAL ═══════════ */}
       <Modal
         isOpen={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
         labelledBy="settings-modal-title"
       >
         <div className="flex items-center justify-between mb-4">
-          <h3
-            id="settings-modal-title"
-            className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2"
-          >
+          <h3 id="settings-modal-title" className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
             <Settings size={20} className="text-[var(--color-text-secondary)]" />
             {t("page_settings")}
           </h3>
           <button
             type="button"
             onClick={() => setShowSettingsModal(false)}
-            className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors p-1 rounded-lg"
+            className="text-[var(--color-text-muted)] hover:text-[var(--color-text)] p-1 rounded-lg"
             aria-label={t("page_close")}
           >
             ✕
@@ -809,13 +842,9 @@ export default function Home() {
         </div>
 
         <div className="bg-white/40 dark:bg-white/5 rounded-xl p-3 mb-4">
-          <p className="text-xs text-[var(--color-text-muted)] mb-1">
-            {t("page_current_languages")}
-          </p>
+          <p className="text-xs text-[var(--color-text-muted)] mb-1">{t("page_current_languages")}</p>
           <div className="flex items-center gap-3 text-sm">
-            <span className="text-[var(--color-text-secondary)]">
-              {t("page__native_")}
-            </span>
+            <span className="text-[var(--color-text-secondary)]">{t("page__native_")}</span>
             <span className="font-bold text-[var(--color-text)]">
               {currentNativeInfo?.flag} {currentNativeInfo?.label}
             </span>
@@ -826,7 +855,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Native language selector */}
         <div className="mb-4">
           <label className="text-xs text-[var(--color-text-muted)] mb-2 block">
             {t("page__native_")}
@@ -841,7 +869,7 @@ export default function Home() {
                 className={`p-3 rounded-xl border-2 text-center transition-all ${
                   selectedNative === lng.code
                     ? `border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 ${lng.color}`
-                    : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
+                    : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)]"
                 }`}
               >
                 <div className="text-2xl">{lng.flag}</div>
@@ -851,35 +879,30 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Learning language selector */}
         <div className="mb-4">
           <label className="text-xs text-[var(--color-text-muted)] mb-2 block">
             {t("page__learning_")}
           </label>
           <div className="grid grid-cols-3 gap-2">
-            {LANGUAGE_OPTIONS.filter((l) => l.code !== selectedNative).map(
-              (lng) => (
-                <button
-                  key={`learning-${lng.code}`}
-                  type="button"
-                  onClick={() => setSelectedLearning(lng.code)}
-                  aria-pressed={selectedLearning === lng.code}
-                  className={`p-3 rounded-xl border-2 text-center transition-all ${
-                    selectedLearning === lng.code
-                      ? `border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 ${lng.color}`
-                      : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
-                  }`}
-                >
-                  <div className="text-2xl">{lng.flag}</div>
-                  <div className="text-[10px] font-medium mt-1">{lng.label}</div>
-                </button>
-              )
-            )}
+            {LANGUAGE_OPTIONS.filter((l) => l.code !== selectedNative).map((lng) => (
+              <button
+                key={`learning-${lng.code}`}
+                type="button"
+                onClick={() => setSelectedLearning(lng.code)}
+                aria-pressed={selectedLearning === lng.code}
+                className={`p-3 rounded-xl border-2 text-center transition-all ${
+                  selectedLearning === lng.code
+                    ? `border-[var(--palette-accent)] bg-[var(--palette-accent)]/10 ${lng.color}`
+                    : "border-white/30 dark:border-white/10 bg-white/40 dark:bg-white/5 text-[var(--color-text-secondary)]"
+                }`}
+              >
+                <div className="text-2xl">{lng.flag}</div>
+                <div className="text-[10px] font-medium mt-1">{lng.label}</div>
+              </button>
+            ))}
           </div>
           {selectedNative === selectedLearning && (
-            <p className="text-xs text-red-500 mt-2">
-              ⚠️ {t("page_language_same_error")}
-            </p>
+            <p className="text-xs text-red-500 mt-2">⚠️ {t("page_language_same_error")}</p>
           )}
         </div>
 
@@ -897,10 +920,9 @@ export default function Home() {
           {t("page_save_languages")}
         </button>
 
-        {/* ─── 🎨 APPEARANCE SECTION ─── */}
         <div className="mb-6 pt-4 border-t border-white/20 dark:border-white/10">
           <label className="text-xs text-[var(--color-text-muted)] mb-2 block font-bold">
-            🎨 Տառատեսակ (Font)
+            🎨 Տառատեսակ
           </label>
           <div className="grid grid-cols-3 gap-2 mb-4">
             {[
@@ -924,7 +946,7 @@ export default function Home() {
           </div>
 
           <label className="text-xs text-[var(--color-text-muted)] mb-2 block font-bold">
-            🖌️ Հիմնական գույն (Accent)
+            🖌️ Գույն
           </label>
           <div className="flex gap-3 justify-center">
             {[
@@ -948,7 +970,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ─── DANGER ZONE ─── */}
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-white/20 dark:border-white/10" />
@@ -975,13 +996,13 @@ export default function Home() {
         <button
           type="button"
           onClick={() => setShowSettingsModal(false)}
-          className="w-full mt-3 py-2.5 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors text-sm font-medium"
+          className="w-full mt-3 py-2.5 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-muted)] hover:text-[var(--color-text)] text-sm font-medium"
         >
           {t("page_cancel")}
         </button>
       </Modal>
 
-      {/* ─── RESET CONFIRMATION MODAL ─── */}
+      {/* ═══════════ RESET CONFIRM MODAL ═══════════ */}
       <Modal
         isOpen={showResetConfirm}
         onClose={() => setShowResetConfirm(false)}
@@ -989,27 +1010,20 @@ export default function Home() {
         zIndex={101}
       >
         <div className="text-center">
-          <div className="text-5xl mb-4" aria-hidden="true">
-            ⚠️
-          </div>
-          <h3
-            id="reset-modal-title"
-            className="text-xl font-bold text-[var(--color-text)] mb-2"
-          >
+          <div className="text-5xl mb-4" aria-hidden="true">⚠️</div>
+          <h3 id="reset-modal-title" className="text-xl font-bold text-[var(--color-text)] mb-2">
             {t("page_reset_onboarding_title")}
           </h3>
           <p className="text-sm text-[var(--color-text-secondary)] mb-6">
             {t("page_reset_onboarding_description")}
             <br />
-            <span className="text-red-500 font-bold">
-              {t("page_reset_irreversible")}
-            </span>
+            <span className="text-red-500 font-bold">{t("page_reset_irreversible")}</span>
           </p>
           <div className="flex gap-3">
             <button
               type="button"
               onClick={() => setShowResetConfirm(false)}
-              className="flex-1 py-3 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors font-medium"
+              className="flex-1 py-3 rounded-xl border border-white/20 dark:border-white/10 text-[var(--color-text-secondary)] font-medium"
             >
               {t("page_cancel")}
             </button>
@@ -1017,7 +1031,7 @@ export default function Home() {
               type="button"
               onClick={handleResetOnboarding}
               disabled={isResetting}
-              className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+              className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {isResetting ? (
                 <>

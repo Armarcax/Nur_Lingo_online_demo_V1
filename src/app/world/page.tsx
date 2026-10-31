@@ -1,35 +1,23 @@
 // src/app/world/page.tsx
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useNuri } from "@/hooks/useNuri";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
-  Flame,
-  Coins,
-  Heart,
   X,
   Lock,
   Gift,
   CheckCircle,
   Clock,
-  BookOpen,
   Sparkles,
-  TrendingUp,
   Target,
-  Star,
-  Crown,
-  Settings,
-  Grid3x3,
-  List,
-  Search,
   ArrowUp,
-  Loader2,
   Unlock,
-  Lock as LockIcon,
+  HelpCircle, // ✅ Ավելացվել է «?» կոճակի համար
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import {
@@ -70,19 +58,10 @@ interface WorldStats {
   totalSeeds: number;
 }
 
-// ✅ FIXED: canonical localStorage keys (must match seeds.ts)
 const STORAGE_KEYS = {
   UNLOCK_ALL: "nurlingo_unlock_all",
-  COMPACT: "nurlingo_compact_world",
   LANG_CONFIG: "nur_lang_config",
 } as const;
-
-// ─── HELPERS ──────────────────────────────────────────────────────────
-
-/** ✅ Case-insensitive search that handles Armenian, Cyrillic, Latin */
-function normalizeForSearch(s: string): string {
-  return s.toLocaleLowerCase("hy-AM").normalize("NFC");
-}
 
 // ─── CONFETTI ─────────────────────────────────────────────────────────
 
@@ -124,7 +103,6 @@ function SnakePath({
   crowns,
   onStart,
   native,
-  isCompact = false,
   isUnlocked = false,
 }: {
   lessons: MultiLesson[];
@@ -132,7 +110,6 @@ function SnakePath({
   crowns: Record<string, number>;
   onStart: (l: MultiLesson) => void;
   native: LangCode;
-  isCompact?: boolean;
   isUnlocked?: boolean;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -155,17 +132,17 @@ function SnakePath({
 
   const WIDTH = containerWidth;
   const scale = WIDTH / 400;
-  const STEP_Y = (isCompact ? 100 : 130) * scale;
-  const AMPLITUDE = (isCompact ? 100 : 140) * scale;
+  const STEP_Y = 130 * scale;
+  const AMPLITUDE = 140 * scale;
   const centerX = WIDTH / 2;
-  const height = Math.max((isCompact ? 120 : 160) * scale, lessons.length * STEP_Y + 40);
+  const height = Math.max(160 * scale, lessons.length * STEP_Y + 40);
 
   const NODES_PER_SWING = 3.5;
   const nodeX = (i: number) => {
     const angle = (i / NODES_PER_SWING) * Math.PI;
     return centerX + Math.sin(angle) * AMPLITUDE;
   };
-  const nodeY = (i: number) => (isCompact ? 30 : 50) + i * STEP_Y;
+  const nodeY = (i: number) => 50 + i * STEP_Y;
 
   const pathD = lessons.reduce((acc, _, i) => {
     const x = nodeX(i);
@@ -195,7 +172,7 @@ function SnakePath({
           fill="none"
           stroke={unit.colorFrom || "#D90012"}
           strokeOpacity={0.35}
-          strokeWidth={isCompact ? 3 : 4}
+          strokeWidth={4}
           strokeDasharray="8 10"
           strokeLinecap="round"
         />
@@ -209,8 +186,8 @@ function SnakePath({
         const x = nodeX(i);
         const y = nodeY(i);
         const crownLevel = crowns[l.id] || 0;
-        const size = isCompact ? "w-12 h-12 md:w-14 md:h-14" : "w-16 h-16 md:w-20 md:h-20";
-        const textSize = isCompact ? "text-xl" : "text-3xl";
+        const size = "w-16 h-16 md:w-20 md:h-20";
+        const textSize = "text-3xl";
 
         return (
           <motion.button
@@ -232,7 +209,7 @@ function SnakePath({
                     key={level}
                     initial={{ scale: 0 }}
                     animate={{ scale: crownLevel >= level ? 1 : 0 }}
-                    className={`${isCompact ? "w-3 h-3 text-[6px]" : "w-5 h-5 text-[9px]"} bg-yellow-400 rounded-full flex items-center justify-center shadow-lg border border-yellow-600`}
+                    className="w-5 h-5 text-[9px] bg-yellow-400 rounded-full flex items-center justify-center shadow-lg border border-yellow-600"
                   >
                     ⭐
                   </motion.div>
@@ -242,16 +219,8 @@ function SnakePath({
 
             {!unlocked && !done && (
               <div className="absolute -top-2 -right-2 z-10">
-                <div className={`${isCompact ? "w-5 h-5" : "w-7 h-7"} bg-gray-700 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-600`}>
-                  <Lock size={isCompact ? 10 : 12} className="text-gray-400" />
-                </div>
-              </div>
-            )}
-
-            {unlocked && !done && !isLessonUnlocked(i) && isUnlocked && (
-              <div className="absolute -top-2 -left-2 z-10">
-                <div className={`${isCompact ? "w-4 h-4" : "w-5 h-5"} bg-amber-500 rounded-full flex items-center justify-center shadow-lg border-2 border-amber-400`}>
-                  <Unlock size={isCompact ? 8 : 10} className="text-white" />
+                <div className="w-7 h-7 bg-gray-700 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-600">
+                  <Lock size={12} className="text-gray-400" />
                 </div>
               </div>
             )}
@@ -275,125 +244,13 @@ function SnakePath({
               <span className="drop-shadow-lg">{!unlocked ? "🔒" : isReview ? "🏆" : unit.iconEmoji}</span>
             </div>
 
-            {!isCompact && (
-              <p className="mt-2 text-[10px] font-bold text-white/70 max-w-[90px] truncate text-center">
-                {l.title[native] || l.title.en}
-              </p>
-            )}
-
-            {unlocked && !done && (
-              <div className="absolute -top-8 -left-14 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <img 
-                  src="/images/nuri/nuri-wink.png" 
-                  alt="Nuri wink" 
-                  className="w-14 h-14 object-contain animate-bounce"
-                />
-              </div>
-            )}
+            <p className="mt-2 text-[10px] font-bold text-white/70 max-w-[90px] truncate text-center">
+              {l.title[native] || l.title.en}
+            </p>
           </motion.button>
         );
       })}
     </div>
-  );
-}
-
-// ─── STREAK MILESTONE MODAL ─────────────────────────────────────────
-
-function StreakMilestoneModal({
-  milestone,
-  onClose,
-}: {
-  milestone: number;
-  onClose: () => void;
-}) {
-  const { t } = useI18n();
-  const rewards = [
-    { days: 7, reward: "🎁 +1 Heart" },
-    { days: 14, reward: "🎁 +2 Seeds" },
-    { days: 30, reward: "🎁 +5 HAYQ" },
-    { days: 60, reward: "🎁 +10 Seeds" },
-    { days: 100, reward: "🎁 +20 HAYQ" },
-  ];
-  
-  const currentReward = rewards.find(r => r.days === milestone) || rewards[0];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
-    >
-      <motion.div
-        initial={{ scale: 0.5, y: 60 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.5, y: 60 }}
-        className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-xl border border-white/20 dark:border-white/5 rounded-3xl p-8 max-w-sm w-full text-center relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-      >
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-yellow-500/10 via-transparent to-transparent animate-pulse" />
-
-        <Nuri mood="celebrating" glow size={150} className="mx-auto mb-4" />
-
-        <h2 className="text-3xl font-black text-gray-900 dark:text-white">
-          🔥 {milestone} {t("page_days")}!
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider mt-1">
-          {t("page_streak_milestone")}
-        </p>
-
-        <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-2xl p-4 mt-6 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-          <div className="flex items-center gap-3 text-left">
-            <span className="text-2xl">🎁</span>
-            <div>
-              <p className="text-xs font-bold text-[#FFA500] uppercase tracking-wider">
-                {t("page_reward")}
-              </p>
-              <p className="font-bold text-gray-900 dark:text-white">{currentReward.reward}</p>
-            </div>
-          </div>
-          <span className="text-2xl font-bold text-[#FFA500]">✅</span>
-        </div>
-
-        <button
-          onClick={onClose}
-          className="w-full mt-6 bg-[#FFA500] text-black py-3 rounded-xl font-bold text-sm hover:bg-[#FFA500]/80 transition-colors"
-        >
-          {t("page_awesome")}
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-// ─── DAILY GOAL MODAL ───────────────────────────────────────────────
-
-function DailyGoalModal({ onClose }: { onClose: () => void }) {
-  const { t } = useI18n();
-  
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
-    >
-      <motion.div
-        initial={{ scale: 0.5, y: 60 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.5, y: 60 }}
-        className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-xl border border-white/20 dark:border-white/5 rounded-3xl p-8 max-w-sm w-full text-center shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-      >
-        <div className="text-6xl mb-4">🎯</div>
-        <h2 className="text-2xl font-black text-gray-900 dark:text-white">{t("page_daily_goal_complete")}</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("page_daily_goal_message")}</p>
-        <button
-          onClick={onClose}
-          className="w-full mt-6 bg-[#FFA500] text-black py-3 rounded-xl font-bold text-sm hover:bg-[#FFA500]/80 transition-colors"
-        >
-          {t("page_congrats")}
-        </button>
-      </motion.div>
-    </motion.div>
   );
 }
 
@@ -442,22 +299,15 @@ export default function WorldPage() {
   const [rewards, setRewards] = useState<UserRewards | null>(null);
   const [units, setUnits] = useState<MultiUnit[]>([]);
   const [allLessons, setAllLessons] = useState<MultiLesson[]>([]);
-  const [milestone, setMilestone] = useState<number | null>(null);
-  const [goalAchieved, setGoalAchieved] = useState(false);
   const [native, setNative] = useState<LangCode>("en");
   const [pair, setPair] = useState<LangPair>("en-hy");
   const [quests, setQuests] = useState<Quest[]>([]);
-  const [showStats, setShowStats] = useState(false);
-  const [isCompact, setIsCompact] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<string | null>(null);
   const [worldStats, setWorldStats] = useState<WorldStats | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
   const [unlockAllActive, setUnlockAllActive] = useState(false);
   
   const topRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // ─── LOAD DATA ──────────────────────────────────────────────────────
 
@@ -469,7 +319,6 @@ export default function WorldPage() {
       setNative(nat);
       setPair(p);
 
-      // Sync rewards state
       const r = syncHearts();
       const withFreeze = checkAndApplyFreeze();
       const res = checkStreakMilestones();
@@ -482,15 +331,6 @@ export default function WorldPage() {
         ...(goalRes.rewards || {}),
       };
       setRewards(mergedRewards);
-      
-      if (res.milestone) setMilestone(res.milestone);
-
-      const today = new Date().toISOString().split("T")[0];
-      const dailyActivity = mergedRewards.dailyActivity?.[today] || 0;
-      const dailyGoal = mergedRewards.dailyGoal || 50;
-      if (dailyActivity >= dailyGoal) {
-        setGoalAchieved(true);
-      }
 
       try {
         const data = getLessonsForPair(p);
@@ -508,20 +348,11 @@ export default function WorldPage() {
         setQuests([]);
       }
 
-      // ✅ Read unlock setting from canonical key
       try {
         const unlockSetting = localStorage.getItem(STORAGE_KEYS.UNLOCK_ALL);
         if (unlockSetting === "true") {
           setUnlockAllActive(true);
         }
-      } catch {
-        // Ignore
-      }
-
-      // Read compact preference
-      try {
-        const saved = localStorage.getItem(STORAGE_KEYS.COMPACT);
-        if (saved) setIsCompact(saved === "true");
       } catch {
         // Ignore
       }
@@ -551,7 +382,6 @@ export default function WorldPage() {
       ).length,
       overallProgress: Math.round((allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length / allLessons.length) * 100),
       totalCrowns: allLessons.reduce((sum, l) => sum + (rewards.crowns[l.id] || 0), 0),
-      // ✅ FIXED: use maxStreak for bestStreak
       currentStreak: rewards.streak || 0,
       bestStreak: rewards.maxStreak || rewards.streak || 0,
       totalHAYQ: rewards.totalHAYQ || 0,
@@ -568,25 +398,6 @@ export default function WorldPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-        setShowSearch(true);
-      }
-      if (e.key === "Escape") {
-        setShowStats(false);
-        setShowSearch(false);
-        setSearchQuery("");
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
   // ─── START LESSON ──────────────────────────────────────────────────
 
   const startLesson = useCallback((l: MultiLesson) => {
@@ -599,7 +410,6 @@ export default function WorldPage() {
     try {
       const reward = claimReward(questId);
       if (reward) {
-        // ✅ addRewards already persists; no need to saveRewards here
         const updated = addRewards(reward.hayq, reward.seeds || 0);
         setQuests(loadQuests() || []);
         setRewards(updated);
@@ -617,86 +427,14 @@ export default function WorldPage() {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  // ─── TOGGLE COMPACT VIEW ──────────────────────────────────────────
-
-  const toggleCompact = useCallback(() => {
-    setIsCompact(prev => {
-      const newVal = !prev;
-      try {
-        localStorage.setItem(STORAGE_KEYS.COMPACT, String(newVal));
-      } catch {
-        // Ignore
-      }
-      return newVal;
-    });
-  }, []);
-
-  // ─── TOGGLE UNLOCK ALL ────────────────────────────────────────────
-
-  /**
-   * ✅ FIXED: 
-   * - Uses canonical localStorage key from seeds.ts
-   * - No side effects inside setState callback
-   * - No full page reload
-   * - Immediately grants crowns to w1 lessons for visualization
-   */
-  const toggleUnlockAll = useCallback(() => {
-    const newVal = !unlockAllActive;
-
-    try {
-      localStorage.setItem(STORAGE_KEYS.UNLOCK_ALL, String(newVal));
-    } catch {
-      // Ignore
-    }
-
-    if (newVal) {
-      // Grant 3 crowns to all w1 lessons so they appear as completed
-      try {
-        const current = loadRewards();
-        const updated = { ...current, crowns: { ...current.crowns } };
-        for (let i = 1; i <= 10; i++) {
-          const id = `w1_l${i}`;
-          if (!updated.crowns[id]) {
-            updated.crowns[id] = 3;
-          }
-        }
-        saveRewards(updated);
-        setRewards(updated);
-      } catch (error) {
-        console.warn("Failed to grant unlock-all crowns:", error);
-      }
-    }
-
-    setUnlockAllActive(newVal);
-    showMessage(
-      newVal ? t("page_unlock_all_on") : t("page_unlock_all_off"),
-      newVal ? "success" : "info"
-    );
-  }, [unlockAllActive, showMessage, t]);
-
-  // ─── FILTERED UNITS ───────────────────────────────────────────────
-
   const filteredUnits = useMemo(() => {
     let result = units;
-    
     if (selectedUnit) {
       result = result.filter(u => u.id === selectedUnit);
     }
-    
-    if (searchQuery.trim()) {
-      // ✅ Use normalized search for all scripts
-      const q = normalizeForSearch(searchQuery.trim());
-      result = result.filter(u => {
-        const title = normalizeForSearch(u.title[native] || u.title.en || "");
-        const desc = normalizeForSearch(u.description[native] || u.description.en || "");
-        return title.includes(q) || desc.includes(q);
-      });
-    }
-    
     return result;
-  }, [units, selectedUnit, searchQuery, native]);
+  }, [units, selectedUnit]);
 
-  // ✅ FIXED: cache levels
   const level = useMemo(
     () => (rewards ? hayqToLevel(rewards.totalHAYQ || 0) : null),
     [rewards]
@@ -707,7 +445,6 @@ export default function WorldPage() {
   const completedLessons = allLessons.filter(l => (rewards.crowns[l.id] || 0) > 0).length;
   const totalLessons = allLessons.length;
   const overallProgress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-  const hasSearch = searchQuery.trim().length > 0;
 
   // ─── RENDER ────────────────────────────────────────────────────────
 
@@ -734,176 +471,19 @@ export default function WorldPage() {
           </div>
           
           <div className="flex items-center gap-2 flex-wrap">
-            {/* Rank */}
-            <div className="hidden md:flex flex-col items-end mr-2">
-              <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest leading-none mb-1">{t("page_rank")}</p>
-              <p className="text-sm font-black" style={{ color: level.color || "#FFA500" }}>
-                {level.title?.[native] || level.titleArmenian || t("page_student")}
-              </p>
-            </div>
-            
-            {/* ✅ Unlock All Toggle */}
-            <button
-              onClick={toggleUnlockAll}
-              className={`p-2 rounded-xl border transition-all duration-300 ${
-                unlockAllActive
-                  ? "bg-amber-500/20 border-amber-500/30 text-amber-400 hover:bg-amber-500/30"
-                  : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-white/30 dark:hover:border-white/20 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              }`}
-              title={unlockAllActive ? t("page_unlock_all_on") : t("page_unlock_all_off")}
-            >
-              {unlockAllActive ? <Unlock size={16} /> : <LockIcon size={16} />}
-            </button>
-            
-            {/* Stats Button */}
-            <button
-              onClick={() => setShowStats(!showStats)}
-              className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 dark:hover:border-white/20 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-            >
-              <TrendingUp size={16} />
-            </button>
-            
-            {/* Search Button */}
+            {/* ✅ Տեղափոխված «?» (Nuri/Օգնություն) կոճակը վերև աջ */}
             <button
               onClick={() => {
-                setShowSearch(!showSearch);
-                if (!showSearch) setTimeout(() => searchInputRef.current?.focus(), 100);
+                // Այստեղ ավելացրու Nuri օգնականի բացման տրամաբանությունը, եթե կա
+                // Օրինակ՝ setShowNuri(true)
               }}
               className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 dark:hover:border-white/20 transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+              title="Օգնություն / Nuri"
             >
-              <Search size={16} />
+              <HelpCircle size={20} />
             </button>
-            
-            {/* Compact Toggle */}
-            <button
-              onClick={toggleCompact}
-              className={`p-2 rounded-xl border transition-colors ${
-                isCompact ? "bg-blue-500/20 border-blue-500/30 text-blue-400" : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              }`}
-              title={isCompact ? t("page_expand") : t("page_compact")}
-            >
-              {isCompact ? <Grid3x3 size={16} /> : <List size={16} />}
-            </button>
-            
-            <Link
-              href="/curriculum"
-              className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-3 py-1.5 rounded-xl text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-800/80 transition-all flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-            >
-              <BookOpen size={14} />
-              {t("page_curriculum")}
-            </Link>
           </div>
         </nav>
-
-        {/* ─── SEARCH BAR ─── */}
-        <AnimatePresence>
-          {showSearch && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
-            >
-              <div className="max-w-4xl mx-auto px-4 py-3 w-full">
-                <div className="relative">
-                  <Search
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
-                  />
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={t("page_search_worlds")}
-                    className="w-full bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl px-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#FFA500]/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                    >
-                      <X size={16} />
-                    </button>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ─── UNLOCK ALL STATUS BAR ─── */}
-        {unlockAllActive && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="max-w-4xl mx-auto px-4 py-2 w-full">
-              <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-2 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-amber-400">
-                  <Unlock size={14} />
-                  <span>{t("page_unlock_all_on")}</span>
-                  <span className="text-[8px] bg-amber-500/20 px-1.5 py-0.5 rounded ml-1">DEV MODE</span>
-                </div>
-                <button
-                  onClick={toggleUnlockAll}
-                  className="text-xs text-amber-400/60 hover:text-amber-400 transition-colors"
-                >
-                  {t("page_turn_off")}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* ─── STATS PANEL ─── */}
-        <AnimatePresence>
-          {showStats && worldStats && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
-            >
-              <div className="max-w-4xl mx-auto px-4 py-4 w-full">
-                <GlassCard variant="premium" className="p-4">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-emerald-500">{worldStats.completedLessons}/{worldStats.totalLessons}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">{t("page_lessons")}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-yellow-500">{worldStats.totalCrowns}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">👑 {t("page_crowns")}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-500">{worldStats.bestStreak}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">🔥 {t("page_best_streak")}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-500">{worldStats.completedUnits}/{worldStats.totalUnits}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">📚 {t("page_units")}</div>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{t("page_overall_progress")}</span>
-                    <div className="flex-1 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                      <motion.div
-                        className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${worldStats.overallProgress}%` }}
-                        transition={{ duration: 0.8 }}
-                      />
-                    </div>
-                    <span className="text-xs font-bold text-gray-900 dark:text-white">{worldStats.overallProgress}%</span>
-                  </div>
-                </GlassCard>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* ─── QUESTS ─── */}
         {quests.length > 0 && (
@@ -1001,43 +581,11 @@ export default function WorldPage() {
               <Target size={12} className="text-blue-500" />
               {overallProgress}%
             </span>
-            {hasSearch && (
-              <>
-                <span className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-                <span className="flex items-center gap-1 text-amber-500">
-                  <Search size={12} />
-                  {filteredUnits.reduce((acc, u) => {
-                    const lessons = allLessons.filter(l => l.unitId === u.id);
-                    return acc + lessons.length;
-                  }, 0)} {t("page_results")}
-                </span>
-              </>
-            )}
-            {unlockAllActive && (
-              <>
-                <span className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-                <span className="flex items-center gap-1 text-amber-400">
-                  <Unlock size={12} />
-                  🔓 {t("page_all_unlocked")}
-                </span>
-              </>
-            )}
           </div>
-          
-          {unlockAllActive && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="mt-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold"
-            >
-              <Unlock size={14} />
-              {t("page_all_unlocked")}
-            </motion.div>
-          )}
         </div>
 
         {/* ─── UNIT SELECTOR ─── */}
-        {units.length > 1 && !hasSearch && (
+        {units.length > 1 && (
           <div className="max-w-4xl mx-auto px-4 pb-4 w-full">
             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
               <button
@@ -1074,16 +622,8 @@ export default function WorldPage() {
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🔍</div>
                 <p className="text-gray-600 dark:text-gray-400 font-medium">
-                  {searchQuery ? t("page_no_results", { query: searchQuery }) : t("page_no_units")}
+                  {t("page_no_units")}
                 </p>
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="mt-4 px-6 py-2 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                  >
-                    {t("page_clear_search")}
-                  </button>
-                )}
               </div>
             ) : (
               filteredUnits.map((unit) => {
@@ -1136,7 +676,6 @@ export default function WorldPage() {
                       crowns={rewards.crowns}
                       onStart={startLesson}
                       native={native}
-                      isCompact={isCompact}
                       isUnlocked={unlockAllActive}
                     />
                   </GlassCard>
@@ -1183,19 +722,6 @@ export default function WorldPage() {
       </AnimatePresence>
 
       <BottomNav />
-
-      {/* ─── MODALS ─── */}
-      <AnimatePresence>
-        {milestone && (
-          <StreakMilestoneModal
-            milestone={milestone}
-            onClose={() => setMilestone(null)}
-          />
-        )}
-        {goalAchieved && (
-          <DailyGoalModal onClose={() => setGoalAchieved(false)} />
-        )}
-      </AnimatePresence>
     </div>
   );
 }

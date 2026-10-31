@@ -802,7 +802,7 @@ export function ThemeBackground({
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-40 right-6 z-[60] p-3 rounded-2xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border border-white/30 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all shadow-lg no-print"
+            className="fixed top-4 right-20 z-[60] p-3 rounded-2xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border border-white/30 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all shadow-lg no-print"
             title={t("theme_background_title")}
             aria-label={t("theme_background_title")}
             aria-haspopup="dialog"

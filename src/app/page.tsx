@@ -13,14 +13,10 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Flame,
-  BookOpen,
   Globe,
   Sparkles,
   Zap,
   Heart,
-  MessageSquare,
-  Leaf,
-  LayoutGrid,
   Trophy,
   Target,
   Settings,
@@ -28,7 +24,6 @@ import {
   RotateCcw,
   Loader2,
   XCircle,
-  Users,
   Car,
   ShieldAlert,
 } from "lucide-react";
@@ -63,13 +58,6 @@ interface HomeStats {
   dailyGoal: number;
 }
 
-interface QuickLink {
-  href: string;
-  icon: LucideIcon;
-  labelKey: string;
-  color?: string;
-}
-
 interface ModuleCard {
   id: string;
   href: string;
@@ -99,7 +87,6 @@ const LANG_BY_CODE: Record<LangCode, (typeof LANGUAGE_OPTIONS)[number]> =
     (typeof LANGUAGE_OPTIONS)[number]
   >;
 
-// ✅ 3 գլխավոր մոդուլները
 const MODULES: ModuleCard[] = [
   {
     id: "languages",
@@ -130,16 +117,6 @@ const MODULES: ModuleCard[] = [
   },
 ];
 
-// ✅ Quick links (առանց World-ի, քանի որ այն արդեն մոդուլների մեջ է)
-const QUICK_LINKS: QuickLink[] = [
-  { href: "/dictionary", icon: BookOpen, labelKey: "page_dictionary", color: "text-emerald-400" },
-  { href: "/dialogues", icon: MessageSquare, labelKey: "page_dialogues", color: "text-purple-400" },
-  { href: "/curriculum", icon: LayoutGrid, labelKey: "page_curriculum", color: "text-amber-400" },
-  { href: "/garden", icon: Leaf, labelKey: "page_garden", color: "text-green-400" },
-  { href: "/user-dictionary", icon: Users, labelKey: "page_user_dictionary", color: "text-yellow-400" },
-];
-
-// ✅ Fallback translations (եթե translations.json-ում բացակայում են)
 const EXTRA_TR: Record<string, Record<string, string>> = {
   onboarding_path_civil: {
     hy: "Քաղպաշտպանություն",
@@ -486,6 +463,7 @@ export default function Home() {
     }
   }, [selectedNative, selectedLearning, setLanguage, setMoodTemporarily]);
 
+  // ✅ FIX: Force hard reload for onboarding reset to prevent weird transitions
   const handleResetOnboarding = useCallback(() => {
     setIsResetting(true);
     try {
@@ -499,6 +477,8 @@ export default function Home() {
         "nur_lesson_mistakes_v2",
         "nur_font",
         "nur_color",
+        "nurlingo_onboarding_complete",
+        "nur_learning_mode",
       ];
       for (const key of keysToRemove) localStorage.removeItem(key);
 
@@ -515,14 +495,15 @@ export default function Home() {
         setIsResetting(false);
         setShowResetConfirm(false);
         setShowSettingsModal(false);
-        router.push("/onboarding");
+        // Hard reload forces the app to completely reset state
+        window.location.href = "/onboarding";
       }, 500);
     } catch (error) {
       console.error("Failed to reset:", error);
       setIsResetting(false);
       setShowResetConfirm(false);
     }
-  }, [router]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -624,9 +605,7 @@ export default function Home() {
           {t("page_subtitle")}
         </p>
 
-        {/* ═══════════════════════════════════════════════════════ */}
-        {/* ✅ 3 ԳԼԽԱՎՈՐ ՄՈԴՈՒԼՆԵՐԸ — ԻՐԱՐ ԿՈՂՔ                    */}
-        {/* ═══════════════════════════════════════════════════════ */}
+        {/* 3 ԳԼԽԱՎՈՐ ՄՈԴՈՒԼՆԵՐԸ */}
         <div className="grid grid-cols-3 gap-3 w-full max-w-md mb-8">
           {MODULES.map((m) => {
             const Icon = m.icon;
@@ -713,32 +692,6 @@ export default function Home() {
             </div>
           </div>
         )}
-
-        {/* QUICK LINKS — փոքրիկներ */}
-        <div className="w-full max-w-md">
-          <p className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2 text-center">
-            {t("page_main")}
-          </p>
-          <div className="grid grid-cols-5 gap-2">
-            {QUICK_LINKS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="bg-white/40 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-xl p-2 text-center hover:bg-white/50 dark:hover:bg-white/20 hover:scale-105 transition-all group"
-              >
-                <item.icon
-                  size={18}
-                  className={`mx-auto ${
-                    item.color || "text-[var(--color-text-secondary)]"
-                  } mb-0.5 group-hover:scale-110 transition-transform`}
-                />
-                <span className="text-[8px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider block truncate">
-                  {t(item.labelKey)}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
 
         {/* FOOTER */}
         <p className="text-[var(--color-text-muted)] text-[10px] font-bold uppercase tracking-[0.2em] mt-8 opacity-40">

@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Volume2, Loader2, CheckCircle, XCircle, Wifi, WifiOff, Music, ArrowLeft, ArrowRight, Check, X, Shuffle, HelpCircle } from 'lucide-react';
+import { Volume2, Loader2, CheckCircle, XCircle, Wifi, WifiOff, ArrowLeft, ArrowRight, Check, X } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { useCanonicalOfflineAudio } from '@/lib/hooks/useCanonicalOfflineAudio';
 import { useI18n } from '@/hooks/useI18n';
@@ -32,10 +32,10 @@ type Language = 'hy' | 'en' | 'ru';
 type Gender = 'male' | 'female';
 
 // ============================================================
-// TYPES
+// TYPES (✅ Ավելացվել է export, որպեսզի TypeScript-ը չբողոքա)
 // ============================================================
 
-interface Exercise {
+export interface Exercise {
   id: string;
   type: 'listen-and-select' | 'listen-and-speak' | 'listen-and-repeat' | 'multiple-choice' | 'translate' | 'matching' | 'word-scramble' | 'true-false' | 'jumbled-sentence' | 'fill-in-the-blanks';
   question: string;
@@ -56,7 +56,7 @@ interface ExerciseState extends Exercise {
 }
 
 // ============================================================
-// AUTO EXERCISE GENERATOR (Ավելացված է)
+// AUTO EXERCISE GENERATOR
 // ============================================================
 
 const shuffleArray = <T,>(arr: T[]): T[] => {
@@ -103,11 +103,11 @@ const generateExtraExercises = (lessonData: any): Exercise[] => {
     }
   });
 
-    // 3. Խառնված նախադասություն (Jumbled Sentence)
+  // 3. Խառնված նախադասություն (Jumbled Sentence)
   phrases.forEach((p: any, i: number) => {
     if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
       const words: string[] = p.hy.split(' ');
-      const jumbled: string[] = shuffleArray<string>(words); // ✅ Ավելացվել է <string> և : string[]
+      const jumbled: string[] = shuffleArray<string>(words);
       generated.push({
         id: `gen_jumble_${i}`,
         type: 'jumbled-sentence',
@@ -189,7 +189,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; message: string; correctAnswer?: string } | null>(null);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('hy');
 
@@ -205,19 +204,16 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
   const [availableWords, setAvailableWords] = useState<string[]>([]);
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
 
-  // ✅ Սկզբնական վարժություններին ավելացնում ենք գեներացվածները
   useEffect(() => {
     if (lessonData?.exercises) {
       const extra = generateExtraExercises(lessonData);
       const allExercises = [...lessonData.exercises, ...extra].map(ex => ({
         ...ex, isAnswered: false, selectedAnswer: undefined, isCorrect: undefined,
       }));
-      // Խառնում ենք, որպեսզի նորերը միշտ վերջում չլինեն
       setExercises(shuffleArray(allExercises));
     }
   }, [lessonData]);
 
-  // ✅ ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱ
   const playAudioText = useCallback((text: string, lang: Language) => {
     if (!text) return;
 
@@ -247,7 +243,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
 
   const current = exercises[currentIndex];
 
-  // Auto-play հարցի աուդիոն
   useEffect(() => {
     if (!current || completed || current.type === 'matching') return;
     const textToPlay = current.audioText || current.questionArmenian || current.question;
@@ -255,7 +250,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     return () => clearTimeout(timer);
   }, [current, completed, selectedLanguage, playAudioText]);
 
-  // Init States on Question Change
   useEffect(() => {
     if (!current) return;
     setTextInput('');
@@ -269,7 +263,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   }, [currentIndex, current]);
 
-  // Matching Logic
   const leftItems = useMemo(() => {
     if (!current?.pairs) return [];
     return shuffleArray([...current.pairs]);
@@ -306,7 +299,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   };
 
-  // Jumbled Sentence Logic
   const handleWordSelect = (word: string, index: number) => {
     setSelectedWords([...selectedWords, word]);
     setAvailableWords(availableWords.filter((_, i) => i !== index));
@@ -316,7 +308,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     setSelectedWords(selectedWords.filter((_, i) => i !== index));
   };
 
-  // Answer Handler
   const handleAnswer = useCallback(async (selected: string) => {
     if (isSubmitting) return;
     if (!current || current.isAnswered) return;
@@ -351,7 +342,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }, 2000);
   }, [current, currentIndex, exercises.length, isSubmitting, onComplete, score, t]);
 
-  // Handle skip
   const handleSkip = useCallback(() => {
     if (feedback) return;
     const nextIndex = currentIndex + 1;
@@ -364,14 +354,12 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   }, [currentIndex, exercises.length, score, onComplete, feedback]);
 
-  // Reset
   const handleReset = useCallback(() => {
     setExercises(prev => prev.map(ex => ({ ...ex, isAnswered: false, selectedAnswer: undefined, isCorrect: undefined })));
     setCurrentIndex(0);
     setScore(0);
     setCompleted(false);
     setFeedback(null);
-    setSelectedOption(null);
     setMatchedPairs([]);
   }, []);
 
@@ -401,7 +389,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
 
   return (
     <div className={`max-w-2xl mx-auto p-4 ${className}`}>
-      {/* Header */}
       <div className="mb-6">
         <div className="flex justify-between items-center">
           <div>
@@ -427,7 +414,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
       </div>
 
       <GlassCard variant="premium" className="p-6">
-        {/* Question Text & Audio Button */}
         <div className="mb-6 flex items-start gap-3">
           <button
             onClick={() => playAudioText(current.audioText || current.questionArmenian || current.question, selectedLanguage)}
@@ -442,7 +428,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         </div>
 
-        {/* 1. MATCHING */}
         {current.type === 'matching' && current.pairs && (
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
@@ -478,7 +463,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* 2. TRUE / FALSE */}
         {current.type === 'true-false' && (
           <div className="grid grid-cols-2 gap-4 mt-4">
             <button
@@ -504,7 +488,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* 3. JUMBLED SENTENCE */}
         {current.type === 'jumbled-sentence' && (
           <div className="space-y-4 mt-4">
             <div className="min-h-[60px] p-4 rounded-xl bg-white/30 border border-white/20 flex flex-wrap gap-2">
@@ -531,7 +514,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* 4. FILL IN THE BLANKS & WORD SCRAMBLE */}
         {(current.type === 'fill-in-the-blanks' || current.type === 'word-scramble') && (
           <div className="space-y-4 mt-4">
             {current.translations?.en && (
@@ -555,7 +537,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* 5. MULTIPLE CHOICE / LISTEN / TRANSLATE (Options) */}
         {current.options && current.type !== 'jumbled-sentence' && (
           <div className="space-y-3 mt-4">
             {current.options.map((option) => (
@@ -575,7 +556,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* Feedback */}
         {feedback && (
           <div className={`mt-6 p-4 rounded-xl ${feedback.isCorrect ? 'bg-green-500/10 text-green-600' : 'bg-red-500/10 text-red-600'}`}>
             <div className="flex items-center gap-2 font-bold mb-1">
@@ -588,7 +568,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
           </div>
         )}
 
-        {/* Navigation */}
         <div className="flex justify-between mt-6 pt-4 border-t border-white/20">
           <button
             onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}

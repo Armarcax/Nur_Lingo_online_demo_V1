@@ -401,7 +401,6 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
   const isAnswered = state === "correct" || state === "incorrect";
 
   return (
-    // ✅ grid-cols-2-ը թույլ կտա հեռախոսում էլ 2 սյունակ լինի
     <div className="grid grid-cols-2 gap-2 sm:gap-3">
       {options.map((opt) => {
         const isPicked = userAnswer === opt;
@@ -409,8 +408,6 @@ function MultipleChoiceInput({ options, targetAnswer, userAnswer, state, onSelec
         const isWrong = isAnswered && isPicked && !isCorrectAnswer;
         const isCorrect = isAnswered && isCorrectAnswer;
 
-        // ✅ Փոխեցինք text-left-ը text-center-ի, որ 2 սյունակում ավելի գեղեցիկ նայի
-        // ✅ p-4-ը փոխեցինք p-3-ի, որ հեռախոսի նեղ էկրանին տեքստը տեղավորվի
         let className = "p-3 sm:p-4 rounded-xl border-2 transition-all text-center flex items-center justify-center min-h-[60px] ";
         if (isCorrect) className += "border-emerald-500 bg-emerald-500/10 text-emerald-500";
         else if (isWrong) className += "border-red-500 bg-red-500/10 line-through opacity-70";
@@ -442,13 +439,20 @@ interface MatchPairsInputProps {
   onMatch: (left: string, right: string) => void;
   onUnmatch?: (left: string) => void;
   disabled: boolean;
+  onPlayAudio: (text: string, lang: string) => void;
+  native: string;
+  learningLang: string;
 }
 
-function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, disabled }: MatchPairsInputProps) {
+function MatchPairsInput({ 
+  leftItems, rightItems, matched, onMatch, onUnmatch, disabled, 
+  onPlayAudio, native, learningLang 
+}: MatchPairsInputProps) {
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
 
   const handleLeftClick = (left: string) => {
     if (disabled) return;
+    onPlayAudio(left, native); 
     if (matched[left]) {
       onUnmatch?.(left);
       return;
@@ -458,6 +462,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
 
   const handleRightClick = (right: string) => {
     if (disabled) return;
+    onPlayAudio(right, learningLang);
     if (selectedLeft && !matched[selectedLeft]) {
       onMatch(selectedLeft, right);
       setSelectedLeft(null);
@@ -473,7 +478,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
           <button
             key={left}
             onClick={() => handleLeftClick(left)}
-            className={`w-full p-3 rounded-xl text-left transition-all ${
+            className={`w-full p-3 rounded-xl text-left transition-all flex justify-between items-center ${
               matched[left]
                 ? "bg-emerald-500/20 border-emerald-500/30 line-through opacity-60 cursor-pointer"
                 : selectedLeft === left
@@ -483,7 +488,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
             disabled={disabled}
           >
             <span className="text-gray-900 dark:text-white">{left}</span>
-            {matched[left] && <span className="ml-2 text-emerald-500">✅</span>}
+            <Volume2 size={16} className="text-gray-400" />
           </button>
         ))}
       </div>
@@ -492,7 +497,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
           <button
             key={right}
             onClick={() => handleRightClick(right)}
-            className={`w-full p-3 rounded-xl text-left transition-all ${
+            className={`w-full p-3 rounded-xl text-left transition-all flex justify-between items-center ${
               isRightMatched(right)
                 ? "bg-emerald-500/20 border-emerald-500/30 opacity-60 cursor-not-allowed"
                 : selectedLeft && !matched[selectedLeft]
@@ -502,7 +507,7 @@ function MatchPairsInput({ leftItems, rightItems, matched, onMatch, onUnmatch, d
             disabled={disabled || isRightMatched(right)}
           >
             <span className="text-gray-900 dark:text-white">{right}</span>
-            {isRightMatched(right) && <span className="ml-2 text-emerald-500">✅</span>}
+            <Volume2 size={16} className="text-gray-400" />
           </button>
         ))}
       </div>
@@ -935,40 +940,7 @@ function LearnInner() {
           } catch {}
         }
 
-        if (lang === "en") {
-          try {
-            const r = await fetch("/api/generate-tts-en", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (r.ok) {
-              const d = await r.json();
-              if (d.success && d.audioUrl) {
-                await new Audio(d.audioUrl).play();
-                return;
-              }
-            }
-          } catch {}
-        }
-
-        if (lang === "ru") {
-          try {
-            const r = await fetch("/api/generate-tts-ru", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (r.ok) {
-              const d = await r.json();
-              if (d.success && d.audioUrl) {
-                await new Audio(d.audioUrl).play();
-                return;
-              }
-            }
-          } catch {}
-        }
-
+        // ✅ ԱՅԼ ԼԵԶՈՒՆԵՐԻ ՀԱՄԱՐ ՄԻԱՅՆ TTS (Առանց API 500 սխալի)
         try {
           await playAudioWithFemaleVoice(text, lang);
         } catch {}
@@ -988,38 +960,8 @@ function LearnInner() {
             }
           }
         }
-        if (learningLang === "en") {
-          try {
-            const r = await fetch("/api/generate-tts-en", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (r.ok) {
-              const d = await r.json();
-              if (d.success && d.audioUrl) {
-                await new Audio(d.audioUrl).play();
-                return;
-              }
-            }
-          } catch {}
-        }
-        if (learningLang === "ru") {
-          try {
-            const r = await fetch("/api/generate-tts-ru", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (r.ok) {
-              const d = await r.json();
-              if (d.success && d.audioUrl) {
-                await new Audio(d.audioUrl).play();
-                return;
-              }
-            }
-          } catch {}
-        }
+        
+        // ✅ ԱՅԼ ԼԵԶՈՒՆԵՐԻ ՀԱՄԱՐ ՄԻԱՅՆ TTS (Առանց API 500 սխալի)
         try {
           await playAudioWithFemaleVoice(text, learningLang);
         } catch {}
@@ -1703,7 +1645,6 @@ function LearnInner() {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        // ✅ FIX: allow Enter to go next if attempts >= 2 (instead of 3)
         if (ex.state === "idle") submitRef.current();
         else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 2)) nextRef.current();
       }
@@ -2237,6 +2178,9 @@ function LearnInner() {
                     if (right) setMatchRightItems((prev) => [...prev, right]);
                   }}
                   disabled={ex.state !== "idle"}
+                  onPlayAudio={(text, lang) => playAudioWithFallback(text, lang, "prompt").catch(() => {})}
+                  native={native}
+                  learningLang={learningLang}
                 />
               ) : current.type === "listening" && current.ttsText ? (
                 <ListeningInput
@@ -2352,7 +2296,6 @@ function LearnInner() {
                         className="h-full bg-red-500"
                       />
                     </div>
-                    {/* ✅ FIX: Added "Next" button for incorrect answers when attempts >= 2 */}
                     <button
                       onClick={() => nextRef.current()}
                       className="w-full mt-4 py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2"

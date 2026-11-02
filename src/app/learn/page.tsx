@@ -920,42 +920,25 @@ function LearnInner() {
   );
 
   // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
+    // 🔥 ԱԿՆԹԱՐԹԱՓ ԱՈՒԴԻՈ (Կանացի ձայնով)
   const playMatchAudio = useCallback((text: string, lang: string) => {
     if (!audioEnabled || !text) return;
     const cleanText = sanitizeForTTS(text);
     if (!cleanText) return;
 
     if (lang === "hy") {
-      // Հայերենի համար փորձում ենք WAV ֆայլը
       if (wavClient && isWAVAvailable) {
         wavClient.playPrompt(cleanText, getPairKey(native, learningLang), "Ani").catch(() => {
-          // Եթե WAV-ը չկա կամ սխալ կա, ակնթարթորեն միացնում ենք բրաուզերի հայերեն TTS-ը
-          if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(cleanText);
-            u.lang = "hy-AM";
-            window.speechSynthesis.speak(u);
-          }
+          playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
         });
       } else {
-        // Եթե WAV համակարգը բեռնված չէ, ակնթարթորեն TTS
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const u = new SpeechSynthesisUtterance(cleanText);
-          u.lang = "hy-AM";
-          window.speechSynthesis.speak(u);
-        }
+        playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
       }
     } else {
-      // ✅ ԱՆԳԼԵՐԵՆԻ ԿԱՄ ՌՈՒՍԵՐԵՆԻ ՀԱՄԱՐ ՄԻԱՅՆ ԲՐԱՈՒԶԵՐԻ TTS (Առանց սերվերի)
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(cleanText);
-        u.lang = lang === "en" ? "en-US" : "ru-RU";
-        window.speechSynthesis.speak(u);
-      }
+      // ✅ ԱՆԳԼԵՐԵՆԸ ԿԱՐԴՈՒՄ Է ՄԻԱՅՆ ԿԱՆԱՑԻ ՁԱՅՆՈՎ
+      playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
     }
-  }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang]);
+  }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
 
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
@@ -1362,12 +1345,6 @@ function LearnInner() {
           setTimeout(() => {
             setEx((s) => ({ ...s, showCoinAnimation: false }));
           }, 2500);
-
-          if (current.pairs) {
-            const correctPairs = current.pairs.map(([l, r]) => `${l} → ${r}`).join(", ");
-            await new Promise((r) => setTimeout(r, 200));
-            await handleSpeak(correctPairs, learningLang, "answer");
-          }
           return;
         }
 

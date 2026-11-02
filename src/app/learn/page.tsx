@@ -180,6 +180,94 @@ function formatTime(ms: number): string {
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
 }
 
+// ─── ԱՎՏՈՄԱՏ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐ ──────────────────────────────
+
+function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[] {
+  const generated: MultiExercise[] = [];
+  const vocab = lesson.vocabulary || [];
+  const phrases = lesson.phrases || [];
+
+  const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
+  const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
+
+  // 1. Խառնված տառեր (Word Scramble) -> translate
+  vocab.forEach((v: any, i: number) => {
+    if (i % 4 === 0 && v.hy && v.hy.length > 2) {
+      const scrambled = v.hy.split('').sort(() => Math.random() - 0.5).join('');
+      generated.push({
+        id: `gen_scramble_${i}`,
+        type: 'translate',
+        prompt: { 
+          hy: `Վերականգնիր բառը (Ակնարկ՝ ${v.en}): ${scrambled}`, 
+          en: `Unscramble (Hint: ${v.en}): ${scrambled}`, 
+          ru: `Составь слово (Подсказка: ${v.en}): ${scrambled}` 
+        },
+        targetAnswer: v.hy,
+      });
+    }
+  });
+
+  // 2. Ճիշտ/Սխալ (True/False) -> multiple_choice
+  vocab.forEach((v: any, i: number) => {
+    if (i % 5 === 0 && v.hy && v.en) {
+      const isCorrect = Math.random() > 0.5;
+      const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
+      generated.push({
+        id: `gen_tf_${i}`,
+        type: 'multiple_choice',
+        prompt: { 
+          hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
+          en: `Does «${v.hy}» mean «${fakeEn}»?`, 
+          ru: `«${v.hy}» переводится как «${fakeEn}»?` 
+        },
+        targetAnswer: isCorrect ? trueStr : falseStr,
+        options: [trueStr, falseStr]
+      });
+    }
+  });
+
+  // 3. Խառնված նախադասություն (Jumbled Sentence) -> word_order
+  phrases.forEach((p: any, i: number) => {
+    if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
+      const words = p.hy.split(' ');
+      generated.push({
+        id: `gen_jumble_${i}`,
+        type: 'word_order',
+        prompt: { 
+          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
+          en: "Order the words", 
+          ru: "Расставь слова по порядку" 
+        },
+        words: shuffleArray([...words]),
+        targetAnswer: p.hy,
+      });
+    }
+  });
+
+  // 4. Բաց թողնված բառ (Fill-in-the-Blanks) -> translate
+  phrases.forEach((p: any, i: number) => {
+    if (i % 4 === 1 && p.hy && p.hy.includes(' ')) {
+      const words = p.hy.split(' ');
+      const targetIndex = Math.floor(Math.random() * words.length);
+      const targetWord = words[targetIndex];
+      const masked = [...words];
+      masked[targetIndex] = "___";
+      generated.push({
+        id: `gen_fib_${i}`,
+        type: 'translate',
+        prompt: { 
+          hy: `Լրացրու բաց թողնված բառը. ${masked.join(' ')}`, 
+          en: `Fill in the blank: ${masked.join(' ')}`, 
+          ru: `Заполни пропуск: ${masked.join(' ')}` 
+        },
+        targetAnswer: targetWord,
+      });
+    }
+  });
+
+  return generated;
+}
+
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
 
 function getInitialLanguage(): LangCode {
@@ -308,21 +396,9 @@ function randomLine(key: string, lang: LangCode = "hy"): string {
 // ─── FEEDBACK TRANSLATION ──────────────────────────────────────────
 
 const FEEDBACK_MAP: Record<string, Record<string, string>> = {
-  hy: {
-    feedback_correct: "✅ Ճիշտ է!",
-    feedback_wrong: "❌ Սխալ է, փորձիր նորից",
-    feedback_perfect: "🎉 Կատարյալ!",
-  },
-  en: {
-    feedback_correct: "✅ Correct!",
-    feedback_wrong: "❌ Wrong, try again",
-    feedback_perfect: "🎉 Perfect!",
-  },
-  ru: {
-    feedback_correct: "✅ Правильно!",
-    feedback_wrong: "❌ Неправильно, попробуй снова",
-    feedback_perfect: "🎉 Идеально!",
-  },
+  hy: { feedback_correct: "✅ Ճիշտ է!", feedback_wrong: "❌ Սխալ է, փորձիր նորից", feedback_perfect: "🎉 Կատարյալ!" },
+  en: { feedback_correct: "✅ Correct!", feedback_wrong: "❌ Wrong, try again", feedback_perfect: "🎉 Perfect!" },
+  ru: { feedback_correct: "✅ Правильно!", feedback_wrong: "❌ Неправильно, попробуй снова", feedback_perfect: "🎉 Идеально!" },
 };
 
 function translateFeedback(fb: string, locale: string): string {
@@ -555,15 +631,7 @@ interface ListeningInputProps {
 }
 
 function ListeningInput({
-  ttsText,
-  ttsLang,
-  promptText,
-  value,
-  onChange,
-  disabled,
-  onSpeak,
-  isSpeaking = false,
-  t,
+  ttsText, ttsLang, promptText, value, onChange, disabled, onSpeak, isSpeaking = false, t,
 }: ListeningInputProps) {
   return (
     <div className="space-y-4">
@@ -679,7 +747,6 @@ function LearnInner() {
   const speakingLockRef = useRef(false);
   const advancingRef = useRef(false);
 
-  // Pre-warm voices to prevent delay
   useEffect(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
@@ -919,8 +986,6 @@ function LearnInner() {
     []
   );
 
-  // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
-    // 🔥 ԱԿՆԹԱՐԹԱՓ ԱՈՒԴԻՈ (Կանացի ձայնով)
   const playMatchAudio = useCallback((text: string, lang: string) => {
     if (!audioEnabled || !text) return;
     const cleanText = sanitizeForTTS(text);
@@ -935,7 +1000,6 @@ function LearnInner() {
         playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
       }
     } else {
-      // ✅ ԱՆԳԼԵՐԵՆԸ ԿԱՐԴՈՒՄ Է ՄԻԱՅՆ ԿԱՆԱՑԻ ՁԱՅՆՈՎ
       playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
     }
   }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
@@ -1110,6 +1174,12 @@ function LearnInner() {
       if (!l) {
         if (lessonId) router.push("/world");
         return;
+      }
+
+      // ✅ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ
+      const extraExercises = generateExtraExercises(l, nativeLang);
+      if (extraExercises.length > 0) {
+        l = { ...l, exercises: shuffleArray([...l.exercises, ...extraExercises]) };
       }
 
       loadedLessonRef.current = lessonId;

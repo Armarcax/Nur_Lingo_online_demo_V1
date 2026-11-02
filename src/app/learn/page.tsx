@@ -679,6 +679,16 @@ function LearnInner() {
   const speakingLockRef = useRef(false);
   const advancingRef = useRef(false);
 
+  // Pre-warm voices to prevent delay
+  useEffect(() => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }, []);
+
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -909,6 +919,27 @@ function LearnInner() {
     []
   );
 
+  // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
+  const playMatchAudio = useCallback((text: string, lang: string) => {
+    if (!audioEnabled || !text) return;
+    const cleanText = sanitizeForTTS(text);
+    if (!cleanText) return;
+
+    if (lang === "hy") {
+      if (wavClient && isWAVAvailable) {
+        // Fire and forget - DO NOT AWAIT so there is no UI delay
+        wavClient.playPrompt(cleanText, getPairKey(native, learningLang), "Ani").catch(() => {
+          playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
+        });
+      } else {
+        playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
+      }
+    } else {
+      // English/Russian - Instantly use TTS (no API calls)
+      playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
+    }
+  }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
+
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
       if (!audioEnabled) return;
@@ -940,7 +971,6 @@ function LearnInner() {
           } catch {}
         }
 
-        // ✅ ԱՅԼ ԼԵԶՈՒՆԵՐԻ ՀԱՄԱՐ ՄԻԱՅՆ TTS (Առանց API 500 սխալի)
         try {
           await playAudioWithFemaleVoice(text, lang);
         } catch {}
@@ -961,7 +991,6 @@ function LearnInner() {
           }
         }
         
-        // ✅ ԱՅԼ ԼԵԶՈՒՆԵՐԻ ՀԱՄԱՐ ՄԻԱՅՆ TTS (Առանց API 500 սխալի)
         try {
           await playAudioWithFemaleVoice(text, learningLang);
         } catch {}
@@ -2178,7 +2207,7 @@ function LearnInner() {
                     if (right) setMatchRightItems((prev) => [...prev, right]);
                   }}
                   disabled={ex.state !== "idle"}
-                  onPlayAudio={(text, lang) => playAudioWithFallback(text, lang, "prompt").catch(() => {})}
+                  onPlayAudio={playMatchAudio}
                   native={native}
                   learningLang={learningLang}
                 />

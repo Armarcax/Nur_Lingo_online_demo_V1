@@ -103,11 +103,11 @@ const generateExtraExercises = (lessonData: any): Exercise[] => {
     }
   });
 
-  // 3. Խառնված նախադասություն (Jumbled Sentence)
+    // 3. Խառնված նախադասություն (Jumbled Sentence)
   phrases.forEach((p: any, i: number) => {
     if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
-      const words = p.hy.split(' ');
-      const jumbled = shuffleArray(words);
+      const words: string[] = p.hy.split(' ');
+      const jumbled: string[] = shuffleArray<string>(words); // ✅ Ավելացվել է <string> և : string[]
       generated.push({
         id: `gen_jumble_${i}`,
         type: 'jumbled-sentence',

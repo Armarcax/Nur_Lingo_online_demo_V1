@@ -6,7 +6,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Volume2, Loader2, CheckCircle, XCircle, Wifi, WifiOff, Play, Pause, Music, ArrowLeft, ArrowRight } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { useCanonicalOfflineAudio } from '@/lib/hooks/useCanonicalOfflineAudio';
-import { useI18n } from '@/hooks/useI18n'; // ✅ ՃԻՇՏ import
+import { useI18n } from '@/hooks/useI18n';
+import { resolveOfflineAudio } from '@/lib/offline/offline-audio-resolver'; // ✅ Ավելացված է WAV-ի համար
 
 // ============================================================
 // VOICE CONFIGURATION
@@ -121,7 +122,7 @@ export function InteractiveLesson({
   onComplete,
   className = ''
 }: InteractiveLessonProps) {
-  const { t } = useI18n(); // ✅ ՃԻՇՏ useI18n
+  const { t } = useI18n();
   const offlineAudio = useCanonicalOfflineAudio();
   
   const [exercises, setExercises] = useState<ExerciseState[]>([]);
@@ -146,21 +147,49 @@ export function InteractiveLesson({
     }
   }, [lessonData]);
 
-  // Auto-play question audio
+  // ✅ ՆՈՐ ՖՈՒՆԿՑԻԱ՝ ՃԻՇՏ ԱՈՒԴԻՈՅԻ ՀԱՄԱՐ (WAV հայերենի, TTS անգլերենի)
+  const playAudioText = useCallback((text: string, lang: Language) => {
+    if (!text) return;
+
+    // 1. Եթե Հայերեն է -> WAV
+    if (lang === 'hy') {
+      if (offlineAudio.isOfflineMode) {
+        offlineAudio.playAudio(text, 'hy');
+      } else {
+        const audioData = resolveOfflineAudio(text, 'hy');
+        if (audioData?.url) {
+          new Audio(audioData.url).play().catch(e => console.warn("WAV Error:", e));
+        } else {
+          console.warn("WAV file not found for:", text);
+        }
+      }
+    } 
+    // 2. Եթե Անգլերեն կամ Ռուսերեն է -> TTS
+    else {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang === 'en' ? 'en-US' : 'ru-RU';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+  }, [offlineAudio]);
+
+  // Auto-play question audio (✅ Թարմացված է)
   useEffect(() => {
     if (!exercises.length || completed) return;
     
     const current = exercises[currentIndex];
-    if (current && offlineAudio.isOfflineMode) {
-      const audioId = current.audioId || `ex_${current.id}`;
-      
+    if (current) {
+      const textToPlay = current.audioText || current.questionArmenian || current.question;
       const timer = setTimeout(() => {
-        offlineAudio.playAudio(audioId, selectedLanguage);
+        playAudioText(textToPlay, selectedLanguage);
       }, 500);
       
       return () => clearTimeout(timer);
     }
-  }, [currentIndex, exercises, completed, offlineAudio, selectedLanguage]);
+  }, [currentIndex, exercises, completed, selectedLanguage, playAudioText]);
 
   // Handle answer
   const handleAnswer = useCallback(async (selected: string) => {
@@ -218,16 +247,6 @@ export function InteractiveLesson({
       }
     }, 2000);
   }, [currentIndex, exercises, score, onComplete, isSubmitting, t]);
-
-  // Play audio for exercise
-  const handlePlayAudio = useCallback((audioId: string, text?: string) => {
-    if (!offlineAudio.isOfflineMode) {
-      alert(t('InteractiveLesson__enable_offline'));
-      return;
-    }
-
-    offlineAudio.playAudio(audioId, selectedLanguage);
-  }, [offlineAudio, selectedLanguage, t]);
 
   // Skip to next
   const handleSkip = useCallback(() => {
@@ -406,16 +425,15 @@ export function InteractiveLesson({
           <div className="flex items-start gap-3">
             <button
               onClick={() => {
-                const audioId = current.audioId || `ex_${current.id}`;
-                handlePlayAudio(audioId, current.audioText);
+                const textToPlay = current.audioText || current.questionArmenian || current.question;
+                playAudioText(textToPlay, selectedLanguage); // ✅ Փոխվել է
               }}
-              disabled={!offlineAudio.isOfflineMode || offlineAudio.isPlaying}
+              disabled={offlineAudio.isPlaying}
               className={`flex-shrink-0 p-2 rounded-xl transition-all ${
-                offlineAudio.isOfflineMode && !offlineAudio.isPlaying
+                !offlineAudio.isPlaying
                   ? 'bg-white/20 dark:bg-gray-800/80 hover:bg-white/30 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-white/20 dark:border-gray-700'
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
               }`}
-              title={offlineAudio.isOfflineMode ? t('InteractiveLesson__play_audio') : t('InteractiveLesson__enable_offline')}
             >
               {offlineAudio.isPlaying ? (
                 <Loader2 size={20} className="animate-spin" />
@@ -484,12 +502,12 @@ export function InteractiveLesson({
           <div className="text-center py-8">
             <button
               onClick={() => {
-                const audioId = current.audioId || `ex_${current.id}`;
-                handlePlayAudio(audioId, current.audioText);
+                const textToPlay = current.audioText || current.questionArmenian || current.question;
+                playAudioText(textToPlay, selectedLanguage); // ✅ Փոխվել է
               }}
-              disabled={!offlineAudio.isOfflineMode || offlineAudio.isPlaying}
+              disabled={offlineAudio.isPlaying}
               className={`px-6 py-3 rounded-xl font-medium transition-all ${
-                offlineAudio.isOfflineMode && !offlineAudio.isPlaying
+                !offlineAudio.isPlaying
                   ? 'bg-red-600 text-white hover:bg-red-700'
                   : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
               }`}

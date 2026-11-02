@@ -8,6 +8,7 @@ import {
   Home,
   Globe,
   BookOpen,
+  LayoutGrid, // ✅ Ավելացվել է «Ծրագիր» կոճակի պատկերակը
   Sparkles,
   User,
   Users,
@@ -50,6 +51,14 @@ export default function BottomNav({ showProfile = false }: BottomNavProps) {
       icon: <Globe size={20} strokeWidth={2} />,
       activeIcon: <Globe size={20} strokeWidth={2.5} />,
       fallbackLabel: "Լեզու",
+    },
+    // ✅ ՎԵՐԱԴԱՐՁՐՎԱԾ Է ԾՐԱԳԻՐ ԿՈՃԱԿԸ
+    {
+      href: "/curriculum",
+      labelKey: "BottomNav_prog_",
+      icon: <LayoutGrid size={20} strokeWidth={2} />,
+      activeIcon: <LayoutGrid size={20} strokeWidth={2.5} />,
+      fallbackLabel: "Ծրագիր",
     },
     {
       href: "/dictionary",

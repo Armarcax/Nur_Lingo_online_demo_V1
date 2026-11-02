@@ -187,8 +187,19 @@ function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[
   const generated: MultiExercise[] = [];
   if (!lesson) return generated;
   
-  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
+  let vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  let phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
+
+  // ✅ ԵԹԵ ԲԱՌԱՐԱՆԸ ՉԿԱ, ՎԵՐՑՆՈՒՄ ԵՆՔ ՀԵՆՑ ԱՌԿԱ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻՑ
+  if (vocab.length === 0 && Array.isArray(lesson.exercises)) {
+    lesson.exercises.forEach((ex: any) => {
+      if (ex.type === 'translate' || ex.type === 'multiple_choice') {
+        if (ex.targetAnswer) {
+          vocab.push({ hy: ex.targetAnswer, en: ex.prompt?.en || ex.targetAnswer });
+        }
+      }
+    });
+  }
 
   const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
   const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
@@ -196,7 +207,7 @@ function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[
   try {
     // 1. Խառնված տառեր (Word Scramble)
     vocab.forEach((v: any, i: number) => {
-      if (i % 4 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
+      if (i % 3 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
         const scrambled = v.hy.split('').sort(() => Math.random() - 0.5).join('');
         generated.push({
           id: `gen_scramble_${i}`,
@@ -213,7 +224,7 @@ function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[
 
     // 2. Ճիշտ/Սխալ (True/False)
     vocab.forEach((v: any, i: number) => {
-      if (i % 5 === 0 && v.hy && v.en) {
+      if (i % 4 === 0 && v.hy && v.en) {
         const isCorrect = Math.random() > 0.5;
         const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
         generated.push({
@@ -1206,6 +1217,11 @@ function LearnInner() {
         if (lessonId) router.push("/world");
         return;
       }
+
+            // 🔍 ԴԻԱԳՆՈՍՏԻԿԱ
+      console.log("🔍 [DEBUG] Բեռնված դասը:", l);
+      console.log("🔍 [DEBUG] Ունի՞ vocabulary:", l.vocabulary);
+      console.log("🔍 [DEBUG] Ունի՞ phrases:", l.phrases);
 
       // ✅ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (ԱՆՎՏԱՆԳ)
       let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];

@@ -46,7 +46,7 @@ interface Exercise {
   audioText?: string;
   hint?: string;
   translations?: { hy?: string; en?: string; ru?: string };
-  pairs?: { id: string; native: string; learning: string }[]; // ✅ Ավելացվել է Matching-ի համար
+  pairs?: { id: string; native: string; learning: string }[];
 }
 
 interface ExerciseState extends Exercise {
@@ -56,7 +56,7 @@ interface ExerciseState extends Exercise {
 }
 
 // ============================================================
-// VOICE SELECTOR
+// VOICE SELECTOR UI
 // ============================================================
 
 function VoiceSelector({ 
@@ -86,7 +86,7 @@ function VoiceSelector({
 }
 
 // ============================================================
-// INTERACTIVE LESSON COMPONENT
+// MAIN COMPONENT
 // ============================================================
 
 export function InteractiveLesson({ lessonId, lessonData, onComplete, className = '' }: {
@@ -120,17 +120,17 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   }, [lessonData]);
 
-  // ✅ ՀԱՄԱՊԱՏԱՍԽԱՆԵՑՄԱՆ ԱՈՒԴԻՈՅԻ ՖՈՒՆԿՑԻԱ (WAV հայերենի, TTS անգլերենի)
-  const playMatchAudio = useCallback((text: string, lang: 'hy' | 'en') => {
+  // ✅ ՄԻԱԿ ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱՆ, ՈՐԸ ՇՐՋԱՆՑՈՒՄ Է ՍԵՐՎԵՐԻ 500 ՍԽԱԼԸ
+  const playAudioText = useCallback((text: string, lang: Language) => {
     if (!text) return;
 
     if (lang === 'hy') {
-      // 1. Փորձում ենք գտնել WAV ֆայլը
+      // 1. Հայերենի համար փորձում ենք գտնել WAV ֆայլը
       const audioData = resolveOfflineAudio(text, 'hy');
       if (audioData?.url) {
         new Audio(audioData.url).play().catch(e => console.warn("WAV Error:", e));
       } else {
-        // 2. Եթե WAV չկա, որպես պահուստ միացնում ենք հայերեն TTS
+        // Եթե WAV չկա, միացնում ենք հայերեն TTS
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
           const utterance = new SpeechSynthesisUtterance(text);
@@ -140,27 +140,17 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
         }
       }
     } else {
-      // 3. Անգլերենի համար միացնում ենք TTS
+      // 2. Անգլերենի և Ռուսերենի համար ՄԻԱՅՆ օգտագործում ենք բրաուզերի TTS-ը
+      // (Այսպիսով բացառում ենք /api/generate-tts-en-ի 500 սխալը)
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
+        utterance.lang = lang === 'en' ? 'en-US' : 'ru-RU';
         utterance.rate = 0.9;
         window.speechSynthesis.speak(utterance);
       }
     }
   }, []);
-
-  // Մնացած վարժությունների աուդիոն
-  const playAudioText = useCallback((text: string, lang: Language) => {
-    if (!text) return;
-    if (lang === 'hy') {
-      if (offlineAudio.isOfflineMode) offlineAudio.playAudio(text, 'hy');
-      else playMatchAudio(text, 'hy');
-    } else {
-      playMatchAudio(text, 'en'); // en կամ ru
-    }
-  }, [offlineAudio, playMatchAudio]);
 
   // Auto-play հարցի աուդիոն
   useEffect(() => {
@@ -173,7 +163,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   }, [currentIndex, exercises, completed, selectedLanguage, playAudioText]);
 
-  // ✅ Matching-ի լոգիկան
+  // ✅ Matching-ի խաղի լոգիկան (Խառնում ենք առանց ID-ները կորցնելու)
   const leftItems = useMemo(() => {
     if (!exercises[currentIndex]?.pairs) return [];
     return [...exercises[currentIndex].pairs!].sort(() => Math.random() - 0.5);
@@ -185,8 +175,10 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
   }, [currentIndex, exercises]);
 
   const handleMatchClick = (id: string, word: string, side: 'left' | 'right') => {
-    if (matchedPairs.includes(id)) return; // Եթե արդեն միացված է
-    playMatchAudio(word, side === 'left' ? 'hy' : 'en');
+    if (matchedPairs.includes(id)) return;
+    
+    // ✅ Ահա այստեղ է աշխատում աուդիոն
+    playAudioText(word, side === 'left' ? 'hy' : 'en');
 
     if (side === 'left') {
       setSelectedLeft(id);
@@ -199,11 +191,10 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
 
   const checkMatch = (leftId: string, rightId: string) => {
     if (leftId === rightId) {
-      // Ճիշտ է
       setMatchedPairs(prev => {
         const newMatched = [...prev, leftId];
-        // Եթե բոլոր զույգերը գտնվել են, ավարտում ենք
-        if (newMatched.length === exercises[currentIndex].pairs?.length) {
+        // Եթե բոլոր զույգերը գտնվել են, ավտոմատ անցնում ենք հաջորդ հարցին
+        if (newMatched.length === (exercises[currentIndex].pairs?.length || 0)) {
           setTimeout(() => handleAnswer('matched'), 500);
         }
         return newMatched;
@@ -211,7 +202,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
       setSelectedLeft(null);
       setSelectedRight(null);
     } else {
-      // Սխալ է
       setTimeout(() => { setSelectedLeft(null); setSelectedRight(null); }, 500);
     }
   };
@@ -224,7 +214,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     setIsSubmitting(true);
     setSelectedOption(selected);
 
-    // Matching-ը միշտ ճիշտ է համարվում, եթե հասել է այստեղ
     const isCorrect = current.type === 'matching' ? true : selected === current.correctAnswer;
     
     setExercises(prev => {
@@ -244,7 +233,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
       setFeedback(null);
       setSelectedOption(null);
       setIsSubmitting(false);
-      setMatchedPairs([]); // Մաքրում ենք Matching-ի վիճակը
+      setMatchedPairs([]);
       setSelectedLeft(null);
       setSelectedRight(null);
       
@@ -259,6 +248,31 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }, 2000);
   }, [currentIndex, exercises, score, onComplete, isSubmitting, t]);
 
+  // Handle skip
+  const handleSkip = useCallback(() => {
+    if (feedback) return;
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < exercises.length) {
+      setCurrentIndex(nextIndex);
+      setMatchedPairs([]);
+    } else {
+      setCompleted(true);
+      const accuracy = Math.round((score / exercises.length) * 100);
+      onComplete?.(accuracy, { correct: score, total: exercises.length, accuracy });
+    }
+  }, [currentIndex, exercises.length, score, onComplete, feedback]);
+
+  // Reset
+  const handleReset = useCallback(() => {
+    setExercises(prev => prev.map(ex => ({ ...ex, isAnswered: false, selectedAnswer: undefined, isCorrect: undefined })));
+    setCurrentIndex(0);
+    setScore(0);
+    setCompleted(false);
+    setFeedback(null);
+    setSelectedOption(null);
+    setMatchedPairs([]);
+  }, []);
+
   if (!offlineAudio.manifestLoaded) {
     return <div className="flex items-center justify-center min-h-[300px]"><Loader2 size={40} className="animate-spin text-red-500 mx-auto" /></div>;
   }
@@ -270,10 +284,13 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
   if (completed) {
     const accuracy = Math.round((score / exercises.length) * 100);
     return (
-      <div className="text-center p-8 bg-green-50 rounded-xl border border-green-200">
+      <div className="text-center p-8 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200">
         <div className="text-6xl mb-4">{accuracy === 100 ? '🏆' : accuracy >= 70 ? '🎉' : '💪'}</div>
-        <h2 className="text-2xl font-bold text-green-700">{t('InteractiveLesson__perfect')}</h2>
+        <h2 className="text-2xl font-bold text-green-700 dark:text-green-400">{t('InteractiveLesson__perfect')}</h2>
         <p className="text-3xl font-bold mt-4 text-red-500">{accuracy}%</p>
+        <button onClick={handleReset} className="mt-6 px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium">
+          🔄 {t('InteractiveLesson__repeat_lesson')}
+        </button>
       </div>
     );
   }
@@ -309,7 +326,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
       </div>
 
       <GlassCard variant="premium" className="p-6">
-        {/* ✅ ՆՈՐ UI ՀԱՄԱՊԱՏԱՍԽԱՆԵՑՄԱՆ ՀԱՄԱՐ */}
+        {/* ✅ MATCHING ԽԱՂԻ ԻՆՏԵՐՖԵՅՍԸ */}
         {current.type === 'matching' && current.pairs && (
           <div>
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 text-center">
@@ -375,7 +392,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
               </div>
             </div>
             
-            {/* Options / Translate կոդը այստեղ... */}
             {current.options && (
               <div className="space-y-3">
                 {current.options.map((option) => (
@@ -406,6 +422,25 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
             </div>
           </div>
         )}
+
+        {/* Navigation */}
+        <div className="flex justify-between mt-6 pt-4 border-t border-white/20">
+          <button
+            onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
+            disabled={currentIndex === 0}
+            className="px-4 py-2 rounded-xl text-sm font-medium bg-white/20 hover:bg-white/30 disabled:opacity-50 transition-colors text-gray-700"
+          >
+            <ArrowLeft size={16} className="inline mr-1" /> {t('InteractiveLesson__previous')}
+          </button>
+          
+          <button
+            onClick={handleSkip}
+            disabled={current.isAnswered}
+            className="px-4 py-2 rounded-xl text-sm font-medium bg-white/20 hover:bg-white/30 disabled:opacity-50 transition-colors text-gray-700"
+          >
+            {t('InteractiveLesson__skip')} <ArrowRight size={16} className="inline ml-1" />
+          </button>
+        </div>
       </GlassCard>
     </div>
   );

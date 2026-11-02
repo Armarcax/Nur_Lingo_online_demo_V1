@@ -166,11 +166,12 @@ function getOrCreateDeviceId(): string {
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
-  for (let i = arr.length - 1; i > 0; i--) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return arr;
+  return a;
 }
 
 function formatTime(ms: number): string {
@@ -184,86 +185,92 @@ function formatTime(ms: number): string {
 
 function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[] {
   const generated: MultiExercise[] = [];
-  const vocab = lesson.vocabulary || [];
-  const phrases = lesson.phrases || [];
+  if (!lesson) return generated;
+  
+  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
 
   const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
   const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
 
-  // 1. Խառնված տառեր (Word Scramble) -> translate
-  vocab.forEach((v: any, i: number) => {
-    if (i % 4 === 0 && v.hy && v.hy.length > 2) {
-      const scrambled = v.hy.split('').sort(() => Math.random() - 0.5).join('');
-      generated.push({
-        id: `gen_scramble_${i}`,
-        type: 'translate',
-        prompt: { 
-          hy: `Վերականգնիր բառը (Ակնարկ՝ ${v.en}): ${scrambled}`, 
-          en: `Unscramble (Hint: ${v.en}): ${scrambled}`, 
-          ru: `Составь слово (Подсказка: ${v.en}): ${scrambled}` 
-        },
-        targetAnswer: v.hy,
-      });
-    }
-  });
+  try {
+    // 1. Խառնված տառեր (Word Scramble)
+    vocab.forEach((v: any, i: number) => {
+      if (i % 4 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
+        const scrambled = v.hy.split('').sort(() => Math.random() - 0.5).join('');
+        generated.push({
+          id: `gen_scramble_${i}`,
+          type: 'translate',
+          prompt: { 
+            hy: `Վերականգնիր բառը (Ակնարկ՝ ${v.en || ''}): ${scrambled}`, 
+            en: `Unscramble (Hint: ${v.en || ''}): ${scrambled}`, 
+            ru: `Составь слово (Подсказка: ${v.en || ''}): ${scrambled}` 
+          },
+          targetAnswer: v.hy,
+        });
+      }
+    });
 
-  // 2. Ճիշտ/Սխալ (True/False) -> multiple_choice
-  vocab.forEach((v: any, i: number) => {
-    if (i % 5 === 0 && v.hy && v.en) {
-      const isCorrect = Math.random() > 0.5;
-      const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
-      generated.push({
-        id: `gen_tf_${i}`,
-        type: 'multiple_choice',
-        prompt: { 
-          hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
-          en: `Does «${v.hy}» mean «${fakeEn}»?`, 
-          ru: `«${v.hy}» переводится как «${fakeEn}»?` 
-        },
-        targetAnswer: isCorrect ? trueStr : falseStr,
-        options: [trueStr, falseStr]
-      });
-    }
-  });
+    // 2. Ճիշտ/Սխալ (True/False)
+    vocab.forEach((v: any, i: number) => {
+      if (i % 5 === 0 && v.hy && v.en) {
+        const isCorrect = Math.random() > 0.5;
+        const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
+        generated.push({
+          id: `gen_tf_${i}`,
+          type: 'multiple_choice',
+          prompt: { 
+            hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
+            en: `Does «${v.hy}» mean «${fakeEn}»?`, 
+            ru: `«${v.hy}» переводится как «${fakeEn}»?` 
+          },
+          targetAnswer: isCorrect ? trueStr : falseStr,
+          options: [trueStr, falseStr]
+        });
+      }
+    });
 
-  // 3. Խառնված նախադասություն (Jumbled Sentence) -> word_order
-  phrases.forEach((p: any, i: number) => {
-    if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
-      const words = p.hy.split(' ');
-      generated.push({
-        id: `gen_jumble_${i}`,
-        type: 'word_order',
-        prompt: { 
-          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
-          en: "Order the words", 
-          ru: "Расставь слова по порядку" 
-        },
-        words: shuffleArray([...words]),
-        targetAnswer: p.hy,
-      });
-    }
-  });
+    // 3. Խառնված նախադասություն (Jumbled Sentence)
+    phrases.forEach((p: any, i: number) => {
+      if (i % 3 === 0 && typeof p.hy === 'string' && p.hy.includes(' ')) {
+        const words = p.hy.split(' ');
+        generated.push({
+          id: `gen_jumble_${i}`,
+          type: 'word_order',
+          prompt: { 
+            hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
+            en: "Order the words", 
+            ru: "Расставь слова по порядку" 
+          },
+          words: shuffleArray([...words]),
+          targetAnswer: p.hy,
+        });
+      }
+    });
 
-  // 4. Բաց թողնված բառ (Fill-in-the-Blanks) -> translate
-  phrases.forEach((p: any, i: number) => {
-    if (i % 4 === 1 && p.hy && p.hy.includes(' ')) {
-      const words = p.hy.split(' ');
-      const targetIndex = Math.floor(Math.random() * words.length);
-      const targetWord = words[targetIndex];
-      const masked = [...words];
-      masked[targetIndex] = "___";
-      generated.push({
-        id: `gen_fib_${i}`,
-        type: 'translate',
-        prompt: { 
-          hy: `Լրացրու բաց թողնված բառը. ${masked.join(' ')}`, 
-          en: `Fill in the blank: ${masked.join(' ')}`, 
-          ru: `Заполни пропуск: ${masked.join(' ')}` 
-        },
-        targetAnswer: targetWord,
-      });
-    }
-  });
+    // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
+    phrases.forEach((p: any, i: number) => {
+      if (i % 4 === 1 && typeof p.hy === 'string' && p.hy.includes(' ')) {
+        const words = p.hy.split(' ');
+        const targetIndex = Math.floor(Math.random() * words.length);
+        const targetWord = words[targetIndex];
+        const masked = [...words];
+        masked[targetIndex] = "___";
+        generated.push({
+          id: `gen_fib_${i}`,
+          type: 'translate',
+          prompt: { 
+            hy: `Լրացրու բաց թողնված բառը. ${masked.join(' ')}`, 
+            en: `Fill in the blank: ${masked.join(' ')}`, 
+            ru: `Заполни пропуск: ${masked.join(' ')}` 
+          },
+          targetAnswer: targetWord,
+        });
+      }
+    });
+  } catch (e) {
+    console.warn("Error generating exercises:", e);
+  }
 
   return generated;
 }
@@ -272,7 +279,6 @@ function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[
 
 function getInitialLanguage(): LangCode {
   if (typeof window === "undefined") return "en";
-
   const params = new URLSearchParams(window.location.search);
   const pair = params.get("pair");
   if (pair) {
@@ -282,23 +288,19 @@ function getInitialLanguage(): LangCode {
       if (["en", "hy", "ru"].includes(native)) return native;
     }
   }
-
   try {
     const saved = localStorage.getItem("nur_language_preference");
     if (saved && ["en", "hy", "ru"].includes(saved)) return saved as LangCode;
   } catch {}
-
   try {
     const browserLang = navigator.language.split("-")[0];
     if (["hy", "ru"].includes(browserLang)) return browserLang as LangCode;
   } catch {}
-
   return "en";
 }
 
 function getLearningLanguage(): LangCode {
   if (typeof window === "undefined") return "hy";
-
   const params = new URLSearchParams(window.location.search);
   const pair = params.get("pair");
   if (pair) {
@@ -308,7 +310,6 @@ function getLearningLanguage(): LangCode {
       if (["en", "hy", "ru"].includes(learning)) return learning;
     }
   }
-
   const native = getInitialLanguage();
   return native === "hy" ? "en" : "hy";
 }
@@ -591,8 +592,6 @@ function MatchPairsInput({
   );
 }
 
-// ─── HAYQ COIN ANIMATION ────────────────────────────────────────────
-
 function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
   if (!show) return null;
   return (
@@ -616,23 +615,9 @@ function HaqCoinAnimation({ amount, show }: { amount: number; show: boolean }) {
   );
 }
 
-// ─── LISTENING INPUT ────────────────────────────────────────────────
-
-interface ListeningInputProps {
-  ttsText: string;
-  ttsLang: string;
-  promptText: string;
-  value: string;
-  onChange: (val: string) => void;
-  disabled: boolean;
-  onSpeak?: (text: string, lang: string) => void;
-  isSpeaking?: boolean;
-  t: (key: string, params?: any) => string;
-}
-
 function ListeningInput({
   ttsText, ttsLang, promptText, value, onChange, disabled, onSpeak, isSpeaking = false, t,
-}: ListeningInputProps) {
+}: any) {
   return (
     <div className="space-y-4">
       <div className="text-sm bg-amber-500/10 backdrop-blur-sm p-3 rounded-xl border border-amber-500/30">
@@ -679,18 +664,7 @@ function ListeningInput({
   );
 }
 
-// ─── FREE TEXT INPUT ────────────────────────────────────────────────
-
-interface FreeTextInputProps {
-  value: string;
-  onChange: (val: string) => void;
-  disabled: boolean;
-  placeholder: string;
-  onSpeak?: (text: string, lang: string) => void;
-  textToSpeak?: string;
-}
-
-function FreeTextInput({ value, onChange, disabled, placeholder, onSpeak, textToSpeak }: FreeTextInputProps) {
+function FreeTextInput({ value, onChange, disabled, placeholder, onSpeak, textToSpeak }: any) {
   return (
     <div className="space-y-3">
       <div className="relative">
@@ -733,7 +707,6 @@ function LearnInner() {
   });
 
   const [audioEnabled, setAudioEnabled] = useState(true);
-
   const { stop, isPlaying } = useAudioManager();
 
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
@@ -801,13 +774,7 @@ function LearnInner() {
   const [countdown, setCountdown] = useState<number>(0);
   const [startTime] = useState(() => Date.now());
   const [stats, setStats] = useState<LessonStats>({
-    correct: 0,
-    total: 0,
-    hayqEarned: 0,
-    seedsEarned: 0,
-    streaks: 0,
-    bestStreak: 0,
-    timeSpent: 0,
+    correct: 0, total: 0, hayqEarned: 0, seedsEarned: 0, streaks: 0, bestStreak: 0, timeSpent: 0,
   });
   const [totalHAYQ, setTotal] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -847,19 +814,7 @@ function LearnInner() {
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
   const [ex, setEx] = useState<ExState>({
-    index: 0,
-    userAnswer: "",
-    matchPairsAnswer: {},
-    state: "idle",
-    feedback: "",
-    score: 0,
-    hayqEarned: 0,
-    nuriMood: "idle",
-    nuriSpeech: randomLine("idle", native),
-    customImage: "",
-    showHint: false,
-    timeSpent: 0,
-    showListenButton: false,
+    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
   });
 
   const current = lesson?.exercises[ex.index];
@@ -1176,11 +1131,18 @@ function LearnInner() {
         return;
       }
 
-      // ✅ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ
-      const extraExercises = generateExtraExercises(l, nativeLang);
-      if (extraExercises.length > 0) {
-        l = { ...l, exercises: shuffleArray([...l.exercises, ...extraExercises]) };
+      // ✅ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (ԱՆՎՏԱՆԳ)
+      let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];
+      try {
+        const extraExercises = generateExtraExercises(l, nativeLang);
+        if (extraExercises.length > 0) {
+          safeExercises = shuffleArray([...safeExercises, ...extraExercises]);
+        }
+      } catch (e) {
+        console.warn("Generator failed, falling back to original exercises", e);
       }
+
+      l = { ...l, exercises: safeExercises };
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -1597,22 +1559,7 @@ function LearnInner() {
       }
     },
     [
-      current,
-      ex.userAnswer,
-      ex.state,
-      selectedWords,
-      matchPairsMap,
-      lesson,
-      native,
-      learningLang,
-      attempts,
-      onCorrect,
-      onWrong,
-      handleSpeak,
-      stop,
-      isPlaying,
-      showMessage,
-      t,
+      current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t,
     ]
   );
 
@@ -1633,11 +1580,7 @@ function LearnInner() {
 
     try {
       saveCompletionToSupabase(
-        lesson.id,
-        accuracy,
-        stats.hayqEarned + bonus,
-        sessionLevel,
-        Date.now() - startTime
+        lesson.id, accuracy, stats.hayqEarned + bonus, sessionLevel, Date.now() - startTime
       );
     } catch {}
 
@@ -1667,59 +1610,22 @@ function LearnInner() {
         });
 
         setEx({
-          index: totalExercises,
-          userAnswer: "",
-          matchPairsAnswer: {},
-          state: "idle",
-          feedback: "",
-          score: 0,
-          hayqEarned: 0,
-          nuriMood: "idle",
-          nuriSpeech: randomLine("idle", native),
-          customImage: "/images/nuri/nuri-thinking.png",
-          showHint: false,
-          timeSpent: 0,
-          showListenButton: false,
-          showCoinAnimation: false,
+          index: totalExercises, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "/images/nuri/nuri-thinking.png", showHint: false, timeSpent: 0, showListenButton: false, showCoinAnimation: false,
         });
-        setSW([]);
-        setAW([]);
-        setMatchPairsMap({});
-        setAttempts(0);
-        return;
+        setSW([]); setAW([]); setMatchPairsMap({}); setAttempts(0); return;
       }
 
-      completeLesson();
-      return;
+      completeLesson(); return;
     }
 
-    if (phase === "retry" && ex.index >= totalExercises - 1) {
-      completeLesson();
-      return;
-    }
+    if (phase === "retry" && ex.index >= totalExercises - 1) { completeLesson(); return; }
 
     if (nextIdx < totalExercises) {
       setShowCorrectEffect(false);
       setEx({
-        index: nextIdx,
-        userAnswer: "",
-        matchPairsAnswer: {},
-        state: "idle",
-        feedback: "",
-        score: 0,
-        hayqEarned: 0,
-        nuriMood: "happy",
-        nuriSpeech: randomLine("idle", native),
-        customImage: "/images/nuri/nuri-thinking.png",
-        showHint: false,
-        timeSpent: 0,
-        showListenButton: false,
+        index: nextIdx, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "happy", nuriSpeech: randomLine("idle", native), customImage: "/images/nuri/nuri-thinking.png", showHint: false, timeSpent: 0, showListenButton: false,
       });
-      setSW([]);
-      setAW([]);
-      setMatchPairsMap({});
-      setAttempts(0);
-      setShowBreak(false);
+      setSW([]); setAW([]); setMatchPairsMap({}); setAttempts(0); setShowBreak(false);
       if (breakTimerRef.current) {
         clearInterval(breakTimerRef.current);
         breakTimerRef.current = null;
@@ -1750,28 +1656,13 @@ function LearnInner() {
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({
-      ...s,
-      userAnswer: "",
-      state: "idle",
-      feedback: "",
-      score: 0,
-      nuriMood: "idle",
-      nuriSpeech: randomLine("idle", native),
-      customImage: "/images/nuri/nuri-thinking.png",
-      showHint: false,
-      showListenButton: false,
+      ...s, userAnswer: "", state: "idle", feedback: "", score: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "/images/nuri/nuri-thinking.png", showHint: false, showListenButton: false,
     }));
-    if (current?.type === "word_order" && current.words) {
-      setAW([...current.words]);
-      setSW([]);
-    }
+    if (current?.type === "word_order" && current.words) { setAW([...current.words]); setSW([]); }
     if (current?.type === "match_pairs" && current.pairs) {
       const left = current.pairs.map((p) => p[0]);
       const right = current.pairs.map((p) => p[1]);
-      setMatchLeftItems(left);
-      setMatchRightItems(shuffleArray([...right]));
-      setMatchPairsMap({});
-      setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
+      setMatchLeftItems(left); setMatchRightItems(shuffleArray([...right])); setMatchPairsMap({}); setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
     }
     exerciseStartTime.current = Date.now();
   }, [current, native]);
@@ -1779,15 +1670,9 @@ function LearnInner() {
   const handleRefill = useCallback(() => {
     try {
       const result = buyHeartRefill();
-      if (result.success) {
-        setHearts(result.rewards.hearts);
-        setTotal(result.rewards.totalHAYQ);
-      } else {
-        showMessage(result.error || t("page_refill_failed"), "error");
-      }
-    } catch {
-      showMessage(t("page_something_went_wrong"), "error");
-    }
+      if (result.success) { setHearts(result.rewards.hearts); setTotal(result.rewards.totalHAYQ); }
+      else { showMessage(result.error || t("page_refill_failed"), "error"); }
+    } catch { showMessage(t("page_something_went_wrong"), "error"); }
   }, [showMessage, t]);
 
   const handlePractice = useCallback(() => {
@@ -1795,9 +1680,7 @@ function LearnInner() {
       const result = earnHeartByPractice();
       if (result.success) setHearts(result.rewards.hearts);
       else showMessage(t("page_already_full_hearts"), "info");
-    } catch {
-      showMessage(t("page_something_went_wrong"), "error");
-    }
+    } catch { showMessage(t("page_something_went_wrong"), "error"); }
   }, [showMessage, t]);
 
   const exitToWorld = useCallback(() => {
@@ -1805,119 +1688,41 @@ function LearnInner() {
     router.push("/world");
   }, [router, stopRelaxMusic]);
 
-  async function saveCompletionToSupabase(
-    lessonId: string,
-    accuracy: number,
-    hayqEarned: number,
-    crownLevel: number,
-    durationMs: number
-  ) {
+  async function saveCompletionToSupabase(lessonId: string, accuracy: number, hayqEarned: number, crownLevel: number, durationMs: number) {
     try {
       const deviceId = getOrCreateDeviceId();
-      await supabase.from("lesson_completions" as any).upsert(
-        {
-          device_id: deviceId,
-          lesson_id: lessonId,
-          accuracy,
-          hayq_earned: hayqEarned,
-          crown_level: crownLevel,
-          duration_ms: durationMs,
-        },
-        { onConflict: "device_id,lesson_id" }
-      );
+      await supabase.from("lesson_completions" as any).upsert({
+        device_id: deviceId, lesson_id: lessonId, accuracy, hayq_earned: hayqEarned, crown_level: crownLevel, duration_ms: durationMs,
+      }, { onConflict: "device_id,lesson_id" });
     } catch {}
   }
 
   if (complete && lesson) {
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
     const crownCount = accuracy >= 90 ? 3 : accuracy >= 70 ? 2 : 1;
-    const lessonTitle =
-      typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en;
+    const lessonTitle = typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en;
 
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
-        <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", damping: 12 }}
-          className="mb-6"
-        >
-          <img
-            src="/images/nuri/nuri-celebrating.png"
-            alt={t("page_celebrating")}
-            className="w-40 h-40 object-contain"
-          />
+        <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", damping: 12 }} className="mb-6">
+          <img src="/images/nuri/nuri-celebrating.png" alt={t("page_celebrating")} className="w-40 h-40 object-contain" />
         </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-3xl font-bold mb-1"
-        >
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-3xl font-bold mb-1">
           {accuracy >= 90 ? t("page_perfect") : accuracy >= 70 ? t("page_great") : t("page_good_job")}
         </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-gray-500 dark:text-gray-400 text-sm mb-6"
-        >
-          {lessonTitle}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4 }}
-          className="flex gap-3 mb-6"
-        >
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-gray-500 dark:text-gray-400 text-sm mb-6">{lessonTitle}</motion.p>
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="flex gap-3 mb-6">
           {[1, 2, 3].map((n) => (
-            <motion.span
-              key={n}
-              initial={{ scale: 0, rotate: -30 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.4 + n * 0.12, type: "spring", damping: 8 }}
-              className={`text-4xl ${n <= crownCount ? "opacity-100" : "opacity-20 grayscale"}`}
-            >
-              ⭐
-            </motion.span>
+            <motion.span key={n} initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.4 + n * 0.12, type: "spring", damping: 8 }} className={`text-4xl ${n <= crownCount ? "opacity-100" : "opacity-20 grayscale"}`}>⭐</motion.span>
           ))}
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="grid grid-cols-3 gap-3 mb-6 w-full max-w-xs"
-        >
-          <GlassCard variant="compact" className="p-3 text-center">
-            <p className="text-2xl font-bold text-emerald-500">{accuracy}%</p>
-            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              {t("page_accuracy")}
-            </p>
-          </GlassCard>
-          <GlassCard variant="compact" className="p-3 text-center">
-            <p className="text-2xl font-bold text-yellow-500">+{stats.hayqEarned}</p>
-            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">HAYQ</p>
-          </GlassCard>
-          <GlassCard variant="compact" className="p-3 text-center">
-            <p className="text-2xl font-bold text-blue-500">{formatTime(Date.now() - startTime)}</p>
-            <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              {t("page_time")}
-            </p>
-          </GlassCard>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="grid grid-cols-3 gap-3 mb-6 w-full max-w-xs">
+          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-emerald-500">{accuracy}%</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_accuracy")}</p></GlassCard>
+          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-yellow-500">+{stats.hayqEarned}</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">HAYQ</p></GlassCard>
+          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-blue-500">{formatTime(Date.now() - startTime)}</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_time")}</p></GlassCard>
         </motion.div>
-
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          onClick={() => router.push("/world")}
-          className="w-full max-w-xs py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-        >
-          <Trophy size={18} />
-          {t("page_continue")} →
+        <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} onClick={() => router.push("/world")} className="w-full max-w-xs py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
+          <Trophy size={18} /> {t("page_continue")} →
         </motion.button>
       </div>
     );
@@ -1925,37 +1730,16 @@ function LearnInner() {
 
   if (hearts <= 0) {
     const minutesLeft = Math.ceil(countdown / 60000);
-
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
         <GlassCard variant="premium" className="p-8 max-w-sm w-full">
           <div className="text-6xl mb-4">💔</div>
           <h1 className="text-2xl font-bold mb-2">{t("page_no_hearts")}</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-            {t("page_next_heart_in", { minutes: minutesLeft })}
-          </p>
-
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{t("page_next_heart_in", { minutes: minutesLeft })}</p>
           <div className="space-y-3">
-            <button
-              onClick={handlePractice}
-              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"
-            >
-              <RefreshCw size={16} />
-              {t("page_practice_for_heart")}
-            </button>
-            <button
-              onClick={handleRefill}
-              className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-            >
-              <Coins size={16} />
-              {t("page_refill_hearts", { hayq: totalHAYQ })}
-            </button>
-            <button
-              onClick={exitToWorld}
-              className="w-full text-gray-500 dark:text-gray-400 text-sm hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-            >
-              ← {t("page_back_to_world")}
-            </button>
+            <button onClick={handlePractice} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"><RefreshCw size={16} />{t("page_practice_for_heart")}</button>
+            <button onClick={handleRefill} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"><Coins size={16} />{t("page_refill_hearts", { hayq: totalHAYQ })}</button>
+            <button onClick={exitToWorld} className="w-full text-gray-500 dark:text-gray-400 text-sm hover:text-gray-700 dark:hover:text-gray-300 transition-colors">← {t("page_back_to_world")}</button>
           </div>
         </GlassCard>
       </div>
@@ -1970,176 +1754,62 @@ function LearnInner() {
         <div className="container-main py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowExitConfirm(true)}
-                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
-                aria-label={t("page_back")}
-              >
-                <ArrowLeft size={20} />
-              </button>
+              <button onClick={() => setShowExitConfirm(true)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors" aria-label={t("page_back")}><ArrowLeft size={20} /></button>
               <div>
-                <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none">
-                  {typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en}
-                </h2>
+                <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none">{typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en}</h2>
                 <p className="text-[10px] text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   {isRetryPhase && <span>{t("page_review")} · </span>}
                   <span className="text-blue-500">{t("page_online")} · </span>
-                  {t("page_lesson_x_of_y", {
-                    current: ex.index + 1,
-                    total: lesson.exercises?.length || 0,
-                  })}
+                  {t("page_lesson_x_of_y", { current: ex.index + 1, total: lesson.exercises?.length || 0 })}
                 </p>
               </div>
             </div>
-
             <div className="flex items-center gap-2 flex-wrap justify-end">
-              <button
-                onClick={toggleMode}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${
-                  isProfessional
-                    ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30"
-                    : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"
-                }`}
-                title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}
-              >
+              <button onClick={toggleMode} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${isProfessional ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30" : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"}`} title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}>
                 {isProfessional ? <GraduationCap size={14} /> : <Gamepad2 size={14} />}
-                <span className="hidden sm:inline">
-                  {isProfessional ? t("page_professional_short") : t("page_amateur_short")}
-                </span>
+                <span className="hidden sm:inline">{isProfessional ? t("page_professional_short") : t("page_amateur_short")}</span>
               </button>
-
-              <button
-                onClick={toggleAudio}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${
-                  audioEnabled
-                    ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30"
-                    : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"
-                }`}
-                title={audioEnabled ? t("page_audio_on") : t("page_audio_off")}
-              >
+              <button onClick={toggleAudio} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${audioEnabled ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"}`} title={audioEnabled ? t("page_audio_on") : t("page_audio_off")}>
                 {audioEnabled ? <Volume2 size={14} /> : <VolumeOff size={14} />}
-                <span className="hidden sm:inline">
-                  {audioEnabled ? t("page_audio_on") : t("page_audio_off")}
-                </span>
+                <span className="hidden sm:inline">{audioEnabled ? t("page_audio_on") : t("page_audio_off")}</span>
               </button>
-
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
-                <Heart size={16} className="text-red-500" />
-                <span className="text-sm font-bold">{hearts}</span>
-              </div>
-
+              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><Heart size={16} className="text-red-500" /><span className="text-sm font-bold">{hearts}</span></div>
               {attempts > 0 && ex.state !== "correct" && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
-                  <span className="text-xs text-yellow-500">❌</span>
-                  <span className="text-sm font-bold text-yellow-500">{attempts}/3</span>
-                </div>
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><span className="text-xs text-yellow-500">❌</span><span className="text-sm font-bold text-yellow-500">{attempts}/3</span></div>
               )}
-
               {currentStreak > 1 && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30">
-                  <Flame size={14} className="text-orange-500" />
-                  <span className="text-sm font-bold text-orange-500">{currentStreak}</span>
-                </div>
+                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30"><Flame size={14} className="text-orange-500" /><span className="text-sm font-bold text-orange-500">{currentStreak}</span></div>
               )}
-
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700">
-                <Coins size={16} className="text-yellow-500" />
-                <span className="text-sm font-bold">{totalHAYQ}</span>
-              </div>
-
-              <button
-                onClick={() => setShowStatsPanel(!showStatsPanel)}
-                className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400"
-                title={t("page_stats")}
-              >
-                <BarChart3 size={18} />
-              </button>
+              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><Coins size={16} className="text-yellow-500" /><span className="text-sm font-bold">{totalHAYQ}</span></div>
+              <button onClick={() => setShowStatsPanel(!showStatsPanel)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400" title={t("page_stats")}><BarChart3 size={18} /></button>
             </div>
           </div>
-
           <div className="mt-2 w-full h-1.5 rounded-full bg-white/10 dark:bg-gray-700 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400"
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5 }}
-            />
+            <motion.div className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400" initial={{ width: 0 }} animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
           </div>
-
-          {isPlaying && (
-            <p className="text-xs text-blue-400 animate-pulse mt-1.5 flex items-center gap-1">
-              🔊 {t("page_speaking")}
-            </p>
-          )}
-
-          {breakTimer !== null && (
-            <p className="text-xs text-green-400 animate-pulse mt-1.5 flex items-center gap-1">
-              <Clock size={12} className="animate-pulse" />
-              {t("page_break_remaining", { time: formatBreakTime(breakTimer) })}
-            </p>
-          )}
-
-          {isRelaxing && (
-            <p className="text-xs text-green-400/60 mt-1.5 flex items-center gap-1 animate-pulse">
-              <Play size={12} className="animate-pulse" />
-              🎵 {t("page_relax_music")}
-            </p>
-          )}
+          {isPlaying && <p className="text-xs text-blue-400 animate-pulse mt-1.5 flex items-center gap-1">🔊 {t("page_speaking")}</p>}
+          {breakTimer !== null && <p className="text-xs text-green-400 animate-pulse mt-1.5 flex items-center gap-1"><Clock size={12} className="animate-pulse" />{t("page_break_remaining", { time: formatBreakTime(breakTimer) })}</p>}
+          {isRelaxing && <p className="text-xs text-green-400/60 mt-1.5 flex items-center gap-1 animate-pulse"><Play size={12} className="animate-pulse" />🎵 {t("page_relax_music")}</p>}
         </div>
       </header>
 
       <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
-
-      <CorrectAnswerEffect
-        show={showCorrectEffect}
-        intensity={ex.score >= 0.98 ? "perfect" : "normal"}
-      />
+      <CorrectAnswerEffect show={showCorrectEffect} intensity={ex.score >= 0.98 ? "perfect" : "normal"} />
 
       <AnimatePresence>
         {showStatsPanel && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-b border-white/20 dark:border-white/5"
-          >
+          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden border-b border-white/20 dark:border-white/5">
             <div className="container-main py-3">
               <GlassCard variant="premium" className="p-4">
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
-                  <div>
-                    <div className="text-lg font-bold text-emerald-500">{stats.correct}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_correct")}</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-red-500">{stats.total - stats.correct}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_wrong")}</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-yellow-500">{stats.hayqEarned}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">HAYQ</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-emerald-500">{stats.seedsEarned}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">🌱 {t("page_seeds")}</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">
-                      {t("page_best_streak")}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div>
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_time")}</div>
-                  </div>
+                  <div><div className="text-lg font-bold text-emerald-500">{stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_correct")}</div></div>
+                  <div><div className="text-lg font-bold text-red-500">{stats.total - stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_wrong")}</div></div>
+                  <div><div className="text-lg font-bold text-yellow-500">{stats.hayqEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">HAYQ</div></div>
+                  <div><div className="text-lg font-bold text-emerald-500">{stats.seedsEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">🌱 {t("page_seeds")}</div></div>
+                  <div><div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_best_streak")}</div></div>
+                  <div><div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_time")}</div></div>
                 </div>
-                <div className="mt-2 text-center text-xs text-blue-500">
-                  {t("page_online_mode_detail", {
-                    native,
-                    learning: learningLang,
-                    wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only"),
-                  })}
-                </div>
+                <div className="mt-2 text-center text-xs text-blue-500">{t("page_online_mode_detail", { native, learning: learningLang, wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only") })}</div>
               </GlassCard>
             </div>
           </motion.div>
@@ -2148,154 +1818,38 @@ function LearnInner() {
 
       <div className="container-main py-6">
         <div className="flex flex-col items-center gap-6">
-          <div className="min-h-[80px] w-full flex items-start justify-center">
-            <NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} />
-          </div>
-
-          {ex.customImage ? (
-            <div className="w-[100px] h-[100px] relative">
-              <img src={ex.customImage} alt={t("page_nuri")} className="w-full h-full object-contain" />
-            </div>
-          ) : (
-            <Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />
-          )}
-
+          <div className="min-h-[80px] w-full flex items-start justify-center"><NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} /></div>
+          {ex.customImage ? (<div className="w-[100px] h-[100px] relative"><img src={ex.customImage} alt={t("page_nuri")} className="w-full h-full object-contain" /></div>) : (<Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />)}
           <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[320px] flex flex-col">
-            {isRetryPhase && (
-              <p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1">
-                <Brain size={14} /> {t("page_review_mistake")}
-              </p>
-            )}
-
+            {isRetryPhase && (<p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1"><Brain size={14} /> {t("page_review_mistake")}</p>)}
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold flex-1">
-                {current.prompt[native] ?? current.prompt["en"]}
-              </h3>
+              <h3 className="text-lg font-bold flex-1">{current.prompt[native] ?? current.prompt["en"]}</h3>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <button
-                  onClick={() => {
-                    const promptText = current.prompt?.[native] || current.prompt?.en || "";
-                    playAudioWithFallback(promptText, native, "prompt").catch(() => {});
-                  }}
-                  className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
-                  title={t("page_listen")}
-                >
-                  <Volume2 size={18} />
-                </button>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/40 dark:bg-white/10 text-gray-500 dark:text-gray-400">
-                  {ex.index + 1}/{lesson.exercises?.length}
-                </span>
+                <button onClick={() => { const promptText = current.prompt?.[native] || current.prompt?.en || ""; playAudioWithFallback(promptText, native, "prompt").catch(() => {}); }} className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors" title={t("page_listen")}><Volume2 size={18} /></button>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/40 dark:bg-white/10 text-gray-500 dark:text-gray-400">{ex.index + 1}/{lesson.exercises?.length}</span>
               </div>
             </div>
-
-            <div className="min-h-[40px] mb-4">
-              {current.hint && ex.state === "incorrect" && attempts > 0 && current.hint[native] && (
-                <p className="text-sm text-amber-400 flex items-center gap-2">
-                  <Sparkles size={14} />
-                  {current.hint[native]}
-                </p>
-              )}
-            </div>
-
-            {ex.state === "incorrect" && attempts < 2 && (
-              <p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2">
-                <AlertCircle size={14} />
-                {t("page_attempts_left", { count: attemptsLeft })}
-              </p>
-            )}
-
+            <div className="min-h-[40px] mb-4">{current.hint && ex.state === "incorrect" && attempts > 0 && current.hint[native] && (<p className="text-sm text-amber-400 flex items-center gap-2"><Sparkles size={14} />{current.hint[native]}</p>)}</div>
+            {ex.state === "incorrect" && attempts < 2 && (<p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2"><AlertCircle size={14} />{t("page_attempts_left", { count: attemptsLeft })}</p>)}
             {ex.state === "incorrect" && attempts >= 2 && (
               <div className="mb-4 p-4 bg-blue-50/50 dark:bg-blue-950/30 backdrop-blur-sm border border-blue-200/30 dark:border-blue-800/30 rounded-xl">
-                <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-2 flex items-center gap-1">
-                  <BookOpen size={12} /> {t("page_lets_learn_from_answer")}
-                </p>
+                <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-2 flex items-center gap-1"><BookOpen size={12} /> {t("page_lets_learn_from_answer")}</p>
                 <p className="text-lg font-bold mb-2">✅ {current.targetAnswer}</p>
-                {current.acceptableAnswers && current.acceptableAnswers.length > 1 && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}
-                  </p>
-                )}
-                {current.hint?.[native] && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">💡 {current.hint[native]}</p>
-                )}
+                {current.acceptableAnswers && current.acceptableAnswers.length > 1 && (<p className="text-xs text-gray-500 dark:text-gray-400">{t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}</p>)}
+                {current.hint?.[native] && (<p className="text-xs text-gray-500 dark:text-gray-400 mt-2">💡 {current.hint[native]}</p>)}
               </div>
             )}
-
             <div className="mt-4">
               {current.type === "word_order" && current.words ? (
-                <WordOrderInput
-                  selected={selectedWords}
-                  available={availWords}
-                  onSelect={(w) => {
-                    setSW([...selectedWords, w]);
-                    setAW(availWords.filter((x) => x !== w));
-                  }}
-                  onDeselect={(w) => {
-                    setAW([...availWords, w]);
-                    setSW(selectedWords.filter((x) => x !== w));
-                  }}
-                  disabled={ex.state !== "idle"}
-                  t={t}
-                />
+                <WordOrderInput selected={selectedWords} available={availWords} onSelect={(w) => { setSW([...selectedWords, w]); setAW(availWords.filter((x) => x !== w)); }} onDeselect={(w) => { setAW([...availWords, w]); setSW(selectedWords.filter((x) => x !== w)); }} disabled={ex.state !== "idle"} t={t} />
               ) : current.type === "multiple_choice" && current.options ? (
-                <MultipleChoiceInput
-                  options={current.options}
-                  targetAnswer={current.targetAnswer}
-                  userAnswer={ex.userAnswer}
-                  state={ex.state}
-                  onSelect={(opt) => {
-                    if (ex.state === "idle") {
-                      setEx({ ...ex, userAnswer: opt });
-                      setTimeout(() => submitRef.current?.(opt), 50);
-                    }
-                  }}
-                  disabled={ex.state !== "idle"}
-                />
+                <MultipleChoiceInput options={current.options} targetAnswer={current.targetAnswer} userAnswer={ex.userAnswer} state={ex.state} onSelect={(opt) => { if (ex.state === "idle") { setEx({ ...ex, userAnswer: opt }); setTimeout(() => submitRef.current?.(opt), 50); } }} disabled={ex.state !== "idle"} />
               ) : current.type === "match_pairs" && current.pairs ? (
-                <MatchPairsInput
-                  leftItems={matchLeftItems}
-                  rightItems={matchRightItems}
-                  matched={matchPairsMap}
-                  onMatch={(left, right) => {
-                    const newMap = { ...matchPairsMap, [left]: right };
-                    setMatchPairsMap(newMap);
-                    setEx((prev) => ({ ...prev, matchPairsAnswer: newMap }));
-                    setMatchRightItems((prev) => prev.filter((r) => r !== right));
-                  }}
-                  onUnmatch={(left) => {
-                    const newMap = { ...matchPairsMap };
-                    const right = newMap[left];
-                    delete newMap[left];
-                    setMatchPairsMap(newMap);
-                    setEx((prev) => ({ ...prev, matchPairsAnswer: newMap }));
-                    if (right) setMatchRightItems((prev) => [...prev, right]);
-                  }}
-                  disabled={ex.state !== "idle"}
-                  onPlayAudio={playMatchAudio}
-                  native={native}
-                  learningLang={learningLang}
-                />
+                <MatchPairsInput leftItems={matchLeftItems} rightItems={matchRightItems} matched={matchPairsMap} onMatch={(left, right) => { const newMap = { ...matchPairsMap, [left]: right }; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); setMatchRightItems((prev) => prev.filter((r) => r !== right)); }} onUnmatch={(left) => { const newMap = { ...matchPairsMap }; const right = newMap[left]; delete newMap[left]; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); if (right) setMatchRightItems((prev) => [...prev, right]); }} disabled={ex.state !== "idle"} onPlayAudio={playMatchAudio} native={native} learningLang={learningLang} />
               ) : current.type === "listening" && current.ttsText ? (
-                <ListeningInput
-                  ttsText={current.ttsText}
-                  ttsLang={current.ttsLang || "hy"}
-                  promptText={current.prompt[native] ?? current.prompt["en"]}
-                  value={ex.userAnswer}
-                  onChange={(val) => setEx({ ...ex, userAnswer: val })}
-                  disabled={ex.state !== "idle"}
-                  onSpeak={handleSpeak}
-                  isSpeaking={isPlaying}
-                  t={t}
-                />
+                <ListeningInput ttsText={current.ttsText} ttsLang={current.ttsLang || "hy"} promptText={current.prompt[native] ?? current.prompt["en"]} value={ex.userAnswer} onChange={(val) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} onSpeak={handleSpeak} isSpeaking={isPlaying} t={t} />
               ) : (
-                <FreeTextInput
-                  value={ex.userAnswer}
-                  onChange={(val) => setEx({ ...ex, userAnswer: val })}
-                  disabled={ex.state !== "idle"}
-                  placeholder={t("page_enter_your_answer")}
-                  onSpeak={handleSpeak}
-                  textToSpeak={ex.userAnswer}
-                />
+                <FreeTextInput value={ex.userAnswer} onChange={(val) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} placeholder={t("page_enter_your_answer")} onSpeak={handleSpeak} textToSpeak={ex.userAnswer} />
               )}
             </div>
           </GlassCard>
@@ -2304,97 +1858,30 @@ function LearnInner() {
             {ex.state === "idle" ? (
               <div className="flex gap-3">
                 {current?.type !== "multiple_choice" && (
-                  <button
-                    onClick={() => submit()}
-                    className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-                  >
-                    <Send size={18} />
-                    {t("page_check_enter")}
-                  </button>
+                  <button onClick={() => submit()} className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"><Send size={18} />{t("page_check_enter")}</button>
                 )}
                 {current?.type === "multiple_choice" && (
-                  <div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2">
-                    <MousePointerClick size={16} />
-                    {native === "hy"
-                      ? "Ընտրիր պատասխանը"
-                      : native === "ru"
-                      ? "Выберите ответ"
-                      : "Choose an answer"}
-                  </div>
+                  <div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2"><MousePointerClick size={16} />{native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}</div>
                 )}
               </div>
             ) : ex.state === "incorrect" && attempts < 2 ? (
-              <button
-                onClick={retrySameStep}
-                className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"
-              >
-                <RefreshCw size={18} />
-                {t("page_try_again_left", { count: attemptsLeft })}
-              </button>
+              <button onClick={retrySameStep} className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"><RefreshCw size={18} />{t("page_try_again_left", { count: attemptsLeft })}</button>
             ) : (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`border rounded-xl p-5 backdrop-blur-sm ${
-                  ex.state === "correct"
-                    ? "border-emerald-500/30 bg-emerald-500/10"
-                    : "border-red-500/30 bg-red-500/10"
-                }`}
-              >
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`border rounded-xl p-5 backdrop-blur-sm ${ex.state === "correct" ? "border-emerald-500/30 bg-emerald-500/10" : "border-red-500/30 bg-red-500/10"}`}>
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5">
-                    {ex.state === "correct" ? (
-                      <CheckCircle size={24} className="text-emerald-500" />
-                    ) : (
-                      <XCircle size={24} className="text-red-500" />
-                    )}
-                  </div>
+                  <div className="mt-0.5">{ex.state === "correct" ? <CheckCircle size={24} className="text-emerald-500" /> : <XCircle size={24} className="text-red-500" />}</div>
                   <div className="flex-1">
                     <p className="font-medium">{translateFeedback(ex.feedback, locale)}</p>
-                    {ex.corrections && ex.corrections.length > 0 && (
-                      <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                        <ul className="list-disc list-inside">
-                          {ex.corrections
-                            .map((c) => (typeof c === "string" ? c.trim() : ""))
-                            .filter((c) => c.length > 0)
-                            .map((c, i) => (
-                              <li key={i}>{c}</li>
-                            ))}
-                        </ul>
-                      </div>
-                    )}
-                    {ex.hayqEarned > 0 && (
-                      <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-xs font-bold">
-                        <Coins size={12} /> +{ex.hayqEarned} HAYQ
-                      </div>
-                    )}
+                    {ex.corrections && ex.corrections.length > 0 && (<div className="mt-2 text-sm text-gray-600 dark:text-gray-400"><ul className="list-disc list-inside">{ex.corrections.map((c) => (typeof c === "string" ? c.trim() : "")).filter((c) => c.length > 0).map((c, i) => (<li key={i}>{c}</li>))}</ul></div>)}
+                    {ex.hayqEarned > 0 && (<div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-xs font-bold"><Coins size={12} /> +{ex.hayqEarned} HAYQ</div>)}
                   </div>
                 </div>
                 {ex.state === "correct" ? (
-                  <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 2.2, ease: "linear" }}
-                      className="h-full bg-emerald-500"
-                    />
-                  </div>
+                  <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden"><motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.2, ease: "linear" }} className="h-full bg-emerald-500" /></div>
                 ) : (
                   <>
-                    <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: "0%" }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: 2.8, ease: "linear" }}
-                        className="h-full bg-red-500"
-                      />
-                    </div>
-                    <button
-                      onClick={() => nextRef.current()}
-                      className="w-full mt-4 py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2"
-                    >
-                      {t("page_continue")} →
-                    </button>
+                    <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden"><motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.8, ease: "linear" }} className="h-full bg-red-500" /></div>
+                    <button onClick={() => nextRef.current()} className="w-full mt-4 py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2">{t("page_continue")} →</button>
                   </>
                 )}
               </motion.div>
@@ -2405,39 +1892,15 @@ function LearnInner() {
 
       <AnimatePresence>
         {showExitConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowExitConfirm(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              onClick={(e) => e.stopPropagation()}
-              className="max-w-sm w-full"
-            >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm" onClick={() => setShowExitConfirm(false)}>
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} onClick={(e) => e.stopPropagation()} className="max-w-sm w-full">
               <GlassCard variant="premium" className="max-w-sm w-full p-6 text-center">
                 <Nuri mood="sad" size={80} />
                 <h3 className="text-xl font-black mt-3 mb-2">{t("page_exit_lesson_title")}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
-                  {t("page_exit_lesson_description")}
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">{t("page_exit_lesson_description")}</p>
                 <div className="flex gap-3">
-                  <button
-                    onClick={() => setShowExitConfirm(false)}
-                    className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    {t("page_stay")}
-                  </button>
-                  <button
-                    onClick={exitToWorld}
-                    className="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"
-                  >
-                    {t("page_exit")}
-                  </button>
+                  <button onClick={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold hover:bg-white/10 dark:hover:bg-gray-800 transition-colors">{t("page_stay")}</button>
+                  <button onClick={exitToWorld} className="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">{t("page_exit")}</button>
                 </div>
               </GlassCard>
             </motion.div>
@@ -2447,18 +1910,7 @@ function LearnInner() {
 
       <AnimatePresence>
         {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border px-6 py-3 max-w-sm rounded-xl text-center shadow-xl ${
-              toastType === "success"
-                ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                : toastType === "error"
-                ? "border-red-500/30 text-red-600 dark:text-red-400"
-                : "border-blue-500/30 text-blue-600 dark:text-blue-400"
-            }`}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border px-6 py-3 max-w-sm rounded-xl text-center shadow-xl ${toastType === "success" ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400" : toastType === "error" ? "border-red-500/30 text-red-600 dark:text-red-400" : "border-blue-500/30 text-blue-600 dark:text-blue-400"}`}>
             <p className="text-sm font-medium">{toastMessage}</p>
           </motion.div>
         )}
@@ -2469,13 +1921,7 @@ function LearnInner() {
 
 export default function LearnPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center bg-transparent dark:bg-transparent">
-          <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin border-red-600" />
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-transparent dark:bg-transparent"><div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin border-red-600" /></div>}>
       <LearnInner />
     </Suspense>
   );

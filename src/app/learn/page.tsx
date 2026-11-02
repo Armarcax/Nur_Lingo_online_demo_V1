@@ -926,19 +926,36 @@ function LearnInner() {
     if (!cleanText) return;
 
     if (lang === "hy") {
+      // Հայերենի համար փորձում ենք WAV ֆայլը
       if (wavClient && isWAVAvailable) {
-        // Fire and forget - DO NOT AWAIT so there is no UI delay
         wavClient.playPrompt(cleanText, getPairKey(native, learningLang), "Ani").catch(() => {
-          playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
+          // Եթե WAV-ը չկա կամ սխալ կա, ակնթարթորեն միացնում ենք բրաուզերի հայերեն TTS-ը
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(cleanText);
+            u.lang = "hy-AM";
+            window.speechSynthesis.speak(u);
+          }
         });
       } else {
-        playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
+        // Եթե WAV համակարգը բեռնված չէ, ակնթարթորեն TTS
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(cleanText);
+          u.lang = "hy-AM";
+          window.speechSynthesis.speak(u);
+        }
       }
     } else {
-      // English/Russian - Instantly use TTS (no API calls)
-      playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
+      // ✅ ԱՆԳԼԵՐԵՆԻ ԿԱՄ ՌՈՒՍԵՐԵՆԻ ՀԱՄԱՐ ՄԻԱՅՆ ԲՐԱՈՒԶԵՐԻ TTS (Առանց սերվերի)
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(cleanText);
+        u.lang = lang === "en" ? "en-US" : "ru-RU";
+        window.speechSynthesis.speak(u);
+      }
     }
-  }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
+  }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang]);
 
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {

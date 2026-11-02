@@ -3,7 +3,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Volume2, Loader2, CheckCircle, XCircle, Wifi, WifiOff, Music, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Volume2, Loader2, CheckCircle, XCircle, Wifi, WifiOff, Music, ArrowLeft, ArrowRight, Check, X, Shuffle, HelpCircle } from 'lucide-react';
 import { GlassCard } from '@/components/ui/glass-card';
 import { useCanonicalOfflineAudio } from '@/lib/hooks/useCanonicalOfflineAudio';
 import { useI18n } from '@/hooks/useI18n';
@@ -37,7 +37,7 @@ type Gender = 'male' | 'female';
 
 interface Exercise {
   id: string;
-  type: 'listen-and-select' | 'listen-and-speak' | 'listen-and-repeat' | 'multiple-choice' | 'translate' | 'matching';
+  type: 'listen-and-select' | 'listen-and-speak' | 'listen-and-repeat' | 'multiple-choice' | 'translate' | 'matching' | 'word-scramble' | 'true-false' | 'jumbled-sentence' | 'fill-in-the-blanks';
   question: string;
   questionArmenian?: string;
   correctAnswer?: string;
@@ -54,6 +54,92 @@ interface ExerciseState extends Exercise {
   selectedAnswer?: string;
   isCorrect?: boolean;
 }
+
+// ============================================================
+// AUTO EXERCISE GENERATOR (Ավելացված է)
+// ============================================================
+
+const shuffleArray = <T,>(arr: T[]): T[] => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
+const generateExtraExercises = (lessonData: any): Exercise[] => {
+  const generated: Exercise[] = [];
+  const vocab = lessonData?.vocabulary || [];
+  const phrases = lessonData?.phrases || [];
+
+  // 1. Խառնված տառեր (Word Scramble)
+  vocab.forEach((v: any, i: number) => {
+    if (i % 3 === 0 && v.hy && v.hy.length > 2) {
+      const scrambled = shuffleArray(v.hy.split('')).join('');
+      generated.push({
+        id: `gen_scramble_${i}`,
+        type: 'word-scramble',
+        question: `Վերականգնիր բառը (Ակնարկ՝ ${v.en}):`,
+        correctAnswer: v.hy,
+        audioText: v.hy,
+        translations: { en: v.en }
+      });
+    }
+  });
+
+  // 2. Ճիշտ / Սխալ (True/False)
+  vocab.forEach((v: any, i: number) => {
+    if (i % 4 === 0 && v.hy && v.en) {
+      const isCorrect = Math.random() > 0.5;
+      const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
+      generated.push({
+        id: `gen_tf_${i}`,
+        type: 'true-false',
+        question: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`,
+        correctAnswer: String(isCorrect),
+        audioText: v.hy,
+      });
+    }
+  });
+
+  // 3. Խառնված նախադասություն (Jumbled Sentence)
+  phrases.forEach((p: any, i: number) => {
+    if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
+      const words = p.hy.split(' ');
+      const jumbled = shuffleArray(words);
+      generated.push({
+        id: `gen_jumble_${i}`,
+        type: 'jumbled-sentence',
+        question: "Դասավորիր բառերը ճիշտ հերթականությամբ.",
+        options: jumbled,
+        correctAnswer: p.hy,
+        audioText: p.hy,
+      });
+    }
+  });
+
+  // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
+  phrases.forEach((p: any, i: number) => {
+    if (i % 4 === 1 && p.hy && p.hy.includes(' ')) {
+      const words = p.hy.split(' ');
+      const targetIndex = Math.floor(Math.random() * words.length);
+      const targetWord = words[targetIndex];
+      const masked = [...words];
+      masked[targetIndex] = "___";
+      generated.push({
+        id: `gen_fib_${i}`,
+        type: 'fill-in-the-blanks',
+        question: masked.join(' '),
+        correctAnswer: targetWord,
+        audioText: p.hy,
+        translations: { en: p.en }
+      });
+    }
+  });
+
+  return generated;
+};
 
 // ============================================================
 // VOICE SELECTOR UI
@@ -107,30 +193,39 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('hy');
 
-  // ✅ Matching-ի վիճակները
+  // Matching States
   const [matchedPairs, setMatchedPairs] = useState<string[]>([]);
   const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
   const [selectedRight, setSelectedRight] = useState<string | null>(null);
 
+  // Input States (Fill-in-the-Blanks, Scramble)
+  const [textInput, setTextInput] = useState('');
+
+  // Jumbled Sentence States
+  const [availableWords, setAvailableWords] = useState<string[]>([]);
+  const [selectedWords, setSelectedWords] = useState<string[]>([]);
+
+  // ✅ Սկզբնական վարժություններին ավելացնում ենք գեներացվածները
   useEffect(() => {
     if (lessonData?.exercises) {
-      setExercises(lessonData.exercises.map(ex => ({
+      const extra = generateExtraExercises(lessonData);
+      const allExercises = [...lessonData.exercises, ...extra].map(ex => ({
         ...ex, isAnswered: false, selectedAnswer: undefined, isCorrect: undefined,
-      })));
+      }));
+      // Խառնում ենք, որպեսզի նորերը միշտ վերջում չլինեն
+      setExercises(shuffleArray(allExercises));
     }
   }, [lessonData]);
 
-  // ✅ ՄԻԱԿ ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱՆ, ՈՐԸ ՇՐՋԱՆՑՈՒՄ Է ՍԵՐՎԵՐԻ 500 ՍԽԱԼԸ
+  // ✅ ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱ
   const playAudioText = useCallback((text: string, lang: Language) => {
     if (!text) return;
 
     if (lang === 'hy') {
-      // 1. Հայերենի համար փորձում ենք գտնել WAV ֆայլը
       const audioData = resolveOfflineAudio(text, 'hy');
       if (audioData?.url) {
         new Audio(audioData.url).play().catch(e => console.warn("WAV Error:", e));
       } else {
-        // Եթե WAV չկա, միացնում ենք հայերեն TTS
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
           const utterance = new SpeechSynthesisUtterance(text);
@@ -140,8 +235,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
         }
       }
     } else {
-      // 2. Անգլերենի և Ռուսերենի համար ՄԻԱՅՆ օգտագործում ենք բրաուզերի TTS-ը
-      // (Այսպիսով բացառում ենք /api/generate-tts-en-ի 500 սխալը)
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
@@ -152,34 +245,44 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     }
   }, []);
 
+  const current = exercises[currentIndex];
+
   // Auto-play հարցի աուդիոն
   useEffect(() => {
-    if (!exercises.length || completed) return;
-    const current = exercises[currentIndex];
-    if (current && current.type !== 'matching') {
-      const textToPlay = current.audioText || current.questionArmenian || current.question;
-      const timer = setTimeout(() => playAudioText(textToPlay, selectedLanguage), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [currentIndex, exercises, completed, selectedLanguage, playAudioText]);
+    if (!current || completed || current.type === 'matching') return;
+    const textToPlay = current.audioText || current.questionArmenian || current.question;
+    const timer = setTimeout(() => playAudioText(textToPlay, selectedLanguage), 500);
+    return () => clearTimeout(timer);
+  }, [current, completed, selectedLanguage, playAudioText]);
 
-  // ✅ Matching-ի խաղի լոգիկան (Խառնում ենք առանց ID-ները կորցնելու)
+  // Init States on Question Change
+  useEffect(() => {
+    if (!current) return;
+    setTextInput('');
+    setSelectedWords([]);
+    setMatchedPairs([]);
+    setSelectedLeft(null);
+    setSelectedRight(null);
+
+    if (current.type === 'jumbled-sentence' && current.options) {
+      setAvailableWords(shuffleArray(current.options));
+    }
+  }, [currentIndex, current]);
+
+  // Matching Logic
   const leftItems = useMemo(() => {
-    if (!exercises[currentIndex]?.pairs) return [];
-    return [...exercises[currentIndex].pairs!].sort(() => Math.random() - 0.5);
-  }, [currentIndex, exercises]);
+    if (!current?.pairs) return [];
+    return shuffleArray([...current.pairs]);
+  }, [current]);
 
   const rightItems = useMemo(() => {
-    if (!exercises[currentIndex]?.pairs) return [];
-    return [...exercises[currentIndex].pairs!].sort(() => Math.random() - 0.5);
-  }, [currentIndex, exercises]);
+    if (!current?.pairs) return [];
+    return shuffleArray([...current.pairs]);
+  }, [current]);
 
   const handleMatchClick = (id: string, word: string, side: 'left' | 'right') => {
     if (matchedPairs.includes(id)) return;
-    
-    // ✅ Ահա այստեղ է աշխատում աուդիոն
     playAudioText(word, side === 'left' ? 'hy' : 'en');
-
     if (side === 'left') {
       setSelectedLeft(id);
       if (selectedRight) checkMatch(id, selectedRight);
@@ -191,34 +294,39 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
 
   const checkMatch = (leftId: string, rightId: string) => {
     if (leftId === rightId) {
-      setMatchedPairs(prev => {
-        const newMatched = [...prev, leftId];
-        // Եթե բոլոր զույգերը գտնվել են, ավտոմատ անցնում ենք հաջորդ հարցին
-        if (newMatched.length === (exercises[currentIndex].pairs?.length || 0)) {
-          setTimeout(() => handleAnswer('matched'), 500);
-        }
-        return newMatched;
-      });
+      const newMatched = [...matchedPairs, leftId];
+      setMatchedPairs(newMatched);
       setSelectedLeft(null);
       setSelectedRight(null);
+      if (newMatched.length === (current.pairs?.length || 0)) {
+        setTimeout(() => handleAnswer('matched'), 500);
+      }
     } else {
       setTimeout(() => { setSelectedLeft(null); setSelectedRight(null); }, 500);
     }
   };
 
+  // Jumbled Sentence Logic
+  const handleWordSelect = (word: string, index: number) => {
+    setSelectedWords([...selectedWords, word]);
+    setAvailableWords(availableWords.filter((_, i) => i !== index));
+  };
+  const handleWordDeselect = (word: string, index: number) => {
+    setAvailableWords([...availableWords, word]);
+    setSelectedWords(selectedWords.filter((_, i) => i !== index));
+  };
+
+  // Answer Handler
   const handleAnswer = useCallback(async (selected: string) => {
     if (isSubmitting) return;
-    const current = exercises[currentIndex];
     if (!current || current.isAnswered) return;
 
     setIsSubmitting(true);
-    setSelectedOption(selected);
-
-    const isCorrect = current.type === 'matching' ? true : selected === current.correctAnswer;
+    const isCorrect = current.type === 'matching' ? true : selected.trim().toLowerCase() === current.correctAnswer?.trim().toLowerCase();
     
     setExercises(prev => {
       const updated = [...prev];
-      updated[currentIndex] = { ...updated[currentIndex], isAnswered: true, isCorrect };
+      updated[currentIndex] = { ...updated[currentIndex], isAnswered: true, selectedAnswer: selected, isCorrect };
       return updated;
     });
 
@@ -231,12 +339,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
 
     setTimeout(() => {
       setFeedback(null);
-      setSelectedOption(null);
       setIsSubmitting(false);
-      setMatchedPairs([]);
-      setSelectedLeft(null);
-      setSelectedRight(null);
-      
       const nextIndex = currentIndex + 1;
       if (nextIndex < exercises.length) {
         setCurrentIndex(nextIndex);
@@ -246,7 +349,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
         onComplete?.(accuracy, { correct: score + (isCorrect ? 1 : 0), total: exercises.length, accuracy });
       }
     }, 2000);
-  }, [currentIndex, exercises, score, onComplete, isSubmitting, t]);
+  }, [current, currentIndex, exercises.length, isSubmitting, onComplete, score, t]);
 
   // Handle skip
   const handleSkip = useCallback(() => {
@@ -254,7 +357,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     const nextIndex = currentIndex + 1;
     if (nextIndex < exercises.length) {
       setCurrentIndex(nextIndex);
-      setMatchedPairs([]);
     } else {
       setCompleted(true);
       const accuracy = Math.round((score / exercises.length) * 100);
@@ -277,7 +379,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     return <div className="flex items-center justify-center min-h-[300px]"><Loader2 size={40} className="animate-spin text-red-500 mx-auto" /></div>;
   }
 
-  if (!exercises.length) {
+  if (!exercises.length || !current) {
     return <div className="text-center p-8 bg-yellow-50 text-yellow-800 rounded-xl">⚠️ {t('InteractiveLesson__no_exercises')}</div>;
   }
 
@@ -295,7 +397,6 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
     );
   }
 
-  const current = exercises[currentIndex];
   const progress = ((currentIndex + 1) / exercises.length) * 100;
 
   return (
@@ -326,100 +427,164 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
       </div>
 
       <GlassCard variant="premium" className="p-6">
-        {/* ✅ MATCHING ԽԱՂԻ ԻՆՏԵՐՖԵՅՍԸ */}
+        {/* Question Text & Audio Button */}
+        <div className="mb-6 flex items-start gap-3">
+          <button
+            onClick={() => playAudioText(current.audioText || current.questionArmenian || current.question, selectedLanguage)}
+            className="p-2 rounded-xl bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition-colors"
+          >
+            <Volume2 size={20} />
+          </button>
+          <div className="flex-1">
+            <p className="text-lg font-medium text-gray-900 dark:text-white">
+              {current.questionArmenian || current.question}
+            </p>
+          </div>
+        </div>
+
+        {/* 1. MATCHING */}
         {current.type === 'matching' && current.pairs && (
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 text-center">
-              Համապատասխանեցրու բառերը:
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {/* Ձախ սյունակ (Հայերեն) */}
-              <div className="flex flex-col gap-2">
-                {leftItems.map((item) => (
-                  <button
-                    key={`left-${item.id}`}
-                    onClick={() => handleMatchClick(item.id, item.native, 'left')}
-                    disabled={matchedPairs.includes(item.id)}
-                    className={`p-3 rounded-xl border-2 text-left transition-all flex justify-between items-center ${
-                      matchedPairs.includes(item.id) 
-                        ? 'bg-green-500/20 border-green-500 text-green-700 opacity-50' 
-                        : selectedLeft === item.id
-                        ? 'border-orange-500 bg-orange-500/10'
-                        : 'border-white/20 bg-white/40 hover:bg-white/60 text-gray-900'
-                    }`}
-                  >
-                    <span>{item.native}</span>
-                    <Volume2 size={16} className="text-gray-500" />
-                  </button>
-                ))}
-              </div>
-              {/* Աջ սյունակ (Անգլերեն) */}
-              <div className="flex flex-col gap-2">
-                {rightItems.map((item) => (
-                  <button
-                    key={`right-${item.id}`}
-                    onClick={() => handleMatchClick(item.id, item.learning, 'right')}
-                    disabled={matchedPairs.includes(item.id)}
-                    className={`p-3 rounded-xl border-2 text-left transition-all flex justify-between items-center ${
-                      matchedPairs.includes(item.id) 
-                        ? 'bg-green-500/20 border-green-500 text-green-700 opacity-50' 
-                        : selectedRight === item.id
-                        ? 'border-orange-500 bg-orange-500/10'
-                        : 'border-white/20 bg-white/40 hover:bg-white/60 text-gray-900'
-                    }`}
-                  >
-                    <span>{item.learning}</span>
-                    <Volume2 size={16} className="text-gray-500" />
-                  </button>
-                ))}
-              </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              {leftItems.map((item) => (
+                <button
+                  key={`left-${item.id}`}
+                  onClick={() => handleMatchClick(item.id, item.native, 'left')}
+                  disabled={matchedPairs.includes(item.id)}
+                  className={`p-3 rounded-xl border-2 text-left transition-all ${
+                    matchedPairs.includes(item.id) ? 'bg-green-500/20 border-green-500 opacity-50' :
+                    selectedLeft === item.id ? 'border-orange-500 bg-orange-500/10' : 'border-white/20 bg-white/40 hover:bg-white/60 text-gray-900'
+                  }`}
+                >
+                  {item.native}
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2">
+              {rightItems.map((item) => (
+                <button
+                  key={`right-${item.id}`}
+                  onClick={() => handleMatchClick(item.id, item.learning, 'right')}
+                  disabled={matchedPairs.includes(item.id)}
+                  className={`p-3 rounded-xl border-2 text-left transition-all ${
+                    matchedPairs.includes(item.id) ? 'bg-green-500/20 border-green-500 opacity-50' :
+                    selectedRight === item.id ? 'border-orange-500 bg-orange-500/10' : 'border-white/20 bg-white/40 hover:bg-white/60 text-gray-900'
+                  }`}
+                >
+                  {item.learning}
+                </button>
+              ))}
             </div>
           </div>
         )}
 
-        {/* ՄՆԱՑԱԾ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ */}
-        {current.type !== 'matching' && (
-          <>
-            <div className="mb-6 flex items-start gap-3">
-              <button
-                onClick={() => playAudioText(current.audioText || current.questionArmenian || current.question, selectedLanguage)}
-                className="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-gray-700"
-              >
-                <Volume2 size={20} />
-              </button>
-              <div className="flex-1">
-                <p className="text-lg font-medium text-gray-900 dark:text-white">{current.questionArmenian || current.question}</p>
-              </div>
+        {/* 2. TRUE / FALSE */}
+        {current.type === 'true-false' && (
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <button
+              onClick={() => handleAnswer('true')}
+              disabled={current.isAnswered}
+              className={`py-6 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all ${
+                current.isAnswered && current.correctAnswer === 'true' ? 'border-green-500 bg-green-500/20' : 'border-white/20 bg-white/20 hover:bg-white/30'
+              }`}
+            >
+              <Check size={32} className="text-green-500" />
+              <span className="font-bold">Ճիշտ է</span>
+            </button>
+            <button
+              onClick={() => handleAnswer('false')}
+              disabled={current.isAnswered}
+              className={`py-6 rounded-xl border-2 flex flex-col items-center justify-center gap-2 transition-all ${
+                current.isAnswered && current.correctAnswer === 'false' ? 'border-green-500 bg-green-500/20' : 'border-white/20 bg-white/20 hover:bg-white/30'
+              }`}
+            >
+              <X size={32} className="text-red-500" />
+              <span className="font-bold">Սխալ է</span>
+            </button>
+          </div>
+        )}
+
+        {/* 3. JUMBLED SENTENCE */}
+        {current.type === 'jumbled-sentence' && (
+          <div className="space-y-4 mt-4">
+            <div className="min-h-[60px] p-4 rounded-xl bg-white/30 border border-white/20 flex flex-wrap gap-2">
+              {selectedWords.map((w, i) => (
+                <button key={i} onClick={() => handleWordDeselect(w, i)} className="px-3 py-1.5 bg-red-500 text-white rounded-lg">
+                  {w}
+                </button>
+              ))}
             </div>
-            
-            {current.options && (
-              <div className="space-y-3">
-                {current.options.map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => !current.isAnswered && handleAnswer(option)}
-                    disabled={current.isAnswered || isSubmitting}
-                    className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                      current.isAnswered
-                        ? option === current.correctAnswer ? "border-green-500 bg-green-500/10" : "border-white/20 opacity-50"
-                        : "border-white/20 bg-white/20 hover:bg-white/30"
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-2">
+              {availableWords.map((w, i) => (
+                <button key={i} onClick={() => handleWordSelect(w, i)} className="px-3 py-1.5 bg-white/40 hover:bg-white/60 rounded-lg text-gray-900">
+                  {w}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => handleAnswer(selectedWords.join(' '))}
+              disabled={current.isAnswered || selectedWords.length === 0}
+              className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold disabled:opacity-50"
+            >
+              Ստուգել
+            </button>
+          </div>
+        )}
+
+        {/* 4. FILL IN THE BLANKS & WORD SCRAMBLE */}
+        {(current.type === 'fill-in-the-blanks' || current.type === 'word-scramble') && (
+          <div className="space-y-4 mt-4">
+            {current.translations?.en && (
+              <p className="text-sm text-gray-500 text-center mb-2">Ակնարկ՝ {current.translations.en}</p>
             )}
-          </>
+            <input
+              type="text"
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              placeholder="Գրիր պատասխանը..."
+              disabled={current.isAnswered}
+              className="w-full p-4 rounded-xl bg-white/20 border border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg text-center text-gray-900 dark:text-white"
+            />
+            <button
+              onClick={() => handleAnswer(textInput)}
+              disabled={current.isAnswered || !textInput.trim()}
+              className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold disabled:opacity-50"
+            >
+              Ստուգել
+            </button>
+          </div>
+        )}
+
+        {/* 5. MULTIPLE CHOICE / LISTEN / TRANSLATE (Options) */}
+        {current.options && current.type !== 'jumbled-sentence' && (
+          <div className="space-y-3 mt-4">
+            {current.options.map((option) => (
+              <button
+                key={option}
+                onClick={() => handleAnswer(option)}
+                disabled={current.isAnswered}
+                className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                  current.isAnswered
+                    ? option === current.correctAnswer ? "border-green-500 bg-green-500/10" : "border-white/20 opacity-50"
+                    : "border-white/20 bg-white/20 hover:bg-white/30"
+                }`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
         )}
 
         {/* Feedback */}
         {feedback && (
-          <div className={`mt-4 p-4 rounded-xl ${feedback.isCorrect ? 'bg-green-500/10 text-green-600' : 'bg-red-500/10 text-red-600'}`}>
-            <div className="flex items-center gap-2">
+          <div className={`mt-6 p-4 rounded-xl ${feedback.isCorrect ? 'bg-green-500/10 text-green-600' : 'bg-red-500/10 text-red-600'}`}>
+            <div className="flex items-center gap-2 font-bold mb-1">
               {feedback.isCorrect ? <CheckCircle size={20} /> : <XCircle size={20} />}
-              <span>{feedback.message}</span>
+              {feedback.message}
             </div>
+            {!feedback.isCorrect && (
+              <p className="text-sm">Ճիշտ պատասխանն էր՝ <span className="font-bold underline">{feedback.correctAnswer}</span></p>
+            )}
           </div>
         )}
 

@@ -166,12 +166,11 @@ function getOrCreateDeviceId(): string {
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return a;
+  return arr;
 }
 
 function formatTime(ms: number): string {
@@ -179,124 +178,6 @@ function formatTime(ms: number): string {
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
-}
-
-// ─── ԱՎՏՈՄԱՏ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐ ──────────────────────────────
-
-function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[] {
-  const generated: MultiExercise[] = [];
-  if (!lesson) return generated;
-  
-  let vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  let phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
-
-  // ԵԹԵ ԲԱՌԱՐԱՆԸ ՉԿԱ, ՎԵՐՑՆՈՒՄ ԵՆՔ ԱՌԿԱ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻՑ
-  if (vocab.length === 0 && Array.isArray(lesson.exercises)) {
-    lesson.exercises.forEach((ex: any) => {
-      if (ex.type === 'translate' || ex.type === 'multiple_choice') {
-        if (ex.targetAnswer) {
-          vocab.push({ hy: ex.targetAnswer, en: ex.prompt?.en || ex.targetAnswer });
-        }
-      }
-    });
-  }
-
-  const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
-  const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
-
-  // Կետադրական նշանները մաքրելու ֆունկցիա
-  const cleanStr = (s: string) => s ? s.replace(/[.,!?;:«»""'()\[\]{}]/g, '').trim() : '';
-
-  try {
-    // 1. Խառնված տառեր (Word Scramble)
-    vocab.forEach((v: any, i: number) => {
-      if (i % 3 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
-        const cleanWord = cleanStr(v.hy);
-        if (cleanWord.length < 3) return;
-
-        const scrambled = shuffleArray(cleanWord.split('')).join('');
-        if (scrambled === cleanWord) return;
-
-        generated.push({
-          id: `gen_scramble_${i}`,
-          type: 'translate',
-          prompt: { 
-            hy: `Վերականգնիր բառը:\n\n${scrambled}\n\nԱկնարկ՝ ${v.en || ''}`, 
-            en: `Unscramble the word:\n\n${scrambled}\n\nHint: ${v.en || ''}`, 
-            ru: `Восстанови слово:\n\n${scrambled}\n\nПодсказка: ${v.en || ''}` 
-          },
-          targetAnswer: cleanWord,
-        });
-      }
-    });
-
-    // 2. Ճիշտ/Սխալ (True/False)
-    vocab.forEach((v: any, i: number) => {
-      if (i % 4 === 0 && v.hy && v.en) {
-        const isCorrect = Math.random() > 0.5;
-        const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
-        generated.push({
-          id: `gen_tf_${i}`,
-          type: 'multiple_choice',
-          prompt: { 
-            hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
-            en: `Does «${v.hy}» mean «${fakeEn}»?`, 
-            ru: `«${v.hy}» переводится как «${fakeEn}»?` 
-          },
-          targetAnswer: isCorrect ? trueStr : falseStr,
-          options: [trueStr, falseStr]
-        });
-      }
-    });
-
-    // 3. Խառնված նախադասություն (Jumbled Sentence)
-    phrases.forEach((p: any, i: number) => {
-      if (i % 3 === 0 && typeof p.hy === 'string' && p.hy.includes(' ')) {
-        const words = p.hy.split(' ').filter(Boolean);
-        if (words.length < 3) return;
-
-        generated.push({
-          id: `gen_jumble_${i}`,
-          type: 'word_order',
-          prompt: { 
-            hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
-            en: "Order the words", 
-            ru: "Расставь слова по порядку" 
-          },
-          words: shuffleArray([...words]),
-          targetAnswer: p.hy,
-        });
-      }
-    });
-
-    // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
-    phrases.forEach((p: any, i: number) => {
-      if (i % 4 === 1 && typeof p.hy === 'string' && p.hy.includes(' ')) {
-        const words = p.hy.split(' ');
-        const targetIndex = Math.floor(Math.random() * words.length);
-        const targetWord = cleanStr(words[targetIndex]);
-        if (targetWord.length < 2) return;
-
-        const masked = [...words];
-        masked[targetIndex] = "___";
-
-        generated.push({
-          id: `gen_fib_${i}`,
-          type: 'translate',
-          prompt: { 
-            hy: `Լրացրու բաց թողնված բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${p.en || ''}`, 
-            en: `Fill in the blank:\n\n${masked.join(' ')}\n\nHint: ${p.en || ''}`, 
-            ru: `Заполни пропуск:\n\n${masked.join(' ')}\n\nПодсказка: ${p.en || ''}` 
-          },
-          targetAnswer: targetWord,
-        });
-      }
-    });
-  } catch (e) {
-    console.warn("Error generating exercises:", e);
-  }
-
-  return generated;
 }
 
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
@@ -798,6 +679,7 @@ function LearnInner() {
   const speakingLockRef = useRef(false);
   const advancingRef = useRef(false);
 
+  // Pre-warm voices to prevent delay
   useEffect(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
@@ -913,7 +795,7 @@ function LearnInner() {
     showListenButton: false,
   });
 
-  const current = lesson?.exercises?.[ex.index];
+  const current = lesson?.exercises[ex.index];
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
@@ -1037,6 +919,8 @@ function LearnInner() {
     []
   );
 
+  // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
+    // 🔥 ԱԿՆԹԱՐԹԱՓ ԱՈՒԴԻՈ (Կանացի ձայնով)
   const playMatchAudio = useCallback((text: string, lang: string) => {
     if (!audioEnabled || !text) return;
     const cleanText = sanitizeForTTS(text);
@@ -1051,6 +935,7 @@ function LearnInner() {
         playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
       }
     } else {
+      // ✅ ԱՆԳԼԵՐԵՆԸ ԿԱՐԴՈՒՄ Է ՄԻԱՅՆ ԿԱՆԱՑԻ ՁԱՅՆՈՎ
       playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
     }
   }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
@@ -1226,23 +1111,6 @@ function LearnInner() {
         if (lessonId) router.push("/world");
         return;
       }
-
-      // 🔍 ԴԻԱԳՆՈՍՏԻԿԱ
-      console.log("🔍 [DEBUG] Բեռնված դասը:", l);
-      console.log("🔍 [DEBUG] Ունի՞ vocabulary:", l.vocabulary);
-      console.log("🔍 [DEBUG] Ունի՞ phrases:", l.phrases);
-
-      // ✅ Ավելացնում ենք գեներացված վարժությունները անվտանգ ձևով
-      let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];
-      try {
-        const extraExercises = generateExtraExercises(l, nativeLang);
-        if (extraExercises.length > 0) {
-          safeExercises = shuffleArray([...safeExercises, ...extraExercises]);
-        }
-      } catch (e) {
-        console.warn("Generator failed, using original exercises:", e);
-      }
-      l = { ...l, exercises: safeExercises };
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -1534,7 +1402,7 @@ function LearnInner() {
           body: JSON.stringify({
             userAnswer: answerForApi,
             expectedAnswer: current.targetAnswer,
-            englishOriginal: current.prompt?.["en"] ?? current.prompt?.[native] ?? current.targetAnswer,
+            englishOriginal: current.prompt["en"] ?? current.prompt[native] ?? current.targetAnswer,
             allValidAnswers: current.acceptableAnswers || [],
             sourceLanguage: native,
             targetLanguage: learningLang,
@@ -1725,7 +1593,7 @@ function LearnInner() {
 
         setLesson((prev) => {
           if (!prev) return prev;
-          return { ...prev, exercises: [...(prev.exercises || []), ...retryQ] };
+          return { ...prev, exercises: [...prev.exercises, ...retryQ] };
         });
 
         setEx({
@@ -2230,13 +2098,13 @@ function LearnInner() {
             )}
 
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold flex-1 whitespace-pre-line">
-                {current?.prompt?.[native] || current?.prompt?.["en"] || ""}
+              <h3 className="text-lg font-bold flex-1">
+                {current.prompt[native] ?? current.prompt["en"]}
               </h3>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   onClick={() => {
-                    const promptText = current?.prompt?.[native] || current?.prompt?.en || "";
+                    const promptText = current.prompt?.[native] || current.prompt?.en || "";
                     playAudioWithFallback(promptText, native, "prompt").catch(() => {});
                   }}
                   className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
@@ -2302,7 +2170,7 @@ function LearnInner() {
               ) : current.type === "multiple_choice" && current.options ? (
                 <MultipleChoiceInput
                   options={current.options}
-                  targetAnswer={current.targetAnswer || ""}
+                  targetAnswer={current.targetAnswer}
                   userAnswer={ex.userAnswer}
                   state={ex.state}
                   onSelect={(opt) => {

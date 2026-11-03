@@ -166,12 +166,11 @@ function getOrCreateDeviceId(): string {
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return a;
+  return arr;
 }
 
 function formatTime(ms: number): string {
@@ -179,111 +178,6 @@ function formatTime(ms: number): string {
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
-}
-
-// ─── ԱՎՏՈՄԱՏ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐ ──────────────────────────────
-
-function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[] {
-  const generated: MultiExercise[] = [];
-  if (!lesson) return generated;
-  
-  let vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  let phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
-
-  // ✅ ԵԹԵ ԲԱՌԱՐԱՆԸ ՉԿԱ, ՎԵՐՑՆՈՒՄ ԵՆՔ ՀԵՆՑ ԱՌԿԱ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻՑ
-  if (vocab.length === 0 && Array.isArray(lesson.exercises)) {
-    lesson.exercises.forEach((ex: any) => {
-      if (ex.type === 'translate' || ex.type === 'multiple_choice') {
-        if (ex.targetAnswer) {
-          vocab.push({ hy: ex.targetAnswer, en: ex.prompt?.en || ex.targetAnswer });
-        }
-      }
-    });
-  }
-
-  const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
-  const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
-
-  try {
-    // 1. Խառնված տառեր (Word Scramble)
-    vocab.forEach((v: any, i: number) => {
-      if (i % 3 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
-        const scrambled = v.hy.split('').sort(() => Math.random() - 0.5).join('');
-        generated.push({
-          id: `gen_scramble_${i}`,
-          type: 'translate',
-          prompt: { 
-            hy: `Վերականգնիր բառը (Ակնարկ՝ ${v.en || ''}): ${scrambled}`, 
-            en: `Unscramble (Hint: ${v.en || ''}): ${scrambled}`, 
-            ru: `Составь слово (Подсказка: ${v.en || ''}): ${scrambled}` 
-          },
-          targetAnswer: v.hy,
-        });
-      }
-    });
-
-    // 2. Ճիշտ/Սխալ (True/False)
-    vocab.forEach((v: any, i: number) => {
-      if (i % 4 === 0 && v.hy && v.en) {
-        const isCorrect = Math.random() > 0.5;
-        const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
-        generated.push({
-          id: `gen_tf_${i}`,
-          type: 'multiple_choice',
-          prompt: { 
-            hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
-            en: `Does «${v.hy}» mean «${fakeEn}»?`, 
-            ru: `«${v.hy}» переводится как «${fakeEn}»?` 
-          },
-          targetAnswer: isCorrect ? trueStr : falseStr,
-          options: [trueStr, falseStr]
-        });
-      }
-    });
-
-    // 3. Խառնված նախադասություն (Jumbled Sentence)
-    phrases.forEach((p: any, i: number) => {
-      if (i % 3 === 0 && typeof p.hy === 'string' && p.hy.includes(' ')) {
-        const words = p.hy.split(' ');
-        generated.push({
-          id: `gen_jumble_${i}`,
-          type: 'word_order',
-          prompt: { 
-            hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
-            en: "Order the words", 
-            ru: "Расставь слова по порядку" 
-          },
-          words: shuffleArray([...words]),
-          targetAnswer: p.hy,
-        });
-      }
-    });
-
-    // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
-    phrases.forEach((p: any, i: number) => {
-      if (i % 4 === 1 && typeof p.hy === 'string' && p.hy.includes(' ')) {
-        const words = p.hy.split(' ');
-        const targetIndex = Math.floor(Math.random() * words.length);
-        const targetWord = words[targetIndex];
-        const masked = [...words];
-        masked[targetIndex] = "___";
-        generated.push({
-          id: `gen_fib_${i}`,
-          type: 'translate',
-          prompt: { 
-            hy: `Լրացրու բաց թողնված բառը. ${masked.join(' ')}`, 
-            en: `Fill in the blank: ${masked.join(' ')}`, 
-            ru: `Заполни пропуск: ${masked.join(' ')}` 
-          },
-          targetAnswer: targetWord,
-        });
-      }
-    });
-  } catch (e) {
-    console.warn("Error generating exercises:", e);
-  }
-
-  return generated;
 }
 
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
@@ -1217,24 +1111,6 @@ function LearnInner() {
         if (lessonId) router.push("/world");
         return;
       }
-
-            // 🔍 ԴԻԱԳՆՈՍՏԻԿԱ
-      console.log("🔍 [DEBUG] Բեռնված դասը:", l);
-      console.log("🔍 [DEBUG] Ունի՞ vocabulary:", l.vocabulary);
-      console.log("🔍 [DEBUG] Ունի՞ phrases:", l.phrases);
-
-      // ✅ ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (ԱՆՎՏԱՆԳ)
-      let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];
-      try {
-        const extraExercises = generateExtraExercises(l, nativeLang);
-        if (extraExercises.length > 0) {
-          safeExercises = shuffleArray([...safeExercises, ...extraExercises]);
-        }
-      } catch (e) {
-        console.warn("Generator failed, falling back to original exercises", e);
-      }
-
-      l = { ...l, exercises: safeExercises };
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -2335,7 +2211,7 @@ function LearnInner() {
                   ttsLang={current.ttsLang || "hy"}
                   promptText={current.prompt[native] ?? current.prompt["en"]}
                   value={ex.userAnswer}
-                  onChange={(val: string) => setEx({ ...ex, userAnswer: val })}
+                  onChange={(val) => setEx({ ...ex, userAnswer: val })}
                   disabled={ex.state !== "idle"}
                   onSpeak={handleSpeak}
                   isSpeaking={isPlaying}
@@ -2344,7 +2220,7 @@ function LearnInner() {
               ) : (
                 <FreeTextInput
                   value={ex.userAnswer}
-                  onChange={(val: string) => setEx({ ...ex, userAnswer: val })}
+                  onChange={(val) => setEx({ ...ex, userAnswer: val })}
                   disabled={ex.state !== "idle"}
                   placeholder={t("page_enter_your_answer")}
                   onSpeak={handleSpeak}

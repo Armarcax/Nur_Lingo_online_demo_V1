@@ -32,7 +32,7 @@ type Language = 'hy' | 'en' | 'ru';
 type Gender = 'male' | 'female';
 
 // ============================================================
-// TYPES (✅ Ավելացվել է export, որպեսզի TypeScript-ը չբողոքա)
+// TYPES
 // ============================================================
 
 export interface Exercise {
@@ -76,13 +76,19 @@ const generateExtraExercises = (lessonData: any): Exercise[] => {
   // 1. Խառնված տառեր (Word Scramble)
   vocab.forEach((v: any, i: number) => {
     if (i % 3 === 0 && v.hy && v.hy.length > 2) {
-      const scrambled = shuffleArray(v.hy.split('')).join('');
+      // Մաքրում ենք կետադրական նշաններից
+      const clean = v.hy.replace(/[.,!?;:«»""'()]/g, '').trim();
+      if (clean.length < 3) return;
+      
+      const scrambled = shuffleArray(clean.split('')).join('');
+      if (scrambled === clean) return; // եթե չխառնվեց, բաց թող
+
       generated.push({
         id: `gen_scramble_${i}`,
         type: 'word-scramble',
-        question: `Վերականգնիր բառը (Ակնարկ՝ ${v.en}):`,
-        correctAnswer: v.hy,
-        audioText: v.hy,
+        question: `Վերականգնիր բառը:\n\n${scrambled}`,
+        correctAnswer: clean,
+        audioText: clean,
         translations: { en: v.en }
       });
     }
@@ -106,13 +112,14 @@ const generateExtraExercises = (lessonData: any): Exercise[] => {
   // 3. Խառնված նախադասություն (Jumbled Sentence)
   phrases.forEach((p: any, i: number) => {
     if (i % 3 === 0 && p.hy && p.hy.includes(' ')) {
-      const words: string[] = p.hy.split(' ');
-      const jumbled: string[] = shuffleArray<string>(words);
+      const words: string[] = p.hy.split(' ').filter(Boolean);
+      if (words.length < 3) return;
+
       generated.push({
         id: `gen_jumble_${i}`,
         type: 'jumbled-sentence',
         question: "Դասավորիր բառերը ճիշտ հերթականությամբ.",
-        options: jumbled,
+        options: words, // Ուղղակի փոխանցում ենք բառերը, UI-ն ինքը կխառնի
         correctAnswer: p.hy,
         audioText: p.hy,
       });
@@ -124,9 +131,14 @@ const generateExtraExercises = (lessonData: any): Exercise[] => {
     if (i % 4 === 1 && p.hy && p.hy.includes(' ')) {
       const words = p.hy.split(' ');
       const targetIndex = Math.floor(Math.random() * words.length);
-      const targetWord = words[targetIndex];
+      
+      // Մաքրում ենք կետադրականից թիրախ բառի մեջ
+      const targetWord = words[targetIndex].replace(/[.,!?;:]/g, '');
+      if (targetWord.length < 2) return;
+
       const masked = [...words];
       masked[targetIndex] = "___";
+
       generated.push({
         id: `gen_fib_${i}`,
         type: 'fill-in-the-blanks',
@@ -422,7 +434,7 @@ export function InteractiveLesson({ lessonId, lessonData, onComplete, className 
             <Volume2 size={20} />
           </button>
           <div className="flex-1">
-            <p className="text-lg font-medium text-gray-900 dark:text-white">
+            <p className="text-lg font-medium text-gray-900 dark:text-white whitespace-pre-line">
               {current.questionArmenian || current.question}
             </p>
           </div>

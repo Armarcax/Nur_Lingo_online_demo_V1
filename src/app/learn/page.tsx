@@ -183,129 +183,119 @@ function formatTime(ms: number): string {
 
 // ─── ԱՎՏՈՄԱՏ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐ ──────────────────────────────
 
-function generateExtraExercises(lesson: any, nativeLang: string, learningLang: string): MultiExercise[] {
+function generateExtraExercises(lesson: any, nativeLang: string): MultiExercise[] {
   const generated: MultiExercise[] = [];
   if (!lesson) return generated;
+  
+  let vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  let phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
 
-  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
+  // ԵԹԵ ԲԱՌԱՐԱՆԸ ՉԿԱ, ՎԵՐՑՆՈՒՄ ԵՆՔ ԱՌԿԱ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻՑ
+  if (vocab.length === 0 && Array.isArray(lesson.exercises)) {
+    lesson.exercises.forEach((ex: any) => {
+      if (ex.type === 'translate' || ex.type === 'multiple_choice') {
+        if (ex.targetAnswer) {
+          vocab.push({ hy: ex.targetAnswer, en: ex.prompt?.en || ex.targetAnswer });
+        }
+      }
+    });
+  }
 
-  if (vocab.length === 0 && phrases.length === 0) return generated;
+  const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
+  const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
 
-  const getWord = (v: any, lang: string) => {
-    if (lang === 'hy') return v.hy;
-    if (lang === 'en') return v.en;
-    if (lang === 'ru') return v.ru;
-    return v.hy;
-  };
+  // Կետադրական նշանները մաքրելու ֆունկցիա
+  const cleanStr = (s: string) => s ? s.replace(/[.,!?;:«»""'()\[\]{}]/g, '').trim() : '';
 
   try {
-    // 1. Խառնված տառեր
+    // 1. Խառնված տառեր (Word Scramble)
     vocab.forEach((v: any, i: number) => {
-      if (i % 3 !== 0) return;
-      const target = getWord(v, learningLang);
-      const hint = getWord(v, nativeLang);
-      if (typeof target !== 'string' || target.length < 3 || !hint) return;
+      if (i % 3 === 0 && typeof v.hy === 'string' && v.hy.length > 2) {
+        const cleanWord = cleanStr(v.hy);
+        if (cleanWord.length < 3) return;
 
-      const clean = target.replace(/[.,!?;:«»""'()]/g, '').trim();
-      if (clean.length < 3) return;
+        const scrambled = shuffleArray(cleanWord.split('')).join('');
+        if (scrambled === cleanWord) return;
 
-      const scrambled = shuffleArray(clean.split('')).join('');
-      if (scrambled === clean) return;
-
-      generated.push({
-        id: `gen_scramble_${i}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${scrambled}\n\nԱկնարկ՝ ${hint}`,
-          en: `Unscramble the word:\n\n${scrambled}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${scrambled}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: clean,
-      });
+        generated.push({
+          id: `gen_scramble_${i}`,
+          type: 'translate',
+          prompt: { 
+            hy: `Վերականգնիր բառը:\n\n${scrambled}\n\nԱկնարկ՝ ${v.en || ''}`, 
+            en: `Unscramble the word:\n\n${scrambled}\n\nHint: ${v.en || ''}`, 
+            ru: `Восстанови слово:\n\n${scrambled}\n\nПодсказка: ${v.en || ''}` 
+          },
+          targetAnswer: cleanWord,
+        });
+      }
     });
 
-    // 2. Ճիշտ/Սխալ
+    // 2. Ճիշտ/Սխալ (True/False)
     vocab.forEach((v: any, i: number) => {
-      if (i % 4 !== 0) return;
-      const target = getWord(v, learningLang);
-      const hint = getWord(v, nativeLang);
-      if (!target || !hint) return;
-
-      const isCorrect = Math.random() > 0.5;
-      const other = vocab[Math.floor(Math.random() * vocab.length)];
-      const fakeHint = getWord(other, nativeLang) || hint;
-      const shownHint = isCorrect ? hint : fakeHint;
-      
-      const trueStr = nativeLang === 'hy' ? "Ճիշտ է" : nativeLang === 'ru' ? "Верно" : "True";
-      const falseStr = nativeLang === 'hy' ? "Սխալ է" : nativeLang === 'ru' ? "Неверно" : "False";
-
-      generated.push({
-        id: `gen_tf_${i}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `«${target}» բառը նշանակում է «${shownHint}»։`,
-          en: `Does «${target}» mean «${shownHint}»?`,
-          ru: `«${target}» означает «${shownHint}»?`,
-        },
-        targetAnswer: isCorrect ? trueStr : falseStr,
-        options: [trueStr, falseStr],
-      });
+      if (i % 4 === 0 && v.hy && v.en) {
+        const isCorrect = Math.random() > 0.5;
+        const fakeEn = isCorrect ? v.en : (vocab[Math.floor(Math.random() * vocab.length)]?.en || "hello");
+        generated.push({
+          id: `gen_tf_${i}`,
+          type: 'multiple_choice',
+          prompt: { 
+            hy: `«${v.hy}» բառը թարգմանվում է որպես «${fakeEn}»։`, 
+            en: `Does «${v.hy}» mean «${fakeEn}»?`, 
+            ru: `«${v.hy}» переводится как «${fakeEn}»?` 
+          },
+          targetAnswer: isCorrect ? trueStr : falseStr,
+          options: [trueStr, falseStr]
+        });
+      }
     });
 
-    // 3. Խառնված նախադասություն
+    // 3. Խառնված նախադասություն (Jumbled Sentence)
     phrases.forEach((p: any, i: number) => {
-      if (i % 3 !== 0) return;
-      const target = getWord(p, learningLang);
-      if (typeof target !== 'string' || !target.includes(' ')) return;
+      if (i % 3 === 0 && typeof p.hy === 'string' && p.hy.includes(' ')) {
+        const words = p.hy.split(' ').filter(Boolean);
+        if (words.length < 3) return;
 
-      const words = target.split(' ').filter(Boolean);
-      if (words.length < 3) return;
-
-      generated.push({
-        id: `gen_jumble_${i}`,
-        type: 'word_order',
-        prompt: {
-          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
-          en: "Order the words correctly",
-          ru: "Расставь слова по порядку",
-        },
-        words: shuffleArray([...words]),
-        targetAnswer: target,
-      });
+        generated.push({
+          id: `gen_jumble_${i}`,
+          type: 'word_order',
+          prompt: { 
+            hy: "Դասավորիր բառերը ճիշտ հերթականությամբ", 
+            en: "Order the words", 
+            ru: "Расставь слова по порядку" 
+          },
+          words: shuffleArray([...words]),
+          targetAnswer: p.hy,
+        });
+      }
     });
 
-    // 4. Բաց թողնված բառ
+    // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
     phrases.forEach((p: any, i: number) => {
-      if (i % 4 !== 1) return;
-      const target = getWord(p, learningLang);
-      const hint = getWord(p, nativeLang);
-      if (typeof target !== 'string' || !target.includes(' ')) return;
+      if (i % 4 === 1 && typeof p.hy === 'string' && p.hy.includes(' ')) {
+        const words = p.hy.split(' ');
+        const targetIndex = Math.floor(Math.random() * words.length);
+        const targetWord = cleanStr(words[targetIndex]);
+        if (targetWord.length < 2) return;
 
-      const words = target.split(' ').filter(Boolean);
-      if (words.length < 3) return;
+        const masked = [...words];
+        masked[targetIndex] = "___";
 
-      const idx = Math.floor(Math.random() * words.length);
-      const answer = words[idx].replace(/[.,!?;:]/g, '');
-      if (!answer || answer.length < 2) return;
-
-      const masked = [...words];
-      masked[idx] = '___';
-
-      generated.push({
-        id: `gen_fib_${i}`,
-        type: 'translate',
-        prompt: {
-          hy: `Լրացրու բաց թողնված բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${hint}`,
-          en: `Fill in the blank:\n\n${masked.join(' ')}\n\nHint: ${hint}`,
-          ru: `Заполни пропуск:\n\n${masked.join(' ')}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: answer,
-      });
+        generated.push({
+          id: `gen_fib_${i}`,
+          type: 'translate',
+          prompt: { 
+            hy: `Լրացրու բաց թողնված բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${p.en || ''}`, 
+            en: `Fill in the blank:\n\n${masked.join(' ')}\n\nHint: ${p.en || ''}`, 
+            ru: `Заполни пропуск:\n\n${masked.join(' ')}\n\nПодсказка: ${p.en || ''}` 
+          },
+          targetAnswer: targetWord,
+        });
+      }
     });
   } catch (e) {
-    console.warn("Exercise generator error:", e);
+    console.warn("Error generating exercises:", e);
   }
+
   return generated;
 }
 
@@ -808,7 +798,6 @@ function LearnInner() {
   const speakingLockRef = useRef(false);
   const advancingRef = useRef(false);
 
-  // Pre-warm voices to prevent delay
   useEffect(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
@@ -1048,7 +1037,6 @@ function LearnInner() {
     []
   );
 
-  // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
   const playMatchAudio = useCallback((text: string, lang: string) => {
     if (!audioEnabled || !text) return;
     const cleanText = sanitizeForTTS(text);
@@ -1239,10 +1227,15 @@ function LearnInner() {
         return;
       }
 
+      // 🔍 ԴԻԱԳՆՈՍՏԻԿԱ
+      console.log("🔍 [DEBUG] Բեռնված դասը:", l);
+      console.log("🔍 [DEBUG] Ունի՞ vocabulary:", l.vocabulary);
+      console.log("🔍 [DEBUG] Ունի՞ phrases:", l.phrases);
+
       // ✅ Ավելացնում ենք գեներացված վարժությունները անվտանգ ձևով
       let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];
       try {
-        const extraExercises = generateExtraExercises(l, nativeLang, learnLang);
+        const extraExercises = generateExtraExercises(l, nativeLang);
         if (extraExercises.length > 0) {
           safeExercises = shuffleArray([...safeExercises, ...extraExercises]);
         }

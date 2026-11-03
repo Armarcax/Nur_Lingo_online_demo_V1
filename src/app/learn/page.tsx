@@ -180,6 +180,142 @@ function formatTime(ms: number): string {
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
 }
 
+// ─── ԱՎՏՈՄԱՏ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐ ──────────────────────────────
+
+function generateExtraExercises(lesson: any, nativeLang: string, learningLang: string): MultiExercise[] {
+  const generated: MultiExercise[] = [];
+  if (!lesson) return generated;
+
+  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
+
+  // Եթե բառարանը դատարկ է, գեներացում չենք անում
+  if (vocab.length === 0 && phrases.length === 0) return generated;
+
+  const trueStr = nativeLang === "hy" ? "Ճիշտ է" : nativeLang === "ru" ? "Верно" : "True";
+  const falseStr = nativeLang === "hy" ? "Սխալ է" : nativeLang === "ru" ? "Неверно" : "False";
+
+  // Սովորող լեզվի բառը (այն, ինչ սովորում ենք)
+  const getLearningWord = (v: any) => learningLang === 'hy' ? v.hy : learningLang === 'en' ? v.en : v.ru;
+  // Նաթիվ լեզվի բառը (հուշում)
+  const getNativeHint = (v: any) => nativeLang === 'hy' ? v.hy : nativeLang === 'en' ? v.en : v.ru;
+
+  const isSimpleWord = (s: any) =>
+    typeof s === 'string' && s.length >= 3 && s.length <= 20 && !s.includes(' ');
+
+  try {
+    // 1. Խառնված տառեր (Word Scramble) — խառնում ենք ՍՈՎՈՐՈՂ լեզվի բառը
+    vocab.forEach((v: any, i: number) => {
+      if (i % 3 !== 0) return;
+      const target = getLearningWord(v);
+      const hint = getNativeHint(v);
+      if (!isSimpleWord(target) || !hint) return;
+
+      // Մաքրում ենք կետադրականից
+      const clean = String(target)
+        .replace(/[.,!?;:«»""'()\[\]{}<>\/\\|@#$%^&*+=~`—–-]/g, '')
+        .trim();
+      if (!clean || clean.length < 3) return;
+
+      const chars = clean.split('');
+      const scrambled = shuffleArray(chars).join('');
+      if (scrambled === clean) return; // եթե չխառնվեց, բաց թողնենք
+
+      generated.push({
+        id: `gen_scramble_${i}`,
+        type: 'translate',
+        prompt: {
+          hy: `Վերականգնիր բառը:\n${scrambled}\n\nԱկնարկ՝ ${hint}`,
+          en: `Unscramble the word:\n${scrambled}\n\nHint: ${hint}`,
+          ru: `Восстанови слово:\n${scrambled}\n\nПодсказка: ${hint}`,
+        },
+        targetAnswer: clean,
+      });
+    });
+
+    // 2. Ճիշտ/Սխալ (True/False)
+    vocab.forEach((v: any, i: number) => {
+      if (i % 5 !== 0) return;
+      const target = getLearningWord(v);
+      const hint = getNativeHint(v);
+      if (!target || !hint) return;
+
+      const isCorrect = Math.random() > 0.5;
+      const other = vocab[Math.floor(Math.random() * vocab.length)];
+      const fakeHint = other ? getNativeHint(other) : hint;
+
+      const shownHint = isCorrect ? hint : fakeHint;
+
+      generated.push({
+        id: `gen_tf_${i}`,
+        type: 'multiple_choice',
+        prompt: {
+          hy: `«${target}» բառը նշանակում է «${shownHint}»։`,
+          en: `Does «${target}» mean «${shownHint}»?`,
+          ru: `«${target}» означает «${shownHint}»?`,
+        },
+        targetAnswer: isCorrect ? trueStr : falseStr,
+        options: [trueStr, falseStr],
+      });
+    });
+
+    // 3. Խառնված նախադասություն (Jumbled Sentence) — խառնում ենք ՍՈՎՈՐՈՂ լեզվի նախադասությունը
+    phrases.forEach((p: any, i: number) => {
+      if (i % 3 !== 0) return;
+      const target = getLearningWord(p);
+      if (typeof target !== 'string' || !target.includes(' ')) return;
+
+      const words = target.split(' ').filter(Boolean);
+      if (words.length < 3) return;
+
+      generated.push({
+        id: `gen_jumble_${i}`,
+        type: 'word_order',
+        prompt: {
+          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
+          en: "Order the words correctly",
+          ru: "Расставь слова по порядку",
+        },
+        words: shuffleArray([...words]),
+        targetAnswer: target,
+      });
+    });
+
+    // 4. Բաց թողնված բառ (Fill-in-the-Blanks)
+    phrases.forEach((p: any, i: number) => {
+      if (i % 4 !== 1) return;
+      const target = getLearningWord(p);
+      const hint = getNativeHint(p);
+      if (typeof target !== 'string' || !target.includes(' ')) return;
+
+      const words = target.split(' ').filter(Boolean);
+      if (words.length < 3) return;
+
+      const idx = Math.floor(Math.random() * words.length);
+      const answer = words[idx].replace(/[.,!?;:]/g, '');
+      if (!answer || answer.length < 2) return;
+
+      const masked = [...words];
+      masked[idx] = '___';
+
+      generated.push({
+        id: `gen_fib_${i}`,
+        type: 'translate',
+        prompt: {
+          hy: `Լրացրու բաց թողնված բառը.\n${masked.join(' ')}\n\nԱկնարկ՝ ${hint}`,
+          en: `Fill in the blank:\n${masked.join(' ')}\n\nHint: ${hint}`,
+          ru: `Заполни пропуск:\n${masked.join(' ')}\n\nПодсказка: ${hint}`,
+        },
+        targetAnswer: answer,
+      });
+    });
+  } catch (e) {
+    console.warn("Exercise generator error:", e);
+  }
+
+  return generated;
+}
+
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
 
 function getInitialLanguage(): LangCode {
@@ -1111,6 +1247,18 @@ function LearnInner() {
         if (lessonId) router.push("/world");
         return;
       }
+
+      // ✅ Ավելացնում ենք գեներացված վարժությունները
+      let safeExercises = Array.isArray(l.exercises) ? l.exercises : [];
+      try {
+        const extraExercises = generateExtraExercises(l, nativeLang, learnLang);
+        if (extraExercises.length > 0) {
+          safeExercises = shuffleArray([...safeExercises, ...extraExercises]);
+        }
+      } catch (e) {
+        console.warn("Generator failed, using original exercises:", e);
+      }
+      l = { ...l, exercises: safeExercises };
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -2098,7 +2246,7 @@ function LearnInner() {
             )}
 
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold flex-1">
+              <h3 className="text-lg font-bold flex-1 whitespace-pre-line">
                 {current.prompt[native] ?? current.prompt["en"]}
               </h3>
               <div className="flex items-center gap-2 flex-shrink-0">

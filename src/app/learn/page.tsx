@@ -166,12 +166,11 @@ function getOrCreateDeviceId(): string {
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return a;
+  return arr;
 }
 
 function formatTime(ms: number): string {
@@ -179,256 +178,6 @@ function formatTime(ms: number): string {
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// 🆕 ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐՆԵՐ
-// ═══════════════════════════════════════════════════════════════════
-
-function isScript(text: string, lang: string): boolean {
-  if (!text) return false;
-  const stripped = text.replace(/[\s\d.,!?;:«»""'()\-–—։֊]/g, '');
-  if (!stripped) return false;
-  if (lang === 'hy') return /^[\u0531-\u058F]+$/.test(stripped);
-  if (lang === 'ru') return /^[\u0400-\u04FF]+$/.test(stripped);
-  if (lang === 'en') return /^[a-zA-Z]+$/.test(stripped);
-  return false;
-}
-
-function generateWordExercises(
-  lesson: any,
-  nativeLang: LangCode,
-  learningLang: LangCode
-): MultiExercise[] {
-  const out: MultiExercise[] = [];
-  if (!lesson) return out;
-
-  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  if (vocab.length < 3) {
-    console.log("ℹ️ [WordGen] Not enough vocabulary");
-    return out;
-  }
-
-  const getWord = (v: any, lang: LangCode): string | null => {
-    if (!v) return null;
-    const w = v[lang];
-    return typeof w === 'string' && w.trim().length > 0 ? w.trim() : null;
-  };
-
-  const clean = (s: string) => s.replace(/[.,!?;:«»""'()]/g, '').trim();
-
-  const validEntries = vocab.filter((v: any) => {
-    const n = getWord(v, nativeLang);
-    const l = getWord(v, learningLang);
-    return (
-      n && l &&
-      isScript(n, nativeLang) && isScript(l, learningLang) &&
-      n.length < 60 && l.length < 60
-    );
-  });
-
-  console.log(`🔍 [WordGen] Valid entries: ${validEntries.length}/${vocab.length}`);
-
-  if (validEntries.length < 3) return out;
-
-  const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
-
-  // ─── 1. Translation Choice (native → learning) ─────────────────
-  const tc = validEntries[0];
-  {
-    const nativeWord = getWord(tc, nativeLang)!;
-    const correctAnswer = getWord(tc, learningLang)!;
-    const wrongOptions = validEntries
-      .filter((v: any) => v !== tc)
-      .map((v: any) => getWord(v, learningLang)!)
-      .filter(w => w !== correctAnswer)
-      .slice(0, 2);
-
-    if (wrongOptions.length >= 2) {
-      out.push({
-        id: `gen_tc_${lesson.id || 'x'}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
-          en: `What does «${nativeWord}» mean?`,
-          ru: `Что означает «${nativeWord}»?`,
-        },
-        targetAnswer: correctAnswer,
-        options: shuffleArray([correctAnswer, ...wrongOptions]),
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 2. Reverse Translation (learning → native) ────────────────
-  const rt = validEntries[1] || validEntries[0];
-  {
-    const learningWord = getWord(rt, learningLang)!;
-    const correctAnswer = getWord(rt, nativeLang)!;
-    const wrongOptions = validEntries
-      .filter((v: any) => v !== rt)
-      .map((v: any) => getWord(v, nativeLang)!)
-      .filter(w => w !== correctAnswer)
-      .slice(0, 2);
-
-    if (wrongOptions.length >= 2) {
-      out.push({
-        id: `gen_rt_${lesson.id || 'x'}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
-          en: `How do you say «${learningWord}» in ${nativeLabel}?`,
-          ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
-        },
-        targetAnswer: correctAnswer,
-        options: shuffleArray([correctAnswer, ...wrongOptions]),
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 3. First Letter Hint ─────────────────────────────────────
-  const flh = validEntries[2] || validEntries[0];
-  {
-    const word = clean(getWord(flh, learningLang)!);
-    const hint = getWord(flh, nativeLang)!;
-    if (word.length >= 3) {
-      const firstLetter = word[0];
-      const underscores = Array(word.length - 1).fill('_').join(' ');
-      out.push({
-        id: `gen_flh_${lesson.id || 'x'}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${hint}`,
-          en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: word,
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 4. Missing Letter ────────────────────────────────────────
-  const ml = validEntries[3] || validEntries[0];
-  {
-    const word = clean(getWord(ml, learningLang)!);
-    const hint = getWord(ml, nativeLang)!;
-    if (word.length >= 3) {
-      const idx = word.length > 3
-        ? 1 + Math.floor(Math.random() * (word.length - 2))
-        : 0;
-      const chars = word.split('');
-      const masked = [...chars];
-      masked[idx] = '_';
-      out.push({
-        id: `gen_ml_${lesson.id || 'x'}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${hint}`,
-          en: `Reconstruct the word:\n\n${masked.join(' ')}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${masked.join(' ')}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: word,
-      } as MultiExercise);
-    }
-  }
-
-  return out;
-}
-
-function generateDialogueExercises(
-  lesson: any,
-  nativeLang: LangCode,
-  learningLang: LangCode
-): MultiExercise[] {
-  const out: MultiExercise[] = [];
-  if (!lesson) return out;
-
-  const dialogues = Array.isArray(lesson.dialogues) ? lesson.dialogues : [];
-  if (dialogues.length === 0) {
-    console.log("ℹ️ [DialogueGen] No dialogues");
-    return out;
-  }
-
-  const pickText = (turn: any): string | null => {
-    if (!Array.isArray(turn)) return null;
-    const val = turn[3] || turn[2] || turn[1];
-    return typeof val === 'string' && val.trim().length > 0 ? val.trim() : null;
-  };
-
-  // ─── 5. Dialogue Response ─────────────────────────────────────
-  for (const dialogue of dialogues) {
-    if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
-
-    for (let i = 1; i < dialogue.turns.length; i++) {
-      const turn = dialogue.turns[i];
-      if (turn[0] !== 'user') continue;
-
-      const prevTurn = dialogue.turns[i - 1];
-      const promptText = pickText(prevTurn);
-      const correctAnswer = pickText(turn);
-
-      if (!promptText || !correctAnswer) continue;
-      if (promptText.length > 120 || correctAnswer.length > 120) continue;
-
-      const wrongOptions: string[] = [];
-      for (const other of dialogue.turns) {
-        if (other === turn) continue;
-        if (other[0] !== 'user') continue;
-        const text = pickText(other);
-        if (text && text !== correctAnswer && !wrongOptions.includes(text) && text.length <= 120) {
-          wrongOptions.push(text);
-        }
-      }
-
-      if (wrongOptions.length < 2) continue;
-
-      out.push({
-        id: `gen_dr_${lesson.id || 'x'}_${i}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `Ինչպե՞ս կպատասխանես.\n\n${promptText}`,
-          en: `How would you respond?\n\n${promptText}`,
-          ru: `Как бы ты ответил?\n\n${promptText}`,
-        },
-        targetAnswer: correctAnswer,
-        options: shuffleArray([correctAnswer, ...wrongOptions.slice(0, 2)]),
-      } as MultiExercise);
-      break;
-    }
-    if (out.length > 0) break;
-  }
-
-  // ─── 6. Dialogue Jumble ───────────────────────────────────────
-  for (const dialogue of dialogues) {
-    if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
-
-    const numTurns = Math.min(4, dialogue.turns.length);
-    const turns = dialogue.turns.slice(0, numTurns);
-    const texts: string[] = [];
-    let hasEmpty = false;
-
-    for (const t of turns) {
-      const text = pickText(t);
-      if (!text) { hasEmpty = true; break; }
-      texts.push(text);
-    }
-
-    if (hasEmpty || texts.length < 3) continue;
-
-    out.push({
-      id: `gen_dj_${lesson.id || 'x'}`,
-      type: 'word_order',
-      prompt: {
-        hy: "Դասավորիր երկխոսության տողերը ճիշտ հերթականությամբ",
-        en: "Arrange the dialogue lines in the correct order",
-        ru: "Расставь реплики диалога в правильном порядке",
-      },
-      words: shuffleArray([...texts]),
-      targetAnswer: texts.join(' '),
-    } as MultiExercise);
-    break;
-  }
-
-  return out;
 }
 
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
@@ -1170,6 +919,8 @@ function LearnInner() {
     []
   );
 
+  // 🔥 INSTANT AUDIO FOR MATCHING GAME (No delay)
+    // 🔥 ԱԿՆԹԱՐԹԱՓ ԱՈՒԴԻՈ (Կանացի ձայնով)
   const playMatchAudio = useCallback((text: string, lang: string) => {
     if (!audioEnabled || !text) return;
     const cleanText = sanitizeForTTS(text);
@@ -1184,6 +935,7 @@ function LearnInner() {
         playAudioWithFemaleVoice(cleanText, "hy").catch(() => {});
       }
     } else {
+      // ✅ ԱՆԳԼԵՐԵՆԸ ԿԱՐԴՈՒՄ Է ՄԻԱՅՆ ԿԱՆԱՑԻ ՁԱՅՆՈՎ
       playAudioWithFemaleVoice(cleanText, lang).catch(() => {});
     }
   }, [audioEnabled, wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]);
@@ -1360,48 +1112,8 @@ function LearnInner() {
         return;
       }
 
-      // 🆕 ԱՎԵԼԱՑՆՈՒՄ ԵՆՔ ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ ՎԵՐՋՈՒՄ
-      const originalExercises = Array.isArray(l.exercises) ? l.exercises : [];
-      const originalCount = originalExercises.length;
-      const newExercises: MultiExercise[] = [];
-
-      try {
-        const wordExs = generateWordExercises(l, nativeLang, learnLang);
-        newExercises.push(...wordExs);
-        console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
-      } catch (e) {
-        console.warn("Word exercises generator failed:", e);
-      }
-
-      try {
-        const dialogueExs = generateDialogueExercises(l, nativeLang, learnLang);
-        newExercises.push(...dialogueExs);
-        console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
-      } catch (e) {
-        console.warn("Dialogue exercises generator failed:", e);
-      }
-
-      newExercises.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
-
-      const allExercises = [...originalExercises, ...newExercises];
-      l = { ...l, exercises: allExercises };
-
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
-
-      // 🧪 TEST — ?test=new կամ ?test=last
-      if (typeof window !== 'undefined') {
-        const testParam = new URLSearchParams(window.location.search).get('test');
-        if (testParam === 'new' && newExercises.length > 0) {
-          setTimeout(() => setEx(prev => ({ ...prev, index: originalCount })), 500);
-          console.log(`🧪 [TEST] Jumping to first NEW exercise (index ${originalCount})`);
-        } else if (testParam === 'last' && allExercises.length > 0) {
-          setTimeout(() => setEx(prev => ({ ...prev, index: allExercises.length - 1 })), 500);
-          console.log(`🧪 [TEST] Jumping to LAST exercise (index ${allExercises.length - 1})`);
-        }
-      }
-
-      console.log(`📚 Total: ${originalCount} original + ${newExercises.length} new = ${allExercises.length}`);
 
       const rewards = syncHearts();
       setHearts(rewards.hearts);
@@ -2386,7 +2098,7 @@ function LearnInner() {
             )}
 
             <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold flex-1 whitespace-pre-line">
+              <h3 className="text-lg font-bold flex-1">
                 {current.prompt[native] ?? current.prompt["en"]}
               </h3>
               <div className="flex items-center gap-2 flex-shrink-0">

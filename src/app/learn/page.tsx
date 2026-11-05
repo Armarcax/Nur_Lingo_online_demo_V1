@@ -869,7 +869,8 @@ function LearnInner() {
   const lessonId = params?.get("lesson") ?? "";
   const pairParam = params?.get("pair") as LangPair | null;
   
-  const isDevMode = params?.get("dev") === "true";
+  // ✅ ԺԱՄԱՆԱԿԱՎՈՐ ՄԻԱՑՎԱԾ Է DEV MENU-Ն
+  const isDevMode = true; 
   const [showDevMenu, setShowDevMenu] = useState(false);
 
   const { onCorrect, onWrong, onLessonComplete, setPage } = useNuri();
@@ -1699,6 +1700,13 @@ function LearnInner() {
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap justify-end">
+              {/* ✅ DEV MENU ԿՈՃԱԿԸ ՏԵՂԱՓՈԽՎԵԼ Է ԱՅՍՏԵՂ */}
+              {isDevMode && (
+                <button onClick={() => setShowDevMenu(!showDevMenu)} className="px-3 py-1.5 rounded-xl text-xs font-medium bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/30 flex items-center gap-1.5 transition-all">
+                  <Wrench size={14} />
+                  <span className="hidden sm:inline">Dev</span>
+                </button>
+              )}
               <button onClick={toggleMode} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${isProfessional ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30" : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"}`} title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}>
                 {isProfessional ? <GraduationCap size={14} /> : <Gamepad2 size={14} />}
                 <span className="hidden sm:inline">{isProfessional ? t("page_professional_short") : t("page_amateur_short")}</span>
@@ -1728,6 +1736,32 @@ function LearnInner() {
           {isRelaxing && <p className="text-xs text-green-400/60 mt-1.5 flex items-center gap-1 animate-pulse"><Play size={12} className="animate-pulse" />🎵 {t("page_relax_music")}</p>}
         </div>
       </header>
+
+      {/* ✅ DEV MENU-Ի ԲԱՑՎՈՂ ՑԱՆԿԸ */}
+      <AnimatePresence>
+        {showDevMenu && isDevMode && (
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="fixed top-16 right-4 z-[9999] w-80 max-h-[500px] overflow-y-auto bg-gray-900/95 backdrop-blur-md text-white rounded-xl shadow-2xl p-4 border border-gray-700">
+            <div className="flex items-center justify-between mb-2 border-b border-gray-700 pb-2">
+              <h3 className="font-bold text-sm">🛠️ Թեստային ցանկ ({lesson?.exercises?.length})</h3>
+              <button onClick={() => setShowDevMenu(false)} className="text-gray-400 hover:text-white"><XCircle size={16} /></button>
+            </div>
+            <div className="space-y-1">
+              {lesson?.exercises?.map((item, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    setEx({ index: i, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0 });
+                    setShowDevMenu(false);
+                  }}
+                  className={`w-full text-left text-xs p-2 rounded transition-colors ${ex.index === i ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+                >
+                  <span className="font-bold">{i + 1}.</span> [{item.type}] {item.targetAnswer?.substring(0, 20)}...
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
       <CorrectAnswerEffect show={showCorrectEffect} intensity={ex.score >= 0.98 ? "perfect" : "normal"} />
@@ -1765,10 +1799,10 @@ function LearnInner() {
                 {current.prompt?.[native] ?? current.prompt?.["en"] ?? ""}
               </h3>
               
-              {/* ✅ ԱՅՍՏԵՂ Է ՏԵՂԱՓՈԽՎԱԾ ՀՈՒՇՈՒՄԸ */}
+              {/* ✅ ԱՅՍՏԵՂ Է ՏԵՂԱՓՈԽՎԱԾ ԵՎ ՄԻՇՏ ՏԵՍԱՆԵԼԻ ՀՈՒՇՈՒՄԸ */}
               <div className="flex items-center gap-2 flex-shrink-0">
                 {current?.type === "multiple_choice" && (
-                  <span className="text-xs text-amber-500 dark:text-amber-400 font-medium animate-pulse hidden sm:inline-block mr-1">
+                  <span className="text-xs text-amber-500 dark:text-amber-400 font-medium animate-pulse mr-1">
                     {native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}
                   </span>
                 )}
@@ -1860,38 +1894,6 @@ function LearnInner() {
           </div>
         </div>
       </div>
-
-      {isDevMode && (
-        <div className="fixed bottom-4 right-4 z-[9999]">
-          <button 
-            onClick={() => setShowDevMenu(!showDevMenu)} 
-            className="bg-black/80 hover:bg-black text-white p-3 rounded-full shadow-lg transition-all"
-            title="Dev Menu"
-          >
-            <Wrench size={24} />
-          </button>
-          
-          {showDevMenu && (
-            <div className="absolute bottom-16 right-0 w-80 max-h-[500px] overflow-y-auto bg-gray-900 text-white rounded-xl shadow-2xl p-4 border border-gray-700">
-              <h3 className="font-bold mb-2 text-sm border-b border-gray-700 pb-2">🛠️ Թեստային ցանկ ({lesson?.exercises?.length} հարց)</h3>
-              <div className="space-y-1">
-                {lesson?.exercises?.map((item, i) => (
-                  <button
-                    key={i}
-                    onClick={() => {
-                      setEx({ index: i, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0 });
-                      setShowDevMenu(false);
-                    }}
-                    className={`w-full text-left text-xs p-2 rounded transition-colors ${ex.index === i ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
-                  >
-                    <span className="font-bold">{i + 1}.</span> [{item.type}] {item.targetAnswer?.substring(0, 20)}...
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
       <AnimatePresence>
         {showExitConfirm && (

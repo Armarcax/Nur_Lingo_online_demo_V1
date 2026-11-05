@@ -239,11 +239,7 @@ function generateWordExercises(
   if (!lesson) return out;
 
   const vocab: any[] = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
-  if (vocab.length < 3) {
-    console.log("ℹ️ [WordGen] Not enough vocabulary");
-    return out;
-  }
+  const phrases: any[] = Array.isArray(lesson.phrases) ? lesson.phrases : [];
 
   const getWord = (v: any, lang: LangCode): string => {
     if (!v) return "";
@@ -264,12 +260,10 @@ function generateWordExercises(
   });
 
   console.log(`🔍 [WordGen] Valid entries: ${validEntries.length}/${vocab.length}`);
-  if (validEntries.length < 3) return out;
-
   const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
 
-  // 1. Translation Choice (native → learning)
-  {
+  // ─── 1. Translation Choice ─────────────────────────────────────
+  if (validEntries.length >= 3) {
     const tc = validEntries[0];
     const nativeWord = getWord(tc, nativeLang);
     const correctAnswer = getWord(tc, learningLang);
@@ -294,8 +288,8 @@ function generateWordExercises(
     }
   }
 
-  // 2. Reverse Translation (learning → native)
-  {
+  // ─── 2. Reverse Translation ────────────────────────────────────
+  if (validEntries.length >= 3) {
     const rt = validEntries[1] || validEntries[0];
     const learningWord = getWord(rt, learningLang);
     const correctAnswer = getWord(rt, nativeLang);
@@ -320,34 +314,29 @@ function generateWordExercises(
     }
   }
 
-    // 3. Խառնված նախադասություն (Jumbled Sentence)
-    phrases.forEach((p: any, i: number) => {
-      if (i % 3 !== 0) return;
-      
-      // ✅ ՎԵՐՑՆՈՒՄ ԵՆՔ ՃԻՇՏ ԴԱՇՏԸ (սովորող լեզուն)
-      const target = p[learningLang] || p.en || p.hy;
-      if (typeof target !== 'string' || !target.includes(' ')) return;
-
-      // ✅ ԲԱԺԱՆՈՒՄ ԵՆՔ ՄԻԱՅՆ ԲԱՑԱՏՈՎ, ՈՐՊԵՍԶԻ There's-Ը ՄՆԱ ՄԵԿ ԿՏՈՐ
-      const words = target.split(/\s+/).filter(Boolean);
-      
-      if (words.length < 3) return;
-
-        out.push({
-        id: `gen_jumble_${i}`,
-        type: 'word_order',
+  // ─── 3. First Letter Hint (FLH) ───────────────────────────────
+  if (validEntries.length >= 1) {
+    const flh = validEntries[2] || validEntries[0];
+    const word = clean(getWord(flh, learningLang));
+    const hint = getWord(flh, nativeLang);
+    if (word.length >= 3 && hint) {
+      const firstLetter = word[0];
+      const underscores = Array(word.length - 1).fill('_').join(' ');
+      out.push({
+        id: `gen_flh_${lesson.id || 'x'}`,
+        type: 'translate',
         prompt: {
-          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
-          en: "Order the words correctly",
-          ru: "Расставь слова по порядку",
+          hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${hint}`,
+          en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${hint}`,
+          ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${hint}`,
         },
-        words: shuffleArray([...words]),
-        targetAnswer: target,
+        targetAnswer: word,
       } as MultiExercise);
-    });
-    
-  // 4. Missing Letter
-  {
+    }
+  }
+
+  // ─── 4. Missing Letter (ML) ───────────────────────────────────
+  if (validEntries.length >= 1) {
     const ml = validEntries[3] || validEntries[0];
     const word = clean(getWord(ml, learningLang));
     const hint = getWord(ml, nativeLang);
@@ -370,6 +359,32 @@ function generateWordExercises(
       } as MultiExercise);
     }
   }
+
+  // ─── 5. Jumbled Sentence (✅ ԽՆԴԻՐԸ ԼՈՒԾՎԱԾ Է ԱՅՍՏԵՂ) ───────────────
+  phrases.forEach((p: any, i: number) => {
+    if (i % 3 !== 0) return;
+    
+    const target = p[learningLang] || p.en || p.hy;
+    if (typeof target !== 'string') return;
+
+    // ✅ match(/\S+/g) - ԲԱԺԱՆՈՒՄ Է ՄԻԱՅՆ ԲԱՑԱՏՆԵՐՈՎ
+    // "There's a..." -> ["There's", "a", ...]
+    const words = target.match(/\S+/g) || [];
+    
+    if (words.length < 3) return;
+
+    out.push({
+      id: `gen_jumble_${i}`,
+      type: 'word_order',
+      prompt: {
+        hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
+        en: "Order the words correctly",
+        ru: "Расставь слова по порядку",
+      },
+      words: shuffleArray([...words]),
+      targetAnswer: target,
+    } as MultiExercise);
+  });
 
   return out;
 }
@@ -394,7 +409,7 @@ function generateDialogueExercises(
     return typeof val === 'string' ? val.trim() : "";
   };
 
-  // 5. Dialogue Response
+  // ─── 6. Dialogue Response ─────────────────────────────────────
   outer1: for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 
@@ -436,7 +451,7 @@ function generateDialogueExercises(
     }
   }
 
-  // 6. Dialogue Jumble
+  // ─── 7. Dialogue Jumble ───────────────────────────────────────
   for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 

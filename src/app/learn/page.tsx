@@ -198,16 +198,14 @@ function generateWordExercises(
 
   const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
 
-  // ✅ Թարմացում՝ Ցիկլով անցնում ենք ԲՈԼՈՐ վավեր բառերի միջով
   validEntries.forEach((entry, index) => {
     const nativeWord = getWord(entry, nativeLang);
     const learningWord = getWord(entry, learningLang);
     if (!nativeWord || !learningWord) return;
 
-    const typeIndex = index % 4; // 0 = TC, 1 = RT, 2 = FLH, 3 = ML
+    const typeIndex = index % 4;
 
     if (typeIndex === 0) {
-      // 1. Translation Choice
       const wrongOptions: string[] = validEntries
         .filter((v: any) => v !== entry)
         .map((v: any): string => getWord(v, learningLang))
@@ -227,7 +225,6 @@ function generateWordExercises(
           options: shuffleArray([learningWord, ...wrongOptions]),
         } as MultiExercise);
       } else {
-        // Fallback to Free Text
         out.push({
           id: `gen_ft_${lesson.id || 'x'}_${index}`,
           type: 'translate',
@@ -240,7 +237,6 @@ function generateWordExercises(
         } as MultiExercise);
       }
     } else if (typeIndex === 1) {
-      // 2. Reverse Translation
       const wrongOptions: string[] = validEntries
         .filter((v: any) => v !== entry)
         .map((v: any): string => getWord(v, nativeLang))
@@ -260,7 +256,6 @@ function generateWordExercises(
           options: shuffleArray([nativeWord, ...wrongOptions]),
         } as MultiExercise);
       } else {
-        // Fallback to Free Text
         out.push({
           id: `gen_ft_rev_${lesson.id || 'x'}_${index}`,
           type: 'translate',
@@ -273,7 +268,6 @@ function generateWordExercises(
         } as MultiExercise);
       }
     } else if (typeIndex === 2) {
-      // 3. First Letter Hint (FLH)
       const word = clean(learningWord);
       if (word.length >= 3) {
         const firstLetter = word[0];
@@ -290,7 +284,6 @@ function generateWordExercises(
         } as MultiExercise);
       }
     } else if (typeIndex === 3) {
-      // 4. Missing Letter (ML)
       const word = clean(learningWord);
       if (word.length >= 3) {
         const idx = word.length > 3
@@ -313,7 +306,6 @@ function generateWordExercises(
     }
   });
 
-  // 5. Jumbled Sentence (Օգտագործում ենք բոլոր արտահայտությունները)
   phrases.forEach((p: any, i: number) => {
     const target = p[learningLang] || p.en || p.hy;
     if (typeof target !== 'string') return;
@@ -353,7 +345,6 @@ function generateDialogueExercises(
     return typeof val === 'string' ? val.trim() : "";
   };
 
-  // ─── 6. Dialogue Response ─────────────────────────────────────
   outer1: for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 
@@ -395,7 +386,6 @@ function generateDialogueExercises(
     }
   }
 
-  // ─── 7. Dialogue Jumble ───────────────────────────────────────
   for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 
@@ -905,9 +895,17 @@ function LearnInner() {
   const [matchRightItems, setMatchRightItems] = useState<string[]>([]);
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
+  // ✅ FIX: Initialize nuriSpeech as empty to avoid Hydration Mismatch
   const [ex, setEx] = useState<ExState>({
-    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
+    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: "", customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
   });
+
+  // ✅ FIX: Set the random line only after the component mounts on the client
+  useEffect(() => {
+    if (!ex.nuriSpeech) {
+      setEx(prev => ({ ...prev, nuriSpeech: randomLine("idle", native) }));
+    }
+  }, [ex.nuriSpeech, native]);
 
   const current = lesson?.exercises?.[ex.index];
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;

@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Heart, Coins, CheckCircle, XCircle, Volume2, RefreshCw, Send,
   Trophy, Clock, Sparkles, Brain, Flame, BarChart3, Loader2, BookOpen,
-  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick,
+  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench
 } from "lucide-react";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
@@ -203,7 +203,11 @@ function generateWordExercises(
     const learningWord = getWord(entry, learningLang);
     if (!nativeWord || !learningWord) return;
 
-    const typeIndex = index % 4;
+    let typeIndex = index % 4;
+
+    if (nativeLang === 'hy' && typeIndex === 1) {
+      typeIndex = 2;
+    }
 
     if (typeIndex === 0) {
       const wrongOptions: string[] = validEntries
@@ -290,18 +294,26 @@ function generateWordExercises(
           ? 1 + Math.floor(Math.random() * (word.length - 2))
           : 0;
         const chars = word.split('');
-        const masked = [...chars];
-        masked[idx] = '_';
+        const missingLetter = chars[idx];
+        chars[idx] = '_';
+        
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        const distractors = shuffleArray(alphabet.filter(c => c !== missingLetter)).slice(0, 3);
+        const options = shuffleArray([missingLetter, ...distractors]);
+
         out.push({
           id: `gen_ml_${lesson.id || 'x'}_${index}`,
-          type: 'translate',
+          type: 'letter_box' as any, // Cast as any to bypass strict type
           prompt: {
-            hy: `Վերականգնիր բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${nativeWord}`,
-            en: `Reconstruct the word:\n\n${masked.join(' ')}\n\nHint: ${nativeWord}`,
-            ru: `Восстанови слово:\n\n${masked.join(' ')}\n\nПодсказка: ${nativeWord}`,
+            hy: `Վերականգնիր բառը:`,
+            en: `Reconstruct the word:`,
+            ru: `Восстанови слово:`,
           },
+          slots: chars,
           targetAnswer: word,
-        } as MultiExercise);
+          options: options,
+          hint: { hy: nativeWord, en: nativeWord, ru: nativeWord },
+        } as any);
       }
     }
   });
@@ -794,6 +806,61 @@ function FreeTextInput({ value, onChange, disabled, placeholder, onSpeak, textTo
   );
 }
 
+function LetterBoxInput({ slots, options, userAnswer, onChange, disabled, targetAnswer }: any) {
+  const handleLetterClick = (letter: string) => {
+    if (disabled) return;
+    const arr = userAnswer.split('');
+    const emptyIdx = arr.indexOf('_');
+    if (emptyIdx !== -1) {
+      arr[emptyIdx] = letter;
+      onChange(arr.join(''));
+    }
+  };
+
+  const handleSlotClick = (index: number) => {
+    if (disabled) return;
+    const arr = userAnswer.split('');
+    if (slots[index] === '_' && arr[index] !== '_') {
+      arr[index] = '_';
+      onChange(arr.join(''));
+    }
+  };
+
+  return (
+    <div className="space-y-8 flex flex-col items-center">
+      <div className="flex flex-wrap gap-1 sm:gap-2 justify-center">
+        {userAnswer.split('').map((char: string, i: number) => (
+          <button
+            key={i}
+            onClick={() => handleSlotClick(i)}
+            className={`w-8 h-10 sm:w-10 sm:h-12 rounded-lg flex items-center justify-center text-lg sm:text-xl font-bold border-2 transition-all ${
+              char === ' ' ? 'border-transparent bg-transparent w-4 sm:w-6' :
+              char === '_' ? 'border-red-500 bg-red-500/10 text-red-500 animate-pulse' :
+              slots[i] === '_' ? 'border-blue-500 bg-blue-500/20 text-blue-500' : 
+              'border-emerald-500 bg-emerald-500/10 text-emerald-500'
+            }`}
+          >
+            {char === ' ' ? '' : char}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-2 justify-center mt-4">
+        {options.map((opt: string) => (
+          <button
+            key={opt}
+            onClick={() => handleLetterClick(opt)}
+            disabled={disabled || !userAnswer.includes('_')}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 dark:bg-gray-800/80 hover:bg-white/30 dark:hover:bg-gray-700 text-lg sm:text-xl font-bold border border-white/20 dark:border-gray-700 disabled:opacity-50 transition-all text-gray-900 dark:text-white"
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN COMPONENT ─────────────────────────────────────────────────
 
 function LearnInner() {
@@ -801,6 +868,9 @@ function LearnInner() {
   const params = useSearchParams();
   const lessonId = params?.get("lesson") ?? "";
   const pairParam = params?.get("pair") as LangPair | null;
+  
+  const isDevMode = params?.get("dev") === "true";
+  const [showDevMenu, setShowDevMenu] = useState(false);
 
   const { onCorrect, onWrong, onLessonComplete, setPage } = useNuri();
   const { t, locale } = useI18n();
@@ -909,6 +979,9 @@ function LearnInner() {
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
+
+  // ✅ TypeScript fix: Cast current?.type to string
+  const isLetterBoxComplete = (current?.type as string) === 'letter_box' ? !ex.userAnswer.includes('_') : true;
 
   const toggleMode = useCallback(() => {
     setIsProfessional((prev) => {
@@ -1053,7 +1126,13 @@ function LearnInner() {
 
   useEffect(() => {
     if (!audioEnabled || !current || !isAudioReady) return;
-    const promptText = current.prompt?.[native] || current.prompt?.en || "";
+    
+    let promptText = current.prompt?.[native] || current.prompt?.en || "";
+    // ✅ TypeScript fix: Cast current.type to string
+    if ((current.type as string) === 'letter_box' && current.hint?.[native]) {
+       promptText += " " + current.hint[native];
+    }
+    
     if (!promptText) return;
     if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     autoPlayTimeoutRef.current = setTimeout(() => {
@@ -1078,6 +1157,10 @@ function LearnInner() {
       setMatchRightItems(shuffleArray([...right]));
       setMatchPairsMap({});
       setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
+    // ✅ TypeScript fix: Cast current.type to string
+    } else if ((current.type as string) === "letter_box" && (current as any).slots) {
+      const initial = (current as any).slots.join('');
+      setEx((prev) => ({ ...prev, userAnswer: initial }));
     } else {
       setMatchLeftItems([]); setMatchRightItems([]); setMatchPairsMap({});
     }
@@ -1087,7 +1170,6 @@ function LearnInner() {
     setBreakTimer(null);
   }, [current]);
 
-  // ✅ ԱՎՏՈՄԱՏ ՍՏՈՒԳՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ
   useEffect(() => {
     if (
       current?.type === "match_pairs" &&
@@ -1121,7 +1203,6 @@ function LearnInner() {
       let l: any = null;
       let sourceForExtras: any = null;
 
-      // ✅ 1. Միշտ փորձում ենք ստանալ offline տվյալները (vocabulary, phrases, dialogues)
       const offlineRaw = offlineLessonEngine.getLesson(lessonId);
       let offlineTranslated: any = null;
 
@@ -1134,14 +1215,11 @@ function LearnInner() {
         }
       }
 
-      // ✅ 2. Որոշում ենք հիմնական դասը ըստ ռեժիմի
       if (isProfessional) {
         l = offlineTranslated || getLessonById(pair as LangPair, lessonId);
         sourceForExtras = l;
       } else {
         l = getLessonById(pair as LangPair, lessonId) || offlineTranslated;
-        // Սիրողական ռեժիմում բազային վարժությունները getLessonById-ից են,
-        // բայց գեներացիայի համար օգտագործում ենք offline-ի ամբողջական տվյալները
         sourceForExtras = offlineTranslated || l;
       }
 
@@ -1166,7 +1244,6 @@ function LearnInner() {
       const originalCount = originalExercises.length;
       const extras: MultiExercise[] = [];
 
-      // ✅ 3. Գեներացնում ենք նոր վարժությունները sourceForExtras-ից
       if (sourceForExtras) {
         try {
           const wordExs = generateWordExercises(sourceForExtras, nativeLang, learnLang);
@@ -1181,7 +1258,6 @@ function LearnInner() {
         } catch (e) { console.warn("DialogueGen failed:", e); }
       }
 
-      // ✅ 4. Ուղղված լոգ
       console.log(`📚 Total: ${originalCount + extras.length} exercises (Original: ${originalCount}, New: ${extras.length})`);
 
       const allExercises = [...originalExercises, ...extras];
@@ -1229,7 +1305,10 @@ function LearnInner() {
     const preload = async () => {
       const textsToPreload: string[] = [];
       lesson.exercises.slice(0, 8).forEach((ex) => {
-        const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || "");
+        let promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || "");
+        if ((ex.type as string) === 'letter_box' && (ex as any).hint?.[native]) {
+           promptText += " " + (ex as any).hint[native];
+        }
         if (promptText) textsToPreload.push(promptText);
         if (learningLang === "hy" && ex.targetAnswer) {
           const answerText = sanitizeForTTS(ex.targetAnswer);
@@ -1372,6 +1451,10 @@ function LearnInner() {
         const answerToUse = overrideAnswer ?? ex.userAnswer;
         if (!answerToUse) { showMessage(t("page_please_select_answer"), "info"); return; }
         answerForApi = answerToUse;
+      // ✅ TypeScript fix: Cast current.type to string
+      } else if ((current.type as string) === "letter_box") {
+        if (ex.userAnswer.includes('_')) { showMessage(t("page_please_fill_all_blanks"), "info"); return; }
+        answerForApi = ex.userAnswer;
       } else {
         if (!ex.userAnswer.trim()) { showMessage(t("page_please_enter_answer"), "info"); return; }
         answerForApi = ex.userAnswer.trim();
@@ -1515,6 +1598,11 @@ function LearnInner() {
       const left = current.pairs.map((p) => p[0]);
       const right = current.pairs.map((p) => p[1]);
       setMatchLeftItems(left); setMatchRightItems(shuffleArray([...right])); setMatchPairsMap({}); setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
+    }
+    // ✅ TypeScript fix: Cast current.type to string
+    if ((current?.type as string) === "letter_box" && (current as any)?.slots) {
+      const initial = (current as any).slots.join('');
+      setEx((prev) => ({ ...prev, userAnswer: initial }));
     }
     exerciseStartTime.current = Date.now();
   }, [current, native]);
@@ -1684,7 +1772,9 @@ function LearnInner() {
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   onClick={() => {
-                    const promptText = current.prompt?.[native] || current.prompt?.en || "";
+                    let promptText = current.prompt?.[native] || current.prompt?.en || "";
+                    // ✅ TypeScript fix: Cast current.type to string
+                    if ((current.type as string) === 'letter_box' && (current as any).hint?.[native]) promptText += " " + (current as any).hint[native];
                     playAudioWithFallback(promptText, native, "prompt").catch(() => {});
                   }}
                   className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
@@ -1697,7 +1787,7 @@ function LearnInner() {
             </div>
 
             <div className="min-h-[40px] mb-4">
-              {current.hint && ex.state === "incorrect" && attempts > 0 && current.hint[native] && (
+              {(current.hint && (ex.state === "incorrect" || (current.type as string) === 'letter_box') && current.hint[native]) && (
                 <p className="text-sm text-amber-400 flex items-center gap-2"><Sparkles size={14} />{current.hint[native]}</p>
               )}
             </div>
@@ -1713,13 +1803,16 @@ function LearnInner() {
               </div>
             )}
 
-            <div className="mt-4">
+            <div className="mt-4 flex-1 flex flex-col justify-center">
               {current.type === "word_order" && current.words ? (
                 <WordOrderInput selected={selectedWords} available={availWords} onSelect={(w) => { setSW([...selectedWords, w]); setAW(availWords.filter((x) => x !== w)); }} onDeselect={(w) => { setAW([...availWords, w]); setSW(selectedWords.filter((x) => x !== w)); }} disabled={ex.state !== "idle"} t={t} />
               ) : current.type === "multiple_choice" && current.options ? (
                 <MultipleChoiceInput options={current.options} targetAnswer={current.targetAnswer || ""} userAnswer={ex.userAnswer} state={ex.state} onSelect={(opt) => { if (ex.state === "idle") { setEx({ ...ex, userAnswer: opt }); setTimeout(() => submitRef.current?.(opt), 50); } }} disabled={ex.state !== "idle"} />
               ) : current.type === "match_pairs" && current.pairs ? (
                 <MatchPairsInput leftItems={matchLeftItems} rightItems={matchRightItems} matched={matchPairsMap} onMatch={(left, right) => { const newMap = { ...matchPairsMap, [left]: right }; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); setMatchRightItems((prev) => prev.filter((r) => r !== right)); }} onUnmatch={(left) => { const newMap = { ...matchPairsMap }; const right = newMap[left]; delete newMap[left]; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); if (right) setMatchRightItems((prev) => [...prev, right]); }} disabled={ex.state !== "idle"} onPlayAudio={playMatchAudio} native={native} learningLang={learningLang} />
+              // ✅ TypeScript fix: Cast current.type to string
+              ) : (current.type as string) === "letter_box" && (current as any).slots ? (
+                <LetterBoxInput slots={(current as any).slots} options={(current as any).options} userAnswer={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} targetAnswer={current.targetAnswer} />
               ) : current.type === "listening" && current.ttsText ? (
                 <ListeningInput ttsText={current.ttsText} ttsLang={current.ttsLang || "hy"} promptText={current.prompt[native] ?? current.prompt["en"]} value={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} onSpeak={handleSpeak} isSpeaking={isPlaying} t={t} />
               ) : (
@@ -1731,7 +1824,15 @@ function LearnInner() {
           <div className="w-full max-w-2xl h-[240px] overflow-hidden">
             {ex.state === "idle" ? (
               <div className="flex gap-3">
-                {current?.type !== "multiple_choice" && (<button onClick={() => submit()} className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"><Send size={18} />{t("page_check_enter")}</button>)}
+                {current?.type !== "multiple_choice" && (
+                  <button 
+                    onClick={() => submit()} 
+                    disabled={!isLetterBoxComplete || ex.state !== "idle"}
+                    className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Send size={18} />{t("page_check_enter")}
+                  </button>
+                )}
                 {current?.type === "multiple_choice" && (<div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2"><MousePointerClick size={16} />{native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}</div>)}
               </div>
             ) : ex.state === "incorrect" && attempts < 2 ? (
@@ -1759,6 +1860,38 @@ function LearnInner() {
           </div>
         </div>
       </div>
+
+      {isDevMode && (
+        <div className="fixed bottom-4 right-4 z-[9999]">
+          <button 
+            onClick={() => setShowDevMenu(!showDevMenu)} 
+            className="bg-black/80 hover:bg-black text-white p-3 rounded-full shadow-lg transition-all"
+            title="Dev Menu"
+          >
+            <Wrench size={24} />
+          </button>
+          
+          {showDevMenu && (
+            <div className="absolute bottom-16 right-0 w-80 max-h-[500px] overflow-y-auto bg-gray-900 text-white rounded-xl shadow-2xl p-4 border border-gray-700">
+              <h3 className="font-bold mb-2 text-sm border-b border-gray-700 pb-2">🛠️ Թեստային ցանկ ({lesson?.exercises?.length} հարց)</h3>
+              <div className="space-y-1">
+                {lesson?.exercises?.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setEx({ index: i, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0 });
+                      setShowDevMenu(false);
+                    }}
+                    className={`w-full text-left text-xs p-2 rounded transition-colors ${ex.index === i ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
+                  >
+                    <span className="font-bold">{i + 1}.</span> [{item.type}] {item.targetAnswer?.substring(0, 20)}...
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       <AnimatePresence>
         {showExitConfirm && (

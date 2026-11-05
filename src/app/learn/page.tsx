@@ -198,117 +198,130 @@ function generateWordExercises(
 
   const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
 
-  // ─── 1. Translation Choice ─────────────────────────────────────
-  if (validEntries.length >= 3) {
-    const tc = validEntries[0];
-    const nativeWord = getWord(tc, nativeLang);
-    const correctAnswer = getWord(tc, learningLang);
-    const wrongOptions: string[] = validEntries
-      .filter((v: any) => v !== tc)
-      .map((v: any): string => getWord(v, learningLang))
-      .filter((w: string) => w.length > 0 && w !== correctAnswer)
-      .slice(0, 2);
+  // ✅ Թարմացում՝ Ցիկլով անցնում ենք ԲՈԼՈՐ վավեր բառերի միջով
+  validEntries.forEach((entry, index) => {
+    const nativeWord = getWord(entry, nativeLang);
+    const learningWord = getWord(entry, learningLang);
+    if (!nativeWord || !learningWord) return;
 
-    if (nativeWord && correctAnswer && wrongOptions.length >= 2) {
-      out.push({
-        id: `gen_tc_${lesson.id || 'x'}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
-          en: `What does «${nativeWord}» mean?`,
-          ru: `Что означает «${nativeWord}»?`,
-        },
-        targetAnswer: correctAnswer,
-        options: shuffleArray([correctAnswer, ...wrongOptions]),
-      } as MultiExercise);
+    const typeIndex = index % 4; // 0 = TC, 1 = RT, 2 = FLH, 3 = ML
+
+    if (typeIndex === 0) {
+      // 1. Translation Choice
+      const wrongOptions: string[] = validEntries
+        .filter((v: any) => v !== entry)
+        .map((v: any): string => getWord(v, learningLang))
+        .filter((w: string) => w.length > 0 && w !== learningWord)
+        .slice(0, 2);
+
+      if (wrongOptions.length >= 2) {
+        out.push({
+          id: `gen_tc_${lesson.id || 'x'}_${index}`,
+          type: 'multiple_choice',
+          prompt: {
+            hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
+            en: `What does «${nativeWord}» mean?`,
+            ru: `Что означает «${nativeWord}»?`,
+          },
+          targetAnswer: learningWord,
+          options: shuffleArray([learningWord, ...wrongOptions]),
+        } as MultiExercise);
+      } else {
+        // Fallback to Free Text
+        out.push({
+          id: `gen_ft_${lesson.id || 'x'}_${index}`,
+          type: 'translate',
+          prompt: {
+            hy: `Ինչպե՞ս կասես «${nativeWord}»-ը։`,
+            en: `How do you say «${nativeWord}»?`,
+            ru: `Как сказать «${nativeWord}»?`,
+          },
+          targetAnswer: learningWord,
+        } as MultiExercise);
+      }
+    } else if (typeIndex === 1) {
+      // 2. Reverse Translation
+      const wrongOptions: string[] = validEntries
+        .filter((v: any) => v !== entry)
+        .map((v: any): string => getWord(v, nativeLang))
+        .filter((w: string) => w.length > 0 && w !== nativeWord)
+        .slice(0, 2);
+
+      if (wrongOptions.length >= 2) {
+        out.push({
+          id: `gen_rt_${lesson.id || 'x'}_${index}`,
+          type: 'multiple_choice',
+          prompt: {
+            hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
+            en: `How do you say «${learningWord}» in ${nativeLabel}?`,
+            ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
+          },
+          targetAnswer: nativeWord,
+          options: shuffleArray([nativeWord, ...wrongOptions]),
+        } as MultiExercise);
+      } else {
+        // Fallback to Free Text
+        out.push({
+          id: `gen_ft_rev_${lesson.id || 'x'}_${index}`,
+          type: 'translate',
+          prompt: {
+            hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
+            en: `How do you say «${learningWord}» in ${nativeLabel}?`,
+            ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
+          },
+          targetAnswer: nativeWord,
+        } as MultiExercise);
+      }
+    } else if (typeIndex === 2) {
+      // 3. First Letter Hint (FLH)
+      const word = clean(learningWord);
+      if (word.length >= 3) {
+        const firstLetter = word[0];
+        const underscores = Array(word.length - 1).fill('_').join(' ');
+        out.push({
+          id: `gen_flh_${lesson.id || 'x'}_${index}`,
+          type: 'translate',
+          prompt: {
+            hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${nativeWord}`,
+            en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${nativeWord}`,
+            ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${nativeWord}`,
+          },
+          targetAnswer: word,
+        } as MultiExercise);
+      }
+    } else if (typeIndex === 3) {
+      // 4. Missing Letter (ML)
+      const word = clean(learningWord);
+      if (word.length >= 3) {
+        const idx = word.length > 3
+          ? 1 + Math.floor(Math.random() * (word.length - 2))
+          : 0;
+        const chars = word.split('');
+        const masked = [...chars];
+        masked[idx] = '_';
+        out.push({
+          id: `gen_ml_${lesson.id || 'x'}_${index}`,
+          type: 'translate',
+          prompt: {
+            hy: `Վերականգնիր բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${nativeWord}`,
+            en: `Reconstruct the word:\n\n${masked.join(' ')}\n\nHint: ${nativeWord}`,
+            ru: `Восстанови слово:\n\n${masked.join(' ')}\n\nПодсказка: ${nativeWord}`,
+          },
+          targetAnswer: word,
+        } as MultiExercise);
+      }
     }
-  }
+  });
 
-  // ─── 2. Reverse Translation ────────────────────────────────────
-  if (validEntries.length >= 3) {
-    const rt = validEntries[1] || validEntries[0];
-    const learningWord = getWord(rt, learningLang);
-    const correctAnswer = getWord(rt, nativeLang);
-    const wrongOptions: string[] = validEntries
-      .filter((v: any) => v !== rt)
-      .map((v: any): string => getWord(v, nativeLang))
-      .filter((w: string) => w.length > 0 && w !== correctAnswer)
-      .slice(0, 2);
-
-    if (learningWord && correctAnswer && wrongOptions.length >= 2) {
-      out.push({
-        id: `gen_rt_${lesson.id || 'x'}`,
-        type: 'multiple_choice',
-        prompt: {
-          hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
-          en: `How do you say «${learningWord}» in ${nativeLabel}?`,
-          ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
-        },
-        targetAnswer: correctAnswer,
-        options: shuffleArray([correctAnswer, ...wrongOptions]),
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 3. First Letter Hint (FLH) ───────────────────────────────
-  if (validEntries.length >= 1) {
-    const flh = validEntries[2] || validEntries[0];
-    const word = clean(getWord(flh, learningLang));
-    const hint = getWord(flh, nativeLang);
-    if (word.length >= 3 && hint) {
-      const firstLetter = word[0];
-      const underscores = Array(word.length - 1).fill('_').join(' ');
-      out.push({
-        id: `gen_flh_${lesson.id || 'x'}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${hint}`,
-          en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: word,
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 4. Missing Letter (ML) ───────────────────────────────────
-  if (validEntries.length >= 1) {
-    const ml = validEntries[3] || validEntries[0];
-    const word = clean(getWord(ml, learningLang));
-    const hint = getWord(ml, nativeLang);
-    if (word.length >= 3 && hint) {
-      const idx = word.length > 3
-        ? 1 + Math.floor(Math.random() * (word.length - 2))
-        : 0;
-      const chars = word.split('');
-      const masked = [...chars];
-      masked[idx] = '_';
-      out.push({
-        id: `gen_ml_${lesson.id || 'x'}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${hint}`,
-          en: `Reconstruct the word:\n\n${masked.join(' ')}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${masked.join(' ')}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: word,
-      } as MultiExercise);
-    }
-  }
-
-  // ─── 5. Jumbled Sentence ──────────────────────────────────────
+  // 5. Jumbled Sentence (Օգտագործում ենք բոլոր արտահայտությունները)
   phrases.forEach((p: any, i: number) => {
-    if (i % 3 !== 0) return;
-    
     const target = p[learningLang] || p.en || p.hy;
     if (typeof target !== 'string') return;
-
     const words = target.match(/\S+/g) || [];
-    
     if (words.length < 3) return;
 
     out.push({
-      id: `gen_jumble_${i}`,
+      id: `gen_jumble_${lesson.id || 'x'}_${i}`,
       type: 'word_order',
       prompt: {
         hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
@@ -1078,7 +1091,7 @@ function LearnInner() {
     setBreakTimer(null);
   }, [current]);
 
-  // ✅ ԱՎՏՈՄԱՏ ՍՏՈՒԳՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ, ԵՐԲ ԲՈԼՈՐ ԶՈՒՅԳԵՐԸ ՄԻԱՑՎԱԾ ԵՆ
+  // ✅ ԱՎՏՈՄԱՏ ՍՏՈՒԳՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ
   useEffect(() => {
     if (
       current?.type === "match_pairs" &&
@@ -1333,7 +1346,6 @@ function LearnInner() {
           setEx((s) => ({ ...s, state: "correct", feedback: t("page_all_pairs_correct"), score: 1, hayqEarned: hayq, corrections: [], nuriMood: "excited", nuriSpeech: randomLine("correct_perfect", native), customImage: "/images/nuri/nuri-encouraging.png", showHint: false, showCoinAnimation: true }));
           setTimeout(() => { setEx((s) => ({ ...s, showCoinAnimation: false })); }, 2500);
           
-          // ✅ ԱՎՏՈՄԱՏ ԱՆՑՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ
           setTimeout(() => {
             if (!advancingRef.current) {
               advancingRef.current = true;

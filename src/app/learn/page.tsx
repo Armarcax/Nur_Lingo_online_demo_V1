@@ -303,7 +303,7 @@ function generateWordExercises(
 
         out.push({
           id: `gen_ml_${lesson.id || 'x'}_${index}`,
-          type: 'letter_box' as any, // Cast as any to bypass strict type
+          type: 'letter_box' as any,
           prompt: {
             hy: `Վերականգնիր բառը:`,
             en: `Reconstruct the word:`,
@@ -980,7 +980,6 @@ function LearnInner() {
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
 
-  // ✅ TypeScript fix: Cast current?.type to string
   const isLetterBoxComplete = (current?.type as string) === 'letter_box' ? !ex.userAnswer.includes('_') : true;
 
   const toggleMode = useCallback(() => {
@@ -1128,9 +1127,8 @@ function LearnInner() {
     if (!audioEnabled || !current || !isAudioReady) return;
     
     let promptText = current.prompt?.[native] || current.prompt?.en || "";
-    // ✅ TypeScript fix: Cast current.type to string
-    if ((current.type as string) === 'letter_box' && current.hint?.[native]) {
-       promptText += " " + current.hint[native];
+    if ((current.type as string) === 'letter_box' && (current as any).hint?.[native]) {
+       promptText += " " + (current as any).hint[native];
     }
     
     if (!promptText) return;
@@ -1157,7 +1155,6 @@ function LearnInner() {
       setMatchRightItems(shuffleArray([...right]));
       setMatchPairsMap({});
       setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
-    // ✅ TypeScript fix: Cast current.type to string
     } else if ((current.type as string) === "letter_box" && (current as any).slots) {
       const initial = (current as any).slots.join('');
       setEx((prev) => ({ ...prev, userAnswer: initial }));
@@ -1451,7 +1448,6 @@ function LearnInner() {
         const answerToUse = overrideAnswer ?? ex.userAnswer;
         if (!answerToUse) { showMessage(t("page_please_select_answer"), "info"); return; }
         answerForApi = answerToUse;
-      // ✅ TypeScript fix: Cast current.type to string
       } else if ((current.type as string) === "letter_box") {
         if (ex.userAnswer.includes('_')) { showMessage(t("page_please_fill_all_blanks"), "info"); return; }
         answerForApi = ex.userAnswer;
@@ -1599,7 +1595,6 @@ function LearnInner() {
       const right = current.pairs.map((p) => p[1]);
       setMatchLeftItems(left); setMatchRightItems(shuffleArray([...right])); setMatchPairsMap({}); setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
     }
-    // ✅ TypeScript fix: Cast current.type to string
     if ((current?.type as string) === "letter_box" && (current as any)?.slots) {
       const initial = (current as any).slots.join('');
       setEx((prev) => ({ ...prev, userAnswer: initial }));
@@ -1769,11 +1764,17 @@ function LearnInner() {
               <h3 className="text-lg font-bold flex-1 whitespace-pre-line">
                 {current.prompt?.[native] ?? current.prompt?.["en"] ?? ""}
               </h3>
+              
+              {/* ✅ ԱՅՍՏԵՂ Է ՏԵՂԱՓՈԽՎԱԾ ՀՈՒՇՈՒՄԸ */}
               <div className="flex items-center gap-2 flex-shrink-0">
+                {current?.type === "multiple_choice" && (
+                  <span className="text-xs text-amber-500 dark:text-amber-400 font-medium animate-pulse hidden sm:inline-block mr-1">
+                    {native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}
+                  </span>
+                )}
                 <button
                   onClick={() => {
                     let promptText = current.prompt?.[native] || current.prompt?.en || "";
-                    // ✅ TypeScript fix: Cast current.type to string
                     if ((current.type as string) === 'letter_box' && (current as any).hint?.[native]) promptText += " " + (current as any).hint[native];
                     playAudioWithFallback(promptText, native, "prompt").catch(() => {});
                   }}
@@ -1810,7 +1811,6 @@ function LearnInner() {
                 <MultipleChoiceInput options={current.options} targetAnswer={current.targetAnswer || ""} userAnswer={ex.userAnswer} state={ex.state} onSelect={(opt) => { if (ex.state === "idle") { setEx({ ...ex, userAnswer: opt }); setTimeout(() => submitRef.current?.(opt), 50); } }} disabled={ex.state !== "idle"} />
               ) : current.type === "match_pairs" && current.pairs ? (
                 <MatchPairsInput leftItems={matchLeftItems} rightItems={matchRightItems} matched={matchPairsMap} onMatch={(left, right) => { const newMap = { ...matchPairsMap, [left]: right }; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); setMatchRightItems((prev) => prev.filter((r) => r !== right)); }} onUnmatch={(left) => { const newMap = { ...matchPairsMap }; const right = newMap[left]; delete newMap[left]; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); if (right) setMatchRightItems((prev) => [...prev, right]); }} disabled={ex.state !== "idle"} onPlayAudio={playMatchAudio} native={native} learningLang={learningLang} />
-              // ✅ TypeScript fix: Cast current.type to string
               ) : (current.type as string) === "letter_box" && (current as any).slots ? (
                 <LetterBoxInput slots={(current as any).slots} options={(current as any).options} userAnswer={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} targetAnswer={current.targetAnswer} />
               ) : current.type === "listening" && current.ttsText ? (
@@ -1824,6 +1824,7 @@ function LearnInner() {
           <div className="w-full max-w-2xl h-[240px] overflow-hidden">
             {ex.state === "idle" ? (
               <div className="flex gap-3">
+                {/* ✅ ԱՅՍՏԵՂԻՑ ՀԱՆՎԱԾ Է «Ընտրիր պատասխանը» տեքստը */}
                 {current?.type !== "multiple_choice" && (
                   <button 
                     onClick={() => submit()} 
@@ -1833,7 +1834,6 @@ function LearnInner() {
                     <Send size={18} />{t("page_check_enter")}
                   </button>
                 )}
-                {current?.type === "multiple_choice" && (<div className="flex-1 py-4 text-center text-gray-400 dark:text-gray-500 text-sm font-medium flex items-center justify-center gap-2"><MousePointerClick size={16} />{native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}</div>)}
               </div>
             ) : ex.state === "incorrect" && attempts < 2 ? (
               <button onClick={retrySameStep} className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"><RefreshCw size={18} />{t("page_try_again_left", { count: attemptsLeft })}</button>

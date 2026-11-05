@@ -895,12 +895,10 @@ function LearnInner() {
   const [matchRightItems, setMatchRightItems] = useState<string[]>([]);
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
-  // ✅ FIX: Initialize nuriSpeech as empty to avoid Hydration Mismatch
   const [ex, setEx] = useState<ExState>({
     index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: "", customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
   });
 
-  // ✅ FIX: Set the random line only after the component mounts on the client
   useEffect(() => {
     if (!ex.nuriSpeech) {
       setEx(prev => ({ ...prev, nuriSpeech: randomLine("idle", native) }));
@@ -1121,20 +1119,30 @@ function LearnInner() {
       const pair = pairParam ?? cfg?.pair ?? `${nativeLang}-${learnLang}`;
 
       let l: any = null;
+      let sourceForExtras: any = null;
 
+      // ✅ 1. Միշտ փորձում ենք ստանալ offline տվյալները (vocabulary, phrases, dialogues)
+      const offlineRaw = offlineLessonEngine.getLesson(lessonId);
+      let offlineTranslated: any = null;
+
+      if (offlineRaw) {
+        try {
+          offlineTranslated = translateOfflineLessonForLang(offlineRaw as any, learnLang as any) as any;
+        } catch (e) {
+          console.warn("Offline translation failed, using raw:", e);
+          offlineTranslated = offlineRaw;
+        }
+      }
+
+      // ✅ 2. Որոշում ենք հիմնական դասը ըստ ռեժիմի
       if (isProfessional) {
-        l = offlineLessonEngine.getLesson(lessonId);
-        if (!l) {
-          const found = getLessonById(pair as LangPair, lessonId);
-          if (found) l = found;
-        } else {
-          l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
-        }
+        l = offlineTranslated || getLessonById(pair as LangPair, lessonId);
+        sourceForExtras = l;
       } else {
-        l = getLessonById(pair as LangPair, lessonId);
-        if (!l) {
-          l = offlineLessonEngine.getLesson(lessonId);
-        }
+        l = getLessonById(pair as LangPair, lessonId) || offlineTranslated;
+        // Սիրողական ռեժիմում բազային վարժությունները getLessonById-ից են,
+        // բայց գեներացիայի համար օգտագործում ենք offline-ի ամբողջական տվյալները
+        sourceForExtras = offlineTranslated || l;
       }
 
       if (!l) {
@@ -1158,19 +1166,23 @@ function LearnInner() {
       const originalCount = originalExercises.length;
       const extras: MultiExercise[] = [];
 
-      try {
-        const wordExs = generateWordExercises(l, nativeLang, learnLang);
-        extras.push(...wordExs);
-        console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
-      } catch (e) { console.warn("WordGen failed:", e); }
+      // ✅ 3. Գեներացնում ենք նոր վարժությունները sourceForExtras-ից
+      if (sourceForExtras) {
+        try {
+          const wordExs = generateWordExercises(sourceForExtras, nativeLang, learnLang);
+          extras.push(...wordExs);
+          console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
+        } catch (e) { console.warn("WordGen failed:", e); }
 
-      try {
-        const dialogueExs = generateDialogueExercises(l, nativeLang, learnLang);
-        extras.push(...dialogueExs);
-        console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
-      } catch (e) { console.warn("DialogueGen failed:", e); }
+        try {
+          const dialogueExs = generateDialogueExercises(sourceForExtras, nativeLang, learnLang);
+          extras.push(...dialogueExs);
+          console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
+        } catch (e) { console.warn("DialogueGen failed:", e); }
+      }
 
-      newExercisesLog(extras);
+      // ✅ 4. Ուղղված լոգ
+      console.log(`📚 Total: ${originalCount + extras.length} exercises (Original: ${originalCount}, New: ${extras.length})`);
 
       const allExercises = [...originalExercises, ...extras];
       l = { ...l, exercises: allExercises };
@@ -1201,11 +1213,6 @@ function LearnInner() {
       console.error("Failed to load lesson:", error);
     }
   }, [lessonId, pairParam, router, isProfessional]);
-
-  function newExercisesLog(exs: MultiExercise[]) {
-    exs.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
-    console.log(`📚 Total: ${lesson?.exercises?.length || 0} exercises`);
-  }
 
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {

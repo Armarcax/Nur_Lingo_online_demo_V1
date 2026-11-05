@@ -239,6 +239,7 @@ function generateWordExercises(
   if (!lesson) return out;
 
   const vocab: any[] = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+  const phrases = Array.isArray(lesson.phrases) ? lesson.phrases : [];
   if (vocab.length < 3) {
     console.log("ℹ️ [WordGen] Not enough vocabulary");
     return out;
@@ -319,27 +320,32 @@ function generateWordExercises(
     }
   }
 
-  // 3. First Letter Hint
-  {
-    const flh = validEntries[2] || validEntries[0];
-    const word = clean(getWord(flh, learningLang));
-    const hint = getWord(flh, nativeLang);
-    if (word.length >= 3 && hint) {
-      const firstLetter = word[0];
-      const underscores = Array(word.length - 1).fill('_').join(' ');
-      out.push({
-        id: `gen_flh_${lesson.id || 'x'}`,
-        type: 'translate',
-        prompt: {
-          hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${hint}`,
-          en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${hint}`,
-          ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${hint}`,
-        },
-        targetAnswer: word,
-      } as MultiExercise);
-    }
-  }
+    // 3. Խառնված նախադասություն (Jumbled Sentence)
+    phrases.forEach((p: any, i: number) => {
+      if (i % 3 !== 0) return;
+      
+      // ✅ ՎԵՐՑՆՈՒՄ ԵՆՔ ՃԻՇՏ ԴԱՇՏԸ (սովորող լեզուն)
+      const target = p[learningLang] || p.en || p.hy;
+      if (typeof target !== 'string' || !target.includes(' ')) return;
 
+      // ✅ ԲԱԺԱՆՈՒՄ ԵՆՔ ՄԻԱՅՆ ԲԱՑԱՏՈՎ, ՈՐՊԵՍԶԻ There's-Ը ՄՆԱ ՄԵԿ ԿՏՈՐ
+      const words = target.split(/\s+/).filter(Boolean);
+      
+      if (words.length < 3) return;
+
+        out.push({
+        id: `gen_jumble_${i}`,
+        type: 'word_order',
+        prompt: {
+          hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
+          en: "Order the words correctly",
+          ru: "Расставь слова по порядку",
+        },
+        words: shuffleArray([...words]),
+        targetAnswer: target,
+      } as MultiExercise);
+    });
+    
   // 4. Missing Letter
   {
     const ml = validEntries[3] || validEntries[0];

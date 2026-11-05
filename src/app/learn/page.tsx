@@ -153,69 +153,6 @@ function formatTime(ms: number): string {
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
 }
 
-// 🆕 Translation Choice
-function generateTranslationChoice(
-  lesson: any,
-  nativeLang: LangCode,
-  learningLang: LangCode
-): MultiExercise | null {
-  if (!lesson) return null;
-  const vocab: any[] = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  if (vocab.length < 3) {
-    console.log("ℹ️ [TC] Not enough vocabulary");
-    return null;
-  }
-
-  const getWord = (v: any, lang: LangCode): string => {
-    if (!v) return "";
-    const w = v[lang];
-    return typeof w === 'string' ? w.trim() : "";
-  };
-
-  const valid = vocab.filter((v: any) => {
-    const n = getWord(v, nativeLang);
-    const l = getWord(v, learningLang);
-    return n.length > 0 && l.length > 0 && n.length < 60 && l.length < 60;
-  });
-
-  if (valid.length < 3) {
-    console.log("ℹ️ [TC] Not enough valid entries");
-    return null;
-  }
-
-  const target = valid[0];
-  const nativeWord = getWord(target, nativeLang);
-  const correctAnswer = getWord(target, learningLang);
-
-  const wrongOptions: string[] = [];
-  for (let i = 1; i < valid.length && wrongOptions.length < 2; i++) {
-    const w = getWord(valid[i], learningLang);
-    if (w && w !== correctAnswer && !wrongOptions.includes(w)) {
-      wrongOptions.push(w);
-    }
-  }
-
-  if (wrongOptions.length < 2) {
-    console.log("ℹ️ [TC] Not enough wrong options");
-    return null;
-  }
-
-  const result = {
-    id: `gen_tc_${lesson.id || 'x'}`,
-    type: 'multiple_choice',
-    prompt: {
-      hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
-      en: `What does «${nativeWord}» mean?`,
-      ru: `Что означает «${nativeWord}»?`,
-    },
-    targetAnswer: correctAnswer,
-    options: shuffleArray([correctAnswer, ...wrongOptions]),
-  } as MultiExercise;
-
-  console.log("✅ [TC] Generated:", result);
-  return result;
-}
-
 // ═══════════════════════════════════════════════════════════════════
 // 🆕 ՆՈՐ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԳԵՆԵՐԱՏՈՐՆԵՐ
 // ═══════════════════════════════════════════════════════════════════
@@ -259,7 +196,6 @@ function generateWordExercises(
     );
   });
 
-  console.log(`🔍 [WordGen] Valid entries: ${validEntries.length}/${vocab.length}`);
   const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
 
   // ─── 1. Translation Choice ─────────────────────────────────────
@@ -360,7 +296,7 @@ function generateWordExercises(
     }
   }
 
-  // ─── 5. Jumbled Sentence (✅ ԽՆԴԻՐԸ ԼՈՒԾՎԱԾ Է ԱՅՍՏԵՂ) ───────────────
+  // ─── 5. Jumbled Sentence ──────────────────────────────────────
   phrases.forEach((p: any, i: number) => {
     if (i % 3 !== 0) return;
     
@@ -398,10 +334,7 @@ function generateDialogueExercises(
   if (!lesson) return out;
 
   const dialogues: any[] = Array.isArray(lesson.dialogues) ? lesson.dialogues : [];
-  if (dialogues.length === 0) {
-    console.log("ℹ️ [DialogueGen] No dialogues");
-    return out;
-  }
+  if (dialogues.length === 0) return out;
 
   const pickText = (turn: any): string => {
     if (!Array.isArray(turn)) return "";
@@ -1185,23 +1118,41 @@ function LearnInner() {
         return;
       }
 
-      // 🆕 STEP 1 — Translation Choice only
-      const originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
+      // ✅ ՈՒՂՂՈՒՄ ԵՆՔ ՀԻՆ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (word_order) ԵՎ ԲԱԺԱՆՈՒՄ ԱՊԱԹԱՐՑՈՎ
+      let originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
+      
+      originalExercises = originalExercises.map((ex: any) => {
+        if (ex.type === 'word_order' && typeof ex.targetAnswer === 'string') {
+          const correctWords = ex.targetAnswer.match(/\S+/g) || [];
+          return {
+            ...ex,
+            words: shuffleArray([...correctWords])
+          };
+        }
+        return ex;
+      });
+
       const originalCount = originalExercises.length;
       const extras: MultiExercise[] = [];
 
+      // 1. Բառային և նախադասությունների վարժություններ (Translation, Jumble, Missing letter)
       try {
-        const tc = generateTranslationChoice(l, nativeLang, learnLang);
-        if (tc) extras.push(tc);
-      } catch (e) {
-        console.warn("TC generator failed:", e);
-      }
+        const wordExs = generateWordExercises(l, nativeLang, learnLang);
+        extras.push(...wordExs);
+        console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
+      } catch (e) { console.warn("WordGen failed:", e); }
+
+      // 2. Երկխոսությունների վարժություններ (Dialogue Response, Dialogue Jumble)
+      try {
+        const dialogueExs = generateDialogueExercises(l, nativeLang, learnLang);
+        extras.push(...dialogueExs);
+        console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
+      } catch (e) { console.warn("DialogueGen failed:", e); }
+
+      newExercisesLog(extras); // Helper for logging
 
       const allExercises = [...originalExercises, ...extras];
       l = { ...l, exercises: allExercises };
-
-      console.log(`📚 Original: ${originalCount}, Extras: ${extras.length}, Total: ${allExercises.length}`);
-      extras.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -1230,6 +1181,12 @@ function LearnInner() {
       console.error("Failed to load lesson:", error);
     }
   }, [lessonId, pairParam, router, isProfessional]);
+
+  // Helper for logging (defined outside the component or at the bottom)
+  function newExercisesLog(exs: MultiExercise[]) {
+    exs.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
+    console.log(`📚 Total: ${lesson?.exercises?.length || 0} exercises`);
+  }
 
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {

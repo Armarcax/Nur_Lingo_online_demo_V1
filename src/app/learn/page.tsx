@@ -303,8 +303,6 @@ function generateWordExercises(
     const target = p[learningLang] || p.en || p.hy;
     if (typeof target !== 'string') return;
 
-    // ✅ match(/\S+/g) - ԲԱԺԱՆՈՒՄ Է ՄԻԱՅՆ ԲԱՑԱՏՆԵՐՈՎ
-    // "There's a..." -> ["There's", "a", ...]
     const words = target.match(/\S+/g) || [];
     
     if (words.length < 3) return;
@@ -1080,7 +1078,22 @@ function LearnInner() {
     setBreakTimer(null);
   }, [current]);
 
-    const loadLesson = useCallback(() => {
+  // ✅ ԱՎՏՈՄԱՏ ՍՏՈՒԳՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ, ԵՐԲ ԲՈԼՈՐ ԶՈՒՅԳԵՐԸ ՄԻԱՑՎԱԾ ԵՆ
+  useEffect(() => {
+    if (
+      current?.type === "match_pairs" &&
+      current.pairs &&
+      Object.keys(matchPairsMap).length === current.pairs.length &&
+      ex.state === "idle"
+    ) {
+      const timer = setTimeout(() => {
+        submitRef.current();
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [matchPairsMap, current, ex.state]);
+
+  const loadLesson = useCallback(() => {
     if (loadedLessonRef.current === lessonId) return;
 
     try {
@@ -1118,7 +1131,6 @@ function LearnInner() {
         return;
       }
 
-      // ✅ ՈՒՂՂՈՒՄ ԵՆՔ ՀԻՆ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (word_order) ԵՎ ԲԱԺԱՆՈՒՄ ԱՊԱԹԱՐՑՈՎ
       let originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
       
       originalExercises = originalExercises.map((ex: any) => {
@@ -1135,21 +1147,19 @@ function LearnInner() {
       const originalCount = originalExercises.length;
       const extras: MultiExercise[] = [];
 
-      // 1. Բառային և նախադասությունների վարժություններ (Translation, Jumble, Missing letter)
       try {
         const wordExs = generateWordExercises(l, nativeLang, learnLang);
         extras.push(...wordExs);
         console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
       } catch (e) { console.warn("WordGen failed:", e); }
 
-      // 2. Երկխոսությունների վարժություններ (Dialogue Response, Dialogue Jumble)
       try {
         const dialogueExs = generateDialogueExercises(l, nativeLang, learnLang);
         extras.push(...dialogueExs);
         console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
       } catch (e) { console.warn("DialogueGen failed:", e); }
 
-      newExercisesLog(extras); // Helper for logging
+      newExercisesLog(extras);
 
       const allExercises = [...originalExercises, ...extras];
       l = { ...l, exercises: allExercises };
@@ -1157,7 +1167,6 @@ function LearnInner() {
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
 
-      // 🧪 Test — ?test=new jumps to first extra
       if (typeof window !== 'undefined' && extras.length > 0) {
         const test = new URLSearchParams(window.location.search).get('test');
         if (test === 'new') {
@@ -1182,7 +1191,6 @@ function LearnInner() {
     }
   }, [lessonId, pairParam, router, isProfessional]);
 
-  // Helper for logging (defined outside the component or at the bottom)
   function newExercisesLog(exs: MultiExercise[]) {
     exs.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
     console.log(`📚 Total: ${lesson?.exercises?.length || 0} exercises`);
@@ -1324,6 +1332,15 @@ function LearnInner() {
           } catch {}
           setEx((s) => ({ ...s, state: "correct", feedback: t("page_all_pairs_correct"), score: 1, hayqEarned: hayq, corrections: [], nuriMood: "excited", nuriSpeech: randomLine("correct_perfect", native), customImage: "/images/nuri/nuri-encouraging.png", showHint: false, showCoinAnimation: true }));
           setTimeout(() => { setEx((s) => ({ ...s, showCoinAnimation: false })); }, 2500);
+          
+          // ✅ ԱՎՏՈՄԱՏ ԱՆՑՈՒՄ MATCH PAIRS-Ի ՀԱՄԱՐ
+          setTimeout(() => {
+            if (!advancingRef.current) {
+              advancingRef.current = true;
+              try { nextRef.current?.(); } catch {}
+            }
+          }, 2500);
+          
           return;
         }
 

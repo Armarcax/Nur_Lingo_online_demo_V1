@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Heart, Coins, CheckCircle, XCircle, Volume2, RefreshCw, Send,
   Trophy, Clock, Sparkles, Brain, Flame, BarChart3, Loader2, BookOpen,
-  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench
+  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick,
 } from "lucide-react";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
@@ -198,134 +198,119 @@ function generateWordExercises(
 
   const nativeLabel = nativeLang === 'hy' ? 'հայերեն' : nativeLang === 'en' ? 'English' : 'русский';
 
-  validEntries.forEach((entry, index) => {
-    const nativeWord = getWord(entry, nativeLang);
-    const learningWord = getWord(entry, learningLang);
-    if (!nativeWord || !learningWord) return;
+  // ─── 1. Translation Choice ─────────────────────────────────────
+  if (validEntries.length >= 3) {
+    const tc = validEntries[0];
+    const nativeWord = getWord(tc, nativeLang);
+    const correctAnswer = getWord(tc, learningLang);
+    const wrongOptions: string[] = validEntries
+      .filter((v: any) => v !== tc)
+      .map((v: any): string => getWord(v, learningLang))
+      .filter((w: string) => w.length > 0 && w !== correctAnswer)
+      .slice(0, 2);
 
-    let typeIndex = index % 4;
-
-    if (nativeLang === 'hy' && typeIndex === 1) {
-      typeIndex = 2;
+    if (nativeWord && correctAnswer && wrongOptions.length >= 2) {
+      out.push({
+        id: `gen_tc_${lesson.id || 'x'}`,
+        type: 'multiple_choice',
+        prompt: {
+          hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
+          en: `What does «${nativeWord}» mean?`,
+          ru: `Что означает «${nativeWord}»?`,
+        },
+        targetAnswer: correctAnswer,
+        options: shuffleArray([correctAnswer, ...wrongOptions]),
+      } as MultiExercise);
     }
+  }
 
-    if (typeIndex === 0) {
-      const wrongOptions: string[] = validEntries
-        .filter((v: any) => v !== entry)
-        .map((v: any): string => getWord(v, learningLang))
-        .filter((w: string) => w.length > 0 && w !== learningWord)
-        .slice(0, 2);
+  // ─── 2. Reverse Translation ────────────────────────────────────
+  if (validEntries.length >= 3) {
+    const rt = validEntries[1] || validEntries[0];
+    const learningWord = getWord(rt, learningLang);
+    const correctAnswer = getWord(rt, nativeLang);
+    const wrongOptions: string[] = validEntries
+      .filter((v: any) => v !== rt)
+      .map((v: any): string => getWord(v, nativeLang))
+      .filter((w: string) => w.length > 0 && w !== correctAnswer)
+      .slice(0, 2);
 
-      if (wrongOptions.length >= 2) {
-        out.push({
-          id: `gen_tc_${lesson.id || 'x'}_${index}`,
-          type: 'multiple_choice',
-          prompt: {
-            hy: `Ի՞նչ է նշանակում «${nativeWord}» բառը։`,
-            en: `What does «${nativeWord}» mean?`,
-            ru: `Что означает «${nativeWord}»?`,
-          },
-          targetAnswer: learningWord,
-          options: shuffleArray([learningWord, ...wrongOptions]),
-        } as MultiExercise);
-      } else {
-        out.push({
-          id: `gen_ft_${lesson.id || 'x'}_${index}`,
-          type: 'translate',
-          prompt: {
-            hy: `Ինչպե՞ս կասես «${nativeWord}»-ը։`,
-            en: `How do you say «${nativeWord}»?`,
-            ru: `Как сказать «${nativeWord}»?`,
-          },
-          targetAnswer: learningWord,
-        } as MultiExercise);
-      }
-    } else if (typeIndex === 1) {
-      const wrongOptions: string[] = validEntries
-        .filter((v: any) => v !== entry)
-        .map((v: any): string => getWord(v, nativeLang))
-        .filter((w: string) => w.length > 0 && w !== nativeWord)
-        .slice(0, 2);
-
-      if (wrongOptions.length >= 2) {
-        out.push({
-          id: `gen_rt_${lesson.id || 'x'}_${index}`,
-          type: 'multiple_choice',
-          prompt: {
-            hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
-            en: `How do you say «${learningWord}» in ${nativeLabel}?`,
-            ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
-          },
-          targetAnswer: nativeWord,
-          options: shuffleArray([nativeWord, ...wrongOptions]),
-        } as MultiExercise);
-      } else {
-        out.push({
-          id: `gen_ft_rev_${lesson.id || 'x'}_${index}`,
-          type: 'translate',
-          prompt: {
-            hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
-            en: `How do you say «${learningWord}» in ${nativeLabel}?`,
-            ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
-          },
-          targetAnswer: nativeWord,
-        } as MultiExercise);
-      }
-    } else if (typeIndex === 2) {
-      const word = clean(learningWord);
-      if (word.length >= 3) {
-        const firstLetter = word[0];
-        const underscores = Array(word.length - 1).fill('_').join(' ');
-        out.push({
-          id: `gen_flh_${lesson.id || 'x'}_${index}`,
-          type: 'translate',
-          prompt: {
-            hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${nativeWord}`,
-            en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${nativeWord}`,
-            ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${nativeWord}`,
-          },
-          targetAnswer: word,
-        } as MultiExercise);
-      }
-    } else if (typeIndex === 3) {
-      const word = clean(learningWord);
-      if (word.length >= 3) {
-        const idx = word.length > 3
-          ? 1 + Math.floor(Math.random() * (word.length - 2))
-          : 0;
-        const chars = word.split('');
-        const missingLetter = chars[idx];
-        chars[idx] = '_';
-        
-        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-        const distractors = shuffleArray(alphabet.filter(c => c !== missingLetter)).slice(0, 3);
-        const options = shuffleArray([missingLetter, ...distractors]);
-
-        out.push({
-          id: `gen_ml_${lesson.id || 'x'}_${index}`,
-          type: 'letter_box' as any,
-          prompt: {
-            hy: `Վերականգնիր բառը:`,
-            en: `Reconstruct the word:`,
-            ru: `Восстанови слово:`,
-          },
-          slots: chars,
-          targetAnswer: word,
-          options: options,
-          hint: { hy: nativeWord, en: nativeWord, ru: nativeWord },
-        } as any);
-      }
+    if (learningWord && correctAnswer && wrongOptions.length >= 2) {
+      out.push({
+        id: `gen_rt_${lesson.id || 'x'}`,
+        type: 'multiple_choice',
+        prompt: {
+          hy: `Ինչպե՞ս կասես «${learningWord}»-ը ${nativeLabel}։`,
+          en: `How do you say «${learningWord}» in ${nativeLabel}?`,
+          ru: `Как сказать «${learningWord}» на ${nativeLabel}?`,
+        },
+        targetAnswer: correctAnswer,
+        options: shuffleArray([correctAnswer, ...wrongOptions]),
+      } as MultiExercise);
     }
-  });
+  }
 
+  // ─── 3. First Letter Hint (FLH) ───────────────────────────────
+  if (validEntries.length >= 1) {
+    const flh = validEntries[2] || validEntries[0];
+    const word = clean(getWord(flh, learningLang));
+    const hint = getWord(flh, nativeLang);
+    if (word.length >= 3 && hint) {
+      const firstLetter = word[0];
+      const underscores = Array(word.length - 1).fill('_').join(' ');
+      out.push({
+        id: `gen_flh_${lesson.id || 'x'}`,
+        type: 'translate',
+        prompt: {
+          hy: `Վերականգնիր բառը:\n\n${firstLetter} ${underscores}\n\nԱկնարկ՝ ${hint}`,
+          en: `Reconstruct the word:\n\n${firstLetter} ${underscores}\n\nHint: ${hint}`,
+          ru: `Восстанови слово:\n\n${firstLetter} ${underscores}\n\nПодсказка: ${hint}`,
+        },
+        targetAnswer: word,
+      } as MultiExercise);
+    }
+  }
+
+  // ─── 4. Missing Letter (ML) ───────────────────────────────────
+  if (validEntries.length >= 1) {
+    const ml = validEntries[3] || validEntries[0];
+    const word = clean(getWord(ml, learningLang));
+    const hint = getWord(ml, nativeLang);
+    if (word.length >= 3 && hint) {
+      const idx = word.length > 3
+        ? 1 + Math.floor(Math.random() * (word.length - 2))
+        : 0;
+      const chars = word.split('');
+      const masked = [...chars];
+      masked[idx] = '_';
+      out.push({
+        id: `gen_ml_${lesson.id || 'x'}`,
+        type: 'translate',
+        prompt: {
+          hy: `Վերականգնիր բառը:\n\n${masked.join(' ')}\n\nԱկնարկ՝ ${hint}`,
+          en: `Reconstruct the word:\n\n${masked.join(' ')}\n\nHint: ${hint}`,
+          ru: `Восстанови слово:\n\n${masked.join(' ')}\n\nПодсказка: ${hint}`,
+        },
+        targetAnswer: word,
+      } as MultiExercise);
+    }
+  }
+
+  // ─── 5. Jumbled Sentence ──────────────────────────────────────
   phrases.forEach((p: any, i: number) => {
+    if (i % 3 !== 0) return;
+    
     const target = p[learningLang] || p.en || p.hy;
     if (typeof target !== 'string') return;
+
+    // ✅ match(/\S+/g) - ԲԱԺԱՆՈՒՄ Է ՄԻԱՅՆ ԲԱՑԱՏՆԵՐՈՎ
+    // "There's a..." -> ["There's", "a", ...]
     const words = target.match(/\S+/g) || [];
+    
     if (words.length < 3) return;
 
     out.push({
-      id: `gen_jumble_${lesson.id || 'x'}_${i}`,
+      id: `gen_jumble_${i}`,
       type: 'word_order',
       prompt: {
         hy: "Դասավորիր բառերը ճիշտ հերթականությամբ",
@@ -357,6 +342,7 @@ function generateDialogueExercises(
     return typeof val === 'string' ? val.trim() : "";
   };
 
+  // ─── 6. Dialogue Response ─────────────────────────────────────
   outer1: for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 
@@ -398,6 +384,7 @@ function generateDialogueExercises(
     }
   }
 
+  // ─── 7. Dialogue Jumble ───────────────────────────────────────
   for (const dialogue of dialogues) {
     if (!Array.isArray(dialogue.turns) || dialogue.turns.length < 3) continue;
 
@@ -806,61 +793,6 @@ function FreeTextInput({ value, onChange, disabled, placeholder, onSpeak, textTo
   );
 }
 
-function LetterBoxInput({ slots, options, userAnswer, onChange, disabled, targetAnswer }: any) {
-  const handleLetterClick = (letter: string) => {
-    if (disabled) return;
-    const arr = userAnswer.split('');
-    const emptyIdx = arr.indexOf('_');
-    if (emptyIdx !== -1) {
-      arr[emptyIdx] = letter;
-      onChange(arr.join(''));
-    }
-  };
-
-  const handleSlotClick = (index: number) => {
-    if (disabled) return;
-    const arr = userAnswer.split('');
-    if (slots[index] === '_' && arr[index] !== '_') {
-      arr[index] = '_';
-      onChange(arr.join(''));
-    }
-  };
-
-  return (
-    <div className="space-y-8 flex flex-col items-center">
-      <div className="flex flex-wrap gap-1 sm:gap-2 justify-center">
-        {userAnswer.split('').map((char: string, i: number) => (
-          <button
-            key={i}
-            onClick={() => handleSlotClick(i)}
-            className={`w-8 h-10 sm:w-10 sm:h-12 rounded-lg flex items-center justify-center text-lg sm:text-xl font-bold border-2 transition-all ${
-              char === ' ' ? 'border-transparent bg-transparent w-4 sm:w-6' :
-              char === '_' ? 'border-red-500 bg-red-500/10 text-red-500 animate-pulse' :
-              slots[i] === '_' ? 'border-blue-500 bg-blue-500/20 text-blue-500' : 
-              'border-emerald-500 bg-emerald-500/10 text-emerald-500'
-            }`}
-          >
-            {char === ' ' ? '' : char}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap gap-2 justify-center mt-4">
-        {options.map((opt: string) => (
-          <button
-            key={opt}
-            onClick={() => handleLetterClick(opt)}
-            disabled={disabled || !userAnswer.includes('_')}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/20 dark:bg-gray-800/80 hover:bg-white/30 dark:hover:bg-gray-700 text-lg sm:text-xl font-bold border border-white/20 dark:border-gray-700 disabled:opacity-50 transition-all text-gray-900 dark:text-white"
-          >
-            {opt}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ─── MAIN COMPONENT ─────────────────────────────────────────────────
 
 function LearnInner() {
@@ -868,10 +800,6 @@ function LearnInner() {
   const params = useSearchParams();
   const lessonId = params?.get("lesson") ?? "";
   const pairParam = params?.get("pair") as LangPair | null;
-  
-  // ✅ ԺԱՄԱՆԱԿԱՎՈՐ ՄԻԱՑՎԱԾ Է DEV MENU-Ն
-  const isDevMode = true; 
-  const [showDevMenu, setShowDevMenu] = useState(false);
 
   const { onCorrect, onWrong, onLessonComplete, setPage } = useNuri();
   const { t, locale } = useI18n();
@@ -967,21 +895,13 @@ function LearnInner() {
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
   const [ex, setEx] = useState<ExState>({
-    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: "", customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
+    index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
   });
-
-  useEffect(() => {
-    if (!ex.nuriSpeech) {
-      setEx(prev => ({ ...prev, nuriSpeech: randomLine("idle", native) }));
-    }
-  }, [ex.nuriSpeech, native]);
 
   const current = lesson?.exercises?.[ex.index];
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
-
-  const isLetterBoxComplete = (current?.type as string) === 'letter_box' ? !ex.userAnswer.includes('_') : true;
 
   const toggleMode = useCallback(() => {
     setIsProfessional((prev) => {
@@ -1126,12 +1046,7 @@ function LearnInner() {
 
   useEffect(() => {
     if (!audioEnabled || !current || !isAudioReady) return;
-    
-    let promptText = current.prompt?.[native] || current.prompt?.en || "";
-    if ((current.type as string) === 'letter_box' && (current as any).hint?.[native]) {
-       promptText += " " + (current as any).hint[native];
-    }
-    
+    const promptText = current.prompt?.[native] || current.prompt?.en || "";
     if (!promptText) return;
     if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
     autoPlayTimeoutRef.current = setTimeout(() => {
@@ -1156,9 +1071,6 @@ function LearnInner() {
       setMatchRightItems(shuffleArray([...right]));
       setMatchPairsMap({});
       setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
-    } else if ((current.type as string) === "letter_box" && (current as any).slots) {
-      const initial = (current as any).slots.join('');
-      setEx((prev) => ({ ...prev, userAnswer: initial }));
     } else {
       setMatchLeftItems([]); setMatchRightItems([]); setMatchPairsMap({});
     }
@@ -1168,21 +1080,7 @@ function LearnInner() {
     setBreakTimer(null);
   }, [current]);
 
-  useEffect(() => {
-    if (
-      current?.type === "match_pairs" &&
-      current.pairs &&
-      Object.keys(matchPairsMap).length === current.pairs.length &&
-      ex.state === "idle"
-    ) {
-      const timer = setTimeout(() => {
-        submitRef.current();
-      }, 400);
-      return () => clearTimeout(timer);
-    }
-  }, [matchPairsMap, current, ex.state]);
-
-  const loadLesson = useCallback(() => {
+    const loadLesson = useCallback(() => {
     if (loadedLessonRef.current === lessonId) return;
 
     try {
@@ -1199,26 +1097,20 @@ function LearnInner() {
       const pair = pairParam ?? cfg?.pair ?? `${nativeLang}-${learnLang}`;
 
       let l: any = null;
-      let sourceForExtras: any = null;
-
-      const offlineRaw = offlineLessonEngine.getLesson(lessonId);
-      let offlineTranslated: any = null;
-
-      if (offlineRaw) {
-        try {
-          offlineTranslated = translateOfflineLessonForLang(offlineRaw as any, learnLang as any) as any;
-        } catch (e) {
-          console.warn("Offline translation failed, using raw:", e);
-          offlineTranslated = offlineRaw;
-        }
-      }
 
       if (isProfessional) {
-        l = offlineTranslated || getLessonById(pair as LangPair, lessonId);
-        sourceForExtras = l;
+        l = offlineLessonEngine.getLesson(lessonId);
+        if (!l) {
+          const found = getLessonById(pair as LangPair, lessonId);
+          if (found) l = found;
+        } else {
+          l = translateOfflineLessonForLang(l as any, learnLang as any) as any;
+        }
       } else {
-        l = getLessonById(pair as LangPair, lessonId) || offlineTranslated;
-        sourceForExtras = offlineTranslated || l;
+        l = getLessonById(pair as LangPair, lessonId);
+        if (!l) {
+          l = offlineLessonEngine.getLesson(lessonId);
+        }
       }
 
       if (!l) {
@@ -1226,6 +1118,7 @@ function LearnInner() {
         return;
       }
 
+      // ✅ ՈՒՂՂՈՒՄ ԵՆՔ ՀԻՆ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ (word_order) ԵՎ ԲԱԺԱՆՈՒՄ ԱՊԱԹԱՐՑՈՎ
       let originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
       
       originalExercises = originalExercises.map((ex: any) => {
@@ -1242,21 +1135,21 @@ function LearnInner() {
       const originalCount = originalExercises.length;
       const extras: MultiExercise[] = [];
 
-      if (sourceForExtras) {
-        try {
-          const wordExs = generateWordExercises(sourceForExtras, nativeLang, learnLang);
-          extras.push(...wordExs);
-          console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
-        } catch (e) { console.warn("WordGen failed:", e); }
+      // 1. Բառային և նախադասությունների վարժություններ (Translation, Jumble, Missing letter)
+      try {
+        const wordExs = generateWordExercises(l, nativeLang, learnLang);
+        extras.push(...wordExs);
+        console.log(`✨ [NEW] Word exercises: ${wordExs.length}`);
+      } catch (e) { console.warn("WordGen failed:", e); }
 
-        try {
-          const dialogueExs = generateDialogueExercises(sourceForExtras, nativeLang, learnLang);
-          extras.push(...dialogueExs);
-          console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
-        } catch (e) { console.warn("DialogueGen failed:", e); }
-      }
+      // 2. Երկխոսությունների վարժություններ (Dialogue Response, Dialogue Jumble)
+      try {
+        const dialogueExs = generateDialogueExercises(l, nativeLang, learnLang);
+        extras.push(...dialogueExs);
+        console.log(`✨ [NEW] Dialogue exercises: ${dialogueExs.length}`);
+      } catch (e) { console.warn("DialogueGen failed:", e); }
 
-      console.log(`📚 Total: ${originalCount + extras.length} exercises (Original: ${originalCount}, New: ${extras.length})`);
+      newExercisesLog(extras); // Helper for logging
 
       const allExercises = [...originalExercises, ...extras];
       l = { ...l, exercises: allExercises };
@@ -1264,6 +1157,7 @@ function LearnInner() {
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
 
+      // 🧪 Test — ?test=new jumps to first extra
       if (typeof window !== 'undefined' && extras.length > 0) {
         const test = new URLSearchParams(window.location.search).get('test');
         if (test === 'new') {
@@ -1288,6 +1182,12 @@ function LearnInner() {
     }
   }, [lessonId, pairParam, router, isProfessional]);
 
+  // Helper for logging (defined outside the component or at the bottom)
+  function newExercisesLog(exs: MultiExercise[]) {
+    exs.forEach((ex) => console.log(`   + [${ex.type}] ${ex.id}`));
+    console.log(`📚 Total: ${lesson?.exercises?.length || 0} exercises`);
+  }
+
   useEffect(() => {
     if (isProfessional && !offlineLessonEngine.isAvailable()) {
       const checkReady = setInterval(() => {
@@ -1303,10 +1203,7 @@ function LearnInner() {
     const preload = async () => {
       const textsToPreload: string[] = [];
       lesson.exercises.slice(0, 8).forEach((ex) => {
-        let promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || "");
-        if ((ex.type as string) === 'letter_box' && (ex as any).hint?.[native]) {
-           promptText += " " + (ex as any).hint[native];
-        }
+        const promptText = sanitizeForTTS(ex.prompt?.[native] || ex.prompt?.en || "");
         if (promptText) textsToPreload.push(promptText);
         if (learningLang === "hy" && ex.targetAnswer) {
           const answerText = sanitizeForTTS(ex.targetAnswer);
@@ -1427,14 +1324,6 @@ function LearnInner() {
           } catch {}
           setEx((s) => ({ ...s, state: "correct", feedback: t("page_all_pairs_correct"), score: 1, hayqEarned: hayq, corrections: [], nuriMood: "excited", nuriSpeech: randomLine("correct_perfect", native), customImage: "/images/nuri/nuri-encouraging.png", showHint: false, showCoinAnimation: true }));
           setTimeout(() => { setEx((s) => ({ ...s, showCoinAnimation: false })); }, 2500);
-          
-          setTimeout(() => {
-            if (!advancingRef.current) {
-              advancingRef.current = true;
-              try { nextRef.current?.(); } catch {}
-            }
-          }, 2500);
-          
           return;
         }
 
@@ -1449,9 +1338,6 @@ function LearnInner() {
         const answerToUse = overrideAnswer ?? ex.userAnswer;
         if (!answerToUse) { showMessage(t("page_please_select_answer"), "info"); return; }
         answerForApi = answerToUse;
-      } else if ((current.type as string) === "letter_box") {
-        if (ex.userAnswer.includes('_')) { showMessage(t("page_please_fill_all_blanks"), "info"); return; }
-        answerForApi = ex.userAnswer;
       } else {
         if (!ex.userAnswer.trim()) { showMessage(t("page_please_enter_answer"), "info"); return; }
         answerForApi = ex.userAnswer.trim();
@@ -1596,10 +1482,6 @@ function LearnInner() {
       const right = current.pairs.map((p) => p[1]);
       setMatchLeftItems(left); setMatchRightItems(shuffleArray([...right])); setMatchPairsMap({}); setEx((prev) => ({ ...prev, matchPairsAnswer: {} }));
     }
-    if ((current?.type as string) === "letter_box" && (current as any)?.slots) {
-      const initial = (current as any).slots.join('');
-      setEx((prev) => ({ ...prev, userAnswer: initial }));
-    }
     exerciseStartTime.current = Date.now();
   }, [current, native]);
 
@@ -1643,291 +1525,4 @@ function LearnInner() {
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-3xl font-bold mb-1">
           {accuracy >= 90 ? t("page_perfect") : accuracy >= 70 ? t("page_great") : t("page_good_job")}
         </motion.h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-gray-500 dark:text-gray-400 text-sm mb-6">{lessonTitle}</motion.p>
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="flex gap-3 mb-6">
-          {[1, 2, 3].map((n) => (
-            <motion.span key={n} initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: 0.4 + n * 0.12, type: "spring", damping: 8 }} className={`text-4xl ${n <= crownCount ? "opacity-100" : "opacity-20 grayscale"}`}>⭐</motion.span>
-          ))}
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="grid grid-cols-3 gap-3 mb-6 w-full max-w-xs">
-          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-emerald-500">{accuracy}%</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_accuracy")}</p></GlassCard>
-          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-yellow-500">+{stats.hayqEarned}</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">HAYQ</p></GlassCard>
-          <GlassCard variant="compact" className="p-3 text-center"><p className="text-2xl font-bold text-blue-500">{formatTime(Date.now() - startTime)}</p><p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">{t("page_time")}</p></GlassCard>
-        </motion.div>
-        <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} onClick={() => router.push("/world")} className="w-full max-w-xs py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">
-          <Trophy size={18} />{t("page_continue")} →
-        </motion.button>
-      </div>
-    );
-  }
-
-  if (hearts <= 0) {
-    const minutesLeft = Math.ceil(countdown / 60000);
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
-        <GlassCard variant="premium" className="p-8 max-w-sm w-full">
-          <div className="text-6xl mb-4">💔</div>
-          <h1 className="text-2xl font-bold mb-2">{t("page_no_hearts")}</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{t("page_next_heart_in", { minutes: minutesLeft })}</p>
-          <div className="space-y-3">
-            <button onClick={handlePractice} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"><RefreshCw size={16} />{t("page_practice_for_heart")}</button>
-            <button onClick={handleRefill} className="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors"><Coins size={16} />{t("page_refill_hearts", { hayq: totalHAYQ })}</button>
-            <button onClick={exitToWorld} className="w-full text-gray-500 dark:text-gray-400 text-sm hover:text-gray-700 dark:hover:text-gray-300 transition-colors">← {t("page_back_to_world")}</button>
-          </div>
-        </GlassCard>
-      </div>
-    );
-  }
-
-  if (!lesson || !current) return null;
-
-  return (
-    <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white">
-      <header className="sticky top-0 z-40 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border-b border-white/20 dark:border-white/5 shadow-[0_4px_16px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
-        <div className="container-main py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <button onClick={() => setShowExitConfirm(true)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors" aria-label={t("page_back")}><ArrowLeft size={20} /></button>
-              <div>
-                <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none">
-                  {typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en}
-                </h2>
-                <p className="text-[10px] text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                  {isRetryPhase && <span>{t("page_review")} · </span>}
-                  <span className="text-blue-500">{t("page_online")} · </span>
-                  {t("page_lesson_x_of_y", { current: ex.index + 1, total: lesson.exercises?.length || 0 })}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 flex-wrap justify-end">
-              {/* ✅ DEV MENU ԿՈՃԱԿԸ ՏԵՂԱՓՈԽՎԵԼ Է ԱՅՍՏԵՂ */}
-              {isDevMode && (
-                <button onClick={() => setShowDevMenu(!showDevMenu)} className="px-3 py-1.5 rounded-xl text-xs font-medium bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/30 flex items-center gap-1.5 transition-all">
-                  <Wrench size={14} />
-                  <span className="hidden sm:inline">Dev</span>
-                </button>
-              )}
-              <button onClick={toggleMode} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${isProfessional ? "bg-purple-500/20 text-purple-400 border-purple-500/30 hover:bg-purple-500/30" : "bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30"}`} title={isProfessional ? t("page_amateur_mode") : t("page_professional_mode")}>
-                {isProfessional ? <GraduationCap size={14} /> : <Gamepad2 size={14} />}
-                <span className="hidden sm:inline">{isProfessional ? t("page_professional_short") : t("page_amateur_short")}</span>
-              </button>
-              <button onClick={toggleAudio} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${audioEnabled ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"}`} title={audioEnabled ? t("page_audio_on") : t("page_audio_off")}>
-                {audioEnabled ? <Volume2 size={14} /> : <VolumeOff size={14} />}
-                <span className="hidden sm:inline">{audioEnabled ? t("page_audio_on") : t("page_audio_off")}</span>
-              </button>
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><Heart size={16} className="text-red-500" /><span className="text-sm font-bold">{hearts}</span></div>
-              {attempts > 0 && ex.state !== "correct" && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><span className="text-xs text-yellow-500">❌</span><span className="text-sm font-bold text-yellow-500">{attempts}/3</span></div>
-              )}
-              {currentStreak > 1 && (
-                <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-sm border border-orange-500/30"><Flame size={14} className="text-orange-500" /><span className="text-sm font-bold text-orange-500">{currentStreak}</span></div>
-              )}
-              <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/40 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700"><Coins size={16} className="text-yellow-500" /><span className="text-sm font-bold">{totalHAYQ}</span></div>
-              <button onClick={() => setShowStatsPanel(!showStatsPanel)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors text-gray-500 dark:text-gray-400" title={t("page_stats")}><BarChart3 size={18} /></button>
-            </div>
-          </div>
-
-          <div className="mt-2 w-full h-1.5 rounded-full bg-white/10 dark:bg-gray-700 overflow-hidden">
-            <motion.div className="h-full rounded-full bg-gradient-to-r from-red-500 to-orange-400" initial={{ width: 0 }} animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
-          </div>
-
-          {isPlaying && <p className="text-xs text-blue-400 animate-pulse mt-1.5 flex items-center gap-1">🔊 {t("page_speaking")}</p>}
-          {breakTimer !== null && <p className="text-xs text-green-400 animate-pulse mt-1.5 flex items-center gap-1"><Clock size={12} className="animate-pulse" />{t("page_break_remaining", { time: formatBreakTime(breakTimer) })}</p>}
-          {isRelaxing && <p className="text-xs text-green-400/60 mt-1.5 flex items-center gap-1 animate-pulse"><Play size={12} className="animate-pulse" />🎵 {t("page_relax_music")}</p>}
-        </div>
-      </header>
-
-      {/* ✅ DEV MENU-Ի ԲԱՑՎՈՂ ՑԱՆԿԸ */}
-      <AnimatePresence>
-        {showDevMenu && isDevMode && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="fixed top-16 right-4 z-[9999] w-80 max-h-[500px] overflow-y-auto bg-gray-900/95 backdrop-blur-md text-white rounded-xl shadow-2xl p-4 border border-gray-700">
-            <div className="flex items-center justify-between mb-2 border-b border-gray-700 pb-2">
-              <h3 className="font-bold text-sm">🛠️ Թեստային ցանկ ({lesson?.exercises?.length})</h3>
-              <button onClick={() => setShowDevMenu(false)} className="text-gray-400 hover:text-white"><XCircle size={16} /></button>
-            </div>
-            <div className="space-y-1">
-              {lesson?.exercises?.map((item, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    setEx({ index: i, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "", showHint: false, timeSpent: 0 });
-                    setShowDevMenu(false);
-                  }}
-                  className={`w-full text-left text-xs p-2 rounded transition-colors ${ex.index === i ? 'bg-blue-600' : 'hover:bg-gray-800'}`}
-                >
-                  <span className="font-bold">{i + 1}.</span> [{item.type}] {item.targetAnswer?.substring(0, 20)}...
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <HaqCoinAnimation amount={ex.hayqEarned} show={!!ex.showCoinAnimation} />
-      <CorrectAnswerEffect show={showCorrectEffect} intensity={ex.score >= 0.98 ? "perfect" : "normal"} />
-
-      <AnimatePresence>
-        {showStatsPanel && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden border-b border-white/20 dark:border-white/5">
-            <div className="container-main py-3">
-              <GlassCard variant="premium" className="p-4">
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
-                  <div><div className="text-lg font-bold text-emerald-500">{stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_correct")}</div></div>
-                  <div><div className="text-lg font-bold text-red-500">{stats.total - stats.correct}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_wrong")}</div></div>
-                  <div><div className="text-lg font-bold text-yellow-500">{stats.hayqEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">HAYQ</div></div>
-                  <div><div className="text-lg font-bold text-emerald-500">{stats.seedsEarned}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">🌱 {t("page_seeds")}</div></div>
-                  <div><div className="text-lg font-bold text-orange-500">{stats.bestStreak}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_best_streak")}</div></div>
-                  <div><div className="text-lg font-bold text-purple-500">{formatTime(stats.timeSpent)}</div><div className="text-[10px] text-gray-500 dark:text-gray-400">{t("page_time")}</div></div>
-                </div>
-                <div className="mt-2 text-center text-xs text-blue-500">{t("page_online_mode_detail", { native, learning: learningLang, wav: isWAVAvailable ? t("page_wav_tts") : t("page_tts_only") })}</div>
-              </GlassCard>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="container-main py-6">
-        <div className="flex flex-col items-center gap-6">
-          <div className="min-h-[80px] w-full flex items-start justify-center"><NuriSpeech text={ex.nuriSpeech} mood={ex.nuriMood} /></div>
-          {ex.customImage ? (<div className="w-[100px] h-[100px] relative"><img src={ex.customImage} alt={t("page_nuri")} className="w-full h-full object-contain" /></div>) : (<Nuri mood={ex.nuriMood} size={100} glow={ex.state === "correct"} />)}
-
-          <GlassCard variant="premium" className="w-full max-w-2xl p-6 min-h-[320px] flex flex-col">
-            {isRetryPhase && (<p className="text-xs font-black uppercase tracking-widest text-purple-400 mb-2 flex items-center gap-1"><Brain size={14} /> {t("page_review_mistake")}</p>)}
-
-            <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-lg font-bold flex-1 whitespace-pre-line">
-                {current.prompt?.[native] ?? current.prompt?.["en"] ?? ""}
-              </h3>
-              
-              {/* ✅ ԱՅՍՏԵՂ Է ՏԵՂԱՓՈԽՎԱԾ ԵՎ ՄԻՇՏ ՏԵՍԱՆԵԼԻ ՀՈՒՇՈՒՄԸ */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                {current?.type === "multiple_choice" && (
-                  <span className="text-xs text-amber-500 dark:text-amber-400 font-medium animate-pulse mr-1">
-                    {native === "hy" ? "Ընտրիր պատասխանը" : native === "ru" ? "Выберите ответ" : "Choose an answer"}
-                  </span>
-                )}
-                <button
-                  onClick={() => {
-                    let promptText = current.prompt?.[native] || current.prompt?.en || "";
-                    if ((current.type as string) === 'letter_box' && (current as any).hint?.[native]) promptText += " " + (current as any).hint[native];
-                    playAudioWithFallback(promptText, native, "prompt").catch(() => {});
-                  }}
-                  className="p-2 rounded-xl bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors"
-                  title={t("page_listen")}
-                >
-                  <Volume2 size={18} />
-                </button>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/40 dark:bg-white/10 text-gray-500 dark:text-gray-400">{ex.index + 1}/{lesson.exercises?.length}</span>
-              </div>
-            </div>
-
-            <div className="min-h-[40px] mb-4">
-              {(current.hint && (ex.state === "incorrect" || (current.type as string) === 'letter_box') && current.hint[native]) && (
-                <p className="text-sm text-amber-400 flex items-center gap-2"><Sparkles size={14} />{current.hint[native]}</p>
-              )}
-            </div>
-
-            {ex.state === "incorrect" && attempts < 2 && (<p className="text-amber-500 text-sm mb-3 font-bold flex items-center gap-2"><AlertCircle size={14} />{t("page_attempts_left", { count: attemptsLeft })}</p>)}
-
-            {ex.state === "incorrect" && attempts >= 2 && (
-              <div className="mb-4 p-4 bg-blue-50/50 dark:bg-blue-950/30 backdrop-blur-sm border border-blue-200/30 dark:border-blue-800/30 rounded-xl">
-                <p className="text-xs font-black uppercase tracking-widest text-blue-500 mb-2 flex items-center gap-1"><BookOpen size={12} /> {t("page_lets_learn_from_answer")}</p>
-                <p className="text-lg font-bold mb-2">✅ {current.targetAnswer}</p>
-                {current.acceptableAnswers && current.acceptableAnswers.length > 1 && (<p className="text-xs text-gray-500 dark:text-gray-400">{t("page_also_valid")}: {current.acceptableAnswers.slice(1, 4).join(", ")}</p>)}
-                {current.hint?.[native] && (<p className="text-xs text-gray-500 dark:text-gray-400 mt-2">💡 {current.hint[native]}</p>)}
-              </div>
-            )}
-
-            <div className="mt-4 flex-1 flex flex-col justify-center">
-              {current.type === "word_order" && current.words ? (
-                <WordOrderInput selected={selectedWords} available={availWords} onSelect={(w) => { setSW([...selectedWords, w]); setAW(availWords.filter((x) => x !== w)); }} onDeselect={(w) => { setAW([...availWords, w]); setSW(selectedWords.filter((x) => x !== w)); }} disabled={ex.state !== "idle"} t={t} />
-              ) : current.type === "multiple_choice" && current.options ? (
-                <MultipleChoiceInput options={current.options} targetAnswer={current.targetAnswer || ""} userAnswer={ex.userAnswer} state={ex.state} onSelect={(opt) => { if (ex.state === "idle") { setEx({ ...ex, userAnswer: opt }); setTimeout(() => submitRef.current?.(opt), 50); } }} disabled={ex.state !== "idle"} />
-              ) : current.type === "match_pairs" && current.pairs ? (
-                <MatchPairsInput leftItems={matchLeftItems} rightItems={matchRightItems} matched={matchPairsMap} onMatch={(left, right) => { const newMap = { ...matchPairsMap, [left]: right }; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); setMatchRightItems((prev) => prev.filter((r) => r !== right)); }} onUnmatch={(left) => { const newMap = { ...matchPairsMap }; const right = newMap[left]; delete newMap[left]; setMatchPairsMap(newMap); setEx((prev) => ({ ...prev, matchPairsAnswer: newMap })); if (right) setMatchRightItems((prev) => [...prev, right]); }} disabled={ex.state !== "idle"} onPlayAudio={playMatchAudio} native={native} learningLang={learningLang} />
-              ) : (current.type as string) === "letter_box" && (current as any).slots ? (
-                <LetterBoxInput slots={(current as any).slots} options={(current as any).options} userAnswer={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} targetAnswer={current.targetAnswer} />
-              ) : current.type === "listening" && current.ttsText ? (
-                <ListeningInput ttsText={current.ttsText} ttsLang={current.ttsLang || "hy"} promptText={current.prompt[native] ?? current.prompt["en"]} value={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} onSpeak={handleSpeak} isSpeaking={isPlaying} t={t} />
-              ) : (
-                <FreeTextInput value={ex.userAnswer} onChange={(val: string) => setEx({ ...ex, userAnswer: val })} disabled={ex.state !== "idle"} placeholder={t("page_enter_your_answer")} onSpeak={handleSpeak} textToSpeak={ex.userAnswer} />
-              )}
-            </div>
-          </GlassCard>
-
-          <div className="w-full max-w-2xl h-[240px] overflow-hidden">
-            {ex.state === "idle" ? (
-              <div className="flex gap-3">
-                {/* ✅ ԱՅՍՏԵՂԻՑ ՀԱՆՎԱԾ Է «Ընտրիր պատասխանը» տեքստը */}
-                {current?.type !== "multiple_choice" && (
-                  <button 
-                    onClick={() => submit()} 
-                    disabled={!isLetterBoxComplete || ex.state !== "idle"}
-                    className="flex-1 py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Send size={18} />{t("page_check_enter")}
-                  </button>
-                )}
-              </div>
-            ) : ex.state === "incorrect" && attempts < 2 ? (
-              <button onClick={retrySameStep} className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl border border-white/20 dark:border-gray-700 hover:bg-white/10 dark:hover:bg-gray-800 transition-colors font-medium"><RefreshCw size={18} />{t("page_try_again_left", { count: attemptsLeft })}</button>
-            ) : (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`border rounded-xl p-5 backdrop-blur-sm ${ex.state === "correct" ? "border-emerald-500/30 bg-emerald-500/10" : "border-red-500/30 bg-red-500/10"}`}>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5">{ex.state === "correct" ? <CheckCircle size={24} className="text-emerald-500" /> : <XCircle size={24} className="text-red-500" />}</div>
-                  <div className="flex-1">
-                    <p className="font-medium">{translateFeedback(ex.feedback, locale)}</p>
-                    {ex.corrections && ex.corrections.length > 0 && (<div className="mt-2 text-sm text-gray-600 dark:text-gray-400"><ul className="list-disc list-inside">{ex.corrections.map((c) => (typeof c === "string" ? c.trim() : "")).filter((c) => c.length > 0).map((c, i) => (<li key={i}>{c}</li>))}</ul></div>)}
-                    {ex.hayqEarned > 0 && (<div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-500 text-xs font-bold"><Coins size={12} /> +{ex.hayqEarned} HAYQ</div>)}
-                  </div>
-                </div>
-                {ex.state === "correct" ? (
-                  <div className="mt-4 w-full h-1.5 bg-emerald-500/20 rounded-full overflow-hidden"><motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.2, ease: "linear" }} className="h-full bg-emerald-500" /></div>
-                ) : (
-                  <>
-                    <div className="mt-4 w-full h-1.5 bg-red-500/20 rounded-full overflow-hidden"><motion.div initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.8, ease: "linear" }} className="h-full bg-red-500" /></div>
-                    <button onClick={() => nextRef.current()} className="w-full mt-4 py-3 rounded-xl bg-purple-500 text-white font-bold hover:bg-purple-600 transition flex items-center justify-center gap-2">{t("page_continue")} →</button>
-                  </>
-                )}
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {showExitConfirm && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[10000] flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm" onClick={() => setShowExitConfirm(false)}>
-            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }} onClick={(e) => e.stopPropagation()} className="max-w-sm w-full">
-              <GlassCard variant="premium" className="max-w-sm w-full p-6 text-center">
-                <Nuri mood="sad" size={80} />
-                <h3 className="text-xl font-black mt-3 mb-2">{t("page_exit_lesson_title")}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">{t("page_exit_lesson_description")}</p>
-                <div className="flex gap-3">
-                  <button onClick={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl border border-white/20 dark:border-gray-700 font-bold hover:bg-white/10 dark:hover:bg-gray-800 transition-colors">{t("page_stay")}</button>
-                  <button onClick={exitToWorld} className="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors">{t("page_exit")}</button>
-                </div>
-              </GlassCard>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border px-6 py-3 max-w-sm rounded-xl text-center shadow-xl ${toastType === "success" ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400" : toastType === "error" ? "border-red-500/30 text-red-600 dark:text-red-400" : "border-blue-500/30 text-blue-600 dark:text-blue-400"}`}>
-            <p className="text-sm font-medium">{toastMessage}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-export default function LearnPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-transparent dark:bg-transparent"><div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin border-red-600" /></div>}>
-      <LearnInner />
-    </Suspense>
-  );
-}
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 

@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Heart, Coins, CheckCircle, XCircle, Volume2, RefreshCw, Send,
   Trophy, Clock, Sparkles, Brain, Flame, BarChart3, Loader2, BookOpen,
-  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench
+  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench, ArrowRight
 } from "lucide-react";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
@@ -536,7 +536,6 @@ function LearnInner() {
   const lessonId = params?.get("lesson") ?? "";
   const pairParam = params?.get("pair") as LangPair | null;
   
-  // ✅ ԺԱՄԱՆԱԿԱՎՈՐ ՄԻԱՑՎԱԾ Է DEV MENU-Ն
   const isDevMode = true; 
   const [showDevMenu, setShowDevMenu] = useState(false);
 
@@ -632,6 +631,11 @@ function LearnInner() {
   const [matchPairsMap, setMatchPairsMap] = useState<Record<string, string>>({});
   const [matchRightItems, setMatchRightItems] = useState<string[]>([]);
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
+
+  // ✅ ՆՈՐ ՎԻՃԱԿՆԵՐ ԾԱՆՈԹԱՑՄԱՆ ՓՈՒԼԻ ՀԱՄԱՐ
+  const [studyMode, setStudyMode] = useState<"intro" | "practice">("intro");
+  const [introIndex, setIntroIndex] = useState(0);
+  const [vocabList, setVocabList] = useState<any[]>([]);
 
   const [ex, setEx] = useState<ExState>({
     index: 0, userAnswer: "", matchPairsAnswer: {}, state: "idle", feedback: "", score: 0, hayqEarned: 0, nuriMood: "idle", nuriSpeech: "", customImage: "", showHint: false, timeSpent: 0, showListenButton: false,
@@ -840,7 +844,6 @@ function LearnInner() {
     }
   }, [matchPairsMap, current, ex.state]);
 
-  // ✅ ՄԻԱՅՆ ՊԱՏՐԱՍՏԻ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԻ ԲԵՌՆՈՒՄ
   const loadLesson = useCallback(() => {
     if (loadedLessonRef.current === lessonId) return;
 
@@ -878,6 +881,10 @@ function LearnInner() {
         return;
       }
 
+      // ✅ ԲԵՌՆՈՒՄ ԵՆՔ ԲԱՌԱՐԱՆԸ ԾԱՆՈԹԱՑՄԱՆ ՀԱՄԱՐ
+      const vocab = Array.isArray(l.vocabulary) ? l.vocabulary : [];
+      setVocabList(vocab);
+
       let originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
       
       originalExercises = originalExercises.map((ex: any) => {
@@ -895,6 +902,14 @@ function LearnInner() {
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
+
+      // Եթե բառարան չկա, ուղիղ անցնում ենք վարժություններին
+      if (vocab.length === 0) {
+        setStudyMode("practice");
+      } else {
+        setStudyMode("intro");
+        setIntroIndex(0);
+      }
 
       const rewards = syncHearts();
       setHearts(rewards.hearts);
@@ -1193,6 +1208,16 @@ function LearnInner() {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
+        if (studyMode === "intro") {
+          setIntroIndex((prev) => {
+            if (prev + 1 >= vocabList.length) {
+              setStudyMode("practice");
+              return 0;
+            }
+            return prev + 1;
+          });
+          return;
+        }
         if (ex.state === "idle") submitRef.current();
         else if (ex.state === "correct" || (ex.state === "incorrect" && attempts >= 2)) nextRef.current();
       }
@@ -1201,7 +1226,7 @@ function LearnInner() {
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [ex.state, attempts, toggleHint]);
+  }, [ex.state, attempts, toggleHint, studyMode, vocabList.length]);
 
   const retrySameStep = useCallback(() => {
     setEx((s) => ({ ...s, userAnswer: "", state: "idle", feedback: "", score: 0, nuriMood: "idle", nuriSpeech: randomLine("idle", native), customImage: "/images/nuri/nuri-thinking.png", showHint: false, showListenButton: false }));
@@ -1290,7 +1315,88 @@ function LearnInner() {
     );
   }
 
-  if (!lesson || !current) return null;
+  if (!lesson) return null;
+
+  // ✅ ԾԱՆՈԹԱՑՄԱՆ ՓՈՒԼԻ ԷԿՐԱՆԸ (INTRO PHASE)
+  if (studyMode === "intro" && vocabList.length > 0) {
+    const word = vocabList[introIndex];
+    const targetWord = word[learningLang] || word.en || word.hy;
+    const nativeWord = word[native] || word.en || word.hy;
+
+    return (
+      <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white flex flex-col">
+        <header className="sticky top-0 z-40 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border-b border-white/20 dark:border-white/5 shadow-sm">
+          <div className="container-main py-3 flex items-center justify-between">
+            <button onClick={() => setShowExitConfirm(true)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"><ArrowLeft size={20} /></button>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                Նոր բառեր
+              </span>
+              <span className="text-xs text-gray-500 font-medium">{introIndex + 1} / {vocabList.length}</span>
+            </div>
+          </div>
+          <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-800">
+            <motion.div 
+              className="h-full bg-emerald-500" 
+              initial={{ width: 0 }} 
+              animate={{ width: `${((introIndex) / vocabList.length) * 100}%` }} 
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </header>
+
+        <div className="flex-1 flex flex-col items-center justify-center p-6">
+          <div className="mb-8"><Nuri mood="happy" size={100} /></div>
+          
+          <GlassCard variant="premium" className="w-full max-w-lg p-8 text-center flex flex-col items-center">
+            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Նոր բառ</h2>
+            
+            <h1 className="text-5xl font-black text-red-600 dark:text-red-400 mb-2">{targetWord}</h1>
+            
+            <button 
+              onClick={() => handleSpeak(targetWord, learningLang, "answer")}
+              className="p-3 rounded-full bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-all mb-6"
+            >
+              <Volume2 size={24} />
+            </button>
+
+            <div className="w-full h-px bg-gray-200 dark:bg-gray-700 mb-6" />
+
+            <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">{nativeWord}</h3>
+            
+            {/* Օրինակ նախադասություն (եթե առկա է) */}
+            {word.example && (
+              <p className="text-sm text-gray-500 mt-4 italic">Օրինակ՝ {word.example}</p>
+            )}
+          </GlassCard>
+
+          <div className="w-full max-w-lg mt-8">
+            <button 
+              onClick={() => {
+                if (introIndex + 1 >= vocabList.length) {
+                  setStudyMode("practice");
+                } else {
+                  setIntroIndex(prev => prev + 1);
+                }
+              }}
+              className="w-full py-4 text-sm flex items-center justify-center gap-2 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-500/20"
+            >
+              {introIndex + 1 >= vocabList.length ? "Անցնել Վարժություններին" : "Հաջորդ բառը"} <ArrowRight size={18} />
+            </button>
+            <button 
+              onClick={() => setStudyMode("practice")}
+              className="w-full mt-3 py-3 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+            >
+              Բաց թողնել ծանոթացումը
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ ԵԹԵ ՉԿԱ ԲԱՌԱՐԱՆ ԿԱՄ ԱՐԴԵՆ ԱՆՑԵԼ ԵՆՔ ԾԱՆՈԹԱՑՄԱՆ ՓՈՒԼԸ, ՑՈՒՅՑ ԵՆՔ ՏԱԼԻՍ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ
+  if (!current) return null;
 
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white">

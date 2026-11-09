@@ -19,6 +19,7 @@ import {
   deductHeart, buyHeartRefill, getNextHeartCountdown, saveCrownLevel,
   earnHeartByPractice, updateQuestProgress,
 } from "@/lib/rewards/seeds";
+import { loadMastery, updateMastery } from "@/lib/adaptive/mastery";
 import { supabase } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useAudioManager } from "@/lib/hooks/useAudioManager";
@@ -64,12 +65,6 @@ interface LessonStats {
   timeSpent: number;
 }
 
-interface WordMastery {
-  level: number; // 0 - 5
-  nextReview: number; // timestamp
-  mistakes: number;
-}
-
 // ─── HELPERS ──────────────────────────────────────────────────────────
 
 function sanitizeForTTS(text: string): string {
@@ -86,7 +81,6 @@ function sanitizeForTTS(text: string): string {
 }
 
 const MISTAKES_KEY = "nur_lesson_mistakes_v2";
-const MASTERY_KEY = "nur_word_mastery_v1";
 
 function logMistake(lessonId: string, ex: MultiExercise, attempts: number, revealed: boolean) {
   if (typeof window === "undefined") return;
@@ -158,47 +152,6 @@ function formatTime(ms: number): string {
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
-}
-
-// ─── SPACED REPETITION ──────────────────────────────────────────────
-
-function getMasteryData(): Record<string, WordMastery> {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = localStorage.getItem(MASTERY_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveMasteryData(data: Record<string, WordMastery>) {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(MASTERY_KEY, JSON.stringify(data));
-  } catch {}
-}
-
-function updateMasteryProgress(wordKey: string, isCorrect: boolean) {
-  const data = getMasteryData();
-  const current = data[wordKey] || { level: 0, nextReview: 0, mistakes: 0 };
-
-  if (isCorrect) {
-    const newLevel = Math.min(5, current.level + 1);
-    const intervals = [10 * 60 * 1000, 24 * 60 * 60 * 1000, 3 * 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000, 14 * 24 * 60 * 60 * 1000];
-    data[wordKey] = {
-      level: newLevel,
-      nextReview: Date.now() + intervals[newLevel - 1],
-      mistakes: current.mistakes,
-    };
-  } else {
-    data[wordKey] = {
-      level: 0,
-      nextReview: Date.now() + 10 * 60 * 1000,
-      mistakes: current.mistakes + 1,
-    };
-  }
-  saveMasteryData(data);
 }
 
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
@@ -932,14 +885,13 @@ function LearnInner() {
 
       const vocab = Array.isArray(l.vocabulary) ? l.vocabulary : [];
       
-      // ✅ Spaced Repetition logic with word.id
-      const masteryData = getMasteryData();
+      // ✅ Spaced Repetition logic from mastery.ts
+      const masteryData = loadMastery();
       const now = Date.now();
       
       const dueForReview = vocab.filter((v: any) => {
-        const wordKey = v.id || `${lessonId}_${v[learnLang] || v.en || v.hy}`;
-        const m = masteryData[wordKey];
-        return m && m.nextReview <= now && m.level > 0;
+        const m = masteryData[v.id];
+        return m && m.nextReviewDate <= now && m.level < 5;
       });
 
       const reviewWords = dueForReview.map((v: any) => ({ ...v, isReview: true }));
@@ -960,7 +912,36 @@ function LearnInner() {
         return ex;
       });
 
-      l = { ...l, exercises: originalExercises };
+      // ✅ Adaptive Generation: Add extra Multiple Choice exercises for weak words (level 0 or 1)
+      const weakWords = vocab.filter((v: any) => {
+        const m = masteryData[v.id];
+        return !m || m.level <= 1;
+      }).slice(0, 3); // Limit to 3 extra exercises to not overwhelm
+
+      const adaptiveExercises: MultiExercise[] = [];
+      weakWords.forEach((w: any, idx: number) => {
+        const targetAnswer = w[learnLang];
+        const wrongOptions = shuffleArray(
+          vocab.filter((v: any) => v.id !== w.id && v[learnLang])
+            .map((v: any) => v[learnLang])
+        ).slice(0, 3);
+
+        if (targetAnswer && wrongOptions.length >= 2) {
+          adaptiveExercises.push({
+            id: `adaptive_${w.id}_${idx}`,
+            type: 'multiple_choice',
+            prompt: {
+              hy: `Ընտրիր «${w[nativeLang]}» բառի ճիշտ թարգմանությունը:`,
+              en: `Choose the correct translation for "${w[nativeLang]}":`,
+              ru: `Выберите правильный перевод для "${w[nativeLang]}":`,
+            },
+            targetAnswer: targetAnswer,
+            options: shuffleArray([targetAnswer, ...wrongOptions]),
+          } as MultiExercise);
+        }
+      });
+
+      l = { ...l, exercises: [...originalExercises, ...adaptiveExercises] };
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
@@ -1199,9 +1180,32 @@ function LearnInner() {
         }
 
         // ✅ Mastery Progress Update
-        if (current.targetAnswer && lesson) {
-          const wordKey = `${lesson.id}_${current.targetAnswer}`;
-          updateMasteryProgress(wordKey, correct);
+        if (current.targetAnswer) {
+          // Try to find the corresponding wordId from vocabList
+          const matchedWord = vocabList.find((v: any) => 
+            v.en === current.targetAnswer || 
+            v.hy === current.targetAnswer || 
+            v.ru === current.targetAnswer
+          );
+          const wordKey = matchedWord ? matchedWord.id : current.targetAnswer;
+          
+          const masteryData = loadMastery();
+          const prevLevel = masteryData[wordKey]?.level || 0;
+          
+          updateMastery(wordKey, correct ? score : 0);
+          
+          const newMastery = loadMastery();
+          const newLevel = newMastery[wordKey]?.level || 0;
+          
+          // If mastered (level 5 reached), give bonus
+          if (prevLevel < 5 && newLevel === 5) {
+            const bonus = 50;
+            const rewards = loadRewards();
+            const updated = addHAYQ(rewards, bonus);
+            saveRewards(updated);
+            setTotal(updated.totalHAYQ);
+            showMessage(`🏆 Word Mastered! +${bonus} HAYQ`, "success");
+          }
         }
 
         if (correct) {
@@ -1221,7 +1225,7 @@ function LearnInner() {
         setEx((s) => ({ ...s, state: "incorrect", feedback: t("page_network_error"), nuriMood: "sad", nuriSpeech: t("page_oops"), customImage: "/images/nuri/nuri-confused.png" }));
       }
     },
-    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t, isGuided]
+    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t, isGuided, vocabList]
   );
 
   const submitRef = useRef(submit);
@@ -1418,8 +1422,7 @@ function LearnInner() {
           <GlassCard variant="premium" className="w-full max-w-lg p-8 text-center flex flex-col items-center">
             
             {(() => {
-              const wordKey = word.id || `${lessonId}_${word[learningLang] || word.en || word.hy}`;
-              const mastery = getMasteryData()[wordKey];
+              const mastery = loadMastery()[word.id];
               const level = mastery ? mastery.level : 0;
               const isReviewWord = (word as any).isReview;
 

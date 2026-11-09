@@ -932,11 +932,12 @@ function LearnInner() {
 
       const vocab = Array.isArray(l.vocabulary) ? l.vocabulary : [];
       
-      // ✅ Spaced Repetition logic
+      // ✅ Spaced Repetition logic with word.id
       const masteryData = getMasteryData();
       const now = Date.now();
+      
       const dueForReview = vocab.filter((v: any) => {
-        const wordKey = `${lessonId}_${v[learnLang] || v.en || v.hy}`;
+        const wordKey = v.id || `${lessonId}_${v[learnLang] || v.en || v.hy}`;
         const m = masteryData[wordKey];
         return m && m.nextReview <= now && m.level > 0;
       });
@@ -1417,7 +1418,7 @@ function LearnInner() {
           <GlassCard variant="premium" className="w-full max-w-lg p-8 text-center flex flex-col items-center">
             
             {(() => {
-              const wordKey = `${lessonId}_${word[learningLang] || word.en || word.hy}`;
+              const wordKey = word.id || `${lessonId}_${word[learningLang] || word.en || word.hy}`;
               const mastery = getMasteryData()[wordKey];
               const level = mastery ? mastery.level : 0;
               const isReviewWord = (word as any).isReview;

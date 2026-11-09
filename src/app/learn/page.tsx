@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Heart, Coins, CheckCircle, XCircle, Volume2, RefreshCw, Send,
   Trophy, Clock, Sparkles, Brain, Flame, BarChart3, Loader2, BookOpen,
-  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench, ArrowRight
+  AlertCircle, Play, VolumeOff, GraduationCap, Gamepad2, MousePointerClick, Wrench, ArrowRight, Star
 } from "lucide-react";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { useNuri } from "@/hooks/useNuri";
@@ -64,6 +64,12 @@ interface LessonStats {
   timeSpent: number;
 }
 
+interface WordMastery {
+  level: number; // 0 - 5
+  nextReview: number; // timestamp
+  mistakes: number;
+}
+
 // ─── HELPERS ──────────────────────────────────────────────────────────
 
 function sanitizeForTTS(text: string): string {
@@ -80,6 +86,7 @@ function sanitizeForTTS(text: string): string {
 }
 
 const MISTAKES_KEY = "nur_lesson_mistakes_v2";
+const MASTERY_KEY = "nur_word_mastery_v1";
 
 function logMistake(lessonId: string, ex: MultiExercise, attempts: number, revealed: boolean) {
   if (typeof window === "undefined") return;
@@ -151,6 +158,47 @@ function formatTime(ms: number): string {
   const min = Math.floor(totalSec / 60);
   const sec = totalSec % 60;
   return min > 0 ? `${min}ր ${sec}վ` : `${sec}վ`;
+}
+
+// ─── SPACED REPETITION ──────────────────────────────────────────────
+
+function getMasteryData(): Record<string, WordMastery> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = localStorage.getItem(MASTERY_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveMasteryData(data: Record<string, WordMastery>) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(MASTERY_KEY, JSON.stringify(data));
+  } catch {}
+}
+
+function updateMasteryProgress(wordKey: string, isCorrect: boolean) {
+  const data = getMasteryData();
+  const current = data[wordKey] || { level: 0, nextReview: 0, mistakes: 0 };
+
+  if (isCorrect) {
+    const newLevel = Math.min(5, current.level + 1);
+    const intervals = [10 * 60 * 1000, 24 * 60 * 60 * 1000, 3 * 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000, 14 * 24 * 60 * 60 * 1000];
+    data[wordKey] = {
+      level: newLevel,
+      nextReview: Date.now() + intervals[newLevel - 1],
+      mistakes: current.mistakes,
+    };
+  } else {
+    data[wordKey] = {
+      level: 0,
+      nextReview: Date.now() + 10 * 60 * 1000,
+      mistakes: current.mistakes + 1,
+    };
+  }
+  saveMasteryData(data);
 }
 
 // ─── LANGUAGE HELPERS ──────────────────────────────────────────────
@@ -632,7 +680,6 @@ function LearnInner() {
   const [matchRightItems, setMatchRightItems] = useState<string[]>([]);
   const [matchLeftItems, setMatchLeftItems] = useState<string[]>([]);
 
-  // ✅ ՆՈՐ ՎԻՃԱԿՆԵՐ ԾԱՆՈԹԱՑՄԱՆ ՓՈՒԼԻ ՀԱՄԱՐ
   const [studyMode, setStudyMode] = useState<"intro" | "practice">("intro");
   const [introIndex, setIntroIndex] = useState(0);
   const [vocabList, setVocabList] = useState<any[]>([]);
@@ -651,6 +698,8 @@ function LearnInner() {
   const isRetryPhase = phase === "retry" && ex.index >= retryStartIndex;
   const progress = lesson ? (ex.index / (lesson.exercises?.length || 1)) * 100 : 0;
   const attemptsLeft = Math.max(0, 3 - attempts);
+
+  const isGuided = ['multiple_choice', 'match_pairs', 'listening', 'letter_box'].includes(current?.type as string);
 
   const toggleMode = useCallback(() => {
     setIsProfessional((prev) => {
@@ -881,9 +930,21 @@ function LearnInner() {
         return;
       }
 
-      // ✅ ԲԵՌՆՈՒՄ ԵՆՔ ԲԱՌԱՐԱՆԸ ԾԱՆՈԹԱՑՄԱՆ ՀԱՄԱՐ
       const vocab = Array.isArray(l.vocabulary) ? l.vocabulary : [];
-      setVocabList(vocab);
+      
+      // ✅ Spaced Repetition logic
+      const masteryData = getMasteryData();
+      const now = Date.now();
+      const dueForReview = vocab.filter((v: any) => {
+        const wordKey = `${lessonId}_${v[learnLang] || v.en || v.hy}`;
+        const m = masteryData[wordKey];
+        return m && m.nextReview <= now && m.level > 0;
+      });
+
+      const reviewWords = dueForReview.map((v: any) => ({ ...v, isReview: true }));
+      const newWords = vocab.filter((v: any) => !dueForReview.includes(v)).map((v: any) => ({ ...v, isReview: false }));
+      
+      setVocabList([...reviewWords, ...newWords]);
 
       let originalExercises: MultiExercise[] = Array.isArray(l.exercises) ? l.exercises : [];
       
@@ -903,7 +964,6 @@ function LearnInner() {
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
 
-      // Եթե բառարան չկա, ուղիղ անցնում ենք վարժություններին
       if (vocab.length === 0) {
         setStudyMode("practice");
       } else {
@@ -1073,7 +1133,7 @@ function LearnInner() {
 
         setEx((s) => ({ ...s, state: "incorrect", feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }), nuriMood: "sad", nuriSpeech: randomLine("almost", native), customImage: "/images/nuri/nuri-confused.png", showHint: false }));
         const newAttempts = attempts + 1; setAttempts(newAttempts);
-        if (newAttempts >= 2) {
+        if (newAttempts >= 2 && !isGuided) {
           try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
           if (lesson) logMistake(lesson.id, current, newAttempts, false);
         }
@@ -1113,7 +1173,7 @@ function LearnInner() {
 
         if (!correct) {
           const newAttempts = attempts + 1; setAttempts(newAttempts);
-          if (newAttempts >= 2) {
+          if (newAttempts >= 2 && !isGuided) {
             try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
             if (lesson) logMistake(lesson.id, current, newAttempts, false);
           }
@@ -1137,6 +1197,12 @@ function LearnInner() {
           } catch {}
         }
 
+        // ✅ Mastery Progress Update
+        if (current.targetAnswer && lesson) {
+          const wordKey = `${lesson.id}_${current.targetAnswer}`;
+          updateMasteryProgress(wordKey, correct);
+        }
+
         if (correct) {
           let audioPromise: Promise<void> = Promise.resolve();
           if (current.targetAnswer) audioPromise = handleSpeak(current.targetAnswer, learningLang, "answer").catch(() => {});
@@ -1154,7 +1220,7 @@ function LearnInner() {
         setEx((s) => ({ ...s, state: "incorrect", feedback: t("page_network_error"), nuriMood: "sad", nuriSpeech: t("page_oops"), customImage: "/images/nuri/nuri-confused.png" }));
       }
     },
-    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t]
+    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t, isGuided]
   );
 
   const submitRef = useRef(submit);
@@ -1330,7 +1396,7 @@ function LearnInner() {
             <button onClick={() => setShowExitConfirm(true)} className="p-2 rounded-xl hover:bg-white/10 dark:hover:bg-gray-800 transition-colors"><ArrowLeft size={20} /></button>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-                Նոր բառեր
+                Փուլ 1: Ծանոթացում
               </span>
               <span className="text-xs text-gray-500 font-medium">{introIndex + 1} / {vocabList.length}</span>
             </div>
@@ -1349,7 +1415,34 @@ function LearnInner() {
           <div className="mb-8"><Nuri mood="happy" size={100} /></div>
           
           <GlassCard variant="premium" className="w-full max-w-lg p-8 text-center flex flex-col items-center">
-            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Նոր բառ</h2>
+            
+            {(() => {
+              const wordKey = `${lessonId}_${word[learningLang] || word.en || word.hy}`;
+              const mastery = getMasteryData()[wordKey];
+              const level = mastery ? mastery.level : 0;
+              const isReviewWord = (word as any).isReview;
+
+              return (
+                <div className="flex flex-col items-center mb-4">
+                  {isReviewWord && (
+                    <span className="text-xs font-bold text-purple-500 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20 mb-3">
+                      🔄 Կրկնություն
+                    </span>
+                  )}
+                  <div className="flex gap-1 mb-4">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={16}
+                        className={star <= level ? "fill-amber-400 text-amber-400" : "text-gray-300 dark:text-gray-600"}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Նոր բառ</h2>
             
             <h1 className="text-5xl font-black text-red-600 dark:text-red-400 mb-2">{targetWord}</h1>
             
@@ -1364,7 +1457,6 @@ function LearnInner() {
 
             <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">{nativeWord}</h3>
             
-            {/* Օրինակ նախադասություն (եթե առկա է) */}
             {word.example && (
               <p className="text-sm text-gray-500 mt-4 italic">Օրինակ՝ {word.example}</p>
             )}
@@ -1395,7 +1487,6 @@ function LearnInner() {
     );
   }
 
-  // ✅ ԵԹԵ ՉԿԱ ԲԱՌԱՐԱՆ ԿԱՄ ԱՐԴԵՆ ԱՆՑԵԼ ԵՆՔ ԾԱՆՈԹԱՑՄԱՆ ՓՈՒԼԸ, ՑՈՒՅՑ ԵՆՔ ՏԱԼԻՍ ՎԱՐԺՈՒԹՅՈՒՆՆԵՐԸ
   if (!current) return null;
 
   return (
@@ -1409,11 +1500,14 @@ function LearnInner() {
                 <h2 className="text-sm font-bold truncate max-w-[120px] sm:max-w-none">
                   {typeof lesson.title === "string" ? lesson.title : lesson.title[native] || lesson.title.en}
                 </h2>
-                <p className="text-[10px] text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                  {isRetryPhase && <span>{t("page_review")} · </span>}
-                  <span className="text-blue-500">{t("page_online")} · </span>
-                  {t("page_lesson_x_of_y", { current: ex.index + 1, total: lesson.exercises?.length || 0 })}
-                </p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${isGuided ? "bg-blue-500/10 text-blue-500 border-blue-500/20" : "bg-purple-500/10 text-purple-500 border-purple-500/20"}`}>
+                    {isGuided ? "Փուլ 2: Ուղղորդված" : "Փուլ 3: Ինքնուրույն թեստ"}
+                  </span>
+                  <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                    {t("page_lesson_x_of_y", { current: ex.index + 1, total: lesson.exercises?.length || 0 })}
+                  </span>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap justify-end">

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
-// ✅ Կարևոր մասը. Անջատում ենք SSR-ը (Server-Side Rendering)
+// ✅ Անջատում ենք SSR-ը (Server-Side Rendering)
 const GalaxyScene = dynamic(() => import("@/components/3d/GalaxyScene"), {
   ssr: false,
   loading: () => (
@@ -17,24 +17,24 @@ const GalaxyScene = dynamic(() => import("@/components/3d/GalaxyScene"), {
 });
 
 const MODULES = [
-  { id: "greetings", title: "Ողջույններ", pos: [-4, 1, 0] },
-  { id: "morning", title: "Առավոտյան առօրյա", pos: [4, -1, -2] },
-  { id: "grammar", title: "Քերականություն", pos: [0, 3, -5] },
-  { id: "questions", title: "Հարցեր", pos: [0, -3, 2] },
-  { id: "prepositions", title: "Նախդիրներ", pos: [-5, -2, -4] },
-  { id: "colors", title: "Գույներ", pos: [5, 2, -3] },
+  { id: "greetings", title: "Ողջույններ", pos: [-5, 2, 0] as [number, number, number] },
+  { id: "morning", title: "Առավոտյան առօրյա", pos: [5, -1, -2] as [number, number, number] },
+  { id: "grammar", title: "Քերականություն", pos: [0, 4, -6] as [number, number, number] },
+  { id: "questions", title: "Հարցեր", pos: [0, -4, 2] as [number, number, number] },
+  { id: "prepositions", title: "Նախդիրներ", pos: [-6, -3, -4] as [number, number, number] },
+  { id: "colors", title: "Գույներ", pos: [6, 3, -4] as [number, number, number] },
 ];
 
 export default function GalaxyPage() {
   const router = useRouter();
 
   const handleSelect = (id: string, title: string) => {
-    // Այստեղ հետագայում կկանչենք router.push(`/visual-lessons?module=${id}`)
-    alert(`Սեղմեցիր ${title} հատիկին:`);
+    // Անցում ենք համապատասխան դասին (օրինակ՝ /visual-lessons)
+    router.push(`/visual-lessons?module=${id}`);
   };
 
   return (
-    <div className="w-screen h-screen bg-black relative overflow-hidden">
+    <div className="w-screen h-screen bg-[#050505] relative overflow-hidden">
       {/* Հետ գնալու կոճակ */}
       <button 
         onClick={() => router.push("/world")} 
@@ -45,10 +45,10 @@ export default function GalaxyPage() {
 
       {/* Վերնագիր */}
       <div className="absolute top-10 left-0 w-full text-center z-50 pointer-events-none">
-        <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500 drop-shadow-[0_0_15px_rgba(255,0,0,0.5)]">
+        <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500 drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
           Նռիկի Գալակտիկա
         </h1>
-        <p className="text-white/60 mt-2">Ընտրիր հատիկը և սկսիր սովորել</p>
+        <p className="text-white/60 mt-2 font-medium">Պտտիր տիեզերքը և ընտրիր հատիկը</p>
       </div>
 
       {/* 3D Տեսարանը */}

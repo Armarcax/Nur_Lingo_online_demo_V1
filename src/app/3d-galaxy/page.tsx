@@ -1,9 +1,20 @@
+// src/app/3d-galaxy/page.tsx
 "use client";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stars, Environment } from "@react-three/drei";
+
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import PomegranateSeed from "@/components/3d/PomegranateSeed";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
+
+// ✅ Կարևոր մասը. Անջատում ենք SSR-ը (Server-Side Rendering)
+const GalaxyScene = dynamic(() => import("@/components/3d/GalaxyScene"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex flex-col items-center justify-center bg-black">
+      <Loader2 className="animate-spin text-amber-500 mb-4" size={48} />
+      <p className="text-white/60">Բեռնվում է Գալակտիկան...</p>
+    </div>
+  ),
+});
 
 const MODULES = [
   { id: "greetings", title: "Ողջույններ", pos: [-4, 1, 0] },
@@ -17,9 +28,14 @@ const MODULES = [
 export default function GalaxyPage() {
   const router = useRouter();
 
+  const handleSelect = (id: string, title: string) => {
+    // Այստեղ հետագայում կկանչենք router.push(`/visual-lessons?module=${id}`)
+    alert(`Սեղմեցիր ${title} հատիկին:`);
+  };
+
   return (
     <div className="w-screen h-screen bg-black relative overflow-hidden">
-      {/* Կոճակ հետ գնալու համար */}
+      {/* Հետ գնալու կոճակ */}
       <button 
         onClick={() => router.push("/world")} 
         className="absolute top-6 left-6 z-50 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur-md transition-all border border-white/20"
@@ -35,33 +51,8 @@ export default function GalaxyPage() {
         <p className="text-white/60 mt-2">Ընտրիր հատիկը և սկսիր սովորել</p>
       </div>
 
-      {/* 3D Canvas */}
-      <Canvas camera={{ position: [0, 0, 15], fov: 60 }}>
-        {/* Լուսավորություն */}
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#ffaa00" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#ff0000" />
-
-        {/* Աստղեր */}
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-
-        {/* Նռան հատիկներ (Դասեր) */}
-        {MODULES.map((mod) => (
-          <PomegranateSeed 
-            key={mod.id}
-            position={mod.pos as [number, number, number]} 
-            title={mod.title} 
-            onClick={() => {
-              // Այստեղ կանցնենք դասին
-              // router.push(`/visual-lessons?module=${mod.id}`);
-              alert(`Սեղմեցիր ${mod.title} հատիկին:`);
-            }} 
-          />
-        ))}
-
-        {/* Կամերայի կառավարում (Պտտելու համար) */}
-        <OrbitControls enableZoom={true} enablePan={false} autoRotate autoRotateSpeed={0.5} />
-      </Canvas>
+      {/* 3D Տեսարանը */}
+      <GalaxyScene modules={MODULES} onSelect={handleSelect} />
     </div>
   );
 }

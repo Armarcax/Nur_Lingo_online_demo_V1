@@ -17,6 +17,8 @@ import {
   Target,
   ArrowUp,
   Palette,
+  Globe, // ✅ Ավելացրինք 3D Գալակտիկայի համար
+  ChevronRight // ✅ Ավելացրինք սլաքի համար
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle"; // ✅ Մութ/Լույս կոճակը
@@ -279,7 +281,6 @@ export default function WorldPage() {
     } catch (error) { showMessage(t("page_quest_claim_failed"), "error"); }
   }, [showMessage, t]);
 
-  // ✅ Կողպել/Բացել բոլոր դասերը ֆունկցիան
   const toggleUnlockAll = useCallback(() => {
     const newVal = !unlockAllActive;
     try { localStorage.setItem("nurlingo_unlock_all", String(newVal)); } catch {}
@@ -447,6 +448,40 @@ export default function WorldPage() {
               {overallProgress}%
             </span>
           </div>
+        </div>
+
+        {/* ✅ ─── 3D GALAXY ENTRY BUTTON ─── */}
+        <div className="max-w-4xl mx-auto px-4 pb-8 w-full flex justify-center relative z-20">
+          <Link href="/3d-galaxy" className="w-full max-w-md">
+            <motion.div
+              whileHover={{ scale: 1.03, rotateX: 5, rotateY: 5 }}
+              whileTap={{ scale: 0.97 }}
+              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_10px_40px_rgba(255,0,0,0.5)] cursor-pointer group"
+              style={{ perspective: 1000 }}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md group-hover:blur-xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden">
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    animate={{ y: [0, -4, 0], rotate: [0, 10, -10, 0] }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                    className="w-14 h-14 rounded-full bg-gradient-to-tr from-red-500 to-amber-300 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)]"
+                  >
+                    <Globe size={28} className="text-white drop-shadow-md" />
+                  </motion.div>
+                  <div className="text-left">
+                    <h3 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 tracking-wide drop-shadow-sm">
+                      Նռիկի Գալակտիկա
+                    </h3>
+                    <p className="text-xs text-gray-400 font-medium mt-0.5">3D Ինտերակտիվ Ուսուցում</p>
+                  </div>
+                </div>
+                <div className="text-amber-500 bg-amber-500/10 p-2.5 rounded-full group-hover:bg-amber-500 group-hover:text-black transition-colors duration-300">
+                  <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </motion.div>
+          </Link>
         </div>
 
         {/* ─── UNIT SELECTOR ─── */}

@@ -4,14 +4,13 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars, Sparkles, Line, Sphere } from "@react-three/drei";
-import * as THREE from "three"; // ✅ ԱՎԵԼԱՑՐԻՆՔ ԱՅՍ ՏՈՂԸ
+import * as THREE from "three";
 import Planet from "./Planet";
 
 interface PlanetData {
   id: string;
   title: string;
   pos: [number, number, number];
-  textureUrl: string;
   size: number;
   hasRing?: boolean;
   color?: string;
@@ -25,12 +24,13 @@ interface Props {
 
 export default function GalaxyScene({ modules, onSelect }: Props) {
   return (
-    <Canvas camera={{ position: [0, 10, 25], fov: 60 }}>
+    <Canvas camera={{ position: [0, 10, 30], fov: 60 }}>
       {/* 🌟 Լուսավորություն */}
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.2} />
       {/* Կենտրոնական աստղի լույսը */}
       <pointLight position={[0, 0, 0]} intensity={3} color="#ffcc00" distance={100} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#0022ff" />
+      <pointLight position={[-10, -10, -10]} intensity={1} color="#0022ff" />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#ff0022" />
 
       {/* 🌌 Տիեզերական միջավայր */}
       <Stars radius={150} depth={50} count={8000} factor={5} saturation={0} fade speed={0.5} />
@@ -62,11 +62,10 @@ export default function GalaxyScene({ modules, onSelect }: Props) {
               opacity={0.15}
             />
             
-            {/* Մոլորակը */}
+            {/* Մոլորակը (Առանց textureUrl-ի) */}
             <Planet
               position={planet.pos}
               title={planet.title}
-              textureUrl={planet.textureUrl}
               size={planet.size}
               hasRing={planet.hasRing}
               color={planet.color}
@@ -83,8 +82,8 @@ export default function GalaxyScene({ modules, onSelect }: Props) {
         autoRotate 
         autoRotateSpeed={0.3}
         minDistance={10}
-        maxDistance={50}
-        maxPolarAngle={Math.PI / 2} // Թույլ չենք տալիս նայել ներքևից
+        maxDistance={60}
+        maxPolarAngle={Math.PI / 2} 
       />
     </Canvas>
   );

@@ -1,39 +1,208 @@
 // src/app/visual-lessons/page.tsx
 "use client";
 
-import { useState, Suspense, useEffect } from "react";
+import { useState, Suspense, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, ArrowLeft, Search, Sparkles, BookOpen, ChevronRight } from "lucide-react";
+import { Volume2, VolumeOff, ArrowLeft, Search, Sparkles, BookOpen, ChevronRight, Loader2, Play } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { VISUAL_LESSONS, type VisualLesson } from "@/lib/content/visual-lessons";
 import { GlassCard } from "@/components/ui/glass-card";
+import { loadLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
+import { useAudioManager } from "@/lib/hooks/useAudioManager";
+import { getWavClient, WavClient } from "@/lib/audio/WavClient";
+
+// ─── HELPERS ──────────────────────────────────────────────────────────
+
+function sanitizeForTTS(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/[«»""'']/g, "")
+    .replace(/՛/g, "")
+    .replace(/՝/g, ",")
+    .replace(/։/g, ".")
+    .replace(/[.,;:!?։»«]+\s*$/g, "")
+    .replace(/[։»«]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getPairKey(native: LangCode, learning: LangCode): string {
+  return `${native}-${learning}`;
+}
 
 function VisualLessonsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
-  // ✅ Ավելացվել է ? նշանը և || null
   const moduleId = searchParams?.get("module") || null; 
 
   const [selectedLesson, setSelectedLesson] = useState<VisualLesson | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<"All" | "Grammar" | "Vocabulary" | "Phrases">("All");
+  
+  // ✅ Լեզուների վիճակներ
+  const [native, setNative] = useState<LangCode>("en");
+  const [learningLang, setLearningLang] = useState<LangCode>("hy");
+  const [isLangLoaded, setIsLangLoaded] = useState(false);
+
+  // ✅ ԱՈՒԴԻՈ ՀԱՄԱԿԱՐԳԻ ՎԻՃԱԿՆԵՐ (learn/page.tsx-ից)
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const { stop, isPlaying } = useAudioManager();
+  const [wavClient, setWavClient] = useState<WavClient | null>(null);
+  const [isWAVAvailable, setIsWAVAvailable] = useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+  const speakingLockRef = useRef(false);
+
+  // ✅ WAVClient-ի ինիցիալիզացիա
+  useEffect(() => {
+    const initWAV = async () => {
+      try { 
+        const client = getWavClient(); 
+        if (client) { 
+          setWavClient(client); 
+          setIsWAVAvailable(true); 
+        } 
+      } catch (error) { 
+        console.warn("WAV init error:", error); 
+      }
+    };
+    initWAV();
+  }, []);
+
+  useEffect(() => { 
+    if (wavClient && isWAVAvailable) setIsAudioReady(true); 
+  }, [wavClient, isWAVAvailable]);
 
   useEffect(() => {
-    if (moduleId) {
+    if (!isWAVAvailable && typeof window !== "undefined") {
+      const checkVoices = () => { 
+        if (window.speechSynthesis.getVoices().length > 0) setIsAudioReady(true); 
+      };
+      window.speechSynthesis.onvoiceschanged = checkVoices;
+      checkVoices();
+      return () => { window.speechSynthesis.onvoiceschanged = null; };
+    }
+  }, [isWAVAvailable]);
+
+  // ✅ Բեռնում ենք լեզվական նախընտրությունները
+  useEffect(() => {
+    try {
+      const config = loadLangConfig();
+      if (config) {
+        setNative(config.native as LangCode);
+        setLearningLang(config.learning as LangCode);
+      }
+    } catch (e) {
+      console.warn("Failed to load lang config", e);
+    } finally {
+      setIsLangLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (moduleId && isLangLoaded) {
       const found = VISUAL_LESSONS.find(l => l.id === moduleId);
       if (found) setSelectedLesson(found);
     }
-  }, [moduleId]);
+  }, [moduleId, isLangLoaded]);
 
-  const speak = (text: string, lang: "en" | "hy" | "ru") => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang === "en" ? "en-US" : lang === "hy" ? "hy-AM" : "ru-RU";
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
-  };
+  // ─── ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱՆԵՐ ──────────────────────────────────────────
+
+  const playAudioWithFemaleVoice = useCallback((text: string, lang: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (typeof window === "undefined" || !window.speechSynthesis) {
+        reject(new Error("Speech synthesis not supported")); return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      if (lang === "hy") utterance.rate = 1.5;
+      else if (lang === "en") utterance.rate = 1.1;
+      else utterance.rate = 1.15;
+      utterance.pitch = 1.3; utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const femaleVoiceNames = ["Samantha", "Google UK English Female", "Karen", "Zira", "Alice", "Victoria", "Emma", "Susan", "Tessa", "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena", "Ani", "Google Հայերեն", "Armine", "Lusine"];
+
+      let selected: SpeechSynthesisVoice | null = null;
+      for (const name of femaleVoiceNames) {
+        const found = voices.find((v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase());
+        if (found) { selected = found; break; }
+      }
+      if (!selected) {
+        for (const name of femaleVoiceNames) {
+          const found = voices.find((v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase()));
+          if (found) { selected = found; break; }
+        }
+      }
+      if (!selected) {
+        selected = voices.find((v) => v.lang.startsWith(lang) && (v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("samantha") || v.name.toLowerCase().includes("zira") || v.name.toLowerCase().includes("karen") || v.name.toLowerCase().includes("anna"))) ?? null;
+      }
+      if (selected) utterance.voice = selected; else utterance.pitch = 1.5;
+
+      utterance.onend = () => resolve();
+      utterance.onerror = (e) => reject(e);
+      window.speechSynthesis.speak(utterance);
+    });
+  }, []);
+
+  const playAudioWithFallback = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!audioEnabled || !text) return;
+      text = sanitizeForTTS(text);
+      if (!text) return;
+      const pairKey = getPairKey(native, learningLang);
+
+      if (type === "prompt") {
+        if (lang === "hy") {
+          if (wavClient && isWAVAvailable) {
+            try { await wavClient.playPrompt(text, pairKey, "Ani"); return; }
+            catch (error: any) {
+              if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+                try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+              }
+            }
+          }
+          try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+        }
+        try { await playAudioWithFemaleVoice(text, lang); } catch {}
+      }
+
+      if (type === "answer") {
+        if (learningLang === "hy" && wavClient && isWAVAvailable) {
+          try { await wavClient.playAnswer(text, pairKey, "Ani"); return; }
+          catch (error: any) {
+            if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+              try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+            }
+          }
+        }
+        try { await playAudioWithFemaleVoice(text, learningLang); } catch {}
+      }
+    },
+    [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice, audioEnabled]
+  );
+
+  const handleSpeak = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!text || !audioEnabled) return;
+      if (speakingLockRef.current) {
+        if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+        speakingLockRef.current = false; return;
+      }
+      speakingLockRef.current = true;
+      try { await playAudioWithFallback(text, lang, type); }
+      catch (e) { console.warn("handleSpeak error:", e); }
+      finally { speakingLockRef.current = false; }
+    },
+    [playAudioWithFallback, audioEnabled]
+  );
+
+  const toggleAudio = useCallback(() => {
+    setAudioEnabled((prev) => !prev);
+    if (audioEnabled) stop();
+  }, [audioEnabled, stop]);
+
+  // ─── UI ՖՈՒՆԿՑԻԱՆԵՐ ─────────────────────────────────────────────
 
   const filteredLessons = VISUAL_LESSONS.filter(l => {
     const matchesFilter = filter === "All" || l.category === filter;
@@ -51,6 +220,14 @@ function VisualLessonsContent() {
     }
   };
 
+  if (!isLangLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
+        <Loader2 className="animate-spin text-blue-500" size={40} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-20">
       <header className="sticky top-0 z-40 bg-white/60 dark:bg-gray-900/70 backdrop-blur-xl border-b border-white/20 dark:border-white/5 shadow-sm">
@@ -64,9 +241,17 @@ function VisualLessonsContent() {
                 <h1 className="text-xl font-black flex items-center gap-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                   <Sparkles size={20} className="text-amber-500" /> Վիզուալ Դասեր
                 </h1>
-                <p className="text-xs text-gray-500 font-medium">Ինտերակտիվ քարտեր եռալեզու աուդիոյով</p>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                  {native.toUpperCase()} → {learningLang.toUpperCase()}
+                </p>
               </div>
             </div>
+            
+            {/* ✅ Աուդիոյի միացման/անջատման կոճակ */}
+            <button onClick={toggleAudio} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${audioEnabled ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"}`} title={audioEnabled ? "Անջատել ձայնը" : "Միացնել ձայնը"}>
+              {audioEnabled ? <Volume2 size={14} /> : <VolumeOff size={14} />}
+              <span className="hidden sm:inline">{audioEnabled ? "Ձայնը միացված է" : "Ձայնը անջատված է"}</span>
+            </button>
           </div>
 
           {!selectedLesson && (
@@ -129,10 +314,10 @@ function VisualLessonsContent() {
                     {lesson.category}
                   </span>
                   <h3 className="text-2xl font-black text-white mt-6 mb-1 drop-shadow-md">
-                    {lesson.title.hy}
+                    {lesson.title[learningLang] || lesson.title.en}
                   </h3>
                   <p className="text-sm text-white/90 font-medium">
-                    {lesson.title.en} • {lesson.title.ru}
+                    {lesson.title[native] || lesson.title.en}
                   </p>
                   <div className="mt-6 flex items-center justify-between text-white/80">
                     <span className="text-xs font-bold flex items-center gap-1"><BookOpen size={14} /> {lesson.items.length} քարտ</span>
@@ -151,69 +336,80 @@ function VisualLessonsContent() {
             >
               <div className="text-center mb-10">
                 <div className="text-7xl mb-4 drop-shadow-lg">{selectedLesson.icon}</div>
-                <h2 className="text-4xl font-black mb-2">{selectedLesson.title.hy}</h2>
-                <p className="text-gray-500 font-medium text-lg">{selectedLesson.title.en} / {selectedLesson.title.ru}</p>
+                <h2 className="text-4xl font-black mb-2">{selectedLesson.title[learningLang] || selectedLesson.title.en}</h2>
+                <p className="text-gray-500 font-medium text-lg">{selectedLesson.title[native] || selectedLesson.title.en}</p>
               </div>
 
               <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
-                {selectedLesson.items.map((item, idx) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    <GlassCard variant="premium" className={`p-5 h-full flex flex-col justify-between border-l-4 border-l-${selectedLesson.gradient.split('-')[1]}-500 bg-white/70 dark:bg-gray-800/70`}>
-                      <div>
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex-1">
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                              <span className="text-3xl drop-shadow-sm">{item.emoji}</span> 
-                              {item.highlightWord ? (
-                                <span>
-                                  {item.en.split(item.highlightWord).map((part, i, arr) => (
-                                    <span key={i}>
-                                      {part}
-                                      {i < arr.length - 1 && <span className="text-blue-600 dark:text-blue-400 underline decoration-2">{item.highlightWord}</span>}
-                                    </span>
-                                  ))}
-                                </span>
-                              ) : (
-                                item.en
-                              )}
-                            </p>
-                            <p className="text-base text-gray-700 dark:text-gray-300 font-bold mt-1">
-                              {item.hy}
-                            </p>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                              {item.ru}
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => speak(item.en, "en")}
-                            className="p-3 rounded-full bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 transition-all ml-2 shadow-sm"
-                          >
-                            <Volume2 size={20} />
-                          </button>
-                        </div>
+                {selectedLesson.items.map((item, idx) => {
+                  const targetWord = (item as any)[learningLang] || item.en;
+                  const nativeWord = (item as any)[native] || item.en;
+                  
+                  const targetExample = (item as any)[`example_${learningLang}`];
+                  const nativeExample = (item as any)[`example_${native}`];
 
-                        {item.example_en && (
-                          <div className="mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50">
-                            <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
-                              📖 {item.example_en}
-                            </p>
-                            <p className="text-xs text-emerald-600/80 dark:text-emerald-300/80 mt-1">
-                              {item.example_hy}
-                            </p>
-                            <p className="text-xs text-emerald-600/60 dark:text-emerald-300/60 mt-1">
-                              {item.example_ru}
-                            </p>
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                    >
+                      <GlassCard variant="premium" className={`p-5 h-full flex flex-col justify-between border-l-4 border-l-${selectedLesson.gradient.split('-')[1]}-500 bg-white/70 dark:bg-gray-800/70`}>
+                        <div>
+                          <div className="flex justify-between items-start mb-3">
+                            <div className="flex-1">
+                              <p className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                <span className="text-3xl drop-shadow-sm">{item.emoji}</span> 
+                                {item.highlightWord && learningLang === "en" ? (
+                                  <span>
+                                    {targetWord.split(item.highlightWord).map((part, i, arr) => (
+                                      <span key={i}>
+                                        {part}
+                                        {i < arr.length - 1 && <span className="text-blue-600 dark:text-blue-400 underline decoration-2">{item.highlightWord}</span>}
+                                      </span>
+                                    ))}
+                                  </span>
+                                ) : (
+                                  targetWord
+                                )}
+                              </p>
+                              <p className="text-base text-gray-700 dark:text-gray-300 font-bold mt-1">
+                                {nativeWord}
+                              </p>
+                            </div>
+                            
+                            {/* ✅ ՆՈՐ ԱՈՒԴԻՈ ԿՈՃԱԿԸ */}
+                            <button
+                              onClick={() => handleSpeak(targetWord, learningLang, "answer")}
+                              disabled={isPlaying}
+                              className={`p-3 rounded-full transition-all ml-2 shadow-sm ${
+                                isPlaying 
+                                  ? "bg-amber-500/20 text-amber-500 animate-pulse" 
+                                  : "bg-blue-500/10 text-blue-600 hover:bg-blue-500/20"
+                              }`}
+                            >
+                              {isPlaying ? <Loader2 size={20} className="animate-spin" /> : <Volume2 size={20} />}
+                            </button>
                           </div>
-                        )}
-                      </div>
-                    </GlassCard>
-                  </motion.div>
-                ))}
+
+                          {targetExample && (
+                            <div className="mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50">
+                              <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                                📖 {targetExample}
+                              </p>
+                              {nativeExample && (
+                                <p className="text-xs text-emerald-600/80 dark:text-emerald-300/80 mt-1">
+                                  {nativeExample}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </GlassCard>
+                    </motion.div>
+                  );
+                })}
               </div>
 
               <motion.button
@@ -234,7 +430,7 @@ function VisualLessonsContent() {
 
 export default function VisualLessonsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">Բեռնվում է...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-900 text-white"><Loader2 className="animate-spin" /></div>}>
       <VisualLessonsContent />
     </Suspense>
   );

@@ -107,7 +107,7 @@ export default function AlphabetLessonPage() {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
-      if (lang === "hy") utterance.rate = 1.5;
+      if (lang === "hy") utterance.rate = 1.2;
       else if (lang === "en") utterance.rate = 1.1;
       else utterance.rate = 1.15;
       utterance.pitch = 1.3; utterance.volume = 1.0;
@@ -183,7 +183,7 @@ export default function AlphabetLessonPage() {
       }
       speakingLockRef.current = true;
       try { 
-        // ✅ Եթե տեքստը 1 կամ 2 տառ է, օգտագործում ենք ՄԻԱՅՆ TTS-ը, որպեսզի WavClient-ը սխալ աուդիո չբերի
+        // ✅ Եթե տեքստը 1 կամ 2 տառ է, օգտագործում ենք ՄԻԱՅՆ TTS-ը
         if (text.trim().length <= 2) {
           await playAudioWithFemaleVoice(text, lang);
         } else {
@@ -320,41 +320,33 @@ export default function AlphabetLessonPage() {
                 {selectedAlphabet.letters.map((letter) => (
                   <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
                     
-                    {/* Մեծատառ, փոքրատառ և IPA */}
+                    {/* Մեծատառ, փոքրատառ և անվանում */}
                     <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
                         <span className="text-xl font-bold text-gray-500">{letter.lowercase}</span>
-                        {selectedAlphabet.languageCode !== 'hy' && (
+                        
+                        {/* ✅ Հայերենի համար ցուցադրվում է անվանումը, մյուսների համար IPA */}
+                        {selectedAlphabet.languageCode === 'hy' ? (
+                          <span className="text-sm font-semibold text-blue-500">({letter.letterName.hy})</span>
+                        ) : (
                           <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
                         )}
                       </div>
+                      
+                      {/* ✅ Կոճակը կարդում է տառի անվանումը (Այբ, Բեն կամ Ay, Эй) */}
                       <button 
-                        onClick={() => handleSpeak(letter.capital, selectedAlphabet.languageCode)} 
+                        onClick={() => playAudioWithFemaleVoice(letter.letterName[selectedAlphabet.languageCode], selectedAlphabet.languageCode)} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
-                        title="Լսել տառը"
+                        title="Լսել տառի անվանումը"
                       >
                         <Volume2 size={16} />
                       </button>
                     </div>
 
-                    {/* Հայերենի համար ավանդական անվանում */}
-                    {selectedAlphabet.languageCode === 'hy' && (
-                      <div className="flex justify-between items-center pl-2 border-l-2 border-purple-300 dark:border-purple-700">
-                        <span className="text-sm text-gray-600 dark:text-gray-300">Անվանում: <span className="font-bold">{letter.letterName.hy}</span></span>
-                        <button 
-                          onClick={() => handleSpeak(letter.letterName.hy, 'hy')} 
-                          className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 hover:bg-purple-200 transition-colors"
-                          title="Լսել անվանումը"
-                        >
-                          <Volume2 size={14} />
-                        </button>
-                      </div>
-                    )}
-
                     <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
 
-                    {/* Օրինակ բառ */}
+                    {/* Օրինակ բառ և թարգմանություն */}
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="text-sm font-bold text-gray-900 dark:text-white">

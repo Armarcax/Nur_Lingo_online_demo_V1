@@ -450,17 +450,19 @@ export default function WorldPage() {
           </div>
         </div>
 
-        {/* ✅ ─── 3D GALAXY ENTRY BUTTON ─── */}
-        <div className="max-w-4xl mx-auto px-4 pb-8 w-full flex justify-center relative z-20">
-          <Link href="/3d-galaxy" className="w-full max-w-md">
+        {/* ✅ ─── 3D GALAXY & READING ENTRY BUTTONS ─── */}
+        <div className="max-w-4xl mx-auto px-4 pb-8 w-full grid grid-cols-1 md:grid-cols-2 gap-4 relative z-20">
+          
+          {/* 1. 3D Գալակտիկա */}
+          <Link href="/3d-galaxy" className="w-full">
             <motion.div
               whileHover={{ scale: 1.03, rotateX: 5, rotateY: 5 }}
               whileTap={{ scale: 0.97 }}
-              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_10px_40px_rgba(255,0,0,0.5)] cursor-pointer group"
+              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_10px_40px_rgba(255,0,0,0.4)] cursor-pointer group h-full"
               style={{ perspective: 1000 }}
             >
               <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md group-hover:blur-xl transition-all duration-300"></div>
-              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden">
+              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden h-full">
                 <div className="flex items-center gap-4">
                   <motion.div
                     animate={{ y: [0, -4, 0], rotate: [0, 10, -10, 0] }}
@@ -482,6 +484,39 @@ export default function WorldPage() {
               </div>
             </motion.div>
           </Link>
+
+          {/* 2. Ընթերցանություն */}
+          <Link href="/reading" className="w-full">
+            <motion.div
+              whileHover={{ scale: 1.03, rotateX: 5, rotateY: -5 }}
+              whileTap={{ scale: 0.97 }}
+              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 shadow-[0_10px_40px_rgba(0,100,255,0.4)] cursor-pointer group h-full"
+              style={{ perspective: 1000 }}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md group-hover:blur-xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden h-full">
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    animate={{ y: [0, -4, 0], rotate: [0, -10, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                    className="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,255,255,0.6)]"
+                  >
+                    <BookOpen size={28} className="text-white drop-shadow-md" />
+                  </motion.div>
+                  <div className="text-left">
+                    <h3 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-500 tracking-wide drop-shadow-sm">
+                      Ընթերցանություն
+                    </h3>
+                    <p className="text-xs text-gray-400 font-medium mt-0.5">Կարդա և սովորիր նոր բառեր</p>
+                  </div>
+                </div>
+                <div className="text-blue-500 bg-blue-500/10 p-2.5 rounded-full group-hover:bg-blue-500 group-hover:text-black transition-colors duration-300">
+                  <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </motion.div>
+          </Link>
+
         </div>
 
         {/* ─── UNIT SELECTOR ─── */}

@@ -20,6 +20,7 @@ import {
   earnHeartByPractice, updateQuestProgress,
 } from "@/lib/rewards/seeds";
 import { loadMastery, updateMastery } from "@/lib/adaptive/mastery";
+import { startSession, logEvent, summarizeSession, type LessonSession } from "@/lib/lessons/session-tracker"; // ✅ Ավելացվեց
 import { supabase } from "@/lib/supabase/client";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useAudioManager } from "@/lib/hooks/useAudioManager";
@@ -622,6 +623,9 @@ function LearnInner() {
   const [showCorrectEffect, setShowCorrectEffect] = useState(false);
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
 
+  // ✅ ՍԵՍԻԱՅԻ ՎԻՃԱԿԸ
+  const [session, setSession] = useState<LessonSession | null>(null);
+
   const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
     setToastMessage(text); setToastType(type); setTimeout(() => setToastMessage(""), 3000);
   }, []);
@@ -885,7 +889,6 @@ function LearnInner() {
 
       const vocab = Array.isArray(l.vocabulary) ? l.vocabulary : [];
       
-      // ✅ Spaced Repetition logic from mastery.ts
       const masteryData = loadMastery();
       const now = Date.now();
       
@@ -912,11 +915,10 @@ function LearnInner() {
         return ex;
       });
 
-      // ✅ Adaptive Generation: Add extra Multiple Choice exercises for weak words (level 0 or 1)
       const weakWords = vocab.filter((v: any) => {
         const m = masteryData[v.id];
         return !m || m.level <= 1;
-      }).slice(0, 3); // Limit to 3 extra exercises to not overwhelm
+      }).slice(0, 3);
 
       const adaptiveExercises: MultiExercise[] = [];
       weakWords.forEach((w: any, idx: number) => {
@@ -945,6 +947,10 @@ function LearnInner() {
 
       loadedLessonRef.current = lessonId;
       setLesson(l as any);
+
+      // ✅ ՍԿՍՈՒՄ ԵՆՔ ՆՈՐ ՍԵՍԻԱ
+      const allExerciseIds = (l.exercises || []).map((e: any) => e.id);
+      setSession(startSession(l.id, allExerciseIds));
 
       if (vocab.length === 0) {
         setStudyMode("practice");
@@ -1060,8 +1066,13 @@ function LearnInner() {
     if (!showHint && current?.hint) {
       const hintText = current.hint?.[native] || current.hint?.en || "💡 Think!";
       setEx((prev) => ({ ...prev, nuriSpeech: `${t("page_hint_prefix")} ${hintText}` }));
+      
+      // ✅ Գրանցում ենք հուշումը
+      if (session && current) {
+        setSession(prev => prev ? logEvent(prev, current.id, 'hint') : prev);
+      }
     }
-  }, [showHint, current, native, t]);
+  }, [showHint, current, native, t, session]);
 
   const toggleAudio = useCallback(() => {
     setAudioEnabled((prev) => !prev);
@@ -1101,6 +1112,12 @@ function LearnInner() {
             updateQuestProgress("earn_hayq", hayq);
           } catch {}
           setEx((s) => ({ ...s, state: "correct", feedback: t("page_all_pairs_correct"), score: 1, hayqEarned: hayq, corrections: [], nuriMood: "excited", nuriSpeech: randomLine("correct_perfect", native), customImage: "/images/nuri/nuri-encouraging.png", showHint: false, showCoinAnimation: true }));
+          
+          // ✅ Գրանցում ենք ճիշտ պատասխանը
+          if (session && current) {
+            setSession(prev => prev ? logEvent(prev, current.id, 'correct') : prev);
+          }
+
           setTimeout(() => { setEx((s) => ({ ...s, showCoinAnimation: false })); }, 2500);
           
           setTimeout(() => {
@@ -1115,9 +1132,20 @@ function LearnInner() {
 
         setEx((s) => ({ ...s, state: "incorrect", feedback: t("page_some_pairs_correct", { correct: correctCount, total: totalPairs }), nuriMood: "sad", nuriSpeech: randomLine("almost", native), customImage: "/images/nuri/nuri-confused.png", showHint: false }));
         const newAttempts = attempts + 1; setAttempts(newAttempts);
+        
+        // ✅ Գրանցում ենք սխալը
+        if (session && current) {
+          setSession(prev => prev ? logEvent(prev, current.id, 'incorrect') : prev);
+        }
+
         if (newAttempts >= 2 && !isGuided) {
           try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
           if (lesson) logMistake(lesson.id, current, newAttempts, false);
+          
+          // ✅ Գրանցում ենք, որ պատասխանը բացահայտվեց
+          if (session && current) {
+            setSession(prev => prev ? logEvent(prev, current.id, 'revealed') : prev);
+          }
         }
         onWrong(); return;
       } else if (current.type === "multiple_choice") {
@@ -1155,9 +1183,20 @@ function LearnInner() {
 
         if (!correct) {
           const newAttempts = attempts + 1; setAttempts(newAttempts);
+          
+          // ✅ Գրանցում ենք սխալը
+          if (session && current) {
+            setSession(prev => prev ? logEvent(prev, current.id, 'incorrect') : prev);
+          }
+
           if (newAttempts >= 2 && !isGuided) {
             try { const updated = deductHeart(); setHearts(updated.hearts); } catch {}
             if (lesson) logMistake(lesson.id, current, newAttempts, false);
+            
+            // ✅ Գրանցում ենք, որ պատասխանը բացահայտվեց
+            if (session && current) {
+              setSession(prev => prev ? logEvent(prev, current.id, 'revealed') : prev);
+            }
           }
           onWrong();
           setEx((s) => ({ ...s, state: "incorrect", feedback: data.feedback || t("page_try_again"), score, hayqEarned: 0, corrections: data.corrections, nuriMood: "sad", nuriSpeech: randomLine("incorrect", native), customImage: "/images/nuri/nuri-confused.png", showHint: false }));
@@ -1166,6 +1205,12 @@ function LearnInner() {
           setCurrentStreak((prev) => { const ns = prev + 1; setStats((s) => ({ ...s, streaks: s.streaks + 1, bestStreak: Math.max(s.bestStreak, ns) })); return ns; });
           setShowCorrectEffect(true); setTimeout(() => setShowCorrectEffect(false), 2200);
           setEx((s) => ({ ...s, state: "correct", feedback: data.feedback || t("page_correct"), score, hayqEarned: hayq, corrections: data.corrections, nuriMood: score >= 0.98 ? "excited" : "happy", nuriSpeech: randomLine(score >= 0.98 ? "correct_perfect" : "correct", native), customImage: "/images/nuri/nuri-encouraging.png", showHint: false, showCoinAnimation: true }));
+          
+          // ✅ Գրանցում ենք ճիշտ պատասխանը
+          if (session && current) {
+            setSession(prev => prev ? logEvent(prev, current.id, 'correct') : prev);
+          }
+
           setTimeout(() => { setEx((s) => ({ ...s, showCoinAnimation: false })); }, 2500);
         }
 
@@ -1181,7 +1226,6 @@ function LearnInner() {
 
         // ✅ Mastery Progress Update
         if (current.targetAnswer) {
-          // Try to find the corresponding wordId from vocabList
           const matchedWord = vocabList.find((v: any) => 
             v.en === current.targetAnswer || 
             v.hy === current.targetAnswer || 
@@ -1197,7 +1241,6 @@ function LearnInner() {
           const newMastery = loadMastery();
           const newLevel = newMastery[wordKey]?.level || 0;
           
-          // If mastered (level 5 reached), give bonus
           if (prevLevel < 5 && newLevel === 5) {
             const bonus = 50;
             const rewards = loadRewards();
@@ -1225,7 +1268,7 @@ function LearnInner() {
         setEx((s) => ({ ...s, state: "incorrect", feedback: t("page_network_error"), nuriMood: "sad", nuriSpeech: t("page_oops"), customImage: "/images/nuri/nuri-confused.png" }));
       }
     },
-    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t, isGuided, vocabList]
+    [current, ex.userAnswer, ex.state, selectedWords, matchPairsMap, lesson, native, learningLang, attempts, onCorrect, onWrong, handleSpeak, stop, isPlaying, showMessage, t, isGuided, vocabList, session]
   );
 
   const submitRef = useRef(submit);
@@ -1233,6 +1276,14 @@ function LearnInner() {
 
   const completeLesson = useCallback(() => {
     if (!lesson) return;
+    
+    // ✅ Տպում ենք սեսիայի ամփոփումը կոնսոլում
+    if (session) {
+      const summary = summarizeSession(session);
+      console.log("📊 Session Summary:", summary);
+      // Կարող ես այստեղ ավելացնել տվյալների պահպանում Supabase-ում
+    }
+
     const bonus = Math.min(40, stats.correct * 2);
     addRewards(bonus, 0, lesson.estimatedMinutes);
     saveCrownLevel(lesson.id, sessionLevel);
@@ -1242,7 +1293,7 @@ function LearnInner() {
     clearMistakes(lesson.id);
     onLessonComplete(accuracy >= 90);
     setComplete(true);
-  }, [lesson, stats, sessionLevel, startTime, onLessonComplete]);
+  }, [lesson, stats, sessionLevel, startTime, onLessonComplete, session]);
 
   const next = useCallback(() => {
     if (!lesson) return;

@@ -24,7 +24,7 @@ export interface SessionSummary {
   incorrect: number;
   revealed: number;
   hintsUsed: number;
-  independentCorrect: number; // Առանց հուշումների և առանց սխալների
+  independentCorrect: number;
   errorIds: string[];
 }
 
@@ -81,7 +81,10 @@ export function summarizeSession(session: LessonSession): SessionSummary {
 
     for (const evt of events) {
       if (evt.type === 'hint') hasHint = true;
-      if (evt.type === 'incorrect') hasError = true;
+      if (evt.type === 'incorrect') {
+        hasError = true;
+        finalStatus = 'incorrect'; // ✅ ԱՎԵԼԱՑՎԵՑ ԱՅՍ ՏՈՂԸ
+      }
       if (evt.type === 'revealed') {
         hasError = true;
         finalStatus = 'revealed';

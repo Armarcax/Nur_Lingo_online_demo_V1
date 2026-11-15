@@ -7,38 +7,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Trophy,
-  Lock,
-  Unlock,
-  Gift,
-  CheckCircle,
-  Clock,
-  Sparkles,
-  Target,
-  ArrowUp,
-  Palette,
-  Globe, // ✅ Ավելացրինք 3D Գալակտիկայի համար
-  ChevronRight // ✅ Ավելացրինք սլաքի համար
+  Trophy, Lock, Unlock, Gift, CheckCircle, Clock, Sparkles, Target, 
+  ArrowUp, Palette, Globe, ChevronRight, BookOpen, Type, Award
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
-import ThemeToggle from "@/components/ThemeToggle"; // ✅ Մութ/Լույս կոճակը
+import ThemeToggle from "@/components/ThemeToggle";
 import {
-  syncHearts,
-  checkAndApplyFreeze,
-  checkStreakMilestones,
-  checkDailyGoalBonus,
-  addRewards,
-  loadRewards,
-  saveRewards,
-  type UserRewards,
+  syncHearts, checkAndApplyFreeze, checkStreakMilestones, checkDailyGoalBonus,
+  addRewards, loadRewards, saveRewards, type UserRewards, loadQuests, claimReward, type Quest,
 } from "@/lib/rewards/seeds";
-import { loadQuests, claimReward, type Quest } from "@/lib/rewards/seeds";
-import {
-  getLessonsForPair,
-  LangPair,
-  MultiLesson,
-  MultiUnit,
-} from "@/lib/i18n/multilingual";
+import { getLessonsForPair, LangPair, MultiLesson, MultiUnit } from "@/lib/i18n/multilingual";
 import { hayqToLevel } from "@/lib/lessons/engine";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { loadLangConfig, LangCode } from "@/lib/i18n/index";
@@ -83,8 +61,6 @@ function Confetti({ color, count = 30, active = true }: { color: string; count?:
     </div>
   );
 }
-
-// ─── SNAKE PATH & PROGRESS BAR ───────────────────────────────────────
 
 function SnakePath({
   lessons, unit, crowns, onStart, native, isUnlocked = false,
@@ -321,31 +297,12 @@ export default function WorldPage() {
             <span className="font-black tracking-tighter text-xl uppercase italic text-gray-900 dark:text-white">NUR Lingo</span>
           </div>
           
-          {/* ✅ ՎԵՐԵՎԻ ԱՋ ԱՆԿՅՈՒՆԻ 3 ԿՈՃԱԿՆԵՐԸ */}
           <div className="flex items-center gap-2">
-            
-            {/* 1. Ֆոնի ընտրություն */}
-            <button
-              onClick={() => window.dispatchEvent(new Event("nur-open-bg"))}
-              className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm"
-              title="Ֆոնի ընտրություն"
-            >
+            <button onClick={() => window.dispatchEvent(new Event("nur-open-bg"))} className="p-2 rounded-xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 hover:border-white/30 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors shadow-sm" title="Ֆոնի ընտրություն">
               <Palette size={20} />
             </button>
-
-            {/* 2. Մութ/Լույս ռեժիմ */}
             <ThemeToggle size="md" />
-
-            {/* 3. Կողպել/Բացել դասերը */}
-            <button
-              onClick={toggleUnlockAll}
-              className={`p-2 rounded-xl backdrop-blur-sm border transition-all shadow-sm ${
-                unlockAllActive 
-                  ? "bg-amber-500/20 border-amber-500/30 text-amber-500" 
-                  : "bg-white/40 dark:bg-gray-900/50 border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-              }`}
-              title={unlockAllActive ? "Կողպել դասերը" : "Բացել բոլոր դասերը"}
-            >
+            <button onClick={toggleUnlockAll} className={`p-2 rounded-xl backdrop-blur-sm border transition-all shadow-sm ${unlockAllActive ? "bg-amber-500/20 border-amber-500/30 text-amber-500" : "bg-white/40 dark:bg-gray-900/50 border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"}`} title={unlockAllActive ? "Կողպել դասերը" : "Բացել բոլոր դասերը"}>
               {unlockAllActive ? <Unlock size={20} /> : <Lock size={20} />}
             </button>
           </div>
@@ -417,7 +374,7 @@ export default function WorldPage() {
         )}
 
         {/* ─── HERO ─── */}
-        <div className="px-6 pt-10 pb-8 max-w-4xl mx-auto text-center">
+        <div className="px-6 pt-10 pb-6 max-w-4xl mx-auto text-center">
           <motion.h1 
             className="text-5xl md:text-7xl font-black leading-none mb-3 tracking-tighter italic mt-4 text-gray-900 dark:text-white"
             initial={{ opacity: 0, y: -20 }}
@@ -450,108 +407,120 @@ export default function WorldPage() {
           </div>
         </div>
 
-        {/* ✅ ─── 3D GALAXY & READING ENTRY BUTTONS ─── */}
-        <div className="max-w-4xl mx-auto px-4 pb-8 w-full grid grid-cols-1 md:grid-cols-2 gap-4 relative z-20">
+        {/* ✅ ─── EXPLORE SECTION (3 CARDS) ─── */}
+        <div className="max-w-4xl mx-auto px-4 pb-10 w-full">
+          <div className="flex items-center gap-2 mb-4 px-2">
+            <Sparkles className="text-amber-500" size={20} />
+            <h2 className="text-lg font-black text-gray-800 dark:text-white uppercase tracking-wider">Հետազոտիր և Սովորիր</h2>
+          </div>
           
-          {/* 1. 3D Գալակտիկա */}
-          <Link href="/3d-galaxy" className="w-full">
-            <motion.div
-              whileHover={{ scale: 1.03, rotateX: 5, rotateY: 5 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_10px_40px_rgba(255,0,0,0.4)] cursor-pointer group h-full"
-              style={{ perspective: 1000 }}
-            >
-              <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md group-hover:blur-xl transition-all duration-300"></div>
-              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden h-full">
-                <div className="flex items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* 3D Galaxy Card */}
+            <Link href="/3d-galaxy" className="w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_8px_30px_rgba(255,0,0,0.3)] cursor-pointer group h-full"
+              >
+                <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-4 py-5 flex flex-col items-center justify-center overflow-hidden h-full text-center">
                   <motion.div
                     animate={{ y: [0, -4, 0], rotate: [0, 10, -10, 0] }}
                     transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    className="w-14 h-14 rounded-full bg-gradient-to-tr from-red-500 to-amber-300 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)]"
+                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-red-500 to-amber-300 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)] mb-3"
                   >
-                    <Globe size={28} className="text-white drop-shadow-md" />
+                    <Globe size={24} className="text-white drop-shadow-md" />
                   </motion.div>
-                  <div className="text-left">
-                    <h3 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 tracking-wide drop-shadow-sm">
-                      Նռիկի Գալակտիկա
-                    </h3>
-                    <p className="text-xs text-gray-400 font-medium mt-0.5">3D Ինտերակտիվ Ուսուցում</p>
-                  </div>
+                  <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 tracking-wide">
+                    Գալակտիկա
+                  </h3>
+                  <p className="text-[10px] text-gray-400 font-medium mt-1">3D Ինտերակտիվ Ուսուցում</p>
                 </div>
-                <div className="text-amber-500 bg-amber-500/10 p-2.5 rounded-full group-hover:bg-amber-500 group-hover:text-black transition-colors duration-300">
-                  <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </motion.div>
-          </Link>
+              </motion.div>
+            </Link>
 
-          {/* 2. Ընթերցանություն */}
-          <Link href="/reading" className="w-full">
-            <motion.div
-              whileHover={{ scale: 1.03, rotateX: 5, rotateY: -5 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 shadow-[0_10px_40px_rgba(0,100,255,0.4)] cursor-pointer group h-full"
-              style={{ perspective: 1000 }}
-            >
-              <div className="absolute inset-0 bg-white/20 rounded-3xl blur-md group-hover:blur-xl transition-all duration-300"></div>
-              <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-5 py-5 flex items-center justify-between overflow-hidden h-full">
-                <div className="flex items-center gap-4">
+            {/* Reading Card */}
+            <Link href="/reading" className="w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 shadow-[0_8px_30px_rgba(0,100,255,0.3)] cursor-pointer group h-full"
+              >
+                <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-4 py-5 flex flex-col items-center justify-center overflow-hidden h-full text-center">
                   <motion.div
                     animate={{ y: [0, -4, 0], rotate: [0, -10, 10, 0] }}
                     transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    className="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,255,255,0.6)]"
+                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,255,255,0.6)] mb-3"
                   >
-                    <BookOpen size={28} className="text-white drop-shadow-md" />
+                    <BookOpen size={24} className="text-white drop-shadow-md" />
                   </motion.div>
-                  <div className="text-left">
-                    <h3 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-500 tracking-wide drop-shadow-sm">
-                      Ընթերցանություն
-                    </h3>
-                    <p className="text-xs text-gray-400 font-medium mt-0.5">Կարդա և սովորիր նոր բառեր</p>
-                  </div>
+                  <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-500 tracking-wide">
+                    Ընթերցանություն
+                  </h3>
+                  <p className="text-[10px] text-gray-400 font-medium mt-1">Կարդա և սովորիր</p>
                 </div>
-                <div className="text-blue-500 bg-blue-500/10 p-2.5 rounded-full group-hover:bg-blue-500 group-hover:text-black transition-colors duration-300">
-                  <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </motion.div>
-          </Link>
+              </motion.div>
+            </Link>
 
+            {/* Alphabet Card */}
+            <Link href="/learn/alphabet" className="w-full">
+              <motion.div
+                whileHover={{ scale: 1.03, y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-400 shadow-[0_8px_30px_rgba(200,0,255,0.3)] cursor-pointer group h-full"
+              >
+                <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-4 py-5 flex flex-col items-center justify-center overflow-hidden h-full text-center">
+                  <motion.div
+                    animate={{ y: [0, -4, 0], scale: [1, 1.1, 1] }}
+                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-500 to-pink-300 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,255,0.6)] mb-3"
+                  >
+                    <Type size={24} className="text-white drop-shadow-md" />
+                  </motion.div>
+                  <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 to-purple-500 tracking-wide">
+                    Այբուբեն
+                  </h3>
+                  <p className="text-[10px] text-gray-400 font-medium mt-1">Սովորիր տառերը</p>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
         </div>
 
-        {/* ─── UNIT SELECTOR ─── */}
-        {units.length > 1 && (
-          <div className="max-w-4xl mx-auto px-4 pb-4 w-full">
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-              <button
-                onClick={() => setSelectedUnit(null)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                  !selectedUnit
-                    ? "bg-[#FFA500] text-black"
-                    : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                }`}
-              >
-                📚 {t("page_all")}
-              </button>
-              {units.map(u => (
+        {/* ─── MAIN LEARNING PATH ─── */}
+        <div className="max-w-4xl mx-auto px-4 md:px-8 pb-32 w-full mt-4">
+          
+          {/* Unit Selector */}
+          {units.length > 1 && (
+            <div className="mb-6">
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                 <button
-                  key={u.id}
-                  onClick={() => setSelectedUnit(u.id)}
+                  onClick={() => setSelectedUnit(null)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                    selectedUnit === u.id
+                    !selectedUnit
                       ? "bg-[#FFA500] text-black"
                       : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                   }`}
                 >
-                  {u.iconEmoji} {u.title[native] || u.title.en}
+                  📚 {t("page_all")}
                 </button>
-              ))}
+                {units.map(u => (
+                  <button
+                    key={u.id}
+                    onClick={() => setSelectedUnit(u.id)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                      selectedUnit === u.id
+                        ? "bg-[#FFA500] text-black"
+                        : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+                    }`}
+                  >
+                    {u.iconEmoji} {u.title[native] || u.title.en}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ─── LESSON PATH ─── */}
-        <div className="max-w-4xl mx-auto px-4 md:px-8 pb-32 w-full">
+          {/* Snake Paths */}
           <div className="flex flex-col gap-20">
             {filteredUnits.length === 0 ? (
               <div className="text-center py-16">
@@ -585,15 +554,6 @@ export default function WorldPage() {
                               className="text-xl"
                             >
                               🌟
-                            </motion.span>
-                          )}
-                          {unlockAllActive && !isComplete && (
-                            <motion.span
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full"
-                            >
-                              🔓 {t("page_unlocked")}
                             </motion.span>
                           )}
                         </div>

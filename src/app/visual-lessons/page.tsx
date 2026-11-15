@@ -3,15 +3,13 @@
 
 import { useState, Suspense, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeOff, ArrowLeft, Search, Sparkles, BookOpen, ChevronRight, Loader2, Play } from "lucide-react";
+import { Volume2, VolumeOff, ArrowLeft, Search, Sparkles, BookOpen, ChevronRight, Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { VISUAL_LESSONS, type VisualLesson } from "@/lib/content/visual-lessons";
 import { GlassCard } from "@/components/ui/glass-card";
-import { loadLangConfig, type LangCode, type LangPair } from "@/lib/i18n/index";
+import { loadLangConfig, type LangCode } from "@/lib/i18n/index";
 import { useAudioManager } from "@/lib/hooks/useAudioManager";
 import { getWavClient, WavClient } from "@/lib/audio/WavClient";
-
-// ─── HELPERS ──────────────────────────────────────────────────────────
 
 function sanitizeForTTS(text: string): string {
   if (!text) return text;
@@ -39,12 +37,10 @@ function VisualLessonsContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<"All" | "Grammar" | "Vocabulary" | "Phrases">("All");
   
-  // ✅ Լեզուների վիճակներ
   const [native, setNative] = useState<LangCode>("en");
   const [learningLang, setLearningLang] = useState<LangCode>("hy");
   const [isLangLoaded, setIsLangLoaded] = useState(false);
 
-  // ✅ ԱՈՒԴԻՈ ՀԱՄԱԿԱՐԳԻ ՎԻՃԱԿՆԵՐ (learn/page.tsx-ից)
   const [audioEnabled, setAudioEnabled] = useState(true);
   const { stop, isPlaying } = useAudioManager();
   const [wavClient, setWavClient] = useState<WavClient | null>(null);
@@ -52,7 +48,6 @@ function VisualLessonsContent() {
   const [isAudioReady, setIsAudioReady] = useState(false);
   const speakingLockRef = useRef(false);
 
-  // ✅ WAVClient-ի ինիցիալիզացիա
   useEffect(() => {
     const initWAV = async () => {
       try { 
@@ -83,7 +78,6 @@ function VisualLessonsContent() {
     }
   }, [isWAVAvailable]);
 
-  // ✅ Բեռնում ենք լեզվական նախընտրությունները
   useEffect(() => {
     try {
       const config = loadLangConfig();
@@ -104,8 +98,6 @@ function VisualLessonsContent() {
       if (found) setSelectedLesson(found);
     }
   }, [moduleId, isLangLoaded]);
-
-  // ─── ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱՆԵՐ ──────────────────────────────────────────
 
   const playAudioWithFemaleVoice = useCallback((text: string, lang: string): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -202,8 +194,6 @@ function VisualLessonsContent() {
     if (audioEnabled) stop();
   }, [audioEnabled, stop]);
 
-  // ─── UI ՖՈՒՆԿՑԻԱՆԵՐ ─────────────────────────────────────────────
-
   const filteredLessons = VISUAL_LESSONS.filter(l => {
     const matchesFilter = filter === "All" || l.category === filter;
     const matchesSearch = l.title.hy.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -247,7 +237,6 @@ function VisualLessonsContent() {
               </div>
             </div>
             
-            {/* ✅ Աուդիոյի միացման/անջատման կոճակ */}
             <button onClick={toggleAudio} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 border ${audioEnabled ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30"}`} title={audioEnabled ? "Անջատել ձայնը" : "Միացնել ձայնը"}>
               {audioEnabled ? <Volume2 size={14} /> : <VolumeOff size={14} />}
               <span className="hidden sm:inline">{audioEnabled ? "Ձայնը միացված է" : "Ձայնը անջատված է"}</span>
@@ -342,8 +331,9 @@ function VisualLessonsContent() {
 
               <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selectedLesson.items.map((item, idx) => {
-                  const targetWord = (item as any)[learningLang] || item.en;
-                  const nativeWord = (item as any)[native] || item.en;
+                  // ✅ ԱՎԵԼԱՑՎԵԼ Է : string ՏԻՊԸ
+                  const targetWord: string = (item as any)[learningLang] || item.en || "";
+                  const nativeWord: string = (item as any)[native] || item.en || "";
                   
                   const targetExample = (item as any)[`example_${learningLang}`];
                   const nativeExample = (item as any)[`example_${native}`];
@@ -363,7 +353,8 @@ function VisualLessonsContent() {
                                 <span className="text-3xl drop-shadow-sm">{item.emoji}</span> 
                                 {item.highlightWord && learningLang === "en" ? (
                                   <span>
-                                    {targetWord.split(item.highlightWord).map((part, i, arr) => (
+                                    {/* ✅ ԱՎԵԼԱՑՎԵԼ ԵՆ (part: string, i: number, arr: string[]) */}
+                                    {targetWord.split(item.highlightWord).map((part: string, i: number, arr: string[]) => (
                                       <span key={i}>
                                         {part}
                                         {i < arr.length - 1 && <span className="text-blue-600 dark:text-blue-400 underline decoration-2">{item.highlightWord}</span>}
@@ -379,7 +370,6 @@ function VisualLessonsContent() {
                               </p>
                             </div>
                             
-                            {/* ✅ ՆՈՐ ԱՈՒԴԻՈ ԿՈՃԱԿԸ */}
                             <button
                               onClick={() => handleSpeak(targetWord, learningLang, "answer")}
                               disabled={isPlaying}

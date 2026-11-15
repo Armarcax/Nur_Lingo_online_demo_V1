@@ -1,13 +1,34 @@
 // src/app/learn/alphabet/page.tsx
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Volume2, BookOpen, CheckCircle, XCircle, Trophy, Sparkles, Play, Delete } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ALPHABETS, type AlphabetLesson, type AlphabetLetter } from "@/lib/content/alphabets";
 import { GlassCard } from "@/components/ui/glass-card";
 import { loadLangConfig, type LangCode } from "@/lib/i18n/index";
+import { useAudioManager } from "@/lib/hooks/useAudioManager";
+import { getWavClient, WavClient } from "@/lib/audio/WavClient";
+
+// ─── HELPERS ──────────────────────────────────────────────────────────
+
+function sanitizeForTTS(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/[«»""'']/g, "")
+    .replace(/՛/g, "")
+    .replace(/՝/g, ",")
+    .replace(/։/g, ".")
+    .replace(/[.,;:!?։»«]+\s*$/g, "")
+    .replace(/[։»«]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getPairKey(native: LangCode, learning: LangCode): string {
+  return `${native}-${learning}`;
+}
 
 export default function AlphabetLessonPage() {
   const router = useRouter();
@@ -23,6 +44,13 @@ export default function AlphabetLessonPage() {
   const [gameState, setGameState] = useState<"idle" | "correct" | "incorrect">("idle");
   const [score, setScore] = useState(0);
 
+  // ✅ ԱՈՒԴԻՈ ՀԱՄԱԿԱՐԳԻ ՎԻՃԱԿՆԵՐ
+  const { stop, isPlaying } = useAudioManager();
+  const [wavClient, setWavClient] = useState<WavClient | null>(null);
+  const [isWAVAvailable, setIsWAVAvailable] = useState(false);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+  const speakingLockRef = useRef(false);
+
   useEffect(() => {
     try {
       const config = loadLangConfig();
@@ -30,7 +58,6 @@ export default function AlphabetLessonPage() {
         setNative(config.native as LangCode);
         setLearningLang(config.learning as LangCode);
         
-        // Փորձենք գտնել սովորող լեզվին համապատասխան այբուբեն
         const matchedAlphabet = ALPHABETS.find(a => a.languageCode === config.learning);
         if (matchedAlphabet) {
           setSelectedAlphabet(matchedAlphabet);
@@ -39,14 +66,130 @@ export default function AlphabetLessonPage() {
     } catch (e) {}
   }, []);
 
-  const speak = (text: string, lang: "en" | "hy" | "ru") => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang === "en" ? "en-US" : lang === "hy" ? "hy-AM" : "ru-RU";
-    utterance.rate = 0.8;
-    window.speechSynthesis.speak(utterance);
-  };
+  // ✅ WAVClient-ի ինիցիալիզացիա
+  useEffect(() => {
+    const initWAV = async () => {
+      try { 
+        const client = getWavClient(); 
+        if (client) { 
+          setWavClient(client); 
+          setIsWAVAvailable(true); 
+        } 
+      } catch (error) { 
+        console.warn("WAV init error:", error); 
+      }
+    };
+    initWAV();
+  }, []);
+
+  useEffect(() => { 
+    if (wavClient && isWAVAvailable) setIsAudioReady(true); 
+  }, [wavClient, isWAVAvailable]);
+
+  useEffect(() => {
+    if (!isWAVAvailable && typeof window !== "undefined") {
+      const checkVoices = () => { 
+        if (window.speechSynthesis.getVoices().length > 0) setIsAudioReady(true); 
+      };
+      window.speechSynthesis.onvoiceschanged = checkVoices;
+      checkVoices();
+      return () => { window.speechSynthesis.onvoiceschanged = null; };
+    }
+  }, [isWAVAvailable]);
+
+  // ─── ԱՈՒԴԻՈ ՖՈՒՆԿՑԻԱՆԵՐ ──────────────────────────────────────────
+
+  const playAudioWithFemaleVoice = useCallback((text: string, lang: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (typeof window === "undefined" || !window.speechSynthesis) {
+        reject(new Error("Speech synthesis not supported")); return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      if (lang === "hy") utterance.rate = 1.5;
+      else if (lang === "en") utterance.rate = 1.1;
+      else utterance.rate = 1.15;
+      utterance.pitch = 1.3; utterance.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const femaleVoiceNames = ["Samantha", "Google UK English Female", "Karen", "Zira", "Alice", "Victoria", "Emma", "Susan", "Tessa", "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena", "Ani", "Google Հայերեն", "Armine", "Lusine"];
+
+      let selected: SpeechSynthesisVoice | null = null;
+      for (const name of femaleVoiceNames) {
+        const found = voices.find((v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase());
+        if (found) { selected = found; break; }
+      }
+      if (!selected) {
+        for (const name of femaleVoiceNames) {
+          const found = voices.find((v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase()));
+          if (found) { selected = found; break; }
+        }
+      }
+      if (!selected) {
+        selected = voices.find((v) => v.lang.startsWith(lang) && (v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("samantha") || v.name.toLowerCase().includes("zira") || v.name.toLowerCase().includes("karen") || v.name.toLowerCase().includes("anna"))) ?? null;
+      }
+      if (selected) utterance.voice = selected; else utterance.pitch = 1.5;
+
+      utterance.onend = () => resolve();
+      utterance.onerror = (e) => reject(e);
+      window.speechSynthesis.speak(utterance);
+    });
+  }, []);
+
+  const playAudioWithFallback = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!text) return;
+      text = sanitizeForTTS(text);
+      if (!text) return;
+      const pairKey = getPairKey(native, learningLang);
+
+      if (type === "prompt") {
+        if (lang === "hy") {
+          if (wavClient && isWAVAvailable) {
+            try { await wavClient.playPrompt(text, pairKey, "Ani"); return; }
+            catch (error: any) {
+              if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+                try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+              }
+            }
+          }
+          try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+        }
+        try { await playAudioWithFemaleVoice(text, lang); } catch {}
+      }
+
+      if (type === "answer") {
+        if (learningLang === "hy" && wavClient && isWAVAvailable) {
+          try { await wavClient.playAnswer(text, pairKey, "Ani"); return; }
+          catch (error: any) {
+            if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+              try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+            }
+          }
+        }
+        try { await playAudioWithFemaleVoice(text, learningLang); } catch {}
+      }
+    },
+    [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]
+  );
+
+  const handleSpeak = useCallback(
+    async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
+      if (!text) return;
+      if (speakingLockRef.current) {
+        if (typeof window !== "undefined") window.speechSynthesis?.cancel();
+        speakingLockRef.current = false; return;
+      }
+      speakingLockRef.current = true;
+      try { await playAudioWithFallback(text, lang, type); }
+      catch (e) { console.warn("handleSpeak error:", e); }
+      finally { speakingLockRef.current = false; }
+    },
+    [playAudioWithFallback]
+  );
+
+  // ─── ԽԱՂԻ ՖՈՒՆԿՑԻԱՆԵՐ ─────────────────────────────────────────────
 
   const startSpellingGame = useCallback(() => {
     if (!selectedAlphabet.letters.length) return;
@@ -67,7 +210,7 @@ export default function AlphabetLessonPage() {
       if (newSelected.join("") === targetWord.join("")) {
         setGameState("correct");
         setScore(prev => prev + 10);
-        speak(currentLetter.example.translation.en, "en");
+        handleSpeak(currentLetter.example.word, selectedAlphabet.languageCode);
       } else {
         setGameState("incorrect");
       }
@@ -80,8 +223,6 @@ export default function AlphabetLessonPage() {
   };
 
   const theory = selectedAlphabet.theory;
-  
-  // Օգտագործում ենք ընտրված այբուբենի լեզվի այբուբենը՝ խաղի համար տառեր ցուցադրելու համար
   const spellingLetters = selectedAlphabet.letters.map(l => l.capital);
 
   return (
@@ -170,22 +311,45 @@ export default function AlphabetLessonPage() {
             <motion.div key={`letters-${selectedAlphabet.id}`} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {selectedAlphabet.letters.map((letter) => (
-                  <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
-                    <div>
+                  <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
+                    
+                    {/* Տառ և անուն */}
+                    <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
                         <span className="text-xl font-bold text-gray-500">{letter.lowercase}</span>
-                        <span className="text-sm font-mono text-blue-500">{letter.ipa}</span>
+                        <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{letter.example.word} — {letter.example.translation[native]}</p>
-                      <p className="text-[10px] text-gray-400 mt-0.5">{letter.letterName[native]}</p>
+                      <button 
+                        onClick={() => handleSpeak(`${letter.capital}. ${letter.letterName[selectedAlphabet.languageCode]}`, selectedAlphabet.languageCode)} 
+                        className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
+                        title="Լսել տառը"
+                      >
+                        <Volume2 size={16} />
+                      </button>
                     </div>
-                    <button 
-                      onClick={() => speak(letter.capital + ". " + letter.letterName[selectedAlphabet.languageCode] + ". " + letter.example.word, selectedAlphabet.languageCode)} 
-                      className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
-                    >
-                      <Volume2 size={18} />
-                    </button>
+
+                    <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
+
+                    {/* Օրինակ բառ և թարգմանություն */}
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="text-sm font-bold text-gray-900 dark:text-white">
+                          {letter.example.word} <span className="text-gray-400 font-mono font-normal">[{letter.example.ipa}]</span>
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {letter.example.translation[native]}
+                        </p>
+                      </div>
+                      <button 
+                        onClick={() => handleSpeak(letter.example.word, selectedAlphabet.languageCode)} 
+                        className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 hover:bg-emerald-200 transition-colors"
+                        title="Լսել բառը"
+                      >
+                        <Volume2 size={16} />
+                      </button>
+                    </div>
+
                   </motion.div>
                 ))}
               </div>
@@ -209,7 +373,7 @@ export default function AlphabetLessonPage() {
                   ))}
                 </div>
                 <div className="flex justify-center gap-4 mb-6">
-                  <button onClick={() => speak(currentLetter.example.word, selectedAlphabet.languageCode)} className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200">
+                  <button onClick={() => handleSpeak(currentLetter.example.word, selectedAlphabet.languageCode)} className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200">
                     <Volume2 size={24} />
                   </button>
                   <button onClick={removeLastLetter} disabled={selectedLetters.length === 0} className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 disabled:opacity-50">

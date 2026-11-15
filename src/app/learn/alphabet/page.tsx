@@ -66,7 +66,7 @@ export default function AlphabetLessonPage() {
     } catch (e) {}
   }, []);
 
-  // ✅ WAVClient-ի ինիցիալիզացիա
+  // ✅ WavClient-ի ինիցիալիզացիա
   useEffect(() => {
     const initWAV = async () => {
       try { 
@@ -106,11 +106,9 @@ export default function AlphabetLessonPage() {
       }
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      if (lang === "hy") utterance.rate = 1.2;
-      else if (lang === "en") utterance.rate = 1.1;
-      else utterance.rate = 1.15;
-      utterance.pitch = 1.3; utterance.volume = 1.0;
+      utterance.lang = lang === "en" ? "en-US" : lang === "hy" ? "hy-AM" : "ru-RU";
+      utterance.rate = lang === "hy" ? 1.2 : 1.0;
+      utterance.pitch = 1.2; utterance.volume = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
       const femaleVoiceNames = ["Samantha", "Google UK English Female", "Karen", "Zira", "Alice", "Victoria", "Emma", "Susan", "Tessa", "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena", "Ani", "Google Հայերեն", "Armine", "Lusine"];
@@ -127,9 +125,9 @@ export default function AlphabetLessonPage() {
         }
       }
       if (!selected) {
-        selected = voices.find((v) => v.lang.startsWith(lang) && (v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("samantha") || v.name.toLowerCase().includes("zira") || v.name.toLowerCase().includes("karen") || v.name.toLowerCase().includes("anna"))) ?? null;
+        selected = voices.find((v) => v.lang.startsWith(lang)) ?? null;
       }
-      if (selected) utterance.voice = selected; else utterance.pitch = 1.5;
+      if (selected) utterance.voice = selected;
 
       utterance.onend = () => resolve();
       utterance.onerror = (e) => reject(e);
@@ -137,6 +135,7 @@ export default function AlphabetLessonPage() {
     });
   }, []);
 
+  // ✅ WavClient + TTS Fallback (Հիմնական աուդիո ֆունկցիան)
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
       if (!text) return;
@@ -144,31 +143,25 @@ export default function AlphabetLessonPage() {
       if (!text) return;
       const pairKey = getPairKey(native, learningLang);
 
-      if (type === "prompt") {
-        if (lang === "hy") {
-          if (wavClient && isWAVAvailable) {
-            try { await wavClient.playPrompt(text, pairKey, "Ani"); return; }
-            catch (error: any) {
-              if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
-                try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
-              }
-            }
-          }
-          try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+      // Փորձում ենք WavClient-ով
+      if (lang === "hy" && wavClient && isWAVAvailable) {
+        try { 
+          await wavClient.playPrompt(text, pairKey, "Ani"); 
+          return; 
         }
-        try { await playAudioWithFemaleVoice(text, lang); } catch {}
+        catch (error: any) {
+          if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+            try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
+          }
+          // Եթե WavClient-ը չգտավ, անցնում ենք TTS-ին
+        }
       }
-
-      if (type === "answer") {
-        if (learningLang === "hy" && wavClient && isWAVAvailable) {
-          try { await wavClient.playAnswer(text, pairKey, "Ani"); return; }
-          catch (error: any) {
-            if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
-              try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
-            }
-          }
-        }
-        try { await playAudioWithFemaleVoice(text, learningLang); } catch {}
+      
+      // Fallback: TTS
+      try { 
+        await playAudioWithFemaleVoice(text, lang); 
+      } catch (e) {
+        console.warn("TTS fallback failed:", e);
       }
     },
     [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]
@@ -182,18 +175,11 @@ export default function AlphabetLessonPage() {
         speakingLockRef.current = false; return;
       }
       speakingLockRef.current = true;
-      try { 
-        // ✅ Եթե տեքստը 1 կամ 2 տառ է, օգտագործում ենք ՄԻԱՅՆ TTS-ը
-        if (text.trim().length <= 2) {
-          await playAudioWithFemaleVoice(text, lang);
-        } else {
-          await playAudioWithFallback(text, lang, type); 
-        }
-      }
+      try { await playAudioWithFallback(text, lang, type); }
       catch (e) { console.warn("handleSpeak error:", e); }
       finally { speakingLockRef.current = false; }
     },
-    [playAudioWithFallback, playAudioWithFemaleVoice]
+    [playAudioWithFallback]
   );
 
   // ─── ԽԱՂԻ ՖՈՒՆԿՑԻԱՆԵՐ ─────────────────────────────────────────────
@@ -320,23 +306,19 @@ export default function AlphabetLessonPage() {
                 {selectedAlphabet.letters.map((letter) => (
                   <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
                     
-                    {/* Մեծատառ, փոքրատառ և անվանում */}
+                    {/* Տառ, փոքրատառ և անվանում (որպես տրանսկրիպցիա) */}
                     <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
                         <span className="text-xl font-bold text-gray-500">{letter.lowercase}</span>
-                        
-                        {/* ✅ Հայերենի համար ցուցադրվում է անվանումը, մյուսների համար IPA */}
-                        {selectedAlphabet.languageCode === 'hy' ? (
-                          <span className="text-sm font-semibold text-blue-500">({letter.letterName.hy})</span>
-                        ) : (
-                          <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
-                        )}
+                        <span className="text-sm font-semibold text-blue-500">
+                          ({letter.letterName[selectedAlphabet.languageCode]})
+                        </span>
                       </div>
                       
-                      {/* ✅ Կոճակը կարդում է տառի անվանումը (Այբ, Բեն կամ Ay, Эй) */}
+                      {/* ✅ Կոճակը WavClient-ով կարդում է անվանումը (Այբ, Բեն) */}
                       <button 
-                        onClick={() => playAudioWithFemaleVoice(letter.letterName[selectedAlphabet.languageCode], selectedAlphabet.languageCode)} 
+                        onClick={() => handleSpeak(letter.letterName[selectedAlphabet.languageCode], selectedAlphabet.languageCode, "prompt")} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
                         title="Լսել տառի անվանումը"
                       >
@@ -357,7 +339,7 @@ export default function AlphabetLessonPage() {
                         </p>
                       </div>
                       <button 
-                        onClick={() => handleSpeak(letter.example.word, selectedAlphabet.languageCode)} 
+                        onClick={() => handleSpeak(letter.example.word, selectedAlphabet.languageCode, "answer")} 
                         className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 hover:bg-emerald-200 transition-colors"
                         title="Լսել բառը"
                       >
@@ -388,7 +370,7 @@ export default function AlphabetLessonPage() {
                   ))}
                 </div>
                 <div className="flex justify-center gap-4 mb-6">
-                  <button onClick={() => handleSpeak(currentLetter.example.word, selectedAlphabet.languageCode)} className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200">
+                  <button onClick={() => handleSpeak(currentLetter.example.word, selectedAlphabet.languageCode, "answer")} className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200">
                     <Volume2 size={24} />
                   </button>
                   <button onClick={removeLastLetter} disabled={selectedLetters.length === 0} className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 disabled:opacity-50">

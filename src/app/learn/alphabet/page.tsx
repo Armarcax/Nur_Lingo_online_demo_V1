@@ -182,11 +182,18 @@ export default function AlphabetLessonPage() {
         speakingLockRef.current = false; return;
       }
       speakingLockRef.current = true;
-      try { await playAudioWithFallback(text, lang, type); }
+      try { 
+        // ✅ Եթե տեքստը 1 կամ 2 տառ է, օգտագործում ենք ՄԻԱՅՆ TTS-ը, որպեսզի WavClient-ը սխալ աուդիո չբերի
+        if (text.trim().length <= 2) {
+          await playAudioWithFemaleVoice(text, lang);
+        } else {
+          await playAudioWithFallback(text, lang, type); 
+        }
+      }
       catch (e) { console.warn("handleSpeak error:", e); }
       finally { speakingLockRef.current = false; }
     },
-    [playAudioWithFallback]
+    [playAudioWithFallback, playAudioWithFemaleVoice]
   );
 
   // ─── ԽԱՂԻ ՖՈՒՆԿՑԻԱՆԵՐ ─────────────────────────────────────────────
@@ -322,7 +329,6 @@ export default function AlphabetLessonPage() {
                           <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
                         )}
                       </div>
-                      {/* ✅ Կարդում է ՄԻԱՅՆ մեծատառը */}
                       <button 
                         onClick={() => handleSpeak(letter.capital, selectedAlphabet.languageCode)} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"

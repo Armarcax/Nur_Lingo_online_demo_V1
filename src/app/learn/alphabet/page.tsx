@@ -30,6 +30,21 @@ function getPairKey(native: LangCode, learning: LangCode): string {
   return `${native}-${learning}`;
 }
 
+// ✅ UI Տեքստերի թարգմանություններ ըստ նաթիվ լեզվի
+const UI_TEXT = {
+  theory: { en: "Theory", hy: "Տեսություն", ru: "Теория" },
+  letters: { en: "Letters", hy: "Տառեր", ru: "Буквы" },
+  spelling: { en: "Spelling", hy: "Գրագիտություն", ru: "Правописание" },
+  write_word: { en: "Write the word", hy: "Գրիր բառը", ru: "Напишите слово" },
+  hint: { en: "Hint", hy: "Ակնարկ", ru: "Подсказка" },
+  next_word: { en: "Next word", hy: "Հաջորդ բառը", ru: "Следующее слово" },
+  correct: { en: "Correct! +10 points", hy: "Ճիշտ է: +10 միավոր", ru: "Правильно! +10 очков" },
+  incorrect: { en: "Incorrect! Try again.", hy: "Սխալ է: Փորձիր նորից:", ru: "Ошибка! Попробуйте еще раз." },
+  listen_letter: { en: "Listen to the letter", hy: "Լսել տառի անվանումը", ru: "Слушать букву" },
+  listen_word: { en: "Listen to the word", hy: "Լսել բառը", ru: "Слушать слово" },
+  letter_count: { en: "letters", hy: "տառ", ru: "букв" },
+};
+
 export default function AlphabetLessonPage() {
   const router = useRouter();
   const [native, setNative] = useState<LangCode>("hy");
@@ -51,6 +66,8 @@ export default function AlphabetLessonPage() {
   const [isAudioReady, setIsAudioReady] = useState(false);
   const speakingLockRef = useRef(false);
 
+  const t_ui = (key: keyof typeof UI_TEXT) => UI_TEXT[key][native] || UI_TEXT[key].en;
+
   useEffect(() => {
     try {
       const config = loadLangConfig();
@@ -58,6 +75,7 @@ export default function AlphabetLessonPage() {
         setNative(config.native as LangCode);
         setLearningLang(config.learning as LangCode);
         
+        // ✅ Բերենք ՄԻԱՅՆ այն այբուբենը, որն օգտատերը սովորում է
         const matchedAlphabet = ALPHABETS.find(a => a.languageCode === config.learning);
         if (matchedAlphabet) {
           setSelectedAlphabet(matchedAlphabet);
@@ -135,7 +153,7 @@ export default function AlphabetLessonPage() {
     });
   }, []);
 
-  // ✅ WavClient + TTS Fallback (Հիմնական աուդիո ֆունկցիան)
+  // ✅ WavClient + TTS Fallback
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
       if (!text) return;
@@ -143,7 +161,6 @@ export default function AlphabetLessonPage() {
       if (!text) return;
       const pairKey = getPairKey(native, learningLang);
 
-      // Փորձում ենք WavClient-ով
       if (lang === "hy" && wavClient && isWAVAvailable) {
         try { 
           await wavClient.playPrompt(text, pairKey, "Ani"); 
@@ -153,11 +170,9 @@ export default function AlphabetLessonPage() {
           if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
             try { await playAudioWithFemaleVoice(text, "hy"); return; } catch {}
           }
-          // Եթե WavClient-ը չգտավ, անցնում ենք TTS-ին
         }
       }
       
-      // Fallback: TTS
       try { 
         await playAudioWithFemaleVoice(text, lang); 
       } catch (e) {
@@ -233,36 +248,24 @@ export default function AlphabetLessonPage() {
         </div>
       </header>
 
-      {/* Alphabet Selector */}
+      {/* Selected Alphabet Header (Միայն մեկ այբուբեն) */}
       <div className="max-w-4xl mx-auto px-4 mt-6">
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {ALPHABETS.map((alphabet) => (
-            <button
-              key={alphabet.id}
-              onClick={() => {
-                setSelectedAlphabet(alphabet);
-                setActiveTab("theory");
-                setCurrentLetter(null);
-              }}
-              className={`p-3 rounded-2xl border-2 transition-all flex flex-col items-center gap-1 ${
-                selectedAlphabet.id === alphabet.id
-                  ? `border-blue-500 bg-gradient-to-br ${alphabet.color} text-white shadow-lg`
-                  : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300"
-              }`}
-            >
-              <span className="text-2xl">{alphabet.icon}</span>
-              <span className="text-xs font-bold">{alphabet.title[native]}</span>
-              <span className="text-[10px] opacity-70">{alphabet.letterCount} տառ</span>
-            </button>
-          ))}
+        <div className="flex justify-center mb-6">
+          <div className={`px-6 py-3 rounded-2xl border-2 flex items-center gap-3 bg-white dark:bg-gray-800 shadow-md`}>
+            <span className="text-3xl">{selectedAlphabet.icon}</span>
+            <div>
+              <h2 className="text-lg font-bold">{selectedAlphabet.title[native]}</h2>
+              <p className="text-xs text-gray-500">{selectedAlphabet.letterCount} {t_ui("letter_count")}</p>
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}
         <div className="flex gap-2 p-1 bg-gray-200 dark:bg-gray-800 rounded-2xl">
           {[
-            { id: "theory", label: "Տեսություն", icon: BookOpen },
-            { id: "letters", label: "Տառեր", icon: Sparkles },
-            { id: "spelling", label: "Գրագիտություն", icon: Play },
+            { id: "theory", label: t_ui("theory"), icon: BookOpen },
+            { id: "letters", label: t_ui("letters"), icon: Sparkles },
+            { id: "spelling", label: t_ui("spelling"), icon: Play },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -306,7 +309,7 @@ export default function AlphabetLessonPage() {
                 {selectedAlphabet.letters.map((letter) => (
                   <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
                     
-                    {/* Տառ, փոքրատառ և անվանում (որպես տրանսկրիպցիա) */}
+                    {/* Տառ, փոքրատառ և անվանում */}
                     <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
@@ -316,11 +319,10 @@ export default function AlphabetLessonPage() {
                         </span>
                       </div>
                       
-                      {/* ✅ Կոճակը WavClient-ով կարդում է անվանումը (Այբ, Բեն) */}
                       <button 
                         onClick={() => handleSpeak(letter.letterName[selectedAlphabet.languageCode], selectedAlphabet.languageCode, "prompt")} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
-                        title="Լսել տառի անվանումը"
+                        title={t_ui("listen_letter")}
                       >
                         <Volume2 size={16} />
                       </button>
@@ -332,7 +334,11 @@ export default function AlphabetLessonPage() {
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="text-sm font-bold text-gray-900 dark:text-white">
-                          {letter.example.word} <span className="text-gray-400 font-mono font-normal">[{letter.example.ipa}]</span>
+                          {letter.example.word} 
+                          {/* ✅ Տրանսկրիպցիան միայն անգլերենի համար */}
+                          {selectedAlphabet.languageCode === 'en' && (
+                            <span className="text-gray-400 font-mono font-normal ml-1">[{letter.example.ipa}]</span>
+                          )}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
                           {letter.example.translation[native]}
@@ -341,7 +347,7 @@ export default function AlphabetLessonPage() {
                       <button 
                         onClick={() => handleSpeak(letter.example.word, selectedAlphabet.languageCode, "answer")} 
                         className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 hover:bg-emerald-200 transition-colors"
-                        title="Լսել բառը"
+                        title={t_ui("listen_word")}
                       >
                         <Volume2 size={16} />
                       </button>
@@ -357,8 +363,8 @@ export default function AlphabetLessonPage() {
           {activeTab === "spelling" && currentLetter && (
             <motion.div key={`spelling-${selectedAlphabet.id}`} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="text-center">
               <GlassCard variant="premium" className="p-8">
-                <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Գրիր բառը</p>
-                <p className="text-xs text-gray-400 mb-4">Ակնարկ՝ {currentLetter.example.translation[native]}</p>
+                <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">{t_ui("write_word")}</p>
+                <p className="text-xs text-gray-400 mb-4">{t_ui("hint")}՝ {currentLetter.example.translation[native]}</p>
                 
                 <div className="flex justify-center gap-2 mb-6 flex-wrap">
                   {currentLetter.example.word.toUpperCase().split("").map((char, idx) => (
@@ -386,17 +392,17 @@ export default function AlphabetLessonPage() {
                 </div>
                 {gameState === "correct" && (
                   <div className="mt-6 p-4 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-300 font-bold flex items-center justify-center gap-2">
-                    <CheckCircle size={20} /> Ճիշտ է: +10 միավոր
+                    <CheckCircle size={20} /> {t_ui("correct")}
                   </div>
                 )}
                 {gameState === "incorrect" && (
                   <div className="mt-6 p-4 bg-red-100 dark:bg-red-900/30 rounded-xl text-red-700 dark:text-red-300 font-bold flex items-center justify-center gap-2">
-                    <XCircle size={20} /> Սխալ է: Փորձիր նորից:
+                    <XCircle size={20} /> {t_ui("incorrect")}
                   </div>
                 )}
                 <div className="mt-6">
                   <button onClick={startSpellingGame} className="px-6 py-2 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700">
-                    Հաջորդ բառը
+                    {t_ui("next_word")}
                   </button>
                 </div>
                 <div className="mt-4 text-lg font-bold text-yellow-500 flex items-center justify-center gap-2">

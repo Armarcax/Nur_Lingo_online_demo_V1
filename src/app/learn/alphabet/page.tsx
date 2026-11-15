@@ -313,21 +313,37 @@ export default function AlphabetLessonPage() {
                 {selectedAlphabet.letters.map((letter) => (
                   <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
                     
-                    {/* Տառ և անուն */}
+                    {/* Տառ (միայն տառը, առանց անվան) */}
                     <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
                         <span className="text-xl font-bold text-gray-500">{letter.lowercase}</span>
-                        <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
+                        {selectedAlphabet.languageCode !== 'hy' && (
+                          <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
+                        )}
                       </div>
                       <button 
-                        onClick={() => handleSpeak(`${letter.capital}. ${letter.letterName[selectedAlphabet.languageCode]}`, selectedAlphabet.languageCode)} 
+                        onClick={() => handleSpeak(letter.capital, selectedAlphabet.languageCode)} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
                         title="Լսել տառը"
                       >
                         <Volume2 size={16} />
                       </button>
                     </div>
+
+                    {/* Հայերենի համար անվանում (Այբ, Բեն...) */}
+                    {selectedAlphabet.languageCode === 'hy' && (
+                      <div className="flex justify-between items-center pl-2 border-l-2 border-purple-300 dark:border-purple-700">
+                        <span className="text-sm text-gray-600 dark:text-gray-300">Անվանում: <span className="font-bold">{letter.letterName.hy}</span></span>
+                        <button 
+                          onClick={() => handleSpeak(letter.letterName.hy, 'hy')} 
+                          className="p-1 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 hover:bg-purple-200 transition-colors"
+                          title="Լսել անվանումը"
+                        >
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+                    )}
 
                     <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
 

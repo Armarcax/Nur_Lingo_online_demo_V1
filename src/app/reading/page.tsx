@@ -30,7 +30,7 @@ function getPairKey(native: LangCode, learning: LangCode): string {
   return `${native}-${learning}`;
 }
 
-// ✅ UI Տեքստերի թարգմանություններ
+// ✅ UI Տեքստերի թարգմանություններ (Մենյուի համար, որը պետք է լինի նաթիվ լեզվով)
 const UI_TEXT = {
   title: { en: "Reading", hy: "Ընթերցանություն", ru: "Чтение" },
   level: { en: "Level", hy: "Մակարդակ", ru: "Уровень" },
@@ -178,7 +178,9 @@ export default function ReadingPage() {
   // ─── DETAIL VIEW ──────────────────────────────────────────────────
 
   const part = selectedText.paragraphs[currentPart];
+  // ✅ Տեքստը ցուցադրվում է սովորող լեզվով
   const textToRead = part[learningLang] || part.en;
+  // ✅ Թարգմանությունը ցուցադրվում է մայրենի լեզվով
   const textToTranslate = part[native] || part.en;
 
   return (
@@ -238,21 +240,28 @@ export default function ReadingPage() {
 
         {!showQuestions ? (
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {selectedText.vocabulary.map((v, i) => (
-              <div key={i} className="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                <div>
-                  <p className="font-bold">{v.word}</p>
-                  <p className="text-sm text-gray-500">{v.translation[native]}</p>
+            {selectedText.vocabulary.map((v, i) => {
+              // ✅ Բառը ցուցադրվում է սովորող լեզվով, իսկ ներքևում՝ մայրենի թարգմանությունը
+              const targetWord = v.translation[learningLang] || v.word;
+              const nativeMeaning = v.translation[native] || v.translation.en;
+
+              return (
+                <div key={i} className="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                  <div>
+                    <p className="font-bold text-gray-900 dark:text-white">{targetWord}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{nativeMeaning}</p>
+                  </div>
+                  <button onClick={() => handleSpeak(targetWord, learningLang)} className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"><Volume2 size={16} /></button>
                 </div>
-                <button onClick={() => handleSpeak(v.word, learningLang)} className="p-2 rounded-lg bg-blue-50 text-blue-600"><Volume2 size={16} /></button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="mt-4 space-y-6">
             {selectedText.questions.map((q, qi) => (
               <GlassCard key={qi} variant="premium" className="p-5">
-                <p className="font-bold mb-3">{q.question[native] || q.question.en}</p>
+                {/* ✅ Հարցը ցուցադրվում է սովորող լեզվով */}
+                <p className="font-bold mb-3 text-gray-900 dark:text-white">{q.question[learningLang] || q.question.en}</p>
                 <div className="space-y-2">
                   {q.options.map((opt, oi) => {
                     const isSelected = answers[qi] === oi;
@@ -267,7 +276,8 @@ export default function ReadingPage() {
                     }
                     return (
                       <button key={oi} onClick={() => !showResults && setAnswers({ ...answers, [qi]: oi })} className={cls} disabled={showResults}>
-                        {opt[native] || opt.en}
+                        {/* ✅ Պատասխանները ցուցադրվում են սովորող լեզվով */}
+                        {opt[learningLang] || opt.en}
                       </button>
                     );
                   })}
@@ -276,7 +286,7 @@ export default function ReadingPage() {
             ))}
             <button onClick={() => setShowResults(true)} className="w-full py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700">{t_ui("check")}</button>
             {showResults && (
-              <div className="p-4 bg-emerald-50 rounded-xl text-emerald-700 font-bold text-center">
+              <div className="p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-300 font-bold text-center">
                 {selectedText.questions.filter((q, i) => answers[i] === q.correctIndex).length} / {selectedText.questions.length} {t_ui("correct")}
               </div>
             )}

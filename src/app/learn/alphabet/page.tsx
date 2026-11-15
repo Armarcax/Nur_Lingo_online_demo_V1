@@ -313,7 +313,7 @@ export default function AlphabetLessonPage() {
                 {selectedAlphabet.letters.map((letter) => (
                   <motion.div key={letter.id} whileHover={{ scale: 1.02 }} className="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col gap-2">
                     
-                    {/* Տառ (միայն տառը, առանց անվան) */}
+                    {/* Մեծատառ, փոքրատառ և IPA */}
                     <div className="flex justify-between items-center">
                       <div className="flex items-baseline gap-2">
                         <span className="text-2xl font-black text-gray-900 dark:text-white">{letter.capital}</span>
@@ -322,6 +322,7 @@ export default function AlphabetLessonPage() {
                           <span className="text-xs font-mono text-blue-500">{letter.ipa}</span>
                         )}
                       </div>
+                      {/* ✅ Կարդում է ՄԻԱՅՆ մեծատառը */}
                       <button 
                         onClick={() => handleSpeak(letter.capital, selectedAlphabet.languageCode)} 
                         className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 hover:bg-blue-200 transition-colors"
@@ -331,7 +332,7 @@ export default function AlphabetLessonPage() {
                       </button>
                     </div>
 
-                    {/* Հայերենի համար անվանում (Այբ, Բեն...) */}
+                    {/* Հայերենի համար ավանդական անվանում */}
                     {selectedAlphabet.languageCode === 'hy' && (
                       <div className="flex justify-between items-center pl-2 border-l-2 border-purple-300 dark:border-purple-700">
                         <span className="text-sm text-gray-600 dark:text-gray-300">Անվանում: <span className="font-bold">{letter.letterName.hy}</span></span>
@@ -347,7 +348,7 @@ export default function AlphabetLessonPage() {
 
                     <div className="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
 
-                    {/* Օրինակ բառ և թարգմանություն */}
+                    {/* Օրինակ բառ */}
                     <div className="flex justify-between items-center">
                       <div>
                         <p className="text-sm font-bold text-gray-900 dark:text-white">

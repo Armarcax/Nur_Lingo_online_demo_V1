@@ -1,10 +1,10 @@
 // src/app/reading/page.tsx
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Volume2, BookOpen, Clock, ChevronLeft, ChevronRight, CheckCircle, XCircle, Languages, Loader2, PencilLine } from "lucide-react";
+import { ArrowLeft, Volume2, BookOpen, Clock, ChevronLeft, ChevronRight, CheckCircle, XCircle, Languages, Loader2, PencilLine, Filter } from "lucide-react";
 import { READING_TEXTS, type ReadingText, type ReadingParagraph } from "@/lib/content/reading-texts";
 import { GlassCard } from "@/components/ui/glass-card";
 import { loadLangConfig, type LangCode } from "@/lib/i18n/index";
@@ -49,9 +49,13 @@ const UI_TEXT = {
   back: { en: "Back to list", hy: "Վերադառնալ ցանկին", ru: "Назад к списку" },
   nextPart: { en: "Next part", hy: "Հաջորդ մասը", ru: "Следующая часть" },
   prevPart: { en: "Previous part", hy: "Նախորդ մասը", ru: "Предыдущая часть" },
+  all: { en: "All", hy: "Բոլորը", ru: "Все" },
+  noResults: { en: "No texts at this level yet", hy: "Այս մակարդակում տեքստեր դեռ չկան", ru: "Текстов этого уровня пока нет" },
+  texts: { en: "texts", hy: "տեքստ", ru: "текстов" },
 };
 
 type TabKey = "vocabulary" | "questions" | "creativeTask";
+type LevelFilter = "all" | "A1" | "A2" | "B1" | "B2";
 
 export default function ReadingPage() {
   const router = useRouter();
@@ -66,6 +70,9 @@ export default function ReadingPage() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [creativeAnswers, setCreativeAnswers] = useState<Record<number, string>>({});
+
+  // ✅ ՄԱԿԱՐԴԱԿԻ ՖԻԼՏՐ
+  const [levelFilter, setLevelFilter] = useState<LevelFilter>("all");
 
   // ✅ ԱՈՒԴԻՈ
   const { stop, isPlaying } = useAudioManager();
@@ -134,6 +141,19 @@ export default function ReadingPage() {
     [wavClient, isWAVAvailable, native, learningLang, playAudioWithFemaleVoice]
   );
 
+  // ─── ՖԻԼՏՐՎԱԾ ՑԱՆԿ ────────────────────────────────────────────────
+  const filteredTexts = useMemo(() => {
+    if (levelFilter === "all") return READING_TEXTS;
+    return READING_TEXTS.filter((t) => t.level === levelFilter);
+  }, [levelFilter]);
+
+  // Մակարդակների հաշվարկներ
+  const levelCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: READING_TEXTS.length, A1: 0, A2: 0, B1: 0, B2: 0 };
+    for (const t of READING_TEXTS) counts[t.level] = (counts[t.level] || 0) + 1;
+    return counts;
+  }, []);
+
   if (!isLangLoaded) {
     return <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900"><Loader2 className="animate-spin text-blue-500" size={40} /></div>;
   }
@@ -141,6 +161,8 @@ export default function ReadingPage() {
   // ─── LIST VIEW ────────────────────────────────────────────────────
 
   if (!selectedText) {
+    const levelFilters: LevelFilter[] = ["all", "A1", "A2", "B1", "B2"];
+
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white pb-20">
         <header className="sticky top-0 z-40 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -149,44 +171,100 @@ export default function ReadingPage() {
             <h1 className="text-xl font-black flex items-center gap-2"><BookOpen size={20} className="text-blue-500" /> {t_ui("title")}</h1>
             <div className="w-10" />
           </div>
+
+          {/* ✅ Մակարդակի ֆիլտր */}
+          <div className="max-w-4xl mx-auto px-4 pb-3 flex items-center gap-2 overflow-x-auto">
+            <Filter size={16} className="text-gray-400 flex-shrink-0" />
+            {levelFilters.map((lvl) => {
+              const count = levelCounts[lvl] || 0;
+              const isActive = levelFilter === lvl;
+              const label = lvl === "all" ? t_ui("all") : lvl;
+              return (
+                <button
+                  key={lvl}
+                  onClick={() => setLevelFilter(lvl)}
+                  disabled={count === 0 && lvl !== "all"}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : count === 0
+                      ? "bg-gray-100 dark:bg-gray-800 text-gray-300 dark:text-gray-600 cursor-not-allowed"
+                      : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-blue-300"
+                  }`}
+                >
+                  {label} <span className="opacity-70">({count})</span>
+                </button>
+              );
+            })}
+          </div>
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {READING_TEXTS.map((text) => (
-              <motion.div
-                key={text.id}
-                whileHover={{ scale: 1.02, y: -2 }}
-                onClick={() => {
-                  setSelectedText(text);
-                  setCurrentPart(0);
-                  setActiveTab("vocabulary");
-                  setAnswers({});
-                  setShowResults(false);
-                  setCreativeAnswers({});
-                }}
-                className="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500 bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded-md">{text.level}</span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1"><Clock size={12} /> {text.minutes} {t_ui("minutes")}</span>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">{text.title[learningLang] || text.title.en}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{text.paragraphs[0][learningLang] || text.paragraphs[0].en}</p>
-                </div>
-                <div className="mt-4 flex gap-2 flex-wrap">
-                  <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.words} {t_ui("words")}</span>
-                  <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.questionsCount} {t_ui("questions")}</span>
-                  {text.creativeTask && (
-                    <span className="text-xs bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 px-2 py-1 rounded flex items-center gap-1">
-                      <PencilLine size={10} /> {t_ui("creativeTask")}
-                    </span>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Արդյունքների քանակ */}
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+            {filteredTexts.length} {t_ui("texts")}
+          </p>
+
+          {filteredTexts.length === 0 ? (
+            <div className="text-center py-20 text-gray-400">
+              <BookOpen size={48} className="mx-auto mb-4 opacity-30" />
+              <p>{t_ui("noResults")}</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <AnimatePresence mode="popLayout">
+                {filteredTexts.map((text) => (
+                  <motion.div
+                    key={text.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    onClick={() => {
+                      setSelectedText(text);
+                      setCurrentPart(0);
+                      setActiveTab("vocabulary");
+                      setAnswers({});
+                      setShowResults(false);
+                      setCreativeAnswers({});
+                    }}
+                    className="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex justify-between items-start mb-2">
+                        <span
+                          className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md ${
+                            text.level === "A1"
+                              ? "text-emerald-500 bg-emerald-50 dark:bg-emerald-900/30"
+                              : text.level === "A2"
+                              ? "text-blue-500 bg-blue-50 dark:bg-blue-900/30"
+                              : text.level === "B1"
+                              ? "text-orange-500 bg-orange-50 dark:bg-orange-900/30"
+                              : "text-purple-500 bg-purple-50 dark:bg-purple-900/30"
+                          }`}
+                        >
+                          {text.level}
+                        </span>
+                        <span className="text-xs text-gray-400 flex items-center gap-1"><Clock size={12} /> {text.minutes} {t_ui("minutes")}</span>
+                      </div>
+                      <h3 className="text-lg font-bold mb-1">{text.title[learningLang] || text.title.en}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{text.paragraphs[0][learningLang] || text.paragraphs[0].en}</p>
+                    </div>
+                    <div className="mt-4 flex gap-2 flex-wrap">
+                      <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.words} {t_ui("words")}</span>
+                      <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.questionsCount} {t_ui("questions")}</span>
+                      {text.creativeTask && (
+                        <span className="text-xs bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 px-2 py-1 rounded flex items-center gap-1">
+                          <PencilLine size={10} /> {t_ui("creativeTask")}
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
         </main>
       </div>
     );

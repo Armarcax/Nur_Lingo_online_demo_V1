@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Volume2, BookOpen, Clock, ChevronLeft, ChevronRight, CheckCircle, XCircle, Languages, Loader2 } from "lucide-react";
+import { ArrowLeft, Volume2, BookOpen, Clock, ChevronLeft, ChevronRight, CheckCircle, XCircle, Languages, Loader2, PencilLine } from "lucide-react";
 import { READING_TEXTS, type ReadingText, type ReadingParagraph } from "@/lib/content/reading-texts";
 import { GlassCard } from "@/components/ui/glass-card";
 import { loadLangConfig, type LangCode } from "@/lib/i18n/index";
@@ -30,7 +30,7 @@ function getPairKey(native: LangCode, learning: LangCode): string {
   return `${native}-${learning}`;
 }
 
-// ✅ UI Տեքստերի թարգմանություններ (Մենյուի համար, որը պետք է լինի նաթիվ լեզվով)
+// ✅ UI Տեքստերի թարգմանություններ
 const UI_TEXT = {
   title: { en: "Reading", hy: "Ընթերցանություն", ru: "Чтение" },
   level: { en: "Level", hy: "Մակարդակ", ru: "Уровень" },
@@ -41,6 +41,8 @@ const UI_TEXT = {
   translation: { en: "Translation", hy: "Թարգմանություն", ru: "Перевод" },
   vocabulary: { en: "Vocabulary", hy: "Բառարան", ru: "Словарь" },
   questions: { en: "Questions", hy: "Հարցեր", ru: "Вопросы" },
+  creativeTask: { en: "Creative Task", hy: "Ստեղծագործական առաջադրանք", ru: "Творческое задание" },
+  yourAnswer: { en: "Write your answer here...", hy: "Գրիր քո պատասխանը այստեղ...", ru: "Напиши свой ответ здесь..." },
   check: { en: "Check", hy: "Ստուգել", ru: "Проверить" },
   correct: { en: "Correct!", hy: "Ճիշտ է:", ru: "Правильно!" },
   incorrect: { en: "Incorrect!", hy: "Սխալ է:", ru: "Неправильно!" },
@@ -48,6 +50,8 @@ const UI_TEXT = {
   nextPart: { en: "Next part", hy: "Հաջորդ մասը", ru: "Следующая часть" },
   prevPart: { en: "Previous part", hy: "Նախորդ մասը", ru: "Предыдущая часть" },
 };
+
+type TabKey = "vocabulary" | "questions" | "creativeTask";
 
 export default function ReadingPage() {
   const router = useRouter();
@@ -58,9 +62,10 @@ export default function ReadingPage() {
   const [selectedText, setSelectedText] = useState<ReadingText | null>(null);
   const [currentPart, setCurrentPart] = useState(0);
   const [showTranslation, setShowTranslation] = useState(true);
-  const [showQuestions, setShowQuestions] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabKey>("vocabulary");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
+  const [creativeAnswers, setCreativeAnswers] = useState<Record<number, string>>({});
 
   // ✅ ԱՈՒԴԻՈ
   const { stop, isPlaying } = useAudioManager();
@@ -152,7 +157,14 @@ export default function ReadingPage() {
               <motion.div
                 key={text.id}
                 whileHover={{ scale: 1.02, y: -2 }}
-                onClick={() => { setSelectedText(text); setCurrentPart(0); setShowQuestions(false); setAnswers({}); setShowResults(false); }}
+                onClick={() => {
+                  setSelectedText(text);
+                  setCurrentPart(0);
+                  setActiveTab("vocabulary");
+                  setAnswers({});
+                  setShowResults(false);
+                  setCreativeAnswers({});
+                }}
                 className="cursor-pointer bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
@@ -163,9 +175,14 @@ export default function ReadingPage() {
                   <h3 className="text-lg font-bold mb-1">{text.title[learningLang] || text.title.en}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{text.paragraphs[0][learningLang] || text.paragraphs[0].en}</p>
                 </div>
-                <div className="mt-4 flex gap-2">
+                <div className="mt-4 flex gap-2 flex-wrap">
                   <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.words} {t_ui("words")}</span>
                   <span className="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">{text.questionsCount} {t_ui("questions")}</span>
+                  {text.creativeTask && (
+                    <span className="text-xs bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 px-2 py-1 rounded flex items-center gap-1">
+                      <PencilLine size={10} /> {t_ui("creativeTask")}
+                    </span>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -178,10 +195,14 @@ export default function ReadingPage() {
   // ─── DETAIL VIEW ──────────────────────────────────────────────────
 
   const part = selectedText.paragraphs[currentPart];
-  // ✅ Տեքստը ցուցադրվում է սովորող լեզվով
   const textToRead = part[learningLang] || part.en;
-  // ✅ Թարգմանությունը ցուցադրվում է մայրենի լեզվով
   const textToTranslate = part[native] || part.en;
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "vocabulary", label: t_ui("vocabulary") },
+    { key: "questions", label: t_ui("questions") },
+    ...(selectedText.creativeTask ? [{ key: "creativeTask" as TabKey, label: t_ui("creativeTask") }] : []),
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white pb-20">
@@ -232,16 +253,29 @@ export default function ReadingPage() {
           <button onClick={() => setCurrentPart(p => Math.min(selectedText.paragraphs.length - 1, p + 1))} disabled={currentPart === selectedText.paragraphs.length - 1} className="p-3 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 disabled:opacity-50 shadow-sm"><ChevronRight size={24} /></button>
         </div>
 
-        {/* Vocabulary & Questions Tabs */}
-        <div className="mt-10 flex gap-2 border-b border-gray-200 dark:border-gray-700">
-          <button onClick={() => setShowQuestions(false)} className={`pb-2 px-4 text-sm font-bold border-b-2 ${!showQuestions ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500"}`}>{t_ui("vocabulary")}</button>
-          <button onClick={() => setShowQuestions(true)} className={`pb-2 px-4 text-sm font-bold border-b-2 ${showQuestions ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500"}`}>{t_ui("questions")}</button>
+        {/* Tabs: Vocabulary / Questions / Creative Task */}
+        <div className="mt-10 flex gap-2 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`pb-2 px-4 text-sm font-bold border-b-2 whitespace-nowrap transition-colors ${
+                activeTab === tab.key
+                  ? tab.key === "creativeTask"
+                    ? "border-purple-500 text-purple-600"
+                    : "border-blue-500 text-blue-600"
+                  : "border-transparent text-gray-500"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        {!showQuestions ? (
+        {/* ─── VOCABULARY TAB ─── */}
+        {activeTab === "vocabulary" && (
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {selectedText.vocabulary.map((v, i) => {
-              // ✅ Բառը ցուցադրվում է սովորող լեզվով, իսկ ներքևում՝ մայրենի թարգմանությունը
               const targetWord = v.translation[learningLang] || v.word;
               const nativeMeaning = v.translation[native] || v.translation.en;
 
@@ -256,11 +290,13 @@ export default function ReadingPage() {
               );
             })}
           </div>
-        ) : (
+        )}
+
+        {/* ─── QUESTIONS TAB ─── */}
+        {activeTab === "questions" && (
           <div className="mt-4 space-y-6">
             {selectedText.questions.map((q, qi) => (
               <GlassCard key={qi} variant="premium" className="p-5">
-                {/* ✅ Հարցը ցուցադրվում է սովորող լեզվով */}
                 <p className="font-bold mb-3 text-gray-900 dark:text-white">{q.question[learningLang] || q.question.en}</p>
                 <div className="space-y-2">
                   {q.options.map((opt, oi) => {
@@ -276,7 +312,6 @@ export default function ReadingPage() {
                     }
                     return (
                       <button key={oi} onClick={() => !showResults && setAnswers({ ...answers, [qi]: oi })} className={cls} disabled={showResults}>
-                        {/* ✅ Պատասխանները ցուցադրվում են սովորող լեզվով */}
                         {opt[learningLang] || opt.en}
                       </button>
                     );
@@ -290,6 +325,50 @@ export default function ReadingPage() {
                 {selectedText.questions.filter((q, i) => answers[i] === q.correctIndex).length} / {selectedText.questions.length} {t_ui("correct")}
               </div>
             )}
+          </div>
+        )}
+
+        {/* ─── CREATIVE TASK TAB ─── */}
+        {activeTab === "creativeTask" && selectedText.creativeTask && (
+          <div className="mt-4 space-y-4">
+            <GlassCard variant="premium" className="p-5 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-800">
+              <p className="text-xs font-black text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                <PencilLine size={14} /> {t_ui("creativeTask")}
+              </p>
+              <p className="font-bold text-lg mb-1 text-gray-900 dark:text-white">
+                {selectedText.creativeTask.prompt[learningLang] || selectedText.creativeTask.prompt.en}
+              </p>
+              {learningLang !== native && (
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {selectedText.creativeTask.prompt[native] || selectedText.creativeTask.prompt.en}
+                </p>
+              )}
+            </GlassCard>
+
+            <div className="space-y-3">
+              {selectedText.creativeTask.questions.map((q, i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                  <p className="font-medium mb-1 text-gray-900 dark:text-white flex items-start gap-2">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-300 text-xs font-bold flex items-center justify-center mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span>{q[learningLang] || q.en}</span>
+                  </p>
+                  {learningLang !== native && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 ml-8">
+                      {q[native] || q.en}
+                    </p>
+                  )}
+                  <textarea
+                    value={creativeAnswers[i] || ""}
+                    onChange={(e) => setCreativeAnswers({ ...creativeAnswers, [i]: e.target.value })}
+                    placeholder={t_ui("yourAnswer")}
+                    className="w-full mt-2 p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </main>

@@ -17,6 +17,11 @@ export interface ReadingQuestion {
   correctIndex: number;
 }
 
+export interface CreativeTask {
+  prompt: { en: string; hy: string; ru: string };
+  questions: { en: string; hy: string; ru: string }[];
+}
+
 export interface ReadingText {
   id: string;
   level: "A1" | "A2" | "B1" | "B2";
@@ -31,9 +36,97 @@ export interface ReadingText {
   paragraphs: ReadingParagraph[];
   vocabulary: ReadingVocabulary[];
   questions: ReadingQuestion[];
+  creativeTask?: CreativeTask;
 }
 
 export const READING_TEXTS: ReadingText[] = [
+  // 0. FAMILY (A1 – հիմնական)
+  {
+    id: "family_alex",
+    level: "A1",
+    topics: ["people", "relationships"],
+    title: { en: "This Is My Family", hy: "Սա իմ ընտանիքն է", ru: "Это моя семья" },
+    format: "Story",
+    difficulty: 1,
+    words: 65,
+    minutes: 1,
+    parts: 5,
+    questionsCount: 3,
+    paragraphs: [
+      {
+        en: "My name is Alex. I am nine years old. I live with my family in a nice house.",
+        hy: "Իմ անունը Ալեքս է։ Ես ինը տարեկան եմ։ Ես ընտանիքիս հետ ապրում եմ գեղեցիկ տանը։",
+        ru: "Меня зовут Алекс. Мне девять лет. Я живу со своей семьёй в красивом доме."
+      },
+      {
+        en: "My father's name is David. He is a teacher. My mother's name is Anna. She is a doctor.",
+        hy: "Հայրիկիս անունը Դավիթ է։ Նա ուսուցիչ է։ Մայրիկիս անունը Աննա է։ Նա բժիշկ է։",
+        ru: "Моего папу зовут Давид. Он учитель. Мою маму зовут Анна. Она врач."
+      },
+      {
+        en: "I have one sister. Her name is Emma. She is six years old. We play together every day.",
+        hy: "Ես մեկ քույր ունեմ։ Նրա անունը Էմմա է։ Նա վեց տարեկան է։ Մենք ամեն օր միասին խաղում ենք։",
+        ru: "У меня есть сестра. Её зовут Эмма. Ей шесть лет. Мы каждый день играем вместе."
+      },
+      {
+        en: "We also have a little dog. His name is Max. He is very funny.",
+        hy: "Մենք նաև փոքրիկ շուն ունենք։ Նրա անունը Մաքս է։ Նա շատ զվարճալի է։",
+        ru: "У нас также есть маленькая собака. Её зовут Макс. Она очень забавная."
+      },
+      {
+        en: "I love my family. We are happy together.",
+        hy: "Ես սիրում եմ իմ ընտանիքը։ Մենք միասին երջանիկ ենք։",
+        ru: "Я люблю свою семью. Вместе мы счастливы."
+      }
+    ],
+    vocabulary: [
+      { word: "family", translation: { en: "family", hy: "ընտանիք", ru: "семья" } },
+      { word: "parents", translation: { en: "parents", hy: "ծնողներ", ru: "родители" } },
+      { word: "sister", translation: { en: "sister", hy: "քույր", ru: "сестра" } },
+      { word: "together", translation: { en: "together", hy: "միասին", ru: "вместе" } },
+      { word: "funny", translation: { en: "funny", hy: "զվարճալի", ru: "забавный" } },
+      { word: "live", translation: { en: "live", hy: "ապրել", ru: "жить" } }
+    ],
+    questions: [
+      {
+        question: { en: "How old is Alex?", hy: "Քանի՞ տարեկան է Ալեքսը:", ru: "Сколько лет Алексу?" },
+        options: [
+          { en: "Six years old", hy: "Վեց տարեկան", ru: "Шесть лет" },
+          { en: "Nine years old", hy: "Ինը տարեկան", ru: "Девять лет" },
+          { en: "Ten years old", hy: "Տասը տարեկան", ru: "Десять лет" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Alex's mother do?", hy: "Ի՞նչ է անում Ալեքսի մայրիկը:", ru: "Чем занимается мама Алекса?" },
+        options: [
+          { en: "She is a teacher", hy: "Նա ուսուցիչ է", ru: "Она учительница" },
+          { en: "She is a doctor", hy: "Նա բժիշկ է", ru: "Она врач" },
+          { en: "She is a nurse", hy: "Նա բուժքույր է", ru: "Она медсестра" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What can we understand about Alex's family?", hy: "Ի՞նչ կարող ենք հասկանալ Ալեքսի ընտանիքի մասին:", ru: "Что мы можем понять о семье Алекса?" },
+        options: [
+          { en: "They enjoy spending time together", hy: "Նրանք սիրում են միասին ժամանակ անցկացնել", ru: "Они любят проводить время вместе" },
+          { en: "They live in different houses", hy: "Նրանք ապրում են տարբեր տներում", ru: "Они живут в разных домах" },
+          { en: "They do not have a pet", hy: "Նրանք ընտանի կենդանի չունեն", ru: "У них нет домашнего животного" }
+        ],
+        correctIndex: 0
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your family!", hy: "Հիմա պատմիր քո ընտանիքի մասին:", ru: "А теперь расскажи о своей семье!" },
+      questions: [
+        { en: "What is your name?", hy: "Ի՞նչ է քո անունը:", ru: "Как тебя зовут?" },
+        { en: "How old are you?", hy: "Քանի՞ տարեկան ես:", ru: "Сколько тебе лет?" },
+        { en: "How many people are in your family?", hy: "Քանի՞ հոգի կա քո ընտանիքում:", ru: "Сколько человек в твоей семье?" },
+        { en: "Do you have a pet?", hy: "Ընտանի կենդանի ունե՞ս:", ru: "У тебя есть домашний питомец?" }
+      ]
+    }
+  },
+
   // 1. PEOPLE & RELATIONSHIPS
   {
     id: "people_neighbor",
@@ -77,7 +170,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 0
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a helpful neighbor!", hy: "Պատմիր օգնող հարևանի մասին:", ru: "Расскажи о помогающем соседе!" },
+      questions: [
+        { en: "Who is your neighbor?", hy: "Ո՞վ է քո հարևանը:", ru: "Кто твой сосед?" },
+        { en: "What did they do to help you?", hy: "Ի՞նչ արեցին նրանք քեզ օգնելու համար:", ru: "Что они сделали, чтобы помочь тебе?" },
+        { en: "How did you feel?", hy: "Ինչպե՞ս էիր զգում:", ru: "Как ты себя чувствовал?" }
+      ]
+    }
   },
 
   // 2. DAILY LIFE
@@ -123,7 +224,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 2
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your morning routine!", hy: "Պատմիր քո առավոտյան առօրյայի մասին:", ru: "Расскажи о своей утренней рутине!" },
+      questions: [
+        { en: "What time do you get up?", hy: "Ժամը քանիսի՞ն ես արթնանում:", ru: "Во сколько ты встаёшь?" },
+        { en: "What do you eat for breakfast?", hy: "Ի՞նչ ես ուտում նախաճաշին:", ru: "Что ты ешь на завтрак?" },
+        { en: "Who do you usually spend the morning with?", hy: "Ու՞մ հետ ես սովորաբար անցկացնում առավոտը:", ru: "С кем ты обычно проводишь утро?" }
+      ]
+    }
   },
 
   // 3. FOOD
@@ -169,7 +278,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 2
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a special meal!", hy: "Պատմիր հատուկ ընթրիքի մասին:", ru: "Расскажи об особенном ужине!" },
+      questions: [
+        { en: "Where did you go?", hy: "Ո՞ւր գնացիր:", ru: "Куда ты пошёл?" },
+        { en: "What did you order?", hy: "Ի՞նչ պատվիրեցիր:", ru: "Что ты заказал?" },
+        { en: "What was the best part of the meal?", hy: "Ո՞րն էր ուտելիքի լավագույն մասը:", ru: "Что было лучшей частью еды?" }
+      ]
+    }
   },
 
   // 4. CITY
@@ -209,13 +326,21 @@ export const READING_TEXTS: ReadingText[] = [
       {
         question: { en: "Who found the phone?", hy: "Ո՞վ գտավ հեռախոսը:", ru: "Кто нашёл телефон?" },
         options: [
-          { word: "A bus driver", en: "A bus driver", hy: "Ավտոբուսի վարորդը", ru: "Водитель автобуса" },
+          { en: "A bus driver", hy: "Ավտոբուսի վարորդը", ru: "Водитель автобуса" },
           { en: "A kind woman", hy: "Մի բարի կին", ru: "Добрая женщина" },
           { en: "A child", hy: "Մի երեխա", ru: "Ребёнок" }
-        ] as any,
+        ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a time you lost something!", hy: "Պատմիր մի դեպքի մասին, երբ ինչ-որ բան կորցրել ես:", ru: "Расскажи о случае, когда ты что-то потерял!" },
+      questions: [
+        { en: "What did you lose?", hy: "Ի՞նչ կորցրիր:", ru: "Что ты потерял?" },
+        { en: "Where did you lose it?", hy: "Որտե՞ղ կորցրիր այն:", ru: "Где ты это потерял?" },
+        { en: "How did you feel, and what happened in the end?", hy: "Ինչպե՞ս էիր զգում, և ի՞նչ եղավ վերջում:", ru: "Как ты себя чувствовал, и что случилось в итоге?" }
+      ]
+    }
   },
 
   // 5. TRAVEL
@@ -261,7 +386,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a trip you remember!", hy: "Պատմիր հիշարժան ուղևորության մասին:", ru: "Расскажи о поездке, которую ты помнишь!" },
+      questions: [
+        { en: "Where did you go?", hy: "Ո՞ւր գնացիր:", ru: "Куда ты поехал?" },
+        { en: "Who did you go with?", hy: "Ու՞մ հետ գնացիր:", ru: "С кем ты поехал?" },
+        { en: "What was the most memorable moment?", hy: "Ո՞րն էր ամենահիշարժան պահը:", ru: "Какой момент был самым запоминающимся?" }
+      ]
+    }
   },
 
   // 6. WORK
@@ -307,7 +440,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your first day at school or work!", hy: "Պատմիր դպրոցում կամ աշխատանքում առաջին օրդ:", ru: "Расскажи о своём первом дне в школе или на работе!" },
+      questions: [
+        { en: "How did you feel?", hy: "Ինչպե՞ս էիր զգում:", ru: "Как ты себя чувствовал?" },
+        { en: "Who helped you?", hy: "Ո՞վ օգնեց քեզ:", ru: "Кто тебе помог?" },
+        { en: "What did you learn?", hy: "Ի՞նչ սովորեցիր:", ru: "Чему ты научился?" }
+      ]
+    }
   },
 
   // 7. LEARNING
@@ -353,7 +494,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 2
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your language learning experience!", hy: "Պատմիր լեզու սովորելու փորձիդ մասին:", ru: "Расскажи о своём опыте изучения языка!" },
+      questions: [
+        { en: "Why are you learning a new language?", hy: "Ինչո՞ւ ես նոր լեզու սովորում:", ru: "Почему ты учишь новый язык?" },
+        { en: "What is the most difficult part?", hy: "Ո՞րն է ամենադժվար մասը:", ru: "Что самое сложное?" },
+        { en: "What helps you practice?", hy: "Ի՞նչն է օգնում քեզ պարապել:", ru: "Что помогает тебе практиковаться?" }
+      ]
+    }
   },
 
   // 8. HOBBIES
@@ -399,7 +548,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 0
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your favorite hobby!", hy: "Պատմիր քո սիրելի հոբբիի մասին:", ru: "Расскажи о своём любимом хобби!" },
+      questions: [
+        { en: "What is your hobby?", hy: "Ո՞րն է քո հոբբին:", ru: "Какое у тебя хобби?" },
+        { en: "When do you do it?", hy: "Ե՞րբ ես դա անում:", ru: "Когда ты этим занимаешься?" },
+        { en: "Why do you like it?", hy: "Ինչո՞ւ է այն քեզ դուր գալիս:", ru: "Почему тебе это нравится?" }
+      ]
+    }
   },
 
   // 9. HEALTH
@@ -441,11 +598,19 @@ export const READING_TEXTS: ReadingText[] = [
         options: [
           { en: "More tired", hy: "Ավելի հոգնած", ru: "Более уставшим" },
           { en: "More focused", hy: "Ավելի կենտրոնացած", ru: "Более сосредоточенным" },
-          { en: "More stressed", hy: "Ավելի սթրեսային", ru: "Более stressed" }
+          { en: "More stressed", hy: "Ավելի սթրեսային", ru: "Более напряжённым" }
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a small change you made in your life!", hy: "Պատմիր քո կյանքում կատարած փոքր փոփոխության մասին:", ru: "Расскажи о небольшом изменении, которое ты сделал в своей жизни!" },
+      questions: [
+        { en: "What did you change?", hy: "Ի՞նչ փոխեցիր:", ru: "Что ты изменил?" },
+        { en: "Why did you decide to change it?", hy: "Ինչո՞ւ որոշեցիր փոխել այն:", ru: "Почему ты решил это изменить?" },
+        { en: "How did you feel after the change?", hy: "Ինչպե՞ս էիր զգում փոփոխությունից հետո:", ru: "Как ты себя чувствовал после изменения?" }
+      ]
+    }
   },
 
   // 10. NATURE
@@ -491,7 +656,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a walk in nature!", hy: "Պատմիր բնության մեջ զբոսանքի մասին:", ru: "Расскажи о прогулке на природе!" },
+      questions: [
+        { en: "Where did you go?", hy: "Ո՞ւր գնացիր:", ru: "Куда ты пошёл?" },
+        { en: "What did you see?", hy: "Ի՞նչ տեսար:", ru: "Что ты увидел?" },
+        { en: "How did you feel?", hy: "Ինչպե՞ս էիր զգում:", ru: "Как ты себя чувствовал?" }
+      ]
+    }
   },
 
   // 11. TECH
@@ -537,7 +710,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us how you use your phone!", hy: "Պատմիր, թե ինչպես ես օգտագործում հեռախոսդ:", ru: "Расскажи, как ты используешь свой телефон!" },
+      questions: [
+        { en: "What do you use your phone for?", hy: "Ինչի՞ համար ես օգտագործում հեռախոսդ:", ru: "Для чего ты используешь свой телефон?" },
+        { en: "How much time do you spend on it daily?", hy: "Օրական որքա՞ն ժամանակ ես անցկացնում դրա վրա:", ru: "Сколько времени ты проводишь в нём ежедневно?" },
+        { en: "How can we find a balance?", hy: "Ինչպե՞ս կարող ենք հավասարակշռություն գտնել:", ru: "Как мы можем найти баланс?" }
+      ]
+    }
   },
 
   // 12. CULTURE
@@ -583,7 +764,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 0
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a festival in your country!", hy: "Պատմիր քո երկրի փառատոներից մեկի մասին:", ru: "Расскажи о фестивале в твоей стране!" },
+      questions: [
+        { en: "What festival is it?", hy: "Ի՞նչ փառատոն է:", ru: "Что это за фестиваль?" },
+        { en: "When is it celebrated?", hy: "Ե՞րբ է այն նշվում:", ru: "Когда его отмечают?" },
+        { en: "What do people do during the festival?", hy: "Ի՞նչ են անում մարդիկ փառատոնի ընթացքում:", ru: "Что люди делают во время фестиваля?" }
+      ]
+    }
   },
 
   // 13. STORIES
@@ -629,7 +818,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Continue the story!", hy: "Շարունակիր պատմությունը:", ru: "Продолжи историю!" },
+      questions: [
+        { en: "What could be inside the box?", hy: "Ի՞նչ կարող է լինել տուփի մեջ:", ru: "Что может быть внутри коробки?" },
+        { en: "What will the woman do next?", hy: "Ի՞նչ կանի կինը հետո:", ru: "Что женщина сделает дальше?" },
+        { en: "Who wrote the letter?", hy: "Ո՞վ է գրել նամակը:", ru: "Кто написал письмо?" }
+      ]
+    }
   },
 
   // 14. SOCIETY
@@ -675,7 +872,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us how you help your community!", hy: "Պատմիր, թե ինչպես ես օգնում քո համայնքին:", ru: "Расскажи, как ты помогаешь своему сообществу!" },
+      questions: [
+        { en: "How do you help others?", hy: "Ինչպե՞ս ես օգնում ուրիշներին:", ru: "Как ты помогаешь другим?" },
+        { en: "Why is helping important?", hy: "Ինչո՞ւ է օգնելը կարևոր:", ru: "Почему важно помогать?" },
+        { en: "What can we do together?", hy: "Ի՞նչ կարող ենք անել միասին:", ru: "Что мы можем сделать вместе?" }
+      ]
+    }
   },
 
   // 15. SCIENCE
@@ -721,7 +926,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 0
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us what you know about nature!", hy: "Պատմիր, թե ինչ գիտես բնության մասին:", ru: "Расскажи, что ты знаешь о природе!" },
+      questions: [
+        { en: "What is your favorite natural process?", hy: "Ո՞րն է քո սիրելի բնական գործընթացը:", ru: "Какой твой любимый природный процесс?" },
+        { en: "Why is water important?", hy: "Ինչո՞ւ է ջուրը կարևոր:", ru: "Почему важна вода?" },
+        { en: "How can we save water?", hy: "Ինչպե՞ս կարող ենք խնայել ջուրը:", ru: "Как мы можем экономить воду?" }
+      ]
+    }
   },
 
   // 16. HISTORY
@@ -767,7 +980,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about a historical place you know!", hy: "Պատմիր քեզ հայտնի պատմական վայրի մասին:", ru: "Расскажи об историческом месте, которое ты знаешь!" },
+      questions: [
+        { en: "What is the place?", hy: "Ի՞նչ վայր է:", ru: "Что это за место?" },
+        { en: "What is its history?", hy: "Ո՞րն է նրա պատմությունը:", ru: "Какова его история?" },
+        { en: "Why do people visit it?", hy: "Ինչո՞ւ են մարդիկ այցելում այն:", ru: "Почему люди его посещают?" }
+      ]
+    }
   },
 
   // 17. MONEY
@@ -813,7 +1034,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 2
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about how you save money!", hy: "Պատմիր, թե ինչպես ես գումար խնայում:", ru: "Расскажи, как ты экономишь деньги!" },
+      questions: [
+        { en: "What do you want to buy?", hy: "Ի՞նչ ես ուզում գնել:", ru: "Что ты хочешь купить?" },
+        { en: "How do you save money?", hy: "Ինչպե՞ս ես գումար խնայում:", ru: "Как ты экономишь деньги?" },
+        { en: "How long will it take?", hy: "Որքա՞ն ժամանակ կպահանջվի:", ru: "Сколько времени это займёт?" }
+      ]
+    }
   },
 
   // 18. RELATIONSHIPS
@@ -859,7 +1088,15 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 0
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your best friend!", hy: "Պատմիր քո լավագույն ընկերոջ մասին:", ru: "Расскажи о своём лучшем друге!" },
+      questions: [
+        { en: "What is your friend's name?", hy: "Ի՞նչ է քո ընկերոջ անունը:", ru: "Как зовут твоего друга?" },
+        { en: "How did you meet?", hy: "Ինչպե՞ս եք ծանոթացել:", ru: "Как вы познакомились?" },
+        { en: "What do you like to do together?", hy: "Ի՞նչ եք սիրում անել միասին:", ru: "Что вы любите делать вместе?" }
+      ]
+    }
   },
 
   // 19. MEDIA
@@ -905,6 +1142,14 @@ export const READING_TEXTS: ReadingText[] = [
         ],
         correctIndex: 1
       }
-    ]
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us how you get your news!", hy: "Պատմիր, թե ինչպես ես նորություններ ստանում:", ru: "Расскажи, как ты получаешь новости!" },
+      questions: [
+        { en: "Where do you get news from?", hy: "Որտեղի՞ց ես նորություններ ստանում:", ru: "Откуда ты получаешь новости?" },
+        { en: "Do you trust all information online?", hy: "Վստահու՞մ ես առցանց բոլոր տեղեկություններին:", ru: "Доверяешь ли ты всей информации в интернете?" },
+        { en: "How can we check the facts?", hy: "Ինչպե՞ս կարող ենք ստուգել փաստերը:", ru: "Как мы можем проверить факты?" }
+      ]
+    }
   }
 ];

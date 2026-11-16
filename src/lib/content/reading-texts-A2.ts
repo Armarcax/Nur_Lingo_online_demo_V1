@@ -1285,5 +1285,441 @@ export const A2_TEXTS: ReadingText[] = [
         { en: "What did you learn from this project?", hy: "Ի՞նչ սովորեցիր այս նախագծից:", ru: "Чему ты научился из этого проекта?" }
       ]
     }
+  },
+
+    // ─── A2 ԹԵՄԱ 16. ԻՄ ԱՄԲՈՂՋ ՕՐԸ ──────────────────────────────────────
+  {
+    id: "whole_day",
+    level: "A2",
+    topics: ["daily"],
+    title: { en: "My Whole Day", hy: "Իմ ամբողջ օրը", ru: "Весь мой день" },
+    format: "Story",
+    difficulty: 1,
+    words: 220,
+    minutes: 2,
+    parts: 9,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "Hello! My name is Daniel. I am ten years old. I live with my family in a nice house.",
+        hy: "Բարև՛։ Իմ անունը Դանիել է։ Ես տասը տարեկան եմ։ Ապրում եմ ընտանիքիս հետ գեղեցիկ տանը։",
+        ru: "Привет! Меня зовут Даниэль. Мне десять лет. Я живу со своей семьёй в красивом доме."
+      },
+      {
+        en: "Every day, I wake up at seven o'clock in the morning. I make my bed, wash my face and brush my teeth. Then I get dressed and go to the kitchen.",
+        hy: "Ամեն օր առավոտյան արթնանում եմ ժամը յոթին։ Հարդարում եմ անկողինս, լվանում դեմքս և մաքրում ատամներս։ Հետո հագնվում եմ և գնում խոհանոց։",
+        ru: "Каждый день я просыпаюсь в семь часов утра. Я заправляю кровать, умываюсь и чищу зубы. Затем одеваюсь и иду на кухню."
+      },
+      {
+        en: "My mother prepares breakfast for our family. I usually eat eggs, bread and cheese. I drink a glass of milk or tea. After breakfast, I take my schoolbag and go to school.",
+        hy: "Մայրս մեր ընտանիքի համար նախաճաշ է պատրաստում։ Ես սովորաբար ուտում եմ ձու, հաց և պանիր։ Խմում եմ մեկ բաժակ կաթ կամ թեյ։ Նախաճաշից հետո վերցնում եմ դպրոցական պայուսակս և գնում դպրոց։",
+        ru: "Моя мама готовит завтрак для нашей семьи. Обычно я ем яйца, хлеб и сыр. Я выпиваю стакан молока или чая. После завтрака беру школьный рюкзак и иду в школу."
+      },
+      {
+        en: "My lessons start at eight thirty. At school, I study English, Armenian, Maths, Science and other subjects. During the breaks, I talk and play with my classmates. My favourite subject is English because I like learning new words.",
+        hy: "Դասերս սկսվում են ժամը ութն անց երեսունին։ Դպրոցում սովորում եմ անգլերեն, հայերեն, մաթեմատիկա, բնագիտություն և այլ առարկաներ։ Դասամիջոցներին զրուցում և խաղում եմ դասընկերներիս հետ։ Իմ սիրելի առարկան անգլերենն է, որովհետև սիրում եմ նոր բառեր սովորել։",
+        ru: "Мои уроки начинаются в половине девятого. В школе я изучаю английский язык, армянский язык, математику, естествознание и другие предметы. На переменах я разговариваю и играю со своими одноклассниками. Мой любимый предмет — английский язык, потому что мне нравится учить новые слова."
+      },
+      {
+        en: "I finish school at two o'clock. I come home, have lunch and rest for a little while. Then I do my homework. Sometimes I need help, so I ask my parents.",
+        hy: "Դպրոցն ավարտում եմ ժամը երկուսին։ Գալիս եմ տուն, ճաշում և մի փոքր հանգստանում։ Այնուհետև կատարում եմ տնային առաջադրանքներս։ Երբեմն օգնության կարիք եմ ունենում, այդ պատճառով դիմում եմ ծնողներիս։",
+        ru: "Я заканчиваю школу в два часа. Возвращаюсь домой, обедаю и немного отдыхаю. Затем делаю домашнее задание. Иногда мне нужна помощь, поэтому я обращаюсь к родителям."
+      },
+      {
+        en: "In the afternoon, I go outside and play football with my friends. When the weather is bad, I stay at home and read books, draw pictures or play board games.",
+        hy: "Կեսօրից հետո դուրս եմ գալիս և ընկերներիս հետ ֆուտբոլ խաղում։ Երբ եղանակը վատ է, մնում եմ տանը, կարդում գրքեր, նկարում կամ սեղանի խաղեր խաղում։",
+        ru: "После обеда я выхожу на улицу и играю в футбол с друзьями. Когда погода плохая, я остаюсь дома, читаю книги, рисую или играю в настольные игры."
+      },
+      {
+        en: "In the evening, my family has dinner together. We talk about our day and share interesting stories. After dinner, I prepare my schoolbag for the next day.",
+        hy: "Երեկոյան ընտանիքս միասին ընթրում է։ Մենք զրուցում ենք մեր օրվա մասին և պատմում հետաքրքիր դեպքեր։ Ընթրիքից հետո պատրաստում եմ դպրոցական պայուսակս հաջորդ օրվա համար։",
+        ru: "Вечером моя семья ужинает вместе. Мы разговариваем о нашем дне и делимся интересными историями. После ужина я собираю школьный рюкзак на следующий день."
+      },
+      {
+        en: "Before bed, I take a shower, put on my pyjamas and read a book. I usually go to bed at nine thirty.",
+        hy: "Քնելուց առաջ ցնցուղ եմ ընդունում, հագնում գիշերազգեստս և գիրք կարդում։ Սովորաբար քնում եմ ժամը ինն անց երեսունին։",
+        ru: "Перед сном я принимаю душ, надеваю пижаму и читаю книгу. Обычно я ложусь спать в половине десятого."
+      },
+      {
+        en: "I like my daily routine. Every day brings something new!",
+        hy: "Ես սիրում եմ իմ առօրյան։ Ամեն օր մի նոր բան է բերում։",
+        ru: "Мне нравится мой распорядок дня. Каждый день приносит что-то новое!"
+      }
+    ],
+    vocabulary: [
+      { word: "wake up", translation: { en: "wake up", hy: "արթնանալ", ru: "просыпаться" } },
+      { word: "make my bed", translation: { en: "make my bed", hy: "հարդարել անկողինս", ru: "заправлять кровать" } },
+      { word: "wash my face", translation: { en: "wash my face", hy: "լվանալ դեմքս", ru: "умываться" } },
+      { word: "brush my teeth", translation: { en: "brush my teeth", hy: "մաքրել ատամներս", ru: "чистить зубы" } },
+      { word: "get dressed", translation: { en: "get dressed", hy: "հագնվել", ru: "одеваться" } },
+      { word: "prepare breakfast", translation: { en: "prepare breakfast", hy: "նախաճաշ պատրաստել", ru: "готовить завтрак" } },
+      { word: "schoolbag", translation: { en: "schoolbag", hy: "դպրոցական պայուսակ", ru: "школьный рюкзак" } },
+      { word: "lesson", translation: { en: "lesson", hy: "դաս", ru: "урок" } },
+      { word: "subject", translation: { en: "subject", hy: "առարկա", ru: "предмет" } },
+      { word: "break", translation: { en: "break", hy: "դասամիջոց", ru: "перемена" } },
+      { word: "classmate", translation: { en: "classmate", hy: "դասընկեր", ru: "одноклассник" } },
+      { word: "finish", translation: { en: "finish", hy: "ավարտել", ru: "заканчивать" } },
+      { word: "have lunch", translation: { en: "have lunch", hy: "ճաշել", ru: "обедать" } },
+      { word: "rest", translation: { en: "rest", hy: "հանգստանալ", ru: "отдыхать" } },
+      { word: "homework", translation: { en: "homework", hy: "տնային առաջադրանք", ru: "домашнее задание" } },
+      { word: "go outside", translation: { en: "go outside", hy: "դուրս գալ", ru: "выходить на улицу" } },
+      { word: "board games", translation: { en: "board games", hy: "սեղանի խաղեր", ru: "настольные игры" } },
+      { word: "have dinner", translation: { en: "have dinner", hy: "ընթրել", ru: "ужинать" } },
+      { word: "share stories", translation: { en: "share stories", hy: "պատմություններով կիսվել", ru: "делиться историями" } },
+      { word: "daily routine", translation: { en: "daily routine", hy: "առօրյա, օրվա կարգ", ru: "распорядок дня" } }
+    ],
+    questions: [
+      {
+        question: { en: "What time does Daniel wake up?", hy: "Ժամը քանիսի՞ն է Դանիելը արթնանում:", ru: "Во сколько Даниэль просыпается?" },
+        options: [
+          { en: "At six o'clock", hy: "Ժամը վեցին", ru: "В шесть часов" },
+          { en: "At seven o'clock", hy: "Ժամը յոթին", ru: "В семь часов" },
+          { en: "At eight o'clock", hy: "Ժամը ութին", ru: "В восемь часов" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Daniel usually eat for breakfast?", hy: "Ի՞նչ է սովորաբար ուտում Դանիելը նախաճաշին:", ru: "Что Даниэль обычно ест на завтрак?" },
+        options: [
+          { en: "Eggs, bread and cheese", hy: "Ձու, հաց և պանիր", ru: "Яйца, хлеб и сыр" },
+          { en: "Pizza and salad", hy: "Պիցցա և աղցան", ru: "Пиццу и салат" },
+          { en: "Soup and potatoes", hy: "Ապուր և կարտոֆիլ", ru: "Суп и картофель" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What is Daniel's favourite subject?", hy: "Ո՞րն է Դանիելի սիրելի առարկան:", ru: "Какой любимый предмет у Даниэля?" },
+        options: [
+          { en: "Maths", hy: "Մաթեմատիկա", ru: "Математика" },
+          { en: "Science", hy: "Բնագիտություն", ru: "Естествознание" },
+          { en: "English", hy: "Անգլերեն", ru: "Английский" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What does Daniel do after school?", hy: "Ի՞նչ է անում Դանիելը դպրոցից հետո:", ru: "Что Даниэль делает после школы?" },
+        options: [
+          { en: "He goes to sleep", hy: "Նա գնում է քնելու", ru: "Он идёт спать" },
+          { en: "He has lunch and does his homework", hy: "Նա ճաշում է և կատարում տնայինը", ru: "Он обедает и делает домашнее задание" },
+          { en: "He watches television all day", hy: "Նա ամբողջ օրը հեռուստացույց է դիտում", ru: "Он весь день смотрит телевизор" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Daniel do when the weather is bad?", hy: "Ի՞նչ է անում Դանիելը, երբ եղանակը վատ է:", ru: "Что Даниэль делает, когда погода плохая?" },
+        options: [
+          { en: "He stays at home and reads or draws", hy: "Նա մնում է տանը, կարդում կամ նկարում է", ru: "Он остаётся дома, читает или рисует" },
+          { en: "He goes swimming", hy: "Նա գնում է լողալու", ru: "Он идёт плавать" },
+          { en: "He rides his bicycle", hy: "Նա հեծանիվ է քշում", ru: "Он катается на велосипеде" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What time does Daniel usually go to bed?", hy: "Ժամը քանիսի՞ն է Դանիելը սովորաբար քնում:", ru: "Во сколько Даниэль обычно ложится спать?" },
+        options: [
+          { en: "At eight thirty", hy: "Ժամը ութն անց երեսունին", ru: "В половине девятого" },
+          { en: "At nine thirty", hy: "Ժամը ինն անց երեսունին", ru: "В половине десятого" },
+          { en: "At ten thirty", hy: "Ժամը տասն անց երեսունին", ru: "В половине одиннадцатого" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your whole day!", hy: "Պատմիր քո ամբողջ օրվա մասին:", ru: "Расскажи о своём дне!" },
+      questions: [
+        { en: "What time do you wake up?", hy: "Ժամը քանիսի՞ն ես արթնանում:", ru: "Во сколько ты просыпаешься?" },
+        { en: "What do you eat for breakfast?", hy: "Ի՞նչ ես ուտում նախաճաշին:", ru: "Что ты ешь на завтрак?" },
+        { en: "What are your favourite school subjects?", hy: "Որո՞նք են քո սիրելի դպրոցական առարկաները:", ru: "Какие твои любимые школьные предметы?" },
+        { en: "What do you do after school?", hy: "Ի՞նչ ես անում դպրոցից հետո:", ru: "Что ты делаешь после школы?" },
+        { en: "What do you do in the evening with your family?", hy: "Ի՞նչ ես անում երեկոյան ընտանիքիդ հետ:", ru: "Что ты делаешь вечером с семьёй?" },
+        { en: "What time do you go to bed?", hy: "Ժամը քանիսի՞ն ես քնում:", ru: "Во сколько ты ложишься спать?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 17. ԻՆՉ ԵՄ ԱՆՈՒՄ ՀԱՆԳՍՏՅԱՆ ՕՐԵՐԻՆ ──────────────────────
+  {
+    id: "weekend_anna",
+    level: "A2",
+    topics: ["daily", "hobbies"],
+    title: { en: "What I Do at the Weekend", hy: "Իմ հանգստյան օրերը", ru: "Чем я занимаюсь в выходные" },
+    format: "Story",
+    difficulty: 1,
+    words: 235,
+    minutes: 2,
+    parts: 8,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "Hello! My name is Anna. I am eleven years old. I love weekends because I do not have to go to school, and I have more free time.",
+        hy: "Բարև՛։ Իմ անունը Աննա է։ Ես տասնմեկ տարեկան եմ։ Ես սիրում եմ հանգստյան օրերը, որովհետև դպրոց գնալու կարիք չունեմ և ավելի շատ ազատ ժամանակ եմ ունենում։",
+        ru: "Привет! Меня зовут Анна. Мне одиннадцать лет. Я люблю выходные, потому что мне не нужно идти в школу и у меня больше свободного времени."
+      },
+      {
+        en: "On Saturdays, I usually wake up later than on school days. I get up at eight thirty and have breakfast with my family. We eat pancakes, fruit and sometimes sandwiches. My little brother likes pancakes with honey.",
+        hy: "Շաբաթ օրերին սովորաբար ավելի ուշ եմ արթնանում, քան դպրոցական օրերին։ Վեր եմ կենում ժամը ութն անց երեսունին և ընտանիքիս հետ նախաճաշում։ Մենք ուտում ենք բլիթներ, միրգ և երբեմն սենդվիչներ։ Իմ փոքր եղբայրը սիրում է մեղրով բլիթներ։",
+        ru: "По субботам я обычно просыпаюсь позже, чем в учебные дни. Я встаю в половине девятого и завтракаю вместе с семьёй. Мы едим блинчики, фрукты, а иногда бутерброды. Мой младший брат любит блинчики с мёдом."
+      },
+      {
+        en: "After breakfast, I tidy my room and help my mother. I put my books on the shelf and water the flowers. My brother puts his toys in the box. We try to keep our home clean and tidy.",
+        hy: "Նախաճաշից հետո հավաքում եմ սենյակս և օգնում մայրիկիս։ Գրքերս դնում եմ դարակի վրա և ջրում ծաղիկները։ Եղբայրս իր խաղալիքները դնում է տուփի մեջ։ Մենք փորձում ենք մեր տունը մաքուր և կոկիկ պահել։",
+        ru: "После завтрака я убираю свою комнату и помогаю маме. Я ставлю книги на полку и поливаю цветы. Мой брат складывает игрушки в коробку. Мы стараемся поддерживать чистоту и порядок в доме."
+      },
+      {
+        en: "In the afternoon, I often meet my friends in the park. We ride our bicycles, play ball and talk about our favourite games. Sometimes we have a small picnic. We bring sandwiches, apples and juice.",
+        hy: "Կեսօրից հետո հաճախ հանդիպում եմ ընկերներիս այգում։ Մենք հեծանիվ ենք քշում, գնդակ խաղում և զրուցում մեր սիրելի խաղերի մասին։ Երբեմն փոքրիկ խնջույք ենք կազմակերպում։ Մեզ հետ վերցնում ենք սենդվիչներ, խնձորներ և հյութ։",
+        ru: "После обеда я часто встречаюсь с друзьями в парке. Мы катаемся на велосипедах, играем в мяч и разговариваем о наших любимых играх. Иногда мы устраиваем небольшой пикник. Мы берём с собой бутерброды, яблоки и сок."
+      },
+      {
+        en: "On Sundays, I usually spend time with my family. Sometimes we visit my grandparents. My grandmother makes delicious cakes, and my grandfather tells us interesting stories about his childhood.",
+        hy: "Կիրակի օրերին սովորաբար ժամանակ եմ անցկացնում ընտանիքիս հետ։ Երբեմն այցելում ենք տատիկիս և պապիկիս։ Տատիկս համեղ թխվածքներ է պատրաստում, իսկ պապիկս մեզ հետաքրքիր պատմություններ է պատմում իր մանկությունից։",
+        ru: "По воскресеньям я обычно провожу время с семьёй. Иногда мы навещаем бабушку и дедушку. Бабушка готовит вкусные пироги, а дедушка рассказывает нам интересные истории из своего детства."
+      },
+      {
+        en: "When we stay at home, I like drawing, reading books and watching cartoons. My brother enjoys building things with his toy blocks.",
+        hy: "Երբ տանն ենք մնում, սիրում եմ նկարել, գրքեր կարդալ և մուլտֆիլմեր դիտել։ Եղբայրս սիրում է իր խաղալիք խորանարդներով տարբեր իրեր կառուցել։",
+        ru: "Когда мы остаёмся дома, я люблю рисовать, читать книги и смотреть мультфильмы. Моему брату нравится строить разные вещи из игрушечных кубиков."
+      },
+      {
+        en: "In the evening, I prepare my schoolbag and choose my clothes for Monday. I also check my homework. Then I take a shower and go to bed.",
+        hy: "Երեկոյան պատրաստում եմ դպրոցական պայուսակս և ընտրում երկուշաբթի օրվա հագուստս։ Նաև ստուգում եմ տնային առաջադրանքներս։ Հետո ցնցուղ եմ ընդունում և գնում քնելու։",
+        ru: "Вечером я собираю школьный рюкзак и выбираю одежду на понедельник. Ещё я проверяю домашнее задание. Затем принимаю душ и ложусь спать."
+      },
+      {
+        en: "Weekends are special for me. I can relax, have fun and spend time with the people I love. I always feel happy on Sunday evening because I have many nice memories.",
+        hy: "Հանգստյան օրերն ինձ համար առանձնահատուկ են։ Ես կարող եմ հանգստանալ, զվարճանալ և ժամանակ անցկացնել ինձ սիրելի մարդկանց հետ։ Կիրակի երեկոյան միշտ ուրախ եմ լինում, որովհետև շատ հաճելի հիշողություններ եմ ունենում։",
+        ru: "Выходные для меня особенные. Я могу отдыхать, веселиться и проводить время с любимыми людьми. В воскресенье вечером я всегда чувствую себя счастливой, потому что у меня остаётся много приятных воспоминаний."
+      }
+    ],
+    vocabulary: [
+      { word: "weekend", translation: { en: "weekend", hy: "հանգստյան օրեր", ru: "выходные" } },
+      { word: "later", translation: { en: "later", hy: "ավելի ուշ", ru: "позже" } },
+      { word: "tidy my room", translation: { en: "tidy my room", hy: "հավաքել սենյակս", ru: "убирать комнату" } },
+      { word: "shelf", translation: { en: "shelf", hy: "դարակ", ru: "полка" } },
+      { word: "water the flowers", translation: { en: "water the flowers", hy: "ջրել ծաղիկները", ru: "поливать цветы" } },
+      { word: "keep clean", translation: { en: "keep clean", hy: "մաքուր պահել", ru: "поддерживать чистоту" } },
+      { word: "meet friends", translation: { en: "meet friends", hy: "հանդիպել ընկերներին", ru: "встречаться с друзьями" } },
+      { word: "picnic", translation: { en: "picnic", hy: "խնջույք բնության գրկում", ru: "пикник" } },
+      { word: "visit grandparents", translation: { en: "visit grandparents", hy: "այցելել տատիկին ու պապիկին", ru: "навещать бабушку и дедушку" } },
+      { word: "childhood", translation: { en: "childhood", hy: "մանկություն", ru: "детство" } },
+      { word: "cartoon", translation: { en: "cartoon", hy: "մուլտֆիլմ", ru: "мультфильм" } },
+      { word: "memory", translation: { en: "memory", hy: "հիշողություն", ru: "воспоминание" } },
+      { word: "special", translation: { en: "special", hy: "առանձնահատուկ", ru: "особенный" } },
+      { word: "always", translation: { en: "always", hy: "միշտ", ru: "всегда" } },
+      { word: "usually", translation: { en: "usually", hy: "սովորաբար", ru: "обычно" } },
+      { word: "sometimes", translation: { en: "sometimes", hy: "երբեմն", ru: "иногда" } },
+      { word: "never", translation: { en: "never", hy: "երբեք", ru: "никогда" } }
+    ],
+    questions: [
+      {
+        question: { en: "Why does Anna love weekends?", hy: "Ինչո՞ւ է Աննան սիրում հանգստյան օրերը:", ru: "Почему Анна любит выходные?" },
+        options: [
+          { en: "Because she has more free time", hy: "Որովհետև ավելի շատ ազատ ժամանակ ունի", ru: "Потому что у неё больше свободного времени" },
+          { en: "Because she has many lessons", hy: "Որովհետև նա շատ դասեր ունի", ru: "Потому что у неё много уроков" },
+          { en: "Because she goes to school", hy: "Որովհետև նա դպրոց է գնում", ru: "Потому что она ходит в школу" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What time does Anna get up on Saturday?", hy: "Ժամը քանիսի՞ն է Աննան արթնանում շաբաթ օրը:", ru: "Во сколько Анна встаёт в субботу?" },
+        options: [
+          { en: "At seven o'clock", hy: "Ժամը յոթին", ru: "В семь часов" },
+          { en: "At eight thirty", hy: "Ժամը ութն անց երեսունին", ru: "В половине девятого" },
+          { en: "At ten o'clock", hy: "Ժամը տասին", ru: "В десять часов" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Anna do after breakfast?", hy: "Ի՞նչ է անում Աննան նախաճաշից հետո:", ru: "Что Анна делает после завтрака?" },
+        options: [
+          { en: "She watches cartoons", hy: "Նա մուլտֆիլմեր է դիտում", ru: "Она смотрит мультфильмы" },
+          { en: "She goes to school", hy: "Նա գնում է դպրոց", ru: "Она идёт в школу" },
+          { en: "She tidies her room and helps her mother", hy: "Նա հավաքում է սենյակը և օգնում մայրիկին", ru: "Она убирает комнату и помогает маме" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "Where does Anna meet her friends?", hy: "Որտե՞ղ է Աննան հանդիպում ընկերներին:", ru: "Где Анна встречает друзей?" },
+        options: [
+          { en: "In the park", hy: "Այգում", ru: "В парке" },
+          { en: "At school", hy: "Դպրոցում", ru: "В школе" },
+          { en: "In the supermarket", hy: "Սուպերմարկետում", ru: "В супермаркете" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What does Anna's grandfather do?", hy: "Ի՞նչ է անում Աննայի պապիկը:", ru: "Что делает дедушка Анны?" },
+        options: [
+          { en: "He plays football", hy: "Նա ֆուտբոլ է խաղում", ru: "Он играет в футбол" },
+          { en: "He tells stories about his childhood", hy: "Նա պատմում է իր մանկության մասին", ru: "Он рассказывает истории о своём детстве" },
+          { en: "He teaches English", hy: "Նա անգլերեն է դասավանդում", ru: "Он преподаёт английский" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Anna do on Sunday evening?", hy: "Ի՞նչ է անում Աննան կիրակի երեկոյան:", ru: "Что Анна делает в воскресенье вечером?" },
+        options: [
+          { en: "She prepares her schoolbag", hy: "Նա պատրաստում է դպրոցական պայուսակը", ru: "Она собирает школьный рюкзак" },
+          { en: "She goes to the cinema", hy: "Նա գնում է կինոթատրոն", ru: "Она идёт в кино" },
+          { en: "She visits her friends", hy: "Նա այցելում է ընկերներին", ru: "Она навещает друзей" }
+        ],
+        correctIndex: 0
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your weekends!", hy: "Պատմիր քո հանգստյան օրերի մասին:", ru: "Расскажи о своих выходных!" },
+      questions: [
+        { en: "What do you usually do on Saturdays?", hy: "Ի՞նչ ես սովորաբար անում շաբաթ օրերին:", ru: "Что ты обычно делаешь по субботам?" },
+        { en: "Do you help your parents at home?", hy: "Օգնու՞մ ես ծնողներիդ տանը:", ru: "Ты помогаешь родителям дома?" },
+        { en: "Where do you meet your friends?", hy: "Որտե՞ղ ես հանդիպում ընկերներիդ:", ru: "Где ты встречаешься с друзьями?" },
+        { en: "What do you like doing on Sundays?", hy: "Ի՞նչ ես սիրում անել կիրակի օրերին:", ru: "Что ты любишь делать по воскресеньям?" },
+        { en: "Do you visit your grandparents at weekends?", hy: "Այցելու՞մ ես տատիկին ու պապիկին հանգստյան օրերին:", ru: "Ты навещаешь бабушку и дедушку по выходным?" },
+        { en: "Why do you like weekends?", hy: "Ինչո՞ւ ես սիրում հանգստյան օրերը:", ru: "Почему ты любишь выходные?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 18. ԻՄ ԵՐԱԶԱՆՔՆԵՐԸ ─────────────────────────────────────
+  {
+    id: "dreams_michael",
+    level: "A2",
+    topics: ["dreams", "future"],
+    title: { en: "My Dreams", hy: "Իմ երազանքները", ru: "Мои мечты" },
+    format: "Essay",
+    difficulty: 1,
+    words: 210,
+    minutes: 2,
+    parts: 8,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "Hello! My name is Michael. I am eleven years old. I have many dreams, and I like thinking about my future.",
+        hy: "Բարև՛։ Իմ անունը Մայքլ է։ Ես տասնմեկ տարեկան եմ։ Ես շատ երազանքներ ունեմ և սիրում եմ մտածել իմ ապագայի մասին։",
+        ru: "Привет! Меня зовут Майкл. Мне одиннадцать лет. У меня много мечтаний, и мне нравится думать о своём будущем."
+      },
+      {
+        en: "When I grow up, I want to do something useful and interesting. I want to learn new things, meet different people and discover the world.",
+        hy: "Երբ մեծանամ, ուզում եմ օգտակար և հետաքրքիր գործով զբաղվել։ Ուզում եմ նոր բաներ սովորել, տարբեր մարդկանց հանդիպել և բացահայտել աշխարհը։",
+        ru: "Когда я вырасту, я хочу заниматься чем-то полезным и интересным. Я хочу узнавать новое, встречать разных людей и открывать для себя мир."
+      },
+      {
+        en: "One of my biggest dreams is to travel to different countries. I would like to visit Italy, Japan, France and many other places. I want to see beautiful cities, taste new food and learn about different cultures.",
+        hy: "Իմ ամենամեծ երազանքներից մեկը տարբեր երկրներ ճանապարհորդելն է։ Ես կուզենայի այցելել Իտալիա, Ճապոնիա, Ֆրանսիա և շատ այլ վայրեր։ Ուզում եմ տեսնել գեղեցիկ քաղաքներ, համտեսել նոր ուտեստներ և ծանոթանալ տարբեր մշակույթների։",
+        ru: "Одна из моих самых больших мечт — путешествовать по разным странам. Я хотел бы посетить Италию, Японию, Францию и многие другие места. Я хочу увидеть красивые города, попробовать новые блюда и познакомиться с разными культурами."
+      },
+      {
+        en: "I also dream of having a big house with a garden. I would like to plant flowers, grow fruit trees and have a small place where I can read books outside.",
+        hy: "Ես նաև երազում եմ մեծ այգի ունեցող տան մասին։ Կուզենայի ծաղիկներ տնկել, պտղատու ծառեր աճեցնել և ունենալ մի փոքրիկ անկյուն, որտեղ կարող եմ դրսում գիրք կարդալ։",
+        ru: "Я также мечтаю о большом доме с садом. Я хотел бы посадить цветы, выращивать фруктовые деревья и иметь уютное место, где можно читать книги на свежем воздухе."
+      },
+      {
+        en: "I love animals, so I want to help them. Maybe one day I will become a veterinarian. I would like to take care of sick animals and help them feel better.",
+        hy: "Ես սիրում եմ կենդանիներին, այդ պատճառով ուզում եմ օգնել նրանց։ Գուցե մի օր անասնաբույժ դառնամ։ Կուզենայի խնամել հիվանդ կենդանիներին և օգնել նրանց առողջանալ։",
+        ru: "Я люблю животных, поэтому хочу им помогать. Возможно, однажды я стану ветеринаром. Я хотел бы заботиться о больных животных и помогать им выздоравливать."
+      },
+      {
+        en: "Another dream of mine is to speak three languages: Armenian, English and Russian. I know that learning a language takes time and practice. I try to learn new words every day and speak with my friends.",
+        hy: "Իմ մյուս երազանքներից մեկը երեք լեզվով՝ հայերեն, անգլերեն և ռուսերեն խոսելն է։ Գիտեմ, որ լեզու սովորելու համար ժամանակ և վարժանք է անհրաժեշտ։ Ամեն օր փորձում եմ նոր բառեր սովորել և ընկերներիս հետ խոսել։",
+        ru: "Ещё одна моя мечта — говорить на трёх языках: армянском, английском и русском. Я знаю, что изучение языка требует времени и практики. Каждый день я стараюсь учить новые слова и разговаривать с друзьями."
+      },
+      {
+        en: "My parents always tell me that dreams need hard work. I understand that I cannot achieve everything in one day. I need to study, practise and never give up.",
+        hy: "Ծնողներս միշտ ասում են, որ երազանքներն իրականացնելու համար պետք է աշխատել։ Ես հասկանում եմ, որ ամեն ինչ չեմ կարող իրականացնել մեկ օրում։ Պետք է սովորեմ, վարժվեմ և երբեք չհանձնվեմ։",
+        ru: "Мои родители всегда говорят, что для осуществления мечты нужно много трудиться. Я понимаю, что не могу достичь всего за один день. Мне нужно учиться, практиковаться и никогда не сдаваться."
+      },
+      {
+        en: "I believe that every small step brings me closer to my dreams. What about you? What is your biggest dream?",
+        hy: "Ես հավատում եմ, որ յուրաքանչյուր փոքր քայլ ինձ ավելի է մոտեցնում իմ երազանքներին։ Իսկ դո՞ւ։ Ո՞րն է քո ամենամեծ երազանքը։",
+        ru: "Я верю, что каждый маленький шаг приближает меня к моим мечтам. А ты? Какая у тебя самая большая мечта?"
+      }
+    ],
+    vocabulary: [
+      { word: "dream", translation: { en: "dream", hy: "երազանք", ru: "мечта" } },
+      { word: "future", translation: { en: "future", hy: "ապագա", ru: "будущее" } },
+      { word: "grow up", translation: { en: "grow up", hy: "մեծանալ", ru: "вырасти" } },
+      { word: "useful", translation: { en: "useful", hy: "օգտակար", ru: "полезный" } },
+      { word: "travel", translation: { en: "travel", hy: "ճանապարհորդել", ru: "путешествовать" } },
+      { word: "country", translation: { en: "country", hy: "երկիր", ru: "страна" } },
+      { word: "discover", translation: { en: "discover", hy: "բացահայտել", ru: "открывать" } },
+      { word: "culture", translation: { en: "culture", hy: "մշակույթ", ru: "культура" } },
+      { word: "garden", translation: { en: "garden", hy: "այգի", ru: "сад" } },
+      { word: "plant flowers", translation: { en: "plant flowers", hy: "ծաղիկներ տնկել", ru: "сажать цветы" } },
+      { word: "veterinarian", translation: { en: "veterinarian", hy: "անասնաբույժ", ru: "ветеринар" } },
+      { word: "take care of", translation: { en: "take care of", hy: "խնամել", ru: "заботиться о" } },
+      { word: "language", translation: { en: "language", hy: "լեզու", ru: "язык" } },
+      { word: "practice", translation: { en: "practice", hy: "վարժանք", ru: "практика" } },
+      { word: "achieve", translation: { en: "achieve", hy: "հասնել, իրականացնել", ru: "достигать" } },
+      { word: "hard work", translation: { en: "hard work", hy: "քրտնաջան աշխատանք", ru: "усердная работа" } },
+      { word: "give up", translation: { en: "give up", hy: "հանձնվել", ru: "сдаваться" } },
+      { word: "step", translation: { en: "step", hy: "քայլ", ru: "шаг" } },
+      { word: "believe", translation: { en: "believe", hy: "հավատալ", ru: "верить" } }
+    ],
+    questions: [
+      {
+        question: { en: "What does Michael want to do when he grows up?", hy: "Ի՞նչ է ուզում անել Մայքլը, երբ մեծանա:", ru: "Что Майкл хочет делать, когда вырастет?" },
+        options: [
+          { en: "He wants to do something useful and interesting", hy: "Նա ուզում է օգտակար և հետաքրքիր գործով զբաղվել", ru: "Он хочет заниматься чем-то полезным и интересным" },
+          { en: "He wants to stop learning", hy: "Նա ուզում է դադարեցնել սովորելը", ru: "Он хочет перестать учиться" },
+          { en: "He wants to stay at home every day", hy: "Նա ուզում է ամեն օր տանը մնալ", ru: "Он хочет оставаться дома каждый день" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "Which countries would Michael like to visit?", hy: "Ո՞ր երկրներն է Մայքլը կուզենա այցելել:", ru: "Какие страны Майкл хотел бы посетить?" },
+        options: [
+          { en: "Italy, Japan and France", hy: "Իտալիա, Ճապոնիա և Ֆրանսիա", ru: "Италию, Японию и Францию" },
+          { en: "Armenia, Georgia and Greece", hy: "Հայաստան, Վրաստան և Հունաստան", ru: "Армению, Грузию и Грецию" },
+          { en: "Spain, Germany and Canada", hy: "Իսպանիա, Գերմանիա և Կանադա", ru: "Испанию, Германию и Канаду" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What kind of house does Michael dream of?", hy: "Ինչպիսի՞ տան մասին է երազում Մայքլը:", ru: "О каком доме мечтает Майкл?" },
+        options: [
+          { en: "A small house without a garden", hy: "Փոքրիկ տուն առանց այգու", ru: "Маленький дом без сада" },
+          { en: "A big house with a garden", hy: "Մեծ տուն այգիով", ru: "Большой дом с садом" },
+          { en: "A house near his school", hy: "Տուն դպրոցի մոտ", ru: "Дом рядом со школой" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Why might Michael become a veterinarian?", hy: "Ինչո՞ւ կարող է Մայքլը անասնաբույժ դառնալ:", ru: "Почему Майкл может стать ветеринаром?" },
+        options: [
+          { en: "Because he loves animals and wants to help them", hy: "Որովհետև սիրում է կենդանիներին և ուզում է օգնել նրանց", ru: "Потому что он любит животных и хочет им помогать" },
+          { en: "Because he likes travelling", hy: "Որովհետև սիրում է ճանապարհորդել", ru: "Потому что он любит путешествовать" },
+          { en: "Because he wants to build houses", hy: "Որովհետև ուզում է տներ կառուցել", ru: "Потому что он хочет строить дома" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "Which three languages does Michael want to speak?", hy: "Ո՞ր երեք լեզուներով է Մայքլը ուզում խոսել:", ru: "На каких трёх языках Майкл хочет говорить?" },
+        options: [
+          { en: "English, French and German", hy: "Անգլերեն, ֆրանսերեն և գերմաներեն", ru: "Английском, французском и немецком" },
+          { en: "Armenian, English and Russian", hy: "Հայերեն, անգլերեն և ռուսերեն", ru: "Армянском, английском и русском" },
+          { en: "Russian, Italian and Japanese", hy: "Ռուսերեն, իտալերեն և ճապոներեն", ru: "Русском, итальянском и японском" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Michael believe?", hy: "Ինչի՞ն է Մայքլը հավատում:", ru: "Во что верит Майкл?" },
+        options: [
+          { en: "Dreams come true without effort", hy: "Երազանքներն իրականանում են առանց ջանքի", ru: "Мечты сбываются без усилий" },
+          { en: "Small steps bring him closer to his dreams", hy: "Փոքր քայլերն իրեն ավելի են մոտեցնում երազանքներին", ru: "Маленькие шаги приближают его к мечтам" },
+          { en: "Learning is not important", hy: "Սովորելը կարևոր չէ", ru: "Учёба не важна" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your dreams!", hy: "Հիմա պատմիր քո երազանքների մասին:", ru: "А теперь расскажи о своих мечтах!" },
+      questions: [
+        { en: "What do you want to be when you grow up?", hy: "Ի՞նչ ես ուզում դառնալ, երբ մեծանաս:", ru: "Кем ты хочешь стать, когда вырастешь?" },
+        { en: "Which countries would you like to visit?", hy: "Ո՞ր երկրներն ես կուզենա այցելել:", ru: "Какие страны ты хотел бы посетить?" },
+        { en: "What would you like to learn?", hy: "Ի՞նչ կուզենայի սովորել:", ru: "Чему ты хотел бы научиться?" },
+        { en: "What kind of house would you like to have?", hy: "Ինչպիսի՞ տուն կուզենայի ունենալ:", ru: "Какой дом ты хотел бы иметь?" },
+        { en: "How would you like to help other people or animals?", hy: "Ինչպե՞ս կուզենայի օգնել այլ մարդկանց կամ կենդանիներին:", ru: "Как ты хотел бы помогать другим людям или животным?" },
+        { en: "What is your biggest dream?", hy: "Ո՞րն է քո ամենամեծ երազանքը:", ru: "Какая твоя самая большая мечта?" }
+      ]
+    }
   }
 ];

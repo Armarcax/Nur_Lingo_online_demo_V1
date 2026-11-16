@@ -709,5 +709,385 @@ export const A1_TEXTS: ReadingText[] = [
         { en: "Who do you usually spend the morning with?", hy: "Ու՞մ հետ ես սովորաբար անցկացնում առավոտը:", ru: "С кем ты обычно проводишь утро?" }
       ]
     }
+  },
+
+    // ─── A1 ԹԵՄԱ 13. ԲԱՆՋԱՐԵՂԵՆ ────────────────────────────────────────
+  {
+    id: "vegetables_market",
+    level: "A1",
+    topics: ["food", "vegetables"],
+    title: { en: "Vegetables", hy: "Բանջարեղեն", ru: "Овощи" },
+    format: "Story",
+    difficulty: 1,
+    words: 96,
+    minutes: 1,
+    parts: 7,
+    questionsCount: 5,
+    paragraphs: [
+      {
+        en: "My name is Jack. I like vegetables.",
+        hy: "Իմ անունը Ջեք է։ Ես սիրում եմ բանջարեղեն։",
+        ru: "Меня зовут Джек. Я люблю овощи."
+      },
+      {
+        en: "My mother and I go to the market every Saturday. We buy tomatoes, cucumbers, carrots, potatoes and onions.",
+        hy: "Ես և մայրիկս ամեն շաբաթ օր գնում ենք շուկա։ Մենք գնում ենք լոլիկ, վարունգ, գազար, կարտոֆիլ և սոխ։",
+        ru: "Каждую субботу мы с мамой ходим на рынок. Мы покупаем помидоры, огурцы, морковь, картофель и лук."
+      },
+      {
+        en: "Tomatoes are red. Cucumbers are green and long. Carrots are orange. Potatoes grow under the ground.",
+        hy: "Լոլիկները կարմիր են։ Վարունգները կանաչ են և երկար։ Գազարները նարնջագույն են։ Կարտոֆիլն աճում է հողի տակ։",
+        ru: "Помидоры красные. Огурцы зелёные и длинные. Морковь оранжевая. Картофель растёт под землёй."
+      },
+      {
+        en: "My favourite vegetable is the carrot. It is crunchy and sweet.",
+        hy: "Իմ սիրելի բանջարեղենը գազարն է։ Այն խրթխրթան է և քաղցր։",
+        ru: "Мой любимый овощ — морковь. Она хрустящая и сладкая."
+      },
+      {
+        en: "My mother makes delicious vegetable soup. I help her wash the vegetables and put them in a bowl.",
+        hy: "Մայրիկս համեղ բանջարեղենային ապուր է պատրաստում։ Ես օգնում եմ նրան լվանալ բանջարեղենը և դնել ամանի մեջ։",
+        ru: "Моя мама готовит вкусный овощной суп. Я помогаю ей мыть овощи и класть их в миску."
+      },
+      {
+        en: "We also have a small vegetable garden. My father grows tomatoes, cucumbers and peppers there.",
+        hy: "Մենք նաև փոքրիկ բանջարանոց ունենք։ Հայրիկս այնտեղ լոլիկ, վարունգ և պղպեղ է աճեցնում։",
+        ru: "У нас также есть небольшой огород. Мой папа выращивает там помидоры, огурцы и перец."
+      },
+      {
+        en: "I like fresh vegetables. They are colourful and delicious!",
+        hy: "Ես սիրում եմ թարմ բանջարեղեն։ Դրանք գունավոր և համեղ են։",
+        ru: "Я люблю свежие овощи. Они яркие и вкусные!"
+      }
+    ],
+    vocabulary: [
+      { word: "vegetable", translation: { en: "vegetable", hy: "բանջարեղեն", ru: "овощ" } },
+      { word: "tomato", translation: { en: "tomato", hy: "լոլիկ", ru: "помидор" } },
+      { word: "cucumber", translation: { en: "cucumber", hy: "վարունգ", ru: "огурец" } },
+      { word: "carrot", translation: { en: "carrot", hy: "գազար", ru: "морковь" } },
+      { word: "potato", translation: { en: "potato", hy: "կարտոֆիլ", ru: "картофель" } },
+      { word: "onion", translation: { en: "onion", hy: "սոխ", ru: "лук" } },
+      { word: "pepper", translation: { en: "pepper", hy: "պղպեղ", ru: "перец" } },
+      { word: "market", translation: { en: "market", hy: "շուկա", ru: "рынок" } },
+      { word: "vegetable garden", translation: { en: "vegetable garden", hy: "բանջարանոց", ru: "огород" } },
+      { word: "crunchy", translation: { en: "crunchy", hy: "խրթխրթան", ru: "хрустящий" } },
+      { word: "fresh", translation: { en: "fresh", hy: "թարմ", ru: "свежий" } },
+      { word: "grow", translation: { en: "grow", hy: "աճեցնել", ru: "выращивать" } }
+    ],
+    questions: [
+      {
+        question: { en: "When do Jack and his mother go to the market?", hy: "Ե՞րբ են Ջեքը և մայրիկը գնում շուկա:", ru: "Когда Джек и его мама ходят на рынок?" },
+        options: [
+          { en: "Every Monday", hy: "Ամեն երկուշաբթի", ru: "Каждый понедельник" },
+          { en: "Every Saturday", hy: "Ամեն շաբաթ օր", ru: "Каждую субботу" },
+          { en: "Every Sunday", hy: "Ամեն կիրակի", ru: "Каждое воскресенье" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What colour are carrots?", hy: "Ի՞նչ գույնի են գազարները:", ru: "Какого цвета морковь?" },
+        options: [
+          { en: "Red", hy: "Կարմիր", ru: "Красная" },
+          { en: "Green", hy: "Կանաչ", ru: "Зелёная" },
+          { en: "Orange", hy: "Նարնջագույն", ru: "Оранжевая" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "Where do potatoes grow?", hy: "Որտե՞ղ է աճում կարտոֆիլը:", ru: "Где растёт картофель?" },
+        options: [
+          { en: "Under the ground", hy: "Հողի տակ", ru: "Под землёй" },
+          { en: "On trees", hy: "Ծառերի վրա", ru: "На деревьях" },
+          { en: "In the water", hy: "Ջրի մեջ", ru: "В воде" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What is Jack's favourite vegetable?", hy: "Ո՞րն է Ջեքի սիրելի բանջարեղենը:", ru: "Какой любимый овощ у Джека?" },
+        options: [
+          { en: "Cucumber", hy: "Վարունգ", ru: "Огурец" },
+          { en: "Carrot", hy: "Գազար", ru: "Морковь" },
+          { en: "Tomato", hy: "Լոլիկ", ru: "Помидор" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Jack's father grow in the garden?", hy: "Ի՞նչ է աճեցնում Ջեքի հայրիկը բանջարանոցում:", ru: "Что выращивает папа Джека в огороде?" },
+        options: [
+          { en: "Apples and bananas", hy: "Խնձոր և բանան", ru: "Яблоки и бананы" },
+          { en: "Strawberries and grapes", hy: "Ելակ և խաղող", ru: "Клубнику и виноград" },
+          { en: "Tomatoes, cucumbers and peppers", hy: "Լոլիկ, վարունգ և պղպեղ", ru: "Помидоры, огурцы и перец" }
+        ],
+        correctIndex: 2
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your favourite vegetables!", hy: "Հիմա պատմիր քո սիրելի բանջարեղենի մասին:", ru: "А теперь расскажи о своих любимых овощах!" },
+      questions: [
+        { en: "What is your favourite vegetable?", hy: "Ո՞րն է քո սիրելի բանջարեղենը:", ru: "Какой твой любимый овощ?" },
+        { en: "Do you like tomatoes?", hy: "Սիրու՞մ ես լոլիկ:", ru: "Ты любишь помидоры?" },
+        { en: "What colour is a cucumber?", hy: "Ի՞նչ գույնի է վարունգը:", ru: "Какого цвета огурец?" },
+        { en: "Do you help your parents in the garden?", hy: "Օգնու՞մ ես ծնողներիդ այգում:", ru: "Помогаешь ли ты родителям в саду?" },
+        { en: "What vegetables do you eat at home?", hy: "Ի՞նչ բանջարեղեն ես ուտում տանը:", ru: "Какие овощи ты ешь дома?" }
+      ]
+    }
+  },
+
+    // ─── A1 ԹԵՄԱ 14. ԻՄ ՍԻՐԵԼԻ ԽԱՂԵՐՆ ՈՒ ԶԲԱՂՄՈՒՆՔՆԵՐԸ ────────────────────
+  {
+    id: "hobbies_games",
+    level: "A1",
+    topics: ["hobbies", "daily"],
+    title: { en: "My Favourite Games and Hobbies", hy: "Իմ սիրելի խաղերն ու զբաղմունքները", ru: "Мои любимые игры и увлечения" },
+    format: "Story",
+    difficulty: 1,
+    words: 99,
+    minutes: 1,
+    parts: 6,
+    questionsCount: 5,
+    paragraphs: [
+      {
+        en: "My name is Daniel. I am nine years old. I have many hobbies.",
+        hy: "Իմ անունը Դանիել է։ Ես ինը տարեկան եմ։ Ես շատ զբաղմունքներ ունեմ։",
+        ru: "Меня зовут Даниэль. Мне девять лет. У меня много увлечений."
+      },
+      {
+        en: "I like playing football with my friends. We play in the park after school. Sometimes we ride our bicycles and play hide-and-seek.",
+        hy: "Ես սիրում եմ ընկերներիս հետ ֆուտբոլ խաղալ։ Մենք դասերից հետո խաղում ենք այգում։ Երբեմն մենք հեծանիվ ենք քշում և պահմտոցի խաղում։",
+        ru: "Я люблю играть в футбол с друзьями. Мы играем в парке после школы. Иногда мы катаемся на велосипедах и играем в прятки."
+      },
+      {
+        en: "I also like drawing pictures. I draw animals, houses, trees and funny characters. My favourite colour is blue.",
+        hy: "Ես նաև սիրում եմ նկարել։ Ես նկարում եմ կենդանիներ, տներ, ծառեր և զվարճալի կերպարներ։ Իմ սիրելի գույնը կապույտն է։",
+        ru: "Я также люблю рисовать. Я рисую животных, дома, деревья и забавных персонажей. Мой любимый цвет — синий."
+      },
+      {
+        en: "At home, I enjoy reading storybooks and playing board games with my sister. We sometimes build houses with toy blocks.",
+        hy: "Տանը ես հաճույքով կարդում եմ հեքիաթների գրքեր և քրոջս հետ սեղանի խաղեր խաղում։ Երբեմն մենք խաղալիք խորանարդիկներով տներ ենք կառուցում։",
+        ru: "Дома мне нравится читать сказки и играть в настольные игры с сестрой. Иногда мы строим домики из игрушечных кубиков."
+      },
+      {
+        en: "On weekends, I visit my grandparents. We play games and have fun together.",
+        hy: "Հանգստյան օրերին ես այցելում եմ տատիկիս ու պապիկիս։ Մենք խաղեր ենք խաղում և միասին ուրախ ժամանակ անցկացնում։",
+        ru: "По выходным я навещаю бабушку и дедушку. Мы играем и весело проводим время вместе."
+      },
+      {
+        en: "I like trying new things. My hobbies make me happy!",
+        hy: "Ես սիրում եմ նոր բաներ փորձել։ Իմ սիրելի զբաղմունքներն ինձ ուրախացնում են։",
+        ru: "Я люблю пробовать что-то новое. Мои увлечения делают меня счастливым!"
+      }
+    ],
+    vocabulary: [
+      { word: "hobby", translation: { en: "hobby", hy: "զբաղմունք, հոբբի", ru: "увлечение" } },
+      { word: "free time", translation: { en: "free time", hy: "ազատ ժամանակ", ru: "свободное время" } },
+      { word: "play football", translation: { en: "play football", hy: "ֆուտբոլ խաղալ", ru: "играть в футбол" } },
+      { word: "ride a bicycle", translation: { en: "ride a bicycle", hy: "հեծանիվ քշել", ru: "кататься на велосипеде" } },
+      { word: "hide-and-seek", translation: { en: "hide-and-seek", hy: "պահմտոցի", ru: "прятки" } },
+      { word: "draw", translation: { en: "draw", hy: "նկարել", ru: "рисовать" } },
+      { word: "storybook", translation: { en: "storybook", hy: "հեքիաթների գիրք", ru: "книга сказок" } },
+      { word: "board game", translation: { en: "board game", hy: "սեղանի խաղ", ru: "настольная игра" } },
+      { word: "toy blocks", translation: { en: "toy blocks", hy: "խաղալիք խորանարդիկներ", ru: "игрушечные кубики" } },
+      { word: "build", translation: { en: "build", hy: "կառուցել", ru: "строить" } },
+      { word: "visit", translation: { en: "visit", hy: "այցելել", ru: "навещать" } },
+      { word: "weekend", translation: { en: "weekend", hy: "հանգստյան օրեր", ru: "выходные" } }
+    ],
+    questions: [
+      {
+        question: { en: "How old is Daniel?", hy: "Քանի՞ տարեկան է Դանիելը:", ru: "Сколько лет Даниэлю?" },
+        options: [
+          { en: "Seven years old", hy: "Յոթ տարեկան", ru: "Семь лет" },
+          { en: "Nine years old", hy: "Ինը տարեկան", ru: "Девять лет" },
+          { en: "Eleven years old", hy: "Տասնմեկ տարեկան", ru: "Одиннадцать лет" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Where does Daniel play football?", hy: "Որտե՞ղ է Դանիելը ֆուտբոլ խաղում:", ru: "Где Даниэль играет в футбол?" },
+        options: [
+          { en: "At school", hy: "Դպրոցում", ru: "В школе" },
+          { en: "In the park", hy: "Այգում", ru: "В парке" },
+          { en: "At home", hy: "Տանը", ru: "Дома" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Daniel like drawing?", hy: "Ի՞նչ է սիրում նկարել Դանիելը:", ru: "Что Даниэль любит рисовать?" },
+        options: [
+          { en: "Only cars", hy: "Միայն մեքենաներ", ru: "Только машины" },
+          { en: "Animals, houses, trees and funny characters", hy: "Կենդանիներ, տներ, ծառեր և զվարճալի կերպարներ", ru: "Животных, дома, деревья и забавных персонажей" },
+          { en: "Only flowers", hy: "Միայն ծաղիկներ", ru: "Только цветы" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Daniel play with his sister?", hy: "Ի՞նչ է Դանիելը խաղում քրոջ հետ:", ru: "Во что Даниэль играет с сестрой?" },
+        options: [
+          { en: "Board games", hy: "Սեղանի խաղեր", ru: "В настольные игры" },
+          { en: "Football", hy: "Ֆուտբոլ", ru: "В футбол" },
+          { en: "Basketball", hy: "Բասկետբոլ", ru: "В баскетбол" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "Who does Daniel visit on weekends?", hy: "Ու՞մ է Դանիելը այցելում հանգստյան օրերին:", ru: "Кого Даниэль навещает по выходным?" },
+        options: [
+          { en: "His friends", hy: "Իր ընկերներին", ru: "Своих друзей" },
+          { en: "His teachers", hy: "Իր ուսուցիչներին", ru: "Своих учителей" },
+          { en: "His grandparents", hy: "Իր տատիկին ու պապիկին", ru: "Своих бабушку и дедушку" }
+        ],
+        correctIndex: 2
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your favourite games and hobbies!", hy: "Հիմա պատմիր քո սիրելի խաղերի և զբաղմունքների մասին:", ru: "А теперь расскажи о своих любимых играх и увлечениях!" },
+      questions: [
+        { en: "What do you like doing in your free time?", hy: "Ի՞նչ ես սիրում անել ազատ ժամանակ:", ru: "Что ты любишь делать в свободное время?" },
+        { en: "Do you like playing football?", hy: "Սիրու՞մ ես ֆուտբոլ խաղալ:", ru: "Ты любишь играть в футбол?" },
+        { en: "Can you ride a bicycle?", hy: "Կարողանու՞մ ես հեծանիվ քշել:", ru: "Ты умеешь кататься на велосипеде?" },
+        { en: "Do you like drawing or reading?", hy: "Սիրու՞մ ես նկարել, թե՞ կարդալ:", ru: "Ты любишь рисовать или читать?" },
+        { en: "What games do you play with your friends?", hy: "Ի՞նչ խաղեր ես խաղում ընկերներիդ հետ:", ru: "В какие игры ты играешь с друзьями?" },
+        { en: "What do you do on weekends?", hy: "Ի՞նչ ես անում հանգստյան օրերին:", ru: "Что ты делаешь по выходным?" }
+      ]
+    }
+  },
+
+    // ─── A1 ԹԵՄԱ 15. ԹՎԵՐ, ՕՐԵՐ, ԱՄԻՍՆԵՐ ԵՎ ԺԱՄԵՐ ────────────────────────
+  {
+    id: "time_calendar",
+    level: "A1",
+    topics: ["daily", "time"],
+    title: { en: "Numbers, Days, Months and Time", hy: "Թվեր, օրեր, ամիսներ և ժամեր", ru: "Числа, дни, месяцы и время" },
+    format: "Story",
+    difficulty: 1,
+    words: 130,
+    minutes: 2,
+    parts: 8,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "My name is Peter. I am nine years old.",
+        hy: "Իմ անունը Փիթեր է։ Ես ինը տարեկան եմ։",
+        ru: "Меня зовут Питер. Мне девять лет."
+      },
+      {
+        en: "There are seven days in a week. Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday.",
+        hy: "Մեկ շաբաթում կա յոթ օր՝ երկուշաբթի, երեքշաբթի, չորեքշաբթի, հինգշաբթի, ուրբաթ, շաբաթ և կիրակի։",
+        ru: "В неделе семь дней: понедельник, вторник, среда, четверг, пятница, суббота и воскресенье."
+      },
+      {
+        en: "I go to school from Monday to Friday. On Saturday and Sunday, I do not go to school. I play with my friends and visit my grandparents.",
+        hy: "Ես երկուշաբթիից ուրբաթ գնում եմ դպրոց։ Շաբաթ և կիրակի օրերին ես դպրոց չեմ գնում։ Ես խաղում եմ ընկերներիս հետ և այցելում տատիկիս ու պապիկիս։",
+        ru: "С понедельника по пятницу я хожу в школу. В субботу и воскресенье я не хожу в школу. Я играю с друзьями и навещаю бабушку и дедушку."
+      },
+      {
+        en: "There are twelve months in a year. January is the first month, and December is the last month.",
+        hy: "Մեկ տարում կա տասներկու ամիս։ Հունվարը տարվա առաջին ամիսն է, իսկ դեկտեմբերը՝ վերջինը։",
+        ru: "В году двенадцать месяцев. Январь — первый месяц, а декабрь — последний."
+      },
+      {
+        en: "My birthday is in May. I like May because the weather is warm and sunny.",
+        hy: "Իմ ծննդյան օրը մայիսին է։ Ես սիրում եմ մայիսը, որովհետև եղանակը տաք է և արևոտ։",
+        ru: "Мой день рождения в мае. Я люблю май, потому что погода тёплая и солнечная."
+      },
+      {
+        en: "I get up at seven o'clock every morning. I have breakfast at half past seven. School starts at nine o'clock.",
+        hy: "Ես ամեն առավոտ արթնանում եմ ժամը յոթին։ Ժամը յոթն անց կեսին նախաճաշում եմ։ Դպրոցը սկսվում է ժամը իննին։",
+        ru: "Каждое утро я встаю в семь часов. В половине восьмого я завтракаю. Школа начинается в девять часов."
+      },
+      {
+        en: "I go to bed at nine o'clock in the evening.",
+        hy: "Ես երեկոյան քնելու եմ գնում ժամը իննին։",
+        ru: "Вечером я ложусь спать в девять часов."
+      },
+      {
+        en: "I like learning numbers, days and months. They help me understand time!",
+        hy: "Ես սիրում եմ սովորել թվեր, շաբաթվա օրեր և ամիսներ։ Դրանք օգնում են ինձ հասկանալ ժամանակը։",
+        ru: "Мне нравится учить числа, дни недели и месяцы. Они помогают мне понимать время!"
+      }
+    ],
+    vocabulary: [
+      { word: "time", translation: { en: "time", hy: "ժամանակ", ru: "время" } },
+      { word: "clock", translation: { en: "clock", hy: "ժամացույց", ru: "часы" } },
+      { word: "hour", translation: { en: "hour", hy: "ժամ", ru: "час" } },
+      { word: "minute", translation: { en: "minute", hy: "րոպե", ru: "минута" } },
+      { word: "morning", translation: { en: "morning", hy: "առավոտ", ru: "утро" } },
+      { word: "evening", translation: { en: "evening", hy: "երեկո", ru: "вечер" } },
+      { word: "week", translation: { en: "week", hy: "շաբաթ", ru: "неделя" } },
+      { word: "month", translation: { en: "month", hy: "ամիս", ru: "месяц" } },
+      { word: "year", translation: { en: "year", hy: "տարի", ru: "год" } },
+      { word: "birthday", translation: { en: "birthday", hy: "ծննդյան օր", ru: "день рождения" } },
+      { word: "Monday", translation: { en: "Monday", hy: "երկուշաբթի", ru: "понедельник" } },
+      { word: "January", translation: { en: "January", hy: "հունվար", ru: "январь" } },
+      { word: "May", translation: { en: "May", hy: "մայիս", ru: "май" } },
+      { word: "December", translation: { en: "December", hy: "դեկտեմբեր", ru: "декабрь" } }
+    ],
+    questions: [
+      {
+        question: { en: "How old is Peter?", hy: "Քանի՞ տարեկան է Փիթերը:", ru: "Сколько лет Питеру?" },
+        options: [
+          { en: "Eight years old", hy: "Ութ տարեկան", ru: "Восемь лет" },
+          { en: "Nine years old", hy: "Ինը տարեկան", ru: "Девять лет" },
+          { en: "Ten years old", hy: "Տասը տարեկան", ru: "Десять лет" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "How many days are there in a week?", hy: "Քանի՞ օր կա մեկ շաբաթում:", ru: "Сколько дней в неделе?" },
+        options: [
+          { en: "Five", hy: "Հինգ", ru: "Пять" },
+          { en: "Six", hy: "Վեց", ru: "Шесть" },
+          { en: "Seven", hy: "Յոթ", ru: "Семь" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "When does Peter go to school?", hy: "Ե՞րբ է Փիթերը գնում դպրոց:", ru: "Когда Питер ходит в школу?" },
+        options: [
+          { en: "From Monday to Friday", hy: "Երկուշաբթիից ուրբաթ", ru: "С понедельника по пятницу" },
+          { en: "Only on Saturday", hy: "Միայն շաբաթ օրը", ru: "Только в субботу" },
+          { en: "Every Sunday", hy: "Ամեն կիրակի", ru: "Каждое воскресенье" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What is the first month of the year?", hy: "Ո՞րն է տարվա առաջին ամիսը:", ru: "Какой первый месяц года?" },
+        options: [
+          { en: "December", hy: "Դեկտեմբեր", ru: "Декабрь" },
+          { en: "January", hy: "Հունվար", ru: "Январь" },
+          { en: "May", hy: "Մայիս", ru: "Май" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "When is Peter's birthday?", hy: "Ե՞րբ է Փիթերի ծննդյան օրը:", ru: "Когда у Питера день рождения?" },
+        options: [
+          { en: "In January", hy: "Հունվարին", ru: "В январе" },
+          { en: "In September", hy: "Սեպտեմբերին", ru: "В сентябре" },
+          { en: "In May", hy: "Մայիսին", ru: "В мае" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What time does Peter get up?", hy: "Ժամը քանիսի՞ն է Փիթերը արթնանում:", ru: "Во сколько Питер встаёт?" },
+        options: [
+          { en: "At six o'clock", hy: "Ժամը վեցին", ru: "В шесть часов" },
+          { en: "At seven o'clock", hy: "Ժամը յոթին", ru: "В семь часов" },
+          { en: "At nine o'clock", hy: "Ժամը իննին", ru: "В девять часов" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your time and calendar!", hy: "Հիմա պատմիր քո ժամանակի և օրացույցի մասին:", ru: "А теперь расскажи о своём времени и календаре!" },
+      questions: [
+        { en: "How old are you?", hy: "Քանի՞ տարեկան ես:", ru: "Сколько тебе лет?" },
+        { en: "What day is today?", hy: "Այսօր ի՞նչ օր է:", ru: "Какой сегодня день?" },
+        { en: "What is your favourite day of the week?", hy: "Ո՞րն է քո սիրելի օրը շաբաթվա մեջ:", ru: "Какой твой любимый день недели?" },
+        { en: "When is your birthday?", hy: "Ե՞րբ է քո ծննդյան օրը:", ru: "Когда у тебя день рождения?" },
+        { en: "What month is your favourite?", hy: "Ո՞ր ամիսն է քո սիրելին:", ru: "Какой твой любимый месяц?" },
+        { en: "What time do you get up?", hy: "Ժամը քանիսի՞ն ես արթնանում:", ru: "Во сколько ты встаёшь?" },
+        { en: "What time do you go to bed?", hy: "Ժամը քանիսի՞ն ես քնում:", ru: "Во сколько ты ложишься спать?" }
+      ]
+    }
   }
 ];

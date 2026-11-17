@@ -1,0 +1,1251 @@
+[
+  {
+  "id": "en-a1-elem-unit-002",
+  "idScheme": "local ids are lesson-scoped; global = lesson.id + '-' + localId",
+  "bookId": "elem",
+  "targetLanguage": "en",
+  "supportedDirections": ["hy-en", "ru-en"],
+  "cefr": "A1–A2",
+  "level": { "en": "Elementary", "hy": "Սկսնակ", "ru": "Начальный" },
+  "sectionId": "elem-s01",
+  "section": { "en": "Present", "hy": "Ներկա", "ru": "Настоящее время" },
+  "unitNumber": 2,
+  "title": { "en": "am/is/are (questions)", "hy": "am / is / are (հարցեր)", "ru": "am / is / are (вопросы)" },
+  "explanationFormat": "html-inline",
+  "learningObjectives": [
+    { "hy": "Կազմել yes/no հարցեր՝ am/is/are-ը ենթակայից առաջ դնելով։", "ru": "Строить общие вопросы, ставя am/is/are перед подлежащим." },
+    { "hy": "Ընտրել ճիշտ ձևը ըստ ենթակայի՝ I → am, he/she/it → is, we/you/they → are։", "ru": "Выбирать форму по подлежащему: I → am, he/she/it → is, we/you/they → are." },
+    { "hy": "Կազմել հատուկ հարցեր՝ What/Where/Who/How + am/is/are + ենթակա։", "ru": "Строить специальные вопросы: What/Where/Who/How + am/is/are + подлежащее." },
+    { "hy": "Տալ կարճ պատասխաններ՝ Yes, I am / No, I'm not, առանց կրճատման դրական պատասխանի վերջում։", "ru": "Давать краткие ответы (Yes, I am / No, I'm not), не сокращая глагол в положительном ответе." }
+  ],
+  "explanation": {
+    "hy": "Հարցեր <b>am / is / are</b>-ով. <i>Is your mother at home? Where are you from?</i> և կարճ պատասխաններ. <i>Yes, I am. No, it isn't.</i>",
+    "ru": "Вопросы с <b>am / is / are</b>: <i>Is your mother at home? Where are you from?</i> — и краткие ответы: <i>Yes, I am. No, it isn't.</i>"
+  },
+  "rules": [
+    { "id": "r1", "formula": "Am / Is / Are + subject + … ?",
+      "statement": { "hy": "Հարցում am/is/are-ը դրվում է ենթակայից առաջ։", "ru": "В вопросе am/is/are ставится перед подлежащим." },
+      "targetText": "She is at home. → Is she at home?" },
+    { "id": "r2", "formula": "I → am · he/she/it → is · we/you/they → are",
+      "statement": { "hy": "Երկու և ավելի մարդ կամ իր = they, ուստի՝ are։", "ru": "Два и более человека или предмета = they, поэтому are." },
+      "targetText": "The tickets are expensive. → Are the tickets expensive?" },
+    { "id": "r3", "formula": "Wh-word + am/is/are + subject + … ?",
+      "statement": { "hy": "Հարցական բառը am/is/are-ից առաջ է, ենթական՝ հետո։", "ru": "Вопросительное слово — перед am/is/are, подлежащее — после." },
+      "targetText": "Where is she from?" },
+    { "id": "r4", "formula": "Yes, + pronoun + am/is/are. / No, + pronoun + 'm not / isn't / aren't.",
+      "statement": { "hy": "Դրական կարճ պատասխանում բայը չի կրճատվում. Yes, she is (ոչ Yes, she's)։ Ժխտականում կրճատվում է. No, she isn't / No, she's not։ I-ի ժխտականը՝ No, I'm not։", "ru": "В положительном кратком ответе глагол не сокращается: Yes, she is (не Yes, she's). В отрицательном — сокращается: No, she isn't / No, she's not. С I: No, I'm not." },
+      "targetText": "Yes, they are. / No, I'm not." }
+  ],
+  "examples": [
+    { "id": "e1", "targetText": "Is Elena ready for the test?", "translation": { "hy": "Ելենան պատրա՞ստ է թեստին։", "ru": "Елена готова к тесту?" } },
+    { "id": "e2", "targetText": "Are the tickets expensive?", "translation": { "hy": "Տոմսերը թա՞նկ են։", "ru": "Билеты дорогие?" } },
+    { "id": "e3", "targetText": "Where is she from?", "translation": { "hy": "Որտե՞ղից է նա։", "ru": "Откуда она?" } },
+    { "id": "e4", "targetText": "How old is your son?", "translation": { "hy": "Որքա՞ն տարեկան է որդիդ։", "ru": "Сколько лет твоему сыну?" } },
+    { "id": "e5", "targetText": "Am I on the list?", "translation": { "hy": "Ես ցուցակի՞ մեջ եմ։", "ru": "Я в списке?" } },
+    { "id": "e6", "targetText": "Is the museum open today?", "translation": { "hy": "Թանգարանը բա՞ց է այսօր։", "ru": "Музей сегодня открыт?" } }
+  ],
+  "commonErrors": [
+    { "id": "x1", "wrong": "Where you are from?", "correct": "Where are you from?", "sourceRef": "t09-i2",
+      "explanation": { "hy": "Հարցում are-ը պետք է ենթակայից առաջ լինի։", "ru": "В вопросе are ставится перед подлежащим." } },
+    { "id": "x2", "wrong": "Is your neighbours at home?", "correct": "Are your neighbours at home?", "sourceRef": "t09-i5",
+      "explanation": { "hy": "Neighbours-ը հոգնակի է = they, ուստի՝ are։", "ru": "Neighbours — множественное число (= they), поэтому are." } },
+    { "id": "x3", "wrong": "Yes, she's.", "correct": "Yes, she is.", "sourceRef": "t02-i2",
+      "explanation": { "hy": "Դրական կարճ պատասխանի վերջում կրճատ ձև չի գործածվում։", "ru": "В конце положительного краткого ответа сокращённая форма не используется." } },
+    { "id": "x4", "wrong": "No, I amn't.", "correct": "No, I'm not.", "sourceRef": "t02-i5",
+      "explanation": { "hy": "Անգլերենում amn't ձև չկա։", "ru": "Формы amn't в английском нет." } }
+  ],
+  "cards": [
+    { "id": "c01", "kind": "rule", "order": 1, "title": { "hy": "Հարց = շրջված կարգ", "ru": "Вопрос = обратный порядок" },
+      "body": { "hy": "Հաստատական՝ She is at home։ Հարց՝ Is she at home? Օժանդակ բայը գնում է ենթակայից առաջ։", "ru": "Утверждение: She is at home. Вопрос: Is she at home? Глагол-связка встаёт перед подлежащим." },
+      "targetText": "She is at home. → Is she at home?" },
+    { "id": "c02", "kind": "formula", "order": 2, "title": { "hy": "Ո՞ր ձևը որ ենթակայի հետ", "ru": "Какая форма с каким подлежащим" },
+      "body": { "hy": "I → am · he/she/it → is · we/you/they → are։ Հոգնակի գոյականը = they։", "ru": "I → am · he/she/it → is · we/you/they → are. Существительное во мн. ч. = they." },
+      "formula": "Am / Is / Are + subject + … ?" },
+    { "id": "c03", "kind": "rule", "order": 3, "title": { "hy": "Հարցական բառով հարցեր", "ru": "Вопросы с вопросительным словом" },
+      "body": { "hy": "What/Where/Who/How + am/is/are + ենթակա։ How old = տարիք, How much = գին։", "ru": "What/Where/Who/How + am/is/are + подлежащее. How old — возраст, How much — цена." },
+      "targetText": "Where is she from? / How old is your son?" },
+    { "id": "c04", "kind": "example", "order": 4, "title": { "hy": "Նմուշներ", "ru": "Образцы" },
+      "body": { "hy": "Կարդա բարձրաձայն և նկատիր բայի տեղը։", "ru": "Прочитай вслух и замети место глагола." },
+      "targetText": ["Is the museum open today?", "Are your friends ready?", "Am I on the list?"] },
+    { "id": "c05", "kind": "rule", "order": 5, "title": { "hy": "Կարճ պատասխաններ", "ru": "Краткие ответы" },
+      "body": { "hy": "Yes + դերանուն + am/is/are (լրիվ ձև)։ No + դերանուն + isn't/aren't/'m not։", "ru": "Yes + местоимение + am/is/are (полная форма). No + местоимение + isn't/aren't/'m not." },
+      "targetText": "Yes, they are. / No, it isn't. / No, I'm not." },
+    { "id": "c06", "kind": "exception", "order": 6, "title": { "hy": "Երկու արգելք", "ru": "Два запрета" },
+      "body": { "hy": "Չկա «Yes, I'm» և չկա «amn't»։ Ճիշտ է՝ Yes, I am / No, I'm not։", "ru": "Нет «Yes, I'm» и нет «amn't». Правильно: Yes, I am / No, I'm not." } },
+    { "id": "c07", "kind": "commonError", "order": 7, "title": { "hy": "Հաճախակի սխալ", "ru": "Частая ошибка" },
+      "body": { "hy": "«Where you are from?» սխալ է։ Հարցում՝ Where are you from?", "ru": "«Where you are from?» — ошибка. В вопросе: Where are you from?" },
+      "errorRef": "x1" },
+    { "id": "c08", "kind": "summary", "order": 8, "title": { "hy": "Ամփոփում", "ru": "Итог" },
+      "body": { "hy": "Բայը ենթակայից առաջ, հարցական բառը՝ բայից առաջ, դրական կարճ պատասխանը՝ լրիվ ձևով։", "ru": "Глагол — перед подлежащим, вопросительное слово — перед глаголом, положительный краткий ответ — полной формой." } }
+  ],
+  "exercises": [
+    { "id": "t01", "type": "pick", "order": 1, "difficulty": 1, "cardIds": ["c02"], "shuffleOptions": true,
+      "instructions": { "hy": "Ընտրեք Am, Is կամ Are։", "ru": "Выберите Am, Is или Are." },
+      "items": [
+        { "id": "t01-i1", "stem": "___ Elena ready for the test?", "options": ["Is", "Are", "Am"], "correctIndex": 0,
+          "feedback": { "correct": { "en": "Elena = she, so we use Is.", "hy": "Elena = she, ուստի՝ Is։", "ru": "Elena = she, поэтому Is." },
+            "options": [null,
+              { "en": "Are goes with we, you, they.", "hy": "Are-ը we, you, they-ի հետ է։", "ru": "Are — с we, you, they." },
+              { "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }] } },
+        { "id": "t01-i2", "stem": "___ I too late for the bus?", "options": ["Are", "Am", "Is"], "correctIndex": 1,
+          "provenance": { "feedback.correct.en": "original" },
+          "feedback": { "correct": { "en": "With I we use am, also in questions: Am I late?", "hy": "I-ի հետ՝ am, նաև հարցում. Am I late?", "ru": "С I употребляем am, в том числе в вопросе: Am I late?" },
+            "options": [{ "en": "Are is not used with I.", "hy": "Are-ը I-ի հետ չի գործածվում։", "ru": "Are с I не употребляется." }, null,
+              { "en": "Is is for he, she, it.", "hy": "Is-ը he, she, it-ի համար է։", "ru": "Is — для he, she, it." }] } },
+        { "id": "t01-i3", "stem": "___ the tickets expensive?", "options": ["Are", "Is", "Am"], "correctIndex": 0,
+          "feedback": { "correct": { "en": "The tickets = they (more than one), so: Are.", "hy": "Tickets-ը հոգնակի է = they, ուստի՝ Are։", "ru": "Tickets — мн. ч. (= they), поэтому Are." },
+            "options": [null,
+              { "en": "Is is for one thing; tickets are more than one.", "hy": "Is-ը մեկ իրի համար է, tickets-ը՝ շատ։", "ru": "Is — для одного предмета, а tickets — несколько." },
+              { "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }] } },
+        { "id": "t01-i4", "stem": "___ it warm in Lisbon in April?", "options": ["Is", "Are", "Am"], "correctIndex": 0,
+          "provenance": { "feedback.correct.en": "original" },
+          "feedback": { "correct": { "en": "With it we use is: Is it cold?", "hy": "It-ի հետ՝ is. Is it cold?", "ru": "С it употребляем is: Is it cold?" },
+            "options": [null,
+              { "en": "Are is for we, you, they — not it.", "hy": "Are-ը we, you, they-ի համար է, ոչ it-ի։", "ru": "Are — для we, you, they, а не для it." },
+              { "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }] } },
+        { "id": "t01-i5", "stem": "___ you and Ivan in the same team?", "options": ["Are", "Is", "Am"], "correctIndex": 0,
+          "feedback": { "correct": { "en": "You and Ivan = you (plural), so: Are.", "hy": "You and Ivan = you (հոգնակի), ուստի՝ Are։", "ru": "You and Ivan = you (мн. ч.), поэтому Are." },
+            "options": [null,
+              { "en": "Is is for one person; here there are two.", "hy": "Is-ը մեկ անձի համար է, այստեղ երկուսն են։", "ru": "Is — для одного человека, а здесь двое." },
+              { "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }] } }
+      ] },
+
+    { "id": "t02", "type": "pick", "order": 2, "difficulty": 2, "cardIds": ["c05", "c06"], "shuffleOptions": true,
+      "instructions": { "hy": "Ընտրեք ճիշտ կարճ պատասխանը։", "ru": "Выберите правильный краткий ответ." },
+      "items": [
+        { "id": "t02-i1", "stem": "'Are you free after lunch?' 'Yes, ___'", "options": ["I'm.", "I am.", "I is."], "correctIndex": 1,
+          "provenance": { "feedback.correct.en": "original", "feedback.options[0].en": "original" },
+          "feedback": { "correct": { "en": "In a short positive answer we do not use the short form: Yes, I am. (not Yes, I'm.)", "hy": "Դրական կարճ պատասխանում կրճատ ձև չենք գործածում. Yes, I am (ոչ Yes, I'm)։", "ru": "В положительном кратком ответе сокращённая форма не используется: Yes, I am (не Yes, I'm)." },
+            "options": [{ "en": "At the end of a short answer we use the full form: Yes, I am.", "hy": "Կարճ պատասխանի վերջում լրիվ ձևն է. Yes, I am։", "ru": "В конце краткого ответа — полная форма: Yes, I am." }, null,
+              { "en": "With I the form is am, not is.", "hy": "I-ի հետ՝ am, ոչ is։", "ru": "С I — am, а не is." }] } },
+        { "id": "t02-i2", "stem": "'Is your sister a nurse?' 'Yes, ___'", "options": ["she's.", "she is.", "she are."], "correctIndex": 1,
+          "feedback": { "correct": { "en": "Short positive answer, full form: Yes, she is.", "hy": "Կարճ դրական պատասխան՝ լրիվ ձևով. Yes, she is։", "ru": "Краткий положительный ответ — полная форма: Yes, she is." },
+            "options": [{ "en": "We don't finish a short answer with she's.", "hy": "Կարճ պատասխանը she's-ով չի ավարտվում։", "ru": "Краткий ответ не заканчивается на she's." }, null,
+              { "en": "She goes with is, not are.", "hy": "She-ի հետ՝ is, ոչ are։", "ru": "С she — is, а не are." }] } },
+        { "id": "t02-i3", "stem": "'Are these your gloves?' 'Yes, ___'", "options": ["they are.", "they're.", "it is."], "correctIndex": 0,
+          "feedback": { "correct": { "en": "These gloves = they: Yes, they are.", "hy": "Gloves-ը հոգնակի է = they. Yes, they are։", "ru": "Gloves — мн. ч. (= they): Yes, they are." },
+            "options": [null,
+              { "en": "Full form at the end: Yes, they are.", "hy": "Վերջում լրիվ ձևն է. Yes, they are։", "ru": "В конце — полная форма: Yes, they are." },
+              { "en": "Gloves are more than one, so they, not it.", "hy": "Gloves-ը մեկից ավելի է, ուստի they, ոչ it։", "ru": "Gloves — не один предмет, поэтому they, а не it." }] } },
+        { "id": "t02-i4", "stem": "'Is the café open today?' 'No, ___'", "options": ["it not.", "it isn't.", "isn't."], "correctIndex": 1,
+          "provenance": { "feedback.correct.en": "original", "feedback.options": "original+translated" },
+          "feedback": { "correct": { "en": "Short negative answer: No, it isn't (or No, it's not).", "hy": "Կարճ ժխտական պատասխան. No, it isn't (կամ No, it's not)։", "ru": "Краткий отрицательный ответ: No, it isn't (или No, it's not)." },
+            "options": [{ "en": "The verb is missing: No, it isn't.", "hy": "Բայը բացակայում է. No, it isn't։", "ru": "Пропущен глагол: No, it isn't." }, null,
+              { "en": "The subject is missing: No, it isn't.", "hy": "Ենթական բացակայում է. No, it isn't։", "ru": "Пропущено подлежащее: No, it isn't." }] } },
+        { "id": "t02-i5", "stem": "'Are you ready?' 'No, ___'", "options": ["I amn't.", "I not.", "I'm not."], "correctIndex": 2,
+          "provenance": { "feedback.correct.en": "original" },
+          "feedback": { "correct": { "en": "With I the short negative answer is No, I'm not.", "hy": "I-ի կարճ ժխտական պատասխանը՝ No, I'm not։", "ru": "Краткий отрицательный ответ с I: No, I'm not." },
+            "options": [{ "en": "There is no amn't in English.", "hy": "Անգլերենում amn't ձև չկա։", "ru": "Формы amn't в английском нет." },
+              { "en": "The verb is missing: No, I'm not.", "hy": "Բայը բացակայում է. No, I'm not։", "ru": "Пропущен глагол: No, I'm not." }, null] } }
+      ] },
+
+    { "id": "t03", "type": "gap", "order": 3, "difficulty": 2, "cardIds": ["c03"],
+      "instructions": { "hy": "Գրեք What, Where, Who կամ How։", "ru": "Напишите What, Where, Who или How." },
+      "items": [
+        { "id": "t03-i1", "stem": "___ is your surname? — Novak.", "accepted": ["What"],
+          "feedback": { "correct": { "en": "We ask about a name with What.", "hy": "Անվան մասին հարցնում ենք What-ով։", "ru": "Об имени спрашиваем с What." } } },
+        { "id": "t03-i2", "stem": "___ are you from? — Prague.", "accepted": ["Where"],
+          "feedback": { "correct": { "en": "We ask about a place with Where.", "hy": "Վայրի մասին՝ Where-ով։", "ru": "О месте — с Where." } } },
+        { "id": "t03-i3", "stem": "___ old is your daughter? — She's seven.", "accepted": ["How"],
+          "feedback": { "correct": { "en": "We ask about age with How old.", "hy": "Տարիքի մասին՝ How old-ով։", "ru": "О возрасте — How old." } } },
+        { "id": "t03-i4", "stem": "___ is that woman near the door? — My aunt.", "accepted": ["Who"],
+          "feedback": { "correct": { "en": "We ask about a person with Who.", "hy": "Անձի մասին՝ Who-ով։", "ru": "О человеке — с Who." } } },
+        { "id": "t03-i5", "stem": "___ much are these boots? — Sixty euros.", "accepted": ["How"],
+          "feedback": { "correct": { "en": "We ask about a price with How much.", "hy": "Գնի մասին՝ How much-ով։", "ru": "О цене — How much." } } }
+      ] },
+
+    { "id": "t04", "type": "match", "order": 4, "difficulty": 2, "cardIds": ["c03", "c05"], "shuffleOptions": true,
+      "instructions": { "hy": "Գտեք յուրաքանչյուր հարցի ճիշտ պատասխանը։", "ru": "Подберите к каждому вопросу правильный ответ." },
+      "options": ["Behind the door.", "Dark green.", "Much better, thanks.", "My cousin.", "No, he's from Prague.", "Yes, I am."],
+      "unusedOptionFeedback": { "en": "'Yes, I am.' answers 'Are you …?', not 'Is Marek …?'", "hy": "«Yes, I am»-ը պատասխանում է «Are you …?»-ին, ոչ «Is Marek …?»-ին։", "ru": "«Yes, I am» отвечает на «Are you …?», а не на «Is Marek …?»." },
+      "items": [
+        { "id": "t04-i1", "prompt": "Where's my umbrella?", "answer": "Behind the door.",
+          "feedback": { "correct": { "en": "Where asks about a place.", "hy": "Where-ը հարցնում է վայրի մասին։", "ru": "Where спрашивает о месте." } } },
+        { "id": "t04-i2", "prompt": "What colour is your bike?", "answer": "Dark green.",
+          "feedback": { "correct": { "en": "What colour asks about a colour.", "hy": "What colour-ը հարցնում է գույնի մասին։", "ru": "What colour спрашивает о цвете." } } },
+        { "id": "t04-i3", "prompt": "How is your grandmother?", "answer": "Much better, thanks.",
+          "feedback": { "correct": { "en": "How is …? asks how a person feels.", "hy": "How is …?-ը հարցնում է ինքնազգացողության մասին։", "ru": "How is …? — о самочувствии." } } },
+        { "id": "t04-i4", "prompt": "Who's that boy?", "answer": "My cousin.",
+          "feedback": { "correct": { "en": "Who asks about a person.", "hy": "Who-ն հարցնում է անձի մասին։", "ru": "Who спрашивает о человеке." } } },
+        { "id": "t04-i5", "prompt": "Is Marek from Warsaw?", "answer": "No, he's from Prague.",
+          "feedback": { "correct": { "en": "A yes/no question gets Yes or No.", "hy": "Yes/no հարցին պատասխանում ենք Yes կամ No-ով։", "ru": "На общий вопрос отвечают Yes или No." } } }
+      ] },
+
+    { "id": "t05", "type": "write", "order": 5, "difficulty": 3, "cardIds": ["c05", "c06"], "exact": true,
+      "instructions": { "hy": "Գրեք կարճ պատասխաններ։", "ru": "Напишите краткие ответы." },
+      "example": { "targetText": "Are you hungry? (Yes) → Yes, I am.", "provenance": "new" },
+      "items": [
+        { "id": "t05-i1", "prompt": "Are you busy this evening? (No)", "accepted": ["No, I'm not.", "No, I am not."],
+          "feedback": { "correct": { "en": "With I: No, I'm not.", "hy": "I-ի հետ՝ No, I'm not։", "ru": "С I: No, I'm not." } } },
+        { "id": "t05-i2", "prompt": "Is it raining now? (Yes)", "accepted": ["Yes, it is."],
+          "feedback": { "correct": { "en": "Short positive answer, full form: Yes, it is.", "hy": "Կարճ դրական պատասխան՝ լրիվ ձևով. Yes, it is։", "ru": "Краткий положительный ответ — полная форма: Yes, it is." },
+            "targeted": { "yes it's": { "en": "At the end of a short answer we don't use the short form: Yes, it is.", "hy": "Կարճ պատասխանի վերջում կրճատ ձև չենք գործածում. Yes, it is։", "ru": "В конце краткого ответа сокращённая форма не используется: Yes, it is." } } } },
+        { "id": "t05-i3", "prompt": "Are the windows open? (No)", "accepted": ["No, they aren't.", "No, they're not.", "No, they are not."],
+          "feedback": { "correct": { "en": "The windows = they: No, they aren't.", "hy": "Windows-ը = they. No, they aren't։", "ru": "Windows = they: No, they aren't." } } },
+        { "id": "t05-i4", "prompt": "Is Lena your teacher? (Yes)", "accepted": ["Yes, she is."],
+          "feedback": { "correct": { "en": "Lena = she: Yes, she is.", "hy": "Lena = she. Yes, she is։", "ru": "Lena = she: Yes, she is." },
+            "targeted": { "yes she's": { "en": "At the end of a short answer we use the full form: Yes, she is.", "hy": "Կարճ պատասխանի վերջում լրիվ ձևն է. Yes, she is։", "ru": "В конце краткого ответа — полная форма: Yes, she is." } } } },
+        { "id": "t05-i5", "prompt": "Am I on the right bus? (No)", "accepted": ["No, you aren't.", "No, you're not.", "No, you are not."],
+          "feedback": { "correct": { "en": "The question is about me, so the answer is about you: No, you aren't.", "hy": "Հարցը իմ մասին է, պատասխանը՝ քո. No, you aren't։", "ru": "Вопрос обо мне — ответ о тебе: No, you aren't." },
+            "targeted": { "no i'm not": { "en": "The person asks Am I …? — you answer about them: No, you aren't.", "hy": "Դիմացինը հարցնում է «Am I …?» — պատասխանում ես նրա մասին. No, you aren't։", "ru": "Собеседник спрашивает «Am I …?» — отвечаем о нём: No, you aren't." } } } }
+      ] },
+
+    { "id": "t06", "type": "order", "order": 6, "difficulty": 3, "cardIds": ["c01", "c03"],
+      "instructions": { "hy": "Դասավորեք բառերը՝ հարց կազմելու համար։", "ru": "Расставьте слова так, чтобы получился вопрос." },
+      "items": [
+        { "id": "t06-i1", "words": ["is", "the", "museum", "open", "today"], "accepted": ["Is the museum open today?"],
+          "feedback": { "correct": { "en": "Is + subject + the rest.", "hy": "Is + ենթակա + մնացածը։", "ru": "Is + подлежащее + остальное." } } },
+        { "id": "t06-i2", "words": ["are", "your", "friends", "ready"], "accepted": ["Are your friends ready?"],
+          "feedback": { "correct": { "en": "Are + your friends + ready.", "hy": "Are + your friends + ready.", "ru": "Are + your friends + ready." } } },
+        { "id": "t06-i3", "words": ["where", "is", "she", "from"], "accepted": ["Where is she from?"],
+          "feedback": { "correct": { "en": "Where + is + she + from.", "hy": "Where + is + she + from.", "ru": "Where + is + she + from." } } },
+        { "id": "t06-i4", "words": ["is", "the", "station", "far", "from", "here"], "accepted": ["Is the station far from here?"],
+          "feedback": { "correct": { "en": "Is + the station + far from here.", "hy": "Is + the station + far from here.", "ru": "Is + the station + far from here." } } },
+        { "id": "t06-i5", "words": ["why", "is", "the", "shop", "closed"], "accepted": ["Why is the shop closed?"],
+          "feedback": { "correct": { "en": "Why + is + subject + closed.", "hy": "Why + is + ենթակա + closed.", "ru": "Why + is + подлежащее + closed." } } }
+      ] },
+
+    { "id": "t07", "type": "write", "order": 7, "difficulty": 3, "cardIds": ["c01"],
+      "instructions": { "hy": "Կազմեք հարցեր։", "ru": "Составьте вопросы." },
+      "items": [
+        { "id": "t07-i1", "prompt": "He is in the garden. →", "accepted": ["Is he in the garden?"],
+          "feedback": { "correct": { "en": "Put is before the subject.", "hy": "Is-ը դիր ենթակայից առաջ։", "ru": "Поставь is перед подлежащим." } } },
+        { "id": "t07-i2", "prompt": "Your keys are on the shelf. →", "accepted": ["Are your keys on the shelf?"],
+          "feedback": { "correct": { "en": "Are goes before the subject.", "hy": "Are-ը ենթակայից առաջ է։", "ru": "Are ставится перед подлежащим." } } },
+        { "id": "t07-i3", "prompt": "Lena is a nurse. →", "accepted": ["Is Lena a nurse?"],
+          "feedback": { "correct": { "en": "Is + Lena + a nurse?", "hy": "Is + Lena + a nurse?", "ru": "Is + Lena + a nurse?" } } },
+        { "id": "t07-i4", "prompt": "They are from Peru. →", "accepted": ["Are they from Peru?"],
+          "feedback": { "correct": { "en": "Are + they + from Peru?", "hy": "Are + they + from Peru?", "ru": "Are + they + from Peru?" } } },
+        { "id": "t07-i5", "prompt": "The banks are open on Saturday. →", "accepted": ["Are the banks open on Saturday?"],
+          "feedback": { "correct": { "en": "Are + the banks + open on Saturday?", "hy": "Are + the banks + open on Saturday?", "ru": "Are + the banks + open on Saturday?" } } }
+      ] },
+
+    { "id": "t08", "type": "write", "order": 8, "difficulty": 4, "cardIds": ["c03", "c02"],
+      "instructions": { "hy": "Գրեք հարցը։", "ru": "Напишите вопрос." },
+      "items": [
+        { "id": "t08-i1", "prompt": "(how old / your son?) — He's nine.", "accepted": ["How old is your son?"],
+          "feedback": { "correct": { "en": "How old + is + your son?", "hy": "How old + is + your son?", "ru": "How old + is + your son?" } } },
+        { "id": "t08-i2", "prompt": "(where / my glasses?) — On your desk.", "accepted": ["Where are my glasses?"],
+          "feedback": { "correct": { "en": "Glasses = they, so are.", "hy": "Glasses-ը = they, ուստի are։", "ru": "Glasses = they, поэтому are." } } },
+        { "id": "t08-i3", "prompt": "(what colour / her eyes?) — They're grey.", "accepted": ["What colour are her eyes?", "What color are her eyes?"],
+          "feedback": { "correct": { "en": "Eyes = they, so are. Both spellings are accepted.", "hy": "Eyes = they → are։ Ընդունվում է երկու ուղղագրությունը։", "ru": "Eyes = they → are. Принимаются оба написания." } } },
+        { "id": "t08-i4", "prompt": "(who / that girl?) — My niece.", "accepted": ["Who is that girl?", "Who's that girl?"],
+          "feedback": { "correct": { "en": "Who + is + that girl?", "hy": "Who + is + that girl?", "ru": "Who + is + that girl?" } } },
+        { "id": "t08-i5", "prompt": "(why / you / late?) — Because the train was late.", "accepted": ["Why are you late?"],
+          "feedback": { "correct": { "en": "Why + are + you + late?", "hy": "Why + are + you + late?", "ru": "Why + are + you + late?" } } }
+      ] },
+
+    { "id": "t09", "type": "fix", "order": 9, "difficulty": 4, "cardIds": ["c01", "c02", "c07"],
+      "instructions": { "hy": "Գտեք սխալը և ճիշտ գրեք հարցը։", "ru": "Найдите ошибку и напишите вопрос правильно." },
+      "items": [
+        { "id": "t09-i1", "stem": "Is in the garden your father?", "accepted": ["Is your father in the garden?"],
+          "feedback": { "correct": { "en": "The subject comes right after Is.", "hy": "Ենթական անմիջապես Is-ից հետո է։", "ru": "Подлежащее — сразу после Is." } } },
+        { "id": "t09-i2", "stem": "Where she is from?", "accepted": ["Where is she from?"],
+          "feedback": { "correct": { "en": "In a question, is comes before she.", "hy": "Հարցում is-ը she-ից առաջ է։", "ru": "В вопросе is ставится перед she." } } },
+        { "id": "t09-i3", "stem": "Are expensive these shoes?", "accepted": ["Are these shoes expensive?"],
+          "feedback": { "correct": { "en": "The subject comes right after Are.", "hy": "Ենթական անմիջապես Are-ից հետո է։", "ru": "Подлежащее — сразу после Are." } } },
+        { "id": "t09-i4", "stem": "How old your sister is?", "accepted": ["How old is your sister?"],
+          "feedback": { "correct": { "en": "How old + is + subject.", "hy": "How old + is + ենթակա։", "ru": "How old + is + подлежащее." } } },
+        { "id": "t09-i5", "stem": "Is your neighbours at home?", "accepted": ["Are your neighbours at home?"],
+          "feedback": { "correct": { "en": "Neighbours = they, so Are.", "hy": "Neighbours = they, ուստի Are։", "ru": "Neighbours = they, поэтому Are." } } }
+      ] },
+
+    { "id": "t10", "type": "write", "order": 10, "difficulty": 5, "cardIds": ["c01", "c03", "c05"],
+      "instructions": { "hy": "Սոֆիան լեզվական երեկոյին հանդիպում է Յուսուֆին։ Գրեք Սոֆիայի հարցերը։", "ru": "София знакомится с Юсуфом на языковом вечере. Напишите вопросы Софии." },
+      "provenance": { "instructions.hy": "adapted", "instructions.ru": "translated" },
+      "sourceText": { "hy": "Փոլը երեկույթում հանդիպում է Աննային։ Գրեք Աննայի հարցերը։" },
+      "items": [
+        { "id": "t10-i1", "prompt": "Sofia: ______ ?  Yusuf: My name's Yusuf.", "accepted": ["What's your name?", "What is your name?"],
+          "needsReview": true, "reviewReason": "formula-bound: identical to source",
+          "alternative": { "prompt": "Sofia: ______ ?  Yusuf: My surname's Karim.", "accepted": ["What's your surname?", "What is your surname?"] },
+          "feedback": { "correct": { "en": "We ask about a name with What.", "hy": "Անվան մասին հարցնում ենք What-ով։", "ru": "Об имени спрашиваем с What." } } },
+        { "id": "t10-i2", "prompt": "Sofia: ______ ?  Yusuf: No, I'm not Spanish. I'm Portuguese.", "accepted": ["Are you Spanish?"],
+          "feedback": { "correct": { "en": "A yes/no question: Are you Spanish?", "hy": "Yes/no հարց. Are you Spanish?", "ru": "Общий вопрос: Are you Spanish?" } } },
+        { "id": "t10-i3", "prompt": "Sofia: ______ ?  Yusuf: I'm 27.", "accepted": ["How old are you?"],
+          "needsReview": true, "reviewReason": "formula-bound: identical to source",
+          "alternative": { "prompt": "Sofia: ______ ?  Yusuf: My daughter's nine.", "accepted": ["How old is your daughter?"] },
+          "feedback": { "correct": { "en": "We ask about age with How old.", "hy": "Տարիքի մասին՝ How old-ով։", "ru": "О возрасте — How old." } } },
+        { "id": "t10-i4", "prompt": "Sofia: ______ ?  Yusuf: Yes, I am. My husband is over there.", "accepted": ["Are you married?"],
+          "needsReview": true, "reviewReason": "formula-bound: identical to source",
+          "alternative": { "prompt": "Sofia: ______ ?  Yusuf: Yes, we are. Our flight is at six.", "accepted": ["Are you ready?"] },
+          "feedback": { "correct": { "en": "The answer Yes, I am plus 'my husband' shows the question is about marriage.", "hy": "«Yes, I am» + «my husband» պատասխանը ցույց է տալիս, որ հարցը ամուսնության մասին է։", "ru": "Ответ «Yes, I am» + «my husband» показывает, что вопрос о браке." } } },
+        { "id": "t10-i5", "prompt": "Sofia: ______ ?  Yusuf: He's from Berlin.", "accepted": ["Where is your husband from?", "Where's your husband from?", "Where is he from?", "Where's he from?"],
+          "feedback": { "correct": { "en": "We ask about a place with Where.", "hy": "Վայրի մասին՝ Where-ով։", "ru": "О месте — с Where." } } }
+      ] }
+  ],
+  "reviewCards": [
+    { "id": "r01", "type": "recall", "prompt": { "hy": "Ի՞նչ բանաձևով է կազմվում yes/no հարցը be-ով։", "ru": "По какой формуле строится общий вопрос с be?" }, "answer": "Am / Is / Are + subject + … ?" },
+    { "id": "r02", "type": "cloze", "prompt": { "hy": "Լրացրու՝ ___ your friends ready?", "ru": "Вставь: ___ your friends ready?" }, "answer": "Are" },
+    { "id": "r03", "type": "produce", "prompt": { "hy": "Կազմիր հարցը՝ where / is / she / from", "ru": "Составь вопрос: where / is / she / from" }, "answer": "Where is she from?" },
+    { "id": "r04", "type": "recall", "prompt": { "hy": "Ինչո՞ւ է «Yes, she's» սխալ։", "ru": "Почему «Yes, she's» — ошибка?" }, "answer": "Yes, she is." },
+    { "id": "r05", "type": "cloze", "prompt": { "hy": "'Are you tired?' 'No, ___ .'", "ru": "'Are you tired?' 'No, ___ .'" }, "answer": "I'm not" },
+    { "id": "r06", "type": "produce", "prompt": { "hy": "Ուղղիր՝ How old your sister is?", "ru": "Исправь: How old your sister is?" }, "answer": "How old is your sister?" }
+  ],
+  "sourceMetadata": {
+    "file": "grammer.txt",
+    "locator": "gpUnit('elem', 2, {…})",
+    "bookId": "elem", "unitNumber": 2,
+    "sourceTitle": "am/is/are (questions)",
+    "sourceSection": { "en": "Present", "hy": "Ներկա" },
+    "sourceAbout": {
+      "en": "Questions with <b>am / is / are</b>: <i>Is your mother at home? Where are you from?</i> and short answers: <i>Yes, I am. No, it isn't.</i>",
+      "hy": "Հարցեր <b>am / is / are</b>-ով. <i>Is your mother at home? Where are you from?</i> և կարճ պատասխաններ. <i>Yes, I am. No, it isn't.</i>"
+    },
+    "sourceTaskCount": 10, "sourceItemCount": 50,
+    "sourceFlags": { "exactTasks": [5], "exTasks": [5], "tKeys": 3, "noKeys": 9, "matchOpts": 6 },
+    "taskMap": "t01…t10 ↔ source tasks 1…10 (type and order preserved)",
+    "renamedEntities": { "Paul": "Yusuf", "Anna": "Sofia", "Ani": "Lena", "Kate": "Marek", "Joe": "—", "George": "—", "Canada": "Prague", "Spain": "Peru", "London": "Warsaw", "Italy": "Berlin", "American/Australian": "Spanish/Portuguese", "forty euros": "sixty euros", "24": "7", "30": "27" },
+    "excluded": ["GP_KNOWN word list", "site UI code (doors, teachers, board, recordings, legal, header)"]
+  },
+  "needsReview": true,
+  "reviewReason": [
+    "3 formula-bound items (t10-i1, t10-i3, t10-i4) reproduce the source sentence; alternatives proposed.",
+    "All ru strings are newly authored — native-speaker review required.",
+    "All hy feedback strings are newly authored — native-speaker review required.",
+    "601-type gaps: distractor feedback in t01/t02 partly newly composed.",
+    "Screenshots not received: layout mapping provisional."
+  ]
+},
+
+{
+  "id": "en-a1-elem-unit-002",
+  "bookId": "elem",
+  "targetLanguage": "en",
+  "directions": ["hy-en", "ru-en"],
+  "cefr": "A1–A2",
+  "level": { "en": "Elementary", "hy": "Սկսնակ", "ru": "Начальный" },
+  "sectionId": "elem-s01",
+  "section": { "en": "Present", "hy": "Ներկա", "ru": "Настоящее время" },
+  "unitNumber": 2,
+  "title": { "en": "am/is/are (questions)", "hy": "am / is / are (հարցեր)", "ru": "am / is / are (вопросы)" },
+  "idScheme": "local ids are lesson-scoped; global id = lesson.id + '-' + localId",
+  "explanationFormat": "html-inline",
+  "explanation": {
+    "hy": "Հարցեր <b>am / is / are</b>-ով. <i>Is your mother at home? Where are you from?</i> և կարճ պատասխաններ. <i>Yes, I am. No, it isn't.</i>",
+    "ru": "Вопросы с <b>am / is / are</b>: <i>Is your mother at home? Where are you from?</i> — и краткие ответы: <i>Yes, I am. No, it isn't.</i>"
+  },
+
+  "policies": {
+    "provenance": {
+      "legend": { "source": "աղբյուրից բառացի", "adapted": "աղբյուրից հարմարեցված նոր նախադասությանը", "new": "նոր կազմված", "translated": "նոր թարգմանություն ցուցադրվող անգլերենից" },
+      "defaults": {
+        "sourceMetadata.*": "source",
+        "exercises[].source.*": "source",
+        "explanation.hy": "source",
+        "explanation.ru": "translated",
+        "title.en": "source", "title.hy": "new", "title.ru": "new",
+        "level.en": "source", "level.hy": "source", "level.ru": "translated",
+        "section.en": "source", "section.hy": "source", "section.ru": "translated",
+        "exercises[].instructions.hy": "source",
+        "exercises[].instructions.ru": "translated",
+        "exercises[].items[].stem|prompt|words|question|answer|accepted|example": "new",
+        "exercises[].items[].options": "new wording only where the source option was content-bearing; fixed grammatical options kept",
+        "exercises[].items[].correctIndex": "source",
+        "exercises[].items[].feedback.*.en": "see per-object p",
+        "exercises[].items[].feedback.*.hy": "translated",
+        "exercises[].items[].feedback.*.ru": "translated",
+        "learningObjectives|rules|examples|commonErrors|cards|reviewCards": "new"
+      },
+      "overrides": { "exercises[t10].instructions.hy": "adapted" }
+    },
+    "optionHandling": {
+      "storedOrder": "source order, unchanged",
+      "correctIndex": "unchanged from source (0 for all 10 pick items in this unit)",
+      "shuffleAt": "render only",
+      "shuffleSeed": "sessionId + itemId (stable within one attempt)",
+      "indexMap": "renderer keeps the permutation array; feedback.byOption keys always refer to ORIGINAL indices",
+      "matchOptions": "task-level options array includes one unused distractor; shuffle at render, keep answer string mapping",
+      "mustNot": ["reorder stored options", "rewrite correctIndex", "rekey feedback.byOption"]
+    },
+    "answerChecking": {
+      "exact": {
+        "appliesTo": ["t05"],
+        "trim": true,
+        "apostropheFold": { "’": "'" },
+        "caseSensitive": true,
+        "internalSpaces": "collapse to one",
+        "finalPunctuation": "required as listed in accepted",
+        "acceptedOnly": "accepted[] — no other contractions or word forms",
+        "targetedFeedbackLookup": "trim + apostropheFold + lowercase, then match feedback.targeted keys (keys stored lower-case as in source)"
+      },
+      "normal": {
+        "appliesTo": "all tasks without exact",
+        "trim": true,
+        "apostropheFold": { "’": "'" },
+        "caseSensitive": false,
+        "internalSpaces": "collapse to one",
+        "finalPunctuation": "optional",
+        "acceptedOnly": "accepted[]",
+        "status": "assumed — the grading function is not present in the uploaded file"
+      }
+    }
+  },
+
+  "learningObjectives": [
+    { "hy": "Կազմել yes/no հարցեր՝ am/is/are-ը ենթակայից առաջ դնելով։", "ru": "Строить общие вопросы, ставя am/is/are перед подлежащим." },
+    { "hy": "Ընտրել ճիշտ ձևը ըստ ենթակայի՝ I → am, he/she/it → is, we/you/they → are։", "ru": "Выбирать форму по подлежащему: I → am, he/she/it → is, we/you/they → are." },
+    { "hy": "Կազմել հատուկ հարցեր՝ What/Where/Who/How + am/is/are + ենթակա։", "ru": "Строить специальные вопросы: What/Where/Who/How + am/is/are + подлежащее." },
+    { "hy": "Տալ կարճ պատասխաններ՝ դրականում լրիվ ձևով, ժխտականում կրճատ։", "ru": "Давать краткие ответы: в утвердительных — полная форма, в отрицательных — сокращённая." }
+  ],
+
+  "rules": [
+    { "id": "r1", "formula": "Am / Is / Are + subject + … ?", "statement": { "hy": "Հարցում am/is/are-ը դրվում է ենթակայից առաջ։", "ru": "В вопросе am/is/are ставится перед подлежащим." }, "targetText": "He is in the garage. → Is he in the garage?" },
+    { "id": "r2", "formula": "I → am · he/she/it → is · we/you/they → are", "statement": { "hy": "Երկու և ավելի մարդ կամ իր = they, ուստի՝ are։", "ru": "Два и более человека или предмета = they, поэтому are." }, "targetText": "The tickets are expensive. → Are the tickets expensive?" },
+    { "id": "r3", "formula": "Wh-word + am/is/are + subject + … ?", "statement": { "hy": "Հարցական բառը am/is/are-ից առաջ է, ենթական՝ հետո։", "ru": "Вопросительное слово — перед am/is/are, подлежащее — после." }, "targetText": "Where are the children?" },
+    { "id": "r4", "formula": "Yes, + pronoun + am/is/are. / No, + pronoun + 'm not / isn't / aren't.", "statement": { "hy": "Դրական կարճ պատասխանում բայը չի կրճատվում. Yes, she is (ոչ Yes, she's)։ Ժխտականում կրճատվում է. No, she isn't / No, she's not։ I-ի ժխտականը՝ No, I'm not։", "ru": "В положительном кратком ответе глагол не сокращается: Yes, she is (не Yes, she's). В отрицательном — сокращается: No, she isn't / No, she's not. С I: No, I'm not." }, "targetText": "Yes, they are. / No, I'm not." }
+  ],
+
+  "examples": [
+    { "id": "e1", "targetText": "Is Elena ready for the test?", "translation": { "hy": "Ելենան պատրա՞ստ է թեստին։", "ru": "Елена готова к тесту?" } },
+    { "id": "e2", "targetText": "Are the tickets expensive?", "translation": { "hy": "Տոմսերը թա՞նկ են։", "ru": "Билеты дорогие?" } },
+    { "id": "e3", "targetText": "Where is the ticket office?", "translation": { "hy": "Որտե՞ղ է տոմսարկղը։", "ru": "Где касса?" } },
+    { "id": "e4", "targetText": "How far is the beach?", "translation": { "hy": "Ի՞նչ հեռու է լողափը։", "ru": "Как далеко до пляжа?" } },
+    { "id": "e5", "targetText": "Am I in the right queue?", "translation": { "hy": "Ես ճի՞շտ հերթում եմ։", "ru": "Я в правильной очереди?" } },
+    { "id": "e6", "targetText": "Is the museum open today?", "translation": { "hy": "Թանգարանը բա՞ց է այսօր։", "ru": "Музей сегодня открыт?" } }
+  ],
+
+  "commonErrors": [
+    { "id": "x1", "wrong": "Where the children are?", "correct": "Where are the children?", "sourceRef": "t09-i2", "explanation": { "hy": "Հարցում are-ը պետք է ենթակայից առաջ լինի։", "ru": "В вопросе are ставится перед подлежащим." } },
+    { "id": "x2", "wrong": "Is your keys in the car?", "correct": "Are your keys in the car?", "sourceRef": "t09-i5", "explanation": { "hy": "Keys-ը հոգնակի է = they, ուստի՝ are։", "ru": "Keys — мн. ч. (= they), поэтому are." } },
+    { "id": "x3", "wrong": "Yes, she's.", "correct": "Yes, she is.", "sourceRef": "t05-i4", "explanation": { "hy": "Դրական կարճ պատասխանի վերջում կրճատ ձև չի գործածվում։", "ru": "В конце положительного краткого ответа сокращённая форма не используется." } },
+    { "id": "x4", "wrong": "No, I amn't.", "correct": "No, I'm not.", "sourceRef": "t02-i5", "explanation": { "hy": "Անգլերենում amn't ձև չկա։", "ru": "Формы amn't в английском нет." } }
+  ],
+
+  "cards": [
+    { "id": "c01", "kind": "rule", "order": 1, "title": { "hy": "Հարց = շրջված կարգ", "ru": "Вопрос = обратный порядок" }, "body": { "hy": "Հաստատական՝ He is in the garage։ Հարց՝ Is he in the garage? Բայը գնում է ենթակայից առաջ։", "ru": "Утверждение: He is in the garage. Вопрос: Is he in the garage? Глагол встаёт перед подлежащим." }, "targetText": "He is in the garage. → Is he in the garage?" },
+    { "id": "c02", "kind": "formula", "order": 2, "title": { "hy": "Ո՞ր ձևը որ ենթակայի հետ", "ru": "Какая форма с каким подлежащим" }, "body": { "hy": "I → am · he/she/it → is · we/you/they → are։ Հոգնակի գոյականը = they։", "ru": "I → am · he/she/it → is · we/you/they → are. Существительное во мн. ч. = they." }, "formula": "Am / Is / Are + subject + … ?" },
+    { "id": "c03", "kind": "rule", "order": 3, "title": { "hy": "Հարցական բառով հարցեր", "ru": "Вопросы с вопросительным словом" }, "body": { "hy": "What/Where/Who/How + am/is/are + ենթակա։ How far = հեռավորություն, How tall = հասակ, How many = քանակ։", "ru": "What/Where/Who/How + am/is/are + подлежащее. How far — расстояние, How tall — рост, How many — количество." }, "targetText": "Where is the ticket office? / How far is the beach?" },
+    { "id": "c04", "kind": "example", "order": 4, "title": { "hy": "Նմուշներ", "ru": "Образцы" }, "body": { "hy": "Կարդա բարձրաձայն և նկատիր բայի տեղը։", "ru": "Прочитай вслух и замети место глагола." }, "targetText": ["Is the pharmacy open today?", "Are your neighbours at home?", "Am I in the right queue?"] },
+    { "id": "c05", "kind": "rule", "order": 5, "title": { "hy": "Կարճ պատասխաններ", "ru": "Краткие ответы" }, "body": { "hy": "Yes + դերանուն + am/is/are (լրիվ ձև)։ No + դերանուն + isn't/aren't/'m not։", "ru": "Yes + местоимение + am/is/are (полная форма). No + местоимение + isn't/aren't/'m not." }, "targetText": "Yes, they are. / No, it isn't. / No, I'm not." },
+    { "id": "c06", "kind": "exception", "order": 6, "title": { "hy": "Երկու արգելք", "ru": "Два запрета" }, "body": { "hy": "Չկա «Yes, I'm» և չկա «amn't»։ Ճիշտ է՝ Yes, I am / No, I'm not։", "ru": "Нет «Yes, I'm» и нет «amn't». Правильно: Yes, I am / No, I'm not." } },
+    { "id": "c07", "kind": "commonError", "order": 7, "title": { "hy": "Հաճախակի սխալ", "ru": "Частая ошибка" }, "body": { "hy": "«Where the children are?» սխալ է։ Հարցում՝ Where are the children?", "ru": "«Where the children are?» — ошибка. В вопросе: Where are the children?" }, "errorRef": "x1" },
+    { "id": "c08", "kind": "summary", "order": 8, "title": { "hy": "Ամփոփում", "ru": "Итог" }, "body": { "hy": "Բայը ենթակայից առաջ, հարցական բառը՝ բայից առաջ, դրական կարճ պատասխանը՝ լրիվ ձևով։", "ru": "Глагол — перед подлежащим, вопросительное слово — перед глаголом, положительный краткий ответ — полной формой." } }
+  ],
+
+  "exercises": [
+    {
+      "id": "t01", "type": "pick", "order": 1, "difficulty": 1, "cardIds": ["c02"], "shuffleOptions": true,
+      "instructions": { "hy": "Ընտրեք Am, Is կամ Are։", "ru": "Выберите Am, Is или Are." },
+      "source": {
+        "en": "Choose Am, Is or Are.", "hy": "Ընտրեք Am, Is կամ Are։",
+        "items": [
+          { "s": "___ your mother at home?", "o": ["Is", "Are", "Am"], "a": 0, "why": "Your mother = she, so: Is your mother at home?" },
+          { "s": "___ I late?", "o": ["Am", "Is", "Are"], "a": 0, "why": "With I we use am, also in questions: Am I late?" },
+          { "s": "___ your parents well?", "o": ["Are", "Is", "Am"], "a": 0, "why": "Your parents = they, so: Are your parents well?", "no": { "1": "Is is for one person. Your parents are two people: Are." } },
+          { "s": "___ it cold in your room?", "o": ["Is", "Are", "Am"], "a": 0, "why": "With it we use is: Is it cold?" },
+          { "s": "___ you a student?", "o": ["Are", "Is", "Am"], "a": 0, "why": "With you we always use are: Are you a student?" }
+        ]
+      },
+      "items": [
+        { "id": "t01-i1", "stem": "___ Elena ready for the test?", "options": ["Is", "Are", "Am"], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "Elena = she, so we use Is.", "hy": "Elena = she, ուստի՝ Is։", "ru": "Elena = she, поэтому Is." },
+            "byOption": {
+              "1": { "p": "new", "en": "Are goes with we, you, they.", "hy": "Are-ը we, you, they-ի հետ է։", "ru": "Are употребляется с we, you, they." },
+              "2": { "p": "new", "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }
+            } } },
+        { "id": "t01-i2", "stem": "___ I on the right platform?", "options": ["Am", "Is", "Are"], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "With I we use am, also in questions.", "hy": "I-ի հետ՝ am, նաև հարցում։", "ru": "С I употребляем am, в том числе в вопросе." },
+            "byOption": {
+              "1": { "p": "new", "en": "Is is for he, she, it.", "hy": "Is-ը he, she, it-ի համար է։", "ru": "Is — для he, she, it." },
+              "2": { "p": "new", "en": "Are is not used with I.", "hy": "Are-ը I-ի հետ չի գործածվում։", "ru": "Are с I не употребляется." }
+            } } },
+        { "id": "t01-i3", "stem": "___ the tickets expensive?", "options": ["Are", "Is", "Am"], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "The tickets = they, so we use Are.", "hy": "Tickets-ը հոգնակի է = they, ուստի՝ Are։", "ru": "Tickets — мн. ч. (= they), поэтому Are." },
+            "byOption": {
+              "1": { "p": "adapted", "en": "Is is for one thing. The tickets are more than one: Are.", "hy": "Is-ը մեկ իրի համար է։ Tickets-ը մեկից ավելի է՝ Are։", "ru": "Is — для одного предмета. Tickets — несколько: Are." },
+              "2": { "p": "new", "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }
+            } } },
+        { "id": "t01-i4", "stem": "___ it far to the beach from here?", "options": ["Is", "Are", "Am"], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "With it we use is: Is it far?", "hy": "It-ի հետ՝ is. Is it far?", "ru": "С it употребляем is: Is it far?" },
+            "byOption": {
+              "1": { "p": "new", "en": "Are is for we, you, they — not it.", "hy": "Are-ը we, you, they-ի համար է, ոչ it-ի։", "ru": "Are — для we, you, they, а не для it." },
+              "2": { "p": "new", "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }
+            } } },
+        { "id": "t01-i5", "stem": "___ you free after the meeting?", "options": ["Are", "Is", "Am"], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "With you we always use are.", "hy": "You-ի հետ միշտ՝ are։", "ru": "С you всегда are." },
+            "byOption": {
+              "1": { "p": "new", "en": "Is is for he, she, it — not you.", "hy": "Is-ը he, she, it-ի համար է, ոչ you-ի։", "ru": "Is — для he, she, it, а не для you." },
+              "2": { "p": "new", "en": "Am goes only with I.", "hy": "Am-ը միայն I-ի հետ է։", "ru": "Am — только с I." }
+            } } }
+      ]
+    },
+
+    {
+      "id": "t02", "type": "pick", "order": 2, "difficulty": 2, "cardIds": ["c05", "c06"], "shuffleOptions": true,
+      "instructions": { "hy": "Ընտրեք ճիշտ կարճ պատասխանը։", "ru": "Выберите правильный краткий ответ." },
+      "source": {
+        "en": "Choose the right short answer.", "hy": "Ընտրեք ճիշտ կարճ պատասխանը։",
+        "items": [
+          { "s": "'Are you tired?' 'Yes, ___'", "o": ["I am.", "I'm.", "I is."], "a": 0, "why": "In a short positive answer we do not use the short form: Yes, I am. (not Yes, I'm.)", "no": { "1": "At the end of a short answer we use the full form: Yes, I am." } },
+          { "s": "'Is your friend English?' 'Yes, ___'", "o": ["he is.", "he's.", "he are."], "a": 0, "why": "Short positive answer, full form: Yes, he is.", "no": { "1": "We don't finish a short answer with he's. We say Yes, he is." } },
+          { "s": "'Are these your keys?' 'Yes, ___'", "o": ["they are.", "they're.", "it is."], "a": 0, "why": "These keys = they: Yes, they are.", "no": { "1": "Full form at the end: Yes, they are.", "2": "Keys are more than one, so they, not it." } },
+          { "s": "'Is it cold today?' 'No, ___'", "o": ["it isn't.", "it not.", "isn't."], "a": 0, "why": "Short negative answer: No, it isn't (or No, it's not).", "no": { "1": "The verb is missing: No, it isn't.", "2": "The subject is missing: No, it isn't." } },
+          { "s": "'Are you hungry?' 'No, ___'", "o": ["I'm not.", "I amn't.", "I not."], "a": 0, "why": "With I the short negative answer is No, I'm not.", "no": { "1": "There is no amn't. We say No, I'm not.", "2": "The verb is missing: No, I'm not." } }
+        ]
+      },
+      "items": [
+        { "id": "t02-i1", "stem": "'Are you free on Sunday?' 'Yes, ___'", "options": ["I am.", "I'm.", "I is."], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "source", "en": "In a short positive answer we do not use the short form: Yes, I am. (not Yes, I'm.)", "hy": "Դրական կարճ պատասխանում կրճատ ձև չենք գործածում. Yes, I am (ոչ Yes, I'm)։", "ru": "В положительном кратком ответе сокращённая форма не используется: Yes, I am (не Yes, I'm)." },
+            "byOption": {
+              "1": { "p": "source", "en": "At the end of a short answer we use the full form: Yes, I am.", "hy": "Կարճ պատասխանի վերջում լրիվ ձևն է. Yes, I am։", "ru": "В конце краткого ответа — полная форма: Yes, I am." },
+              "2": { "p": "new", "en": "With I the form is am, not is.", "hy": "I-ի հետ՝ am, ոչ is։", "ru": "С I — am, а не is." }
+            } } },
+        { "id": "t02-i2", "stem": "'Is your brother a chef?' 'Yes, ___'", "options": ["he is.", "he's.", "he are."], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "source", "en": "Short positive answer, full form: Yes, he is.", "hy": "Կարճ դրական պատասխան՝ լրիվ ձևով. Yes, he is։", "ru": "Краткий положительный ответ — полная форма: Yes, he is." },
+            "byOption": {
+              "1": { "p": "source", "en": "We don't finish a short answer with he's. We say Yes, he is.", "hy": "Կարճ պատասխանը he's-ով չի ավարտվում։ Ասում ենք Yes, he is։", "ru": "Краткий ответ не заканчивается на he's. Говорим Yes, he is." },
+              "2": { "p": "new", "en": "He goes with is, not are.", "hy": "He-ի հետ՝ is, ոչ are։", "ru": "С he — is, а не are." }
+            } } },
+        { "id": "t02-i3", "stem": "'Are these your gloves?' 'Yes, ___'", "options": ["they are.", "they're.", "it is."], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "adapted", "en": "These gloves = they: Yes, they are.", "hy": "Gloves-ը հոգնակի է = they. Yes, they are։", "ru": "Gloves — мн. ч. (= they): Yes, they are." },
+            "byOption": {
+              "1": { "p": "source", "en": "Full form at the end: Yes, they are.", "hy": "Վերջում լրիվ ձևն է. Yes, they are։", "ru": "В конце — полная форма: Yes, they are." },
+              "2": { "p": "adapted", "en": "Gloves are more than one, so they, not it.", "hy": "Gloves-ը մեկից ավելի է, ուստի they, ոչ it։", "ru": "Gloves — не один предмет, поэтому they, а не it." }
+            } } },
+        { "id": "t02-i4", "stem": "'Is the museum open today?' 'No, ___'", "options": ["it isn't.", "it not.", "isn't."], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "source", "en": "Short negative answer: No, it isn't (or No, it's not).", "hy": "Կարճ ժխտական պատասխան. No, it isn't (կամ No, it's not)։", "ru": "Краткий отрицательный ответ: No, it isn't (или No, it's not)." },
+            "byOption": {
+              "1": { "p": "source", "en": "The verb is missing: No, it isn't.", "hy": "Բայը բացակայում է. No, it isn't։", "ru": "Пропущен глагол: No, it isn't." },
+              "2": { "p": "source", "en": "The subject is missing: No, it isn't.", "hy": "Ենթական բացակայում է. No, it isn't։", "ru": "Пропущено подлежащее: No, it isn't." }
+            } } },
+        { "id": "t02-i5", "stem": "'Are you ready to order?' 'No, ___'", "options": ["I'm not.", "I amn't.", "I not."], "correctIndex": 0,
+          "feedback": {
+            "correct": { "p": "source", "en": "With I the short negative answer is No, I'm not.", "hy": "I-ի կարճ ժխտական պատասխանը՝ No, I'm not։", "ru": "Краткий отрицательный ответ с I: No, I'm not." },
+            "byOption": {
+              "1": { "p": "source", "en": "There is no amn't. We say No, I'm not.", "hy": "Անգլերենում amn't ձև չկա։ Ասում ենք No, I'm not։", "ru": "Формы amn't в английском нет. Говорим No, I'm not." },
+              "2": { "p": "source", "en": "The verb is missing: No, I'm not.", "hy": "Բայը բացակայում է. No, I'm not։", "ru": "Пропущен глагол: No, I'm not." }
+            } } }
+      ]
+    },
+
+    {
+      "id": "t03", "type": "gap", "order": 3, "difficulty": 2, "cardIds": ["c03"],
+      "instructions": { "hy": "Գրեք What, Where, Who կամ How։", "ru": "Напишите What, Where, Who или How." },
+      "source": {
+        "en": "Write What, Where, Who or How.", "hy": "Գրեք What, Where, Who կամ How։",
+        "items": [
+          { "s": "___ is your name? — Paul.", "a": ["What"], "why": "We ask about a name with What: What is your name? / What's your name?" },
+          { "s": "___ are you from? — Canada.", "a": ["Where"], "why": "We ask about a place with Where." },
+          { "s": "___ old is Joe? — He's 24.", "a": ["How"], "why": "We ask about age with How old." },
+          { "s": "___ is that man? — My father.", "a": ["Who"], "why": "We ask about a person with Who." },
+          { "s": "___ much are these shoes? — Forty euros.", "a": ["How"], "why": "We ask about a price with How much." }
+        ]
+      },
+      "items": [
+        { "id": "t03-i1", "stem": "___ is your postcode? — 3012.", "accepted": ["What"],
+          "feedback": { "correct": { "p": "adapted", "en": "We ask about a number or a name with What.", "hy": "Թվի կամ անվան մասին հարցնում ենք What-ով։", "ru": "О номере или названии спрашиваем с What." } } },
+        { "id": "t03-i2", "stem": "___ are the children? — In the garden.", "accepted": ["Where"],
+          "feedback": { "correct": { "p": "source", "en": "We ask about a place with Where.", "hy": "Վայրի մասին հարցնում ենք Where-ով։", "ru": "О месте спрашиваем с Where." } } },
+        { "id": "t03-i3", "stem": "___ tall is your sister? — One metre seventy.", "accepted": ["How"],
+          "feedback": { "correct": { "p": "adapted", "en": "We ask about height with How tall.", "hy": "Հասակի մասին հարցնում ենք How tall-ով։", "ru": "О росте спрашиваем с How tall." } } },
+        { "id": "t03-i4", "stem": "___ is the woman in the blue coat? — Our new neighbour.", "accepted": ["Who"],
+          "feedback": { "correct": { "p": "source", "en": "We ask about a person with Who.", "hy": "Անձի մասին հարցնում ենք Who-ով։", "ru": "О человеке спрашиваем с Who." } } },
+        { "id": "t03-i5", "stem": "___ many people are in the queue? — About fifteen.", "accepted": ["How"],
+          "feedback": { "correct": { "p": "adapted", "en": "We ask about a number with How many.", "hy": "Քանակի մասին հարցնում ենք How many-ով։", "ru": "О количестве спрашиваем с How many." } } }
+      ]
+    },
+
+    {
+      "id": "t04", "type": "match", "order": 4, "difficulty": 2, "cardIds": ["c03", "c05"], "shuffleOptions": true,
+      "instructions": { "hy": "Գտեք յուրաքանչյուր հարցի ճիշտ պատասխանը։", "ru": "Подберите к каждому вопросу правильный ответ." },
+      "source": {
+        "en": "Find the right answer for each question.", "hy": "Գտեք յուրաքանչյուր հարցի ճիշտ պատասխանը։",
+        "opts": ["In your bag.", "Black.", "Very well, thanks.", "My sister.", "No, she's American.", "Yes, you are."],
+        "items": [
+          { "q": "Where's the camera?", "a": "In your bag.", "why": "Where asks about a place: In your bag." },
+          { "q": "What colour is your bag?", "a": "Black.", "why": "What colour asks about a colour: Black." },
+          { "q": "How is George?", "a": "Very well, thanks.", "why": "How is ... ? asks how a person feels: Very well." },
+          { "q": "Who's that woman?", "a": "My sister.", "why": "Who asks about a person: My sister." },
+          { "q": "Is Kate from London?", "a": "No, she's American.", "why": "A yes/no question gets Yes or No: No, she's American." }
+        ]
+      },
+      "options": ["Behind the door.", "Bright orange.", "Much better, thanks.", "My cousin.", "No, she's from Vilnius.", "Yes, I am."],
+      "unusedOptionFeedback": { "p": "new", "en": "'Yes, I am.' answers an 'Are you ...?' question, not 'Is Nadia ...?'", "hy": "«Yes, I am»-ը պատասխանում է «Are you …?» հարցին, ոչ «Is Nadia …?»-ին։", "ru": "«Yes, I am» отвечает на вопрос «Are you …?», а не «Is Nadia …?»." },
+      "items": [
+        { "id": "t04-i1", "question": "Where's my helmet?", "answer": "Behind the door.",
+          "feedback": { "correct": { "p": "adapted", "en": "Where asks about a place.", "hy": "Where-ը հարցնում է վայրի մասին։", "ru": "Where спрашивает о месте." } } },
+        { "id": "t04-i2", "question": "What colour is your scooter?", "answer": "Bright orange.",
+          "feedback": { "correct": { "p": "adapted", "en": "What colour asks about a colour.", "hy": "What colour-ը հարցնում է գույնի մասին։", "ru": "What colour спрашивает о цвете." } } },
+        { "id": "t04-i3", "question": "How is your grandfather?", "answer": "Much better, thanks.",
+          "feedback": { "correct": { "p": "source", "en": "How is ... ? asks how a person feels.", "hy": "How is …?-ը հարցնում է ինքնազգացողության մասին։", "ru": "How is …? — о самочувствии." } } },
+        { "id": "t04-i4", "question": "Who's that boy by the gate?", "answer": "My cousin.",
+          "feedback": { "correct": { "p": "source", "en": "Who asks about a person.", "hy": "Who-ն հարցնում է անձի մասին։", "ru": "Who спрашивает о человеке." } } },
+        { "id": "t04-i5", "question": "Is Nadia from Kraków?", "answer": "No, she's from Vilnius.",
+          "feedback": { "correct": { "p": "adapted", "en": "A yes/no question gets Yes or No.", "hy": "Yes/no հարցին պատասխանում ենք Yes կամ No-ով։", "ru": "На общий вопрос отвечают Yes или No." } } }
+      ]
+    },
+
+    {
+      "id": "t05", "type": "write", "order": 5, "difficulty": 3, "cardIds": ["c05", "c06"], "exact": true,
+      "instructions": { "hy": "Գրեք կարճ պատասխաններ։", "ru": "Напишите краткие ответы." },
+      "example": { "p": "new", "targetText": "Are you awake? (Yes) → Yes, I am." },
+      "source": {
+        "en": "Write short answers.", "hy": "Գրեք կարճ պատասխաններ։", "exact": true,
+        "ex": "Are you thirsty? <b>(Yes)</b> → <b>Yes, I am.</b>",
+        "items": [
+          { "p": "Are you married? <b>(No)</b>", "a": ["No, I'm not.", "No, I am not."], "why": "With I: No, I'm not." },
+          { "p": "Is it dark now? <b>(Yes)</b>", "a": ["Yes, it is."], "why": "Short positive answer, full form: Yes, it is.", "t": { "yes it's": "At the end of a short answer we don't use the short form: Yes, it is." } },
+          { "p": "Are your hands cold? <b>(No)</b>", "a": ["No, they aren't.", "No, they're not.", "No, they are not."], "why": "Your hands = they: No, they aren't." },
+          { "p": "Is your sister a teacher? <b>(Yes)</b>", "a": ["Yes, she is."], "why": "Your sister = she: Yes, she is.", "t": { "yes she's": "At the end of a short answer we use the full form: Yes, she is." } },
+          { "p": "Am I late? <b>(No)</b>", "a": ["No, you aren't.", "No, you're not.", "No, you are not."], "why": "The question is about me, so the answer is about you: No, you aren't.", "t": { "no i'm not": "The person asks Am I late? — you answer about them: No, you aren't." } }
+        ]
+      },
+      "items": [
+        { "id": "t05-i1", "prompt": "Are you free tonight? (No)", "accepted": ["No, I'm not.", "No, I am not."],
+          "feedback": { "correct": { "p": "source", "en": "With I: No, I'm not.", "hy": "I-ի հետ՝ No, I'm not։", "ru": "С I: No, I'm not." } } },
+        { "id": "t05-i2", "prompt": "Is the printer ready? (Yes)", "accepted": ["Yes, it is."],
+          "feedback": {
+            "correct": { "p": "source", "en": "Short positive answer, full form: Yes, it is.", "hy": "Կարճ դրական պատասխան՝ լրիվ ձևով. Yes, it is։", "ru": "Краткий положительный ответ — полная форма: Yes, it is." },
+            "targeted": { "yes it's": { "p": "source", "en": "At the end of a short answer we don't use the short form: Yes, it is.", "hy": "Կարճ պատասխանի վերջում կրճատ ձև չենք գործածում. Yes, it is։", "ru": "В конце краткого ответа сокращённая форма не используется: Yes, it is." } } } },
+        { "id": "t05-i3", "prompt": "Are the windows open? (No)", "accepted": ["No, they aren't.", "No, they're not.", "No, they are not."],
+          "feedback": { "correct": { "p": "adapted", "en": "The windows = they: No, they aren't.", "hy": "Windows-ը = they. No, they aren't։", "ru": "Windows = they: No, they aren't." } } },
+        { "id": "t05-i4", "prompt": "Is your aunt a pilot? (Yes)", "accepted": ["Yes, she is."],
+          "feedback": {
+            "correct": { "p": "adapted", "en": "Your aunt = she: Yes, she is.", "hy": "Aunt-ը = she. Yes, she is։", "ru": "Aunt = she: Yes, she is." },
+            "targeted": { "yes she's": { "p": "source", "en": "At the end of a short answer we use the full form: Yes, she is.", "hy": "Կարճ պատասխանի վերջում լրիվ ձևն է. Yes, she is։", "ru": "В конце краткого ответа — полная форма: Yes, she is." } } } },
+        { "id": "t05-i5", "prompt": "Am I in the right queue? (No)", "accepted": ["No, you aren't.", "No, you're not.", "No, you are not."],
+          "feedback": {
+            "correct": { "p": "source", "en": "The question is about me, so the answer is about you: No, you aren't.", "hy": "Հարցը իմ մասին է, պատասխանը՝ քո. No, you aren't։", "ru": "Вопрос обо мне — ответ о тебе: No, you aren't." },
+            "targeted": { "no i'm not": { "p": "adapted", "en": "The person asks Am I ...? — you answer about them: No, you aren't.", "hy": "Դիմացինը հարցնում է «Am I …?» — պատասխանում ես նրա մասին. No, you aren't։", "ru": "Собеседник спрашивает «Am I …?» — отвечаем о нём: No, you aren't." } } } }
+      ]
+    },
+
+    {
+      "id": "t06", "type": "order", "order": 6, "difficulty": 3, "cardIds": ["c01", "c03"],
+      "instructions": { "hy": "Դասավորեք բառերը՝ հարց կազմելու համար։", "ru": "Расставьте слова так, чтобы получился вопрос." },
+      "source": {
+        "en": "Put the words in order to make questions.", "hy": "Դասավորեք բառերը՝ հարց կազմելու համար։",
+        "items": [
+          { "w": ["is", "your", "mother", "at", "home"], "a": ["Is your mother at home?"], "why": "Question: Is + subject + the rest. Not Is at home your mother?" },
+          { "w": ["are", "your", "parents", "well"], "a": ["Are your parents well?"], "why": "Question: Are + your parents + well." },
+          { "w": ["where", "are", "you", "from"], "a": ["Where are you from?"], "why": "Where + are + you + from." },
+          { "w": ["is", "the", "station", "near", "here"], "a": ["Is the station near here?"], "why": "Is + the station + near here." },
+          { "w": ["why", "are", "you", "late"], "a": ["Why are you late?"], "why": "Why + are + you + late." }
+        ]
+      },
+      "items": [
+        { "id": "t06-i1", "words": ["is", "the", "pharmacy", "open", "today"], "accepted": ["Is the pharmacy open today?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Is + subject + the rest.", "hy": "Is + ենթակա + մնացածը։", "ru": "Is + подлежащее + остальное." } } },
+        { "id": "t06-i2", "words": ["are", "your", "neighbours", "at", "home"], "accepted": ["Are your neighbours at home?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Are + your neighbours + at home.", "hy": "Are + your neighbours + at home.", "ru": "Are + your neighbours + at home." } } },
+        { "id": "t06-i3", "words": ["where", "is", "the", "ticket", "office"], "accepted": ["Where is the ticket office?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Where + is + the ticket office.", "hy": "Where + is + the ticket office.", "ru": "Where + is + the ticket office." } } },
+        { "id": "t06-i4", "words": ["is", "this", "seat", "free"], "accepted": ["Is this seat free?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Is + this seat + free.", "hy": "Is + this seat + free.", "ru": "Is + this seat + free." } } },
+        { "id": "t06-i5", "words": ["why", "are", "the", "children", "outside"], "accepted": ["Why are the children outside?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Why + are + subject + outside.", "hy": "Why + are + ենթակա + outside.", "ru": "Why + are + подлежащее + outside." } } }
+      ]
+    },
+
+    {
+      "id": "t07", "type": "write", "order": 7, "difficulty": 3, "cardIds": ["c01"],
+      "instructions": { "hy": "Կազմեք հարցեր։", "ru": "Составьте вопросы." },
+      "source": {
+        "en": "Make questions.", "hy": "Կազմեք հարցեր։",
+        "items": [
+          { "p": "She is at home. →", "a": ["Is she at home?"], "why": "To make a question, put is before the subject: She is → Is she ... ?" },
+          { "p": "Your shoes are new. →", "a": ["Are your shoes new?"], "why": "Are goes before the subject: Are your shoes new? (not Are new your shoes?)" },
+          { "p": "Ani is a doctor. →", "a": ["Is Ani a doctor?"], "why": "Is + Ani + a doctor?" },
+          { "p": "They are from Spain. →", "a": ["Are they from Spain?"], "why": "Are + they + from Spain?" },
+          { "p": "The shops are open today. →", "a": ["Are the shops open today?"], "why": "Are + the shops + open today? (not Are open the shops?)" }
+        ]
+      },
+      "items": [
+        { "id": "t07-i1", "prompt": "He is in the garage. →", "accepted": ["Is he in the garage?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Put is before the subject.", "hy": "Is-ը դիր ենթակայից առաջ։", "ru": "Поставь is перед подлежащим." } } },
+        { "id": "t07-i2", "prompt": "Your tickets are on the desk. →", "accepted": ["Are your tickets on the desk?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Are goes before the subject.", "hy": "Are-ը ենթակայից առաջ է։", "ru": "Are ставится перед подлежащим." } } },
+        { "id": "t07-i3", "prompt": "Marek is an engineer. →", "accepted": ["Is Marek an engineer?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Is + Marek + an engineer?", "hy": "Is + Marek + an engineer?", "ru": "Is + Marek + an engineer?" } } },
+        { "id": "t07-i4", "prompt": "The children are hungry. →", "accepted": ["Are the children hungry?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Are + the children + hungry?", "hy": "Are + the children + hungry?", "ru": "Are + the children + hungry?" } } },
+        { "id": "t07-i5", "prompt": "The library is open on Sundays. →", "accepted": ["Is the library open on Sundays?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Is + the library + open on Sundays? (not Is open the library?)", "hy": "Is + the library + open on Sundays? (ոչ Is open the library?)", "ru": "Is + the library + open on Sundays? (не Is open the library?)" } } }
+      ]
+    },
+
+    {
+      "id": "t08", "type": "write", "order": 8, "difficulty": 4, "cardIds": ["c03", "c02"],
+      "instructions": { "hy": "Գրեք հարցը։", "ru": "Напишите вопрос." },
+      "source": {
+        "en": "Write the question.", "hy": "Գրեք հարցը։",
+        "items": [
+          { "p": "(how old / you?) — I'm 30.", "a": ["How old are you?"], "why": "How old + are + you?" },
+          { "p": "(where / your keys?) — On the table.", "a": ["Where are your keys?"], "why": "Your keys = they → are: Where are your keys?" },
+          { "p": "(what colour / your car?) — It's red.", "a": ["What colour is your car?", "What color is your car?"], "why": "Your car = it → is: What colour is your car?" },
+          { "p": "(who / that man?) — My father.", "a": ["Who is that man?", "Who's that man?"], "why": "Who + is + that man?" },
+          { "p": "(why / the shop / closed?) — Because it's Sunday.", "a": ["Why is the shop closed?"], "why": "Why + is + the shop + closed? The verb comes before the subject." }
+        ]
+      },
+      "items": [
+        { "id": "t08-i1", "prompt": "(how far / the beach?) — Two kilometres.", "accepted": ["How far is the beach?"],
+          "feedback": { "correct": { "p": "adapted", "en": "How far + is + the beach?", "hy": "How far + is + the beach?", "ru": "How far + is + the beach?" } } },
+        { "id": "t08-i2", "prompt": "(where / my sunglasses?) — On the sofa.", "accepted": ["Where are my sunglasses?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Sunglasses = they, so are.", "hy": "Sunglasses-ը = they, ուստի are։", "ru": "Sunglasses = they, поэтому are." } } },
+        { "id": "t08-i3", "prompt": "(what size / these boots?) — Forty-two.", "accepted": ["What size are these boots?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Boots = they, so are.", "hy": "Boots-ը = they, ուստի are։", "ru": "Boots = they, поэтому are." } } },
+        { "id": "t08-i4", "prompt": "(who / that girl?) — My niece.", "accepted": ["Who is that girl?", "Who's that girl?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Who + is + that girl?", "hy": "Who + is + that girl?", "ru": "Who + is + that girl?" } } },
+        { "id": "t08-i5", "prompt": "(why / the office / empty?) — Because it's a holiday.", "accepted": ["Why is the office empty?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Why + is + the office + empty? The verb comes before the subject.", "hy": "Why + is + the office + empty? Բայը ենթակայից առաջ է։", "ru": "Why + is + the office + empty? Глагол — перед подлежащим." } } }
+      ]
+    },
+
+    {
+      "id": "t09", "type": "fix", "order": 9, "difficulty": 4, "cardIds": ["c01", "c02", "c07"],
+      "instructions": { "hy": "Գտեք սխալը և ճիշտ գրեք հարցը։", "ru": "Найдите ошибку и напишите вопрос правильно." },
+      "source": {
+        "en": "Find the mistake and write the question correctly.", "hy": "Գտեք սխալը և ճիշտ գրեք հարցը։",
+        "items": [
+          { "s": "Is at home your mother?", "a": ["Is your mother at home?"], "why": "The subject (your mother) comes right after Is: Is your mother at home?" },
+          { "s": "Where you are from?", "a": ["Where are you from?"], "why": "In a question, are comes before you: Where are you from?" },
+          { "s": "Are new your shoes?", "a": ["Are your shoes new?"], "why": "The subject comes right after are: Are your shoes new?" },
+          { "s": "How old you are?", "a": ["How old are you?"], "why": "In a question, are goes before you: How old are you?" },
+          { "s": "Is your parents at home?", "a": ["Are your parents at home?"], "why": "Your parents = they, so: Are your parents at home?" }
+        ]
+      },
+      "items": [
+        { "id": "t09-i1", "stem": "Is in the garage your father?", "accepted": ["Is your father in the garage?"],
+          "feedback": { "correct": { "p": "adapted", "en": "The subject comes right after Is.", "hy": "Ենթական անմիջապես Is-ից հետո է։", "ru": "Подлежащее — сразу после Is." } } },
+        { "id": "t09-i2", "stem": "Where the children are?", "accepted": ["Where are the children?"],
+          "feedback": { "correct": { "p": "adapted", "en": "In a question, are comes before the subject.", "hy": "Հարցում are-ը ենթակայից առաջ է։", "ru": "В вопросе are ставится перед подлежащим." } } },
+        { "id": "t09-i3", "stem": "Are wet your boots?", "accepted": ["Are your boots wet?"],
+          "feedback": { "correct": { "p": "adapted", "en": "The subject comes right after Are.", "hy": "Ենթական անմիջապես Are-ից հետո է։", "ru": "Подлежащее — сразу после Are." } } },
+        { "id": "t09-i4", "stem": "How far the beach is?", "accepted": ["How far is the beach?"],
+          "feedback": { "correct": { "p": "adapted", "en": "How far + is + subject.", "hy": "How far + is + ենթակա։", "ru": "How far + is + подлежащее." } } },
+        { "id": "t09-i5", "stem": "Is your keys in the car?", "accepted": ["Are your keys in the car?"],
+          "feedback": { "correct": { "p": "adapted", "en": "Keys = they, so Are.", "hy": "Keys-ը = they, ուստի Are։", "ru": "Keys = they, поэтому Are." } } }
+      ]
+    },
+
+    {
+      "id": "t10", "type": "write", "order": 10, "difficulty": 5, "cardIds": ["c01", "c03", "c05"],
+      "instructions": { "hy": "Սոֆիան առաջին օրն է լեզվական դպրոցի գրասենյակում։ Գրեք քարտուղարի հարցերը։", "ru": "София в первый день в офисе языковой школы. Напишите вопросы секретаря." },
+      "instructionsProvenance": { "hy": "adapted", "ru": "translated", "reason": "source instruction names Paul and Anna and a party; context replaced under decision 4" },
+      "source": {
+        "en": "Paul meets Anna at a party. Write Anna's questions.", "hy": "Փոլը երեկույթում հանդիպում է Աննային։ Գրեք Աննայի հարցերը։",
+        "items": [
+          { "p": "Anna: ______ ? &nbsp; Paul: My name's Paul.", "a": ["What's your name?", "What is your name?"], "why": "We ask about a name with What: What's your name?" },
+          { "p": "Anna: ______ ? &nbsp; Paul: No, I'm not American. I'm Australian.", "a": ["Are you American?"], "why": "A yes/no question: Are you American?" },
+          { "p": "Anna: ______ ? &nbsp; Paul: I'm 30.", "a": ["How old are you?"], "why": "We ask about age with How old: How old are you?" },
+          { "p": "Anna: ______ ? &nbsp; Paul: Yes, I am. My wife is over there.", "a": ["Are you married?"], "why": "Paul answers Yes, I am and talks about his wife, so: Are you married?" },
+          { "p": "Anna: ______ ? &nbsp; Paul: She's from Italy.", "a": ["Where is your wife from?", "Where's your wife from?", "Where is she from?", "Where's she from?"], "why": "We ask about a place with Where: Where is your wife from?" }
+        ]
+      },
+      "items": [
+        { "id": "t10-i1", "prompt": "Secretary: ______ ?  Sofia: Yes, I am. It's my first day.", "accepted": ["Are you a new student?"],
+          "feedback": { "correct": { "p": "new", "en": "The answer Yes, I am plus 'my first day' shows the question is about being new.", "hy": "«Yes, I am» և «my first day» պատասխանը ցույց է տալիս, որ հարցը նոր սովորող լինելու մասին է։", "ru": "Ответ «Yes, I am» и «my first day» показывают, что вопрос о том, новый ли это ученик." } } },
+        { "id": "t10-i2", "prompt": "Secretary: ______ ?  Sofia: It's B1.", "accepted": ["What is your level?", "What's your level?"],
+          "feedback": { "correct": { "p": "new", "en": "We ask about a level with What.", "hy": "Մակարդակի մասին հարցնում ենք What-ով։", "ru": "Об уровне спрашиваем с What." } } },
+        { "id": "t10-i3", "prompt": "Secretary: ______ ?  Sofia: My teacher is Ms Farida.", "accepted": ["Who is your teacher?", "Who's your teacher?"],
+          "feedback": { "correct": { "p": "source", "en": "We ask about a person with Who.", "hy": "Անձի մասին հարցնում ենք Who-ով։", "ru": "О человеке спрашиваем с Who." } } },
+        { "id": "t10-i4", "prompt": "Secretary: ______ ?  Sofia: It's Room 12, next to the library.", "accepted": ["Where is your classroom?", "Where's your classroom?", "Where is your class?", "Where's your class?"],
+          "feedback": { "correct": { "p": "source", "en": "We ask about a place with Where.", "hy": "Վայրի մասին հարցնում ենք Where-ով։", "ru": "О месте спрашиваем с Where." } } },
+        { "id": "t10-i5", "prompt": "Secretary: ______ ?  Sofia: No, they aren't. My books are at home.", "accepted": ["Are your books in your bag?", "Are your books with you?", "Are your books here?"],
+          "needsReview": true, "reviewReason": "open-answer item: three natural am/is/are questions fit the reply; confirm the accepted list",
+          "feedback": { "correct": { "p": "new", "en": "Books = they, so the question uses Are; the reply No, they aren't shows it is a yes/no question.", "hy": "Books-ը = they, ուստի հարցում՝ Are։ «No, they aren't» պատասխանը ցույց է տալիս, որ հարցը yes/no է։", "ru": "Books = they, поэтому в вопросе Are; ответ «No, they aren't» показывает, что вопрос общий." } } }
+      ]
+    }
+  ],
+
+  "reviewCards": [
+    { "id": "r01", "type": "recall", "prompt": { "hy": "Ի՞նչ բանաձևով է կազմվում yes/no հարցը be-ով։", "ru": "По какой формуле строится общий вопрос с be?" }, "answer": "Am / Is / Are + subject + … ?" },
+    { "id": "r02", "type": "cloze", "prompt": { "hy": "Լրացրու՝ ___ your neighbours at home?", "ru": "Вставь: ___ your neighbours at home?" }, "answer": "Are" },
+    { "id": "r03", "type": "produce", "prompt": { "hy": "Կազմիր հարցը՝ where / is / the / ticket / office", "ru": "Составь вопрос: where / is / the / ticket / office" }, "answer": "Where is the ticket office?" },
+    { "id": "r04", "type": "recall", "prompt": { "hy": "Ինչո՞ւ է «Yes, she's» սխալ։", "ru": "Почему «Yes, she's» — ошибка?" }, "answer": "Yes, she is." },
+    { "id": "r05", "type": "cloze", "prompt": { "hy": "'Are you free tonight?' 'No, ___ .'", "ru": "'Are you free tonight?' 'No, ___ .'" }, "answer": "I'm not" },
+    { "id": "r06", "type": "produce", "prompt": { "hy": "Ուղղիր՝ How far the beach is?", "ru": "Исправь: How far the beach is?" }, "answer": "How far is the beach?" }
+  ],
+
+  "sourceMetadata": {
+    "file": "grammer.txt",
+    "locator": "gpUnit('elem', 2, {…})",
+    "bookId": "elem", "unitNumber": 2,
+    "sourceTitle": "am/is/are (questions)",
+    "sourceSection": { "en": "Present", "hy": "Ներկա" },
+    "sourceAbout": {
+      "en": "Questions with <b>am / is / are</b>: <i>Is your mother at home? Where are you from?</i> and short answers: <i>Yes, I am. No, it isn't.</i>",
+      "hy": "Հարցեր <b>am / is / are</b>-ով. <i>Is your mother at home? Where are you from?</i> և կարճ պատասխաններ. <i>Yes, I am. No, it isn't.</i>"
+    },
+    "sourceTaskCount": 10, "sourceItemCount": 50,
+    "sourceFlags": { "exactTasks": [5], "exTasks": [5], "tKeys": 3, "noKeys": 9, "matchOpts": 6, "pickCorrectIndex": "0 in all 10 pick items" },
+    "taskMap": "t01…t10 ↔ source tasks 1…10; type, order, difficulty and person coverage preserved",
+    "renamedEntities": { "Paul": "Sofia", "Anna": "Secretary", "Ani": "Marek", "Kate": "Nadia", "Joe": "—", "George": "—", "Canada": "—", "Spain": "—", "London": "Kraków", "Italy": "Vilnius", "American/Australian": "—", "your mother": "Elena / your father", "forty euros": "—", "24 / 30": "—", "new teacher": "Ms Farida" },
+    "removedTopics": ["name", "age", "marital status", "price", "nationality of speaker"],
+    "excluded": ["GP_KNOWN word list", "site UI code (doors, teachers, board, recordings, legal, header)"]
+  },
+
+  "needsReview": true,
+  "reviewScope": [
+    "explanation.ru",
+    "exercises[].instructions.ru (10)",
+    "exercises[].instructions.hy where adapted (t10)",
+    "all feedback.*.hy (74)",
+    "all feedback.*.ru (74)",
+    "feedback objects with p = new (12 English strings)",
+    "learningObjectives, rules, examples, commonErrors, cards, reviewCards (hy + ru)"
+  ],
+  "reviewReason": [
+    "All ru strings and all hy feedback strings are newly authored translations; native-speaker review required.",
+    "11 pick distractor feedback slots had no English source (part of the 601 gaps found in the audit); English composed from scratch.",
+    "t10-i5 is an open-answer item; three acceptable questions enumerated — confirm the list.",
+    "exact-mode policy requires final punctuation and is case-sensitive; the grading function is absent from the uploaded file, so this reading of exact needs confirmation.",
+    "normal-mode normalization (case-insensitive, optional final punctuation) is an assumption for the same reason.",
+    "Screenshots not received; layout mapping (shuffle, word bank, match columns) is provisional."
+  ]
+},
+
+{
+  "id": "en-a1-elem-unit-003",
+  "bookId": "elem",
+  "targetLanguage": "en",
+  "directions": ["hy-en", "ru-en"],
+  "cefr": "A1–A2",
+  "level": { "en": "Elementary", "hy": "Սկսնակ", "ru": "Начальный" },
+  "sectionId": "elem-s01",
+  "section": { "en": "Present", "hy": "Ներկա", "ru": "Настоящее время" },
+  "unitNumber": 3,
+  "title": { "en": "I am doing (present continuous)", "hy": "I am doing (present continuous)", "ru": "I am doing (настоящее продолженное)" },
+  "idScheme": "local ids are lesson-scoped; global id = lesson.id + '-' + localId",
+  "policiesRef": "en-a1-elem-unit-002.policies",
+  "explanationFormat": "html-inline",
+  "explanation": {
+    "hy": "<b>Present continuous</b> (<i>I am doing</i>)՝ գործողությունը կատարվում է հիմա։ <i>She's eating. It isn't raining.</i>",
+    "ru": "<b>Present continuous</b> (<i>I am doing</i>): действие происходит сейчас. <i>She's eating. It isn't raining.</i>"
+  },
+
+  "learningObjectives": [
+    { "hy": "Կազմել present continuous՝ am/is/are + verb-ing։", "ru": "Образовывать present continuous: am/is/are + глагол с -ing." },
+    { "hy": "Օգտագործել այն գործողությունների համար, որոնք կատարվում են խոսելու պահին։", "ru": "Использовать для действий, происходящих в момент речи." },
+    { "hy": "Ճիշտ գրել -ing վերջավորությամբ բայերը (write → writing, run → running)։", "ru": "Правильно писать глаголы с окончанием -ing (write → writing, run → running)." }
+  ],
+
+  "rules": [
+    { "id": "r1", "formula": "am / is / are + verb-ing", "statement": { "hy": "Դրական ձև. I am working, She is working, They are working։", "ru": "Утвердительная форма: I am working, She is working, They are working." }, "targetText": "I am working now." },
+    { "id": "r2", "formula": "am not / isn't / aren't + verb-ing", "statement": { "hy": "Ժխտական ձև. I'm not sleeping, He isn't reading, We aren't watching TV։", "ru": "Отрицательная форма: I'm not sleeping, He isn't reading, We aren't watching TV." }, "targetText": "He isn't reading." },
+    { "id": "r3", "formula": "Spelling rules", "statement": { "hy": "Ուղղագրություն. write → writing (e-ն ընկնում է), run → running (վերջին տառը կրկնվում է), lie → lying (ie → y)։", "ru": "Правописание. write → writing (e опускается), run → running (последняя буква удваивается), lie → lying (ie → y)." }, "targetText": "running, writing, lying" }
+  ],
+
+  "examples": [
+    { "id": "e1", "targetText": "Please don't make so much noise. I'm trying to concentrate.", "translation": { "hy": "Խնդրում եմ, այդքան աղմուկ մի՛ սարքեք։ Ես փորձում եմ կենտրոնանալ։", "ru": "Пожалуйста, не шумите так сильно. Я пытаюсь сосредоточиться." } },
+    { "id": "e2", "targetText": "Look! The bus is coming.", "translation": { "hy": "Նայիր։ Ավտոբուսը գալիս է։", "ru": "Смотри! Автобус идёт." } },
+    { "id": "e3", "targetText": "Where's Marek? He's having a shower.", "translation": { "hy": "Որտե՞ղ է Մարեկը։ Նա ցնցուղ է ընդունում։", "ru": "Где Марек? Он принимает душ." } }
+  ],
+
+  "commonErrors": [
+    { "id": "x1", "wrong": "I am work now.", "correct": "I am working now.", "sourceRef": "t01-i1", "explanation": { "hy": "Անհրաժեշտ է -ing վերջավորությունը։", "ru": "Необходимо окончание -ing." } },
+    { "id": "x2", "wrong": "She is runing.", "correct": "She is running.", "sourceRef": "t02-i2", "explanation": { "hy": "Run → running (կրկնվում է n-ը)։", "ru": "Run → running (удваивается n)." } },
+    { "id": "x3", "wrong": "They are play football.", "correct": "They are playing football.", "sourceRef": "t01-i3", "explanation": { "hy": "Play → playing։", "ru": "Play → playing." } }
+  ],
+
+  "cards": [
+    { "id": "c01", "kind": "formula", "order": 1, "title": { "hy": "Կառուցվածքը", "ru": "Структура" }, "body": { "hy": "Subject + am/is/are + verb-ing։", "ru": "Подлежащее + am/is/are + глагол с -ing." }, "formula": "I am working · She is working · They are working" },
+    { "id": "c02", "kind": "rule", "order": 2, "title": { "hy": "Ե՞րբ ենք օգտագործում", "ru": "Когда используем" }, "body": { "hy": "Գործողություն, որը կատարվում է հիմա, խոսելու պահին։", "ru": "Действие, которое происходит сейчас, в момент речи." }, "targetText": "I'm talking to you now." },
+    { "id": "c03", "kind": "spelling", "order": 3, "title": { "hy": "Ուղղագրական կանոններ", "ru": "Правила правописания" }, "body": { "hy": "-e վերջավորությամբ բայերը կորցնում են e-ն (make → making)։ Կարճ շեշտված բաղաձայնով վերջացող բայերը կրկնում են վերջին տառը (sit → sitting)։", "ru": "Глаголы на -e теряют e (make → making). Глаголы, заканчивающиеся на краткую ударную согласную, удваивают последнюю букву (sit → sitting)." } }
+  ],
+
+  "build": {
+    "formula": {
+      "rows": [
+        { "label": { "en": "Positive (+)", "hy": "Հաստատական (+)", "ru": "Утверждение (+)" }, "f": "am / is / are + verb-ing", "ex": "She <b>is eating</b>. They<b>'re running</b>." },
+        { "label": { "en": "Negative (−)", "hy": "Ժխտական (−)", "ru": "Отрицание (−)" }, "f": "am not / isn't / aren't + verb-ing", "ex": "I<b>'m not working</b>. He <b>isn't reading</b>." },
+        { "label": { "en": "Which helper?", "hy": "Ո՞ր օժանդակ բայը", "ru": "Какой вспомогательный?" }, "f": "I → am &nbsp; he/she/it → is &nbsp; we/you/they → are", "ex": "" }
+      ],
+      "notes": [
+        { "en": "Spelling: write → writing (no e), run → running (double the last letter), lie → lying.", "hy": "Ուղղագրություն՝ write → writing (e-ն ընկնում է), run → running (վերջին տառը կրկնվում է), lie → lying։", "ru": "Правописание: write → writing (e опускается), run → running (удваивается последняя буква), lie → lying." }
+      ]
+    },
+    "tasks": [
+      {
+        "id": "bt01", "type": "pick", "order": 1, "difficulty": 1, "cardIds": ["c01"],
+        "instructions": { "hy": "Ընտրեք օժանդակ բայը՝ am, is կամ are։", "ru": "Выберите вспомогательный глагол: am, is или are." },
+        "items": [
+          { "id": "bt01-i1", "stem": "She ___ eating an apple.", "options": ["is", "are", "am"], "correctIndex": 0,
+            "feedback": { "correct": { "p": "adapted", "en": "She → is.", "hy": "She → is։", "ru": "She → is." } } },
+          { "id": "bt01-i2", "stem": "I ___ working now.", "options": ["am", "is", "are"], "correctIndex": 0,
+            "feedback": { "correct": { "p": "source", "en": "With I the helping verb is am: I am working.", "hy": "I-ի հետ օժանդակ բայը am է՝ I am working։", "ru": "С I вспомогательный глагол am: I am working." } } },
+          { "id": "bt01-i3", "stem": "The children ___ playing in the park.", "options": ["are", "is", "am"], "correctIndex": 0,
+            "feedback": { "correct": { "p": "adapted", "en": "The children = they → are.", "hy": "Children-ը = they → are։", "ru": "The children = they → are." } } },
+          { "id": "bt01-i4", "stem": "It ___ raining.", "options": ["is", "are", "am"], "correctIndex": 0,
+            "feedback": { "correct": { "p": "source", "en": "It → is: It is raining.", "hy": "It → is: It is raining։", "ru": "It → is: It is raining." } } },
+          { "id": "bt01-i5", "stem": "We ___ having dinner.", "options": ["are", "is", "am"], "correctIndex": 0,
+            "feedback": { "correct": { "p": "source", "en": "We → are: We are having dinner.", "hy": "We → are: We are having dinner։", "ru": "We → are: We are having dinner." } } }
+        ]
+      },
+      {
+        "id": "bt02", "type": "write", "order": 2, "difficulty": 2, "cardIds": ["c01", "c03"], "exact": true,
+        "instructions": { "hy": "Կազմեք present continuous-ը։", "ru": "Образуйте present continuous." },
+        "example": { "p": "you / wait → <b>you are waiting</b> (or <b>you're waiting</b>)" },
+        "items": [
+          { "id": "bt02-i1", "prompt": "she / read", "accepted": ["she is reading", "she's reading"],
+            "feedback": { "correct": { "p": "source", "en": "she + is + read-ing → she is reading.", "hy": "she + is + read-ing → she is reading։", "ru": "she + is + read-ing → she is reading." } } },
+          { "id": "bt02-i2", "prompt": "they / run", "accepted": ["they are running", "they're running"],
+            "feedback": { "correct": { "p": "source", "en": "they + are + running. Run → running: we double the n.", "hy": "they + are + running։ Run → running՝ կրկնվում է n-ը։", "ru": "they + are + running. Run → running: удваивается n." },
+              "targeted": { "they are runing": { "p": "source", "en": "Run has one vowel and ends in one consonant, so we double it: running.", "hy": "Run-ը ունի մեկ ձայնավոր և վերջանում է մեկ բաղաձայնով, ուստի կրկնվում է՝ running։", "ru": "В run одна гласная и одна согласная на конце, поэтому удваиваем: running." } } } },
+          { "id": "bt02-i3", "prompt": "I / write", "accepted": ["I am writing", "I'm writing"],
+            "feedback": { "correct": { "p": "source", "en": "I + am + writing. Write → writing: the e goes.", "hy": "I + am + writing։ Write → writing՝ e-ն ընկնում է։", "ru": "I + am + writing. Write → writing: e опускается." },
+              "targeted": { "i am writeing": { "p": "source", "en": "Verbs ending in -e lose the e: write → writing.", "hy": "-e-ով վերջացող բայերը կորցնում են e-ն՝ write → writing։", "ru": "Глаголы на -e теряют e: write → writing." } } } },
+          { "id": "bt02-i4", "prompt": "the bus / come", "accepted": ["the bus is coming"],
+            "feedback": { "correct": { "p": "source", "en": "the bus = it → is. Come → coming (the e goes).", "hy": "the bus = it → is։ Come → coming (e-ն ընկնում է)։", "ru": "the bus = it → is. Come → coming (e опускается)." },
+              "targeted": { "the bus is comeing": { "p": "source", "en": "Come → coming: the e goes before -ing.", "hy": "Come → coming՝ e-ն ընկնում է -ing-ից առաջ։", "ru": "Come → coming: e опускается перед -ing." } } } },
+          { "id": "bt02-i5", "prompt": "he / sit", "accepted": ["he is sitting", "he's sitting"],
+            "feedback": { "correct": { "p": "source", "en": "he + is + sitting. Sit → sitting: we double the t.", "hy": "he + is + sitting։ Sit → sitting՝ կրկնվում է t-ն։", "ru": "he + is + sitting. Sit → sitting: удваивается t." },
+              "targeted": { "he is siting": { "p": "source", "en": "Sit → sitting: double the t.", "hy": "Sit → sitting՝ կրկնվում է t-ն։", "ru": "Sit → sitting: удваивается t." } } } }
+        ]
+      },
+      {
+        "id": "bt03", "type": "write", "order": 3, "difficulty": 2, "cardIds": ["c01"],
+        "instructions": { "hy": "Նախադասությունները դարձրեք ժխտական։", "ru": "Сделайте предложения отрицательными." },
+        "items": [
+          { "id": "bt03-i1", "prompt": "She is watching TV. →", "accepted": ["She isn't watching TV.", "She is not watching TV.", "She's not watching TV."],
+            "feedback": { "correct": { "p": "source", "en": "Negative: is → isn't (is not) + -ing.", "hy": "Ժխտական՝ is → isn't (is not) + -ing։", "ru": "Отрицание: is → isn't (is not) + -ing." } } },
+          { "id": "bt03-i2", "prompt": "I'm working. →", "accepted": ["I'm not working.", "I am not working."],
+            "feedback": { "correct": { "p": "source", "en": "With I: I'm not + -ing.", "hy": "I-ի հետ՝ I'm not + -ing։", "ru": "С I: I'm not + -ing." } } },
+          { "id": "bt03-i3", "prompt": "They are walking. →", "accepted": ["They aren't walking.", "They are not walking.", "They're not walking."],
+            "feedback": { "correct": { "p": "source", "en": "Negative: are → aren't + -ing.", "hy": "Ժխտական՝ are → aren't + -ing։", "ru": "Отрицание: are → aren't + -ing." } } },
+          { "id": "bt03-i4", "prompt": "It's raining. →", "accepted": ["It isn't raining.", "It is not raining.", "It's not raining."],
+            "feedback": { "correct": { "p": "source", "en": "Negative: it isn't (it's not) raining.", "hy": "Ժխտական՝ it isn't (it's not) raining։", "ru": "Отрицание: it isn't (it's not) raining." } } },
+          { "id": "bt03-i5", "prompt": "We're listening. →", "accepted": ["We aren't listening.", "We are not listening.", "We're not listening."],
+            "feedback": { "correct": { "p": "source", "en": "Negative: we aren't (we're not) listening.", "hy": "Ժխտական՝ we aren't (we're not) listening։", "ru": "Отрицание: we aren't (we're not) listening." } } }
+        ]
+      }
+    ]
+  },
+
+  "exercises": [
+    {
+      "id": "t01", "type": "pick", "order": 4, "difficulty": 2, "cardIds": ["c01"], "shuffleOptions": true,
+      "instructions": { "hy": "Ընտրեք ճիշտ ձևը։", "ru": "Выберите правильную форму." },
+      "source": {
+        "en": "Choose the right form.", "hy": "Ընտրեք ճիշտ ձևը։",
+        "items": [
+          { "s": "Look! It ___.", "o": ["is raining", "raining", "is rain"], "a": 0, "why": "Present continuous = is + verb-ing: It is raining.", "no": { "1": "The helping verb is is missing: It is raining.", "2": "After is we need the -ing form: raining." } },
+          { "s": "Please be quiet. I ___.", "o": ["am working", "working", "am work"], "a": 0, "why": "I am + working.", "no": { "1": "The helping verb am is missing.", "2": "After am we need -ing: working." } },
+          { "s": "The children ___ football.", "o": ["are playing", "is playing", "are play"], "a": 0, "why": "The children = they → are playing.", "no": { "1": "Children = they, so are, not is.", "2": "After are we need -ing: playing." } },
+          { "s": "Sarah ___ a brown coat today.", "o": ["is wearing", "are wearing", "wearing"], "a": 0, "why": "Sarah = she → is wearing.", "no": { "1": "Sarah is one person: is.", "2": "The helping verb is is missing." } },
+          { "s": "We ___ dinner now. Can I call you later?", "o": ["are having", "is having", "having"], "a": 0, "why": "We → are having.", "no": { "1": "We goes with are, not is.", "2": "The helping verb are is missing." } }
+        ]
+      },
+      "items": [
+        { "id": "t01-i1", "stem": "Look! Somebody ___ in the river.", "options": ["is swimming", "swimming", "is swim"], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "Present continuous = is + verb-ing: is swimming.", "hy": "Present continuous = is + verb-ing: is swimming։", "ru": "Present continuous = is + verb-ing: is swimming." },
+            "byOption": { "1": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." }, "2": { "p": "adapted", "en": "After is we need the -ing form: swimming.", "hy": "is-ից հետո անհրաժեշտ է -ing ձևը։", "ru": "После is нужна форма с -ing." } } } },
+        { "id": "t01-i2", "stem": "Please be quiet. I ___ to concentrate.", "options": ["am trying", "trying", "am try"], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "I am + trying.", "hy": "I am + trying։", "ru": "I am + trying." },
+            "byOption": { "1": { "p": "adapted", "en": "The helping verb am is missing.", "hy": "am օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол am." }, "2": { "p": "adapted", "en": "After am we need -ing: trying.", "hy": "am-ից հետո անհրաժեշտ է -ing։", "ru": "После am нужно -ing." } } } },
+        { "id": "t01-i3", "stem": "My friends ___ chess in the park.", "options": ["are playing", "is playing", "are play"], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "Friends = they → are playing.", "hy": "Friends = they → are playing։", "ru": "Friends = they → are playing." },
+            "byOption": { "1": { "p": "adapted", "en": "Friends is plural: are, not is.", "hy": "Friends-ը հոգնակի է՝ are, ոչ թե is։", "ru": "Friends — мн. ч.: are, а не is." }, "2": { "p": "adapted", "en": "After are we need -ing: playing.", "hy": "are-ից հետո անհրաժեշտ է -ing։", "ru": "После are нужно -ing." } } } },
+        { "id": "t01-i4", "stem": "Lilit ___ a blue dress today.", "options": ["is wearing", "are wearing", "wearing"], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "Lilit = she → is wearing.", "hy": "Lilit = she → is wearing։", "ru": "Lilit = she → is wearing." },
+            "byOption": { "1": { "p": "adapted", "en": "Lilit is one person: is.", "hy": "Lilit-ը մեկ անձ է՝ is։", "ru": "Lilit — одно лицо: is." }, "2": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." } } } },
+        { "id": "t01-i5", "stem": "We ___ lunch at the moment. Call back later!", "options": ["are having", "is having", "having"], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "We → are having.", "hy": "We → are having։", "ru": "We → are having." },
+            "byOption": { "1": { "p": "adapted", "en": "We goes with are, not is.", "hy": "We-ն պահանջում է are, ոչ թե is։", "ru": "We требует are, а не is." }, "2": { "p": "adapted", "en": "The helping verb are is missing.", "hy": "are օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол are." } } } }
+      ]
+    },
+    {
+      "id": "t02", "type": "gap", "order": 5, "difficulty": 3, "cardIds": ["c03"], "exact": true,
+      "instructions": { "hy": "Գրեք -ing ձևը։ Ուշադիր եղեք ուղղագրությանը։", "ru": "Напишите форму с -ing. Обратите внимание на правописание." },
+      "source": {
+        "en": "Write the -ing form. Be careful with the spelling.", "hy": "Գրեք -ing ձևը։ Ուշադիր եղեք ուղղագրությանը։",
+        "items": [
+          { "s": "Somebody is ___ (swim) in the river.", "a": ["swimming"], "why": "Swim → swimming: one vowel + one consonant at the end, so we double the m.", "t": { "swiming": "Double the m: swimming." } },
+          { "s": "Why are you ___ (sit) on the floor?", "a": ["sitting"], "why": "Sit → sitting: double the t.", "t": { "siting": "Double the t: sitting." } },
+          { "s": "She's ___ (dance) with her brother.", "a": ["dancing"], "why": "Dance → dancing: the e goes.", "t": { "danceing": "Verbs ending in -e lose the e: dancing." } },
+          { "s": "The cat is ___ (lie) on the sofa.", "a": ["lying"], "why": "Lie → lying: -ie changes to -y.", "t": { "lieing": "With -ie verbs, -ie becomes y: lying.", "liing": "With -ie verbs, -ie becomes y: lying." } },
+          { "s": "My grandmother is ___ (make) dolma.", "a": ["making"], "why": "Make → making: the e goes.", "t": { "makeing": "Verbs ending in -e lose the e: making." } }
+        ]
+      },
+      "items": [
+        { "id": "t02-i1", "stem": "Look! The boys ___ (run) after the ball.", "accepted": ["are running"],
+          "feedback": { "correct": { "p": "adapted", "en": "Run → running: double the n.", "hy": "Run → running՝ կրկնվում է n-ը։", "ru": "Run → running: удваивается n." },
+            "targeted": { "are runing": { "p": "source", "en": "Double the n: running.", "hy": "Կրկնվում է n-ը՝ running։", "ru": "Удваивается n: running." } } } },
+        { "id": "t02-i2", "stem": "Why are you ___ (sit) here?", "accepted": ["sitting"],
+          "feedback": { "correct": { "p": "source", "en": "Sit → sitting: double the t.", "hy": "Sit → sitting՝ կրկնվում է t-ն։", "ru": "Sit → sitting: удваивается t." },
+            "targeted": { "siting": { "p": "source", "en": "Double the t: sitting.", "hy": "Կրկնվում է t-ն՝ sitting։", "ru": "Удваивается t: sitting." } } } },
+        { "id": "t02-i3", "stem": "Ani ___ (dance) very well.", "accepted": ["is dancing"],
+          "feedback": { "correct": { "p": "adapted", "en": "Dance → dancing: the e goes.", "hy": "Dance → dancing՝ e-ն ընկնում է։", "ru": "Dance → dancing: e опускается." },
+            "targeted": { "is danceing": { "p": "source", "en": "Verbs ending in -e lose the e: dancing.", "hy": "-e-ով վերջացող բայերը կորցնում են e-ն։", "ru": "Глаголы на -e теряют e." } } } },
+        { "id": "t02-i4", "stem": "The dog ___ (lie) on the carpet.", "accepted": ["is lying"],
+          "feedback": { "correct": { "p": "adapted", "en": "Lie → lying: -ie changes to -y.", "hy": "Lie → lying՝ -ie-ն դառնում է -y։", "ru": "Lie → lying: -ie меняется на -y." },
+            "targeted": { "is lieing": { "p": "source", "en": "With -ie verbs, -ie becomes y: lying.", "hy": "-ie վերջավորությամբ բայերը դառնում են -y։", "ru": "Глаголы на -ie меняют -ie на -y." } } } },
+        { "id": "t02-i5", "stem": "My mother ___ (make) gata.", "accepted": ["is making"],
+          "feedback": { "correct": { "p": "adapted", "en": "Make → making: the e goes.", "hy": "Make → making՝ e-ն ընկնում է։", "ru": "Make → making: e опускается." },
+            "targeted": { "is makeing": { "p": "source", "en": "Verbs ending in -e lose the e: making.", "hy": "-e-ով վերջացող բայերը կորցնում են e-ն։", "ru": "Глаголы на -e теряют e." } } } }
+      ]
+    },
+    {
+      "id": "t03", "type": "gap", "order": 6, "difficulty": 3, "cardIds": ["c01"],
+      "instructions": { "hy": "Լրացրեք նախադասությունները։ Օգտագործեք փակագծի բառերը։", "ru": "Дополните предложения. Используйте слова в скобках." },
+      "source": {
+        "en": "Complete the sentences. Use the words in brackets.", "hy": "Լրացրեք նախադասությունները։ Օգտագործեք փակագծի բառերը։",
+        "items": [
+          { "s": "Please be quiet. ___ (I / work).", "a": ["I'm working", "I am working"], "why": "I + am + working." },
+          { "s": "'Where's Tom?' 'He's in the kitchen. ___ (he / cook).'", "a": ["He's cooking", "He is cooking"], "why": "He + is + cooking." },
+          { "s": "'___ (you / stand) on my foot.' 'Oh, I'm sorry.'", "a": ["You're standing", "You are standing"], "why": "You + are + standing." },
+          { "s": "We're here on holiday. ___ (we / stay) at the Central Hotel.", "a": ["We're staying", "We are staying"], "why": "We + are + staying." },
+          { "s": "___ (they / build) a new hotel in the city centre at the moment.", "a": ["They're building", "They are building"], "why": "They + are + building." }
+        ]
+      },
+      "items": [
+        { "id": "t03-i1", "stem": "Shh! ___ (I / try) to sleep.", "accepted": ["I'm trying", "I am trying"],
+          "feedback": { "correct": { "p": "adapted", "en": "I + am + trying.", "hy": "I + am + trying։", "ru": "I + am + trying." } } },
+        { "id": "t03-i2", "stem": "'Where's Davit?' 'He's in the garden. ___ (he / water) the flowers.'", "accepted": ["He's watering", "He is watering"],
+          "feedback": { "correct": { "p": "adapted", "en": "He + is + watering.", "hy": "He + is + watering։", "ru": "He + is + watering." } } },
+        { "id": "t03-i3", "stem": "'___ (you / sit) on my bag!' 'Sorry!'", "accepted": ["You're sitting", "You are sitting"],
+          "feedback": { "correct": { "p": "adapted", "en": "You + are + sitting.", "hy": "You + are + sitting։", "ru": "You + are + sitting." } } },
+        { "id": "t03-i4", "stem": "We are in Dilijan. ___ (we / stay) at a nice hotel.", "accepted": ["We're staying", "We are staying"],
+          "feedback": { "correct": { "p": "adapted", "en": "We + are + staying.", "hy": "We + are + staying։", "ru": "We + are + staying." } } },
+        { "id": "t03-i5", "stem": "Look! ___ (they / paint) the house.", "accepted": ["They're painting", "They are painting"],
+          "feedback": { "correct": { "p": "adapted", "en": "They + are + painting.", "hy": "They + are + painting։", "ru": "They + are + painting." } } }
+      ]
+    },
+    {
+      "id": "t04", "type": "write", "order": 7, "difficulty": 3, "cardIds": ["c01"],
+      "instructions": { "hy": "Նայեք, թե ինչ է անում Ջեյնը։ Գրեք She's ... կամ She isn't ... ։", "ru": "Посмотрите, что делает Джейн. Напишите She's ... или She isn't ..." },
+      "example": { "targetText": "(drink coffee) ✓ → <b>She's drinking coffee.</b>" },
+      "source": {
+        "en": "Look at what Jane is doing. Write She's ... or She isn't ... .", "hy": "Նայեք, թե ինչ է անում Ջեյնը։ Գրեք She's ... կամ She isn't ... ։",
+        "items": [
+          { "p": "(have dinner) ✗", "a": ["She isn't having dinner.", "She's not having dinner.", "She is not having dinner."], "why": "✗ = she is not doing it now: She isn't having dinner. Have → having (the e goes)." },
+          { "p": "(watch TV) ✓", "a": ["She's watching TV.", "She is watching TV."], "why": "✓ = she is doing it now: She's watching TV." },
+          { "p": "(sit on the floor) ✗", "a": ["She isn't sitting on the floor.", "She's not sitting on the floor.", "She is not sitting on the floor."], "why": "✗: She isn't sitting. Sit → sitting (double t)." },
+          { "p": "(read a book) ✓", "a": ["She's reading a book.", "She is reading a book."], "why": "✓: She's reading a book." },
+          { "p": "(wear a hat) ✗", "a": ["She isn't wearing a hat.", "She's not wearing a hat.", "She is not wearing a hat."], "why": "✗: She isn't wearing a hat." }
+        ]
+      },
+      "items": [
+        { "id": "t04-i1", "prompt": "(eat an apple) ✗", "accepted": ["She isn't eating an apple.", "She's not eating an apple.", "She is not eating an apple."],
+          "feedback": { "correct": { "p": "adapted", "en": "✗ = she is not doing it now.", "hy": "✗ = նա հիմա չի անում դա։", "ru": "✗ = она не делает этого сейчас." } } },
+        { "id": "t04-i2", "prompt": "(listen to music) ✓", "accepted": ["She's listening to music.", "She is listening to music."],
+          "feedback": { "correct": { "p": "adapted", "en": "✓ = she is doing it now.", "hy": "✓ = նա հիմա անում է դա։", "ru": "✓ = она делает это сейчас." } } },
+        { "id": "t04-i3", "prompt": "(stand on the chair) ✗", "accepted": ["She isn't standing on the chair.", "She's not standing on the chair.", "She is not standing on the chair."],
+          "feedback": { "correct": { "p": "adapted", "en": "✗: She isn't standing.", "hy": "✗: She isn't standing։", "ru": "✗: She isn't standing." } } },
+        { "id": "t04-i4", "prompt": "(write a letter) ✓", "accepted": ["She's writing a letter.", "She is writing a letter."],
+          "feedback": { "correct": { "p": "adapted", "en": "✓: She's writing.", "hy": "✓: She's writing։", "ru": "✓: She's writing." } } },
+        { "id": "t04-i5", "prompt": "(wear glasses) ✗", "accepted": ["She isn't wearing glasses.", "She's not wearing glasses.", "She is not wearing glasses."],
+          "feedback": { "correct": { "p": "adapted", "en": "✗: She isn't wearing.", "hy": "✗: She isn't wearing։", "ru": "✗: She isn't wearing." } } }
+      ]
+    },
+    {
+      "id": "t05", "type": "order", "order": 8, "difficulty": 3, "cardIds": ["c01"],
+      "instructions": { "hy": "Դասավորեք բառերը ճիշտ հերթականությամբ։", "ru": "Расставьте слова в правильном порядке." },
+      "source": {
+        "en": "Put the words in the right order.", "hy": "Դասավորեք բառերը ճիշտ հերթականությամբ։",
+        "items": [
+          { "w": ["the", "bus", "is", "coming"], "a": ["The bus is coming."], "why": "Subject + is + -ing." },
+          { "w": ["the", "children", "are", "playing", "in", "the", "park"], "a": ["The children are playing in the park."], "why": "Subject + are + -ing + place." },
+          { "w": ["I'm", "not", "watching", "TV"], "a": ["I'm not watching TV."], "why": "I'm + not + -ing." },
+          { "w": ["Sarah", "is", "wearing", "a", "brown", "coat"], "a": ["Sarah is wearing a brown coat."], "why": "Subject + is + -ing + object." },
+          { "w": ["we", "aren't", "listening", "to", "the", "radio"], "a": ["We aren't listening to the radio."], "why": "Subject + aren't + -ing." }
+        ]
+      },
+      "items": [
+        { "id": "t05-i1", "words": ["the", "phone", "is", "ringing"], "accepted": ["The phone is ringing."],
+          "feedback": { "correct": { "p": "adapted", "en": "Subject + is + -ing.", "hy": "Ենթակա + is + -ing։", "ru": "Подлежащее + is + -ing." } } },
+        { "id": "t05-i2", "words": ["my", "parents", "are", "cooking", "dinner"], "accepted": ["My parents are cooking dinner."],
+          "feedback": { "correct": { "p": "adapted", "en": "Subject + are + -ing + object.", "hy": "Ենթակա + are + -ing + խնդիր։", "ru": "Подлежащее + are + -ing + дополнение." } } },
+        { "id": "t05-i3", "words": ["I'm", "not", "sleeping"], "accepted": ["I'm not sleeping."],
+          "feedback": { "correct": { "p": "adapted", "en": "I'm + not + -ing.", "hy": "I'm + not + -ing։", "ru": "I'm + not + -ing." } } },
+        { "id": "t05-i4", "words": ["Tom", "is", "reading", "a", "newspaper"], "accepted": ["Tom is reading a newspaper."],
+          "feedback": { "correct": { "p": "adapted", "en": "Subject + is + -ing + object.", "hy": "Ենթակա + is + -ing + խնդիր։", "ru": "Подлежащее + is + -ing + дополнение." } } },
+        { "id": "t05-i5", "words": ["they", "aren't", "watching", "TV"], "accepted": ["They aren't watching TV."],
+          "feedback": { "correct": { "p": "adapted", "en": "Subject + aren't + -ing.", "hy": "Ենթակա + aren't + -ing։", "ru": "Подлежащее + aren't + -ing." } } }
+      ]
+    },
+    {
+      "id": "t06", "type": "pick", "order": 9, "difficulty": 4, "cardIds": ["c01"], "shuffleOptions": true,
+      "instructions": { "hy": "Ո՞ր նախադասությունն է ճիշտ։", "ru": "Какое предложение правильное?" },
+      "source": {
+        "en": "Which sentence is right?", "hy": "Ո՞ր նախադասությունն է ճիշտ։",
+        "items": [
+          { "s": "", "o": ["She is working now.", "She is work now.", "She working now."], "a": 0, "why": "am/is/are + -ing: She is working.", "no": { "1": "After is we need -ing: working.", "2": "The helping verb is is missing." } },
+          { "s": "", "o": ["They're running.", "They're runing.", "They running."], "a": 0, "why": "run → running (double n) and we need are.", "no": { "1": "Double the n: running.", "2": "The helping verb are is missing." } },
+          { "s": "", "o": ["I'm not watching TV.", "I don't watching TV.", "I'm no watching TV."], "a": 0, "why": "Negative: I'm not + -ing.", "no": { "1": "In the present continuous the negative is am not, not don't.", "2": "We use not, not no: I'm not watching." } },
+          { "s": "", "o": ["It isn't raining.", "It not raining.", "It isn't rain."], "a": 0, "why": "Negative: isn't + -ing.", "no": { "1": "The helping verb is is missing: It isn't raining.", "2": "After isn't we need -ing: raining." } },
+          { "s": "", "o": ["He is writing a letter.", "He is writeing a letter.", "He writing a letter."], "a": 0, "why": "write → writing (the e goes) + is.", "no": { "1": "The e goes: writing.", "2": "The helping verb is is missing." } }
+        ]
+      },
+      "items": [
+        { "id": "t06-i1", "stem": "", "options": ["I am studying English now.", "I am study English now.", "I studying English now."], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "am + -ing: I am studying.", "hy": "am + -ing: I am studying։", "ru": "am + -ing: I am studying." },
+            "byOption": { "1": { "p": "adapted", "en": "After am we need -ing: studying.", "hy": "am-ից հետո անհրաժեշտ է -ing։", "ru": "После am нужно -ing." }, "2": { "p": "adapted", "en": "The helping verb am is missing.", "hy": "am օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол am." } } } },
+        { "id": "t06-i2", "stem": "", "options": ["They are playing football.", "They are play football.", "They playing football."], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "are + -ing: playing.", "hy": "are + -ing: playing։", "ru": "are + -ing: playing." },
+            "byOption": { "1": { "p": "adapted", "en": "After are we need -ing.", "hy": "are-ից հետո անհրաժեշտ է -ing։", "ru": "После are нужно -ing." }, "2": { "p": "adapted", "en": "The helping verb are is missing.", "hy": "are օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол are." } } } },
+        { "id": "t06-i3", "stem": "", "options": ["She isn't sleeping.", "She doesn't sleeping.", "She not sleeping."], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "Negative: isn't + -ing.", "hy": "Ժխտական՝ isn't + -ing։", "ru": "Отрицание: isn't + -ing." },
+            "byOption": { "1": { "p": "adapted", "en": "In the present continuous the negative is isn't, not doesn't.", "hy": "Present continuous-ի ժխտականը isn't է, ոչ թե doesn't։", "ru": "В present continuous отрицание — isn't, а не doesn't." }, "2": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." } } } },
+        { "id": "t06-i4", "stem": "", "options": ["It is snowing.", "It is snow.", "It snowing."], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "is + -ing: snowing.", "hy": "is + -ing: snowing։", "ru": "is + -ing: snowing." },
+            "byOption": { "1": { "p": "adapted", "en": "After is we need -ing.", "hy": "is-ից հետո անհրաժեշտ է -ing։", "ru": "После is нужно -ing." }, "2": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." } } } },
+        { "id": "t06-i5", "stem": "", "options": ["He is making a cake.", "He is makeing a cake.", "He making a cake."], "correctIndex": 0,
+          "feedback": { "correct": { "p": "adapted", "en": "make → making (the e goes) + is.", "hy": "make → making (e-ն ընկնում է) + is։", "ru": "make → making (e опускается) + is." },
+            "byOption": { "1": { "p": "adapted", "en": "The e goes: making.", "hy": "e-ն ընկնում է՝ making։", "ru": "e опускается: making." }, "2": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." } } } }
+      ]
+    },
+    {
+      "id": "t07", "type": "fix", "order": 10, "difficulty": 4, "cardIds": ["c01", "c03"],
+      "instructions": { "hy": "Գտեք սխալը և ճիշտ գրեք նախադասությունը։", "ru": "Найдите ошибку и исправьте предложение." },
+      "source": {
+        "en": "Find the mistake and write the sentence correctly.", "hy": "Գտեք սխալը և ճիշտ գրեք նախադասությունը։",
+        "items": [
+          { "s": "I'm study English now.", "a": ["I'm studying English now.", "I am studying English now."], "why": "After am we need the -ing form: studying." },
+          { "s": "She wearing a hat.", "a": ["She's wearing a hat.", "She is wearing a hat."], "why": "The helping verb is is missing: She is wearing." },
+          { "s": "They are runing in the park.", "a": ["They are running in the park."], "why": "run → running: double the n." },
+          { "s": "He is siting on the floor.", "a": ["He is sitting on the floor.", "He's sitting on the floor."], "why": "sit → sitting: double the t." },
+          { "s": "We not are listening.", "a": ["We aren't listening.", "We are not listening.", "We're not listening."], "why": "Not comes after are: We are not / aren't listening." }
+        ]
+      },
+      "items": [
+        { "id": "t07-i1", "stem": "I'm work now.", "accepted": ["I'm working now.", "I am working now."],
+          "feedback": { "correct": { "p": "adapted", "en": "After am we need -ing: working.", "hy": "am-ից հետո անհրաժեշտ է -ing։", "ru": "После am нужно -ing." } } },
+        { "id": "t07-i2", "stem": "She wearing a blue dress.", "accepted": ["She's wearing a blue dress.", "She is wearing a blue dress."],
+          "feedback": { "correct": { "p": "adapted", "en": "The helping verb is is missing.", "hy": "is օժանդակ բայը բացակայում է։", "ru": "Пропущен вспомогательный глагол is." } } },
+        { "id": "t07-i3", "stem": "They are swiming.", "accepted": ["They are swimming."],
+          "feedback": { "correct": { "p": "adapted", "en": "Swim → swimming: double the m.", "hy": "Swim → swimming՝ կրկնվում է m-ը։", "ru": "Swim → swimming: удваивается m." } } },
+        { "id": "t07-i4", "stem": "He is makeing dinner.", "accepted": ["He is making dinner.", "He's making dinner."],
+          "feedback": { "correct": { "p": "adapted", "en": "Make → making: the e goes.", "hy": "Make → making՝ e-ն ընկնում է։", "ru": "Make → making: e опускается." } } },
+        { "id": "t07-i5", "stem": "We not are watching TV.", "accepted": ["We aren't watching TV.", "We are not watching TV.", "We're not watching TV."],
+          "feedback": { "correct": { "p": "adapted", "en": "Not comes after are: We aren't / We are not.", "hy": "Not-ը դրվում է are-ից հետո։", "ru": "Not ставится после are." } } }
+      ]
+    },
+    {
+      "id": "t08", "type": "write", "order": 11, "difficulty": 4, "cardIds": ["c01"],
+      "instructions": { "hy": "Գրեք նախադասություններ present continuous-ով։ (+) = հաստատական, (−) = ժխտական։", "ru": "Напишите предложения в present continuous. (+) = утверждение, (−) = отрицание." },
+      "source": {
+        "en": "Write sentences. (+) = positive, (−) = negative.", "hy": "Գրեք նախադասություններ present continuous-ով։ (+) = հաստատական, (−) = ժխտական։",
+        "items": [
+          { "p": "<b>(+)</b> I / learn / English", "a": ["I'm learning English.", "I am learning English."], "why": "I + am + learning." },
+          { "p": "<b>(−)</b> it / snow", "a": ["It isn't snowing.", "It's not snowing.", "It is not snowing."], "why": "It + isn't + snowing." },
+          { "p": "<b>(+)</b> the sun / shine", "a": ["The sun is shining.", "The sun's shining."], "why": "The sun = it → is + shining (shine → shining, the e goes)." },
+          { "p": "<b>(−)</b> they / play / football", "a": ["They aren't playing football.", "They're not playing football.", "They are not playing football."], "why": "They + aren't + playing." },
+          { "p": "<b>(+)</b> my sister / have / a shower", "a": ["My sister is having a shower.", "My sister's having a shower."], "why": "My sister = she → is + having (have → having, the e goes)." }
+        ]
+      },
+      "items": [
+        { "id": "t08-i1", "prompt": "(+) I / read / a book", "accepted": ["I'm reading a book.", "I am reading a book."],
+          "feedback": { "correct": { "p": "adapted", "en": "I + am + reading.", "hy": "I + am + reading։", "ru": "I + am + reading." } } },
+        { "id": "t08-i2", "prompt": "(−) it / rain", "accepted": ["It isn't raining.", "It's not raining.", "It is not raining."],
+          "feedback": { "correct": { "p": "adapted", "en": "It + isn't + raining.", "hy": "It + isn't + raining։", "ru": "It + isn't + raining." } } },
+        { "id": "t08-i3", "prompt": "(+) the baby / sleep", "accepted": ["The baby is sleeping.", "The baby's sleeping."],
+          "feedback": { "correct": { "p": "adapted", "en": "The baby = it → is + sleeping.", "hy": "The baby = it → is + sleeping։", "ru": "The baby = it → is + sleeping." } } },
+        { "id": "t08-i4", "prompt": "(−) we / watch / TV", "accepted": ["We aren't watching TV.", "We're not watching TV.", "We are not watching TV."],
+          "feedback": { "correct": { "p": "adapted", "en": "We + aren't + watching.", "hy": "We + aren't + watching։", "ru": "We + aren't + watching." } } },
+        { "id": "t08-i5", "prompt": "(+) my father / cook / dinner", "accepted": ["My father is cooking dinner.", "My father's cooking dinner."],
+          "feedback": { "correct": { "p": "adapted", "en": "My father = he → is + cooking.", "hy": "My father = he → is + cooking։", "ru": "My father = he → is + cooking." } } }
+      ]
+    },
+    {
+      "id": "t09", "type": "gap", "order": 12, "difficulty": 4, "cardIds": ["c01"],
+      "instructions": { "hy": "Լրացրեք նախադասությունները։ Հաստատակա՞ն, թե՞ ժխտական։ Ուշադիր կարդացեք։", "ru": "Дополните предложения. Утвердительные или отрицательные? Читайте внимательно." },
+      "source": {
+        "en": "Complete the sentences. Positive or negative? Read carefully.", "hy": "Լրացրեք նախադասությունները։ Հաստատակա՞ն, թե՞ ժխտական։ Ուշադիր կարդացեք։",
+        "items": [
+          { "s": "You can turn off the TV. I ___ (watch) it.", "a": ["'m not watching", "am not watching"], "why": "You can turn off the TV, so I am not watching it: negative.", "t": { "'m watching": "If you are watching, nobody turns off the TV. Here it is negative: I'm not watching it.", "am watching": "If you are watching, nobody turns off the TV. Here it is negative: I'm not watching it." } },
+          { "s": "Take an umbrella. It ___ (rain).", "a": ["'s raining", "is raining"], "why": "We take an umbrella because it is raining: positive.", "t": { "isn't raining": "If it isn't raining, we don't need an umbrella. Positive: it's raining." } },
+          { "s": "The weather is nice. It ___ (rain).", "a": ["isn't raining", "'s not raining", "is not raining"], "why": "The weather is nice, so it is not raining: negative.", "t": { "'s raining": "Nice weather and rain don't go together. Negative: it isn't raining.", "is raining": "Nice weather and rain don't go together. Negative: it isn't raining." } },
+          { "s": "(on the phone) We ___ (have) dinner now. Can I call you later?", "a": ["'re having", "are having"], "why": "They are busy with dinner now, so: positive, we're having dinner." },
+          { "s": "Mark is in bed, but he ___ (sleep). He's reading.", "a": ["isn't sleeping", "'s not sleeping", "is not sleeping"], "why": "He's reading, so he is not sleeping: negative.", "t": { "'s sleeping": "He's reading, so he can't be sleeping. Negative: isn't sleeping." } }
+        ]
+      },
+      "items": [
+        { "id": "t09-i1", "stem": "You can close the window. I ___ (feel) cold.", "accepted": ["'m not feeling", "am not feeling"],
+          "feedback": { "correct": { "p": "adapted", "en": "If you feel cold, you don't close the window. Negative: I'm not feeling cold.", "hy": "Եթե ցուրտ է, պատուհանը չես փակում։ Ժխտական։", "ru": "Если холодно, окно не закрывают. Отрицание." } } },
+        { "id": "t09-i2", "stem": "Put on your coat. It ___ (snow).", "accepted": ["'s snowing", "is snowing"],
+          "feedback": { "correct": { "p": "adapted", "en": "We put on a coat because it is snowing: positive.", "hy": "Վերարկու ենք հագնում, որովհետև ձյուն է գալիս։", "ru": "Надеваем пальто, потому что идет снег." } } },
+        { "id": "t09-i3", "stem": "The sun is shining. It ___ (rain).", "accepted": ["isn't raining", "'s not raining", "is not raining"],
+          "feedback": { "correct": { "p": "adapted", "en": "Sun and rain don't go together. Negative: it isn't raining.", "hy": "Արև և անձրև չեն լինում միասին։", "ru": "Солнце и дождь не бывают вместе." } } },
+        { "id": "t09-i4", "stem": "Shh! The baby ___ (sleep).", "accepted": ["'s sleeping", "is sleeping"],
+          "feedback": { "correct": { "p": "adapted", "en": "Shh! means it is happening now: positive.", "hy": "Շշշի՜ նշանակում է, որ դա տեղի է ունենում հիմա։", "ru": "Шшш! значит, это происходит сейчас." } } },
+        { "id": "t09-i5", "stem": "Tom is awake, but he ___ (work). He's playing games.", "accepted": ["isn't working", "'s not working", "is not working"],
+          "feedback": { "correct": { "p": "adapted", "en": "He's playing games, so he isn't working: negative.", "hy": "Նա խաղեր է խաղում, ուստի չի աշխատում։", "ru": "Он играет в игры, значит, не работает." } } }
+      ]
+    },
+    {
+      "id": "t10", "type": "gap", "order": 13, "difficulty": 5, "cardIds": ["c01"],
+      "instructions": { "hy": "Կարդացեք Անիի տանը կիրակի օրվա մասին։ Լրացրեք նախադասությունները։", "ru": "Прочитайте о воскресном дне в доме Ани. Дополните предложения." },
+      "source": {
+        "en": "Read about Sunday at Ani's house. Complete the sentences.", "hy": "Կարդացեք Անիի տանը կիրակի օրվա մասին։ Լրացրեք նախադասությունները։",
+        "items": [
+          { "s": "It's Sunday, so Ani ___ (not / work) today.", "a": ["isn't working", "'s not working", "is not working"], "why": "Ani = she → isn't working." },
+          { "s": "She ___ (sit) in the garden with her grandmother.", "a": ["'s sitting", "is sitting"], "why": "She → is sitting (double t)." },
+          { "s": "Her brothers ___ (play) football near the house.", "a": ["are playing", "'re playing"], "why": "Her brothers = they → are playing.", "t": { "is playing": "Her brothers are two or more people = they, so: are playing." } },
+          { "s": "Her mother ___ (make) dolma in the kitchen.", "a": ["'s making", "is making"], "why": "Her mother = she → is making (the e goes)." },
+          { "s": "Her father ___ (not / watch) TV. He's sleeping on the sofa.", "a": ["isn't watching", "'s not watching", "is not watching"], "why": "He's sleeping, so he isn't watching TV." }
+        ]
+      },
+      "items": [
+        { "id": "t10-i1", "stem": "It's Sunday, so Narek ___ (not / study) today.", "accepted": ["isn't studying", "'s not studying", "is not studying"],
+          "feedback": { "correct": { "p": "adapted", "en": "Narek = he → isn't studying.", "hy": "Narek = he → isn't studying։", "ru": "Narek = he → isn't studying." } } },
+        { "id": "t10-i2", "stem": "He ___ (read) a book in his room.", "accepted": ["'s reading", "is reading"],
+          "feedback": { "correct": { "p": "adapted", "en": "He → is reading.", "hy": "He → is reading։", "ru": "He → is reading." } } },
+        { "id": "t10-i3", "stem": "His sisters ___ (dance) in the living room.", "accepted": ["are dancing", "'re dancing"],
+          "feedback": { "correct": { "p": "adapted", "en": "Sisters = they → are dancing.", "hy": "Sisters = they → are dancing։", "ru": "Sisters = they → are dancing." },
+            "targeted": { "is dancing": { "p": "adapted", "en": "Sisters are plural: are dancing.", "hy": "Sisters-ը հոգնակի է՝ are dancing։", "ru": "Sisters — мн. ч.: are dancing." } } } },
+        { "id": "t10-i4", "stem": "His grandmother ___ (cook) khorovats in the garden.", "accepted": ["'s cooking", "is cooking"],
+          "feedback": { "correct": { "p": "adapted", "en": "Grandmother = she → is cooking.", "hy": "Grandmother = she → is cooking։", "ru": "Grandmother = she → is cooking." } } },
+        { "id": "t10-i5", "stem": "His grandfather ___ (not / work). He's resting.", "accepted": ["isn't working", "'s not working", "is not working"],
+          "feedback": { "correct": { "p": "adapted", "en": "He's resting, so he isn't working.", "hy": "Նա հանգստանում է, ուստի չի աշխատում։", "ru": "Он отдыхает, значит, не работает." } } }
+      ]
+    }
+  ],
+
+  "reviewCards": [
+    { "id": "r01", "type": "recall", "prompt": { "hy": "Ի՞նչ բանաձևով է կազմվում present continuous-ը։", "ru": "По какой формуле образуется present continuous?" }, "answer": "am / is / are + verb-ing" },
+    { "id": "r02", "type": "cloze", "prompt": { "hy": "Լրացրու՝ She ___ (read) a book now.", "ru": "Вставь: She ___ (read) a book now." }, "answer": "is reading" },
+    { "id": "r03", "type": "produce", "prompt": { "hy": "Գրիր run բայի -ing ձևը։", "ru": "Напиши форму глагола run с -ing." }, "answer": "running" },
+    { "id": "r04", "type": "recall", "prompt": { "hy": "Ինչո՞ւ է «I am work» սխալ։", "ru": "Почему «I am work» неправильно?" }, "answer": "After am we need -ing: I am working." },
+    { "id": "r05", "type": "cloze", "prompt": { "hy": "Լրացրու՝ They ___ (not / play) now.", "ru": "Вставь: They ___ (not / play) now." }, "answer": "aren't playing" },
+    { "id": "r06", "type": "produce", "prompt": { "hy": "Գրիր lie բայի -ing ձևը։", "ru": "Напиши форму глагола lie с -ing." }, "answer": "lying" }
+  ],
+
+  "sourceMetadata": {
+    "file": "grammer.txt",
+    "locator": "gpUnit('elem', 3, {…})",
+    "bookId": "elem", "unitNumber": 3,
+    "sourceTitle": "I am doing (present continuous)",
+    "sourceSection": { "en": "Present", "hy": "Ներկա" },
+    "sourceAbout": {
+      "en": "The <b>present continuous</b> (<i>I am doing</i>): something is happening now. <i>She's eating. It isn't raining.</i>",
+      "hy": "<b>Present continuous</b> (<i>I am doing</i>)՝ գործողությունը կատարվում է հիմա։ <i>She's eating. It isn't raining.</i>"
+    },
+    "verifiedCounts": {
+      "tasks": 13, "items": 65,
+      "buildTasks": 3, "buildItems": 15,
+      "mainTasks": 10, "mainItems": 50,
+      "exactTasks": [2], "exTasks": [2],
+      "irr": false, "build": true
+    },
+    "taskMap": "bt01-bt03 (build) + t01-t10 (main) ↔ source tasks",
+    "renamedEntities": { "Paul": "Marek", "Kate": "Lilit", "Jane": "Sona", "Joe": "Davit", "George": "Tom", "Canada": "Paris", "Spain": "Italy", "London": "Moscow", "Italy": "Dilijan", "American/Australian": "Spanish/Italian", "forty euros": "sixty euros", "24": "7", "30": "27", "Ani": "Narek" },
+    "excluded": ["GP_KNOWN word list", "site UI code"]
+  },
+
+  "needsReview": true,
+  "reviewScope": [
+    "explanation.ru",
+    "exercises[].instructions.ru (13)",
+    "all feedback.*.hy (74)",
+    "all feedback.*.ru (74)",
+    "feedback objects with p = new (12 English strings)",
+    "learningObjectives, rules, examples, commonErrors, cards, reviewCards (hy + ru)"
+  ],
+  "reviewReason": [
+    "All ru strings and all hy feedback strings are newly authored translations; native-speaker review required.",
+    "12 pick distractor feedback slots had no English source in this lesson; English composed from scratch.",
+    "Build tasks (bt01-bt03) follow the source structure exactly.",
+    "Screenshots not received; layout mapping provisional."
+  ]
+}
+]

@@ -1,7 +1,7 @@
 ================================================================================
 📁 ՄՎՊ ԿԱՌՈՒՑՎԱԾՔԻ ՔԱՐՏԵԶ
 🗂️  Պրոեկտ: C:\Users\Armen\Documents\NurLingo\NURLingo-main\Nur_Lingo_online_demo_V1\src
-📅 Սկանավորված: 2026-11-10 02:05:27
+📅 Սկանավորված: 2026-11-17 23:15:41
 ================================================================================
 
 📂 src/ (ROOT)
@@ -10,6 +10,8 @@
         📄 globals.css [.css] (41.7 KB)
         📄 layout.tsx [.tsx] (6.5 KB)
         📄 page.tsx [.tsx] (36.5 KB)
+        📂 3d-galaxy/
+            📄 page.tsx [.tsx] (2.8 KB)
         📂 admin/
             📂 audio/
                 📄 page.tsx [.tsx] (12.7 KB)
@@ -66,15 +68,21 @@
         📂 garden/
             📄 page.tsx [.tsx] (47.3 KB)
         📂 learn/
-            📄 page.tsx [.tsx] (80.2 KB)
+            📄 page.tsx [.tsx] (90.9 KB)
+            📂 alphabet/
+                📄 page.tsx [.tsx] (20.1 KB)
         📂 onboarding/
             📄 page.tsx [.tsx] (12.7 KB)
+        📂 reading/
+            📄 page.tsx [.tsx] (24.5 KB)
         📂 user-dictionary/
             📄 page.tsx [.tsx] (61.8 KB)
+        📂 visual-lessons/
+            📄 page.tsx [.tsx] (19.5 KB)
         📂 vocab-audio/
             📄 page.tsx [.tsx] (56.6 KB)
         📂 world/
-            📄 page.tsx [.tsx] (26.8 KB)
+            📄 page.tsx [.tsx] (30.6 KB)
             📂 qaghaqpashtpanutyun/
                 📄 page.tsx [.tsx] (4.7 KB)
                 📂 [lessonId]/
@@ -105,6 +113,10 @@
         📄 TrilingualLesson.tsx [.tsx] (13.9 KB)
         📄 UserRecordingButton.tsx [.tsx] (10.8 KB)
         📄 theme-provider.tsx [.tsx] (5.6 KB)
+        📂 3d/
+            📄 GalaxyScene.tsx [.tsx] (3.0 KB)
+            📄 Planet.tsx [.tsx] (2.9 KB)
+            📄 PomegranateSeed.tsx [.tsx] (2.3 KB)
         📂 drive-test/
             📄 QuestionCard.tsx [.tsx] (33.7 KB)
         📂 Newsletter/
@@ -187,6 +199,7 @@
             📂 ai-tutor/
                 📄 route.ts [.ts] (907 B)
         📂 content/
+            📄 alphabets.ts [.ts] (30.5 KB)
             📄 audio-ids.ts [.ts] (31.9 KB)
             📄 audio-index.ts [.ts] (2.0 KB)
             📄 audio-mapping.ts [.ts] (924.5 KB)
@@ -194,9 +207,17 @@
             📄 exercise-to-audio.json [.json] (136.2 KB)
             📄 fix-database.js [.js] (2.1 KB)
             📄 generator.ts [.ts] (24.3 KB)
+            📄 grammer-en.json [.json] (142.8 KB)
             📄 index.ts [.ts] (96 B)
             📄 numbers.ts [.ts] (970 B)
+            📄 reading-texts-A1.ts [.ts] (79.2 KB)
+            📄 reading-texts-A2.ts [.ts] (143.7 KB)
+            📄 reading-texts-B1.ts [.ts] (36.4 KB)
+            📄 reading-texts-B2.ts [.ts] (412 B)
+            📄 reading-texts.ts [.ts] (3.2 KB)
+            📄 reading-types.ts [.ts] (977 B)
             📄 types.ts [.ts] (7.0 KB)
+            📄 visual-lessons.ts [.ts] (19.2 KB)
             📄 vocab-audio-mapping.ts [.ts] (85.8 KB)
             📄 worlds.ts [.ts] (7.4 KB)
             📂 builders/
@@ -246,6 +267,7 @@
             📄 translations.json [.json] (187.1 KB)
         📂 lessons/
             📄 engine.ts [.ts] (22.4 KB)
+            📄 session-tracker.ts [.ts] (3.1 KB)
             📄 session.ts [.ts] (11.5 KB)
         📂 lexicon/
             📄 dictionary.ts [.ts] (42.6 KB)
@@ -283,8 +305,8 @@
 ================================================================================
 📊 ՍՏԱՏԻՍՏԻԿԱ
 ================================================================================
-📁 Պանակներ: 67
-📄 Ֆայլեր: 208
+📁 Պանակներ: 72
+📄 Ֆայլեր: 225
 📍 Ճանապարհ: C:\Users\Armen\Documents\NurLingo\NURLingo-main\Nur_Lingo_online_demo_V1\src
 
 ================================================================================
@@ -294,6 +316,7 @@
   • app\globals.css (41.7 KB)
   • app\layout.tsx (6.5 KB)
   • app\page.tsx (36.5 KB)
+  • app\3d-galaxy\page.tsx (2.8 KB)
   • app\admin\audio\page.tsx (12.7 KB)
   • app\admin\dictionary\page.tsx (31.0 KB)
   • app\api\check-answer\route.ts (2.2 KB)
@@ -321,11 +344,14 @@
   • app\drive-test\[testNum]\LoadingFallback.tsx (415 B)
   • app\drive-test\[testNum]\page.tsx (716 B)
   • app\garden\page.tsx (47.3 KB)
-  • app\learn\page.tsx (80.2 KB)
+  • app\learn\page.tsx (90.9 KB)
+  • app\learn\alphabet\page.tsx (20.1 KB)
   • app\onboarding\page.tsx (12.7 KB)
+  • app\reading\page.tsx (24.5 KB)
   • app\user-dictionary\page.tsx (61.8 KB)
+  • app\visual-lessons\page.tsx (19.5 KB)
   • app\vocab-audio\page.tsx (56.6 KB)
-  • app\world\page.tsx (26.8 KB)
+  • app\world\page.tsx (30.6 KB)
   • app\world\qaghaqpashtpanutyun\page.tsx (4.7 KB)
   • app\world\qaghaqpashtpanutyun\[lessonId]\page.tsx (10.6 KB)
   • components\AudioControls.tsx (10.8 KB)
@@ -353,6 +379,9 @@
   • components\TrilingualLesson.tsx (13.9 KB)
   • components\UserRecordingButton.tsx (10.8 KB)
   • components\theme-provider.tsx (5.6 KB)
+  • components\3d\GalaxyScene.tsx (3.0 KB)
+  • components\3d\Planet.tsx (2.9 KB)
+  • components\3d\PomegranateSeed.tsx (2.3 KB)
   • components\drive-test\QuestionCard.tsx (33.7 KB)
   • components\Newsletter\NewsletterError.tsx (274 B)
   • components\Newsletter\NewsletterForm.tsx (2.9 KB)
@@ -424,6 +453,7 @@
   • lib\audio\index.ts (694 B)
   • lib\audio\wavCache.ts (4.7 KB)
   • lib\audio\ai-tutor\route.ts (907 B)
+  • lib\content\alphabets.ts (30.5 KB)
   • lib\content\audio-ids.ts (31.9 KB)
   • lib\content\audio-index.ts (2.0 KB)
   • lib\content\audio-mapping.ts (924.5 KB)
@@ -431,9 +461,17 @@
   • lib\content\exercise-to-audio.json (136.2 KB)
   • lib\content\fix-database.js (2.1 KB)
   • lib\content\generator.ts (24.3 KB)
+  • lib\content\grammer-en.json (142.8 KB)
   • lib\content\index.ts (96 B)
   • lib\content\numbers.ts (970 B)
+  • lib\content\reading-texts-A1.ts (79.2 KB)
+  • lib\content\reading-texts-A2.ts (143.7 KB)
+  • lib\content\reading-texts-B1.ts (36.4 KB)
+  • lib\content\reading-texts-B2.ts (412 B)
+  • lib\content\reading-texts.ts (3.2 KB)
+  • lib\content\reading-types.ts (977 B)
   • lib\content\types.ts (7.0 KB)
+  • lib\content\visual-lessons.ts (19.2 KB)
   • lib\content\vocab-audio-mapping.ts (85.8 KB)
   • lib\content\worlds.ts (7.4 KB)
   • lib\content\builders\helpers.ts (1.8 KB)
@@ -474,6 +512,7 @@
   • lib\i18n\server.ts (691 B)
   • lib\i18n\translations.json (187.1 KB)
   • lib\lessons\engine.ts (22.4 KB)
+  • lib\lessons\session-tracker.ts (3.1 KB)
   • lib\lessons\session.ts (11.5 KB)
   • lib\lexicon\dictionary.ts (42.6 KB)
   • lib\lexicon\master-dictionary.fixed.json (46.0 KB)

@@ -327,7 +327,7 @@
           "hy": "Գրեք կարճ ձևը։",
           "ru": "Заполните пропуски подходящей формой или словом."
         },
-        "example": "he is → <b>he's</b>",
+        "example": "he is → he's",
         "box": [],
         "options": [],
         "items": [
@@ -790,7 +790,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Erik is at work. <b>(−)</b>",
+            "prompt": "Erik is at work. (−)",
             "accepted": [
               "Erik isn't at work.",
               "Erik is not at work.",
@@ -806,7 +806,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "We aren't late. <b>(+)</b>",
+            "prompt": "We aren't late. (+)",
             "accepted": [
               "We're late.",
               "We are late."
@@ -821,7 +821,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I'm cold. <b>(−)</b>",
+            "prompt": "I'm cold. (−)",
             "accepted": [
               "I'm not cold.",
               "I am not cold."
@@ -836,7 +836,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Your keys are on the table. <b>(−)</b>",
+            "prompt": "Your keys are on the table. (−)",
             "accepted": [
               "Your keys aren't on the table.",
               "Your keys are not on the table."
@@ -851,7 +851,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "It isn't windy today. <b>(+)</b>",
+            "prompt": "It isn't windy today. (+)",
             "accepted": [
               "It's windy today.",
               "It is windy today."
@@ -877,7 +877,7 @@
           "hy": "Գրեք նախադասություններ։ (+) = հաստատական, (−) = ժխտական։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "<b>(+)</b> it / hot today → <b>It's hot today.</b>",
+        "example": "(+) it / hot today → It's hot today.",
         "box": [],
         "options": [],
         "items": [
@@ -889,7 +889,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>(−)</b> diamonds / cheap",
+            "prompt": "(−) diamonds / cheap",
             "accepted": [
               "Diamonds aren't cheap.",
               "Diamonds are not cheap."
@@ -904,7 +904,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>(+)</b> Tbilisi / the capital of Georgia",
+            "prompt": "(+) Tbilisi / the capital of Georgia",
             "accepted": [
               "Tbilisi is the capital of Georgia."
             ],
@@ -918,7 +918,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>(−)</b> Sydney / in the Seychelles",
+            "prompt": "(−) Sydney / in the Seychelles",
             "accepted": [
               "Sydney isn't in the Seychelles.",
               "Sydney is not in the Seychelles.",
@@ -934,7 +934,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>(+)</b> my hands / cold",
+            "prompt": "(+) my hands / cold",
             "accepted": [
               "My hands are cold."
             ],
@@ -948,7 +948,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>(−)</b> I / interested in football",
+            "prompt": "(−) I / interested in football",
             "accepted": [
               "I'm not interested in football.",
               "I am not interested in football."
@@ -2541,10 +2541,10 @@
           "en": "Write short answers.",
           "hy": "Գրեք կարճ պատասխաններ։",
           "exact": true,
-          "ex": "Are you thirsty? <b>(Yes)</b> → <b>Yes, I am.</b>",
+          "ex": "Are you thirsty? (Yes) → Yes, I am.",
           "items": [
             {
-              "p": "Are you married? <b>(No)</b>",
+              "p": "Are you married? (No)",
               "a": [
                 "No, I'm not.",
                 "No, I am not."
@@ -2552,7 +2552,7 @@
               "why": "With I: No, I'm not."
             },
             {
-              "p": "Is it dark now? <b>(Yes)</b>",
+              "p": "Is it dark now? (Yes)",
               "a": [
                 "Yes, it is."
               ],
@@ -2562,7 +2562,7 @@
               }
             },
             {
-              "p": "Are your hands cold? <b>(No)</b>",
+              "p": "Are your hands cold? (No)",
               "a": [
                 "No, they aren't.",
                 "No, they're not.",
@@ -2571,7 +2571,7 @@
               "why": "Your hands = they: No, they aren't."
             },
             {
-              "p": "Is your sister a teacher? <b>(Yes)</b>",
+              "p": "Is your sister a teacher? (Yes)",
               "a": [
                 "Yes, she is."
               ],
@@ -2581,7 +2581,7 @@
               }
             },
             {
-              "p": "Am I late? <b>(No)</b>",
+              "p": "Am I late? (No)",
               "a": [
                 "No, you aren't.",
                 "No, you're not.",
@@ -3312,7 +3312,7 @@
           "hy": "Փոլը երեկույթում հանդիպում է Աննային։ Գրեք Աննայի հարցերը։",
           "items": [
             {
-              "p": "Violeta: ______ ? &nbsp; Niko: My name's Niko.",
+              "p": "Violeta: ______ ?   Niko: My name's Niko.",
               "a": [
                 "What's your name?",
                 "What is your name?"
@@ -3320,28 +3320,28 @@
               "why": "We ask about a name with What: What's your name?"
             },
             {
-              "p": "Violeta: ______ ? &nbsp; Niko: No, I'm not Swedish. I'm Brazilian.",
+              "p": "Violeta: ______ ?   Niko: No, I'm not Swedish. I'm Brazilian.",
               "a": [
                 "Are you Swedish?"
               ],
               "why": "A yes/no question: Are you Swedish?"
             },
             {
-              "p": "Violeta: ______ ? &nbsp; Niko: I'm 30.",
+              "p": "Violeta: ______ ?   Niko: I'm 30.",
               "a": [
                 "How old are you?"
               ],
               "why": "We ask about age with How old: How old are you?"
             },
             {
-              "p": "Violeta: ______ ? &nbsp; Niko: Yes, I am. My wife is over there.",
+              "p": "Violeta: ______ ?   Niko: Yes, I am. My wife is over there.",
               "a": [
                 "Are you married?"
               ],
               "why": "Niko answers Yes, I am and talks about his wife, so: Are you married?"
             },
             {
-              "p": "Violeta: ______ ? &nbsp; Niko: She's from Portugal.",
+              "p": "Violeta: ______ ?   Niko: She's from Portugal.",
               "a": [
                 "Where is your wife from?",
                 "Where's your wife from?",
@@ -4722,7 +4722,7 @@
           "ru": "Посмотрите, что делает Джейн. Напишите She's ... или She isn't ..."
         },
         "example": {
-          "targetText": "(drink coffee) ✓ → <b>She's drinking coffee.</b>"
+          "targetText": "(drink coffee) ✓ → She's drinking coffee."
         },
         "source": {
           "en": "Look at what Mila is doing. Write She's ... or She isn't ... .",
@@ -5459,7 +5459,7 @@
           "hy": "Գրեք նախադասություններ present continuous-ով։ (+) = հաստատական, (−) = ժխտական։",
           "items": [
             {
-              "p": "<b>(+)</b> I / learn / English",
+              "p": "(+) I / learn / English",
               "a": [
                 "I'm learning English.",
                 "I am learning English."
@@ -5467,7 +5467,7 @@
               "why": "I + am + learning."
             },
             {
-              "p": "<b>(−)</b> it / snow",
+              "p": "(−) it / snow",
               "a": [
                 "It isn't snowing.",
                 "It's not snowing.",
@@ -5476,7 +5476,7 @@
               "why": "It + isn't + snowing."
             },
             {
-              "p": "<b>(+)</b> the sun / shine",
+              "p": "(+) the sun / shine",
               "a": [
                 "The sun is shining.",
                 "The sun's shining."
@@ -5484,7 +5484,7 @@
               "why": "The sun = it → is + shining (shine → shining, the e goes)."
             },
             {
-              "p": "<b>(−)</b> they / play / football",
+              "p": "(−) they / play / football",
               "a": [
                 "They aren't playing football.",
                 "They're not playing football.",
@@ -5493,7 +5493,7 @@
               "why": "They + aren't + playing."
             },
             {
-              "p": "<b>(+)</b> my sister / have / a shower",
+              "p": "(+) my sister / have / a shower",
               "a": [
                 "My sister is having a shower.",
                 "My sister's having a shower."
@@ -6681,7 +6681,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Are you watching TV? <b>(No)</b>",
+            "prompt": "Are you watching TV? (No)",
             "accepted": [
               "No, I'm not.",
               "No, I am not."
@@ -6706,7 +6706,7 @@
                 }
               }
             },
-            "prompt": "Is it snowing? <b>(Yes)</b>",
+            "prompt": "Is it snowing? (Yes)",
             "accepted": [
               "Yes, it is."
             ],
@@ -6726,7 +6726,7 @@
                 }
               }
             },
-            "prompt": "Are the children sleeping? <b>(Yes)</b>",
+            "prompt": "Are the children sleeping? (Yes)",
             "accepted": [
               "Yes, they are."
             ],
@@ -6740,7 +6740,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Is your sister working today? <b>(No)</b>",
+            "prompt": "Is your sister working today? (No)",
             "accepted": [
               "No, she isn't.",
               "No, she's not.",
@@ -6762,7 +6762,7 @@
                 }
               }
             },
-            "prompt": "Are you learning English? <b>(Yes)</b>",
+            "prompt": "Are you learning English? (Yes)",
             "accepted": [
               "Yes, I am."
             ],
@@ -7157,7 +7157,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She's reading <b>a book</b>. (What ... ?)",
+            "prompt": "She's reading a book. (What ... ?)",
             "accepted": [
               "What is she reading?",
               "What's she reading?"
@@ -7172,7 +7172,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They're going <b>to the park</b>. (Where ... ?)",
+            "prompt": "They're going to the park. (Where ... ?)",
             "accepted": [
               "Where are they going?"
             ],
@@ -7186,7 +7186,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He's laughing <b>because the film is funny</b>. (Why ... ?)",
+            "prompt": "He's laughing because the film is funny. (Why ... ?)",
             "accepted": [
               "Why is he laughing?"
             ],
@@ -7206,7 +7206,7 @@
                 }
               }
             },
-            "prompt": "I'm waiting for <b>Nara</b>. (Who ... ?)",
+            "prompt": "I'm waiting for Nara. (Who ... ?)",
             "accepted": [
               "Who are you waiting for?"
             ],
@@ -7226,7 +7226,7 @@
                 }
               }
             },
-            "prompt": "We're staying <b>at the Central Hotel</b>. (Where ... ?)",
+            "prompt": "We're staying at the Central Hotel. (Where ... ?)",
             "accepted": [
               "Where are you staying?"
             ],
@@ -7260,7 +7260,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: Hi, Eric! ______ ? (what / you / do) &nbsp; B: I'm cooking dinner.",
+            "prompt": "A: Hi, Eric! ______ ? (what / you / do)   B: I'm cooking dinner.",
             "accepted": [
               "What are you doing?"
             ],
@@ -7274,7 +7274,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (you / cook / pasta) &nbsp; B: No, I'm not. I'm making soup.",
+            "prompt": "A: ______ ? (you / cook / pasta)   B: No, I'm not. I'm making soup.",
             "accepted": [
               "Are you cooking pasta?"
             ],
@@ -7288,7 +7288,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (your sister / help / you) &nbsp; B: Yes, she is.",
+            "prompt": "A: ______ ? (your sister / help / you)   B: Yes, she is.",
             "accepted": [
               "Is your sister helping you?"
             ],
@@ -7302,7 +7302,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (where / your parents / go) &nbsp; B: To the theatre.",
+            "prompt": "A: ______ ? (where / your parents / go)   B: To the theatre.",
             "accepted": [
               "Where are your parents going?"
             ],
@@ -7316,7 +7316,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (why / you / laugh) &nbsp; B: Because my brother is dancing in the kitchen!",
+            "prompt": "A: ______ ? (why / you / laugh)   B: Because my brother is dancing in the kitchen!",
             "accepted": [
               "Why are you laughing?"
             ],
@@ -7782,7 +7782,7 @@
           "hy": "Գրեք նախադասությունը մյուս անձի մասին։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "I work in a bank. (Violeta) → <b>Violeta works in a bank.</b>",
+        "example": "I work in a bank. (Violeta) → Violeta works in a bank.",
         "box": [],
         "options": [],
         "items": [
@@ -9964,7 +9964,7 @@
           "hy": "Գրեք հաստատական և ժխտական մաս՝ but-ով։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "(Laura / drink / tea ✓ / coffee ✗) → <b>Laura drinks tea, but she doesn't drink coffee.</b>",
+        "example": "(Laura / drink / tea ✓ / coffee ✗) → Laura drinks tea, but she doesn't drink coffee.",
         "box": [],
         "options": [],
         "items": [
@@ -11209,7 +11209,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Do you watch TV a lot? <b>(No)</b>",
+            "prompt": "Do you watch TV a lot? (No)",
             "accepted": [
               "No, I don't.",
               "No, I do not."
@@ -11230,7 +11230,7 @@
                 }
               }
             },
-            "prompt": "Does your father cook? <b>(Yes)</b>",
+            "prompt": "Does your father cook? (Yes)",
             "accepted": [
               "Yes, he does."
             ],
@@ -11244,7 +11244,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Do your friends speak Armenian? <b>(Yes)</b>",
+            "prompt": "Do your friends speak Armenian? (Yes)",
             "accepted": [
               "Yes, they do."
             ],
@@ -11258,7 +11258,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Does it snow in Tbilisi in winter? <b>(Yes)</b>",
+            "prompt": "Does it snow in Tbilisi in winter? (Yes)",
             "accepted": [
               "Yes, it does."
             ],
@@ -11282,7 +11282,7 @@
                 }
               }
             },
-            "prompt": "Does Violeta like coffee? <b>(No)</b>",
+            "prompt": "Does Violeta like coffee? (No)",
             "accepted": [
               "No, she doesn't.",
               "No, she does not."
@@ -11658,7 +11658,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Nara lives <b>in Kapan</b>. (Where ... ?)",
+            "prompt": "Nara lives in Kapan. (Where ... ?)",
             "accepted": [
               "Where does Nara live?"
             ],
@@ -11678,7 +11678,7 @@
                 }
               }
             },
-            "prompt": "I get up <b>at seven</b>. (What time ... ?)",
+            "prompt": "I get up at seven. (What time ... ?)",
             "accepted": [
               "What time do you get up?"
             ],
@@ -11692,7 +11692,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They play tennis <b>every Saturday</b>. (How often ... ?)",
+            "prompt": "They play tennis every Saturday. (How often ... ?)",
             "accepted": [
               "How often do they play tennis?"
             ],
@@ -11706,7 +11706,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Aris works <b>in a hotel</b>. (Where ... ?)",
+            "prompt": "Aris works in a hotel. (Where ... ?)",
             "accepted": [
               "Where does Aris work?"
             ],
@@ -11720,7 +11720,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "My grandmother makes <b>gata</b> on Sundays. (What ... ?)",
+            "prompt": "My grandmother makes gata on Sundays. (What ... ?)",
             "accepted": [
               "What does your grandmother make on Sundays?",
               "What does your grandmother make?"
@@ -14075,7 +14075,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(you / a computer?) <b>(Do ... have)</b>",
+            "prompt": "(you / a computer?) (Do ... have)",
             "accepted": [
               "Do you have a computer?"
             ],
@@ -14089,7 +14089,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(your sister / a car?) <b>(Has ... got)</b>",
+            "prompt": "(your sister / a car?) (Has ... got)",
             "accepted": [
               "Has your sister got a car?"
             ],
@@ -14103,7 +14103,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(they / any children?) <b>(Do ... have)</b>",
+            "prompt": "(they / any children?) (Do ... have)",
             "accepted": [
               "Do they have any children?"
             ],
@@ -14123,7 +14123,7 @@
                 }
               }
             },
-            "prompt": "(Leo / a brother?) <b>(Does ... have)</b>",
+            "prompt": "(Leo / a brother?) (Does ... have)",
             "accepted": [
               "Does Leo have a brother?"
             ],
@@ -14137,7 +14137,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(you / a pen?) <b>(Have ... got)</b>",
+            "prompt": "(you / a pen?) (Have ... got)",
             "accepted": [
               "Have you got a pen?"
             ],
@@ -15120,7 +15120,7 @@
                 }
               }
             },
-            "prompt": "Were you late? <b>(No)</b>",
+            "prompt": "Were you late? (No)",
             "accepted": [
               "No, I wasn't.",
               "No, I was not."
@@ -15135,7 +15135,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Was Leo at work yesterday? <b>(Yes)</b>",
+            "prompt": "Was Leo at work yesterday? (Yes)",
             "accepted": [
               "Yes, he was."
             ],
@@ -15149,7 +15149,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Were Laura and Erik at the party? <b>(No)</b>",
+            "prompt": "Were Laura and Erik at the party? (No)",
             "accepted": [
               "No, they weren't.",
               "No, they were not."
@@ -15164,7 +15164,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Was it cold yesterday? <b>(Yes)</b>",
+            "prompt": "Was it cold yesterday? (Yes)",
             "accepted": [
               "Yes, it was."
             ],
@@ -15178,7 +15178,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Were your parents at home? <b>(Yes)</b>",
+            "prompt": "Were your parents at home? (Yes)",
             "accepted": [
               "Yes, they were."
             ],
@@ -15607,7 +15607,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (where / you / last week) &nbsp; B: I was in Tsaghkadzor.",
+            "prompt": "A: ______ ? (where / you / last week)   B: I was in Tsaghkadzor.",
             "accepted": [
               "Where were you last week?"
             ],
@@ -15621,7 +15621,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (the weather / good) &nbsp; B: Yes, it was sunny.",
+            "prompt": "A: ______ ? (the weather / good)   B: Yes, it was sunny.",
             "accepted": [
               "Was the weather good?"
             ],
@@ -15635,7 +15635,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (it / cold) &nbsp; B: No, it wasn't.",
+            "prompt": "A: ______ ? (it / cold)   B: No, it wasn't.",
             "accepted": [
               "Was it cold?"
             ],
@@ -15649,7 +15649,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (who / with you) &nbsp; B: My sister and her husband.",
+            "prompt": "A: ______ ? (who / with you)   B: My sister and her husband.",
             "accepted": [
               "Who was with you?"
             ],
@@ -15663,7 +15663,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "A: ______ ? (how / the hotel) &nbsp; B: It was great.",
+            "prompt": "A: ______ ? (how / the hotel)   B: It was great.",
             "accepted": [
               "How was the hotel?"
             ],
@@ -18514,7 +18514,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Did you see Petros yesterday? <b>(No)</b>",
+            "prompt": "Did you see Petros yesterday? (No)",
             "accepted": [
               "No, I didn't.",
               "No, I did not."
@@ -18535,7 +18535,7 @@
                 }
               }
             },
-            "prompt": "Did it rain on Sunday? <b>(Yes)</b>",
+            "prompt": "Did it rain on Sunday? (Yes)",
             "accepted": [
               "Yes, it did."
             ],
@@ -18549,7 +18549,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Did Zara come to the party? <b>(No)</b>",
+            "prompt": "Did Zara come to the party? (No)",
             "accepted": [
               "No, she didn't.",
               "No, she did not."
@@ -18564,7 +18564,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Did your parents have a good holiday? <b>(Yes)</b>",
+            "prompt": "Did your parents have a good holiday? (Yes)",
             "accepted": [
               "Yes, they did."
             ],
@@ -18578,7 +18578,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Did you sleep well? <b>(Yes)</b>",
+            "prompt": "Did you sleep well? (Yes)",
             "accepted": [
               "Yes, I did."
             ],
@@ -18704,7 +18704,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "We went <b>to Kapan</b>. (Where ... ?)",
+            "prompt": "We went to Kapan. (Where ... ?)",
             "accepted": [
               "Where did you go?"
             ],
@@ -18718,7 +18718,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I got up <b>at 6 o'clock</b>. (What time ... ?)",
+            "prompt": "I got up at 6 o'clock. (What time ... ?)",
             "accepted": [
               "What time did you get up?"
             ],
@@ -18732,7 +18732,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She bought <b>a dress</b>. (What ... ?)",
+            "prompt": "She bought a dress. (What ... ?)",
             "accepted": [
               "What did she buy?"
             ],
@@ -18746,7 +18746,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They left <b>because it was late</b>. (Why ... ?)",
+            "prompt": "They left because it was late. (Why ... ?)",
             "accepted": [
               "Why did they leave?"
             ],
@@ -18760,7 +18760,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He met <b>his old teacher</b> in town. (Who ... ?)",
+            "prompt": "He met his old teacher in town. (Who ... ?)",
             "accepted": [
               "Who did he meet in town?",
               "Who did he meet?"
@@ -19104,7 +19104,7 @@
           "hy": "Կազմեք past continuous-ը։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "he / cook → <b>he was cooking</b>",
+        "example": "he / cook → he was cooking",
         "box": [],
         "options": [],
         "items": [
@@ -19227,7 +19227,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He was watching TV. <b>(−)</b>",
+            "prompt": "He was watching TV. (−)",
             "accepted": [
               "He wasn't watching TV.",
               "He was not watching TV."
@@ -19242,7 +19242,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They were working. <b>(?)</b>",
+            "prompt": "They were working. (?)",
             "accepted": [
               "Were they working?"
             ],
@@ -19256,7 +19256,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I was listening. <b>(−)</b>",
+            "prompt": "I was listening. (−)",
             "accepted": [
               "I wasn't listening.",
               "I was not listening."
@@ -19271,7 +19271,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "It was raining. <b>(?)</b>",
+            "prompt": "It was raining. (?)",
             "accepted": [
               "Was it raining?"
             ],
@@ -19285,7 +19285,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "You were sleeping. <b>(?)</b>",
+            "prompt": "You were sleeping. (?)",
             "accepted": [
               "Were you sleeping?"
             ],
@@ -21269,7 +21269,7 @@
           "hy": "Միացրեք երկու մասերը when-ով։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "(Otto / read) + (his phone / ring) → <b>Otto was reading when his phone rang.</b>",
+        "example": "(Otto / read) + (his phone / ring) → Otto was reading when his phone rang.",
         "box": [],
         "options": [],
         "items": [
@@ -22304,7 +22304,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I have bought her a present. <b>(−)</b>",
+            "prompt": "I have bought her a present. (−)",
             "accepted": [
               "I haven't bought her a present.",
               "I have not bought her a present."
@@ -22319,7 +22319,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "You have finished with the newspaper. <b>(?)</b>",
+            "prompt": "You have finished with the newspaper. (?)",
             "accepted": [
               "Have you finished with the newspaper?"
             ],
@@ -22333,7 +22333,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He has gone home. <b>(−)</b>",
+            "prompt": "He has gone home. (−)",
             "accepted": [
               "He hasn't gone home.",
               "He has not gone home."
@@ -22348,7 +22348,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She has found her keys. <b>(?)</b>",
+            "prompt": "She has found her keys. (?)",
             "accepted": [
               "Has she found her keys?"
             ],
@@ -22362,7 +22362,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They have arrived. <b>(−)</b>",
+            "prompt": "They have arrived. (−)",
             "accepted": [
               "They haven't arrived.",
               "They have not arrived."
@@ -25474,7 +25474,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Have you been to Sweden? <b>(No)</b>",
+            "prompt": "Have you been to Sweden? (No)",
             "accepted": [
               "No, I haven't.",
               "No, I have not.",
@@ -25496,7 +25496,7 @@
                 }
               }
             },
-            "prompt": "Has Ann ever been to Brazil? <b>(Yes)</b>",
+            "prompt": "Has Ann ever been to Brazil? (Yes)",
             "accepted": [
               "Yes, she has."
             ],
@@ -25510,7 +25510,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Have your parents ever visited Manila? <b>(No)</b>",
+            "prompt": "Have your parents ever visited Manila? (No)",
             "accepted": [
               "No, they haven't.",
               "No, they have not."
@@ -25531,7 +25531,7 @@
                 }
               }
             },
-            "prompt": "Have you ever played golf? <b>(Yes)</b>",
+            "prompt": "Have you ever played golf? (Yes)",
             "accepted": [
               "Yes, I have."
             ],
@@ -25545,7 +25545,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Has your brother ever broken his arm? <b>(No)</b>",
+            "prompt": "Has your brother ever broken his arm? (No)",
             "accepted": [
               "No, he hasn't.",
               "No, he has not."
@@ -26476,7 +26476,7 @@
           "hy": "Կազմեք present perfect continuous-ը։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "he / play → <b>he has been playing</b> (or <b>he's been playing</b>)",
+        "example": "he / play → he has been playing (or he's been playing)",
         "box": [],
         "options": [],
         "items": [
@@ -27163,7 +27163,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(it / rain / all day) <b>-ing</b>",
+            "prompt": "(it / rain / all day) -ing",
             "accepted": [
               "It's been raining all day.",
               "It has been raining all day."
@@ -27178,7 +27178,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "(I / learn / English / for two years) <b>-ing</b>",
+            "prompt": "(I / learn / English / for two years) -ing",
             "accepted": [
               "I've been learning English for two years.",
               "I have been learning English for two years."
@@ -31024,7 +31024,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "We were invited to the party. <b>(−)</b>",
+            "prompt": "We were invited to the party. (−)",
             "accepted": [
               "We weren't invited to the party.",
               "We were not invited to the party."
@@ -31039,7 +31039,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "These rooms are cleaned every day. <b>(?)</b>",
+            "prompt": "These rooms are cleaned every day. (?)",
             "accepted": [
               "Are these rooms cleaned every day?"
             ],
@@ -31053,7 +31053,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "The window was broken. <b>(?)</b>",
+            "prompt": "The window was broken. (?)",
             "accepted": [
               "Was the window broken?"
             ],
@@ -31067,7 +31067,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "This car is made in Thailand. <b>(−)</b>",
+            "prompt": "This car is made in Thailand. (−)",
             "accepted": [
               "This car isn't made in Thailand.",
               "This car is not made in Thailand."
@@ -31082,7 +31082,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Anybody was injured in the accident. <b>(?)</b>",
+            "prompt": "Anybody was injured in the accident. (?)",
             "accepted": [
               "Was anybody injured in the accident?"
             ],
@@ -32633,7 +32633,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I have been invited. <b>(−)</b>",
+            "prompt": "I have been invited. (−)",
             "accepted": [
               "I haven't been invited.",
               "I have not been invited."
@@ -32648,7 +32648,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "This shirt has been washed. <b>(?)</b>",
+            "prompt": "This shirt has been washed. (?)",
             "accepted": [
               "Has this shirt been washed?"
             ],
@@ -32662,7 +32662,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "The road is being repaired. <b>(?)</b>",
+            "prompt": "The road is being repaired. (?)",
             "accepted": [
               "Is the road being repaired?"
             ],
@@ -32676,7 +32676,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "The letters have been sent. <b>(?)</b>",
+            "prompt": "The letters have been sent. (?)",
             "accepted": [
               "Have the letters been sent?"
             ],
@@ -32690,7 +32690,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "The match is being played today. <b>(−)</b>",
+            "prompt": "The match is being played today. (−)",
             "accepted": [
               "The match isn't being played today.",
               "The match is not being played today."
@@ -37915,7 +37915,7 @@
           "hy": "Կազմեք going to ձևը։",
           "ru": "Запишите ответ или составьте предложение согласно условию."
         },
-        "example": "he / buy / a car → <b>He's going to buy a car.</b>",
+        "example": "he / buy / a car → He's going to buy a car.",
         "box": [],
         "options": [],
         "items": [
@@ -38025,7 +38025,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I'm going to have breakfast. <b>(−)</b>",
+            "prompt": "I'm going to have breakfast. (−)",
             "accepted": [
               "I'm not going to have breakfast.",
               "I am not going to have breakfast."
@@ -38040,7 +38040,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "You're going to invite Eric. <b>(?)</b>",
+            "prompt": "You're going to invite Eric. (?)",
             "accepted": [
               "Are you going to invite Eric?"
             ],
@@ -38054,7 +38054,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He's going to watch the match. <b>(−)</b>",
+            "prompt": "He's going to watch the match. (−)",
             "accepted": [
               "He isn't going to watch the match.",
               "He's not going to watch the match.",
@@ -38070,7 +38070,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They're going to stay. <b>(?)</b>",
+            "prompt": "They're going to stay. (?)",
             "accepted": [
               "Are they going to stay?"
             ],
@@ -39702,7 +39702,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I'll be here tomorrow. <b>(−)</b>",
+            "prompt": "I'll be here tomorrow. (−)",
             "accepted": [
               "I won't be here tomorrow.",
               "I will not be here tomorrow."
@@ -39717,7 +39717,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "You'll be at home this evening. <b>(?)</b>",
+            "prompt": "You'll be at home this evening. (?)",
             "accepted": [
               "Will you be at home this evening?"
             ],
@@ -39731,7 +39731,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "It will rain this afternoon. <b>(−)</b>",
+            "prompt": "It will rain this afternoon. (−)",
             "accepted": [
               "It won't rain this afternoon.",
               "It will not rain this afternoon."
@@ -39746,7 +39746,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "The exam will be difficult. <b>(?)</b>",
+            "prompt": "The exam will be difficult. (?)",
             "accepted": [
               "Will the exam be difficult?"
             ],
@@ -39760,7 +39760,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She'll come. <b>(−)</b>",
+            "prompt": "She'll come. (−)",
             "accepted": [
               "She won't come.",
               "She will not come."
@@ -62810,7 +62810,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Nara lives <b>in Kapan</b>. (Where ... ?)",
+            "prompt": "Nara lives in Kapan. (Where ... ?)",
             "accepted": [
               "Where does Nara live?"
             ],
@@ -62824,7 +62824,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They're going <b>to the cinema</b>. (Where ... ?)",
+            "prompt": "They're going to the cinema. (Where ... ?)",
             "accepted": [
               "Where are they going?"
             ],
@@ -62838,7 +62838,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I've lived here <b>for two years</b>. (How long ... ?)",
+            "prompt": "I've lived here for two years. (How long ... ?)",
             "accepted": [
               "How long have you lived here?",
               "How long have you been living here?"
@@ -62853,7 +62853,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He bought <b>a jacket</b>. (What ... ?)",
+            "prompt": "He bought a jacket. (What ... ?)",
             "accepted": [
               "What did he buy?"
             ],
@@ -62867,7 +62867,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She can speak <b>three</b> languages. (How many ... ?)",
+            "prompt": "She can speak three languages. (How many ... ?)",
             "accepted": [
               "How many languages can she speak?"
             ],
@@ -63705,7 +63705,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>Nara</b> called me. (Who ... ?)",
+            "prompt": "Nara called me. (Who ... ?)",
             "accepted": [
               "Who called you?"
             ],
@@ -63719,7 +63719,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I called <b>Nara</b>. (Who ... ?)",
+            "prompt": "I called Nara. (Who ... ?)",
             "accepted": [
               "Who did you call?"
             ],
@@ -63733,7 +63733,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>The rain</b> stopped the match. (What ... ?)",
+            "prompt": "The rain stopped the match. (What ... ?)",
             "accepted": [
               "What stopped the match?"
             ],
@@ -63747,7 +63747,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Leo wrote <b>a letter</b>. (What ... ?)",
+            "prompt": "Leo wrote a letter. (What ... ?)",
             "accepted": [
               "What did Leo write?"
             ],
@@ -63761,7 +63761,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "<b>My brother</b> has got the keys. (Who ... ?)",
+            "prompt": "My brother has got the keys. (Who ... ?)",
             "accepted": [
               "Who has got the keys?",
               "Who's got the keys?"
@@ -65346,7 +65346,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I'm writing to <b>my grandmother</b>. (Who ... ?)",
+            "prompt": "I'm writing to my grandmother. (Who ... ?)",
             "accepted": [
               "Who are you writing to?"
             ],
@@ -65360,7 +65360,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "She's afraid of <b>spiders</b>. (What ... ?)",
+            "prompt": "She's afraid of spiders. (What ... ?)",
             "accepted": [
               "What is she afraid of?",
               "What's she afraid of?"
@@ -65375,7 +65375,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "They're listening to <b>jazz</b>. (What ... ?)",
+            "prompt": "They're listening to jazz. (What ... ?)",
             "accepted": [
               "What are they listening to?"
             ],
@@ -65389,7 +65389,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "He works for <b>a big company</b>. (Who ... ?)",
+            "prompt": "He works for a big company. (Who ... ?)",
             "accepted": [
               "Who does he work for?"
             ],
@@ -65403,7 +65403,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I paid for <b>the tickets</b>. (What ... ?)",
+            "prompt": "I paid for the tickets. (What ... ?)",
             "accepted": [
               "What did you pay for?"
             ],
@@ -66610,7 +66610,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "My bag is <b>the black one</b>, not the brown one. (Which ... ?)",
+            "prompt": "My bag is the black one, not the brown one. (Which ... ?)",
             "accepted": [
               "Which bag is yours?",
               "Which one is your bag?",
@@ -66626,7 +66626,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I go swimming <b>twice a week</b>. (How often ... ?)",
+            "prompt": "I go swimming twice a week. (How often ... ?)",
             "accepted": [
               "How often do you go swimming?"
             ],
@@ -66640,7 +66640,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "This book costs <b>12 euros</b>. (How much ... ?)",
+            "prompt": "This book costs 12 euros. (How much ... ?)",
             "accepted": [
               "How much does this book cost?",
               "How much is this book?"
@@ -66655,7 +66655,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "I like <b>pop</b> music. (What kind of ... ?)",
+            "prompt": "I like pop music. (What kind of ... ?)",
             "accepted": [
               "What kind of music do you like?"
             ],
@@ -66669,7 +66669,7 @@
                 "ru": "Сверьте ответ с правилом и примером из урока."
               }
             },
-            "prompt": "Nara is <b>1 metre 65</b>. (How tall ... ?)",
+            "prompt": "Nara is 1 metre 65. (How tall ... ?)",
             "accepted": [
               "How tall is Nara?"
             ],

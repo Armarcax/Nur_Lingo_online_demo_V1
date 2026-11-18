@@ -161,8 +161,14 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function cleanInlineArtifacts(value: string): string {
+  return value
+    .replace(/\*\*\s*(?:<b>\s*)?(?:&#x20;|&#32;|&nbsp;)?\s*(\(\s*[+−-]\s*\))\s*\\?<\/b>\s*\*\*/gi, "$1")
+    .replace(/&#x20;|&#32;|&nbsp;/gi, " ");
+}
+
 function safeInlineMarkup(value: string): string {
-  return escapeHtml(value)
+  return escapeHtml(cleanInlineArtifacts(value))
     .replace(/&lt;(\/?)b&gt;/gi, "<$1strong>")
     .replace(/&lt;(\/?)strong&gt;/gi, "<$1strong>")
     .replace(/&lt;(\/?)i&gt;/gi, "<$1em>")
@@ -184,14 +190,13 @@ function RichInlineText({ value }: { value: string }) {
 }
 
 function plainOptionText(value: string): string {
-  return value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ");
+  return cleanInlineArtifacts(value).replace(/<[^>]*>/g, "");
 }
 
 function cleanSpeechText(value: string): string {
-  return value
+  return cleanInlineArtifacts(value)
     .replace(/<br\s*\/??>/gi, " ")
     .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "and")
     .replace(/&quot;/gi, "\"")
     .replace(/&#39;|&apos;/gi, "'")
@@ -1035,7 +1040,7 @@ function PromptContent({
   playAudio: PlayEnglishAudio;
   allowAudio: boolean;
 }) {
-  const plainValue = value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim();
+  const plainValue = cleanInlineArtifacts(value).replace(/<[^>]*>/g, "").trim();
   const cue = plainValue.match(/^\(\s*([+\-−])\s*\)\s*(.+?)\s*\/\s*(.+)$/);
   if (!cue) {
     return allowAudio

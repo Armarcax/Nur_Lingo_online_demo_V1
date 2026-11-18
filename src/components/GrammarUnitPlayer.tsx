@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -10,11 +10,14 @@ import {
   ChevronDown,
   ChevronRight,
   RotateCcw,
+  Volume2,
   X,
 } from "lucide-react";
+import { PlaybackState } from "@/lib/audio";
 import { GlassCard } from "@/components/ui/glass-card";
 import { buildDisplayMap } from "@/lib/content/pickShuffle";
 import { loadMastery, updateMastery } from "@/lib/adaptive/mastery";
+import { useAudioEngine } from "@/lib/hooks/useAudioEngine";
 import type {
   GrammarExercise,
   GrammarFeedback,
@@ -32,6 +35,7 @@ type Stage = "learn" | "practice" | "review" | "done";
 type AnswerValue = string | number[];
 type ItemResult = { correct: boolean; explanation: string; answer: string };
 type ExerciseResult = Record<string, ItemResult>;
+type PlayEnglishAudio = (text: string, id: string) => void;
 
 const labels = {
   hy: {
@@ -65,6 +69,7 @@ const labels = {
     removeWord: "Հեռացնել բառը",
     select: "Ընտրիր պատասխան",
     answer: "Պատասխան",
+    listenEnglish: "Լսել անգլերեն",
     finish: "Ավարտել դասը",
     finishHint: "Ստուգիր բոլոր առաջադրանքները, որպեսզի ամփոփես դասը։",
     firstTry: "Առաջին փորձի ճիշտ պատասխաններ",
@@ -114,6 +119,7 @@ const labels = {
     removeWord: "Убрать слово",
     select: "Выберите ответ",
     answer: "Ответ",
+    listenEnglish: "Слушать по-английски",
     finish: "Завершить урок",
     finishHint: "Проверьте все задания, чтобы подвести итог урока.",
     firstTry: "Верно с первой попытки",
@@ -181,6 +187,92 @@ function plainOptionText(value: string): string {
   return value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ");
 }
 
+function cleanSpeechText(value: string): string {
+  return value
+    .replace(/<br\s*\/??>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "and")
+    .replace(/&quot;/gi, "\"")
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isCompleteEnglishSentence(value: string): boolean {
+  const text = cleanSpeechText(value);
+  if (!text || /[\u0530-\u058F\u0400-\u04FF]/.test(text)) return false;
+  if (/_|…|\.\.\.|→|·|\s\/\s|\b(?:subject|complement|V1|V2|V3)\b/i.test(text)) return false;
+  if (!/[.!?][\"”’)]*$/.test(text)) return false;
+  const wordCount = (text.match(/[A-Za-zÀ-ž]+/g) || []).length;
+  if (wordCount < 3) return false;
+  if (/(?:,\s*[A-Za-zÀ-ž]+){2,}[.!?]?$/.test(text) && !/\b(?:and|or|but|so)\b/i.test(text)) return false;
+  return true;
+}
+
+function splitAudioText(value: string): string[] {
+  return value
+    .split(/(\s*(?:→|·|\/)\s*|(?<=[.!?])\s+(?=[A-ZÀ-Ž“"'(])|(?<=[.!?]),\s*(?=[A-ZÀ-Ž]))/g)
+    .filter((part): part is string => typeof part === "string" && part.length > 0);
+}
+
+function AudioPlayButton({
+  text,
+  id,
+  playAudio,
+  nativeLang,
+}: {
+  text: string;
+  id: string;
+  playAudio: PlayEnglishAudio;
+  nativeLang: NativeLang;
+}) {
+  const speechText = cleanSpeechText(text);
+  if (!isCompleteEnglishSentence(speechText)) return null;
+  const label = labels[nativeLang].listenEnglish;
+
+  return (
+    <button
+      type="button"
+      onClick={() => playAudio(speechText, id)}
+      aria-label={`${label}: ${speechText}`}
+      title={label}
+      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sky-700 transition hover:bg-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 dark:text-sky-300 dark:hover:bg-sky-950/60"
+    >
+      <Volume2 size={16} aria-hidden="true" />
+    </button>
+  );
+}
+
+function SpokenText({
+  value,
+  id,
+  playAudio,
+  nativeLang,
+  className = "",
+}: {
+  value: string;
+  id: string;
+  playAudio: PlayEnglishAudio;
+  nativeLang: NativeLang;
+  className?: string;
+}) {
+  const parts = splitAudioText(value);
+  return (
+    <div className={`flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1 ${className}`}>
+      {parts.map((part, index) => {
+        const speakable = isCompleteEnglishSentence(part);
+        return (
+          <span key={`${id}-${index}`} className={speakable ? "inline-flex min-w-0 items-center gap-0.5" : "whitespace-pre-wrap"}>
+            <RichInlineText value={part} />
+            {speakable && <AudioPlayButton text={part} id={`${id}-${index}`} playAudio={playAudio} nativeLang={nativeLang} />}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
 function normalizeAnswer(value: string, exact = false): string {
   const trimmed = value.trim().normalize("NFKC");
   if (exact) return trimmed;
@@ -241,7 +333,20 @@ export function GrammarUnitPlayer({
   nativeLang: NativeLang;
   onBack: () => void;
 }) {
+  const audioEngine = useAudioEngine();
   const copy = labels[nativeLang];
+  const playEnglishAudio = useCallback(async (text: string, id: string) => {
+    if (audioEngine.currentId === id && (audioEngine.state === PlaybackState.PLAYING || audioEngine.state === PlaybackState.LOADING)) {
+      audioEngine.stop();
+      return;
+    }
+    audioEngine.stop();
+    try {
+      await audioEngine.play(cleanSpeechText(text), "en", { id, rate: 0.9 });
+    } catch (error) {
+      console.warn("Grammar example audio could not be played", error);
+    }
+  }, [audioEngine.currentId, audioEngine.play, audioEngine.state, audioEngine.stop]);
   const [stage, setStage] = useState<Stage>("learn");
   const [completed, setCompleted] = useState<Record<string, boolean>>({});
   const [firstScores, setFirstScores] = useState<Record<string, { correct: number; total: number }>>({});
@@ -353,6 +458,7 @@ export function GrammarUnitPlayer({
           unit={unit}
           title={title}
           nativeLang={nativeLang}
+          playAudio={playEnglishAudio}
           reviewDue={reviewDue && unit.reviewCards.length > 0}
           onStartReview={() => { setReviewMode("due"); setStage("review"); }}
           onContinue={() => setStage("practice")}
@@ -361,6 +467,7 @@ export function GrammarUnitPlayer({
         <RecallReview
           unit={unit}
           nativeLang={nativeLang}
+          playAudio={playEnglishAudio}
           onComplete={(correct, total) => {
             if (reviewMode === "due") {
               finishWithScore(correct, total);
@@ -399,6 +506,8 @@ export function GrammarUnitPlayer({
                 index={index}
                 total={unit.exercises.length}
                 nativeLang={nativeLang}
+                unitId={unit.id}
+                playAudio={playEnglishAudio}
                 onChecked={handleChecked}
                 onReset={handleReset}
               />
@@ -447,6 +556,7 @@ function LearningView({
   unit,
   title,
   nativeLang,
+  playAudio,
   reviewDue,
   onStartReview,
   onContinue,
@@ -454,6 +564,7 @@ function LearningView({
   unit: GrammarUnit;
   title: string;
   nativeLang: NativeLang;
+  playAudio: PlayEnglishAudio;
   reviewDue: boolean;
   onStartReview: () => void;
   onContinue: () => void;
@@ -519,7 +630,15 @@ function LearningView({
                 </div>
                 <RichText value={localized(card.body, nativeLang)} className="text-sm leading-7 text-gray-700 dark:text-gray-200" />
                 {card.formula && <p className="mt-3 rounded-xl bg-gray-50 px-3 py-2 text-center font-mono text-sm font-bold text-rose-700 dark:bg-gray-800 dark:text-rose-200">{card.formula}</p>}
-                {(card.targetText || card.example) && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-gray-800 dark:bg-amber-950/30 dark:text-amber-100">{card.targetText || card.example}</p>}
+                {(card.targetText || card.example) && (
+                  <SpokenText
+                    value={card.targetText || card.example || ""}
+                    id={`grammar-${unit.id}-${card.id}-card`}
+                    playAudio={playAudio}
+                    nativeLang={nativeLang}
+                    className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-gray-800 dark:bg-amber-950/30 dark:text-amber-100"
+                  />
+                )}
               </motion.article>
             ))}
           </div>
@@ -536,7 +655,15 @@ function LearningView({
               <div key={rule.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
                 {rule.formula && <p className="font-mono text-sm font-bold text-rose-700 dark:text-rose-300">{rule.formula}</p>}
                 <RichText value={localized(rule.statement, nativeLang)} className="mt-1 text-sm leading-relaxed text-gray-700 dark:text-gray-200" />
-                {rule.targetText && <RichText value={rule.targetText} className="mt-2 text-sm font-semibold text-gray-900 dark:text-white" />}
+                {rule.targetText && (
+                  <SpokenText
+                    value={rule.targetText}
+                    id={`grammar-${unit.id}-${rule.id}-rule`}
+                    playAudio={playAudio}
+                    nativeLang={nativeLang}
+                    className="mt-2 text-sm font-semibold text-gray-900 dark:text-white"
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -551,7 +678,13 @@ function LearningView({
           <div className="mt-4 grid gap-2 sm:grid-cols-2">
             {unit.examples.map((example) => (
               <div key={example.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
-                <RichText value={example.targetText} className="font-semibold text-gray-900 dark:text-white" />
+                <SpokenText
+                  value={example.targetText}
+                  id={`grammar-${unit.id}-${example.id}-example`}
+                  playAudio={playAudio}
+                  nativeLang={nativeLang}
+                  className="font-semibold text-gray-900 dark:text-white"
+                />
                 {localized(example.translation, nativeLang) && <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{localized(example.translation, nativeLang)}</p>}
               </div>
             ))}
@@ -568,7 +701,13 @@ function LearningView({
             {unit.commonErrors.map((error) => (
               <div key={error.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
                 <p className="text-sm text-rose-700 line-through dark:text-rose-300">{error.wrong}</p>
-                <p className="mt-1 text-sm font-bold text-emerald-700 dark:text-emerald-300">{error.correct}</p>
+                <SpokenText
+                  value={error.correct}
+                  id={`grammar-${unit.id}-${error.id}-correct-error-example`}
+                  playAudio={playAudio}
+                  nativeLang={nativeLang}
+                  className="mt-1 text-sm font-bold text-emerald-700 dark:text-emerald-300"
+                />
                 <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-300">{localized(error.explanation, nativeLang)}</p>
               </div>
             ))}
@@ -591,10 +730,12 @@ function LearningView({
 function RecallReview({
   unit,
   nativeLang,
+  playAudio,
   onComplete,
 }: {
   unit: GrammarUnit;
   nativeLang: NativeLang;
+  playAudio: PlayEnglishAudio;
   onComplete: (correct: number, total: number) => void;
 }) {
   const copy = labels[nativeLang];
@@ -662,7 +803,15 @@ function RecallReview({
                   {checked && (
                     <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs leading-relaxed ${correct ? "bg-emerald-50 text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100" : "bg-rose-50 text-rose-900 dark:bg-rose-950/40 dark:text-rose-100"}`}>
                       <p className="flex items-center gap-1.5 font-bold">{correct ? <Check size={14} /> : <X size={14} />}{correct ? copy.correct : copy.incorrect}</p>
-                      {!correct && <p className="mt-1 font-semibold">{copy.correctAnswer}: {card.answer}</p>}
+                      <div className="mt-1 flex flex-wrap items-center gap-1 font-semibold">
+                        <span>{copy.correctAnswer}:</span>
+                        <SpokenText
+                          value={card.answer}
+                          id={`grammar-${unit.id}-${card.id}-review-answer`}
+                          playAudio={playAudio}
+                          nativeLang={nativeLang}
+                        />
+                      </div>
                       {!correct && <button type="button" onClick={() => retryCard(card.id)} className="mt-2 font-bold underline underline-offset-2">{copy.retry}</button>}
                     </div>
                   )}
@@ -685,18 +834,22 @@ function RecallReview({
 
 function ExerciseCard({
   exercise,
+  unitId,
   runId,
   index,
   total,
   nativeLang,
+  playAudio,
   onChecked,
   onReset,
 }: {
   exercise: GrammarExercise;
+  unitId: string;
   runId: string;
   index: number;
   total: number;
   nativeLang: NativeLang;
+  playAudio: PlayEnglishAudio;
   onChecked: (id: string, correct: number, total: number, firstCheck: boolean) => void;
   onReset: (id: string) => void;
 }) {
@@ -781,7 +934,15 @@ function ExerciseCard({
           <div>
             <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{copy.task} {index + 1} {nativeLang === "hy" ? `/${total}` : `из ${total}`}</p>
             <h2 className="mt-1 text-base font-extrabold leading-snug text-gray-900 dark:text-white">{localized(exercise.instruction, nativeLang) || copy.unknown}</h2>
-            {exercise.example && <RichText value={exercise.example} className="mt-1 text-xs text-gray-500 dark:text-gray-400" />}
+            {exercise.example && (
+              <SpokenText
+                value={exercise.example}
+                id={`grammar-${unitId}-${exercise.id}-exercise-example`}
+                playAudio={playAudio}
+                nativeLang={nativeLang}
+                className="mt-1 text-xs text-gray-500 dark:text-gray-400"
+              />
+            )}
           </div>
         </div>
         <span className={`rounded-full px-3 py-1 text-[11px] font-bold ${stage.color}`}>{stage.label}</span>
@@ -792,7 +953,13 @@ function ExerciseCard({
           <div key={item.id} className="grid min-w-0 gap-4 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(280px,1fr)] sm:items-start">
             <div className="flex min-w-0 gap-3">
               <span className="mt-0.5 text-xs font-bold text-gray-400">{itemIndex + 1}</span>
-              <PromptContent value={"prompt" in item ? itemPrompt(item, nativeLang, exercise) : "words" in item ? item.words.join(" · ") : ""} nativeLang={nativeLang} />
+              <PromptContent
+                value={"prompt" in item ? itemPrompt(item, nativeLang, exercise) : "words" in item ? item.words.join(" · ") : ""}
+                nativeLang={nativeLang}
+                id={`grammar-${unitId}-${exercise.id}-${item.id}-prompt`}
+                playAudio={playAudio}
+                allowAudio={exercise.type !== "fix"}
+              />
             </div>
             <div className="min-w-0">
               <ItemAnswerInput
@@ -800,6 +967,8 @@ function ExerciseCard({
                 exercise={exercise}
                 item={item}
                 itemIndex={itemIndex}
+                unitId={unitId}
+                playAudio={playAudio}
                 value={answers[item.id]}
                 onChange={(value) => setAnswers((previous) => ({ ...previous, [item.id]: value }))}
                 nativeLang={nativeLang}
@@ -815,7 +984,17 @@ function ExerciseCard({
                   {result[item.id].correct ? copy.correct : copy.incorrect}
                 </p>
                 {result[item.id].explanation && <p className="mt-1">{result[item.id].explanation}</p>}
-                {!result[item.id].correct && result[item.id].answer && <p className="mt-1 font-semibold">{copy.correctAnswer}: {result[item.id].answer}</p>}
+                {result[item.id].answer && exercise.type !== "pick" && (
+                  <div className="mt-1 flex flex-wrap items-start gap-1 font-semibold">
+                    <span className="shrink-0">{copy.correctAnswer}:</span>
+                    <SpokenText
+                      value={result[item.id].answer}
+                      id={`grammar-${unitId}-${exercise.id}-${item.id}-checked-answer`}
+                      playAudio={playAudio}
+                      nativeLang={nativeLang}
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -843,11 +1022,25 @@ function ExerciseCard({
   );
 }
 
-function PromptContent({ value, nativeLang }: { value: string; nativeLang: NativeLang }) {
+function PromptContent({
+  value,
+  nativeLang,
+  id,
+  playAudio,
+  allowAudio,
+}: {
+  value: string;
+  nativeLang: NativeLang;
+  id: string;
+  playAudio: PlayEnglishAudio;
+  allowAudio: boolean;
+}) {
   const plainValue = value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim();
   const cue = plainValue.match(/^\(\s*([+\-−])\s*\)\s*(.+?)\s*\/\s*(.+)$/);
   if (!cue) {
-    return <RichText value={value} className="min-w-0 flex-1 text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100" />;
+    return allowAudio
+      ? <SpokenText value={value} id={id} playAudio={playAudio} nativeLang={nativeLang} className="min-w-0 flex-1 text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100" />
+      : <RichText value={value} className="min-w-0 flex-1 text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100" />;
   }
 
   const isPositive = cue[1] === "+";
@@ -873,6 +1066,8 @@ function ItemAnswerInput({
   exercise,
   item,
   itemIndex,
+  unitId,
+  playAudio,
   value,
   onChange,
   nativeLang,
@@ -883,6 +1078,8 @@ function ItemAnswerInput({
   exercise: GrammarExercise;
   item: GrammarItem;
   itemIndex: number;
+  unitId: string;
+  playAudio: PlayEnglishAudio;
   value: AnswerValue | undefined;
   onChange: (value: AnswerValue) => void;
   nativeLang: NativeLang;
@@ -918,9 +1115,12 @@ function ItemAnswerInput({
           const isCorrectAnswer = !!outcome && option.originalIndex === item.correctIndex;
           const isWrongSelected = !!outcome && selected && !outcome.correct;
           return (
-            <button key={option.originalIndex} type="button" onClick={() => onChange(String(option.originalIndex))} disabled={disabled} aria-pressed={selected} className={`w-full min-w-0 max-w-full whitespace-normal break-words rounded-xl border px-3 py-2.5 text-left text-sm font-bold leading-relaxed transition ${isCorrectAnswer ? "border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-100" : isWrongSelected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : selected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : "border-gray-200 bg-white text-gray-800 hover:border-rose-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"}`}>
-              <RichInlineText value={option.text} />
-            </button>
+            <div key={option.originalIndex} className="flex min-w-0 items-start gap-1.5">
+              <button type="button" onClick={() => onChange(String(option.originalIndex))} disabled={disabled} aria-pressed={selected} className={`min-w-0 flex-1 whitespace-normal break-words rounded-xl border px-3 py-2.5 text-left text-sm font-bold leading-relaxed transition ${isCorrectAnswer ? "border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-100" : isWrongSelected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : selected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : "border-gray-200 bg-white text-gray-800 hover:border-rose-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"}`}>
+                <RichInlineText value={option.text} />
+              </button>
+              <AudioPlayButton text={option.text} id={`grammar-${unitId}-${exercise.id}-${item.id}-option-${option.originalIndex}`} playAudio={playAudio} nativeLang={nativeLang} />
+            </div>
           );
         })}
       </div>

@@ -1721,5 +1721,572 @@ export const A2_TEXTS: ReadingText[] = [
         { en: "What is your biggest dream?", hy: "Ո՞րն է քո ամենամեծ երազանքը:", ru: "Какая твоя самая большая мечта?" }
       ]
     }
+  },
+
+    // ─── A2 ԹԵՄԱ 09. ԻՄ ԸՆԿԵՐՆԵՐԸ — ՏԵՔՍՏ 1 ──────────────────────────
+  {
+    id: "friends_best_tom",
+    level: "A2",
+    topics: ["relationships", "people"],
+    title: { en: "My Best Friend", hy: "Իմ լավագույն ընկերը", ru: "Мой лучший друг" },
+    format: "Story",
+    difficulty: 1,
+    words: 125,
+    minutes: 2,
+    parts: 6,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "My best friend's name is Tom. He is nine years old, and he is in my class. We sit next to each other at school.",
+        hy: "Իմ լավագույն ընկերոջ անունը Թոմ է։ Նա ինը տարեկան է և սովորում է իմ դասարանում։ Մենք դպրոցում նստում ենք իրար կողքի։",
+        ru: "Моего лучшего друга зовут Том. Ему девять лет, и он учится в моём классе. В школе мы сидим рядом друг с другом."
+      },
+      {
+        en: "Tom is a friendly and helpful boy. He is always ready to help his classmates. He is also funny, and he often makes me laugh.",
+        hy: "Թոմը ընկերասեր և օգնող տղա է։ Նա միշտ պատրաստ է օգնել իր դասընկերներին։ Նա նաև զվարճալի է և հաճախ ինձ ծիծաղեցնում է։",
+        ru: "Том дружелюбный и отзывчивый мальчик. Он всегда готов помочь своим одноклассникам. Он также весёлый и часто заставляет меня смеяться."
+      },
+      {
+        en: "We have many things in common. We both like football, drawing, and reading interesting stories. After school, we sometimes play football in the park. When the weather is bad, we stay at home and play board games.",
+        hy: "Մենք շատ ընդհանուր հետաքրքրություններ ունենք։ Երկուսս էլ սիրում ենք ֆուտբոլ, նկարել և հետաքրքիր պատմություններ կարդալ։ Դասերից հետո երբեմն այգում ֆուտբոլ ենք խաղում։ Երբ եղանակը վատ է լինում, մնում ենք տանը և սեղանի խաղեր խաղում։",
+        ru: "У нас много общих интересов. Мы оба любим футбол, рисование и чтение интересных историй. После уроков мы иногда играем в футбол в парке. Когда погода плохая, мы остаёмся дома и играем в настольные игры."
+      },
+      {
+        en: "Tom is good at Maths, and I am good at English. We help each other with our homework. If I do not understand a Maths problem, Tom explains it to me. I help him learn new English words.",
+        hy: "Թոմը լավ է մաթեմատիկայից, իսկ ես՝ անգլերենից։ Մենք օգնում ենք միմյանց տնային առաջադրանքները կատարելիս։ Եթե ես մաթեմատիկայի որևէ խնդիր չեմ հասկանում, Թոմը բացատրում է այն ինձ։ Ես օգնում եմ նրան նոր անգլերեն բառեր սովորել։",
+        ru: "Том хорошо разбирается в математике, а я хорошо знаю английский. Мы помогаем друг другу делать домашнее задание. Если я не понимаю задачу по математике, Том объясняет её мне. Я помогаю ему учить новые английские слова."
+      },
+      {
+        en: "I like spending time with Tom because he is a good friend. We sometimes have different ideas, but we listen to each other and try to understand one another.",
+        hy: "Ես սիրում եմ ժամանակ անցկացնել Թոմի հետ, որովհետև նա լավ ընկեր է։ Երբեմն մենք տարբեր կարծիքներ ենք ունենում, բայց լսում ենք միմյանց և փորձում հասկանալ իրար։",
+        ru: "Мне нравится проводить время с Томом, потому что он хороший друг. Иногда у нас разные мнения, но мы слушаем друг друга и стараемся понять друг друга."
+      },
+      {
+        en: "For me, a best friend is someone who cares, listens, helps, and makes you happy. I am glad to have Tom as my friend!",
+        hy: "Ինձ համար լավագույն ընկերն այն մարդն է, ով հոգ է տանում քո մասին, լսում է քեզ, օգնում է և ուրախացնում։ Ես ուրախ եմ, որ Թոմի նման ընկեր ունեմ։",
+        ru: "Для меня лучший друг — это человек, который заботится о тебе, слушает тебя, помогает тебе и радует тебя. Я рад, что у меня есть такой друг, как Том!"
+      }
+    ],
+    vocabulary: [
+      { word: "best friend", translation: { en: "best friend", hy: "լավագույն ընկեր", ru: "лучший друг" } },
+      { word: "friendly", translation: { en: "friendly", hy: "ընկերասեր", ru: "дружелюбный" } },
+      { word: "helpful", translation: { en: "helpful", hy: "օգնող, պատրաստակամ", ru: "отзывчивый" } },
+      { word: "classmate", translation: { en: "classmate", hy: "դասընկեր", ru: "одноклассник" } },
+      { word: "next to", translation: { en: "next to", hy: "կողքին", ru: "рядом с" } },
+      { word: "make someone laugh", translation: { en: "make someone laugh", hy: "ծիծաղեցնել մեկին", ru: "рассмешить кого-то" } },
+      { word: "have in common", translation: { en: "have in common", hy: "ընդհանուր բաներ ունենալ", ru: "иметь общее" } },
+      { word: "board game", translation: { en: "board game", hy: "սեղանի խաղ", ru: "настольная игра" } },
+      { word: "spend time", translation: { en: "spend time", hy: "ժամանակ անցկացնել", ru: "проводить время" } },
+      { word: "homework", translation: { en: "homework", hy: "տնային առաջադրանք", ru: "домашнее задание" } },
+      { word: "explain", translation: { en: "explain", hy: "բացատրել", ru: "объяснять" } },
+      { word: "understand", translation: { en: "understand", hy: "հասկանալ", ru: "понимать" } },
+      { word: "idea", translation: { en: "idea", hy: "միտք, գաղափար", ru: "идея" } },
+      { word: "listen", translation: { en: "listen", hy: "լսել", ru: "слушать" } },
+      { word: "care about", translation: { en: "care about", hy: "հոգ տանել", ru: "заботиться" } },
+      { word: "each other", translation: { en: "each other", hy: "միմյանց", ru: "друг друга" } }
+    ],
+    questions: [
+      {
+        question: { en: "How old is Tom?", hy: "Քանի՞ տարեկան է Թոմը:", ru: "Сколько лет Тому?" },
+        options: [
+          { en: "Eight years old", hy: "Ութ տարեկան", ru: "Восемь лет" },
+          { en: "Nine years old", hy: "Ինը տարեկան", ru: "Девять лет" },
+          { en: "Ten years old", hy: "Տասը տարեկան", ru: "Десять лет" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Where do Alex and Tom sit at school?", hy: "Որտե՞ղ են Ալեքսը և Թոմը նստում դպրոցում:", ru: "Где Алекс и Том сидят в школе?" },
+        options: [
+          { en: "Next to each other", hy: "Իրար կողքի", ru: "Рядом друг с другом" },
+          { en: "Near the door", hy: "Դռան մոտ", ru: "Возле двери" },
+          { en: "At different desks", hy: "Տարբեր նստարանների մոտ", ru: "За разными партами" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What do they both like?", hy: "Ի՞նչ են նրանք երկուսն էլ սիրում:", ru: "Что они оба любят?" },
+        options: [
+          { en: "Swimming and dancing", hy: "Լողալ և պարել", ru: "Плавать и танцевать" },
+          { en: "Cooking and singing", hy: "Խոհարարություն և երգել", ru: "Готовить и петь" },
+          { en: "Football, drawing and reading", hy: "Ֆուտբոլ, նկարել և կարդալ", ru: "Футбол, рисование и чтение" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What subject is Tom good at?", hy: "Ո՞ր առարկայից է Թոմը լավ:", ru: "По какому предмету Том силён?" },
+        options: [
+          { en: "English", hy: "Անգլերեն", ru: "Английский" },
+          { en: "Maths", hy: "Մաթեմատիկա", ru: "Математика" },
+          { en: "Art", hy: "Կերպարվեստ", ru: "Рисование" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "How does Alex help Tom?", hy: "Ինչպե՞ս է Ալեքսը օգնում Թոմին:", ru: "Как Алекс помогает Тому?" },
+        options: [
+          { en: "He teaches him football", hy: "Նա սովորեցնում է ֆուտբոլ խաղալ", ru: "Он учит его играть в футбол" },
+          { en: "He helps him learn English words", hy: "Նա օգնում է նոր անգլերեն բառեր սովորել", ru: "Он помогает ему учить английские слова" },
+          { en: "He does his homework", hy: "Նա կատարում է նրա տնայինը", ru: "Он делает за него домашнее задание" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What do good friends do when they have different ideas?", hy: "Ի՞նչ են անում լավ ընկերները, երբ տարբեր կարծիքներ ունեն:", ru: "Что делают хорошие друзья, когда у них разные мнения?" },
+        options: [
+          { en: "They stop talking", hy: "Նրանք դադարում են խոսել", ru: "Они перестают разговаривать" },
+          { en: "They argue all the time", hy: "Նրանք անընդհատ վիճում են", ru: "Они всё время ссорятся" },
+          { en: "They listen to each other", hy: "Նրանք լսում են միմյանց", ru: "Они слушают друг друга" }
+        ],
+        correctIndex: 2
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Now tell us about your best friend!", hy: "Հիմա պատմիր քո լավագույն ընկերոջ մասին:", ru: "А теперь расскажи о своём лучшем друге!" },
+      questions: [
+        { en: "What is your best friend's name?", hy: "Ի՞նչ է քո լավագույն ընկերոջ անունը:", ru: "Как зовут твоего лучшего друга?" },
+        { en: "How old is your friend?", hy: "Քանի՞ տարեկան է քո ընկերը:", ru: "Сколько лет твоему другу?" },
+        { en: "What does your friend look like?", hy: "Ինչպիսի՞ տեսք ունի քո ընկերը:", ru: "Как выглядит твой друг?" },
+        { en: "What is your friend's character like?", hy: "Ինչպիսի՞ն է քո ընկերոջ բնավորությունը:", ru: "Какой характер у твоего друга?" },
+        { en: "What games do you play together?", hy: "Ի՞նչ խաղեր եք միասին խաղում:", ru: "В какие игры вы играете вместе?" },
+        { en: "Why is your friend special to you?", hy: "Ինչո՞ւ է քո ընկերը քեզ համար առանձնահատուկ:", ru: "Почему твой друг особенный для тебя?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 09. ԻՄ ԸՆԿԵՐՆԵՐԸ — ՏԵՔՍՏ 2 ──────────────────────────
+  {
+    id: "friends_playground",
+    level: "A2",
+    topics: ["relationships", "school"],
+    title: { en: "A New Friend in the Playground", hy: "Նոր ընկեր խաղահրապարակում", ru: "Новый друг на игровой площадке" },
+    format: "Story",
+    difficulty: 1,
+    words: 175,
+    minutes: 2,
+    parts: 9,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "It is Friday afternoon. Alex and Tom are playing football in the school playground. They are having a great time.",
+        hy: "Ուրբաթ օրվա կեսօրից հետո է։ Ալեքսն ու Թոմը ֆուտբոլ են խաղում դպրոցի խաղահրապարակում։ Նրանք շատ լավ ժամանակ են անցկացնում։",
+        ru: "Наступила пятница, вторая половина дня. Алекс и Том играют в футбол на школьной игровой площадке. Они отлично проводят время."
+      },
+      {
+        en: "Suddenly, they see a boy standing near a tree. He is watching the other children, but he is not playing with anyone.",
+        hy: "Հանկարծ նրանք տեսնում են մի տղայի, որը կանգնած է ծառի մոտ։ Նա հետևում է մյուս երեխաներին, բայց ոչ մեկի հետ չի խաղում։",
+        ru: "Вдруг они замечают мальчика, который стоит возле дерева. Он наблюдает за другими детьми, но ни с кем не играет."
+      },
+      {
+        en: "Alex looks at him and says, \"Hello! My name is Alex. What is your name?\"",
+        hy: "Ալեքսը նայում է նրան և ասում. «Բարև՛։ Իմ անունը Ալեքս է։ Քո անունն ի՞նչ է»։",
+        ru: "Алекс смотрит на него и говорит: «Привет! Меня зовут Алекс. Как тебя зовут?»"
+      },
+      {
+        en: "The boy smiles and answers, \"Hi! I am Daniel. I am new at this school.\"",
+        hy: "Տղան ժպտում է և պատասխանում. «Բարև՛։ Ես Դանիելն եմ։ Ես այս դպրոցում նոր եմ»։",
+        ru: "Мальчик улыбается и отвечает: «Привет! Я Даниэль. Я новенький в этой школе»."
+      },
+      {
+        en: "\"Welcome to our school!\" says Tom. \"Are you in the fourth grade?\" \"Yes, I am,\" Daniel answers. \"I like football, but I do not know many children here.\"",
+        hy: "«Բարի գալուստ մեր դպրոց», — ասում է Թոմը։ «Դու չորրորդ դասարանո՞ւմ ես սովորում»։ «Այո՛, — պատասխանում է Դանիելը։ — Ես սիրում եմ ֆուտբոլ, բայց այստեղ շատ երեխաների դեռ չեմ ճանաչում»։",
+        ru: "«Добро пожаловать в нашу школу!» — говорит Том. «Ты учишься в четвёртом классе?» «Да, — отвечает Даниэль. — Я люблю футбол, но пока здесь знаю не многих детей»."
+      },
+      {
+        en: "\"That is okay,\" says Alex. \"Would you like to play with us?\" \"Of course!\" Daniel says happily.",
+        hy: "«Ոչինչ, — ասում է Ալեքսը։ — Կցանկանա՞ս մեզ հետ խաղալ»։ «Իհարկե՛», — ուրախությամբ պատասխանում է Դանիելը։",
+        ru: "«Ничего страшного, — говорит Алекс. — Хочешь поиграть с нами?» «Конечно!» — радостно отвечает Даниэль."
+      },
+      {
+        en: "The three boys start playing football together. Daniel is good at passing the ball, and Tom is good at scoring goals. Alex enjoys playing with his new friend.",
+        hy: "Երեք տղաները սկսում են միասին ֆուտբոլ խաղալ։ Դանիելը լավ է գնդակը փոխանցում, իսկ Թոմը լավ է գոլեր խփում։ Ալեքսին դուր է գալիս խաղալ իր նոր ընկերոջ հետ։",
+        ru: "Три мальчика начинают вместе играть в футбол. Даниэль хорошо передаёт мяч, а Том хорошо забивает голы. Алексу нравится играть со своим новым другом."
+      },
+      {
+        en: "After the game, they sit on a bench and talk about their favourite subjects, hobbies, and games.",
+        hy: "Խաղից հետո նրանք նստում են նստարանին և զրուցում իրենց սիրելի առարկաների, նախասիրությունների և խաղերի մասին։",
+        ru: "После игры они садятся на скамейку и разговаривают о любимых школьных предметах, увлечениях и играх."
+      },
+      {
+        en: "Daniel feels happy because he has made two new friends. Alex and Tom are happy too. They understand that a simple hello can be the beginning of a wonderful friendship.",
+        hy: "Դանիելն ուրախ է, որովհետև երկու նոր ընկեր է ձեռք բերել։ Ալեքսն ու Թոմն էլ են ուրախ։ Նրանք հասկանում են, որ մի պարզ բարևը կարող է հրաշալի ընկերության սկիզբ դառնալ։",
+        ru: "Даниэль счастлив, потому что у него появилось два новых друга. Алекс и Том тоже рады. Они понимают, что простое приветствие может стать началом прекрасной дружбы."
+      }
+    ],
+    vocabulary: [
+      { word: "playground", translation: { en: "playground", hy: "խաղահրապարակ", ru: "игровая площадка" } },
+      { word: "suddenly", translation: { en: "suddenly", hy: "հանկարծ", ru: "внезапно" } },
+      { word: "near", translation: { en: "near", hy: "մոտ", ru: "возле" } },
+      { word: "stand", translation: { en: "stand", hy: "կանգնել", ru: "стоять" } },
+      { word: "watch", translation: { en: "watch", hy: "հետևել, դիտել", ru: "наблюдать" } },
+      { word: "new at school", translation: { en: "new at school", hy: "նորեկ դպրոցում", ru: "новенький в школе" } },
+      { word: "welcome", translation: { en: "welcome", hy: "բարի գալուստ", ru: "добро пожаловать" } },
+      { word: "grade", translation: { en: "grade", hy: "դասարան", ru: "класс" } },
+      { word: "of course", translation: { en: "of course", hy: "իհարկե", ru: "конечно" } },
+      { word: "pass the ball", translation: { en: "pass the ball", hy: "փոխանցել գնդակը", ru: "передавать мяч" } },
+      { word: "score a goal", translation: { en: "score a goal", hy: "գոլ խփել", ru: "забить гол" } },
+      { word: "bench", translation: { en: "bench", hy: "նստարան", ru: "скамейка" } },
+      { word: "make a friend", translation: { en: "make a friend", hy: "ընկերանալ", ru: "подружиться" } },
+      { word: "friendship", translation: { en: "friendship", hy: "ընկերություն", ru: "дружба" } },
+      { word: "beginning", translation: { en: "beginning", hy: "սկիզբ", ru: "начало" } }
+    ],
+    questions: [
+      {
+        question: { en: "What day is it?", hy: "Ի՞նչ օր է:", ru: "Какой день?" },
+        options: [
+          { en: "Monday", hy: "Երկուշաբթի", ru: "Понедельник" },
+          { en: "Friday", hy: "Ուրբաթ", ru: "Пятница" },
+          { en: "Sunday", hy: "Կիրակի", ru: "Воскресенье" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Where is the new boy standing?", hy: "Որտե՞ղ է կանգնած նոր տղան:", ru: "Где стоит новый мальчик?" },
+        options: [
+          { en: "Near a tree", hy: "Ծառի մոտ", ru: "Возле дерева" },
+          { en: "Near the classroom", hy: "Դասարանին մոտ", ru: "Возле класса" },
+          { en: "Near the library", hy: "Գրադարանին մոտ", ru: "Возле библиотеки" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What is the new boy's name?", hy: "Ի՞նչ է նոր տղայի անունը:", ru: "Как зовут нового мальчика?" },
+        options: [
+          { en: "David", hy: "Դավիթ", ru: "Давид" },
+          { en: "Daniel", hy: "Դանիել", ru: "Даниэль" },
+          { en: "Peter", hy: "Փիթեր", ru: "Питер" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Daniel like?", hy: "Ի՞նչ է սիրում Դանիելը:", ru: "Что Даниэль любит?" },
+        options: [
+          { en: "Basketball", hy: "Բասկետբոլ", ru: "Баскетбол" },
+          { en: "Swimming", hy: "Լող", ru: "Плавание" },
+          { en: "Football", hy: "Ֆուտբոլ", ru: "Футбол" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What is Daniel good at?", hy: "Ինչո՞ւմ է Դանիելը լավ:", ru: "В чём Даниэль хорош?" },
+        options: [
+          { en: "Passing the ball", hy: "Գնդակը փոխանցելը", ru: "Передавать мяч" },
+          { en: "Scoring goals", hy: "Գոլեր խփելը", ru: "Забивать голы" },
+          { en: "Drawing pictures", hy: "Նկարներ նկարելը", ru: "Рисовать картинки" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What do the boys do after the game?", hy: "Ի՞նչ են անում տղաները խաղից հետո:", ru: "Что мальчики делают после игры?" },
+        options: [
+          { en: "Go home immediately", hy: "Անմիջապես գնում են տուն", ru: "Сразу идут домой" },
+          { en: "Sit on a bench and talk", hy: "Նստում են նստարանին և զրուցում", ru: "Садятся на скамейку и разговаривают" },
+          { en: "Go to the library", hy: "Գնում են գրադարան", ru: "Идут в библиотеку" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Imagine that you meet a new student!", hy: "Պատկերացրու, որ դպրոցում հանդիպում ես նոր աշակերտի:", ru: "Представь, что ты встретил нового ученика!" },
+      questions: [
+        { en: "What is your name?", hy: "Ի՞նչ է քո անունը:", ru: "Как тебя зовут?" },
+        { en: "How do you ask another child about their name?", hy: "Ինչպե՞ս ես հարցնում մեկ այլ երեխայի անունը:", ru: "Как ты спрашиваешь имя другого ребёнка?" },
+        { en: "How do you welcome a new student?", hy: "Ինչպե՞ս ես դիմավորում նոր աշակերտին:", ru: "Как ты приветствуешь нового ученика?" },
+        { en: "What games can you play together?", hy: "Ի՞նչ խաղեր կարող եք միասին խաղալ:", ru: "В какие игры вы можете играть вместе?" },
+        { en: "What questions can you ask about their hobbies?", hy: "Ի՞նչ հարցեր կարող ես տալ նրանց նախասիրությունների մասին:", ru: "Какие вопросы ты можешь задать об их увлечениях?" },
+        { en: "How can you help a new student feel welcome?", hy: "Ինչպե՞ս կարող ես օգնել նոր աշակերտին իրեն հարմար զգալ:", ru: "Как ты можешь помочь новому ученику почувствовать себя желанным?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 09. ԻՄ ԸՆԿԵՐՆԵՐԸ — ՏԵՔՍՏ 3 ──────────────────────────
+  {
+    id: "friends_sharing",
+    level: "A2",
+    topics: ["relationships", "school"],
+    title: { en: "Sharing Is Caring", hy: "Կիսվելը հոգատարություն է", ru: "Делиться — значит заботиться" },
+    format: "Story",
+    difficulty: 1,
+    words: 200,
+    minutes: 2,
+    parts: 9,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "It is lunchtime at school. Alex, Tom, and Daniel are sitting together in the school garden.",
+        hy: "Դպրոցում ճաշի ժամն է։ Ալեքսը, Թոմն ու Դանիելը միասին նստած են դպրոցի այգում։",
+        ru: "В школе наступило время обеда. Алекс, Том и Даниэль сидят вместе в школьном саду."
+      },
+      {
+        en: "Alex opens his lunchbox. He has a cheese sandwich, an apple, and a small bottle of water. Tom has two sandwiches, but Daniel has only an apple.",
+        hy: "Ալեքսը բացում է իր ճաշի տուփը։ Նրա մեջ կա պանրով սենդվիչ, մեկ խնձոր և մի փոքրիկ շիշ ջուր։ Թոմը երկու սենդվիչ ունի, իսկ Դանիելը միայն մեկ խնձոր ունի։",
+        ru: "Алекс открывает свой контейнер с едой. В нём есть бутерброд с сыром, яблоко и маленькая бутылка воды. У Тома два бутерброда, а у Даниэля только одно яблоко."
+      },
+      {
+        en: "Tom looks at Daniel and asks, \"Would you like half of my sandwich?\" Daniel smiles and says, \"Thank you! That is very kind of you.\"",
+        hy: "Թոմը նայում է Դանիելին և հարցնում. «Կցանկանա՞ս իմ սենդվիչի կեսը»։ Դանիելը ժպտում է և ասում. «Շնորհակալությո՛ւն։ Դա շատ բարի է քո կողմից»։",
+        ru: "Том смотрит на Даниэля и спрашивает: «Хочешь половину моего бутерброда?» Даниэль улыбается и говорит: «Спасибо! Это очень мило с твоей стороны»."
+      },
+      {
+        en: "Tom gives Daniel half of his sandwich. Then Alex takes his apple and says, \"We can share this too!\"",
+        hy: "Թոմը Դանիելին տալիս է իր սենդվիչի կեսը։ Հետո Ալեքսը վերցնում է իր խնձորն ու ասում. «Մենք կարող ենք սա էլ կիսել»։",
+        ru: "Том отдаёт Даниэлю половину своего бутерброда. Затем Алекс берёт своё яблоко и говорит: «Мы можем поделиться и этим!»"
+      },
+      {
+        en: "The three friends enjoy their lunch together. They talk, laugh, and tell each other funny stories.",
+        hy: "Երեք ընկերները միասին վայելում են իրենց ճաշը։ Նրանք զրուցում են, ծիծաղում և միմյանց զվարճալի պատմություններ պատմում։",
+        ru: "Три друга вместе обедают. Они разговаривают, смеются и рассказывают друг другу смешные истории."
+      },
+      {
+        en: "After lunch, they go to the classroom. Daniel wants to draw a picture, but he cannot find his coloured pencils. Alex sees the problem and offers him some of his pencils.",
+        hy: "Ճաշից հետո նրանք գնում են դասարան։ Դանիելը ցանկանում է նկար նկարել, բայց չի կարողանում գտնել իր գունավոր մատիտները։ Ալեքսը նկատում է խնդիրը և առաջարկում նրան իր մատիտներից մի քանիսը։",
+        ru: "После обеда они идут в класс. Даниэль хочет нарисовать картинку, но не может найти свои цветные карандаши. Алекс замечает проблему и предлагает ему несколько своих карандашей."
+      },
+      {
+        en: "\"Thank you, Alex!\" says Daniel. \"You are welcome! Friends help each other,\" Alex answers.",
+        hy: "«Շնորհակալությո՛ւն, Ալեքս», — ասում է Դանիելը։ «Խնդրեմ։ Ընկերներն օգնում են միմյանց», — պատասխանում է Ալեքսը։",
+        ru: "«Спасибо, Алекс!» — говорит Даниэль. «Не за что! Друзья помогают друг другу», — отвечает Алекс."
+      },
+      {
+        en: "At the end of the day, Daniel says, \"I am happy to have friends like you.\" Tom smiles and says, \"Sharing makes our friendship stronger!\"",
+        hy: "Օրվա վերջում Դանիելն ասում է. «Ես ուրախ եմ, որ ձեզ նման ընկերներ ունեմ»։ Թոմը ժպտում է և ասում. «Կիսվելը մեր ընկերությունն ավելի ամուր է դարձնում»։",
+        ru: "В конце дня Даниэль говорит: «Я рад, что у меня есть такие друзья, как вы». Том улыбается и говорит: «Умение делиться делает нашу дружбу крепче!»"
+      },
+      {
+        en: "The boys learn that sharing does not mean giving away everything. It means being kind, thinking about others, and helping when someone needs it.",
+        hy: "Տղաները հասկանում են, որ կիսվելը չի նշանակում ամեն ինչ տալ ուրիշներին։ Դա նշանակում է բարի լինել, մտածել ուրիշների մասին և օգնել, երբ ինչ-որ մեկն ունի դրա կարիքը։",
+        ru: "Мальчики понимают, что делиться — не значит отдавать другим всё, что у тебя есть. Это значит быть добрым, думать о других и помогать, когда кому-то нужна помощь."
+      }
+    ],
+    vocabulary: [
+      { word: "lunchtime", translation: { en: "lunchtime", hy: "ճաշի ժամ", ru: "время обеда" } },
+      { word: "lunchbox", translation: { en: "lunchbox", hy: "ճաշի տուփ", ru: "контейнер для еды" } },
+      { word: "cheese", translation: { en: "cheese", hy: "պանիր", ru: "сыр" } },
+      { word: "sandwich", translation: { en: "sandwich", hy: "սենդվիչ", ru: "бутерброд" } },
+      { word: "half", translation: { en: "half", hy: "կես", ru: "половина" } },
+      { word: "share", translation: { en: "share", hy: "կիսվել", ru: "делиться" } },
+      { word: "kind", translation: { en: "kind", hy: "բարի", ru: "добрый" } },
+      { word: "enjoy", translation: { en: "enjoy", hy: "վայելել", ru: "наслаждаться" } },
+      { word: "funny story", translation: { en: "funny story", hy: "զվարճալի պատմություն", ru: "смешная история" } },
+      { word: "coloured pencils", translation: { en: "coloured pencils", hy: "գունավոր մատիտներ", ru: "цветные карандаши" } },
+      { word: "offer", translation: { en: "offer", hy: "առաջարկել", ru: "предлагать" } },
+      { word: "problem", translation: { en: "problem", hy: "խնդիր", ru: "проблема" } },
+      { word: "at the end of the day", translation: { en: "at the end of the day", hy: "օրվա վերջում", ru: "в конце дня" } },
+      { word: "stronger", translation: { en: "stronger", hy: "ավելի ամուր", ru: "крепче" } },
+      { word: "think about others", translation: { en: "think about others", hy: "մտածել ուրիշների մասին", ru: "думать о других" } }
+    ],
+    questions: [
+      {
+        question: { en: "Where are the three friends sitting at lunchtime?", hy: "Որտե՞ղ են երեք ընկերները նստած ճաշի ժամին:", ru: "Где три друга сидят во время обеда?" },
+        options: [
+          { en: "In the library", hy: "Գրադարանում", ru: "В библиотеке" },
+          { en: "In the school garden", hy: "Դպրոցի այգում", ru: "В школьном саду" },
+          { en: "At home", hy: "Տանը", ru: "Дома" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Tom offer Daniel?", hy: "Ի՞նչ է Թոմը առաջարկում Դանիելին:", ru: "Что Том предлагает Даниэлю?" },
+        options: [
+          { en: "Half of his sandwich", hy: "Իր սենդվիչի կեսը", ru: "Половину своего бутерброда" },
+          { en: "An apple", hy: "Խնձոր", ru: "Яблоко" },
+          { en: "A bottle of water", hy: "Շիշ ջուր", ru: "Бутылку воды" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What does Alex share?", hy: "Ինչո՞վ է կիսվում Ալեքսը:", ru: "Чем делится Алекс?" },
+        options: [
+          { en: "His book", hy: "Իր գրքով", ru: "Своей книгой" },
+          { en: "His football", hy: "Իր ֆուտբոլի գնդակով", ru: "Своим футбольным мячом" },
+          { en: "His apple", hy: "Իր խնձորով", ru: "Своим яблоком" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What does Daniel want to do after lunch?", hy: "Ի՞նչ է ուզում անել Դանիելը ճաշից հետո:", ru: "Что Даниэль хочет делать после обеда?" },
+        options: [
+          { en: "Play football", hy: "Ֆուտբոլ խաղալ", ru: "Играть в футбол" },
+          { en: "Draw a picture", hy: "Նկար նկարել", ru: "Нарисовать картинку" },
+          { en: "Read a book", hy: "Գիրք կարդալ", ru: "Читать книгу" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Alex offer Daniel?", hy: "Ի՞նչ է Ալեքսը առաջարկում Դանիելին:", ru: "Что Алекс предлагает Даниэлю?" },
+        options: [
+          { en: "Some coloured pencils", hy: "Մի քանի գունավոր մատիտ", ru: "Несколько цветных карандашей" },
+          { en: "A new schoolbag", hy: "Նոր դպրոցական պայուսակ", ru: "Новый школьный рюкзак" },
+          { en: "A storybook", hy: "Հեքիաթների գիրք", ru: "Книгу сказок" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What does sharing mean in the story?", hy: "Ի՞նչ է նշանակում կիսվելը պատմության մեջ:", ru: "Что значит делиться в рассказе?" },
+        options: [
+          { en: "Giving away everything", hy: "Ամեն ինչ տալ ուրիշներին", ru: "Отдавать всё" },
+          { en: "Thinking about others and helping", hy: "Մտածել ուրիշների մասին և օգնել", ru: "Думать о других и помогать" },
+          { en: "Keeping everything for yourself", hy: "Ամեն ինչ պահել ինքդ քեզ", ru: "Оставлять всё себе" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us how you share with your friends!", hy: "Պատմիր, թե ինչպես ես կիսվում ընկերներիդ հետ:", ru: "Расскажи, как ты делишься с друзьями!" },
+      questions: [
+        { en: "What do you like sharing with your friends?", hy: "Ինչո՞վ ես սիրում կիսվել ընկերներիդ հետ:", ru: "Чем ты любишь делиться с друзьями?" },
+        { en: "Do you share your toys or books?", hy: "Կիսվու՞մ ես խաղալիքներով կամ գրքերով:", ru: "Ты делишься игрушками или книгами?" },
+        { en: "How do you help your friends at school?", hy: "Ինչպե՞ս ես օգնում ընկերներիդ դպրոցում:", ru: "Как ты помогаешь друзьям в школе?" },
+        { en: "What do you say when someone helps you?", hy: "Ի՞նչ ես ասում, երբ ինչ-որ մեկն օգնում է քեզ:", ru: "Что ты говоришь, когда кто-то помогает тебе?" },
+        { en: "What do you say when you give something to a friend?", hy: "Ի՞նչ ես ասում, երբ ինչ-որ բան ես տալիս ընկերոջդ:", ru: "Что ты говоришь, когда даёшь что-то другу?" },
+        { en: "Why is sharing important in friendship?", hy: "Ինչո՞ւ է կիսվելը կարևոր ընկերության մեջ:", ru: "Почему важно делиться в дружбе?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 09. ԻՄ ԸՆԿԵՐՆԵՐԸ — ՏԵՔՍՏ 4 ──────────────────────────
+  {
+    id: "friends_different_ideas",
+    level: "A2",
+    topics: ["relationships", "hobbies"],
+    title: { en: "Different Ideas, One Friendship", hy: "Տարբեր կարծիքներ, մեկ ընկերություն", ru: "Разные мнения, одна дружба" },
+    format: "Story",
+    difficulty: 1,
+    words: 180,
+    minutes: 2,
+    parts: 9,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "It is Saturday morning. Alex, Tom, and Daniel meet in the park. They want to spend the day together.",
+        hy: "Շաբաթ առավոտ է։ Ալեքսը, Թոմն ու Դանիելը հանդիպում են այգում։ Նրանք ցանկանում են օրը միասին անցկացնել։",
+        ru: "Субботнее утро. Алекс, Том и Даниэль встречаются в парке. Они хотят провести день вместе."
+      },
+      {
+        en: "\"What shall we play today?\" asks Alex. \"Let's play football!\" says Tom. \"It is my favourite game.\"",
+        hy: "«Ի՞նչ խաղանք այսօր», — հարցնում է Ալեքսը։ «Եկեք ֆուտբոլ խաղանք, — ասում է Թոմը։ — Դա իմ սիրելի խաղն է»։",
+        ru: "«Во что мы будем играть сегодня?» — спрашивает Алекс. «Давайте играть в футбол! — говорит Том. — Это моя любимая игра»."
+      },
+      {
+        en: "Daniel shakes his head. \"I would like to play basketball. I played it yesterday, and it was great!\"",
+        hy: "Դանիելը տարուբերում է գլուխը։ «Ես կցանկանայի բասկետբոլ խաղալ։ Երեկ խաղացել եմ և շատ եմ հավանել»։",
+        ru: "Даниэль качает головой. «Я хотел бы поиграть в баскетбол. Я играл вчера, и мне очень понравилось!»"
+      },
+      {
+        en: "Alex thinks for a moment. \"I want to ride my bicycle, but I also like playing with you.\"",
+        hy: "Ալեքսը մի պահ մտածում է։ «Ես ուզում եմ հեծանիվ քշել, բայց սիրում եմ նաև ձեզ հետ խաղալ»։",
+        ru: "Алекс на мгновение задумывается. «Я хочу покататься на велосипеде, но мне также нравится играть с вами»."
+      },
+      {
+        en: "The boys have different ideas. Tom wants football, Daniel wants basketball, and Alex wants to ride his bicycle. For a few minutes, nobody knows what to do.",
+        hy: "Տղաները տարբեր կարծիքներ ունեն։ Թոմը ցանկանում է ֆուտբոլ խաղալ, Դանիելը՝ բասկետբոլ, իսկ Ալեքսը՝ հեծանիվ քշել։ Մի քանի րոպե ոչ ոք չգիտի՝ ինչ անել։",
+        ru: "У мальчиков разные идеи. Том хочет играть в футбол, Даниэль — в баскетбол, а Алекс хочет кататься на велосипеде. Несколько минут никто не знает, что делать."
+      },
+      {
+        en: "Then Daniel says, \"We can listen to each other and make a plan.\" \"That is a good idea!\" says Tom.",
+        hy: "Հետո Դանիելն ասում է. «Մենք կարող ենք լսել միմյանց և ծրագիր կազմել»։ «Դա լավ միտք է», — ասում է Թոմը։",
+        ru: "Затем Даниэль говорит: «Мы можем выслушать друг друга и составить план». «Хорошая идея!» — говорит Том."
+      },
+      {
+        en: "They decide to play football first, then basketball. After that, they can ride their bicycles around the park. Everyone is happy with the plan.",
+        hy: "Նրանք որոշում են նախ ֆուտբոլ խաղալ, հետո՝ բասկետբոլ։ Դրանից հետո կարող են հեծանիվներով շրջել այգում։ Բոլորը գոհ են այդ ծրագրից։",
+        ru: "Они решают сначала поиграть в футбол, затем в баскетбол. После этого они смогут покататься на велосипедах по парку. Все довольны этим планом."
+      },
+      {
+        en: "During the games, they cheer for each other and have lots of fun. They understand that they do not always need to choose the same thing.",
+        hy: "Խաղերի ընթացքում նրանք ոգևորում են միմյանց և շատ լավ ժամանակ անցկացնում։ Նրանք հասկանում են, որ միշտ չէ, որ պետք է նույն բանն ընտրեն։",
+        ru: "Во время игр они подбадривают друг друга и весело проводят время. Они понимают, что им не всегда нужно выбирать одно и то же."
+      },
+      {
+        en: "At the end of the day, Alex says, \"We had different ideas, but we found a way to enjoy the day together.\" Tom smiles. \"Good friends listen to each other!\" Daniel agrees. \"And they respect each other's ideas.\"",
+        hy: "Օրվա վերջում Ալեքսն ասում է. «Մենք տարբեր կարծիքներ ունեինք, բայց գտանք մի ձև, որ միասին լավ անցկացնենք օրը»։ Թոմը ժպտում է. «Լավ ընկերները լսում են միմյանց»։ Դանիելը համաձայնում է. «Եվ հարգում են միմյանց կարծիքները»։",
+        ru: "В конце дня Алекс говорит: «У нас были разные идеи, но мы нашли способ хорошо провести день вместе». Том улыбается. «Хорошие друзья слушают друг друга!» Даниэль соглашается: «И уважают мнения друг друга»."
+      }
+    ],
+    vocabulary: [
+      { word: "meet", translation: { en: "meet", hy: "հանդիպել", ru: "встречаться" } },
+      { word: "spend the day", translation: { en: "spend the day", hy: "օրն անցկացնել", ru: "провести день" } },
+      { word: "favourite", translation: { en: "favourite", hy: "սիրելի", ru: "любимый" } },
+      { word: "shake one's head", translation: { en: "shake one's head", hy: "գլուխը տարուբերել", ru: "качать головой" } },
+      { word: "for a moment", translation: { en: "for a moment", hy: "մի պահ", ru: "на мгновение" } },
+      { word: "different ideas", translation: { en: "different ideas", hy: "տարբեր կարծիքներ", ru: "разные идеи" } },
+      { word: "make a plan", translation: { en: "make a plan", hy: "ծրագիր կազմել", ru: "составить план" } },
+      { word: "decide", translation: { en: "decide", hy: "որոշել", ru: "решать" } },
+      { word: "first", translation: { en: "first", hy: "նախ, առաջինը", ru: "сначала" } },
+      { word: "then", translation: { en: "then", hy: "հետո", ru: "затем" } },
+      { word: "be happy with", translation: { en: "be happy with", hy: "գոհ լինել", ru: "быть довольным" } },
+      { word: "cheer for", translation: { en: "cheer for", hy: "ոգևորել, քաջալերել", ru: "подбадривать" } },
+      { word: "opinion", translation: { en: "opinion", hy: "կարծիք", ru: "мнение" } },
+      { word: "respect", translation: { en: "respect", hy: "հարգել", ru: "уважать" } },
+      { word: "agree", translation: { en: "agree", hy: "համաձայնել", ru: "соглашаться" } },
+      { word: "true friendship", translation: { en: "true friendship", hy: "իսկական ընկերություն", ru: "настоящая дружба" } }
+    ],
+    questions: [
+      {
+        question: { en: "Where do the boys meet?", hy: "Որտե՞ղ են տղաները հանդիպում:", ru: "Где встречаются мальчики?" },
+        options: [
+          { en: "At school", hy: "Դպրոցում", ru: "В школе" },
+          { en: "In the park", hy: "Այգում", ru: "В парке" },
+          { en: "At Daniel's home", hy: "Դանիելի տանը", ru: "У Даниэля дома" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Tom want to play?", hy: "Ի՞նչ է ուզում խաղալ Թոմը:", ru: "Во что Том хочет играть?" },
+        options: [
+          { en: "Football", hy: "Ֆուտբոլ", ru: "В футбол" },
+          { en: "Basketball", hy: "Բասկետբոլ", ru: "В баскетбол" },
+          { en: "Tennis", hy: "Թենիս", ru: "В теннис" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What does Daniel want to play?", hy: "Ի՞նչ է ուզում խաղալ Դանիելը:", ru: "Во что Даниэль хочет играть?" },
+        options: [
+          { en: "Football", hy: "Ֆուտբոլ", ru: "В футбол" },
+          { en: "Basketball", hy: "Բասկետբոլ", ru: "В баскетбол" },
+          { en: "Volleyball", hy: "Վոլեյբոլ", ru: "В волейбол" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What does Alex want to do?", hy: "Ի՞նչ է ուզում անել Ալեքսը:", ru: "Что Алекс хочет делать?" },
+        options: [
+          { en: "Ride his bicycle", hy: "Հեծանիվ քշել", ru: "Кататься на велосипеде" },
+          { en: "Play tennis", hy: "Թենիս խաղալ", ru: "Играть в теннис" },
+          { en: "Read a book", hy: "Գիրք կարդալ", ru: "Читать книгу" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What do the boys decide to do?", hy: "Ի՞նչ են որոշում տղաները:", ru: "Что решают мальчики?" },
+        options: [
+          { en: "Go home", hy: "Գնալ տուն", ru: "Пойти домой" },
+          { en: "Play only football", hy: "Խաղալ միայն ֆուտբոլ", ru: "Играть только в футбол" },
+          { en: "Play both games and ride bicycles", hy: "Խաղալ երկու խաղերն էլ և հեծանիվ քշել", ru: "Играть в обе игры и кататься на велосипедах" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What do the boys learn?", hy: "Ի՞նչ են սովորում տղաները:", ru: "Чему учатся мальчики?" },
+        options: [
+          { en: "Friends must always agree", hy: "Ընկերները միշտ պետք է համաձայնեն", ru: "Друзья всегда должны соглашаться" },
+          { en: "Friends should listen and respect each other", hy: "Ընկերները պետք է լսեն և հարգեն միմյանց", ru: "Друзья должны слушать и уважать друг друга" },
+          { en: "Only one person can choose", hy: "Միայն մեկը կարող է ընտրել", ru: "Выбирать может только один" }
+        ],
+        correctIndex: 1
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us how you make decisions with your friends!", hy: "Պատմիր, թե ինչպես եք որոշումներ կայացնում ընկերներիդ հետ:", ru: "Расскажи, как вы принимаете решения с друзьями!" },
+      questions: [
+        { en: "What games do you like playing with your friends?", hy: "Ի՞նչ խաղեր ես սիրում խաղալ ընկերներիդ հետ:", ru: "В какие игры ты любишь играть с друзьями?" },
+        { en: "Do you and your friends always like the same games?", hy: "Դուք և ընկերներդ միշտ նույն խաղե՞րն եք սիրում:", ru: "Вы с друзьями всегда любите одни и те же игры?" },
+        { en: "What do you do when you have different ideas?", hy: "Ի՞նչ եք անում, երբ տարբեր կարծիքներ ունեք:", ru: "Что вы делаете, когда у вас разные идеи?" },
+        { en: "How can you make a plan together?", hy: "Ինչպե՞ս կարող եք միասին ծրագիր կազմել:", ru: "Как вы можете вместе составить план?" },
+        { en: "Why is it important to listen to your friends?", hy: "Ինչո՞ւ է կարևոր լսել ընկերներիդ:", ru: "Почему важно слушать друзей?" },
+        { en: "What does a good friend do when someone has a different opinion?", hy: "Ի՞նչ է անում լավ ընկերը, երբ ինչ-որ մեկն այլ կարծիք ունի:", ru: "Что делает хороший друг, когда у кого-то другое мнение?" }
+      ]
+    }
   }
 ];

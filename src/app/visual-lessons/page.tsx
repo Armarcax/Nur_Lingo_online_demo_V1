@@ -54,7 +54,6 @@ function VisualLessonsContent() {
   const [isAudioReady, setIsAudioReady] = useState(false);
   const speakingLockRef = useRef(false);
 
-  // Grammar direction: hy-en or ru-en (target always en)
   const showGrammar = learningLang === "en";
   const grammarNativeLang: "hy" | "ru" = native === "ru" ? "ru" : "hy";
 
@@ -104,7 +103,6 @@ function VisualLessonsContent() {
     }
   }, []);
 
-  // Load grammar units once (lazy import of grammer-en.json inside loader)
   useEffect(() => {
     let cancelled = false;
     loadGrammarUnits()

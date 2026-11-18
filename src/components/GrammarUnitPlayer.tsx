@@ -1,385 +1,981 @@
-// src/components/GrammarUnitPlayer.tsx
 "use client";
 
-import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Check, X, ChevronRight, RotateCcw, Loader2, Sparkles } from "lucide-react";
-import { GlassCard } from "@/components/ui/glass-card";
-import type {
-  BilingualText, GrammarExercise, GrammarUnit, PickItem, TextItem,
-} from "@/lib/content/grammar-types";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import {
-  renderPickItem, checkPickAnswer, resolveWrongFeedback, type RenderedPickItem,
-} from "@/lib/content/pickShuffle";
-import { getUnitExercises } from "@/lib/content/grammar-loader";
+  ArrowLeft,
+  BookOpen,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  RotateCcw,
+  X,
+} from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
+import { buildDisplayMap } from "@/lib/content/pickShuffle";
+import { loadMastery, updateMastery } from "@/lib/adaptive/mastery";
+import type {
+  GrammarExercise,
+  GrammarFeedback,
+  GrammarItem,
+  GrammarMatchItem,
+  GrammarOrderItem,
+  GrammarPickItem,
+  GrammarTextItem,
+  GrammarUnit,
+  LocalizedText,
+  NativeLang,
+} from "@/lib/content/grammar-types";
 
-type NativeLang = "hy" | "ru";
+type Stage = "learn" | "practice" | "review" | "done";
+type AnswerValue = string | number[];
+type ItemResult = { correct: boolean; explanation: string; answer: string };
+type ExerciseResult = Record<string, ItemResult>;
 
-function bt(text: BilingualText | string | undefined | null, lang: NativeLang): string {
-  if (!text) return "";
-  if (typeof text === "string") return text;
-  return (text as BilingualText)[lang] || (text as BilingualText).hy || (text as BilingualText).ru || "";
+const labels = {
+  hy: {
+    back: "Վերադառնալ դասերին",
+    learn: "Սովորիր",
+    practice: "Վարժվիր",
+    apply: "Կիրառիր",
+    done: "Ավարտ",
+    objectives: "Այս դասից հետո կկարողանաս",
+    rules: "Հիմնական կանոններ",
+    examples: "Օրինակներ",
+    commonErrors: "Հաճախ հանդիպող սխալներ",
+    review: "Հիշողության արագ ստուգում",
+    showAnswer: "Ցույց տալ պատասխանը",
+    continue: "Սովորեցի․ անցնել վարժություններին",
+    introHint: "Նախ ծանոթացիր կանոններին և օրինակներին, հետո անցիր վարժություններին։",
+    lessonProgress: "Դասի առաջընթացը",
+    tasksDone: "կատարված առաջադրանք",
+    allTasks: "առաջադրանքից",
+    task: "Առաջադրանք",
+    guided: "Ուղղորդված ճանաչում",
+    recall: "Հիշողությամբ լրացում",
+    independent: "Ինքնուրույն կիրառում",
+    check: "Ստուգել պատասխանները",
+    correct: "Ճիշտ է",
+    incorrect: "Կրկին նայիր բացատրությանը",
+    correctAnswer: "Ճիշտ պատասխանը",
+    missing: "Լրացրու այս առաջադրանքի բոլոր կետերը՝ ստուգելուց առաջ։",
+    checked: "Առաջադրանքը ստուգված է",
+    retry: "Կրկին փորձել այս առաջադրանքը",
+    removeWord: "Հեռացնել բառը",
+    select: "Ընտրիր պատասխան",
+    answer: "Պատասխան",
+    finish: "Ավարտել դասը",
+    finishHint: "Ստուգիր բոլոր առաջադրանքները, որպեսզի ամփոփես դասը։",
+    firstTry: "Առաջին փորձի ճիշտ պատասխաններ",
+    finished: "Ավարտեցիր այս դասի ուսուցումն ու վարժությունները։",
+    scoreNote: "Սա այս դասի արդյունքն է, ոչ թե երկարաժամկետ յուրացման գնահատականը։",
+    again: "Կրկնել դասը",
+    unknown: "Այս առաջադրանքի ձևաչափը դեռ հասանելի չէ։ Կարող ես շարունակել դասը։",
+    unknownDone: "Նշել որպես դիտված",
+    needReview: "Նյութը խմբագրական ստուգման փուլում է։",
+    dueReview: "Այս դասի կրկնությունը հասունացել է։ Կարող ես անմիջապես ստուգել հիշողությունդ՝ առանց դասը նորից կարդալու։",
+    startReview: "Անցնել կրկնությանը",
+    recallStage: "Վերջնական հիշում",
+    continueRecall: "Վարժություններից հետո՝ ստուգել հիշողությունը",
+    reviewComplete: "Կրկնությունն ավարտված է։ Հաջորդ կրկնության օրը՝",
+    due: "Կրկնել է պետք",
+    reviewCard: "Հիշիր պատասխանը և գրիր անգլերենով։",
+    reviewAccuracy: "Կրկնության արդյունք",
+  },
+  ru: {
+    back: "Вернуться к урокам",
+    learn: "Изучение",
+    practice: "Практика",
+    apply: "Применение",
+    done: "Итог",
+    objectives: "После урока вы сможете",
+    rules: "Основные правила",
+    examples: "Примеры",
+    commonErrors: "Типичные ошибки",
+    review: "Короткое повторение по памяти",
+    showAnswer: "Показать ответ",
+    continue: "Я изучил материал — перейти к упражнениям",
+    introHint: "Сначала разберите правила и примеры, затем переходите к упражнениям.",
+    lessonProgress: "Прогресс урока",
+    tasksDone: "выполнено заданий",
+    allTasks: "заданий",
+    task: "Задание",
+    guided: "Узнавание с подсказкой",
+    recall: "Воспроизведение по памяти",
+    independent: "Самостоятельное применение",
+    check: "Проверить ответы",
+    correct: "Верно",
+    incorrect: "Посмотрите объяснение и попробуйте ещё раз",
+    correctAnswer: "Правильный ответ",
+    missing: "Заполните все пункты задания перед проверкой.",
+    checked: "Задание проверено",
+    retry: "Попробовать задание ещё раз",
+    removeWord: "Убрать слово",
+    select: "Выберите ответ",
+    answer: "Ответ",
+    finish: "Завершить урок",
+    finishHint: "Проверьте все задания, чтобы подвести итог урока.",
+    firstTry: "Верно с первой попытки",
+    finished: "Вы завершили изучение и практику по этому уроку.",
+    scoreNote: "Это результат текущего урока, а не оценка долгосрочного усвоения.",
+    again: "Повторить урок",
+    unknown: "Этот формат задания пока недоступен. Можно продолжить урок.",
+    unknownDone: "Отметить как просмотренное",
+    needReview: "Материал ожидает редакторской проверки.",
+    dueReview: "Пора повторить этот урок. Можно сразу проверить память, не перечитывая материал.",
+    startReview: "Перейти к повторению",
+    recallStage: "Вспомнить самостоятельно",
+    continueRecall: "После практики — проверить память",
+    reviewComplete: "Повторение завершено. Следующая дата повторения:",
+    due: "Пора повторить",
+    reviewCard: "Вспомните ответ и напишите его по-английски.",
+    reviewAccuracy: "Результат повторения",
+  },
+} satisfies Record<NativeLang, Record<string, string>>;
+
+function localized(value: LocalizedText | undefined, lang: NativeLang): string {
+  if (!value) return "";
+  return value[lang] || value.hy || value.ru || value.en || "";
 }
 
-interface Props {
+function itemPrompt(item: GrammarItem, nativeLang: NativeLang, exercise?: GrammarExercise): string {
+  if (!("prompt" in item)) return "";
+  const value = item.prompt;
+  const prompt = typeof value === "string" ? value : localized(value, nativeLang);
+  return prompt.trim() || localized(exercise?.instruction, nativeLang);
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function safeInlineMarkup(value: string): string {
+  return escapeHtml(value)
+    .replace(/&lt;(\/?)b&gt;/gi, "<$1strong>")
+    .replace(/&lt;(\/?)strong&gt;/gi, "<$1strong>")
+    .replace(/&lt;(\/?)i&gt;/gi, "<$1em>")
+    .replace(/&lt;(\/?)em&gt;/gi, "<$1em>")
+    .replace(/&lt;br\s*\/??&gt;/gi, "<br>");
+}
+
+function RichText({ value, className = "" }: { value: string; className?: string }) {
+  return (
+    <div
+      className={className}
+      dangerouslySetInnerHTML={{ __html: safeInlineMarkup(value) }}
+    />
+  );
+}
+
+function RichInlineText({ value }: { value: string }) {
+  return <span dangerouslySetInnerHTML={{ __html: safeInlineMarkup(value) }} />;
+}
+
+function plainOptionText(value: string): string {
+  return value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ");
+}
+
+function normalizeAnswer(value: string, exact = false): string {
+  const trimmed = value.trim().normalize("NFKC");
+  if (exact) return trimmed;
+  return trimmed
+    .toLocaleLowerCase("en")
+    .replace(/[.!?;:,]+$/g, "")
+    .replace(/\s+/g, " ");
+}
+
+function itemKind(exercise: GrammarExercise, item: GrammarItem): "pick" | "match" | "order" | "text" | "unsupported" {
+  if (exercise.type === "pick" && "options" in item) return "pick";
+  if (exercise.type === "match" && "answer" in item) return "match";
+  if (exercise.type === "order" && "words" in item) return "order";
+  if (["gap", "write", "fix"].includes(exercise.type) && "accepted" in item) return "text";
+  return "unsupported";
+}
+
+function feedbackFor(
+  item: GrammarItem,
+  lang: NativeLang,
+  selectedIndex?: number,
+  answer?: string,
+  fallback?: LocalizedText,
+): string {
+  const feedback = item.feedback as GrammarFeedback | undefined;
+  if (selectedIndex !== undefined) {
+    const optionFeedback = feedback?.options?.[selectedIndex];
+    const text = optionFeedback ? localized(optionFeedback, lang) : "";
+    if (text) return text;
+  }
+  if (answer && feedback?.targeted) {
+    const normalized = normalizeAnswer(answer);
+    const match = Object.entries(feedback.targeted).find(([key]) => normalizeAnswer(key) === normalized)?.[1];
+    if (match) return typeof match === "string" ? match : localized(match, lang);
+  }
+  const correct = localized(feedback?.correct, lang);
+  if (correct) return correct;
+  return localized(fallback, lang);
+}
+
+function learningStage(exercise: GrammarExercise, lang: NativeLang): { label: string; color: string } {
+  const copy = labels[lang];
+  if (exercise.type === "pick" || exercise.type === "match") {
+    return { label: copy.guided, color: "bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-200" };
+  }
+  if (exercise.type === "gap") {
+    return { label: copy.recall, color: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200" };
+  }
+  return { label: copy.independent, color: "bg-violet-100 text-violet-800 dark:bg-violet-950 dark:text-violet-200" };
+}
+
+export function GrammarUnitPlayer({
+  unit,
+  nativeLang,
+  onBack,
+}: {
   unit: GrammarUnit;
   nativeLang: NativeLang;
   onBack: () => void;
-}
+}) {
+  const copy = labels[nativeLang];
+  const [stage, setStage] = useState<Stage>("learn");
+  const [completed, setCompleted] = useState<Record<string, boolean>>({});
+  const [firstScores, setFirstScores] = useState<Record<string, { correct: number; total: number }>>({});
+  const [runId, setRunId] = useState(() => `${Date.now()}-${Math.random()}`);
+  const [reviewDue, setReviewDue] = useState(false);
+  const [reviewMode, setReviewMode] = useState<"lesson" | "due">("lesson");
+  const [completionScore, setCompletionScore] = useState<{ correct: number; total: number } | null>(null);
+  const [nextReviewDate, setNextReviewDate] = useState<number | null>(null);
+  const title = localized(unit.title, nativeLang);
+  const doneCount = Object.values(completed).filter(Boolean).length;
+  const totalItems = unit.exercises.reduce((sum, exercise) => sum + exercise.items.length, 0);
+  const firstTryScore = Object.values(firstScores).reduce((sum, entry) => sum + entry.correct, 0);
+  const firstTryTotal = Object.values(firstScores).reduce((sum, entry) => sum + entry.total, 0);
+  const canFinish = unit.exercises.length === 0 || doneCount === unit.exercises.length;
 
-export function GrammarUnitPlayer({ unit, nativeLang, onBack }: Props) {
-  const [stage, setStage] = useState<"intro" | "exercises" | "done">("intro");
-  const [exerciseIdx, setExerciseIdx] = useState(0);
-  const [attemptId, setAttemptId] = useState(() => `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  useEffect(() => {
+    try {
+      const entry = loadMastery()[`grammar:${unit.id}`];
+      setReviewDue(!!entry && entry.level < 5 && entry.nextReviewDate <= Date.now());
+    } catch (error) {
+      console.warn("Could not load grammar review schedule", error);
+    }
+  }, [unit.id]);
 
-  const exercises = getUnitExercises(unit);
-  const current = exercises[exerciseIdx];
+  const finishWithScore = (correct: number, total: number) => {
+    const safeTotal = Math.max(total, 1);
+    const score = correct / safeTotal;
+    setCompletionScore({ correct, total: safeTotal });
+    try {
+      updateMastery(`grammar:${unit.id}`, score);
+      setNextReviewDate(loadMastery()[`grammar:${unit.id}`]?.nextReviewDate ?? null);
+    } catch (error) {
+      console.warn("Could not save grammar review schedule", error);
+    }
+    setStage("done");
+  };
 
+  const handleChecked = (id: string, correct: number, total: number, firstCheck: boolean) => {
+    setCompleted((previous) => ({ ...previous, [id]: true }));
+    if (firstCheck) setFirstScores((previous) => ({ ...previous, [id]: { correct, total } }));
+  };
+  const handleReset = (id: string) => {
+    setCompleted((previous) => ({ ...previous, [id]: false }));
+  };
   const restart = () => {
-    setExerciseIdx(0);
-    setAttemptId(`${Date.now()}-${Math.random().toString(36).slice(2)}`);
-    setStage("exercises");
+    setCompleted({});
+    setFirstScores({});
+    setCompletionScore(null);
+    setNextReviewDate(null);
+    setReviewMode("lesson");
+    setRunId(`${Date.now()}-${Math.random()}`);
+    setStage("learn");
   };
 
-  const next = () => {
-    if (exerciseIdx < exercises.length - 1) setExerciseIdx(exerciseIdx + 1);
-    else setStage("done");
-  };
-
-  if (stage === "intro") {
+  if (stage === "done") {
     return (
-      <IntroView unit={unit} nativeLang={nativeLang} onStart={() => setStage("exercises")} onBack={onBack} />
+      <div className="mx-auto w-full max-w-3xl">
+        <div className="mb-5 flex items-center justify-between">
+          <button type="button" onClick={onBack} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-gray-600 transition hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/10">
+            <ArrowLeft size={18} />{copy.back}
+          </button>
+          <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">{copy.done}</span>
+        </div>
+        <GlassCard variant="premium" className="overflow-hidden p-7 text-center sm:p-10">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-300">
+            <CheckCircle2 size={34} />
+          </div>
+          <h2 className="text-2xl font-black text-gray-900 dark:text-white">{copy.finished}</h2>
+          <p className="mt-2 text-gray-600 dark:text-gray-300">{title}</p>
+          <div className="mx-auto mt-7 max-w-sm rounded-2xl bg-gray-50 p-5 dark:bg-gray-900/70">
+            <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">{reviewMode === "due" ? copy.reviewAccuracy : copy.firstTry}</p>
+            <p className="mt-1 text-3xl font-black text-rose-600 dark:text-rose-300">{completionScore?.correct ?? firstTryScore} / {completionScore?.total ?? (firstTryTotal || totalItems)}</p>
+            <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">{copy.scoreNote}</p>
+            {nextReviewDate !== null && (
+              <p className="mt-3 border-t border-gray-200 pt-3 text-xs font-semibold text-violet-700 dark:border-gray-700 dark:text-violet-300">
+                {copy.reviewComplete} {new Intl.DateTimeFormat(nativeLang === "hy" ? "hy-AM" : "ru-RU", { dateStyle: "medium" }).format(new Date(nextReviewDate))}
+              </p>
+            )}
+          </div>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <button type="button" onClick={restart} className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-5 py-3 font-bold text-white transition hover:bg-rose-700">
+              <RotateCcw size={17} />{copy.again}
+            </button>
+            <button type="button" onClick={onBack} className="rounded-xl border border-gray-200 px-5 py-3 font-bold text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800">
+              {copy.back}
+            </button>
+          </div>
+        </GlassCard>
+      </div>
     );
   }
-  if (stage === "done") {
-    return <DoneView nativeLang={nativeLang} onRestart={restart} onBack={onBack} />;
-  }
-  if (!current) return <DoneView nativeLang={nativeLang} onRestart={restart} onBack={onBack} />;
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <button onClick={onBack} className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10">
-          <ArrowLeft size={22} />
+    <div className="mx-auto w-full max-w-5xl pb-8">
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <button type="button" onClick={onBack} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-gray-600 transition hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/10">
+          <ArrowLeft size={18} />{copy.back}
         </button>
-        <div className="text-sm font-bold text-gray-500">
-          {exerciseIdx + 1} / {exercises.length}
+        <div className="hidden items-center gap-2 sm:flex">
+          <StagePill active={stage === "learn"} label={copy.learn} number="1" />
+          <ChevronRight size={15} className="text-gray-400" />
+          <StagePill active={stage === "practice"} label={copy.practice} number="2" />
+          {unit.reviewCards.length > 0 && <><ChevronRight size={15} className="text-gray-400" /><StagePill active={stage === "review"} label={copy.recallStage} number="3" /></>}
         </div>
-        <button onClick={restart} className="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10" title="Նորից">
-          <RotateCcw size={18} />
-        </button>
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={`${exerciseIdx}-${attemptId}`}
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -30 }}
-        >
-          <GlassCard variant="premium" className="p-6 bg-white/70 dark:bg-gray-800/70">
-            <ExerciseDispatcher
-              exercise={current}
-              exerciseIdx={exerciseIdx}
-              attemptId={attemptId}
-              nativeLang={nativeLang}
-              onAllDone={next}
-            />
-          </GlassCard>
-        </motion.div>
-      </AnimatePresence>
+      {stage === "learn" ? (
+        <LearningView
+          unit={unit}
+          title={title}
+          nativeLang={nativeLang}
+          reviewDue={reviewDue && unit.reviewCards.length > 0}
+          onStartReview={() => { setReviewMode("due"); setStage("review"); }}
+          onContinue={() => setStage("practice")}
+        />
+      ) : stage === "review" ? (
+        <RecallReview
+          unit={unit}
+          nativeLang={nativeLang}
+          onComplete={(correct, total) => {
+            if (reviewMode === "due") {
+              finishWithScore(correct, total);
+              return;
+            }
+            finishWithScore(firstTryScore + correct, firstTryTotal + total);
+          }}
+        />
+      ) : (
+        <section aria-labelledby="grammar-practice-title">
+          <div className="mb-6 rounded-3xl border border-rose-100 bg-gradient-to-r from-rose-50 via-white to-amber-50 p-5 dark:border-white/10 dark:from-rose-950/40 dark:via-gray-900 dark:to-amber-950/20 sm:p-7">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-rose-600 dark:text-rose-300">{nativeLang === "hy" ? `Միավոր ${unit.unitNumber}` : `Раздел ${unit.unitNumber}`}</p>
+                <h1 id="grammar-practice-title" className="mt-2 text-2xl font-black text-gray-900 dark:text-white">{title}</h1>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                  {nativeLang === "hy" ? "Սկսիր ճանաչումից, հետո հիշիր և կիրառիր կանոնը ինքնուրույն։" : "Начните с узнавания, затем вспомните и примените правило самостоятельно."}
+                </p>
+              </div>
+              <div className="min-w-[9rem] rounded-2xl bg-white/80 px-4 py-3 text-center shadow-sm dark:bg-gray-800/80">
+                <p className="text-2xl font-black text-rose-600 dark:text-rose-300">{doneCount}<span className="text-base text-gray-400"> / {unit.exercises.length}</span></p>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{copy.tasksDone}</p>
+              </div>
+            </div>
+            <div className="mt-5 h-2 overflow-hidden rounded-full bg-rose-100 dark:bg-gray-700" role="progressbar" aria-valuemin={0} aria-valuemax={unit.exercises.length} aria-valuenow={doneCount} aria-label={copy.lessonProgress}>
+              <div className="h-full rounded-full bg-gradient-to-r from-rose-500 to-orange-400 transition-all duration-500" style={{ width: `${unit.exercises.length ? (doneCount / unit.exercises.length) * 100 : 100}%` }} />
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            {unit.exercises.map((exercise, index) => (
+              <ExerciseCard
+                key={`${runId}-${exercise.id}`}
+                exercise={exercise}
+                runId={runId}
+                index={index}
+                total={unit.exercises.length}
+                nativeLang={nativeLang}
+                onChecked={handleChecked}
+                onReset={handleReset}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-3xl border border-gray-200 bg-white/80 p-5 dark:border-gray-700 dark:bg-gray-900/70 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="font-extrabold text-gray-900 dark:text-white">{unit.reviewCards.length > 0 ? copy.continueRecall : copy.finish}</h2>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{canFinish ? `${copy.firstTry}: ${firstTryScore} / ${firstTryTotal || totalItems}` : copy.finishHint}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (unit.reviewCards.length) {
+                    setReviewMode("lesson");
+                    setStage("review");
+                  } else {
+                    finishWithScore(firstTryScore, firstTryTotal || totalItems);
+                  }
+                }}
+                disabled={!canFinish}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-6 py-3 font-bold text-white shadow-md shadow-rose-600/15 transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                {unit.reviewCards.length > 0 ? copy.continueRecall : copy.finish}<ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
 
-/* ───────────────────────── Intro ───────────────────────── */
-
-function IntroView({ unit, nativeLang, onStart, onBack }: {
-  unit: GrammarUnit; nativeLang: NativeLang; onStart: () => void; onBack: () => void;
-}) {
+function StagePill({ active, label, number }: { active: boolean; label: string; number: string }) {
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <button onClick={onBack} className="mb-4 p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10">
-        <ArrowLeft size={22} />
-      </button>
-      <div className="text-center mb-8">
-        <div className="text-6xl mb-3">📖</div>
-        <h2 className="text-3xl font-black mb-2">{bt(unit.title, nativeLang)}</h2>
-        {unit.cefr && <p className="text-sm text-gray-500 font-medium">CEFR: {unit.cefr}</p>}
+    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold ${active ? "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-200" : "text-gray-500 dark:text-gray-400"}`}>
+      <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] ${active ? "bg-rose-600 text-white" : "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"}`}>{number}</span>
+      {label}
+    </span>
+  );
+}
+
+function LearningView({
+  unit,
+  title,
+  nativeLang,
+  reviewDue,
+  onStartReview,
+  onContinue,
+}: {
+  unit: GrammarUnit;
+  title: string;
+  nativeLang: NativeLang;
+  reviewDue: boolean;
+  onStartReview: () => void;
+  onContinue: () => void;
+}) {
+  const copy = labels[nativeLang];
+
+  return (
+    <div>
+      <div className="mb-6 text-center">
+        <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 dark:bg-rose-950 dark:text-rose-300">
+          <BookOpen size={27} />
+        </div>
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-rose-600 dark:text-rose-300">{copy.learn} · {nativeLang === "hy" ? `Միավոր ${unit.unitNumber}` : `Раздел ${unit.unitNumber}`}</p>
+        <h1 className="mt-2 text-3xl font-black text-gray-900 dark:text-white">{title}</h1>
+        {unit.cefr && <p className="mt-1 text-sm text-gray-500">CEFR {unit.cefr}</p>}
       </div>
-      <GlassCard variant="premium" className="p-6 mb-4 bg-white/70 dark:bg-gray-800/70">
-        <p className="text-base leading-relaxed">{bt(unit.explanation, nativeLang)}</p>
-      </GlassCard>
-      {unit.cards && unit.cards.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-          {unit.cards.map((card) => (
-            <GlassCard key={card.id} variant="premium" className="p-4 bg-white/60 dark:bg-gray-800/60">
-              <p className="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">
-                {bt(card.title, nativeLang)}
-              </p>
-              <p className="text-sm leading-relaxed">{bt(card.body, nativeLang)}</p>
-            </GlassCard>
-          ))}
+
+      {unit.needsReview && (
+        <p className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-900 dark:border-amber-900 dark:bg-amber-950/50 dark:text-amber-100">
+          {copy.needReview}
+        </p>
+      )}
+
+      {reviewDue && (
+        <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-violet-200 bg-violet-50 p-4 dark:border-violet-900 dark:bg-violet-950/30 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm leading-relaxed text-violet-950 dark:text-violet-100">{copy.dueReview}</p>
+          <button type="button" onClick={onStartReview} className="shrink-0 rounded-xl bg-violet-700 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-violet-800">
+            {copy.startReview}
+          </button>
         </div>
       )}
-      <div className="text-center">
-        <button
-          onClick={onStart}
-          className="px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black shadow-lg shadow-emerald-500/30 inline-flex items-center gap-2"
-        >
-          <Sparkles size={18} /> Սկսել վարժությունները
-        </button>
+
+      <GlassCard variant="premium" className="mb-5 p-5 sm:p-7">
+        <p className="mb-2 text-sm font-bold text-rose-700 dark:text-rose-300">{copy.introHint}</p>
+        <RichText value={localized(unit.explanation, nativeLang)} className="text-base leading-8 text-gray-800 dark:text-gray-100" />
+      </GlassCard>
+
+      {unit.learningObjectives.length > 0 && (
+        <section className="mb-6 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5 dark:border-emerald-900/50 dark:bg-emerald-950/20">
+          <h2 className="mb-3 font-extrabold text-gray-900 dark:text-white">{copy.objectives}</h2>
+          <ul className="space-y-2">
+            {unit.learningObjectives.map((objective, index) => (
+              <li key={index} className="flex gap-2 text-sm leading-relaxed text-gray-700 dark:text-gray-200">
+                <Check size={16} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <span>{localized(objective, nativeLang)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {unit.cards.length > 0 && (
+        <section className="mb-7">
+          <h2 className="mb-3 text-lg font-black text-gray-900 dark:text-white">
+            {nativeLang === "hy" ? "Դասի քարտերը" : "Карточки урока"}
+          </h2>
+          <div className="grid gap-3 md:grid-cols-2">
+            {unit.cards.map((card, index) => (
+              <motion.article key={card.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(index * 0.035, 0.25) }} className="rounded-2xl border border-gray-200 bg-white/80 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/60">
+                <div className="mb-2 flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-rose-100 text-xs font-black text-rose-700 dark:bg-rose-950 dark:text-rose-300">{index + 1}</span>
+                  <h3 className="font-bold text-gray-900 dark:text-white">{localized(card.title, nativeLang)}</h3>
+                </div>
+                <RichText value={localized(card.body, nativeLang)} className="text-sm leading-7 text-gray-700 dark:text-gray-200" />
+                {card.formula && <p className="mt-3 rounded-xl bg-gray-50 px-3 py-2 text-center font-mono text-sm font-bold text-rose-700 dark:bg-gray-800 dark:text-rose-200">{card.formula}</p>}
+                {(card.targetText || card.example) && <p className="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-gray-800 dark:bg-amber-950/30 dark:text-amber-100">{card.targetText || card.example}</p>}
+              </motion.article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {unit.rules.length > 0 && (
+        <details className="mb-4 group rounded-2xl border border-gray-200 bg-white/70 p-4 dark:border-gray-700 dark:bg-gray-900/50">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-bold text-gray-800 dark:text-gray-100">
+            {copy.rules}<ChevronDown size={18} className="transition group-open:rotate-180" />
+          </summary>
+          <div className="mt-4 space-y-3">
+            {unit.rules.map((rule) => (
+              <div key={rule.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
+                {rule.formula && <p className="font-mono text-sm font-bold text-rose-700 dark:text-rose-300">{rule.formula}</p>}
+                <RichText value={localized(rule.statement, nativeLang)} className="mt-1 text-sm leading-relaxed text-gray-700 dark:text-gray-200" />
+                {rule.targetText && <RichText value={rule.targetText} className="mt-2 text-sm font-semibold text-gray-900 dark:text-white" />}
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+
+      {unit.examples.length > 0 && (
+        <details className="mb-4 group rounded-2xl border border-gray-200 bg-white/70 p-4 dark:border-gray-700 dark:bg-gray-900/50">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-bold text-gray-800 dark:text-gray-100">
+            {copy.examples}<ChevronDown size={18} className="transition group-open:rotate-180" />
+          </summary>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            {unit.examples.map((example) => (
+              <div key={example.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
+                <RichText value={example.targetText} className="font-semibold text-gray-900 dark:text-white" />
+                {localized(example.translation, nativeLang) && <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{localized(example.translation, nativeLang)}</p>}
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+
+      {unit.commonErrors.length > 0 && (
+        <details className="mb-4 group rounded-2xl border border-gray-200 bg-white/70 p-4 dark:border-gray-700 dark:bg-gray-900/50">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-bold text-gray-800 dark:text-gray-100">
+            {copy.commonErrors}<ChevronDown size={18} className="transition group-open:rotate-180" />
+          </summary>
+          <div className="mt-4 space-y-3">
+            {unit.commonErrors.map((error) => (
+              <div key={error.id} className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800/80">
+                <p className="text-sm text-rose-700 line-through dark:text-rose-300">{error.wrong}</p>
+                <p className="mt-1 text-sm font-bold text-emerald-700 dark:text-emerald-300">{error.correct}</p>
+                <p className="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-300">{localized(error.explanation, nativeLang)}</p>
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+
+      <div className="sticky bottom-3 z-10 rounded-2xl border border-white/60 bg-white/90 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-gray-900/90 sm:p-4">
+        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-400 sm:text-left">{copy.introHint}</p>
+          <button type="button" onClick={onContinue} className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-rose-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-rose-700 sm:w-auto">
+            {copy.continue}<ChevronRight size={17} />
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-function DoneView({ nativeLang, onRestart, onBack }: {
-  nativeLang: NativeLang; onRestart: () => void; onBack: () => void;
+function RecallReview({
+  unit,
+  nativeLang,
+  onComplete,
+}: {
+  unit: GrammarUnit;
+  nativeLang: NativeLang;
+  onComplete: (correct: number, total: number) => void;
 }) {
-  const msg = nativeLang === "hy"
-    ? "🎉 Ապրե՛ս։ Ավարտեցիր այս դասի վարժությունները։"
-    : "🎉 Отлично! Ты завершил упражнения этого урока.";
+  const copy = labels[nativeLang];
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [results, setResults] = useState<Record<string, boolean>>({});
+  const [firstScores, setFirstScores] = useState<Record<string, boolean>>({});
+  const allChecked = unit.reviewCards.length > 0 && unit.reviewCards.every((card) => card.id in results);
+  const firstCorrect = Object.values(firstScores).filter(Boolean).length;
+  const firstTotal = Object.keys(firstScores).length;
+
+  const checkCard = (id: string, expected: string) => {
+    if (id in results) return;
+    const answer = answers[id] ?? "";
+    if (!answer.trim()) return;
+    const correct = normalizeAnswer(answer) === normalizeAnswer(expected);
+    setResults((previous) => ({ ...previous, [id]: correct }));
+    setFirstScores((previous) => id in previous ? previous : { ...previous, [id]: correct });
+  };
+
+  const retryCard = (id: string) => {
+    setResults((previous) => {
+      const next = { ...previous };
+      delete next[id];
+      return next;
+    });
+    setAnswers((previous) => ({ ...previous, [id]: "" }));
+  };
+
   return (
-    <div className="w-full max-w-xl mx-auto text-center">
-      <div className="text-7xl mb-6">🏆</div>
-      <h2 className="text-3xl font-black mb-3">{msg}</h2>
-      <div className="flex gap-3 justify-center mt-8">
-        <button onClick={onRestart} className="px-6 py-3 rounded-2xl bg-blue-600 text-white font-bold inline-flex items-center gap-2">
-          <RotateCcw size={18} /> {nativeLang === "hy" ? "Կրկնել" : "Повторить"}
-        </button>
-        <button onClick={onBack} className="px-6 py-3 rounded-2xl bg-gray-200 dark:bg-gray-700 font-bold inline-flex items-center gap-2">
-          <ArrowLeft size={18} /> {nativeLang === "hy" ? "Վերադառնալ" : "Назад"}
+    <section className="mx-auto max-w-4xl">
+      <div className="mb-6 rounded-3xl border border-violet-100 bg-gradient-to-r from-violet-50 via-white to-rose-50 p-5 dark:border-white/10 dark:from-violet-950/40 dark:via-gray-900 dark:to-rose-950/20 sm:p-7">
+        <p className="text-xs font-bold uppercase tracking-[0.15em] text-violet-700 dark:text-violet-300">{copy.recallStage}</p>
+        <h1 className="mt-2 text-2xl font-black text-gray-900 dark:text-white">{localized(unit.title, nativeLang)}</h1>
+        <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{copy.reviewCard}</p>
+        <p className="mt-3 text-xs font-semibold text-gray-500 dark:text-gray-400">
+          {nativeLang === "hy" ? `${Object.keys(results).length} / ${unit.reviewCards.length} հարց ստուգված է` : `Проверено: ${Object.keys(results).length} / ${unit.reviewCards.length}`}
+        </p>
+      </div>
+
+      <div className="space-y-3">
+        {unit.reviewCards.map((card, index) => {
+          const checked = card.id in results;
+          const correct = results[card.id] === true;
+          return (
+            <article key={card.id} className="rounded-2xl border border-gray-200 bg-white/85 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70 sm:p-5">
+              <div className="flex gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-violet-100 text-xs font-black text-violet-800 dark:bg-violet-950 dark:text-violet-200">{index + 1}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold leading-relaxed text-gray-900 dark:text-white">{localized(card.prompt, nativeLang)}</p>
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                    <input
+                      type="text"
+                      value={answers[card.id] ?? ""}
+                      onChange={(event) => setAnswers((previous) => ({ ...previous, [card.id]: event.target.value }))}
+                      onKeyDown={(event) => event.key === "Enter" && checkCard(card.id, card.answer)}
+                      disabled={checked}
+                      aria-label={`${copy.answer} ${index + 1}`}
+                      className="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 disabled:opacity-80 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:focus:ring-violet-950"
+                      placeholder={copy.answer}
+                    />
+                    <button type="button" onClick={() => checkCard(card.id, card.answer)} disabled={checked || !(answers[card.id] ?? "").trim()} className="rounded-xl bg-violet-700 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-violet-800 disabled:cursor-not-allowed disabled:opacity-40">
+                      {nativeLang === "hy" ? "Ստուգել" : "Проверить"}
+                    </button>
+                  </div>
+                  {checked && (
+                    <div className={`mt-3 rounded-xl px-3 py-2.5 text-xs leading-relaxed ${correct ? "bg-emerald-50 text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100" : "bg-rose-50 text-rose-900 dark:bg-rose-950/40 dark:text-rose-100"}`}>
+                      <p className="flex items-center gap-1.5 font-bold">{correct ? <Check size={14} /> : <X size={14} />}{correct ? copy.correct : copy.incorrect}</p>
+                      {!correct && <p className="mt-1 font-semibold">{copy.correctAnswer}: {card.answer}</p>}
+                      {!correct && <button type="button" onClick={() => retryCard(card.id)} className="mt-2 font-bold underline underline-offset-2">{copy.retry}</button>}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-violet-100 bg-violet-50/70 p-4 dark:border-violet-900 dark:bg-violet-950/20 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">{allChecked ? `${copy.reviewAccuracy}: ${firstCorrect} / ${firstTotal}` : copy.finishHint}</p>
+        <button type="button" onClick={() => onComplete(firstCorrect, firstTotal)} disabled={!allChecked} className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-violet-800 disabled:cursor-not-allowed disabled:opacity-40">
+          {copy.finish}<ChevronRight size={17} />
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 
-/* ───────────────────── Exercise dispatcher ───────────────────── */
-
-function ExerciseDispatcher({
-  exercise, exerciseIdx, attemptId, nativeLang, onAllDone,
+function ExerciseCard({
+  exercise,
+  runId,
+  index,
+  total,
+  nativeLang,
+  onChecked,
+  onReset,
 }: {
   exercise: GrammarExercise;
-  exerciseIdx: number;
-  attemptId: string;
+  runId: string;
+  index: number;
+  total: number;
   nativeLang: NativeLang;
-  onAllDone: () => void;
+  onChecked: (id: string, correct: number, total: number, firstCheck: boolean) => void;
+  onReset: (id: string) => void;
 }) {
-  const exerciseId = exercise.id ?? `ex-${exerciseIdx}`;
+  const copy = labels[nativeLang];
+  const [answers, setAnswers] = useState<Record<string, AnswerValue>>({});
+  const [result, setResult] = useState<ExerciseResult | null>(null);
+  const [hasInitialCheck, setHasInitialCheck] = useState(false);
+  const stage = learningStage(exercise, nativeLang);
+  const hasNoQuestions = exercise.items.length === 0;
+  const allAnswered = exercise.items.every((item) => {
+    const value = answers[item.id];
+    if (Array.isArray(value)) return value.length === ("words" in item ? item.words.length : 0);
+    return typeof value === "string" && value.trim().length > 0;
+  });
 
-  if (exercise.type === "pick") {
-    return <PickExerciseView exercise={exercise} exerciseId={exerciseId} attemptId={attemptId} nativeLang={nativeLang} onAllDone={onAllDone} />;
-  }
-  if (exercise.type === "gap" || exercise.type === "write" || exercise.type === "fix") {
-    return <TextExerciseView exercise={exercise} nativeLang={nativeLang} onAllDone={onAllDone} />;
-  }
-  return (
-    <div>
-      <p className="text-sm font-bold mb-2">{bt(exercise.instruction, nativeLang)}</p>
-      <p className="text-xs text-gray-500">«{exercise.type}» տիպը այս էկրանում դեռ չի իրականացվել։</p>
-      <button onClick={onAllDone} className="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-bold">
-        Շարունակել
-      </button>
-    </div>
-  );
-}
-
-/* ───────────────────── Pick (with shuffle) ───────────────────── */
-
-function PickExerciseView({
-  exercise, exerciseId, attemptId, nativeLang, onAllDone,
-}: {
-  exercise: GrammarExercise; exerciseId: string; attemptId: string;
-  nativeLang: NativeLang; onAllDone: () => void;
-}) {
-  const items = exercise.items as PickItem[];
-  const [idx, setIdx] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [result, setResult] = useState<{ ok: boolean; fb: string } | null>(null);
-
-  const item = items[idx];
-  const shuffle = exercise.shuffleOptions === true;
-
-  // ՄԵԿ անգամ attempt-ի համար — ստուգելիս կամ re-render-ին չի նորից խառնվում
-  const rendered: RenderedPickItem = useMemo(
-    () => renderPickItem(exerciseId, item, idx, attemptId, shuffle),
-    [exerciseId, item, idx, attemptId, shuffle]
-  );
-
-  const handlePick = (displayIdx: number) => {
-    if (result) return;
-    const check = checkPickAnswer(rendered, displayIdx);
-    let fb = "";
-    if (check.isCorrect) {
-      fb = bt(item.feedback, nativeLang) || (nativeLang === "hy" ? "Ճիշտ է։" : "Верно.");
-    } else {
-      const wrongFb = resolveWrongFeedback(item as { no?: Record<string, unknown>; byOption?: Record<string, unknown> }, check.wrongFeedbackKey);
-      const t = bt(wrongFb as BilingualText | string | undefined, nativeLang);
-      fb = t || (nativeLang === "hy" ? "Սխալ է։" : "Неверно.");
+  const checkAnswers = () => {
+    if (result || (!hasNoQuestions && !allAnswered)) return;
+    if (hasNoQuestions) {
+      setResult({});
+      onChecked(exercise.id, 0, 0, !hasInitialCheck);
+      setHasInitialCheck(true);
+      return;
     }
-    setSelected(displayIdx);
-    setResult({ ok: check.isCorrect, fb });
+    const nextResult: ExerciseResult = {};
+    for (const item of exercise.items) {
+      const kind = itemKind(exercise, item);
+      const submitted = answers[item.id];
+      let correct = false;
+      let correctAnswer = "";
+      let explanation = "";
+      let selectedIndex: number | undefined;
+      let submittedText = "";
+
+      if (kind === "pick" && "options" in item) {
+        selectedIndex = Number(submitted);
+        correct = selectedIndex === item.correctIndex;
+        correctAnswer = item.options[item.correctIndex] ?? "";
+        explanation = feedbackFor(item, nativeLang, correct ? undefined : selectedIndex);
+      } else if (kind === "match" && "answer" in item) {
+        submittedText = String(submitted);
+        correct = normalizeAnswer(submittedText) === normalizeAnswer(item.answer);
+        correctAnswer = item.answer;
+        explanation = correct
+          ? feedbackFor(item, nativeLang)
+          : localized(exercise.unusedOptionFeedback, nativeLang) || feedbackFor(item, nativeLang);
+      } else if (kind === "order" && "words" in item) {
+        submittedText = (submitted as number[]).map((wordIndex) => item.words[wordIndex]).join(" ");
+        correct = item.accepted.some((accepted) => normalizeAnswer(accepted, exercise.exact) === normalizeAnswer(submittedText, exercise.exact));
+        correctAnswer = item.accepted[0] ?? "";
+        explanation = feedbackFor(item, nativeLang, undefined, submittedText);
+      } else if (kind === "text" && "accepted" in item && "prompt" in item) {
+        submittedText = String(submitted);
+        const exact = exercise.exact || item.exact === true;
+        correct = item.accepted.some((accepted) => normalizeAnswer(accepted, exact) === normalizeAnswer(submittedText, exact));
+        correctAnswer = item.accepted[0] ?? "";
+        explanation = feedbackFor(item, nativeLang, undefined, submittedText);
+      } else {
+        correct = false;
+        correctAnswer = "";
+        explanation = copy.unknown;
+      }
+
+      nextResult[item.id] = { correct, answer: correctAnswer, explanation };
+    }
+    const correctCount = Object.values(nextResult).filter((entry) => entry.correct).length;
+    setResult(nextResult);
+    onChecked(exercise.id, correctCount, exercise.items.length, !hasInitialCheck);
+    setHasInitialCheck(true);
   };
 
-  const nextItem = () => {
-    if (idx < items.length - 1) {
-      setIdx(idx + 1);
-      setSelected(null);
-      setResult(null);
-    } else {
-      onAllDone();
-    }
+  const retry = () => {
+    setAnswers({});
+    setResult(null);
+    onReset(exercise.id);
   };
 
   return (
-    <div>
-      <p className="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">
-        {nativeLang === "hy" ? "Ընտրիր ճիշտ պատասխանը" : "Выберите правильный ответ"}
-      </p>
-      <p className="text-base font-medium mb-4">{bt(exercise.instruction, nativeLang)}</p>
-
-      <div className="mb-6">
-        <p className="text-lg font-bold mb-3">{item.s}</p>
-        <div className="flex flex-col gap-2">
-          {rendered.options.map((opt, displayIdx) => {
-            const isSelected = selected === displayIdx;
-            const isWrongPick = result && !result.ok && isSelected;
-            const isRightPick = result && result.ok && isSelected;
-            return (
-              <button
-                key={displayIdx}
-                onClick={() => handlePick(displayIdx)}
-                disabled={!!result}
-                className={[
-                  "px-4 py-3 rounded-xl text-left text-base font-medium transition-all border-2",
-                  isRightPick
-                    ? "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-900 dark:text-emerald-200"
-                    : isWrongPick
-                    ? "bg-rose-50 dark:bg-rose-900/30 border-rose-500 text-rose-900 dark:text-rose-200"
-                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-blue-400",
-                ].join(" ")}
-              >
-                {opt}
-              </button>
-            );
-          })}
+    <article className="overflow-hidden rounded-3xl border border-gray-200 bg-white/85 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-gray-100 px-4 py-4 dark:border-gray-800 sm:px-6">
+        <div className="flex items-start gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-sm font-black text-gray-700 dark:bg-gray-800 dark:text-gray-100">{index + 1}</span>
+          <div>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{copy.task} {index + 1} {nativeLang === "hy" ? `/${total}` : `из ${total}`}</p>
+            <h2 className="mt-1 text-base font-extrabold leading-snug text-gray-900 dark:text-white">{localized(exercise.instruction, nativeLang) || copy.unknown}</h2>
+            {exercise.example && <RichText value={exercise.example} className="mt-1 text-xs text-gray-500 dark:text-gray-400" />}
+          </div>
         </div>
+        <span className={`rounded-full px-3 py-1 text-[11px] font-bold ${stage.color}`}>{stage.label}</span>
       </div>
 
-      {result && (
-        <div className={[
-          "p-3 rounded-xl text-sm font-medium mb-4 flex items-start gap-2",
-          result.ok
-            ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200"
-            : "bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-200",
-        ].join(" ")}>
-          {result.ok ? <Check size={18} className="shrink-0 mt-0.5" /> : <X size={18} className="shrink-0 mt-0.5" />}
-          <span>{result.fb}</span>
-        </div>
-      )}
+      <div className="divide-y divide-gray-100 px-4 dark:divide-gray-800 sm:px-6">
+        {exercise.items.length ? exercise.items.map((item, itemIndex) => (
+          <div key={item.id} className="grid min-w-0 gap-4 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(280px,1fr)] sm:items-start">
+            <div className="flex min-w-0 gap-3">
+              <span className="mt-0.5 text-xs font-bold text-gray-400">{itemIndex + 1}</span>
+              <PromptContent value={"prompt" in item ? itemPrompt(item, nativeLang, exercise) : "words" in item ? item.words.join(" · ") : ""} nativeLang={nativeLang} />
+            </div>
+            <div className="min-w-0">
+              <ItemAnswerInput
+                key={`${item.id}-${result ? "checked" : "open"}`}
+                exercise={exercise}
+                item={item}
+                itemIndex={itemIndex}
+                value={answers[item.id]}
+                onChange={(value) => setAnswers((previous) => ({ ...previous, [item.id]: value }))}
+                nativeLang={nativeLang}
+                disabled={!!result || itemKind(exercise, item) === "unsupported"}
+                outcome={result?.[item.id]}
+                runKey={`${runId}-${exercise.id}`}
+              />
+            </div>
+            {result?.[item.id] && (
+              <div className={`sm:col-span-2 rounded-xl px-3 py-2.5 text-xs leading-relaxed ${result[item.id].correct ? "bg-emerald-50 text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100" : "bg-rose-50 text-rose-900 dark:bg-rose-950/40 dark:text-rose-100"}`}>
+                <p className="flex items-center gap-1.5 font-bold">
+                  {result[item.id].correct ? <Check size={14} /> : <X size={14} />}
+                  {result[item.id].correct ? copy.correct : copy.incorrect}
+                </p>
+                {result[item.id].explanation && <p className="mt-1">{result[item.id].explanation}</p>}
+                {!result[item.id].correct && result[item.id].answer && <p className="mt-1 font-semibold">{copy.correctAnswer}: {result[item.id].answer}</p>}
+              </div>
+            )}
+          </div>
+        )) : (
+          <p className="py-5 text-sm text-gray-600 dark:text-gray-300">{copy.unknown}</p>
+        )}
+      </div>
 
-      {result && (
-        <button
-          onClick={nextItem}
-          className="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-bold inline-flex items-center gap-2"
-        >
-          {idx < items.length - 1
-            ? (nativeLang === "hy" ? "Հաջորդը" : "Далее")
-            : (nativeLang === "hy" ? "Ավարտել" : "Готово")}
-          <ChevronRight size={16} />
-        </button>
-      )}
+      <div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50/70 px-4 py-4 dark:border-gray-800 dark:bg-gray-950/30 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          {result ? copy.checked : hasNoQuestions ? copy.unknown : allAnswered ? (nativeLang === "hy" ? `${exercise.items.length} կետ · պատրաստ է ստուգման` : `${exercise.items.length} пунктов · готово к проверке`) : copy.missing}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {result && (
+            <button type="button" onClick={retry} className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-bold text-gray-700 transition hover:bg-white dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800">
+              <RotateCcw size={15} />{copy.retry}
+            </button>
+          )}
+          <button type="button" onClick={checkAnswers} disabled={!!result || (!hasNoQuestions && !allAnswered)} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-gray-900 dark:hover:bg-rose-200">
+            {result ? <CheckCircle2 size={16} /> : <Check size={16} />}{result ? copy.checked : hasNoQuestions ? copy.unknownDone : copy.check}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function PromptContent({ value, nativeLang }: { value: string; nativeLang: NativeLang }) {
+  const plainValue = value.replace(/<[^>]*>/g, "").replace(/&nbsp;/gi, " ").trim();
+  const cue = plainValue.match(/^\(\s*([+\-−])\s*\)\s*(.+?)\s*\/\s*(.+)$/);
+  if (!cue) {
+    return <RichText value={value} className="min-w-0 flex-1 text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100" />;
+  }
+
+  const isPositive = cue[1] === "+";
+  const label = nativeLang === "hy"
+    ? isPositive ? "Հաստատական ձև" : "Ժխտական ձև"
+    : isPositive ? "Утвердительная форма" : "Отрицательная форма";
+
+  return (
+    <div className="min-w-0 flex-1 space-y-2">
+      <span className={`inline-flex max-w-full rounded-full px-2.5 py-1 text-xs font-bold ${isPositive ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-100" : "bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100"}`}>
+        {cue[1]} · {label}
+      </span>
+      <div className="flex min-w-0 flex-wrap items-center gap-2 text-sm font-medium leading-relaxed text-gray-800 dark:text-gray-100">
+        <span className="max-w-full break-words rounded-lg bg-gray-100 px-2.5 py-1.5 dark:bg-gray-800">{cue[2]}</span>
+        <span aria-hidden="true" className="font-bold text-gray-400">→</span>
+        <span className="max-w-full break-words rounded-lg bg-gray-100 px-2.5 py-1.5 dark:bg-gray-800">{cue[3]}</span>
+      </div>
     </div>
   );
 }
 
-/* ───────────────────── Text exercises ───────────────────── */
-
-function normalizeAnswer(s: string): string {
-  return s.trim().toLowerCase().replace(/[.!?]+$/g, "");
-}
-
-function TextExerciseView({
-  exercise, nativeLang, onAllDone,
+function ItemAnswerInput({
+  exercise,
+  item,
+  itemIndex,
+  value,
+  onChange,
+  nativeLang,
+  disabled,
+  outcome,
+  runKey,
 }: {
-  exercise: GrammarExercise; nativeLang: NativeLang; onAllDone: () => void;
+  exercise: GrammarExercise;
+  item: GrammarItem;
+  itemIndex: number;
+  value: AnswerValue | undefined;
+  onChange: (value: AnswerValue) => void;
+  nativeLang: NativeLang;
+  disabled: boolean;
+  outcome?: ItemResult;
+  runKey: string;
 }) {
-  const items = exercise.items as TextItem[];
-  const [idx, setIdx] = useState(0);
-  const [value, setValue] = useState("");
-  const [result, setResult] = useState<{ ok: boolean; fb: string } | null>(null);
+  const copy = labels[nativeLang];
+  const kind = itemKind(exercise, item);
+  const shuffledPick = useMemo(() => {
+    if (kind !== "pick" || !("options" in item)) return [];
+    const map = exercise.shuffleOptions ? buildDisplayMap(item.options.length, `${runKey}-${item.id}-pick`) : item.options.map((_, idx) => idx);
+    return map.map((originalIndex) => ({ text: item.options[originalIndex], originalIndex }));
+  }, [exercise.shuffleOptions, item, item.id, kind, runKey]);
+  const matchOptions = useMemo(() => {
+    if (kind !== "match" || !("answer" in item)) return [];
+    const base = [...new Set([...(exercise.options ?? []), item.answer])];
+    const map = exercise.shuffleOptions ? buildDisplayMap(base.length, `${runKey}-${item.id}-match`) : base.map((_, idx) => idx);
+    return map.map((originalIndex) => base[originalIndex]);
+  }, [exercise.options, exercise.shuffleOptions, item, item.id, kind, runKey]);
+  const wordTiles = useMemo(() => {
+    if (kind !== "order" || !("words" in item)) return [];
+    const map = buildDisplayMap(item.words.length, `${runKey}-${item.id}-words`);
+    return map.map((originalIndex) => ({ word: item.words[originalIndex], originalIndex }));
+  }, [item, item.id, kind, runKey]);
 
-  const item = items[idx];
+  if (kind === "pick" && "options" in item) {
+    const chosen = typeof value === "string" ? Number(value) : -1;
+    return (
+      <div className="grid w-full min-w-0 grid-cols-1 gap-2" role="group" aria-label={itemPrompt(item, nativeLang, exercise)}>
+        {shuffledPick.map((option) => {
+          const selected = chosen === option.originalIndex;
+          const isCorrectAnswer = !!outcome && option.originalIndex === item.correctIndex;
+          const isWrongSelected = !!outcome && selected && !outcome.correct;
+          return (
+            <button key={option.originalIndex} type="button" onClick={() => onChange(String(option.originalIndex))} disabled={disabled} aria-pressed={selected} className={`w-full min-w-0 max-w-full whitespace-normal break-words rounded-xl border px-3 py-2.5 text-left text-sm font-bold leading-relaxed transition ${isCorrectAnswer ? "border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-100" : isWrongSelected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : selected ? "border-rose-500 bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-100" : "border-gray-200 bg-white text-gray-800 hover:border-rose-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"}`}>
+              <RichInlineText value={option.text} />
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
 
-  const submit = () => {
-    if (result || !value.trim()) return;
-    const accepted = item.a.map(normalizeAnswer);
-    const ok = accepted.includes(normalizeAnswer(value));
-    const fb = ok
-      ? (bt(item.feedback, nativeLang) || (nativeLang === "hy" ? "Ճիշտ է։" : "Верно."))
-      : (bt(item.feedback, nativeLang) || (nativeLang === "hy"
-          ? `Ճիշտ պատասխանը՝ ${item.a[0]}`
-          : `Правильный ответ: ${item.a[0]}`));
-    setResult({ ok, fb });
-  };
+  if (kind === "match" && "answer" in item) {
+    return (
+      <select aria-label={itemPrompt(item, nativeLang, exercise)} value={typeof value === "string" ? value : ""} onChange={(event) => onChange(event.target.value)} disabled={disabled} className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-gray-800 outline-none transition focus:border-rose-400 focus:ring-2 focus:ring-rose-100 disabled:opacity-80 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-rose-950 ${outcome ? outcome.correct ? "border-emerald-500" : "border-rose-500" : "border-gray-200 dark:border-gray-700"}`}>
+        <option value="">{copy.select}</option>
+        {matchOptions.map((option, index) => <option key={`${option}-${index}`} value={option}>{plainOptionText(option)}</option>)}
+      </select>
+    );
+  }
 
-  const nextItem = () => {
-    if (idx < items.length - 1) {
-      setIdx(idx + 1); setValue(""); setResult(null);
-    } else {
-      onAllDone();
-    }
-  };
+  if (kind === "order" && "words" in item) {
+    const selectedWords = Array.isArray(value) ? value : [];
+    const used = new Set(selectedWords);
+    return (
+      <div className="space-y-2">
+        <div className="flex min-h-10 flex-wrap gap-1.5 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-2 dark:border-gray-600 dark:bg-gray-800/60" aria-label={copy.answer}>
+          {selectedWords.length ? selectedWords.map((wordIndex, position) => (
+            <button key={`${wordIndex}-${position}`} type="button" disabled={disabled} onClick={() => onChange(selectedWords.filter((_, index) => index !== position))} title={copy.removeWord} className="max-w-full whitespace-normal break-words rounded-lg bg-rose-100 px-2.5 py-1 text-left text-sm font-semibold text-rose-800 dark:bg-rose-950 dark:text-rose-100"><RichInlineText value={item.words[wordIndex]} /></button>
+          )) : <span className="px-1 text-xs text-gray-400">{copy.answer}</span>}
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {wordTiles.map(({ word, originalIndex }) => (
+            <button key={`${originalIndex}-${word}`} type="button" disabled={disabled || used.has(originalIndex)} onClick={() => onChange([...selectedWords, originalIndex])} className="max-w-full whitespace-normal break-words rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-left text-sm font-medium text-gray-700 transition hover:border-rose-300 disabled:opacity-35 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"><RichInlineText value={word} /></button>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
-  return (
-    <div>
-      <p className="text-base font-medium mb-4">{bt(exercise.instruction, nativeLang)}</p>
-      <p className="text-lg font-bold mb-3">{item.s ?? item.p ?? ""}</p>
-      <div className="flex gap-2 mb-4">
+  if (kind === "text" && "accepted" in item && "prompt" in item) {
+    return (
+      <div className="space-y-2">
+        {exercise.type === "gap" && exercise.box && exercise.box.length > 0 && (
+          <div className="flex flex-wrap gap-1.5" aria-label={nativeLang === "hy" ? "Բառերի ցանկ" : "Слова для выбора"}>
+            {exercise.box.map((word, index) => <span key={`${word}-${index}`} className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800 dark:bg-amber-950/50 dark:text-amber-200">{word}</span>)}
+          </div>
+        )}
         <input
           type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
-          disabled={!!result}
-          className="flex-1 px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
-          placeholder={nativeLang === "hy" ? "Պատասխանդ..." : "Твой ответ..."}
-          autoFocus
+          value={typeof value === "string" ? value : ""}
+          onChange={(event) => onChange(event.target.value)}
+          disabled={disabled}
+          aria-label={itemPrompt(item, nativeLang, exercise) || `${copy.answer} ${itemIndex + 1}`}
+          autoComplete="off"
+          className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-rose-400 focus:ring-2 focus:ring-rose-100 disabled:opacity-80 dark:bg-gray-800 dark:text-white dark:focus:ring-rose-950 ${outcome ? outcome.correct ? "border-emerald-500" : "border-rose-500" : "border-gray-200 dark:border-gray-700"}`}
+          placeholder={copy.answer}
         />
-        <button
-          onClick={submit}
-          disabled={!!result || !value.trim()}
-          className="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold disabled:opacity-50"
-        >
-          {nativeLang === "hy" ? "Ստուգել" : "Проверить"}
-        </button>
       </div>
+    );
+  }
 
-      {result && (
-        <div className={[
-          "p-3 rounded-xl text-sm font-medium mb-4 flex items-start gap-2",
-          result.ok
-            ? "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200"
-            : "bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-200",
-        ].join(" ")}>
-          {result.ok ? <Check size={18} className="shrink-0 mt-0.5" /> : <X size={18} className="shrink-0 mt-0.5" />}
-          <span>{result.fb}</span>
-        </div>
-      )}
-
-      {result && (
-        <button
-          onClick={nextItem}
-          className="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-bold inline-flex items-center gap-2"
-        >
-          {idx < items.length - 1
-            ? (nativeLang === "hy" ? "Հաջորդը" : "Далее")
-            : (nativeLang === "hy" ? "Ավարտել" : "Готово")}
-          <ChevronRight size={16} />
-        </button>
-      )}
-    </div>
-  );
+  return <p className="rounded-xl bg-gray-50 px-3 py-2 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-300">{copy.unknown}</p>;
 }

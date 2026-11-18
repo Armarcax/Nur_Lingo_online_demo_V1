@@ -1,69 +1,122 @@
-// src/lib/content/grammar-types.ts
+export type NativeLang = "hy" | "ru";
 
-export interface BilingualText {
-  hy: string;
-  ru: string;
+export interface LocalizedText {
+  hy?: string;
+  ru?: string;
   en?: string;
 }
 
 export interface GrammarCard {
   id: string;
-  type: string;
-  title: BilingualText;
-  body: BilingualText;
+  kind: string;
+  order?: number;
+  title: LocalizedText;
+  body: LocalizedText;
+  formula?: string;
+  targetText?: string;
+  example?: string;
 }
 
-export interface PickItem {
-  s: string;
-  o: string[];
-  a: number;
-  no?: Record<string, unknown>;
-  byOption?: Record<string, unknown>;
-  feedback?: BilingualText;
+export interface GrammarRule {
+  id: string;
+  formula?: string;
+  statement: LocalizedText;
+  targetText?: string;
 }
 
-export interface TextItem {
-  s?: string;
-  p?: string;
-  a: string[];
+export interface GrammarExample {
+  id: string;
+  targetText: string;
+  translation: LocalizedText;
+}
+
+export interface GrammarCommonError {
+  id: string;
+  wrong: string;
+  correct: string;
+  explanation: LocalizedText;
+}
+
+export interface GrammarFeedback {
+  correct?: LocalizedText;
+  options?: Array<LocalizedText | null>;
+  targeted?: Record<string, LocalizedText | string>;
+}
+
+export interface GrammarPickItem {
+  id: string;
+  prompt: string | LocalizedText;
+  options: string[];
+  correctIndex: number;
+  feedback?: GrammarFeedback;
+}
+
+export interface GrammarTextItem {
+  id: string;
+  prompt: string | LocalizedText;
+  accepted: string[];
   exact?: boolean;
-  feedback?: BilingualText;
+  feedback?: GrammarFeedback;
 }
 
-export interface OrderItem {
-  w: string[];
-  a: string[];
-  feedback?: BilingualText;
+export interface GrammarMatchItem {
+  id: string;
+  prompt: string | LocalizedText;
+  answer: string;
+  feedback?: GrammarFeedback;
 }
 
-export type GrammarExerciseType = "pick" | "gap" | "write" | "order" | "fix" | "match";
+export interface GrammarOrderItem {
+  id: string;
+  words: string[];
+  accepted: string[];
+  feedback?: GrammarFeedback;
+}
+
+export type GrammarItem = GrammarPickItem | GrammarTextItem | GrammarMatchItem | GrammarOrderItem;
+export type GrammarExerciseType = "pick" | "gap" | "write" | "order" | "fix" | "match" | "unsupported";
 
 export interface GrammarExercise {
-  id?: string;
+  id: string;
   type: GrammarExerciseType;
-  shuffleOptions?: boolean;
-  instruction: BilingualText;
   order?: number;
-  difficulty?: string;
+  difficulty?: number | string;
   cardIds?: string[];
+  shuffleOptions?: boolean;
   exact?: boolean;
-  ex?: string;
+  instruction: LocalizedText;
+  example?: string;
   box?: string[];
-  opts?: string[];
-  items: (PickItem | TextItem | OrderItem)[];
+  options?: string[];
+  unusedOptionFeedback?: LocalizedText;
+  items: GrammarItem[];
+}
+
+export interface GrammarReviewCard {
+  id: string;
+  type: string;
+  prompt: LocalizedText;
+  answer: string;
 }
 
 export interface GrammarUnit {
   id: string;
   bookId?: string;
-  targetLanguage?: string;
+  targetLanguage: "en";
+  supportedDirections: string[];
   cefr?: string | null;
+  level?: LocalizedText;
   sectionId?: string;
+  section?: LocalizedText;
   unitNumber: number;
-  title: BilingualText;
-  explanation: BilingualText;
-  cards?: GrammarCard[];
-  exercises?: GrammarExercise[];
-  tasks?: GrammarExercise[];
+  title: LocalizedText;
+  explanation: LocalizedText;
+  learningObjectives: LocalizedText[];
+  rules: GrammarRule[];
+  examples: GrammarExample[];
+  commonErrors: GrammarCommonError[];
+  cards: GrammarCard[];
+  exercises: GrammarExercise[];
+  reviewCards: GrammarReviewCard[];
   needsReview?: boolean;
 }

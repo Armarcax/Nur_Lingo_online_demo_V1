@@ -1,10 +1,6 @@
-// src/lib/content/pickShuffle.ts
-
 export interface RenderedPickItem {
   seedKey: string;
-  /** displayIndex → originalIndex */
   map: number[];
-  /** ցուցադրման պատճեն (JSON-ի o-ն չի mutation-վում) */
   options: string[];
   originalCorrectIndex: number;
 }
@@ -28,9 +24,9 @@ function mulberry32(a: number): () => number {
   };
 }
 
-/** Deterministic permutation: same seedKey → same order. */
 export function buildDisplayMap(n: number, seedKey: string): number[] {
   const idx = Array.from({ length: n }, (_, i) => i);
+  if (n === 0) return idx;
   const rng = mulberry32(hashSeed(seedKey));
   for (let i = n - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
@@ -39,32 +35,33 @@ export function buildDisplayMap(n: number, seedKey: string): number[] {
   return idx;
 }
 
-/**
- * Կանչիր ՄԵԿ անգամ յուրաքանչյուր attempt-ի համար (useMemo-ով)։
- * `shuffle=false` դեպքում վերադարձնում է identity map (սկզբնական հերթականություն)։
- */
 export function renderPickItem(
   exerciseId: string,
-  item: { o: string[]; a: number },
+  item: any,
   itemIdx: number,
   attemptId: string,
   shuffle: boolean
 ): RenderedPickItem {
   const seedKey = `${exerciseId}:${itemIdx}:${attemptId}`;
-  if (!shuffle) {
+  const rawOptions = item?.o || item?.options || item?.opts;
+  const options = Array.isArray(rawOptions) ? rawOptions : [];
+  const correctIndex = typeof item?.a === 'number' ? item.a : 0;
+
+  if (!shuffle || options.length === 0) {
     return {
       seedKey,
-      map: item.o.map((_, i) => i),
-      options: [...item.o],
-      originalCorrectIndex: item.a,
+      map: options.map((_, i) => i),
+      options: [...options],
+      originalCorrectIndex: correctIndex,
     };
   }
-  const map = buildDisplayMap(item.o.length, seedKey);
+
+  const map = buildDisplayMap(options.length, seedKey);
   return {
     seedKey,
     map,
-    options: map.map((origIdx) => item.o[origIdx]),
-    originalCorrectIndex: item.a,
+    options: map.map((origIdx) => options[origIdx]),
+    originalCorrectIndex: correctIndex,
   };
 }
 
@@ -78,11 +75,10 @@ export function checkPickAnswer(rendered: RenderedPickItem, displaySelected: num
   };
 }
 
-/** `no`/`byOption` բանալիները JSON-ում keyed են ՍԿԶԲՆԱԿԱՆ ինդեքսով։ */
 export function resolveWrongFeedback(
-  item: { no?: Record<string, unknown>; byOption?: Record<string, unknown> },
+  item: any,
   wrongFeedbackKey: string | null
 ): unknown {
   if (!wrongFeedbackKey) return null;
-  return item.no?.[wrongFeedbackKey] ?? item.byOption?.[wrongFeedbackKey] ?? null;
+  return item?.no?.[wrongFeedbackKey] ?? item?.byOption?.[wrongFeedbackKey] ?? null;
 }

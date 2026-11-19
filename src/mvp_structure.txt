@@ -1,7 +1,7 @@
 ================================================================================
 📁 ՄՎՊ ԿԱՌՈՒՑՎԱԾՔԻ ՔԱՐՏԵԶ
 🗂️  Պրոեկտ: C:\Users\Armen\Documents\NurLingo\NURLingo-main\Nur_Lingo_online_demo_V1\src
-📅 Սկանավորված: 2026-11-17 23:15:41
+📅 Սկանավորված: 2026-11-19 23:58:34
 ================================================================================
 
 📂 src/ (ROOT)
@@ -78,7 +78,7 @@
         📂 user-dictionary/
             📄 page.tsx [.tsx] (61.8 KB)
         📂 visual-lessons/
-            📄 page.tsx [.tsx] (19.5 KB)
+            📄 page.tsx [.tsx] (23.6 KB)
         📂 vocab-audio/
             📄 page.tsx [.tsx] (56.6 KB)
         📂 world/
@@ -92,6 +92,9 @@
         📄 BottomNav.tsx [.tsx] (5.7 KB)
         📄 CorrectAnswerEffect.tsx [.tsx] (9.7 KB)
         📄 Footer.tsx [.tsx] (2.2 KB)
+        📄 GrammarPracticePage.tsx [.tsx] (14.0 KB)
+        📄 GrammarUnitCard.tsx [.tsx] (3.8 KB)
+        📄 GrammarUnitPlayer.tsx [.tsx] (59.5 KB)
         📄 I18nProvider.tsx [.tsx] (1.9 KB)
         📄 InteractiveDialogue.tsx [.tsx] (30.1 KB)
         📄 InteractiveLesson.tsx [.tsx] (24.5 KB)
@@ -207,11 +210,14 @@
             📄 exercise-to-audio.json [.json] (136.2 KB)
             📄 fix-database.js [.js] (2.1 KB)
             📄 generator.ts [.ts] (24.3 KB)
-            📄 grammer-en.json [.json] (142.8 KB)
+            📄 grammar-loader.ts [.ts] (9.8 KB)
+            📄 grammar-types.ts [.ts] (2.5 KB)
+            📄 grammer-en.json [.json] (5.4 MB)
             📄 index.ts [.ts] (96 B)
             📄 numbers.ts [.ts] (970 B)
+            📄 pickShuffle.ts [.ts] (2.3 KB)
             📄 reading-texts-A1.ts [.ts] (79.2 KB)
-            📄 reading-texts-A2.ts [.ts] (143.7 KB)
+            📄 reading-texts-A2.ts [.ts] (313.0 KB)
             📄 reading-texts-B1.ts [.ts] (36.4 KB)
             📄 reading-texts-B2.ts [.ts] (412 B)
             📄 reading-texts.ts [.ts] (3.2 KB)
@@ -306,7 +312,7 @@
 📊 ՍՏԱՏԻՍՏԻԿԱ
 ================================================================================
 📁 Պանակներ: 72
-📄 Ֆայլեր: 225
+📄 Ֆայլեր: 231
 📍 Ճանապարհ: C:\Users\Armen\Documents\NurLingo\NURLingo-main\Nur_Lingo_online_demo_V1\src
 
 ================================================================================
@@ -349,7 +355,7 @@
   • app\onboarding\page.tsx (12.7 KB)
   • app\reading\page.tsx (24.5 KB)
   • app\user-dictionary\page.tsx (61.8 KB)
-  • app\visual-lessons\page.tsx (19.5 KB)
+  • app\visual-lessons\page.tsx (23.6 KB)
   • app\vocab-audio\page.tsx (56.6 KB)
   • app\world\page.tsx (30.6 KB)
   • app\world\qaghaqpashtpanutyun\page.tsx (4.7 KB)
@@ -358,6 +364,9 @@
   • components\BottomNav.tsx (5.7 KB)
   • components\CorrectAnswerEffect.tsx (9.7 KB)
   • components\Footer.tsx (2.2 KB)
+  • components\GrammarPracticePage.tsx (14.0 KB)
+  • components\GrammarUnitCard.tsx (3.8 KB)
+  • components\GrammarUnitPlayer.tsx (59.5 KB)
   • components\I18nProvider.tsx (1.9 KB)
   • components\InteractiveDialogue.tsx (30.1 KB)
   • components\InteractiveLesson.tsx (24.5 KB)
@@ -461,11 +470,14 @@
   • lib\content\exercise-to-audio.json (136.2 KB)
   • lib\content\fix-database.js (2.1 KB)
   • lib\content\generator.ts (24.3 KB)
-  • lib\content\grammer-en.json (142.8 KB)
+  • lib\content\grammar-loader.ts (9.8 KB)
+  • lib\content\grammar-types.ts (2.5 KB)
+  • lib\content\grammer-en.json (5.4 MB)
   • lib\content\index.ts (96 B)
   • lib\content\numbers.ts (970 B)
+  • lib\content\pickShuffle.ts (2.3 KB)
   • lib\content\reading-texts-A1.ts (79.2 KB)
-  • lib\content\reading-texts-A2.ts (143.7 KB)
+  • lib\content\reading-texts-A2.ts (313.0 KB)
   • lib\content\reading-texts-B1.ts (36.4 KB)
   • lib\content\reading-texts-B2.ts (412 B)
   • lib\content\reading-texts.ts (3.2 KB)

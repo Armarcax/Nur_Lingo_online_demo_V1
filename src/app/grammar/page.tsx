@@ -1,4 +1,4 @@
-// src/app/visual-lessons/page.tsx
+// src/app/grammar/page.tsx
 "use client";
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";

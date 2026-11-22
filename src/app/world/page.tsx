@@ -429,7 +429,7 @@ export default function WorldPage() {
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Direct entry to the English grammar lessons */}
-            <Link href="/visual-lessons" className="w-full">
+            <Link href="/grammar" className="w-full">
               <motion.div
                 whileHover={{ scale: 1.03, y: -3 }}
                 whileTap={{ scale: 0.97 }}

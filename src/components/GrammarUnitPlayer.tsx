@@ -333,10 +333,14 @@ export function GrammarUnitPlayer({
   unit,
   nativeLang,
   onBack,
+  mode,
+  onStudyComplete,
 }: {
   unit: GrammarUnit;
   nativeLang: NativeLang;
   onBack: () => void;
+  mode: "study" | "practice";
+  onStudyComplete: () => void;
 }) {
   const audioEngine = useAudioEngine();
   const copy = labels[nativeLang];
@@ -466,7 +470,13 @@ export function GrammarUnitPlayer({
           playAudio={playEnglishAudio}
           reviewDue={reviewDue && unit.reviewCards.length > 0}
           onStartReview={() => { setReviewMode("due"); setStage("review"); }}
-          onContinue={() => setStage("practice")}
+          onContinue={() => {
+            if (mode === "study") {
+              onStudyComplete();
+            } else {
+              setStage("practice");
+            }
+          }}
         />
       ) : stage === "review" ? (
         <RecallReview

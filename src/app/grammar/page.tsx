@@ -552,7 +552,12 @@ function VisualLessonsContent() {
                       {filteredGrammarUnits.map((unit) => <GrammarUnitCard key={unit.id} unit={unit} nativeLang={grammarNativeLang} onClick={() => openStudy(unit)} />)}
                     </div>
                   ) : (
-                    <SnakePath nodes={grammarNodes} native={grammarNativeLang} colorFrom="#e11d48" colorTo="#f59e0b" label={pageCopy.pathTitle} />
+                    <SnakePath
+                      nodes={grammarNodes}
+                      native={grammarNativeLang}
+                      colorFrom="#e11d48"
+                      colorTo="#f59e0b"
+                    />
                   )}
                 </>
               ) : (

@@ -1,9 +1,26 @@
 // src/app/visual-lessons/page.tsx
 "use client";
 
-import { useState, Suspense, useEffect, useCallback, useRef, useMemo } from "react";
+import {
+  useState,
+  Suspense,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeOff, ArrowLeft, Search, Sparkles, BookOpen, ChevronRight, Loader2 } from "lucide-react";
+import {
+  Volume2,
+  VolumeOff,
+  ArrowLeft,
+  Search,
+  Sparkles,
+  BookOpen,
+  ChevronRight,
+  Loader2,
+  GraduationCap,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { VISUAL_LESSONS, type VisualLesson } from "@/lib/content/visual-lessons";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -14,6 +31,7 @@ import type { GrammarUnit } from "@/lib/content/grammar-types";
 import { loadGrammarUnits } from "@/lib/content/grammar-loader";
 import { GrammarUnitCard } from "@/components/GrammarUnitCard";
 import { GrammarUnitPlayer } from "@/components/GrammarUnitPlayer";
+import { SnakePath, type SnakeNode } from "@/components/SnakePath";
 
 function sanitizeForTTS(text: string): string {
   if (!text) return text;
@@ -38,10 +56,11 @@ function VisualLessonsContent() {
   const moduleId = searchParams?.get("module") || null;
 
   const [selectedLesson, setSelectedLesson] = useState<VisualLesson | null>(null);
-  const [selectedGrammarUnit, setSelectedGrammarUnit] = useState<GrammarUnit | null>(null);
+  const [selectedGrammarUnit, setSelectedGrammarUnit] =
+    useState<GrammarUnit | null>(null);
   const [grammarUnits, setGrammarUnits] = useState<GrammarUnit[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState<"All" | "Grammar" | "Vocabulary" | "Phrases">("All");
+  const [tab, setTab] = useState<"practice" | "grammar">("practice");
 
   const [native, setNative] = useState<LangCode>("en");
   const [learningLang, setLearningLang] = useState<LangCode>("hy");
@@ -122,69 +141,93 @@ function VisualLessonsContent() {
     }
   }, [moduleId, isLangLoaded]);
 
-  const playAudioWithFemaleVoice = useCallback((text: string, lang: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      if (typeof window === "undefined" || !window.speechSynthesis) {
-        reject(new Error("Speech synthesis not supported"));
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      if (lang === "hy") utterance.rate = 1.5;
-      else if (lang === "en") utterance.rate = 1.1;
-      else utterance.rate = 1.15;
-      utterance.pitch = 1.3;
-      utterance.volume = 1.0;
-
-      const voices = window.speechSynthesis.getVoices();
-      const femaleVoiceNames = [
-        "Samantha", "Google UK English Female", "Karen", "Zira", "Alice", "Victoria",
-        "Emma", "Susan", "Tessa", "Google русский", "Anna", "Elena", "Katya", "Marina",
-        "Natalia", "Alena", "Ani", "Google Հայերեն", "Armine", "Lusine",
-      ];
-
-      let selected: SpeechSynthesisVoice | null = null;
-      for (const name of femaleVoiceNames) {
-        const found = voices.find(
-          (v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase()
-        );
-        if (found) {
-          selected = found;
-          break;
+  const playAudioWithFemaleVoice = useCallback(
+    (text: string, lang: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        if (typeof window === "undefined" || !window.speechSynthesis) {
+          reject(new Error("Speech synthesis not supported"));
+          return;
         }
-      }
-      if (!selected) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        if (lang === "hy") utterance.rate = 1.5;
+        else if (lang === "en") utterance.rate = 1.1;
+        else utterance.rate = 1.15;
+        utterance.pitch = 1.3;
+        utterance.volume = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoiceNames = [
+          "Samantha",
+          "Google UK English Female",
+          "Karen",
+          "Zira",
+          "Alice",
+          "Victoria",
+          "Emma",
+          "Susan",
+          "Tessa",
+          "Google русский",
+          "Anna",
+          "Elena",
+          "Katya",
+          "Marina",
+          "Natalia",
+          "Alena",
+          "Ani",
+          "Google Հայերեն",
+          "Armine",
+          "Lusine",
+        ];
+
+        let selected: SpeechSynthesisVoice | null = null;
         for (const name of femaleVoiceNames) {
           const found = voices.find(
-            (v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase())
+            (v) =>
+              v.lang.startsWith(lang) &&
+              v.name.toLowerCase() === name.toLowerCase()
           );
           if (found) {
             selected = found;
             break;
           }
         }
-      }
-      if (!selected) {
-        selected =
-          voices.find(
-            (v) =>
-              v.lang.startsWith(lang) &&
-              (v.name.toLowerCase().includes("female") ||
-                v.name.toLowerCase().includes("samantha") ||
-                v.name.toLowerCase().includes("zira") ||
-                v.name.toLowerCase().includes("karen") ||
-                v.name.toLowerCase().includes("anna"))
-          ) ?? null;
-      }
-      if (selected) utterance.voice = selected;
-      else utterance.pitch = 1.5;
+        if (!selected) {
+          for (const name of femaleVoiceNames) {
+            const found = voices.find(
+              (v) =>
+                v.lang.startsWith(lang) &&
+                v.name.toLowerCase().includes(name.toLowerCase())
+            );
+            if (found) {
+              selected = found;
+              break;
+            }
+          }
+        }
+        if (!selected) {
+          selected =
+            voices.find(
+              (v) =>
+                v.lang.startsWith(lang) &&
+                (v.name.toLowerCase().includes("female") ||
+                  v.name.toLowerCase().includes("samantha") ||
+                  v.name.toLowerCase().includes("zira") ||
+                  v.name.toLowerCase().includes("karen") ||
+                  v.name.toLowerCase().includes("anna"))
+            ) ?? null;
+        }
+        if (selected) utterance.voice = selected;
+        else utterance.pitch = 1.5;
 
-      utterance.onend = () => resolve();
-      utterance.onerror = (e) => reject(e);
-      window.speechSynthesis.speak(utterance);
-    });
-  }, []);
+        utterance.onend = () => resolve();
+        utterance.onerror = (e) => reject(e);
+        window.speechSynthesis.speak(utterance);
+      });
+    },
+    []
+  );
 
   const playAudioWithFallback = useCallback(
     async (text: string, lang: string = "hy", type: "prompt" | "answer" = "prompt") => {
@@ -200,7 +243,10 @@ function VisualLessonsContent() {
               await wavClient.playPrompt(text, pairKey, "Ani");
               return;
             } catch (error: any) {
-              if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+              if (
+                error.message === "AUTOPLAY_BLOCKED" ||
+                error.name === "NotAllowedError"
+              ) {
                 try {
                   await playAudioWithFemaleVoice(text, "hy");
                   return;
@@ -224,7 +270,10 @@ function VisualLessonsContent() {
             await wavClient.playAnswer(text, pairKey, "Ani");
             return;
           } catch (error: any) {
-            if (error.message === "AUTOPLAY_BLOCKED" || error.name === "NotAllowedError") {
+            if (
+              error.message === "AUTOPLAY_BLOCKED" ||
+              error.name === "NotAllowedError"
+            ) {
               try {
                 await playAudioWithFemaleVoice(text, "hy");
                 return;
@@ -265,17 +314,19 @@ function VisualLessonsContent() {
     if (audioEnabled) stop();
   }, [audioEnabled, stop]);
 
-  const filteredLessons = VISUAL_LESSONS.filter((l) => {
-    const matchesFilter = filter === "All" || l.category === filter;
-    const matchesSearch =
-      l.title.hy.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      l.title.en.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  const filteredLessons = useMemo(
+    () =>
+      VISUAL_LESSONS.filter((l) => {
+        const matchesSearch =
+          l.title.hy.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          l.title.en.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesSearch;
+      }),
+    [searchQuery]
+  );
 
   const filteredGrammarUnits = useMemo(() => {
     if (!showGrammar) return [];
-    if (filter !== "All" && filter !== "Grammar") return [];
     if (!searchQuery.trim()) return grammarUnits;
     const q = searchQuery.toLowerCase();
     return grammarUnits.filter((u) => {
@@ -284,7 +335,7 @@ function VisualLessonsContent() {
       const en = (u.title?.en ?? "").toLowerCase();
       return hy.includes(q) || ru.includes(q) || en.includes(q);
     });
-  }, [grammarUnits, filter, searchQuery, showGrammar]);
+  }, [grammarUnits, searchQuery, showGrammar]);
 
   const handleBack = () => {
     if (selectedGrammarUnit) {
@@ -308,6 +359,15 @@ function VisualLessonsContent() {
   }
 
   const isDetailView = !!selectedLesson || !!selectedGrammarUnit;
+
+  // Build snake nodes from visual lessons
+  const snakeNodes: SnakeNode[] = filteredLessons.map((lesson) => ({
+    id: lesson.id,
+    title: lesson.title,
+    icon: lesson.icon,
+    subtitle: `${lesson.items.length} cards`,
+    onClick: () => setSelectedLesson(lesson),
+  }));
 
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-20">
@@ -350,7 +410,10 @@ function VisualLessonsContent() {
           {!isDetailView && (
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative flex-1">
-                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Search
+                  size={18}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                />
                 <input
                   type="text"
                   placeholder="Փնտրել դասեր..."
@@ -359,21 +422,32 @@ function VisualLessonsContent() {
                   className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/50 dark:bg-gray-800/50 border border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
-                {["All", "Grammar", "Vocabulary", "Phrases"].map((f) => (
-                  <button
-                    key={f}
-                    onClick={() => setFilter(f as any)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                      filter === f
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30"
-                        : "bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700"
-                    }`}
-                  >
-                    {f}
-                  </button>
-                ))}
-              </div>
+            </div>
+          )}
+
+          {/* ─── TABS ─── */}
+          {!isDetailView && showGrammar && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setTab("practice")}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                  tab === "practice"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30"
+                    : "bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700"
+                }`}
+              >
+                <BookOpen size={16} /> Practice
+              </button>
+              <button
+                onClick={() => setTab("grammar")}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+                  tab === "grammar"
+                    ? "bg-amber-600 text-white shadow-lg shadow-amber-500/30"
+                    : "bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700"
+                }`}
+              >
+                <GraduationCap size={16} /> Grammar
+              </button>
             </div>
           )}
         </div>
@@ -396,66 +470,48 @@ function VisualLessonsContent() {
             </motion.div>
           ) : !selectedLesson ? (
             <motion.div
-              key="grid"
+              key={`list-${tab}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
-              {filteredGrammarUnits.length > 0 && (
-                <div className="col-span-full mb-1 mt-1">
-                  <h2 className="text-lg font-black flex items-center gap-2">
-                    <Sparkles size={18} className="text-amber-500" />
-                    {grammarNativeLang === "ru" ? "Грамматика" : "Քերականություն"}
-                  </h2>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {grammarNativeLang === "ru"
-                      ? "Английский · объяснения на русском"
-                      : "Անգլերեն · բացատրությունները՝ հայերեն"}
-                  </p>
+              {/* ─── PRACTICE TAB → SNAKE ─── */}
+              {tab === "practice" && (
+                <div className="rounded-3xl p-5 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10">
+                  {snakeNodes.length === 0 ? (
+                    <p className="text-center text-sm text-gray-500 py-8">
+                      Դասեր չեն գտնվել
+                    </p>
+                  ) : (
+                    <SnakePath
+                      nodes={snakeNodes}
+                      native={native}
+                      colorFrom="#3b82f6"
+                      colorTo="#8b5cf6"
+                    />
+                  )}
                 </div>
               )}
 
-              {filteredGrammarUnits.map((unit) => (
-                <GrammarUnitCard
-                  key={unit.id}
-                  unit={unit}
-                  nativeLang={grammarNativeLang}
-                  onClick={() => setSelectedGrammarUnit(unit)}
-                />
-              ))}
-
-              {filteredLessons.map((lesson, idx) => (
-                <motion.div
-                  key={lesson.id}
-                  whileHover={{ scale: 1.03, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  onClick={() => setSelectedLesson(lesson)}
-                  className={`relative cursor-pointer overflow-hidden rounded-3xl p-6 shadow-xl border border-white/20 dark:border-gray-700 bg-gradient-to-br ${lesson.gradient}`}
-                >
-                  <div className="absolute -top-4 -right-4 text-9xl opacity-20 transform rotate-12 drop-shadow-xl">
-                    {lesson.icon}
-                  </div>
-                  <span className="inline-block text-[10px] font-black text-white/90 uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full backdrop-blur-sm">
-                    {lesson.category}
-                  </span>
-                  <h3 className="text-2xl font-black text-white mt-6 mb-1 drop-shadow-md">
-                    {lesson.title[learningLang] || lesson.title.en}
-                  </h3>
-                  <p className="text-sm text-white/90 font-medium">
-                    {lesson.title[native] || lesson.title.en}
-                  </p>
-                  <div className="mt-6 flex items-center justify-between text-white/80">
-                    <span className="text-xs font-bold flex items-center gap-1">
-                      <BookOpen size={14} /> {lesson.items.length} քարտ
-                    </span>
-                    <ChevronRight size={20} />
-                  </div>
-                </motion.div>
-              ))}
+              {/* ─── GRAMMAR TAB → CARD GRID ─── */}
+              {tab === "grammar" && showGrammar && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {filteredGrammarUnits.length === 0 ? (
+                    <p className="col-span-full text-center text-sm text-gray-500 py-8">
+                      Քերականական միավորներ չեն գտնվել
+                    </p>
+                  ) : (
+                    filteredGrammarUnits.map((unit) => (
+                      <GrammarUnitCard
+                        key={unit.id}
+                        unit={unit}
+                        nativeLang={grammarNativeLang}
+                        onClick={() => setSelectedGrammarUnit(unit)}
+                      />
+                    ))
+                  )}
+                </div>
+              )}
             </motion.div>
           ) : (
             <motion.div
@@ -466,7 +522,9 @@ function VisualLessonsContent() {
               className="flex flex-col items-center"
             >
               <div className="text-center mb-10">
-                <div className="text-7xl mb-4 drop-shadow-lg">{selectedLesson.icon}</div>
+                <div className="text-7xl mb-4 drop-shadow-lg">
+                  {selectedLesson.icon}
+                </div>
                 <h2 className="text-4xl font-black mb-2">
                   {selectedLesson.title[learningLang] || selectedLesson.title.en}
                 </h2>
@@ -477,8 +535,10 @@ function VisualLessonsContent() {
 
               <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selectedLesson.items.map((item, idx) => {
-                  const targetWord: string = (item as any)[learningLang] || item.en || "";
-                  const nativeWord: string = (item as any)[native] || item.en || "";
+                  const targetWord: string =
+                    (item as any)[learningLang] || item.en || "";
+                  const nativeWord: string =
+                    (item as any)[native] || item.en || "";
 
                   const targetExample = (item as any)[`example_${learningLang}`];
                   const nativeExample = (item as any)[`example_${native}`];
@@ -500,19 +560,29 @@ function VisualLessonsContent() {
                           <div className="flex justify-between items-start mb-3">
                             <div className="flex-1">
                               <p className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                <span className="text-3xl drop-shadow-sm">{item.emoji}</span>
+                                <span className="text-3xl drop-shadow-sm">
+                                  {item.emoji}
+                                </span>
                                 {item.highlightWord && learningLang === "en" ? (
                                   <span>
-                                    {targetWord.split(item.highlightWord).map((part: string, i: number, arr: string[]) => (
-                                      <span key={i}>
-                                        {part}
-                                        {i < arr.length - 1 && (
-                                          <span className="text-blue-600 dark:text-blue-400 underline decoration-2">
-                                            {item.highlightWord}
+                                    {targetWord
+                                      .split(item.highlightWord)
+                                      .map(
+                                        (
+                                          part: string,
+                                          i: number,
+                                          arr: string[]
+                                        ) => (
+                                          <span key={i}>
+                                            {part}
+                                            {i < arr.length - 1 && (
+                                              <span className="text-blue-600 dark:text-blue-400 underline decoration-2">
+                                                {item.highlightWord}
+                                              </span>
+                                            )}
                                           </span>
-                                        )}
-                                      </span>
-                                    ))}
+                                        )
+                                      )}
                                   </span>
                                 ) : (
                                   targetWord
@@ -524,7 +594,9 @@ function VisualLessonsContent() {
                             </div>
 
                             <button
-                              onClick={() => handleSpeak(targetWord, learningLang, "answer")}
+                              onClick={() =>
+                                handleSpeak(targetWord, learningLang, "answer")
+                              }
                               disabled={isPlaying}
                               className={`p-3 rounded-full transition-all ml-2 shadow-sm ${
                                 isPlaying
@@ -532,7 +604,11 @@ function VisualLessonsContent() {
                                   : "bg-blue-500/10 text-blue-600 hover:bg-blue-500/20"
                               }`}
                             >
-                              {isPlaying ? <Loader2 size={20} className="animate-spin" /> : <Volume2 size={20} />}
+                              {isPlaying ? (
+                                <Loader2 size={20} className="animate-spin" />
+                              ) : (
+                                <Volume2 size={20} />
+                              )}
                             </button>
                           </div>
 

@@ -1,14 +1,23 @@
 // lib/i18n/multilingual.ts
 
 /**
- * NUR Lingo — Multilingual Content v3
+ * NUR Lingo — Multilingual Content v4
  * Supports 6 learning directions between Armenian (HY), English (EN), and Russian (RU).
  *
  * ✅ ALL 6 DIRECTIONS: hy-en, en-hy, ru-hy, hy-ru, en-ru, ru-en
  * ✅ COMPLETE LESSONS: All lessons for each direction
  *
- * v3 fixes:
- * - acceptableAnswers are now translated to learning language
+ * v4 fixes (spec §1–§2):
+ * - Removed `prompt[learning]` fallback in `getAnswerInLearning` — a question
+ *   is never returned as the answer (spec §1: never test material that was
+ *   not presented correctly).
+ * - `convertLessonForPair` now accepts `explanationLang`/`translationLang`
+ *   so hints/notes can render in a language independent of `native` (spec §2).
+ * - Added `isLessonAnswerable` and `findBrokenExercises` so the UI can detect
+ *   and skip lessons whose answers are missing in the learning language.
+ *
+ * v3 fixes (preserved):
+ * - acceptableAnswers are translated to learning language
  * - Pair-aware cache keys (prevents cross-pair collision)
  * - Fixed HY→EN direction lesson content
  * - Cyrillic regex includes Ё/ё
@@ -55,6 +64,16 @@ export interface MultiUnit {
   colorFrom: string;
   colorTo: string;
   lessons: string[];
+}
+
+/**
+ * Optional language axes for lesson conversion (spec §2).
+ * Defaults fall back to `native` when omitted — safe for all existing callers.
+ */
+export interface ConvertOptions {
+  explanationLang?: LangCode;
+  translationLang?: LangCode;
+  interfaceLang?: LangCode;
 }
 
 // ─── CACHES ──────────────────────────────────────────────────────────
@@ -170,7 +189,7 @@ export function getLessonsForPair(pair: LangPair): {
   // ✅ Generate curriculum
   const generated = generateCurriculumForPair(pair);
 
-  // ✅ Direction-specific extra lessons
+  // ✅ Direction-specific extra lessons (fallback only)
   const directionLessons = getDirectionLessons(pair);
 
   // ✅ Combine (dedupe by id)
@@ -210,7 +229,11 @@ export function getLessonsForPair(pair: LangPair): {
 }
 
 // ─── GET DIRECTION LESSONS ─────────────────────────────────────────
-
+//
+// ⚠️ These are MINIMAL FALLBACKS so every direction has at least one lesson
+// even if `generateCurriculumForPair` returns empty. Real curriculum should
+// come from `../content/generator.ts` — do not treat these as complete content.
+//
 function getDirectionLessons(pair: LangPair): MultiLesson[] {
   switch (pair) {
     case "hy-en": return getHyEnLessons();
@@ -224,7 +247,7 @@ function getDirectionLessons(pair: LangPair): MultiLesson[] {
 }
 
 // ─── HY→EN LESSONS (Հայերենից Անգլերեն) ──────────────────────────
-// ✅ FIXED: prompt in Armenian, answer in ENGLISH (learning = en)
+// ✅ prompt in Armenian, answer in ENGLISH (learning = en)
 
 function getHyEnLessons(): MultiLesson[] {
   return [
@@ -409,7 +432,7 @@ function getRuHyLessons(): MultiLesson[] {
 }
 
 // ─── HY→RU LESSONS (Հայերենից Ռուսերեն) ──────────────────────────
-// ✅ FIXED: prompt in Armenian, answer in RUSSIAN (learning = ru)
+// ✅ prompt in Armenian, answer in RUSSIAN (learning = ru)
 
 function getHyRuLessons(): MultiLesson[] {
   return [
@@ -533,14 +556,18 @@ function getRuEnLessons(): MultiLesson[] {
 
 // ─── GET LESSON BY ID ──────────────────────────────────────────────
 
-export function getLessonById(pair: LangPair, lessonId: string): MultiLesson | null {
+export function getLessonById(
+  pair: LangPair,
+  lessonId: string,
+  options: ConvertOptions = {}
+): MultiLesson | null {
   const cacheKey = `${pair}:${lessonId}`;
 
   // ✅ Pair-aware cache check
-  if (lessonCache.has(cacheKey)) {
-    const cached = lessonCache.get(cacheKey)!;
+  const cached = lessonCache.get(cacheKey);
+  if (cached) {
     console.log(`✅ Cache hit: ${cacheKey}`);
-    return convertLessonForPair(cached, pair);
+    return convertLessonForPair(cached, pair, options);
   }
 
   // ✅ Fallback: load via getLessonsForPair
@@ -555,38 +582,50 @@ export function getLessonById(pair: LangPair, lessonId: string): MultiLesson | n
   // ✅ Cache raw lesson (untransformed)
   lessonCache.set(cacheKey, lesson);
 
-  return convertLessonForPair(lesson, pair);
+  return convertLessonForPair(lesson, pair, options);
 }
 
 // ─── CONVERT LESSON FOR PAIR ──────────────────────────────────────
 
-function convertLessonForPair(lesson: MultiLesson, pair: LangPair): MultiLesson {
+function convertLessonForPair(
+  lesson: MultiLesson,
+  pair: LangPair,
+  options: ConvertOptions = {}
+): MultiLesson {
   const [native, learning] = pair.split("-") as [LangCode, LangCode];
+  const explanationLang = options.explanationLang || native;
+  const translationLang = options.translationLang || native;
 
-  console.log(`📚 Converting: ${lesson.id} | ${native}→${learning}`);
+  console.log(
+    `📚 Converting: ${lesson.id} | ${native}→${learning} | ` +
+    `expl=${explanationLang} trans=${translationLang}`
+  );
 
   return {
     ...lesson,
     exercises: lesson.exercises.map((ex) => {
-      // ✅ PROMPT: Native language
+      // ✅ PROMPT: Native language (what the learner reads)
       const promptText =
         ex.prompt?.[native] || ex.prompt?.[learning] || ex.prompt?.en || "";
 
       // ✅ ANSWER: Learning language
       const answerText = getAnswerInLearning(ex, learning, native);
 
-      // ✅ ✅ NEW: Translate acceptableAnswers to learning language
+      // ✅ Translate acceptableAnswers to learning language
       const convertedAcceptableAnswers = (ex.acceptableAnswers || [])
         .map((a) => getAnswerInLearning({ ...ex, targetAnswer: a }, learning, native))
         .filter((a) => a && a.length > 0);
 
-      // ✅ HINT: Native language
-      const hintText = ex.hint?.[native] || ex.hint?.[learning] || ex.hint?.en || "";
+      // ✅ HINT: explanationLang (spec §2) — independent from `native`
+      const hintText =
+        ex.hint?.[explanationLang] ||
+        ex.hint?.[native] ||
+        ex.hint?.en ||
+        "";
 
-      // ✅ TTS: Learning language for listening
+      // ✅ TTS: listening exercises speak the learning language
       const ttsLang = ex.type === "listening" ? learning : ex.ttsLang;
-      const ttsText =
-        ex.type === "listening" ? ex.ttsText || promptText : ex.ttsText;
+      const ttsText = ex.type === "listening" ? ex.ttsText || promptText : ex.ttsText;
 
       return {
         ...ex,
@@ -595,7 +634,6 @@ function convertLessonForPair(lesson: MultiLesson, pair: LangPair): MultiLesson 
           [native]: promptText,
         },
         targetAnswer: answerText,
-        // ✅ Apply translated acceptableAnswers
         acceptableAnswers:
           convertedAcceptableAnswers.length > 0
             ? Array.from(new Set([answerText, ...convertedAcceptableAnswers]))
@@ -603,7 +641,7 @@ function convertLessonForPair(lesson: MultiLesson, pair: LangPair): MultiLesson 
         hint: ex.hint
           ? {
               ...ex.hint,
-              [native]: hintText,
+              [explanationLang]: hintText,
             }
           : undefined,
         ttsLang: ttsLang || ex.ttsLang,
@@ -622,25 +660,21 @@ function getAnswerInLearning(
 ): string {
   const answer = ex.targetAnswer || "";
 
-  // ✅ If already in learning language
-  if (isLanguage(answer, learning)) {
-    return answer;
-  }
+  // 1. Already in learning language → return as-is
+  if (isLanguage(answer, learning)) return answer;
 
-  // ✅ Try prompt in learning
-  const promptInLearning = ex.prompt?.[learning];
-  if (promptInLearning && isLanguage(promptInLearning, learning)) {
-    return promptInLearning;
-  }
-
-  // ✅ Try acceptable answers
+  // 2. Try acceptable answers — only ones actually in learning language
   const acceptable = ex.acceptableAnswers?.find((a) => isLanguage(a, learning));
-  if (acceptable) {
-    return acceptable;
-  }
+  if (acceptable) return acceptable;
 
-  // ✅ Fallback: original target or prompt in native
-  return ex.prompt?.[native] || answer;
+  // ⛔ REMOVED: previous code fell back to `prompt[learning]`, which returns a
+  //    *question* ("What is 'hello' in Armenian?") as the *answer*. Spec §1:
+  //    never test material that hasn't been presented correctly.
+  console.warn(
+    `[multilingual] No ${learning}-language answer for exercise ${ex.id}. ` +
+    `targetAnswer="${answer}" — UI should skip or show "missing translation".`
+  );
+  return answer; // raw; caller decides how to handle
 }
 
 // ─── LANGUAGE DETECTION ────────────────────────────────────────────
@@ -652,7 +686,7 @@ function isLanguage(text: string, lang: LangCode): boolean {
     case "hy":
       return /[Ա-Ֆա-ֆ]/.test(text);
     case "ru":
-      // ✅ FIXED: include Ё/ё (U+0401, U+0451)
+      // ✅ include Ё/ё (U+0401, U+0451)
       return /[А-Яа-яЁё]/.test(text);
     case "en":
       return /[A-Za-z]/.test(text) && !/[Ա-Ֆա-ֆА-Яа-яЁё]/.test(text);
@@ -661,8 +695,33 @@ function isLanguage(text: string, lang: LangCode): boolean {
   }
 }
 
+// ─── VALIDATION HELPERS ────────────────────────────────────────────
+
+/** True if every exercise has an answer that is actually in `learningLang`. */
+export function isLessonAnswerable(lesson: MultiLesson, learningLang: LangCode): boolean {
+  return lesson.exercises.every((ex) => {
+    if (ex.type === "listening") return true; // audio-based, answer = what was heard
+    const answer = ex.targetAnswer || "";
+    return isLanguage(answer, learningLang);
+  });
+}
+
+/** All exercises whose answer is NOT in the learning language. */
+export function findBrokenExercises(lesson: MultiLesson, learningLang: LangCode): string[] {
+  return lesson.exercises
+    .filter((ex) => ex.type !== "listening" && !isLanguage(ex.targetAnswer || "", learningLang))
+    .map((ex) => ex.id);
+}
+
 // ─── HELPERS ─────────────────────────────────────────────────────────
 
+/**
+ * ⚠️ IMPORTANT: `getLessonsForPair()` and `getAllLessonsForPair()` return RAW
+ * (unconverted) lessons. If a page renders their `.exercises` directly,
+ * prompt/answer languages will be mixed. Pages that teach SHOULD call
+ * `getLessonById(pair, id, options)` instead, or explicitly call
+ * `convertLessonForPair(lesson, pair, options)` on each item.
+ */
 export function getUnitsForPair(pair: LangPair): MultiUnit[] {
   return getLessonsForPair(pair).units;
 }

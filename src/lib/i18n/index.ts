@@ -7,8 +7,29 @@ export type LangPair = "en-hy" | "hy-en" | "ru-hy" | "hy-ru" | "en-ru" | "ru-en"
 
 export interface LangConfig {
   pair: LangPair;
+  /** Source language: the language the learner reads the prompt in. */
   native: LangCode;
+  /** Target language: what is being learned. */
   learning: LangCode;
+
+  // ✅ NEW — spec §2: independent axes (all optional, default to native)
+
+  /** UI strings language (buttons, nav, labels). Defaults to `native`. */
+  interfaceLang?: LangCode;
+
+  /** Lesson explanations / hints / grammar notes. Defaults to `native`. */
+  explanationLang?: LangCode;
+
+  /** Translation shown under the target word/sentence. Defaults to `native`. */
+  translationLang?: LangCode;
+}
+
+const LANGS: readonly LangCode[] = ["en", "hy", "ru"] as const;
+
+function coerceLang(value: unknown, fallback: LangCode): LangCode {
+  return typeof value === "string" && LANGS.includes(value as LangCode)
+    ? (value as LangCode)
+    : fallback;
 }
 
 // ─── LANGUAGE NAMES ──────────────────────────────────────────────────
@@ -788,6 +809,24 @@ const STORAGE_KEYS = {
   preference: "nur_language_preference",
 } as const;
 
+/** Normalizes a raw config: validates, guards same-language pairs,
+ *  and fills the new explanation/interface/translation fields from native. */
+function normalizeConfig(raw: any): LangConfig | null {
+  if (!raw?.native || !raw?.learning) return null;
+  const native = raw.native as LangCode;
+  const learning = raw.learning as LangCode;
+  if (!LANGS.includes(native) || !LANGS.includes(learning)) return null;
+  if (native === learning) return null; // ✅ guard
+  return {
+    native,
+    learning,
+    pair: `${native}-${learning}` as LangPair,
+    interfaceLang: coerceLang(raw.interfaceLang, native),
+    explanationLang: coerceLang(raw.explanationLang, native),
+    translationLang: coerceLang(raw.translationLang, native),
+  };
+}
+
 export function loadLangConfig(): LangConfig | null {
   if (typeof window === "undefined") return null;
 
@@ -795,35 +834,20 @@ export function loadLangConfig(): LangConfig | null {
     const unified = localStorage.getItem(STORAGE_KEYS.config);
     if (unified) {
       const parsed = JSON.parse(unified);
-      if (parsed?.native && parsed?.learning) {
-        const native = parsed.native as LangCode;
-        const learning = parsed.learning as LangCode;
-        if (["en", "hy", "ru"].includes(native) && ["en", "hy", "ru"].includes(learning)) {
-          return {
-            native,
-            learning,
-            pair: `${native}-${learning}` as LangPair,
-          };
-        }
-      }
+      const cfg = normalizeConfig(parsed);
+      if (cfg) return cfg;
     }
 
     const source = localStorage.getItem(STORAGE_KEYS.native) as LangCode;
     const target = localStorage.getItem(STORAGE_KEYS.learning) as LangCode;
-    if (
-      source &&
-      target &&
-      ["en", "hy", "ru"].includes(source) &&
-      ["en", "hy", "ru"].includes(target)
-    ) {
-      return { native: source, learning: target, pair: `${source}-${target}` as LangPair };
+    if (LANGS.includes(source) && LANGS.includes(target) && source !== target) {
+      return normalizeConfig({ native: source, learning: target })!;
     }
 
     const pref = localStorage.getItem(STORAGE_KEYS.preference) as LangCode;
-    if (pref && ["en", "hy", "ru"].includes(pref)) {
-      const native = pref;
-      const learning = native === "hy" ? "en" : "hy";
-      return { native, learning, pair: `${native}-${learning}` as LangPair };
+    if (LANGS.includes(pref)) {
+      const learning: LangCode = pref === "hy" ? "en" : "hy";
+      return normalizeConfig({ native: pref, learning })!;
     }
 
     return null;
@@ -834,21 +858,22 @@ export function loadLangConfig(): LangConfig | null {
 
 export function saveLangConfig(config: LangConfig): void {
   if (typeof window === "undefined") return;
+  if (config.native === config.learning) {
+    console.warn("[i18n] saveLangConfig: native === learning, ignoring");
+    return;
+  }
   try {
-    localStorage.setItem(
-      STORAGE_KEYS.config,
-      JSON.stringify({
-        native: config.native,
-        learning: config.learning,
-      })
-    );
-
-    localStorage.setItem(STORAGE_KEYS.native, config.native);
-    localStorage.setItem(STORAGE_KEYS.learning, config.learning);
-    localStorage.setItem(STORAGE_KEYS.pair, config.pair);
-    localStorage.setItem(STORAGE_KEYS.preference, config.native);
-
-    window.dispatchEvent(new CustomEvent("langchange", { detail: config }));
+    const normalized = normalizeConfig(config);
+    if (!normalized) {
+      console.warn("[i18n] saveLangConfig: invalid config, ignoring");
+      return;
+    }
+    localStorage.setItem(STORAGE_KEYS.config, JSON.stringify(normalized));
+    localStorage.setItem(STORAGE_KEYS.native, normalized.native);
+    localStorage.setItem(STORAGE_KEYS.learning, normalized.learning);
+    localStorage.setItem(STORAGE_KEYS.pair, normalized.pair);
+    localStorage.setItem(STORAGE_KEYS.preference, normalized.native);
+    window.dispatchEvent(new CustomEvent("langchange", { detail: normalized }));
   } catch {
     // localStorage unavailable
   }
@@ -856,28 +881,29 @@ export function saveLangConfig(config: LangConfig): void {
 
 // ✅ FIXED: English-browser users now correctly get English as native
 export function getDefaultLangConfig(): LangConfig {
-  if (typeof window === "undefined") {
-    return { pair: "hy-en", native: "hy", learning: "en" };
-  }
+  const make = (native: LangCode, learning: LangCode): LangConfig => ({
+    pair: `${native}-${learning}` as LangPair,
+    native,
+    learning,
+    interfaceLang: native,
+    explanationLang: native,
+    translationLang: native,
+  });
+
+  if (typeof window === "undefined") return make("hy", "en");
 
   const stored = loadLangConfig();
   if (stored) return stored;
 
   try {
     const browserLang = navigator.language.split("-")[0] as LangCode;
-    if (browserLang === "hy") {
-      return { pair: "hy-en", native: "hy", learning: "en" };
-    }
-    if (browserLang === "ru") {
-      return { pair: "ru-en", native: "ru", learning: "en" };
-    }
-    if (browserLang === "en") {
-      return { pair: "en-hy", native: "en", learning: "hy" };
-    }
+    if (browserLang === "hy") return make("hy", "en");
+    if (browserLang === "ru") return make("ru", "hy"); // ✅ Armenian-first target
+    if (browserLang === "en") return make("en", "hy");
   } catch {}
 
   // Fallback for unknown browsers
-  return { pair: "hy-en", native: "hy", learning: "en" };
+  return make("hy", "en");
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────
@@ -898,13 +924,16 @@ export function getUIString(key: keyof UIStrings, lang: LangCode = "en"): string
   return UI_STRINGS[lang]?.[key] ?? UI_STRINGS.en[key] ?? key;
 }
 
+/**
+ * ⚠️ In a 3-language system, "opposite" is ambiguous.
+ * This returns the platform's default target for a given native language:
+ *  - Armenian speakers → English
+ *  - Non-Armenian speakers → Armenian
+ * Prefer `getPairFromCodes(native, learning)` and pass both explicitly
+ * instead of relying on an implicit "opposite".
+ */
 export function getOppositeLang(code: LangCode): LangCode {
-  const opposites: Record<LangCode, LangCode> = {
-    en: "hy",
-    hy: "en",
-    ru: "en",
-  };
-  return opposites[code] ?? "en";
+  return code === "hy" ? "en" : "hy";
 }
 
 export function getAllPairs(): LangPair[] {
@@ -944,18 +973,39 @@ export function useLang() {
 
   useEffect(() => {
     setMounted(true);
-    const cfg = loadLangConfig();
-    setConfig(cfg || getDefaultLangConfig());
+    setConfig(loadLangConfig() || getDefaultLangConfig());
+
+    const onChange = (e: Event) => {
+      const detail = (e as CustomEvent).detail as LangConfig | undefined;
+      if (detail) setConfig(detail);
+    };
+    window.addEventListener("langchange", onChange);
+    return () => window.removeEventListener("langchange", onChange);
   }, []);
 
-  const setLanguage = (native: LangCode, learning: LangCode) => {
-    const newConfig = { pair: getPairFromCodes(native, learning), native, learning };
-    saveLangConfig(newConfig);
-    setConfig(newConfig);
+  const apply = (patch: Partial<LangConfig>) => {
+    const base = config ?? getDefaultLangConfig();
+    const next = normalizeConfig({ ...base, ...patch });
+    if (!next) return;
+    saveLangConfig(next);
+    setConfig(next);
   };
 
+  const setLanguage = (native: LangCode, learning: LangCode) => {
+    if (native === learning) {
+      console.warn("[i18n] native === learning — cannot set pair");
+      return;
+    }
+    apply({ native, learning, pair: `${native}-${learning}` as LangPair });
+  };
+
+  const setInterfaceLang = (lang: LangCode) => apply({ interfaceLang: lang });
+  const setExplanationLang = (lang: LangCode) => apply({ explanationLang: lang });
+  const setTranslationLang = (lang: LangCode) => apply({ translationLang: lang });
+
   const t = (key: keyof UIStrings): string => {
-    const lang = config?.native || "en";
+    // ✅ UI strings use interfaceLang, NOT native
+    const lang = config?.interfaceLang || config?.native || "en";
     return getUIString(key, lang);
   };
 
@@ -963,7 +1013,13 @@ export function useLang() {
     config,
     native: config?.native || "en",
     learning: config?.learning || "hy",
+    interfaceLang: config?.interfaceLang || config?.native || "en",
+    explanationLang: config?.explanationLang || config?.native || "en",
+    translationLang: config?.translationLang || config?.native || "en",
     setLanguage,
+    setInterfaceLang,
+    setExplanationLang,
+    setTranslationLang,
     t,
     mounted,
   };

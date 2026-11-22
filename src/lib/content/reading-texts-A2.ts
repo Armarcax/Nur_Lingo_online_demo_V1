@@ -3597,5 +3597,307 @@ export const A2_TEXTS: ReadingText[] = [
         { en: "Why is it important to say thank you?", hy: "Ինչո՞ւ է կարևոր շնորհակալություն ասել:", ru: "Почему важно говорить спасибо?" }
       ]
     }
+  },
+
+    // ─── A2 ԹԵՄԱ 14. ԻՄ ՍԻՐԵԼԻ ԽԱՂԵՐՆ ՈՒ ԶԲԱՂՄՈՒՆՔՆԵՐԸ (A2) ─────────────
+  {
+    id: "hobbies_michael",
+    level: "A2",
+    topics: ["hobbies", "daily"],
+    title: { en: "What I Like to Do in My Free Time", hy: "Ինչ եմ սիրում անել ազատ ժամանակ", ru: "Чем я люблю заниматься в свободное время" },
+    format: "Essay",
+    difficulty: 2,
+    words: 265,
+    minutes: 3,
+    parts: 10,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "My name is Michael. I am ten years old, and I have many hobbies. I like doing different things after school and at the weekend. My hobbies make me happy, and they help me learn new skills.",
+        hy: "Իմ անունը Մայքլ է։ Ես տասը տարեկան եմ և ունեմ բազմաթիվ նախասիրություններ։ Ես սիրում եմ տարբեր զբաղմունքներ ունենալ դասերից հետո և հանգստյան օրերին։ Իմ սիրելի զբաղմունքներն ինձ ուրախացնում են և օգնում նոր հմտություններ սովորել։",
+        ru: "Меня зовут Майкл. Мне десять лет, и у меня много увлечений. Я люблю заниматься разными делами после школы и в выходные дни. Мои увлечения радуют меня и помогают приобретать новые навыки."
+      },
+      {
+        en: "My favourite game is football. I usually play football with my friends in the park. We make two teams and try to score goals. Sometimes we win, and sometimes the other team wins. But the most important thing is to have fun and play together.",
+        hy: "Իմ սիրելի խաղը ֆուտբոլն է։ Ես սովորաբար ընկերներիս հետ ֆուտբոլ եմ խաղում այգում։ Մենք բաժանվում ենք երկու թիմի և փորձում գոլեր խփել։ Երբեմն մենք ենք հաղթում, իսկ երբեմն՝ մյուս թիմը։ Բայց ամենակարևորը հաճույքով և միասին խաղալն է։",
+        ru: "Моя любимая игра — футбол. Обычно я играю в футбол с друзьями в парке. Мы делимся на две команды и стараемся забить голы. Иногда побеждаем мы, а иногда другая команда. Но самое главное — получать удовольствие от игры и играть вместе."
+      },
+      {
+        en: "I also love drawing and painting. I often draw animals, houses, trees, and funny characters. My sister Anna likes painting, too. We sometimes sit at the same table and use many different colours.",
+        hy: "Ես նաև շատ եմ սիրում նկարել և գունավորել։ Հաճախ նկարում եմ կենդանիներ, տներ, ծառեր և զվարճալի կերպարներ։ Քույրս՝ Աննան, նույնպես սիրում է նկարել։ Երբեմն մենք նստում ենք նույն սեղանի շուրջ և օգտագործում տարբեր գույներ։",
+        ru: "Я также очень люблю рисовать и раскрашивать. Я часто рисую животных, дома, деревья и забавных персонажей. Моя сестра Анна тоже любит рисовать. Иногда мы сидим за одним столом и используем много разных цветов."
+      },
+      {
+        en: "Another hobby of mine is building things with blocks. I can make tall towers, small houses, bridges, and even a little town. I like thinking about new ideas and creating something with my hands.",
+        hy: "Իմ մյուս նախասիրություններից մեկը շինարարական խորանարդիկներով տարբեր իրեր կառուցելն է։ Ես կարողանում եմ պատրաստել բարձր աշտարակներ, փոքրիկ տներ, կամուրջներ և նույնիսկ մի ամբողջ փոքրիկ քաղաք։ Ես սիրում եմ նոր գաղափարներ մտածել և սեփական ձեռքերով ինչ-որ բան ստեղծել։",
+        ru: "Ещё одно моё увлечение — строить разные вещи из кубиков. Я могу создавать высокие башни, маленькие домики, мосты и даже целый маленький город. Мне нравится придумывать новые идеи и создавать что-нибудь своими руками."
+      },
+      {
+        en: "When the weather is bad, I prefer staying at home. I read storybooks, play board games with my family, or build puzzles. My favourite board game is a game about finding hidden treasures.",
+        hy: "Երբ եղանակը վատ է լինում, նախընտրում եմ մնալ տանը։ Ես կարդում եմ հեքիաթների և պատմությունների գրքեր, ընտանիքիս հետ սեղանի խաղեր խաղում կամ գլուխկոտրուկներ հավաքում։ Իմ սիրելի սեղանի խաղը թաքնված գանձեր գտնելու մասին է։",
+        ru: "Когда погода плохая, я предпочитаю оставаться дома. Я читаю книги со сказками и рассказами, играю с семьёй в настольные игры или собираю пазлы. Моя любимая настольная игра — игра о поиске спрятанных сокровищ."
+      },
+      {
+        en: "I also enjoy riding my bicycle. I usually ride it with my father in the park. We always wear our helmets and follow the safety rules.",
+        hy: "Ես նաև սիրում եմ հեծանիվ վարել։ Սովորաբար հայրիկիս հետ հեծանիվ եմ վարում այգում։ Մենք միշտ սաղավարտ ենք կրում և պահպանում անվտանգության կանոնները։",
+        ru: "Я также люблю кататься на велосипеде. Обычно я катаюсь на нём с папой в парке. Мы всегда надеваем шлемы и соблюдаем правила безопасности."
+      },
+      {
+        en: "My best friend David likes playing chess. He sometimes teaches me new moves. I am not very good at chess yet, but I practise because I want to improve.",
+        hy: "Իմ լավագույն ընկեր Դավիթը սիրում է շախմատ խաղալ։ Նա երբեմն ինձ նոր քայլեր է սովորեցնում։ Ես դեռ այնքան էլ լավ չեմ խաղում շախմատ, բայց մարզվում եմ, որովհետև ուզում եմ ավելի լավ խաղալ։",
+        ru: "Мой лучший друг Давид любит играть в шахматы. Иногда он учит меня новым ходам. Я пока не очень хорошо играю в шахматы, но тренируюсь, потому что хочу стать лучше."
+      },
+      {
+        en: "I don't have only one favourite hobby. I enjoy many activities because each one is different. Football helps me work with others, drawing develops my imagination, and reading teaches me new things.",
+        hy: "Ես միայն մեկ սիրելի զբաղմունք չունեմ։ Ինձ դուր են գալիս շատ տարբեր զբաղմունքներ, որովհետև դրանցից յուրաքանչյուրը յուրահատուկ է։ Ֆուտբոլն օգնում է ինձ համագործակցել ուրիշների հետ, նկարչությունը զարգացնում է երևակայությունս, իսկ ընթերցանությունն ինձ նոր բաներ է սովորեցնում։",
+        ru: "У меня нет только одного любимого увлечения. Мне нравятся разные занятия, потому что каждое из них особенное. Футбол помогает мне сотрудничать с другими, рисование развивает моё воображение, а чтение учит меня новому."
+      },
+      {
+        en: "I think hobbies make our free time interesting. We can learn, play, create, and spend happy moments with the people we love.",
+        hy: "Կարծում եմ՝ նախասիրությունները մեր ազատ ժամանակը հետաքրքիր են դարձնում։ Մենք կարող ենք սովորել, խաղալ, ստեղծագործել և ուրախ պահեր անցկացնել մեր սիրելի մարդկանց հետ։",
+        ru: "Я думаю, что увлечения делают наш досуг интересным. Мы можем учиться, играть, создавать что-то новое и проводить счастливые минуты с любимыми людьми."
+      }
+    ],
+    vocabulary: [
+      { word: "hobby", translation: { en: "hobby", hy: "նախասիրություն, զբաղմունք", ru: "увлечение" } },
+      { word: "free time", translation: { en: "free time", hy: "ազատ ժամանակ", ru: "свободное время" } },
+      { word: "team", translation: { en: "team", hy: "թիմ", ru: "команда" } },
+      { word: "score a goal", translation: { en: "score a goal", hy: "գոլ խփել", ru: "забить гол" } },
+      { word: "draw", translation: { en: "draw", hy: "նկարել", ru: "рисовать" } },
+      { word: "painting", translation: { en: "painting", hy: "նկարչություն, գունավորում", ru: "рисование, раскрашивание" } },
+      { word: "imagination", translation: { en: "imagination", hy: "երևակայություն", ru: "воображение" } },
+      { word: "building blocks", translation: { en: "building blocks", hy: "շինարարական խորանարդիկներ", ru: "строительные кубики" } },
+      { word: "tower", translation: { en: "tower", hy: "աշտարակ", ru: "башня" } },
+      { word: "bridge", translation: { en: "bridge", hy: "կամուրջ", ru: "мост" } },
+      { word: "create", translation: { en: "create", hy: "ստեղծել", ru: "создавать" } },
+      { word: "board game", translation: { en: "board game", hy: "սեղանի խաղ", ru: "настольная игра" } },
+      { word: "puzzle", translation: { en: "puzzle", hy: "գլուխկոտրուկ", ru: "головоломка" } },
+      { word: "treasure", translation: { en: "treasure", hy: "գանձ", ru: "сокровище" } },
+      { word: "bicycle", translation: { en: "bicycle", hy: "հեծանիվ", ru: "велосипед" } },
+      { word: "helmet", translation: { en: "helmet", hy: "սաղավարտ", ru: "шлем" } },
+      { word: "safety rules", translation: { en: "safety rules", hy: "անվտանգության կանոններ", ru: "правила безопасности" } },
+      { word: "chess", translation: { en: "chess", hy: "շախմատ", ru: "шахматы" } },
+      { word: "practise", translation: { en: "practise", hy: "մարզվել, վարժվել", ru: "тренироваться" } },
+      { word: "improve", translation: { en: "improve", hy: "բարելավել", ru: "улучшать" } },
+      { word: "skill", translation: { en: "skill", hy: "հմտություն", ru: "навык" } }
+    ],
+    questions: [
+      {
+        question: { en: "What is Michael's favourite game?", hy: "Ո՞րն է Մայքլի սիրելի խաղը:", ru: "Какая любимая игра Майкла?" },
+        options: [
+          { en: "Chess", hy: "Շախմատ", ru: "Шахматы" },
+          { en: "Football", hy: "Ֆուտբոլ", ru: "Футбол" },
+          { en: "Basketball", hy: "Բասկետբոլ", ru: "Баскетбол" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Where does Michael usually play football?", hy: "Որտե՞ղ է Մայքլը սովորաբար ֆուտբոլ խաղում:", ru: "Где Майкл обычно играет в футбол?" },
+        options: [
+          { en: "At school", hy: "Դպրոցում", ru: "В школе" },
+          { en: "At home", hy: "Տանը", ru: "Дома" },
+          { en: "In the park", hy: "Այգում", ru: "В парке" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What does Michael like building with blocks?", hy: "Ի՞նչ է Մայքլը սիրում կառուցել խորանարդիկներով:", ru: "Что Майкл любит строить из кубиков?" },
+        options: [
+          { en: "A small town", hy: "Փոքրիկ քաղաք", ru: "Маленький город" },
+          { en: "A real car", hy: "Իրական մեքենա", ru: "Настоящую машину" },
+          { en: "A big ship", hy: "Մեծ նավ", ru: "Большой корабль" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "What does Michael do when the weather is bad?", hy: "Ի՞նչ է անում Մայքլը, երբ եղանակը վատ է:", ru: "Что Майкл делает, когда погода плохая?" },
+        options: [
+          { en: "Goes swimming", hy: "Գնում է լողալու", ru: "Идёт плавать" },
+          { en: "Reads books and plays board games", hy: "Կարդում է գրքեր և սեղանի խաղեր խաղում", ru: "Читает книги и играет в настольные игры" },
+          { en: "Plays football outside", hy: "Դրսում ֆուտբոլ է խաղում", ru: "Играет в футбол на улице" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Who teaches Michael new chess moves?", hy: "Ո՞վ է Մայքլին նոր շախմատային քայլեր սովորեցնում:", ru: "Кто учит Майкла новым шахматным ходам?" },
+        options: [
+          { en: "His father", hy: "Նրա հայրը", ru: "Его отец" },
+          { en: "His sister", hy: "Նրա քույրը", ru: "Его сестра" },
+          { en: "His friend David", hy: "Նրա ընկեր Դավիթը", ru: "Его друг Давид" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "What does drawing develop?", hy: "Ի՞նչ է զարգացնում նկարչությունը:", ru: "Что развивает рисование?" },
+        options: [
+          { en: "His imagination", hy: "Նրա երևակայությունը", ru: "Его воображение" },
+          { en: "His speed", hy: "Նրա արագությունը", ru: "Его скорость" },
+          { en: "His strength", hy: "Նրա ուժը", ru: "Его силу" }
+        ],
+        correctIndex: 0
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your favourite games and hobbies!", hy: "Պատմիր քո սիրելի խաղերի և զբաղմունքների մասին:", ru: "Расскажи о своих любимых играх и увлечениях!" },
+      questions: [
+        { en: "What do you like doing after school?", hy: "Ի՞նչ ես սիրում անել դասերից հետո:", ru: "Что ты любишь делать после школы?" },
+        { en: "What is your favourite game?", hy: "Ո՞րն է քո սիրելի խաղը:", ru: "Какая твоя любимая игра?" },
+        { en: "Do you like drawing or painting?", hy: "Սիրու՞մ ես նկարել, թե՞ գունավորել:", ru: "Ты любишь рисовать или раскрашивать?" },
+        { en: "Do you play football with your friends?", hy: "Ֆուտբոլ խաղու՞մ ես ընկերներիդ հետ:", ru: "Ты играешь в футбол с друзьями?" },
+        { en: "What do you do when the weather is bad?", hy: "Ի՞նչ ես անում, երբ եղանակը վատ է:", ru: "Что ты делаешь, когда погода плохая?" },
+        { en: "What new hobby would you like to try?", hy: "Ի՞նչ նոր հոբբի կուզենայիր փորձել:", ru: "Какое новое хобби ты хотел бы попробовать?" }
+      ]
+    }
+  },
+
+    // ─── A2 ԹԵՄԱ 15. ԹՎԵՐ, ՕՐԵՐ, ԱՄԻՍՆԵՐ ԵՎ ԺԱՄԵՐ (A2) ─────────────────
+  {
+    id: "time_michael",
+    level: "A2",
+    topics: ["daily", "time"],
+    title: { en: "My Calendar and My Week", hy: "Իմ օրացույցն ու իմ շաբաթը", ru: "Мой календарь и моя неделя" },
+    format: "Story",
+    difficulty: 2,
+    words: 265,
+    minutes: 3,
+    parts: 10,
+    questionsCount: 6,
+    paragraphs: [
+      {
+        en: "My name is Michael, and I am ten years old. I like knowing what day it is and what I need to do. My family has a big calendar on the kitchen wall. Every morning, I look at it before I go to school.",
+        hy: "Իմ անունը Մայքլ է, և ես տասը տարեկան եմ։ Ես սիրում եմ իմանալ, թե այսօր շաբաթվա որ օրն է և ինչ պետք է անեմ։ Մեր ընտանիքը խոհանոցի պատին մեծ օրացույց ունի։ Ամեն առավոտ դպրոց գնալուց առաջ նայում եմ դրան։",
+        ru: "Меня зовут Майкл, и мне десять лет. Мне нравится знать, какой сегодня день и что мне нужно делать. У нашей семьи на кухонной стене висит большой календарь. Каждое утро перед школой я смотрю на него."
+      },
+      {
+        en: "There are seven days in a week: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday. I go to school from Monday to Friday.",
+        hy: "Մեկ շաբաթում կա յոթ օր՝ երկուշաբթի, երեքշաբթի, չորեքշաբթի, հինգշաբթի, ուրբաթ, շաբաթ և կիրակի։ Ես դպրոց եմ գնում երկուշաբթիից ուրբաթ։",
+        ru: "В одной неделе семь дней: понедельник, вторник, среда, четверг, пятница, суббота и воскресенье. Я хожу в школу с понедельника по пятницу."
+      },
+      {
+        en: "On Monday, I have English and Maths. On Tuesday, I have Art and Science. Wednesday is a busy day because I have music lessons after school. On Thursday, I play football with my friends. Friday is my favourite school day because the weekend is near!",
+        hy: "Երկուշաբթի օրերին ունեմ անգլերեն և մաթեմատիկա։ Երեքշաբթի օրերին ունեմ նկարչություն և բնագիտություն։ Չորեքշաբթին զբաղված օր է, որովհետև դասերից հետո երաժշտության դասերի եմ հաճախում։ Հինգշաբթի օրերին ընկերներիս հետ ֆուտբոլ եմ խաղում։ Ուրբաթն իմ սիրելի դպրոցական օրն է, որովհետև հանգստյան օրերն արդեն մոտ են։",
+        ru: "В понедельник у меня английский язык и математика. Во вторник — рисование и естествознание. Среда — насыщенный день, потому что после школы у меня музыкальные занятия. В четверг я играю в футбол с друзьями. Пятница — мой любимый учебный день, потому что выходные уже близко!"
+      },
+      {
+        en: "Saturday and Sunday are the weekend. I don't go to school on these days. I usually help my parents, play games, read books, or visit my grandparents.",
+        hy: "Շաբաթն ու կիրակին հանգստյան օրեր են։ Այդ օրերին դպրոց չեմ գնում։ Սովորաբար օգնում եմ ծնողներիս, խաղում եմ, գրքեր եմ կարդում կամ այցելում տատիկիս ու պապիկիս։",
+        ru: "Суббота и воскресенье — выходные дни. В эти дни я не хожу в школу. Обычно я помогаю родителям, играю, читаю книги или навещаю бабушку и дедушку."
+      },
+      {
+        en: "There are twelve months in a year. January is the first month, and December is the last month.",
+        hy: "Մեկ տարում կա տասներկու ամիս։ Հունվարը տարվա առաջին ամիսն է, իսկ դեկտեմբերը՝ վերջինը։",
+        ru: "В году двенадцать месяцев. Январь — первый месяц года, а декабрь — последний."
+      },
+      {
+        en: "My birthday is in April. I was born on the fifteenth of April. Every year, my family celebrates my birthday with a cake, balloons, and presents. My sister Anna's birthday is in September. She is happy because her birthday comes in autumn.",
+        hy: "Իմ ծննդյան օրը ապրիլին է։ Ես ծնվել եմ ապրիլի տասնհինգին։ Ամեն տարի ընտանիքս նշում է իմ ծննդյան օրը՝ տորթով, փուչիկներով և նվերներով։ Քույրիկիս՝ Աննայի ծննդյան օրը սեպտեմբերին է։ Նա ուրախ է, որովհետև իր ծննդյան օրը աշնանն է։",
+        ru: "Мой день рождения в апреле. Я родился пятнадцатого апреля. Каждый год моя семья отмечает мой день рождения с тортом, воздушными шарами и подарками. День рождения моей сестры Анны — в сентябре. Она рада, потому что её день рождения бывает осенью."
+      },
+      {
+        en: "I also like looking at the clock. There are sixty minutes in one hour and twenty-four hours in one day.",
+        hy: "Ես նաև սիրում եմ նայել ժամացույցին։ Մեկ ժամում կա վաթսուն րոպե, իսկ մեկ օրում՝ քսանչորս ժամ։",
+        ru: "Мне также нравится смотреть на часы. В одном часе шестьдесят минут, а в одних сутках — двадцать четыре часа."
+      },
+      {
+        en: "I wake up at seven o'clock in the morning. I have breakfast at half past seven. School starts at eight thirty. I usually come home at three o'clock in the afternoon.",
+        hy: "Ես արթնանում եմ առավոտյան ժամը յոթին։ Նախաճաշում եմ յոթն անց կեսին։ Դպրոցը սկսվում է ութն անց երեսունին։ Սովորաբար տուն եմ վերադառնում կեսօրից հետո ժամը երեքին։",
+        ru: "Я просыпаюсь в семь часов утра. Завтракаю в половине восьмого. Уроки в школе начинаются в восемь тридцать. Обычно я возвращаюсь домой в три часа дня."
+      },
+      {
+        en: "At six o'clock, my family has dinner. In the evening, I do my homework, read a little, and prepare my schoolbag for the next day. I go to bed at nine o'clock.",
+        hy: "Ժամը վեցին մեր ընտանիքը ընթրում է։ Երեկոյան ես կատարում եմ տնային առաջադրանքներս, մի փոքր կարդում և պատրաստում դպրոցական պայուսակս հաջորդ օրվա համար։ Ես քնում եմ ժամը իննին։",
+        ru: "В шесть часов наша семья ужинает. Вечером я делаю домашнее задание, немного читаю и собираю школьный рюкзак на следующий день. Я ложусь спать в девять часов."
+      },
+      {
+        en: "Last Sunday, Dad asked me, \"Michael, what day is tomorrow?\" \"Tomorrow is Monday,\" I answered. \"Good! And what is the date?\" \"It is the twenty-first of November.\" Dad smiled. \"You know your days, months, and dates very well!\" I like my calendar because it helps me remember important days and plan my time. Every day brings something new!",
+        hy: "Անցած կիրակի հայրիկը հարցրեց ինձ. «Մայքլ, վաղը շաբաթվա ո՞ր օրն է»։ «Վաղը երկուշաբթի է», — պատասխանեցի ես։ «Լավ։ Իսկ ամսի քանի՞սն է»։ «Նոյեմբերի քսանմեկն է»։ Հայրիկը ժպտաց. «Դու շատ լավ գիտես շաբաթվա օրերը, ամիսներն ու ամսաթվերը»։ Ես սիրում եմ մեր օրացույցը, որովհետև այն օգնում է ինձ հիշել կարևոր օրերը և պլանավորել ժամանակս։ Ամեն օր իր հետ ինչ-որ նոր բան է բերում։",
+        ru: "В прошлое воскресенье папа спросил меня: «Майкл, какой день будет завтра?» «Завтра понедельник», — ответил я. «Хорошо! А какое сегодня число?» «Двадцать первое ноября». Папа улыбнулся. «Ты очень хорошо знаешь дни недели, месяцы и даты!» Мне нравится наш календарь, потому что он помогает мне помнить важные дни и планировать своё время. Каждый день приносит что-то новое!"
+      }
+    ],
+    vocabulary: [
+      { word: "calendar", translation: { en: "calendar", hy: "օրացույց", ru: "календарь" } },
+      { word: "week", translation: { en: "week", hy: "շաբաթ", ru: "неделя" } },
+      { word: "day", translation: { en: "day", hy: "օր", ru: "день" } },
+      { word: "month", translation: { en: "month", hy: "ամիս", ru: "месяц" } },
+      { word: "year", translation: { en: "year", hy: "տարի", ru: "год" } },
+      { word: "birthday", translation: { en: "birthday", hy: "ծննդյան օր", ru: "день рождения" } },
+      { word: "date", translation: { en: "date", hy: "ամսաթիվ", ru: "дата" } },
+      { word: "clock", translation: { en: "clock", hy: "ժամացույց", ru: "часы" } },
+      { word: "hour", translation: { en: "hour", hy: "ժամ", ru: "час" } },
+      { word: "minute", translation: { en: "minute", hy: "րոպե", ru: "минута" } },
+      { word: "morning", translation: { en: "morning", hy: "առավոտ", ru: "утро" } },
+      { word: "afternoon", translation: { en: "afternoon", hy: "կեսօրից հետո", ru: "день" } },
+      { word: "evening", translation: { en: "evening", hy: "երեկո", ru: "вечер" } },
+      { word: "weekend", translation: { en: "weekend", hy: "հանգստյան օրեր", ru: "выходные" } },
+      { word: "tomorrow", translation: { en: "tomorrow", hy: "վաղը", ru: "завтра" } },
+      { word: "plan", translation: { en: "plan", hy: "ծրագիր", ru: "план" } }
+    ],
+    questions: [
+      {
+        question: { en: "How many days are there in a week?", hy: "Քանի՞ օր կա մեկ շաբաթում:", ru: "Сколько дней в неделе?" },
+        options: [
+          { en: "Five", hy: "Հինգ", ru: "Пять" },
+          { en: "Seven", hy: "Յոթ", ru: "Семь" },
+          { en: "Ten", hy: "Տասը", ru: "Десять" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "Which day is Michael's favourite school day?", hy: "Ո՞րն է Մայքլի սիրելի դպրոցական օրը:", ru: "Какой любимый учебный день Майкла?" },
+        options: [
+          { en: "Monday", hy: "Երկուշաբթի", ru: "Понедельник" },
+          { en: "Wednesday", hy: "Չորեքշաբթի", ru: "Среда" },
+          { en: "Friday", hy: "Ուրբաթ", ru: "Пятница" }
+        ],
+        correctIndex: 2
+      },
+      {
+        question: { en: "How many months are there in a year?", hy: "Քանի՞ ամիս կա մեկ տարում:", ru: "Сколько месяцев в году?" },
+        options: [
+          { en: "Twelve", hy: "Տասներկու", ru: "Двенадцать" },
+          { en: "Ten", hy: "Տասը", ru: "Десять" },
+          { en: "Fourteen", hy: "Տասնչորս", ru: "Четырнадцать" }
+        ],
+        correctIndex: 0
+      },
+      {
+        question: { en: "When is Michael's birthday?", hy: "Ե՞րբ է Մայքլի ծննդյան օրը:", ru: "Когда у Майкла день рождения?" },
+        options: [
+          { en: "In January", hy: "Հունվարին", ru: "В январе" },
+          { en: "In April", hy: "Ապրիլին", ru: "В апреле" },
+          { en: "In September", hy: "Սեպտեմբերին", ru: "В сентябре" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "What time does Michael wake up?", hy: "Ժամը քանիսի՞ն է Մայքլը արթնանում:", ru: "Во сколько Майкл просыпается?" },
+        options: [
+          { en: "At six o'clock", hy: "Ժամը վեցին", ru: "В шесть часов" },
+          { en: "At seven o'clock", hy: "Ժամը յոթին", ru: "В семь часов" },
+          { en: "At eight o'clock", hy: "Ժամը ութին", ru: "В восемь часов" }
+        ],
+        correctIndex: 1
+      },
+      {
+        question: { en: "How many minutes are there in one hour?", hy: "Քանի՞ րոպե կա մեկ ժամում:", ru: "Сколько минут в одном часе?" },
+        options: [
+          { en: "Thirty", hy: "Երեսուն", ru: "Тридцать" },
+          { en: "Forty-five", hy: "Քառասունհինգ", ru: "Сорок пять" },
+          { en: "Sixty", hy: "Վաթսուն", ru: "Шестьдесят" }
+        ],
+        correctIndex: 2
+      }
+    ],
+    creativeTask: {
+      prompt: { en: "Tell us about your calendar and your week!", hy: "Պատմիր քո օրացույցի և շաբաթվա մասին:", ru: "Расскажи о своём календаре и своей неделе!" },
+      questions: [
+        { en: "What day is it today?", hy: "Այսօր շաբաթվա ո՞ր օրն է:", ru: "Какой сегодня день недели?" },
+        { en: "What is your favourite day of the week?", hy: "Ո՞րն է քո սիրելի օրը շաբաթվա մեջ:", ru: "Какой твой любимый день недели?" },
+        { en: "How many months are there in a year?", hy: "Քանի՞ ամիս կա մեկ տարում:", ru: "Сколько месяцев в году?" },
+        { en: "When is your birthday?", hy: "Ե՞րբ է քո ծննդյան օրը:", ru: "Когда у тебя день рождения?" },
+        { en: "What time do you wake up?", hy: "Ժամը քանիսի՞ն ես արթնանում:", ru: "Во сколько ты просыпаешься?" },
+        { en: "What is your favourite month and why?", hy: "Ո՞րն է քո սիրելի ամիսը և ինչու:", ru: "Какой твой любимый месяц и почему?" }
+      ]
+    }
   }
 ];

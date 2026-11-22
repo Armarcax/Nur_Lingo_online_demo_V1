@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy, Lock, Unlock, Gift, CheckCircle, Clock, Sparkles, Target, 
-  ArrowUp, Palette, Globe, ChevronRight, BookOpen, Type, Award
+  ArrowUp, Palette, ChevronRight, BookOpen, Type, Award
 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -18,7 +18,6 @@ import {
 } from "@/lib/rewards/seeds";
 import { getLessonsForPair, LangPair, MultiLesson, MultiUnit } from "@/lib/i18n/multilingual";
 import { hayqToLevel } from "@/lib/lessons/engine";
-import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { loadLangConfig, LangCode } from "@/lib/i18n/index";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useI18n } from "@/hooks/useI18n";
@@ -157,6 +156,11 @@ function SnakePath({
               <span className="drop-shadow-lg">{!unlocked ? "🔒" : isReview ? "🏆" : unit.iconEmoji}</span>
             </div>
             <p className="mt-2 text-[10px] font-bold text-white/70 max-w-[90px] truncate text-center">{l.title[native] || l.title.en}</p>
+            {unlocked && !done && (
+              <div className="pointer-events-none absolute -left-14 -top-8 z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <img src="/images/nuri/nuri-wink.png" alt="Nuri wink" className="h-14 w-14 animate-bounce object-contain" />
+              </div>
+            )}
           </motion.button>
         );
       })}
@@ -289,7 +293,16 @@ export default function WorldPage() {
   return (
     <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
       <div ref={topRef} className="relative z-10 flex flex-col">
-        
+
+        {/* Nuri learning mascot, carried over from the reference page */}
+        <div className="pointer-events-none fixed right-2 top-24 z-20 sm:right-6">
+          <img
+            src="/images/nuri/nuri-learning.png"
+            alt={native === "ru" ? "Нури учится" : "Նուռիկը սովորում է"}
+            className="h-16 w-16 object-contain animate-float sm:h-20 sm:w-20"
+          />
+        </div>
+
         {/* ─── HEADER ─── */}
         <nav className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-white/20 dark:border-white/5 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-30 shadow-sm">
           <div className="flex items-center gap-3">
@@ -415,25 +428,24 @@ export default function WorldPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* 3D Galaxy Card */}
-            <Link href="/3d-galaxy" className="w-full">
+            {/* Direct entry to the English grammar lessons */}
+            <Link href="/visual-lessons" className="w-full">
               <motion.div
                 whileHover={{ scale: 1.03, y: -3 }}
                 whileTap={{ scale: 0.97 }}
-                className="relative w-full p-1 rounded-3xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 shadow-[0_8px_30px_rgba(255,0,0,0.3)] cursor-pointer group h-full"
+                className="group relative h-full w-full rounded-3xl bg-gradient-to-br from-rose-600 to-amber-500 p-1 shadow-[0_8px_30px_rgba(225,29,72,0.22)] transition-shadow hover:shadow-xl"
               >
-                <div className="relative bg-gray-900/95 backdrop-blur-xl rounded-[22px] px-4 py-5 flex flex-col items-center justify-center overflow-hidden h-full text-center">
-                  <motion.div
-                    animate={{ y: [0, -4, 0], rotate: [0, 10, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-red-500 to-amber-300 flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)] mb-3"
-                  >
-                    <Globe size={24} className="text-white drop-shadow-md" />
-                  </motion.div>
-                  <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 tracking-wide">
-                    Գալակտիկա
+                <div className="flex h-full flex-col items-center justify-center rounded-[22px] bg-gray-900/95 px-4 py-5 text-center">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-rose-500 to-amber-300 shadow-[0_0_20px_rgba(255,215,0,0.35)]">
+                    <BookOpen size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-amber-300">
+                    {native === "ru" ? "Английская грамматика" : "Անգլերենի քերականություն"}
                   </h3>
-                  <p className="text-[10px] text-gray-400 font-medium mt-1">3D Ինտերակտիվ Ուսուցում</p>
+                  <p className="mt-1 text-[10px] font-medium text-gray-400">{native === "ru" ? "115 уроков · объяснения на армянском и русском" : "115 դաս · հայերեն և ռուսերեն բացատրություններով"}</p>
+                  <span className="mt-4 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 to-amber-400 px-4 py-2 text-xs font-extrabold text-white shadow-md shadow-rose-950/20 transition group-hover:brightness-110">
+                    {native === "ru" ? "Открыть уроки" : "Բացել դասերը"}<ChevronRight size={15} aria-hidden="true" />
+                  </span>
                 </div>
               </motion.div>
             </Link>

@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Car,
@@ -10,12 +11,14 @@ import {
   BookOpen,
   Target,
   Loader2,
+  ArrowLeft,
 } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
 import Nuri, { NuriSpeech } from "@/components/Nuri";
+import { SnakePath, type SnakeNode } from "@/components/SnakePath";
 import { useI18n } from "@/hooks/useI18n";
 import { useNuri } from "@/hooks/useNuri";
+import type { LangCode } from "@/lib/i18n/index";
 
 interface TestIndex {
   testNumber: number;
@@ -26,12 +29,21 @@ interface TestIndex {
   bestScore?: number;
 }
 
+interface ProgressRecord {
+  completed?: boolean;
+  bestScore?: number;
+  lastScore?: number;
+  lastAttempt?: string;
+}
+
 const STORAGE_KEY = "nur_drive_test_progress";
 
 const LABELS = {
   hy: {
     title: "Վարորդական թեստ",
     subtitle: "ՀՀ տեսական քննություն · 10 թեստ",
+    tabTests: "Թեստեր",
+    tabStudy: "Ուսուցում",
     total: "Ընդհանուր",
     questions: "հարց",
     test: "Թեստ",
@@ -41,13 +53,15 @@ const LABELS = {
     inProgress: "Ընթացքի մեջ",
     notStarted: "Չսկսված",
     best: "Լավագույն",
-    nuriWelcome: "🚗 Պատրա՞ստ ես վարորդական քննությանը:",
-    nuriHappy: "🎉 {count} թեստ ավարտված:",
-    nuriIdle: "📖 Սովորի՛ր կամ փորձի՛ր թեստը:",
+    nuriWelcome: "🚗 Պատրա՞ստ ես վարորդական քննությանը",
+    nuriHappy: "🎉 {count} թեստ ավարտված է",
+    nuriIdle: "📖 Ընտրիր թեստ կամ ուսուցում",
   },
   en: {
     title: "Driving Test",
     subtitle: "Armenian theory exam · 10 tests",
+    tabTests: "Tests",
+    tabStudy: "Study",
     total: "Total",
     questions: "questions",
     test: "Test",
@@ -57,13 +71,15 @@ const LABELS = {
     inProgress: "In progress",
     notStarted: "Not started",
     best: "Best",
-    nuriWelcome: "🚗 Ready for the driving exam?",
-    nuriHappy: "🎉 {count} tests completed.",
-    nuriIdle: "📖 Study or try a test.",
+    nuriWelcome: "🚗 Ready for the driving exam",
+    nuriHappy: "🎉 {count} tests completed",
+    nuriIdle: "📖 Pick a test or study mode",
   },
   ru: {
     title: "Водительский тест",
     subtitle: "Теория РА · 10 тестов",
+    tabTests: "Тесты",
+    tabStudy: "Учёба",
     total: "Всего",
     questions: "вопросов",
     test: "Тест",
@@ -73,27 +89,22 @@ const LABELS = {
     inProgress: "В процессе",
     notStarted: "Не начато",
     best: "Лучший",
-    nuriWelcome: "🚗 Готов к экзамену?",
-    nuriHappy: "🎉 {count} тестов завершено.",
-    nuriIdle: "📖 Учись или попробуй тест.",
+    nuriWelcome: "🚗 Готов к экзамену",
+    nuriHappy: "🎉 {count} тестов завершено",
+    nuriIdle: "📖 Выбери тест или учёбу",
   },
 };
 
-interface ProgressRecord {
-  completed?: boolean;
-  bestScore?: number;
-  lastScore?: number;
-  lastAttempt?: string;
-}
-
 export default function DriveTestPage() {
+  const router = useRouter();
   const { locale } = useI18n();
   const { setPage } = useNuri();
   const [tests, setTests] = useState<TestIndex[]>([]);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState<Record<number, ProgressRecord>>({});
+  const [tab, setTab] = useState<"tests" | "study">("tests");
 
-  const L = LABELS[locale as keyof typeof LABELS] || LABELS.hy;
+  const L = LABELS[(locale as keyof typeof LABELS) || "hy"] || LABELS.hy;
 
   useEffect(() => {
     setPage("drive-test" as any);
@@ -128,126 +139,150 @@ export default function DriveTestPage() {
       ? L.nuriWelcome
       : L.nuriIdle;
 
+  /** score % → crown 1..3 */
+  const scoreToCrown = (p?: ProgressRecord): number => {
+    if (!p) return 0;
+    const s = p.bestScore || 0;
+    if (s >= 80) return 3;
+    if (s >= 50) return 2;
+    if (s > 0) return 1;
+    return 0;
+  };
+
+  const snakeNodes: SnakeNode[] = tests.map((test) => {
+    const p = progress[test.testNumber] || {};
+    const crown = scoreToCrown(p);
+    return {
+      id: String(test.testNumber),
+      title: { hy: `${L.test} ${test.testNumber}`, en: `${L.test} ${test.testNumber}`, ru: `${L.test} ${test.testNumber}` },
+      icon: "🚗",
+      crownLevel: crown,
+      subtitle: p.bestScore ? `${p.bestScore}%` : `${test.questionCount} ${L.questions}`,
+      onClick: () => router.push(`/drive-test/${test.testNumber}?mode=test`),
+    };
+  });
+
   return (
     <div className="min-h-screen bg-transparent pb-24">
-      <div className="container-main py-6">
-        {/* Nuri */}
-        <div className="flex items-center gap-4 mb-6">
-          <Nuri mood={completedCount > 0 ? "happy" : "idle"} size={72} />
-          <div className="flex-1">
-            <NuriSpeech
-              text={nuriText}
-              mood={completedCount > 0 ? "happy" : "idle"}
-            />
+      <div className="container-main py-6 max-w-4xl mx-auto">
+        {/* ─── HEADER ─── */}
+        <div className="flex items-center gap-3 mb-4">
+          <button
+            onClick={() => router.push("/world")}
+            className="p-2 rounded-xl hover:bg-white/10 transition-colors"
+            aria-label="Back"
+          >
+            <ArrowLeft size={20} />
+          </button>
+          <div className="flex-1 flex items-center gap-3">
+            <Nuri mood={completedCount > 0 ? "happy" : "idle"} size={48} />
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Car size={22} className="text-red-500" />
+                {L.title}
+              </h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {L.subtitle}
+              </p>
+            </div>
           </div>
           <ThemeToggle />
         </div>
 
-        {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <Car size={28} className="text-red-500" />
-            {L.title}
-          </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {L.subtitle}
-          </p>
+        <div className="mb-4">
+          <NuriSpeech text={nuriText} mood={completedCount > 0 ? "happy" : "idle"} />
         </div>
 
-        {/* Loading */}
+        {/* ─── TABS ─── */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setTab("tests")}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+              tab === "tests"
+                ? "bg-red-500 text-white shadow-lg shadow-red-500/30"
+                : "bg-white/40 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-white/20 dark:border-white/10"
+            }`}
+          >
+            <Target size={16} />
+            {L.tabTests}
+          </button>
+          <button
+            onClick={() => setTab("study")}
+            className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 ${
+              tab === "study"
+                ? "bg-purple-500 text-white shadow-lg shadow-purple-500/30"
+                : "bg-white/40 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-white/20 dark:border-white/10"
+            }`}
+          >
+            <BookOpen size={16} />
+            {L.tabStudy}
+          </button>
+        </div>
+
+        {/* ─── LOADING ─── */}
         {loading && (
           <div className="flex items-center justify-center py-20">
             <Loader2 size={32} className="animate-spin text-red-500" />
           </div>
         )}
 
-        {/* Test Grid */}
-        {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tests.map((test, i) => {
+        {/* ─── TESTS TAB → SNAKE PATH ─── */}
+        {!loading && tab === "tests" && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="rounded-3xl p-5 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10"
+          >
+            <SnakePath
+              nodes={snakeNodes}
+              native={locale as LangCode}
+              colorFrom="#ef4444"
+              colorTo="#f59e0b"
+            />
+          </motion.div>
+        )}
+
+        {/* ─── STUDY TAB → SEPARATE LIST ─── */}
+        {!loading && tab === "study" && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-3"
+          >
+            {tests.map((test) => {
               const p = progress[test.testNumber] || {};
-              const percent = p.bestScore || 0;
-
               return (
-                <motion.div
+                <div
                   key={test.testNumber}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="rounded-2xl p-5 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:shadow-xl transition-all"
+                  className="rounded-2xl p-4 bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 flex items-center gap-3"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center">
-                      <span className="text-xl font-black text-red-500">
-                        {test.testNumber}
-                      </span>
-                    </div>
-                    {p.completed ? (
-                      <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-500">
-                        ✅ {L.completed}
-                      </span>
-                    ) : p.lastScore ? (
-                      <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-yellow-500/20 text-yellow-500">
-                        🔄 {L.inProgress}
-                      </span>
-                    ) : (
-                      <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-gray-500/20 text-gray-500">
-                        ⏳ {L.notStarted}
-                      </span>
-                    )}
+                  <div className="w-11 h-11 rounded-xl bg-purple-500/20 flex items-center justify-center shrink-0">
+                    <span className="text-lg font-black text-purple-500">
+                      {test.testNumber}
+                    </span>
                   </div>
-
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">
-                    {L.test} {test.testNumber}
-                  </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    {test.questionCount} {L.questions}
-                  </p>
-
-                  <div className="w-full h-2 rounded-full bg-white/20 dark:bg-white/10 overflow-hidden mb-4">
-                    <div
-                      className={`h-full rounded-full transition-all ${
-                        percent >= 80
-                          ? "bg-emerald-500"
-                          : percent >= 50
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                      style={{ width: `${percent}%` }}
-                    />
-                  </div>
-
-                  {p.bestScore ? (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 flex items-center gap-1">
-                      <Trophy size={12} className="text-amber-500" />
-                      {L.best}: {p.bestScore}%
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-gray-900 dark:text-white">
+                      {L.test} {test.testNumber}
                     </p>
-                  ) : null}
-
-                  <div className="flex gap-2">
-                    <Link
-                      href={`/drive-test/${test.testNumber}?mode=test`}
-                      className="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-xs font-bold transition flex items-center justify-center gap-1"
-                    >
-                      <Target size={14} />
-                      {L.startTest}
-                    </Link>
-                    <Link
-                      href={`/drive-test/${test.testNumber}?mode=study`}
-                      className="flex-1 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-500 text-xs font-bold transition flex items-center justify-center gap-1 border border-purple-500/30"
-                    >
-                      <BookOpen size={14} />
-                      {L.startStudy}
-                    </Link>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {test.questionCount} {L.questions}
+                      {p.bestScore ? ` · ${L.best}: ${p.bestScore}%` : ""}
+                    </p>
                   </div>
-                </motion.div>
+                  <Link
+                    href={`/drive-test/${test.testNumber}?mode=study`}
+                    className="px-3 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-500 text-xs font-bold transition flex items-center gap-1 border border-purple-500/30"
+                  >
+                    <BookOpen size={14} />
+                    {L.startStudy}
+                  </Link>
+                </div>
               );
             })}
-          </div>
+          </motion.div>
         )}
       </div>
-
-      <BottomNav />
     </div>
   );
 }

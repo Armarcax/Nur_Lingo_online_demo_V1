@@ -1,7 +1,14 @@
 // src/app/dialogues/page.tsx
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo, Suspense } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  Suspense,
+} from "react";
 import { useNuri } from "@/hooks/useNuri";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,13 +17,9 @@ import {
   ChevronUp,
   Play,
   Volume2,
-  VolumeX,
   Search,
   X,
   MessageSquare,
-  Sparkles,
-  User,
-  Bot,
   Eye,
   EyeOff,
   RefreshCw,
@@ -24,48 +27,19 @@ import {
   Mic,
   BookOpen,
   Clock,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
   ArrowUp,
   Filter,
-  ChevronRight,
-  Star,
-  Share2,
   Bookmark,
   BookmarkCheck,
-  Download,
-  Languages,
-  Globe,
-  Headphones,
   Radio,
   Speaker,
-  Zap,
-  TrendingUp,
   BarChart3,
-  Calendar,
-  Award,
   Target,
-  Brain,
-  Heart,
-  Smile,
-  Frown,
-  Meh,
-  Laugh,
-  Flame,
-  Gift,
-  Settings,
-  Plus,
-  Copy,
-  Check,
   Music,
   List,
   Grid3x3,
-  SortAsc,
-  SortDesc,
   FilterX,
 } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
 import InteractiveDialogue from "@/components/InteractiveDialogue";
 import { CONTENT_LESSONS, type DialogueTurn } from "@/lib/content/database";
 import { loadLangConfig, type LangCode } from "@/lib/i18n/index";
@@ -74,7 +48,13 @@ import { useAudioManager } from "@/lib/hooks/useAudioManager";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import ThemeToggle from "@/components/ThemeToggle";
 import { getWavClient } from "@/lib/audio/WavClient";
-import { useI18n } from "@/hooks/useI18n"; // ✅ ՃԻՇՏ import
+import { useI18n } from "@/hooks/useI18n";
+import {
+  PageShell,
+  StatPill,
+  LoadingState,
+  EmptyState,
+} from "@/components/layout";
 
 // ─── CHARACTER MAPPING ──────────────────────────────────────────────
 
@@ -154,10 +134,25 @@ const getMoodEmoji = (mood?: string): string => {
   return MOOD_EMOJIS[mood] || "😐";
 };
 
-const DIFFICULTY_LABELS: Record<string, { labelKey: string; color: string; icon: string }> = {
-  beginner: { labelKey: "dialogues_difficulty_beginner", color: "text-green-400 bg-green-500/20", icon: "🌱" },
-  intermediate: { labelKey: "dialogues_difficulty_intermediate", color: "text-yellow-400 bg-yellow-500/20", icon: "📈" },
-  advanced: { labelKey: "dialogues_difficulty_advanced", color: "text-red-400 bg-red-500/20", icon: "🔥" },
+const DIFFICULTY_LABELS: Record<
+  string,
+  { labelKey: string; color: string; icon: string }
+> = {
+  beginner: {
+    labelKey: "dialogues_difficulty_beginner",
+    color: "text-green-400 bg-green-500/20",
+    icon: "🌱",
+  },
+  intermediate: {
+    labelKey: "dialogues_difficulty_intermediate",
+    color: "text-yellow-400 bg-yellow-500/20",
+    icon: "📈",
+  },
+  advanced: {
+    labelKey: "dialogues_difficulty_advanced",
+    color: "text-red-400 bg-red-500/20",
+    icon: "🔥",
+  },
 };
 
 const CATEGORY_LABELS: Record<string, { labelKey: string; icon: string }> = {
@@ -169,7 +164,10 @@ const CATEGORY_LABELS: Record<string, { labelKey: string; icon: string }> = {
   shopping: { labelKey: "dialogues_category_shopping", icon: "🛍️" },
   health: { labelKey: "dialogues_category_health", icon: "🏥" },
   education: { labelKey: "dialogues_category_education", icon: "📚" },
-  entertainment: { labelKey: "dialogues_category_entertainment", icon: "🎭" },
+  entertainment: {
+    labelKey: "dialogues_category_entertainment",
+    icon: "🎭",
+  },
   social: { labelKey: "dialogues_category_social", icon: "🤝" },
 };
 
@@ -201,11 +199,27 @@ interface DialogueStats {
   totalDuration: number;
 }
 
-type SortOption = "default" | "newest" | "oldest" | "alphabetical" | "popular" | "progress";
-type FilterOption = "all" | "beginner" | "intermediate" | "advanced" | "favorites" | "completed" | "in-progress" | "daily" | "travel" | "food" | "family" | "work";
+type SortOption =
+  | "default"
+  | "newest"
+  | "oldest"
+  | "alphabetical"
+  | "popular"
+  | "progress";
+type FilterOption =
+  | "all"
+  | "beginner"
+  | "intermediate"
+  | "advanced"
+  | "favorites"
+  | "completed"
+  | "in-progress"
+  | "daily"
+  | "travel"
+  | "food"
+  | "family"
+  | "work";
 type ViewMode = "list" | "grid" | "compact";
-
-// ─── LOCAL STORAGE KEYS ─────────────────────────────────────────────
 
 const STORAGE_KEYS = {
   DIALOGUE_FAVORITES: "nurlingo_dialogue_favorites",
@@ -215,8 +229,6 @@ const STORAGE_KEYS = {
   DIALOGUE_VIEW: "nurlingo_dialogue_view",
 };
 
-// ─── HELPERS ─────────────────────────────────────────────────────────
-
 const formatDuration = (minutes?: number): string => {
   if (!minutes) return "—";
   if (minutes < 1) return "< 1 ր";
@@ -225,8 +237,6 @@ const formatDuration = (minutes?: number): string => {
   const mins = minutes % 60;
   return mins > 0 ? `${hours} ժ ${mins} ր` : `${hours} ժ`;
 };
-
-// ─── PROGRESS BAR ────────────────────────────────────────────────────
 
 function DialogueProgressBar({ progress }: { progress: number }) {
   return (
@@ -247,33 +257,37 @@ function DialoguesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setPage } = useNuri();
-  const { t, locale } = useI18n(); // ✅ Ավելացված locale
-  
-  // ─── GET pairParam FROM URL ──────────────────────────────────────
-  const pairParam = searchParams?.get("pair") || undefined; // ✅ Ուղղված `searchParams`-ի null-ի դեպքում
-  
-  // ─── LOCAL TOAST ──────────────────────────────────────────────────
+  const { t, locale } = useI18n();
+
+  const pairParam = searchParams?.get("pair") || undefined;
+
   const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
-  
-  const showMessage = useCallback((text: string, type: "success" | "error" | "info" = "info") => {
-    setToastMessage(text);
-    setToastType(type);
-    setTimeout(() => setToastMessage(""), 3000);
-  }, []);
-  
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "info"
+  );
+  const showMessage = useCallback(
+    (text: string, type: "success" | "error" | "info" = "info") => {
+      setToastMessage(text);
+      setToastType(type);
+      setTimeout(() => setToastMessage(""), 3000);
+    },
+    []
+  );
+
   useEffect(() => setPage("dialogues"), [setPage]);
-  
+
   const { play, stop, isPlaying, isLoading } = useAudioManager();
   const { speak, stop: stopAudio, isSpeaking } = useAudio();
-  
-  // ─── STATE ──────────────────────────────────────────────────────────
 
   const [dialogues, setDialogues] = useState<DialogueWithMeta[]>([]);
   const [nativeLang, setNativeLang] = useState<LangCode>("hy");
   const [expandedDialogue, setExpandedDialogue] = useState<string | null>(null);
-  const [revealedLines, setRevealedLines] = useState<Record<string, boolean>>({});
-  const [interactiveMode, setInteractiveMode] = useState<Record<string, boolean>>({});
+  const [revealedLines, setRevealedLines] = useState<Record<string, boolean>>(
+    {}
+  );
+  const [interactiveMode, setInteractiveMode] = useState<
+    Record<string, boolean>
+  >({});
   const [speakingId, setSpeakingId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [nuriMood, setNuriMood] = useState<NuriMood>("idle");
@@ -287,21 +301,17 @@ function DialoguesContent() {
   const [dialogStats, setDialogStats] = useState<DialogueStats | null>(null);
   const [showStats, setShowStats] = useState(false);
   const [autoReveal, setAutoReveal] = useState(false);
-  const [autoPlayAudio, setAutoPlayAudio] = useState(false);
   const [highlightedLine, setHighlightedLine] = useState<string | null>(null);
   const [isWAVAvailable, setIsWAVAvailable] = useState(false);
   const [audioMode, setAudioMode] = useState<"wav" | "tts" | "mp3">("wav");
   const [wavClient, setWavClient] = useState<any>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("list");
-  const [selectedDialogues, setSelectedDialogues] = useState<Set<string>>(new Set());
-  const [isBatchMode, setIsBatchMode] = useState(false);
-  
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
   const dialogueRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // ─── LOAD VIEW PREFERENCE ─────────────────────────────────────────
-
+  // ─── LOAD VIEW PREFERENCE ───
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.DIALOGUE_VIEW);
@@ -311,102 +321,109 @@ function DialoguesContent() {
         if (view.sortOption) setSortOption(view.sortOption);
         if (view.filterOption) setFilterOption(view.filterOption);
       }
-    } catch {
-      // Ignore
-    }
+    } catch {}
   }, []);
-
-  // ─── SAVE VIEW PREFERENCE ─────────────────────────────────────────
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEYS.DIALOGUE_VIEW, JSON.stringify({
-        viewMode,
-        sortOption,
-        filterOption,
-      }));
-    } catch {
-      // Ignore
-    }
+      localStorage.setItem(
+        STORAGE_KEYS.DIALOGUE_VIEW,
+        JSON.stringify({ viewMode, sortOption, filterOption })
+      );
+    } catch {}
   }, [viewMode, sortOption, filterOption]);
 
-  // ─── LOAD FAVORITES & PROGRESS ────────────────────────────────────
-
+  // ─── LOAD FAVORITES & PROGRESS ───
   useEffect(() => {
     try {
       const savedFavs = localStorage.getItem(STORAGE_KEYS.DIALOGUE_FAVORITES);
       if (savedFavs) setFavorites(new Set(JSON.parse(savedFavs)));
-      
-      const savedProgress = localStorage.getItem(STORAGE_KEYS.DIALOGUE_PROGRESS);
+
+      const savedProgress = localStorage.getItem(
+        STORAGE_KEYS.DIALOGUE_PROGRESS
+      );
       if (savedProgress) setProgress(JSON.parse(savedProgress));
-      
-      const savedCompleted = localStorage.getItem(STORAGE_KEYS.DIALOGUE_HISTORY);
+
+      const savedCompleted = localStorage.getItem(
+        STORAGE_KEYS.DIALOGUE_HISTORY
+      );
       if (savedCompleted) setCompleted(new Set(JSON.parse(savedCompleted)));
-      
-      const savedSettings = localStorage.getItem(STORAGE_KEYS.DIALOGUE_SETTINGS);
+
+      const savedSettings = localStorage.getItem(
+        STORAGE_KEYS.DIALOGUE_SETTINGS
+      );
       if (savedSettings) {
         const settings = JSON.parse(savedSettings);
-        if (settings.autoReveal !== undefined) setAutoReveal(settings.autoReveal);
-        if (settings.autoPlayAudio !== undefined) setAutoPlayAudio(settings.autoPlayAudio);
+        if (settings.autoReveal !== undefined)
+          setAutoReveal(settings.autoReveal);
+        if (settings.autoPlayAudio !== undefined) {
+          /* preserved but unused */
+        }
       }
-    } catch {
-      // Ignore
-    }
+    } catch {}
   }, []);
 
-  // ─── SAVE FAVORITES ────────────────────────────────────────────────
-
   const toggleFavorite = useCallback((id: string) => {
-    setFavorites(prev => {
+    setFavorites((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem(STORAGE_KEYS.DIALOGUE_FAVORITES, JSON.stringify([...next]));
+      localStorage.setItem(
+        STORAGE_KEYS.DIALOGUE_FAVORITES,
+        JSON.stringify([...next])
+      );
       return next;
     });
   }, []);
 
-  // ─── UPDATE PROGRESS ───────────────────────────────────────────────
-
   const updateProgress = useCallback((id: string, value: number) => {
-    setProgress(prev => {
+    setProgress((prev) => {
       const updated = { ...prev, [id]: value };
-      localStorage.setItem(STORAGE_KEYS.DIALOGUE_PROGRESS, JSON.stringify(updated));
+      localStorage.setItem(
+        STORAGE_KEYS.DIALOGUE_PROGRESS,
+        JSON.stringify(updated)
+      );
       return updated;
     });
     if (value >= 100) {
-      setCompleted(prev => {
+      setCompleted((prev) => {
         const next = new Set(prev);
         next.add(id);
-        localStorage.setItem(STORAGE_KEYS.DIALOGUE_HISTORY, JSON.stringify([...next]));
+        localStorage.setItem(
+          STORAGE_KEYS.DIALOGUE_HISTORY,
+          JSON.stringify([...next])
+        );
         return next;
       });
     }
   }, []);
 
-  // ─── SAVE SETTINGS ─────────────────────────────────────────────────
-
   const saveSettings = useCallback((key: string, value: any) => {
     try {
-      const current = JSON.parse(localStorage.getItem(STORAGE_KEYS.DIALOGUE_SETTINGS) || '{}');
+      const current = JSON.parse(
+        localStorage.getItem(STORAGE_KEYS.DIALOGUE_SETTINGS) || "{}"
+      );
       current[key] = value;
-      localStorage.setItem(STORAGE_KEYS.DIALOGUE_SETTINGS, JSON.stringify(current));
-    } catch {
-      // Ignore
-    }
+      localStorage.setItem(
+        STORAGE_KEYS.DIALOGUE_SETTINGS,
+        JSON.stringify(current)
+      );
+    } catch {}
   }, []);
 
-  // ─── TYPE GUARD ─────────────────────────────────────────────────────
-
-  function isValidDialogueTitle(value: any): value is { en: string; hy: string; ru: string } {
-    return value && typeof value === 'object' && 
-      typeof value.en === 'string' && 
-      typeof value.hy === 'string' && 
-      typeof value.ru === 'string';
+  function isValidDialogueTitle(
+    value: any
+  ): value is { en: string; hy: string; ru: string } {
+    return (
+      value &&
+      typeof value === "object" &&
+      typeof value.en === "string" &&
+      typeof value.hy === "string" &&
+      typeof value.ru === "string"
+    );
   }
 
-  // ─── LOAD DIALOGUES ───────────────────────────────────────────────
-
+  // ─── LOAD DIALOGUES ───
   useEffect(() => {
     const cfg = loadLangConfig();
     setNativeLang(cfg?.native || "hy");
@@ -416,70 +433,71 @@ function DialoguesContent() {
       if (lesson.dialogues && lesson.dialogues.length > 0) {
         for (const dlg of lesson.dialogues) {
           const turns = dlg.turns || [];
-          
-          const dialogueTitle = isValidDialogueTitle(dlg.title) 
-            ? dlg.title 
+
+          const dialogueTitle = isValidDialogueTitle(dlg.title)
+            ? dlg.title
             : { en: String(dlg.title), hy: String(dlg.title), ru: String(dlg.title) };
-          
-          const pair = pairParam || cfg?.pair || 'hy-en';
-          const [native, learning] = pair.split('-') as [LangCode, LangCode];
-          
+
+          const pair = pairParam || cfg?.pair || "hy-en";
+          const [native, learning] = pair.split("-") as [LangCode, LangCode];
+
           allDialogues.push({
             id: dlg.id,
             lessonTitle: lesson.title.en,
             worldTitle: t("page__world") + ` ${lesson.worldId.slice(1)}`,
-            dialogueTitle: dialogueTitle,
-            turns: turns,
+            dialogueTitle,
+            turns,
             worldId: lesson.worldId,
             lessonId: lesson.id,
             difficulty: (dlg as any).difficulty || "intermediate",
             category: (dlg as any).category || "daily",
             duration: (dlg as any).duration || Math.ceil(turns.length / 2),
             tags: (dlg as any).tags || [],
-            pair: pair,
-            native: native,
-            learning: learning,
+            pair,
+            native,
+            learning,
           });
         }
       }
     }
     setDialogues(allDialogues);
     calculateStats(allDialogues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pairParam, t]);
 
-  // ─── CALCULATE STATS ──────────────────────────────────────────────
+  const calculateStats = useCallback(
+    (data: DialogueWithMeta[]) => {
+      const stats: DialogueStats = {
+        total: data.length,
+        totalTurns: data.reduce((acc, d) => acc + d.turns.length, 0),
+        completed: data.filter((d) => completed.has(d.id)).length,
+        inProgress: data.filter(
+          (d) => progress[d.id] && progress[d.id] > 0 && progress[d.id] < 100
+        ).length,
+        byDifficulty: {},
+        byCategory: {},
+        favoriteCount: data.filter((d) => favorites.has(d.id)).length,
+        totalDuration: data.reduce((acc, d) => acc + (d.duration || 0), 0),
+      };
 
-  const calculateStats = useCallback((data: DialogueWithMeta[]) => {
-    const stats: DialogueStats = {
-      total: data.length,
-      totalTurns: data.reduce((acc, d) => acc + d.turns.length, 0),
-      completed: data.filter(d => completed.has(d.id)).length,
-      inProgress: data.filter(d => progress[d.id] && progress[d.id] > 0 && progress[d.id] < 100).length,
-      byDifficulty: {},
-      byCategory: {},
-      favoriteCount: data.filter(d => favorites.has(d.id)).length,
-      totalDuration: data.reduce((acc, d) => acc + (d.duration || 0), 0),
-    };
-    
-    data.forEach(d => {
-      const diff = d.difficulty || "intermediate";
-      stats.byDifficulty[diff] = (stats.byDifficulty[diff] || 0) + 1;
-      const cat = d.category || "daily";
-      stats.byCategory[cat] = (stats.byCategory[cat] || 0) + 1;
-    });
-    
-    setDialogStats(stats);
-  }, [completed, progress, favorites]);
+      data.forEach((d) => {
+        const diff = d.difficulty || "intermediate";
+        stats.byDifficulty[diff] = (stats.byDifficulty[diff] || 0) + 1;
+        const cat = d.category || "daily";
+        stats.byCategory[cat] = (stats.byCategory[cat] || 0) + 1;
+      });
 
-  // ─── SCROLL EVENT ──────────────────────────────────────────────────
+      setDialogStats(stats);
+    },
+    [completed, progress, favorites]
+  );
 
+  // ─── SCROLL / KEYBOARD ───
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -491,16 +509,13 @@ function DialoguesContent() {
         setShowFilters(false);
         setShowStats(false);
         setExpandedDialogue(null);
-        setIsBatchMode(false);
-        setSelectedDialogues(new Set());
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // ─── INIT WAV ──────────────────────────────────────────────────────
-
+  // ─── INIT WAV ───
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -516,11 +531,10 @@ function DialoguesContent() {
     initWAV();
   }, []);
 
-  // ─── FILTERED & SORTED DIALOGUES ──────────────────────────────────
-
+  // ─── FILTERED & SORTED ───
   const filteredDialogues = useMemo(() => {
     let items = [...dialogues];
-    
+
     const q = searchQuery.trim().toLowerCase();
     if (q) {
       items = items.filter(
@@ -528,40 +542,45 @@ function DialoguesContent() {
           dlg.dialogueTitle[nativeLang]?.toLowerCase().includes(q) ||
           dlg.dialogueTitle.en.toLowerCase().includes(q) ||
           dlg.lessonTitle.toLowerCase().includes(q) ||
-          dlg.turns.some(t => t.hy.toLowerCase().includes(q) || t.en.toLowerCase().includes(q))
+          dlg.turns.some(
+            (t) =>
+              t.hy.toLowerCase().includes(q) || t.en.toLowerCase().includes(q)
+          )
       );
     }
-    
+
     switch (filterOption) {
       case "beginner":
-        items = items.filter(d => d.difficulty === "beginner");
+        items = items.filter((d) => d.difficulty === "beginner");
         break;
       case "intermediate":
-        items = items.filter(d => d.difficulty === "intermediate");
+        items = items.filter((d) => d.difficulty === "intermediate");
         break;
       case "advanced":
-        items = items.filter(d => d.difficulty === "advanced");
+        items = items.filter((d) => d.difficulty === "advanced");
         break;
       case "favorites":
-        items = items.filter(d => favorites.has(d.id));
+        items = items.filter((d) => favorites.has(d.id));
         break;
       case "completed":
-        items = items.filter(d => completed.has(d.id));
+        items = items.filter((d) => completed.has(d.id));
         break;
       case "in-progress":
-        items = items.filter(d => progress[d.id] && progress[d.id] > 0 && progress[d.id] < 100);
+        items = items.filter(
+          (d) => progress[d.id] && progress[d.id] > 0 && progress[d.id] < 100
+        );
         break;
       case "daily":
       case "travel":
       case "food":
       case "family":
       case "work":
-        items = items.filter(d => d.category === filterOption);
+        items = items.filter((d) => d.category === filterOption);
         break;
       default:
         break;
     }
-    
+
     switch (sortOption) {
       case "newest":
         items.sort((a, b) => a.id.localeCompare(b.id));
@@ -570,12 +589,17 @@ function DialoguesContent() {
         items.sort((a, b) => b.id.localeCompare(a.id));
         break;
       case "alphabetical":
-        items.sort((a, b) => (a.dialogueTitle[nativeLang] || a.dialogueTitle.en).localeCompare(
-          b.dialogueTitle[nativeLang] || b.dialogueTitle.en
-        ));
+        items.sort((a, b) =>
+          (a.dialogueTitle[nativeLang] || a.dialogueTitle.en).localeCompare(
+            b.dialogueTitle[nativeLang] || b.dialogueTitle.en
+          )
+        );
         break;
       case "popular":
-        items.sort((a, b) => (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0));
+        items.sort(
+          (a, b) =>
+            (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0)
+        );
         break;
       case "progress":
         items.sort((a, b) => (progress[b.id] || 0) - (progress[a.id] || 0));
@@ -583,128 +607,150 @@ function DialoguesContent() {
       default:
         break;
     }
-    
+
     return items;
-  }, [dialogues, searchQuery, nativeLang, filterOption, sortOption, favorites, completed, progress]);
+  }, [
+    dialogues,
+    searchQuery,
+    nativeLang,
+    filterOption,
+    sortOption,
+    favorites,
+    completed,
+    progress,
+  ]);
 
-  // ─── HANDLE SPEAK ──────────────────────────────────────────────────
+  // ─── HANDLE SPEAK ───
+  const handleSpeak = useCallback(
+    (text: string, id: string, lang: LangCode = "hy") => {
+      if (isSpeaking || isPlaying) {
+        stop?.();
+        if (speakingId === id) {
+          setSpeakingId(null);
+          setNuriMood("idle");
+          return;
+        }
+      }
 
-  const handleSpeak = useCallback((text: string, id: string, lang: LangCode = "hy") => {
-    if (isSpeaking || isPlaying) {
-      stop?.();
-      if (speakingId === id) {
-        setSpeakingId(null);
-        setNuriMood("idle");
+      setSpeakingId(id);
+      setNuriMood("happy");
+
+      if (audioMode === "wav" && isWAVAvailable && wavClient && lang === "hy") {
+        wavClient.playGeneratedAudio(text, "Avet").catch(() => {
+          speak(text, lang, {
+            id: `dialogue_${id}`,
+            onEnd: () => {
+              setSpeakingId(null);
+              setNuriMood("idle");
+            },
+            onError: () => {
+              setSpeakingId(null);
+              setNuriMood("sad");
+            },
+          });
+        });
         return;
       }
-    }
-    
-    setSpeakingId(id);
-    setNuriMood("happy");
-    
-    if (audioMode === "wav" && isWAVAvailable && wavClient && lang === "hy") {
-      wavClient.playGeneratedAudio(text, "Avet").catch(() => {
-        speak(text, lang, {
-          id: `dialogue_${id}`,
-          onEnd: () => {
-            setSpeakingId(null);
-            setNuriMood("idle");
-          },
-          onError: () => {
-            setSpeakingId(null);
-            setNuriMood("sad");
-          },
-        });
-      });
-      return;
-    }
-    
-    speak(text, lang, {
-      id: `dialogue_${id}`,
-      onEnd: () => {
-        setSpeakingId(null);
-        setNuriMood("idle");
-      },
-      onError: () => {
-        setSpeakingId(null);
-        setNuriMood("sad");
-      },
-    });
-  }, [isSpeaking, isPlaying, stop, speakingId, speak, audioMode, isWAVAvailable, wavClient]);
 
-  // ─── TOGGLE DIALOGUE ──────────────────────────────────────────────
+      speak(text, lang, {
+        id: `dialogue_${id}`,
+        onEnd: () => {
+          setSpeakingId(null);
+          setNuriMood("idle");
+        },
+        onError: () => {
+          setSpeakingId(null);
+          setNuriMood("sad");
+        },
+      });
+    },
+    [
+      isSpeaking,
+      isPlaying,
+      stop,
+      speakingId,
+      speak,
+      audioMode,
+      isWAVAvailable,
+      wavClient,
+    ]
+  );
 
   const toggleDialogue = useCallback((id: string) => {
-    setExpandedDialogue(prev => prev === id ? null : id);
+    setExpandedDialogue((prev) => (prev === id ? null : id));
     setRevealedLines({});
   }, []);
 
-  // ─── TOGGLE LINE ──────────────────────────────────────────────────
+  const toggleLine = useCallback(
+    (dialogueId: string, turnIdx: number) => {
+      const key = `${dialogueId}-${turnIdx}`;
+      setRevealedLines((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const toggleLine = useCallback((dialogueId: string, turnIdx: number) => {
-    const key = `${dialogueId}-${turnIdx}`;
-    setRevealedLines(prev => ({ ...prev, [key]: !prev[key] }));
-    
-    const total = dialogues.find(d => d.id === dialogueId)?.turns.length || 1;
-    const revealed = Object.keys(revealedLines).filter(k => k.startsWith(dialogueId)).length;
-    const progressValue = Math.min(100, Math.round(((revealed + (revealedLines[key] ? 1 : 0)) / total) * 100));
-    updateProgress(dialogueId, progressValue);
-  }, [revealedLines, dialogues, updateProgress]);
-
-  // ─── TOGGLE INTERACTIVE MODE ──────────────────────────────────────
+      const total =
+        dialogues.find((d) => d.id === dialogueId)?.turns.length || 1;
+      const revealed = Object.keys(revealedLines).filter((k) =>
+        k.startsWith(dialogueId)
+      ).length;
+      const progressValue = Math.min(
+        100,
+        Math.round(((revealed + (revealedLines[key] ? 1 : 0)) / total) * 100)
+      );
+      updateProgress(dialogueId, progressValue);
+    },
+    [revealedLines, dialogues, updateProgress]
+  );
 
   const toggleInteractiveMode = useCallback((id: string) => {
-    setInteractiveMode(prev => ({ ...prev, [id]: !prev[id] }));
+    setInteractiveMode((prev) => ({ ...prev, [id]: !prev[id] }));
     setRevealedLines({});
   }, []);
 
-  // ─── REVEAL ALL LINES ─────────────────────────────────────────────
+  const revealAllLines = useCallback(
+    (dialogueId: string) => {
+      const dlg = dialogues.find((d) => d.id === dialogueId);
+      if (!dlg) return;
+      const newRevealed: Record<string, boolean> = {};
+      dlg.turns.forEach((_, idx) => {
+        newRevealed[`${dialogueId}-${idx}`] = true;
+      });
+      setRevealedLines((prev) => ({ ...prev, ...newRevealed }));
+      updateProgress(dialogueId, 100);
+      showMessage(t("dialogues_all_revealed"), "success");
+    },
+    [dialogues, updateProgress, showMessage, t]
+  );
 
-  const revealAllLines = useCallback((dialogueId: string) => {
-    const dlg = dialogues.find(d => d.id === dialogueId);
-    if (!dlg) return;
-    const newRevealed: Record<string, boolean> = {};
-    dlg.turns.forEach((_, idx) => {
-      newRevealed[`${dialogueId}-${idx}`] = true;
-    });
-    setRevealedLines(prev => ({ ...prev, ...newRevealed }));
-    updateProgress(dialogueId, 100);
-    showMessage(t("dialogues_all_revealed"), "success");
-  }, [dialogues, updateProgress, showMessage, t]);
-
-  // ─── HIDE ALL LINES ──────────────────────────────────────────────
-
-  const hideAllLines = useCallback((dialogueId: string) => {
-    const dlg = dialogues.find(d => d.id === dialogueId);
-    if (!dlg) return;
-    const newRevealed: Record<string, boolean> = {};
-    dlg.turns.forEach((_, idx) => {
-      newRevealed[`${dialogueId}-${idx}`] = false;
-    });
-    setRevealedLines(prev => ({ ...prev, ...newRevealed }));
-    updateProgress(dialogueId, 0);
-    showMessage(t("dialogues_all_hidden"), "info");
-  }, [dialogues, updateProgress, showMessage, t]);
-
-  // ─── SCROLL TO TOP ──────────────────────────────────────────────────
+  const hideAllLines = useCallback(
+    (dialogueId: string) => {
+      const dlg = dialogues.find((d) => d.id === dialogueId);
+      if (!dlg) return;
+      const newRevealed: Record<string, boolean> = {};
+      dlg.turns.forEach((_, idx) => {
+        newRevealed[`${dialogueId}-${idx}`] = false;
+      });
+      setRevealedLines((prev) => ({ ...prev, ...newRevealed }));
+      updateProgress(dialogueId, 0);
+      showMessage(t("dialogues_all_hidden"), "info");
+    },
+    [dialogues, updateProgress, showMessage, t]
+  );
 
   const scrollToTop = useCallback(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  // ─── GET SPEAKER NAME ─────────────────────────────────────────────
+  const getSpeakerName = useCallback(
+    (speaker: string, lang: LangCode) =>
+      CHARACTER_NAMES[speaker]?.[lang] || speaker,
+    []
+  );
 
-  const getSpeakerName = useCallback((speaker: string, lang: LangCode) => {
-    return CHARACTER_NAMES[speaker]?.[lang] || speaker;
-  }, []);
-
-  // ─── GET SPEAKER COLOR ────────────────────────────────────────────
-
-  const getSpeakerColor = useCallback((speaker: string) => {
-    return CHARACTER_COLORS[speaker] || "bg-gray-500/20 border-gray-500/20 text-gray-400";
-  }, []);
-
-  // ─── RESET FILTERS ─────────────────────────────────────────────────
+  const getSpeakerColor = useCallback(
+    (speaker: string) =>
+      CHARACTER_COLORS[speaker] ||
+      "bg-gray-500/20 border-gray-500/20 text-gray-400",
+    []
+  );
 
   const resetFilters = useCallback(() => {
     setFilterOption("all");
@@ -713,433 +759,504 @@ function DialoguesContent() {
     setShowFilters(false);
   }, []);
 
-  // ─── RENDER STANDARD MODE ──────────────────────────────────────────
+  // ─── RENDER STANDARD MODE ───
+  const renderStandardMode = useCallback(
+    (dlg: DialogueWithMeta) => {
+      const totalTurns = dlg.turns.length;
+      const revealedCount = Object.keys(revealedLines).filter(
+        (k) => k.startsWith(dlg.id) && revealedLines[k]
+      ).length;
+      const progressPercent = Math.round((revealedCount / totalTurns) * 100);
 
-  const renderStandardMode = useCallback((dlg: DialogueWithMeta) => {
-    const totalTurns = dlg.turns.length;
-    const revealedCount = Object.keys(revealedLines).filter(k => k.startsWith(dlg.id) && revealedLines[k]).length;
-    const progressPercent = Math.round((revealedCount / totalTurns) * 100);
+      const [native, learning] = ((dlg as any).pair?.split("-") as [
+        LangCode,
+        LangCode
+      ]) || ["hy", "en"];
 
-    const [native, learning] = (dlg as any).pair?.split('-') as [LangCode, LangCode] || ['hy', 'en'];
+      const getLearningText = (turn: DialogueTurn): string => {
+        if (learning === "hy") return turn.hy || turn.en;
+        if (learning === "en") return turn.en || turn.hy;
+        if (learning === "ru") return turn.ru || turn.hy;
+        return turn.hy || turn.en;
+      };
 
-    const getLearningText = (turn: DialogueTurn): string => {
-      if (learning === 'hy') return turn.hy || turn.en;
-      if (learning === 'en') return turn.en || turn.hy;
-      if (learning === 'ru') return turn.ru || turn.hy;
-      return turn.hy || turn.en;
-    };
+      const getNativeText = (turn: DialogueTurn): string => {
+        if (native === "hy") return turn.hy || turn.en;
+        if (native === "en") return turn.en || turn.hy;
+        if (native === "ru") return turn.ru || turn.hy;
+        return turn.en || turn.hy;
+      };
 
-    const getNativeText = (turn: DialogueTurn): string => {
-      if (native === 'hy') return turn.hy || turn.en;
-      if (native === 'en') return turn.en || turn.hy;
-      if (native === 'ru') return turn.ru || turn.hy;
-      return turn.en || turn.hy;
-    };
+      const getThirdText = (turn: DialogueTurn): string => {
+        const thirdLang =
+          (["hy", "en", "ru"].find((l) => l !== native && l !== learning) as
+            | LangCode
+            | undefined) || "en";
+        return turn[thirdLang as keyof DialogueTurn] || "";
+      };
 
-    const getThirdText = (turn: DialogueTurn): string => {
-      const thirdLang = ['hy', 'en', 'ru'].find(l => l !== native && l !== learning) as LangCode || 'en';
-      return turn[thirdLang as keyof DialogueTurn] || '';
-    };
-
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5"
-      >
-        <DialogueProgressBar progress={progressPercent} />
-        
-        <div className="flex items-center justify-between mt-2 mb-4">
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-            {progressPercent}% {t("dialogues_completed")}
-          </span>
-          <div className="flex gap-2">
-            <button
-              onClick={() => revealAllLines(dlg.id)}
-              className="text-xs text-blue-400 hover:text-blue-300 transition flex items-center gap-1"
-            >
-              <Eye size={14} />
-              {t("dialogues_reveal_all")}
-            </button>
-            <button
-              onClick={() => hideAllLines(dlg.id)}
-              className="text-xs text-gray-400 hover:text-gray-300 transition flex items-center gap-1"
-            >
-              <EyeOff size={14} />
-              {t("dialogues_hide_all")}
-            </button>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          {dlg.turns.map((turn, idx) => {
-            const key = `${dlg.id}-${idx}`;
-            const isRevealed = revealedLines[key] || autoReveal;
-            const audioId = `${dlg.id}_${idx}`;
-            const isSpeakingNow = (isSpeaking || isPlaying) && speakingId === audioId;
-            const isNurik = turn.speaker === "nurik";
-            const speakerColor = getSpeakerColor(turn.speaker);
-            const isHighlighted = highlightedLine === key;
-            
-            const mainText = getLearningText(turn);
-            const nativeText = getNativeText(turn);
-            const thirdText = getThirdText(turn);
-            const thirdLang = ['hy', 'en', 'ru'].find(l => l !== native && l !== learning) as LangCode || 'en';
-
-            return (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ 
-                  opacity: 1, 
-                  y: 0,
-                  scale: isHighlighted ? 1.02 : 1,
-                }}
-                transition={{ delay: idx * 0.05 }}
-                className={`flex ${isNurik ? "justify-start" : "justify-end"} relative group`}
-              >
-                <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-3 cursor-pointer transition-all ${
-                    isHighlighted ? "ring-2 ring-yellow-500/50" : ""
-                  } ${
-                    isNurik
-                      ? "bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20"
-                      : "bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20"
-                  }`}
-                  onClick={() => toggleLine(dlg.id, idx)}
-                >
-                  <div className="flex items-center gap-2 text-xs font-medium mb-1">
-                    <span className={speakerColor.split(' ')[0]}>{CHARACTER_EMOJIS[turn.speaker] || "👤"}</span>
-                    <span className={speakerColor}>
-                      {getSpeakerName(turn.speaker, learning)}
-                    </span>
-                    {turn.mood && <span>{getMoodEmoji(turn.mood)}</span>}
-                    <span className="text-[8px] text-gray-400">
-                      #{idx + 1}/{totalTurns}
-                    </span>
-                    <span className="text-[8px] px-1.5 py-0.5 rounded bg-white/20 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
-                      {learning.toUpperCase()}
-                    </span>
-                  </div>
-                  
-                  <div className="text-lg text-gray-900 dark:text-white">
-                    {mainText}
-                  </div>
-                  
-                  <AnimatePresence>
-                    {isRevealed && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="mt-2 pt-2 border-t border-current/20 space-y-1"
-                      >
-                        <div className="text-sm text-blue-400 italic">
-                          {native.toUpperCase()}: {nativeText}
-                        </div>
-                        {thirdText && thirdText !== nativeText && (
-                          <div className="text-xs text-green-400 opacity-70">
-                            {thirdLang.toUpperCase()}: {thirdText}
-                          </div>
-                        )}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  
-                  {!isRevealed && (
-                    <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-1">
-                      <Eye size={12} />
-                      <span>{t("dialogues_tap_to_reveal")}</span>
-                    </div>
-                  )}
-                </div>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSpeak(mainText, audioId, learning);
-                  }}
-                  disabled={isSpeakingNow}
-                  className={`absolute ${
-                    isNurik ? "-right-10" : "-left-10"
-                  } top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all ${
-                    isSpeakingNow
-                      ? "text-primary animate-pulse"
-                      : "text-gray-500 hover:text-primary"
-                  }`}
-                >
-                  {isSpeakingNow ? <Volume2 size={18} /> : <Play size={16} />}
-                </button>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-2 pt-4 mt-4 border-t border-white/20 dark:border-white/5">
-          <button
-            onClick={() => router.push(`/learn?lesson=${dlg.lessonId}&pair=${native}-${learning}`)}
-            className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-amber-600 dark:text-amber-400 hover:bg-white/50 dark:hover:bg-gray-800/80 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-          >
-            <BookOpen size={14} />
-            {t("dialogues_go_to_lesson")}
-          </button>
-          <button
-            onClick={() => toggleInteractiveMode(dlg.id)}
-            className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-          >
-            <RefreshCw size={14} />
-            {interactiveMode[dlg.id] ? t("dialogues_normal") : t("dialogues_interactive")}
-          </button>
-          <button
-            onClick={() => toggleFavorite(dlg.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              favorites.has(dlg.id)
-                ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-            }`}
-          >
-            {favorites.has(dlg.id) ? <BookmarkCheck size={14} /> : <Bookmark size={14} />}
-            {favorites.has(dlg.id) ? t("dialogues_favorited") : t("dialogues_save")}
-          </button>
-        </div>
-      </motion.div>
-    );
-  }, [revealedLines, autoReveal, isSpeaking, isPlaying, speakingId, getSpeakerColor, getSpeakerName, toggleLine, revealAllLines, hideAllLines, handleSpeak, router, interactiveMode, toggleInteractiveMode, favorites, toggleFavorite, highlightedLine, t]);
-
-  // ─── RENDER INTERACTIVE MODE ──────────────────────────────────────
-
-  const renderInteractiveMode = useCallback((dlg: DialogueWithMeta) => {
-    if (!dlg.turns || dlg.turns.length === 0) {
       return (
-        <motion.div className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5">
-          <div className="p-6 rounded-xl border border-yellow-500/30 bg-yellow-500/10 text-center">
-            <p className="text-yellow-500 font-medium">{t("dialogues_empty")}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{t("dialogues_no_data")}</p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5"
+        >
+          <DialogueProgressBar progress={progressPercent} />
+
+          <div className="flex items-center justify-between mt-2 mb-4">
+            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+              {progressPercent}% {t("dialogues_completed")}
+            </span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => revealAllLines(dlg.id)}
+                className="text-xs text-blue-400 hover:text-blue-300 transition flex items-center gap-1"
+              >
+                <Eye size={14} />
+                {t("dialogues_reveal_all")}
+              </button>
+              <button
+                onClick={() => hideAllLines(dlg.id)}
+                className="text-xs text-gray-400 hover:text-gray-300 transition flex items-center gap-1"
+              >
+                <EyeOff size={14} />
+                {t("dialogues_hide_all")}
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {dlg.turns.map((turn, idx) => {
+              const key = `${dlg.id}-${idx}`;
+              const isRevealed = revealedLines[key] || autoReveal;
+              const audioId = `${dlg.id}_${idx}`;
+              const isSpeakingNow =
+                (isSpeaking || isPlaying) && speakingId === audioId;
+              const isNurik = turn.speaker === "nurik";
+              const speakerColor = getSpeakerColor(turn.speaker);
+              const isHighlighted = highlightedLine === key;
+
+              const mainText = getLearningText(turn);
+              const nativeText = getNativeText(turn);
+              const thirdText = getThirdText(turn);
+              const thirdLang =
+                (["hy", "en", "ru"].find(
+                  (l) => l !== native && l !== learning
+                ) as LangCode | undefined) || "en";
+
+              return (
+                <motion.div
+                  key={key}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: isHighlighted ? 1.02 : 1,
+                  }}
+                  transition={{ delay: idx * 0.05 }}
+                  className={`flex ${
+                    isNurik ? "justify-start" : "justify-end"
+                  } relative group`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 cursor-pointer transition-all ${
+                      isHighlighted ? "ring-2 ring-yellow-500/50" : ""
+                    } ${
+                      isNurik
+                        ? "bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20"
+                        : "bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20"
+                    }`}
+                    onClick={() => toggleLine(dlg.id, idx)}
+                  >
+                    <div className="flex items-center gap-2 text-xs font-medium mb-1">
+                      <span className={speakerColor.split(" ")[0]}>
+                        {CHARACTER_EMOJIS[turn.speaker] || "👤"}
+                      </span>
+                      <span className={speakerColor}>
+                        {getSpeakerName(turn.speaker, learning)}
+                      </span>
+                      {turn.mood && <span>{getMoodEmoji(turn.mood)}</span>}
+                      <span className="text-[8px] text-gray-400">
+                        #{idx + 1}/{totalTurns}
+                      </span>
+                      <span className="text-[8px] px-1.5 py-0.5 rounded bg-white/20 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400">
+                        {learning.toUpperCase()}
+                      </span>
+                    </div>
+
+                    <div className="text-lg text-gray-900 dark:text-white">
+                      {mainText}
+                    </div>
+
+                    <AnimatePresence>
+                      {isRevealed && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="mt-2 pt-2 border-t border-current/20 space-y-1"
+                        >
+                          <div className="text-sm text-blue-400 italic">
+                            {native.toUpperCase()}: {nativeText}
+                          </div>
+                          {thirdText && thirdText !== nativeText && (
+                            <div className="text-xs text-green-400 opacity-70">
+                              {thirdLang.toUpperCase()}: {thirdText}
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {!isRevealed && (
+                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-2 flex items-center gap-1">
+                        <Eye size={12} />
+                        <span>{t("dialogues_tap_to_reveal")}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSpeak(mainText, audioId, learning);
+                    }}
+                    disabled={isSpeakingNow}
+                    className={`absolute ${
+                      isNurik ? "-right-10" : "-left-10"
+                    } top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all ${
+                      isSpeakingNow
+                        ? "text-primary animate-pulse"
+                        : "text-gray-500 hover:text-primary"
+                    }`}
+                  >
+                    {isSpeakingNow ? (
+                      <Volume2 size={18} />
+                    ) : (
+                      <Play size={16} />
+                    )}
+                  </button>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2 pt-4 mt-4 border-t border-white/20 dark:border-white/5">
+            <button
+              onClick={() =>
+                router.push(
+                  `/learn?lesson=${dlg.lessonId}&pair=${native}-${learning}`
+                )
+              }
+              className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-amber-600 dark:text-amber-400 hover:bg-white/50 dark:hover:bg-gray-800/80 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+            >
+              <BookOpen size={14} />
+              {t("dialogues_go_to_lesson")}
+            </button>
+            <button
+              onClick={() => toggleInteractiveMode(dlg.id)}
+              className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+            >
+              <RefreshCw size={14} />
+              {interactiveMode[dlg.id]
+                ? t("dialogues_normal")
+                : t("dialogues_interactive")}
+            </button>
+            <button
+              onClick={() => toggleFavorite(dlg.id)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                favorites.has(dlg.id)
+                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                  : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+              }`}
+            >
+              {favorites.has(dlg.id) ? (
+                <BookmarkCheck size={14} />
+              ) : (
+                <Bookmark size={14} />
+              )}
+              {favorites.has(dlg.id)
+                ? t("dialogues_favorited")
+                : t("dialogues_save")}
+            </button>
           </div>
         </motion.div>
       );
-    }
+    },
+    [
+      revealedLines,
+      autoReveal,
+      isSpeaking,
+      isPlaying,
+      speakingId,
+      getSpeakerColor,
+      getSpeakerName,
+      toggleLine,
+      revealAllLines,
+      hideAllLines,
+      handleSpeak,
+      router,
+      interactiveMode,
+      toggleInteractiveMode,
+      favorites,
+      toggleFavorite,
+      highlightedLine,
+      t,
+    ]
+  );
 
-    const [native, learning] = (dlg as any).pair?.split('-') as [LangCode, LangCode] || ['hy', 'en'];
-
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5"
-      >
-        <InteractiveDialogue
-          turns={dlg.turns}
-          nativeLang={native}
-          learningLang={learning}
-          dialogueId={dlg.id}
-          onComplete={(score, total) => {
-            const progressValue = Math.round((score / total) * 100);
-            updateProgress(dlg.id, progressValue);
-            if (progressValue >= 80) {
-              showMessage(t("dialogues_interactive_perfect", { score, total }), "success");
-            } else {
-              showMessage(t("dialogues_interactive_good", { score, total }), "info");
-            }
-          }}
-        />
-        <div className="text-center pt-3 flex justify-center gap-2">
-          <button
-            onClick={() => toggleInteractiveMode(dlg.id)}
-            className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-          >
-            <RefreshCw size={14} />
-            {t("dialogues_back_to_normal")}
-          </button>
-          <button
-            onClick={() => toggleFavorite(dlg.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              favorites.has(dlg.id)
-                ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-            }`}
-          >
-            {favorites.has(dlg.id) ? <BookmarkCheck size={14} /> : <Bookmark size={14} />}
-          </button>
-        </div>
-      </motion.div>
-    );
-  }, [toggleInteractiveMode, updateProgress, showMessage, favorites, toggleFavorite, t]);
-
-  // ─── MAIN RENDER ────────────────────────────────────────────────────
-
-  const isFiltered = filterOption !== "all" || sortOption !== "default" || searchQuery !== "";
-
-  return (
-    <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
-      <div ref={topRef} className="container-main py-6">
-        
-        {/* ✅ Nuri-relax - վերևի ձախ անկյունում */}
-        <div className="fixed top-20 left-4 z-50">
-          <img 
-            src="/images/nuri/nuri-relax.png" 
-            alt={t("page_nuri_relax")}
-            className="w-16 h-16 object-contain animate-pulse"
-          />
-        </div>
-
-        {/* ─── HEADER ─── */}
-        <header className="mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
-            <div className="flex-1">
-              <NuriSpeech
-                text={
-                  nuriMood === "happy"
-                    ? t("dialogues_nuri_happy")
-                    : nuriMood === "sad"
-                    ? t("dialogues_nuri_sad")
-                    : t("dialogues_nuri_idle", { count: dialogStats?.total || 0 })
-                }
-                mood={nuriMood}
-              />
-            </div>
-            <ThemeToggle />
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h1 className="text-2xl font-display font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <MessageSquare size={24} className="text-red-500" />
-                <span className="text-gradient">{t("dialogues_title")}</span>
-              </h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2 flex-wrap">
-                <span>{t("dialogues_count", { count: dialogues.length })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("dialogues_turns", { count: dialogStats?.totalTurns || 0 })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("dialogues_favorites", { count: favorites.size })}</span>
-                <span className="w-1 h-1 rounded-full bg-gray-400" />
-                <span>{t("dialogues_completed_count", { count: completed.size })}</span>
-                {isWAVAvailable && (
-                  <>
-                    <span className="w-1 h-1 rounded-full bg-gray-400" />
-                    <span className="text-emerald-500">{t("dialogues_wav")}</span>
-                  </>
-                )}
+  // ─── RENDER INTERACTIVE MODE ───
+  const renderInteractiveMode = useCallback(
+    (dlg: DialogueWithMeta) => {
+      if (!dlg.turns || dlg.turns.length === 0) {
+        return (
+          <motion.div className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5">
+            <div className="p-6 rounded-xl border border-yellow-500/30 bg-yellow-500/10 text-center">
+              <p className="text-yellow-500 font-medium">
+                {t("dialogues_empty")}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {t("dialogues_no_data")}
               </p>
             </div>
-            <div className="flex gap-2 flex-wrap">
-              {/* View Mode */}
-              <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-                <button
-                  onClick={() => setViewMode("list")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    viewMode === "list" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("dialogues_list")}
-                >
-                  <List size={14} />
-                </button>
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    viewMode === "grid" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("dialogues_grid")}
-                >
-                  <Grid3x3 size={14} />
-                </button>
-                <button
-                  onClick={() => setViewMode("compact")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    viewMode === "compact" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("dialogues_compact")}
-                >
-                  <ChevronDown size={14} />
-                </button>
-              </div>
+          </motion.div>
+        );
+      }
 
-              {/* Audio Mode */}
-              <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-                <button
-                  onClick={() => setAudioMode("wav")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    audioMode === "wav" ? "bg-blue-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("page_wav_mode")}
-                >
-                  <Radio size={14} />
-                </button>
-                <button
-                  onClick={() => setAudioMode("tts")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    audioMode === "tts" ? "bg-purple-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("page_tts_mode")}
-                >
-                  <Speaker size={14} />
-                </button>
-                <button
-                  onClick={() => setAudioMode("mp3")}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    audioMode === "mp3" ? "bg-emerald-500 text-white" : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                  }`}
-                  title={t("page_mp3_mode")}
-                >
-                  <Music size={14} />
-                </button>
-              </div>
+      const [native, learning] = ((dlg as any).pair?.split("-") as [
+        LangCode,
+        LangCode
+      ]) || ["hy", "en"];
 
-              <button
-                onClick={() => {
-                  setAutoReveal(!autoReveal);
-                  saveSettings("autoReveal", !autoReveal);
-                }}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                  autoReveal
-                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                    : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-gray-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                }`}
-                title={t("dialogues_auto_reveal")}
-              >
-                <Eye size={14} />
-                {autoReveal ? t("dialogues_auto") : t("dialogues_manual")}
-              </button>
-
-              <button
-                onClick={() => setShowStats(!showStats)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                  showStats
-                    ? "bg-indigo-500 text-white"
-                    : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-gray-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                }`}
-              >
-                <BarChart3 size={14} />
-                <span className="hidden sm:inline">{t("dialogues_stats")}</span>
-              </button>
-
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                  showFilters
-                    ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                    : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-gray-300 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-                }`}
-              >
-                <Filter size={14} />
-                <span className="hidden sm:inline">{t("dialogues_filters")}</span>
-                {isFiltered && <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />}
-              </button>
-
-              {isFiltered && (
-                <button
-                  onClick={resetFilters}
-                  className="px-3 py-2 rounded-xl text-xs font-medium bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all flex items-center gap-1 border border-red-500/20"
-                >
-                  <X size={14} />
-                  <span className="hidden sm:inline">{t("dialogues_clear")}</span>
-                </button>
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="px-5 pb-5 pt-4 border-t border-white/20 dark:border-white/5"
+        >
+          <InteractiveDialogue
+            turns={dlg.turns}
+            nativeLang={native}
+            learningLang={learning}
+            dialogueId={dlg.id}
+            onComplete={(score, total) => {
+              const progressValue = Math.round((score / total) * 100);
+              updateProgress(dlg.id, progressValue);
+              if (progressValue >= 80) {
+                showMessage(
+                  t("dialogues_interactive_perfect", { score, total }),
+                  "success"
+                );
+              } else {
+                showMessage(
+                  t("dialogues_interactive_good", { score, total }),
+                  "info"
+                );
+              }
+            }}
+          />
+          <div className="text-center pt-3 flex justify-center gap-2">
+            <button
+              onClick={() => toggleInteractiveMode(dlg.id)}
+              className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 px-4 py-2 rounded-xl text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+            >
+              <RefreshCw size={14} />
+              {t("dialogues_back_to_normal")}
+            </button>
+            <button
+              onClick={() => toggleFavorite(dlg.id)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                favorites.has(dlg.id)
+                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                  : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+              }`}
+            >
+              {favorites.has(dlg.id) ? (
+                <BookmarkCheck size={14} />
+              ) : (
+                <Bookmark size={14} />
               )}
-            </div>
+            </button>
           </div>
-        </header>
+        </motion.div>
+      );
+    },
+    [toggleInteractiveMode, updateProgress, showMessage, favorites, toggleFavorite, t]
+  );
+
+  const isFiltered =
+    filterOption !== "all" || sortOption !== "default" || searchQuery !== "";
+
+  // ─── MAIN RENDER ───
+  return (
+    <PageShell
+      title={t("dialogues_title")}
+      subtitle={`${dialogues.length} · ${dialogStats?.totalTurns || 0} ${t("dialogues_turns")}`}
+      icon={<MessageSquare size={20} />}
+      backHref="/world"
+      maxWidth="4xl"
+      actions={
+        <>
+          <StatPill
+            icon={<Bookmark size={13} />}
+            value={favorites.size}
+            color="amber"
+          />
+          <ThemeToggle />
+        </>
+      }
+    >
+      <div ref={topRef}>
+        {/* ─── NURI HERO ─── */}
+        <div className="flex items-center gap-3 mb-5">
+          <Nuri mood={nuriMood} size={64} glow={nuriMood === "happy"} />
+          <div className="flex-1 min-w-0">
+            <NuriSpeech
+              text={
+                nuriMood === "happy"
+                  ? t("dialogues_nuri_happy")
+                  : nuriMood === "sad"
+                  ? t("dialogues_nuri_sad")
+                  : t("dialogues_nuri_idle", {
+                      count: dialogStats?.total || 0,
+                    })
+              }
+              mood={nuriMood}
+            />
+          </div>
+        </div>
+
+        {/* ─── TOOLBAR ─── */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          {/* View mode */}
+          <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5">
+            <button
+              onClick={() => setViewMode("list")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                viewMode === "list"
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("dialogues_list")}
+            >
+              <List size={14} />
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                viewMode === "grid"
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("dialogues_grid")}
+            >
+              <Grid3x3 size={14} />
+            </button>
+            <button
+              onClick={() => setViewMode("compact")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                viewMode === "compact"
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("dialogues_compact")}
+            >
+              <ChevronDown size={14} />
+            </button>
+          </div>
+
+          {/* Audio mode */}
+          <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5">
+            <button
+              onClick={() => setAudioMode("wav")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                audioMode === "wav"
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("page_wav_mode")}
+            >
+              <Radio size={14} />
+            </button>
+            <button
+              onClick={() => setAudioMode("tts")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                audioMode === "tts"
+                  ? "bg-purple-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("page_tts_mode")}
+            >
+              <Speaker size={14} />
+            </button>
+            <button
+              onClick={() => setAudioMode("mp3")}
+              className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                audioMode === "mp3"
+                  ? "bg-emerald-500 text-white"
+                  : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+              }`}
+              title={t("page_mp3_mode")}
+            >
+              <Music size={14} />
+            </button>
+          </div>
+
+          <button
+            onClick={() => {
+              setAutoReveal(!autoReveal);
+              saveSettings("autoReveal", !autoReveal);
+            }}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+              autoReveal
+                ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-500 dark:text-gray-400"
+            }`}
+            title={t("dialogues_auto_reveal")}
+          >
+            <Eye size={14} />
+            {autoReveal ? t("dialogues_auto") : t("dialogues_manual")}
+          </button>
+
+          <button
+            onClick={() => setShowStats(!showStats)}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+              showStats
+                ? "bg-indigo-500 text-white"
+                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            <BarChart3 size={14} />
+            <span className="hidden sm:inline">{t("dialogues_stats")}</span>
+          </button>
+
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+              showFilters
+                ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            <Filter size={14} />
+            <span className="hidden sm:inline">{t("dialogues_filters")}</span>
+            {isFiltered && (
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            )}
+          </button>
+
+          {isFiltered && (
+            <button
+              onClick={resetFilters}
+              className="px-3 py-2 rounded-xl text-xs font-bold bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all flex items-center gap-1 border border-red-500/20"
+            >
+              <X size={14} />
+              <span className="hidden sm:inline">
+                {t("dialogues_clear")}
+              </span>
+            </button>
+          )}
+        </div>
 
         {/* ─── STATS PANEL ─── */}
         <AnimatePresence>
@@ -1150,41 +1267,73 @@ function DialoguesContent() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
-              <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl p-4 shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+              <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl p-4">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-red-500">{dialogStats.total}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_total")}</div>
+                    <div className="text-2xl font-bold text-red-500">
+                      {dialogStats.total}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_total")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-500">{dialogStats.completed}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_completed")}</div>
+                    <div className="text-2xl font-bold text-emerald-500">
+                      {dialogStats.completed}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_completed")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-500">{dialogStats.inProgress}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_in_progress")}</div>
+                    <div className="text-2xl font-bold text-yellow-500">
+                      {dialogStats.inProgress}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_in_progress")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-500">{dialogStats.favoriteCount}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_favorited")}</div>
+                    <div className="text-2xl font-bold text-amber-500">
+                      {dialogStats.favoriteCount}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_favorited")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-500">{dialogStats.totalTurns}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_total_turns")}</div>
+                    <div className="text-2xl font-bold text-blue-500">
+                      {dialogStats.totalTurns}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_total_turns")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-500">{formatDuration(dialogStats.totalDuration)}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_total_duration")}</div>
+                    <div className="text-2xl font-bold text-purple-500">
+                      {formatDuration(dialogStats.totalDuration)}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_total_duration")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-500">{Object.keys(dialogStats.byCategory).length}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{t("dialogues_categories")}</div>
+                    <div className="text-2xl font-bold text-green-500">
+                      {Object.keys(dialogStats.byCategory).length}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("dialogues_categories")}
+                    </div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-indigo-500">
-                      {dialogStats.byDifficulty.beginner || 0} / {dialogStats.byDifficulty.intermediate || 0} / {dialogStats.byDifficulty.advanced || 0}
+                      {dialogStats.byDifficulty.beginner || 0} /{" "}
+                      {dialogStats.byDifficulty.intermediate || 0} /{" "}
+                      {dialogStats.byDifficulty.advanced || 0}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">🌱 / 📈 / 🔥</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      🌱 / 📈 / 🔥
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1201,54 +1350,94 @@ function DialoguesContent() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
-              <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl p-4 shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]">
+              <div className="bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl p-4">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">📊 {t("dialogues_difficulty")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      📊 {t("dialogues_difficulty")}
+                    </label>
                     <select
                       value={filterOption}
-                      onChange={(e) => setFilterOption(e.target.value as FilterOption)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                      onChange={(e) =>
+                        setFilterOption(e.target.value as FilterOption)
+                      }
+                      className="w-full bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
                     >
                       <option value="all">{t("dialogues_all")}</option>
-                      <option value="beginner">🌱 {t("dialogues_beginner")}</option>
-                      <option value="intermediate">📈 {t("dialogues_intermediate")}</option>
-                      <option value="advanced">🔥 {t("dialogues_advanced")}</option>
-                      <option value="favorites">⭐ {t("dialogues_favorites")}</option>
-                      <option value="completed">✅ {t("dialogues_completed")}</option>
-                      <option value="in-progress">🔄 {t("dialogues_in_progress")}</option>
+                      <option value="beginner">
+                        🌱 {t("dialogues_beginner")}
+                      </option>
+                      <option value="intermediate">
+                        📈 {t("dialogues_intermediate")}
+                      </option>
+                      <option value="advanced">
+                        🔥 {t("dialogues_advanced")}
+                      </option>
+                      <option value="favorites">
+                        ⭐ {t("dialogues_favorites")}
+                      </option>
+                      <option value="completed">
+                        ✅ {t("dialogues_completed")}
+                      </option>
+                      <option value="in-progress">
+                        🔄 {t("dialogues_in_progress")}
+                      </option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">📁 {t("dialogues_category")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      📁 {t("dialogues_category")}
+                    </label>
                     <select
                       value={filterOption}
-                      onChange={(e) => setFilterOption(e.target.value as FilterOption)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                      onChange={(e) =>
+                        setFilterOption(e.target.value as FilterOption)
+                      }
+                      className="w-full bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
                     >
                       <option value="all">{t("dialogues_all")}</option>
-                      <option value="daily">☀️ {t("dialogues_category_daily")}</option>
-                      <option value="travel">✈️ {t("dialogues_category_travel")}</option>
-                      <option value="food">🍽️ {t("dialogues_category_food")}</option>
-                      <option value="family">👨‍👩‍👦 {t("dialogues_category_family")}</option>
-                      <option value="work">💼 {t("dialogues_category_work")}</option>
+                      <option value="daily">
+                        ☀️ {t("dialogues_category_daily")}
+                      </option>
+                      <option value="travel">
+                        ✈️ {t("dialogues_category_travel")}
+                      </option>
+                      <option value="food">
+                        🍽️ {t("dialogues_category_food")}
+                      </option>
+                      <option value="family">
+                        👨‍👩‍👦 {t("dialogues_category_family")}
+                      </option>
+                      <option value="work">
+                        💼 {t("dialogues_category_work")}
+                      </option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">🔄 {t("dialogues_sort")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      🔄 {t("dialogues_sort")}
+                    </label>
                     <select
                       value={sortOption}
-                      onChange={(e) => setSortOption(e.target.value as SortOption)}
-                      className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                      onChange={(e) =>
+                        setSortOption(e.target.value as SortOption)
+                      }
+                      className="w-full bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
                     >
                       <option value="default">{t("dialogues_default")}</option>
                       <option value="newest">{t("dialogues_newest")}</option>
                       <option value="oldest">{t("dialogues_oldest")}</option>
-                      <option value="alphabetical">{t("dialogues_alphabetical")}</option>
-                      <option value="popular">{t("dialogues_popular")}</option>
-                      <option value="progress">{t("dialogues_progress")}</option>
+                      <option value="alphabetical">
+                        {t("dialogues_alphabetical")}
+                      </option>
+                      <option value="popular">
+                        {t("dialogues_popular")}
+                      </option>
+                      <option value="progress">
+                        {t("dialogues_progress")}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -1261,7 +1450,7 @@ function DialoguesContent() {
         <div className="relative mb-6">
           <Search
             size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
           />
           <input
             ref={searchInputRef}
@@ -1269,7 +1458,7 @@ function DialoguesContent() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t("dialogues_search")}
-            className="w-full bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl px-10 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+            className="w-full bg-white/60 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl px-10 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/40 text-gray-900 dark:text-white placeholder-gray-400"
           />
           {searchQuery && (
             <button
@@ -1283,51 +1472,65 @@ function DialoguesContent() {
 
         {/* ─── DIALOGUES LIST ─── */}
         {filteredDialogues.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
-          >
-            <div className="text-5xl mb-4">💬</div>
-            <p className="text-gray-600 dark:text-gray-400 font-medium">
-              {searchQuery ? t("dialogues_no_results_query", { query: searchQuery }) : t("dialogues_no_dialogues")}
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              {searchQuery ? t("dialogues_try_different") : t("dialogues_coming_soon")}
-            </p>
-            {isFiltered && (
-              <button
-                onClick={resetFilters}
-                className="mt-4 px-6 py-3 bg-red-500 hover:bg-red-600 rounded-xl text-white font-bold transition"
-              >
-                <FilterX size={18} className="inline mr-1" />
-                {t("dialogues_clear_filters")}
-              </button>
-            )}
-          </motion.div>
+          <EmptyState
+            icon="💬"
+            title={
+              searchQuery
+                ? t("dialogues_no_results_query", { query: searchQuery })
+                : t("dialogues_no_dialogues")
+            }
+            description={
+              searchQuery
+                ? t("dialogues_try_different")
+                : t("dialogues_coming_soon")
+            }
+            action={
+              isFiltered
+                ? {
+                    label: t("dialogues_clear_filters"),
+                    onClick: resetFilters,
+                  }
+                : undefined
+            }
+          />
         ) : (
-          <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4" : viewMode === "compact" ? "space-y-2" : "space-y-4"}>
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid grid-cols-1 md:grid-cols-2 gap-4"
+                : viewMode === "compact"
+                ? "space-y-2"
+                : "space-y-4"
+            }
+          >
             {filteredDialogues.map((dlg, index) => {
               const isExpanded = expandedDialogue === dlg.id;
               const isInteractive = interactiveMode[dlg.id] || false;
               const isFavorite = favorites.has(dlg.id);
               const isCompleted = completed.has(dlg.id);
               const progressValue = progress[dlg.id] || 0;
-              const diffInfo = dlg.difficulty ? DIFFICULTY_LABELS[dlg.difficulty] : null;
-              const catInfo = dlg.category ? CATEGORY_LABELS[dlg.category] : null;
+              const diffInfo = dlg.difficulty
+                ? DIFFICULTY_LABELS[dlg.difficulty]
+                : null;
+              const catInfo = dlg.category
+                ? CATEGORY_LABELS[dlg.category]
+                : null;
 
               return (
                 <motion.div
                   key={dlg.id}
-                  ref={el => { dialogueRefs.current[dlg.id] = el; }}
+                  ref={(el) => {
+                    dialogueRefs.current[dlg.id] = el;
+                  }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(index * 0.04, 0.4) }}
-                  className={`bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border ${
-                    isFavorite ? "border-yellow-500/50" : "border-white/20 dark:border-white/5"
-                  } rounded-xl overflow-hidden hover:border-white/30 dark:hover:border-white/10 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)]`}
+                  className={`bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border ${
+                    isFavorite
+                      ? "border-yellow-500/50"
+                      : "border-white/20 dark:border-white/5"
+                  } rounded-xl overflow-hidden hover:border-white/30 dark:hover:border-white/10 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_16px_rgba(0,0,0,0.3)]`}
                 >
-                  {/* ─── DIALOGUE HEADER ─── */}
                   <button
                     onClick={() => toggleDialogue(dlg.id)}
                     className="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1335,10 +1538,16 @@ function DialoguesContent() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 font-semibold flex-wrap">
                         <span>{dlg.worldTitle}</span>
-                        <span className="text-gray-500 dark:text-gray-400">•</span>
-                        <span className="text-gray-500 dark:text-gray-400">{dlg.lessonTitle}</span>
+                        <span className="text-gray-500 dark:text-gray-400">
+                          •
+                        </span>
+                        <span className="text-gray-500 dark:text-gray-400">
+                          {dlg.lessonTitle}
+                        </span>
                         {diffInfo && (
-                          <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${diffInfo.color}`}>
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${diffInfo.color}`}
+                          >
                             {diffInfo.icon} {t(diffInfo.labelKey)}
                           </span>
                         )}
@@ -1373,7 +1582,11 @@ function DialoguesContent() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Mic size={12} />
-                          {dlg.turns.filter(t => t.speaker === "nurik").length} {t("dialogues_audio")}
+                          {
+                            dlg.turns.filter((t) => t.speaker === "nurik")
+                              .length
+                          }{" "}
+                          {t("dialogues_audio")}
                         </span>
                         {dlg.duration && (
                           <span className="flex items-center gap-1">
@@ -1398,7 +1611,6 @@ function DialoguesContent() {
                     </div>
                   </button>
 
-                  {/* ─── EXPANDED CONTENT ─── */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -1420,15 +1632,17 @@ function DialoguesContent() {
           </div>
         )}
 
-        {/* ─── FOOTER COUNT ─── */}
         {searchQuery && filteredDialogues.length > 0 && (
           <div className="text-center text-gray-500 dark:text-gray-400 text-sm mt-4">
-            {t("dialogues_showing_count", { count: filteredDialogues.length, total: dialogues.length })}
+            {t("dialogues_showing_count", {
+              count: filteredDialogues.length,
+              total: dialogues.length,
+            })}
           </div>
         )}
       </div>
 
-      {/* ─── TOAST MESSAGE ─── */}
+      {/* ─── TOAST ─── */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
@@ -1448,7 +1662,7 @@ function DialoguesContent() {
         )}
       </AnimatePresence>
 
-      {/* ─── SCROLL TO TOP ─── */}
+      {/* ─── SCROLL TOP ─── */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -1456,24 +1670,25 @@ function DialoguesContent() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToTop}
-            className="fixed bottom-24 right-6 z-50 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 p-3.5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all"
+            className="fixed bottom-24 right-6 z-50 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 p-3.5 rounded-2xl shadow-lg transition-all"
           >
             <ArrowUp size={20} className="text-gray-900 dark:text-white" />
           </motion.button>
         )}
       </AnimatePresence>
-
-      <BottomNav />
-    </div>
+    </PageShell>
   );
 }
 
-
-// ─── DEFAULT EXPORT WITH SUSPENSE ────────────────────────────────────
-
 export default function DialoguesPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-gray-400">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <LoadingState />
+        </div>
+      }
+    >
       <DialoguesContent />
     </Suspense>
   );

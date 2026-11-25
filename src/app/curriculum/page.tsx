@@ -24,7 +24,6 @@ import {
   Grid3x3,
   Star,
 } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
 import ThemeToggle from "@/components/ThemeToggle";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import { CONTENT_LESSONS, WORLDS, type ContentLesson } from "@/lib/content/database";
@@ -32,6 +31,11 @@ import type { LangCode } from "@/lib/i18n/multilingual";
 import { useNuri } from "@/hooks/useNuri";
 import { GlassCard } from "@/components/ui/glass-card";
 import { useI18n } from "@/hooks/useI18n";
+import {
+  PageShell,
+  StatPill,
+  EmptyState,
+} from "@/components/layout";
 
 // ─── TYPES ────────────────────────────────────────────────────────────
 
@@ -65,8 +69,6 @@ type ViewMode = "list" | "grid" | "compact";
 type FilterOption = "all" | "in-progress" | "completed" | "not-started";
 type SortOption = "default" | "alphabetical" | "progress" | "recent";
 
-// ─── LOCAL STORAGE KEYS ─────────────────────────────────────────────
-
 const STORAGE_KEYS = {
   LESSON_PROGRESS: "nurlingo_lesson_progress",
   CURRICULUM_VIEW: "nurlingo_curriculum_view",
@@ -86,8 +88,7 @@ const SPEAKER_EMOJI: Record<string, string> = {
   user: "🧑",
 };
 
-// ─── EXTRA TRANSLATIONS (fallback for missing keys) ──────────────
-// NOTE: These should eventually move into translations.json.
+// ─── EXTRA TRANSLATIONS ──────────────────────────────────────────────
 
 const EXTRA_TR: Record<string, Partial<Record<LangCode, string>>> = {
   page_print: { hy: "Տպել", en: "Print", ru: "Печать" },
@@ -127,8 +128,7 @@ function tr(
 ): string {
   const extra = EXTRA_TR[key];
   if (extra) {
-    const localized =
-      extra[locale as LangCode] || extra.en || extra.hy || key;
+    const localized = extra[locale as LangCode] || extra.en || extra.hy || key;
     return applyParams(localized, params);
   }
   return t(key, params);
@@ -138,10 +138,6 @@ function tr(
 
 type LocalizedObj = { hy?: string; en?: string; ru?: string } | undefined;
 
-/**
- * Localized text with a consistent fallback chain:
- * requested locale → hy → ru → en → fallback
- */
 function getLocalizedText(
   obj: LocalizedObj,
   lang: LangCode,
@@ -173,7 +169,6 @@ export default function CurriculumPage() {
   const { t, locale } = useI18n();
   const lang = locale as LangCode;
 
-  // ─── TOAST ────────────────────────────────────────────────────────
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -196,7 +191,6 @@ export default function CurriculumPage() {
 
   useEffect(() => setPage("curriculum"), [setPage]);
 
-  // ─── STATE ────────────────────────────────────────────────────────
   const [selectedWorld, setSelectedWorld] = useState<string | null>(null);
   const [expandedLesson, setExpandedLesson] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -217,7 +211,7 @@ export default function CurriculumPage() {
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // ─── LOAD PROGRESS & FAVORITES & EXPANDED ─────────────────────────
+  // ─── LOAD FROM LOCALSTORAGE ───
   useEffect(() => {
     try {
       const savedProgress = localStorage.getItem(STORAGE_KEYS.LESSON_PROGRESS);
@@ -236,12 +230,10 @@ export default function CurriculumPage() {
 
       const savedExpanded = localStorage.getItem(STORAGE_KEYS.CURRICULUM_EXPANDED);
       if (savedExpanded) setExpandedWorlds(new Set(JSON.parse(savedExpanded)));
-    } catch {
-      // ignore malformed localStorage
-    }
+    } catch {}
   }, []);
 
-  // ─── SAVE VIEW PREFERENCES ────────────────────────────────────────
+  // ─── SAVE VIEW ───
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -251,7 +243,6 @@ export default function CurriculumPage() {
     } catch {}
   }, [viewMode, filterOption, sortOption]);
 
-  // ─── PERSIST FAVORITES (moved out of state updater) ───────────────
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -261,7 +252,6 @@ export default function CurriculumPage() {
     } catch {}
   }, [favorites]);
 
-  // ─── PERSIST EXPANDED WORLDS ─────────────────────────────────────
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -271,31 +261,29 @@ export default function CurriculumPage() {
     } catch {}
   }, [expandedWorlds]);
 
-  // ─── SCROLL EVENT ─────────────────────────────────────────────────
+  // ─── SCROLL ───
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ─── COPY ID TIMER CLEANUP ────────────────────────────────────────
   useEffect(() => {
     return () => {
       if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
     };
   }, []);
 
-  // ─── HANDLE PRINT ─────────────────────────────────────────────────
+  // ─── PRINT ───
   const handlePrint = useCallback(() => {
     setIsPrinting(true);
-    // Use rAF to let the spinner render before the blocking print dialog
     requestAnimationFrame(() => {
       window.print();
       setIsPrinting(false);
     });
   }, []);
 
-  // ─── KEYBOARD SHORTCUTS ───────────────────────────────────────────
+  // ─── KEYBOARD ───
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "k") {
@@ -316,7 +304,7 @@ export default function CurriculumPage() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [handlePrint]);
 
-  // ─── STATS ────────────────────────────────────────────────────────
+  // ─── STATS ───
   const stats = useMemo((): CurriculumStats => {
     const totalLessons = CONTENT_LESSONS.length;
     const totalVocabulary = CONTENT_LESSONS.reduce((s, l) => s + l.vocabulary.length, 0);
@@ -373,7 +361,7 @@ export default function CurriculumPage() {
     };
   }, [lessonProgress]);
 
-  // ─── NURI MOOD: react to progress ─────────────────────────────────
+  // ─── NURI MOOD ───
   const prevCompletedRef = useRef(stats.completedLessons);
   useEffect(() => {
     if (stats.completedLessons > prevCompletedRef.current) {
@@ -385,7 +373,7 @@ export default function CurriculumPage() {
     prevCompletedRef.current = stats.completedLessons;
   }, [stats.completedLessons]);
 
-  // ─── FILTERED LESSONS (per world, memoized) ───────────────────────
+  // ─── FILTERED ───
   const lessonsByWorld = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     const map: Record<string, ContentLesson[]> = {};
@@ -426,11 +414,8 @@ export default function CurriculumPage() {
             (l) => !lessonProgress[l.id] || lessonProgress[l.id].score === 0
           );
           break;
-        default:
-          break;
       }
 
-      // Non-mutating sort
       const sorted = [...lessons];
       switch (sortOption) {
         case "alphabetical":
@@ -448,8 +433,6 @@ export default function CurriculumPage() {
             return dateB.localeCompare(dateA);
           });
           break;
-        default:
-          break;
       }
 
       map[world.id] = sorted;
@@ -458,7 +441,6 @@ export default function CurriculumPage() {
     return map;
   }, [searchQuery, filterOption, sortOption, lessonProgress]);
 
-  // ─── VISIBLE WORLDS (world filter + hide empty when filtering/searching) ──
   const visibleWorlds = useMemo(() => {
     const isFiltering =
       searchQuery.trim() !== "" ||
@@ -478,7 +460,7 @@ export default function CurriculumPage() {
     sortOption !== "default" ||
     selectedWorld !== null;
 
-  // ─── HANDLERS ─────────────────────────────────────────────────────
+  // ─── HANDLERS ───
   const toggleFavorite = useCallback((id: string) => {
     setFavorites((prev) => {
       const next = new Set(prev);
@@ -582,120 +564,129 @@ export default function CurriculumPage() {
     [lessonProgress]
   );
 
-  // ─── MAIN RENDER ──────────────────────────────────────────────────
+  // ─── RENDER ───
   return (
-    <div className="min-h-screen bg-transparent dark:bg-transparent text-gray-900 dark:text-white pb-24">
-      <div ref={topRef} className="container-main py-6">
-        {/* ─── NURI ─── */}
-        <div className="flex items-center gap-4 mb-6 no-print">
-          <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
-          <div className="flex-1">
+    <PageShell
+      title={t("page_curriculum")}
+      subtitle={`${stats.completedLessons}/${stats.totalLessons} · ${stats.overallProgress}%`}
+      icon={<BookOpen size={20} />}
+      maxWidth="4xl"
+      actions={
+        <>
+          <StatPill
+            icon={<Star size={13} />}
+            value={favorites.size}
+            color="amber"
+          />
+          <ThemeToggle />
+        </>
+      }
+    >
+      <div ref={topRef}>
+        {/* ─── NURI HERO ─── */}
+        <div className="flex items-center gap-3 mb-5 no-print">
+          <Nuri mood={nuriMood} size={64} glow={nuriMood === "happy"} />
+          <div className="flex-1 min-w-0">
             <NuriSpeech
               text={
                 nuriMood === "happy"
-                  ? t("page_nuri_curriculum_happy", { count: stats.completedLessons })
+                  ? t("page_nuri_curriculum_happy", {
+                      count: stats.completedLessons,
+                    })
                   : t("page_nuri_curriculum_idle")
               }
               mood={nuriMood}
             />
           </div>
-          <ThemeToggle />
         </div>
 
-        {/* ─── HEADER ─── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <BookOpen size={24} className="text-red-500" />
-              {t("page_curriculum")}
-            </h1>
-          </div>
-
-          <div className="flex gap-2 flex-wrap no-print">
-            {/* View Mode */}
-            <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
-              {(
-                [
-                  { mode: "list" as const, icon: <List size={14} />, label: "page_list_view" },
-                  { mode: "grid" as const, icon: <Grid3x3 size={14} />, label: "page_grid_view" },
-                  { mode: "compact" as const, icon: <ChevronDown size={14} />, label: "page_compact" },
-                ]
-              ).map(({ mode, icon, label }) => (
-                <button
-                  key={mode}
-                  onClick={() => setViewMode(mode)}
-                  aria-label={t(label)}
-                  aria-pressed={viewMode === mode}
-                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    viewMode === mode
-                      ? "bg-blue-500 text-white"
-                      : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
-                  }`}
-                  title={t(label)}
-                >
-                  {icon}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              aria-expanded={showFilters}
-              className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                showFilters
-                  ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                  : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              }`}
-            >
-              <Filter size={14} />
-              <span className="hidden sm:inline">{t("page_filters")}</span>
-              {isFiltered && <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />}
-            </button>
-
-            <button
-              onClick={() => setShowStats(!showStats)}
-              aria-expanded={showStats}
-              className={`px-3 py-2 rounded-xl text-xs font-medium transition-all flex items-center gap-1 ${
-                showStats
-                  ? "bg-indigo-500 text-white"
-                  : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
-              }`}
-            >
-              <BarChart3 size={14} />
-              <span className="hidden sm:inline">{t("page_stats")}</span>
-            </button>
-
-            <button
-              onClick={handlePrint}
-              disabled={isPrinting}
-              className="px-3 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-blue-500/20 disabled:opacity-50"
-            >
-              {isPrinting ? (
-                <Loader2 size={14} className="animate-spin" />
-              ) : (
-                <Printer size={14} />
-              )}
-              <span className="hidden sm:inline">{tr("page_print", locale, t)}</span>
-            </button>
-
-            <button
-              onClick={handleExport}
-              className="px-3 py-2 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-green-500/20"
-            >
-              <Download size={14} />
-              <span className="hidden sm:inline">{t("page_export")}</span>
-            </button>
-
-            {isFiltered && (
+        {/* ─── TOOLBAR ─── */}
+        <div className="flex flex-wrap items-center gap-2 mb-4 no-print">
+          {/* View mode */}
+          <div className="flex gap-1 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl p-1 border border-white/20 dark:border-white/5">
+            {[
+              { mode: "list" as const, icon: <List size={14} />, label: "page_list_view" },
+              { mode: "grid" as const, icon: <Grid3x3 size={14} />, label: "page_grid_view" },
+              { mode: "compact" as const, icon: <ChevronDown size={14} />, label: "page_compact" },
+            ].map(({ mode, icon, label }) => (
               <button
-                onClick={resetFilters}
-                className="px-3 py-2 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-xl text-xs font-medium transition-all flex items-center gap-1 border border-red-500/20"
+                key={mode}
+                onClick={() => setViewMode(mode)}
+                aria-label={t(label)}
+                aria-pressed={viewMode === mode}
+                title={t(label)}
+                className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                  viewMode === mode
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-white/10 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                }`}
               >
-                <X size={14} />
-                <span className="hidden sm:inline">{t("page_clear_filters")}</span>
+                {icon}
               </button>
-            )}
+            ))}
           </div>
+
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            aria-expanded={showFilters}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+              showFilters
+                ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
+                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400"
+            }`}
+          >
+            <Filter size={14} />
+            <span className="hidden sm:inline">{t("page_filters")}</span>
+            {isFiltered && (
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            )}
+          </button>
+
+          <button
+            onClick={() => setShowStats(!showStats)}
+            aria-expanded={showStats}
+            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 ${
+              showStats
+                ? "bg-indigo-500 text-white"
+                : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-600 dark:text-gray-400"
+            }`}
+          >
+            <BarChart3 size={14} />
+            <span className="hidden sm:inline">{t("page_stats")}</span>
+          </button>
+
+          <button
+            onClick={handlePrint}
+            disabled={isPrinting}
+            className="px-3 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-blue-500/20 disabled:opacity-50"
+          >
+            {isPrinting ? (
+              <Loader2 size={14} className="animate-spin" />
+            ) : (
+              <Printer size={14} />
+            )}
+            <span className="hidden sm:inline">{tr("page_print", locale, t)}</span>
+          </button>
+
+          <button
+            onClick={handleExport}
+            className="px-3 py-2 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-green-500/20"
+          >
+            <Download size={14} />
+            <span className="hidden sm:inline">{t("page_export")}</span>
+          </button>
+
+          {isFiltered && (
+            <button
+              onClick={resetFilters}
+              className="px-3 py-2 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-red-500/20"
+            >
+              <X size={14} />
+              <span className="hidden sm:inline">
+                {t("page_clear_filters")}
+              </span>
+            </button>
+          )}
         </div>
 
         {/* ─── STATS PANEL ─── */}
@@ -789,7 +780,7 @@ export default function CurriculumPage() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder={t("page_search_lessons_")}
-                        className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                        className="w-full bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500/40"
                       />
                       {searchQuery && (
                         <button
@@ -808,19 +799,19 @@ export default function CurriculumPage() {
           )}
         </AnimatePresence>
 
-        {/* ─── SEARCH BAR (mobile) ─── */}
+        {/* ─── SEARCH (mobile) ─── */}
         {!showFilters && (
           <div className="relative mb-4 no-print sm:hidden">
             <Search
               size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("page_search_lessons_ctrl_k_")}
-              className="w-full bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl px-10 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+              className="w-full bg-white/60 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-xl px-10 py-3 focus:outline-none focus:ring-2 focus:ring-red-500/40 text-gray-900 dark:text-white placeholder-gray-400"
             />
             {searchQuery && (
               <button
@@ -834,7 +825,7 @@ export default function CurriculumPage() {
           </div>
         )}
 
-        {/* ─── PROGRESS OVERVIEW BAR ─── */}
+        {/* ─── PROGRESS BAR ─── */}
         <div className="mb-6 no-print">
           <div className="flex items-center gap-3">
             <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -855,20 +846,25 @@ export default function CurriculumPage() {
               />
             </div>
             <span className="text-sm font-bold text-gray-900 dark:text-white">
-              {tr("page_progress_percent", locale, t, { progress: stats.overallProgress })}
+              {tr("page_progress_percent", locale, t, {
+                progress: stats.overallProgress,
+              })}
             </span>
           </div>
         </div>
 
-        {/* ─── CURRICULUM CONTENT ─── */}
+        {/* ─── CONTENT ─── */}
         <div className="space-y-6">
           {visibleWorlds.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="text-5xl mb-4">🌍</div>
-              <p className="text-gray-600 dark:text-gray-400 font-medium">
-                {t("page_no_worlds")}
-              </p>
-            </div>
+            <EmptyState
+              icon="🌍"
+              title={t("page_no_worlds")}
+              action={
+                isFiltered
+                  ? { label: t("page_clear_filters"), onClick: resetFilters }
+                  : undefined
+              }
+            />
           ) : (
             visibleWorlds.map((world) => {
               const lessons = lessonsByWorld[world.id] || [];
@@ -888,7 +884,6 @@ export default function CurriculumPage() {
                   variant="world"
                   className="print-world overflow-hidden p-0"
                 >
-                  {/* ─── WORLD HEADER ─── */}
                   <button
                     type="button"
                     onClick={() => toggleWorldExpand(world.id)}
@@ -929,7 +924,6 @@ export default function CurriculumPage() {
                     </div>
                   </button>
 
-                  {/* ─── EXPANDED LESSONS ─── */}
                   <AnimatePresence initial={false}>
                     {isExpanded && (
                       <motion.div
@@ -992,7 +986,7 @@ export default function CurriculumPage() {
         </div>
       </div>
 
-      {/* ─── SCROLL TO TOP ─── */}
+      {/* ─── SCROLL TOP ─── */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -1031,9 +1025,7 @@ export default function CurriculumPage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <BottomNav />
-    </div>
+    </PageShell>
   );
 }
 
@@ -1078,7 +1070,7 @@ function FilterSelect({
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-white/20 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+        className="w-full bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-white/5 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500/40"
       >
         {children}
       </select>
@@ -1243,7 +1235,6 @@ function LessonCard({
         </div>
       </button>
 
-      {/* ─── EXPANDED LESSON CONTENT ─── */}
       <AnimatePresence initial={false}>
         {isExpanded && !isCompact && (
           <motion.div
@@ -1255,7 +1246,6 @@ function LessonCard({
             className="overflow-hidden"
           >
             <div className="mt-3 pt-3 border-t border-white/20 dark:border-white/5 space-y-4">
-              {/* Vocabulary */}
               <div>
                 <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
                   📖 {t("page_vocabulary")} ({lesson.vocabulary.length})
@@ -1274,7 +1264,6 @@ function LessonCard({
                 </div>
               </div>
 
-              {/* Phrases */}
               {lesson.phrases.length > 0 && (
                 <div>
                   <h4 className="font-bold text-sm text-gray-900 dark:text-white mb-2">
@@ -1295,7 +1284,6 @@ function LessonCard({
                 </div>
               )}
 
-              {/* Dialogues */}
               {lesson.dialogues.map((d, i) => {
                 const dialogueTitle = getLocalizedText(d.title, lang, d.title.en);
                 return (
@@ -1334,7 +1322,6 @@ function LessonCard({
                 );
               })}
 
-              {/* Actions */}
               <div className="flex flex-wrap gap-2 pt-2">
                 <Link
                   href={`/learn?lesson=${lesson.id}`}
@@ -1356,7 +1343,7 @@ function LessonCard({
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1 ${
                     isFavorite
                       ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                      : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
+                      : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-400 hover:text-yellow-400"
                   }`}
                 >
                   {isFavorite ? <BookMarked size={16} /> : <BookOpen size={16} />}
@@ -1368,7 +1355,6 @@ function LessonCard({
         )}
       </AnimatePresence>
 
-      {/* Compact view actions */}
       {isCompact && (
         <div className="mt-1 flex items-center gap-2">
           <Link

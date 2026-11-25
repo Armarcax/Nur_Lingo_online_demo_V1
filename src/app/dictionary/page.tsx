@@ -5,11 +5,26 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Search, BookOpen, X, Filter, ChevronDown, ChevronUp, Sparkles, Play,
-  Loader2, ArrowUp, Star, CheckCircle,
-  Check, Tag, BarChart3, List, Grid3x3, FilterX, Clock, Volume2,
+  Search,
+  BookOpen,
+  X,
+  Filter,
+  ChevronDown,
+  ChevronUp,
+  Sparkles,
+  Play,
+  ArrowUp,
+  Star,
+  CheckCircle,
+  Check,
+  Tag,
+  BarChart3,
+  List,
+  Grid3x3,
+  FilterX,
+  Clock,
+  Volume2,
 } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
 import Nuri, { NuriSpeech, type NuriMood } from "@/components/Nuri";
 import ThemeToggle from "@/components/ThemeToggle";
 import UserRecordingButton from "@/components/UserRecordingButton";
@@ -19,6 +34,12 @@ import { getWavClient, WavClient } from "@/lib/audio/WavClient";
 import type { LangCode } from "@/lib/i18n/multilingual";
 import type { LanguageCode } from "@/lib/audio";
 import { useI18n } from "@/hooks/useI18n";
+import {
+  PageShell,
+  StatPill,
+  LoadingState,
+  EmptyState,
+} from "@/components/layout";
 
 // ─── TYPES ────────────────────────────────────────────────────────
 
@@ -70,11 +91,23 @@ interface ActivePlay {
 }
 
 type ViewMode = "list" | "grid" | "compact";
-type SortOption = "default" | "popular" | "alphabetical" | "reverse-alpha" | "newest" | "oldest";
+type SortOption =
+  | "default"
+  | "popular"
+  | "alphabetical"
+  | "reverse-alpha"
+  | "newest"
+  | "oldest";
 type FilterOption =
-  | "all" | "vocab" | "phrase" | "dialogue"
-  | "beginner" | "intermediate" | "advanced"
-  | "has-audio" | "no-audio";
+  | "all"
+  | "vocab"
+  | "phrase"
+  | "dialogue"
+  | "beginner"
+  | "intermediate"
+  | "advanced"
+  | "has-audio"
+  | "no-audio";
 
 const STORAGE_KEYS = {
   WAV_MANIFEST: "nurlingo_wav_manifest",
@@ -84,46 +117,64 @@ const STORAGE_KEYS = {
   FAVORITE_WORDS: "nurlingo_favorite_words",
 } as const;
 
-// ✅ Locale-aware date
 function formatDate(dateString: string | undefined, locale: LangCode): string {
   if (!dateString) return "—";
   try {
     const localeMap: Record<LangCode, string> = {
-      hy: "hy-AM", en: "en-GB", ru: "ru-RU",
+      hy: "hy-AM",
+      en: "en-GB",
+      ru: "ru-RU",
     };
-    return new Date(dateString).toLocaleDateString(localeMap[locale] || "en-GB", {
-      year: "numeric", month: "short", day: "numeric",
-    });
+    return new Date(dateString).toLocaleDateString(
+      localeMap[locale] || "en-GB",
+      { year: "numeric", month: "short", day: "numeric" }
+    );
   } catch {
     return dateString;
   }
 }
 
-// ✅ Safe localStorage
 const safeStorage = {
   get(key: string): string | null {
-    try { return localStorage.getItem(key); } catch { return null; }
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
   },
   set(key: string, value: string): boolean {
-    try { localStorage.setItem(key, value); return true; } catch { return false; }
+    try {
+      localStorage.setItem(key, value);
+      return true;
+    } catch {
+      return false;
+    }
   },
 };
 
 function getDifficultyColor(difficulty?: string): string {
   switch (difficulty) {
-    case "beginner": return "text-green-400 bg-green-500/20";
-    case "intermediate": return "text-yellow-400 bg-yellow-500/20";
-    case "advanced": return "text-red-400 bg-red-500/20";
-    default: return "text-gray-400 bg-gray-500/20";
+    case "beginner":
+      return "text-green-400 bg-green-500/20";
+    case "intermediate":
+      return "text-yellow-400 bg-yellow-500/20";
+    case "advanced":
+      return "text-red-400 bg-red-500/20";
+    default:
+      return "text-gray-400 bg-gray-500/20";
   }
 }
 
 function getDifficultyEmoji(difficulty?: string): string {
   switch (difficulty) {
-    case "beginner": return "🌱";
-    case "intermediate": return "📈";
-    case "advanced": return "🔥";
-    default: return "📚";
+    case "beginner":
+      return "🌱";
+    case "intermediate":
+      return "📈";
+    case "advanced":
+      return "🔥";
+    default:
+      return "📚";
   }
 }
 
@@ -137,8 +188,9 @@ export default function DictionaryPage() {
   const native: LangCode = (locale as LangCode) || "en";
 
   const [toastMessage, setToastMessage] = useState("");
-  const [toastType, setToastType] = useState<"success" | "error" | "info">("info");
-
+  const [toastType, setToastType] = useState<"success" | "error" | "info">(
+    "info"
+  );
   const showMessage = useCallback(
     (text: string, type: "success" | "error" | "info" = "info") => {
       setToastMessage(text);
@@ -174,21 +226,22 @@ export default function DictionaryPage() {
 
   const topRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // ✅ Synchronous locks
   const speakingLockRef = useRef(false);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  // ─── LOAD FAVORITES + HISTORY ──────────────────────────────
-
+  // ─── FAVORITES + HISTORY ───
   useEffect(() => {
     const savedFavorites = safeStorage.get(STORAGE_KEYS.FAVORITE_WORDS);
     if (savedFavorites) {
-      try { setFavorites(new Set(JSON.parse(savedFavorites))); } catch {}
+      try {
+        setFavorites(new Set(JSON.parse(savedFavorites)));
+      } catch {}
     }
     const savedHistory = safeStorage.get(STORAGE_KEYS.DICTIONARY_HISTORY);
     if (savedHistory) {
-      try { setRecentlyViewed(JSON.parse(savedHistory)); } catch {}
+      try {
+        setRecentlyViewed(JSON.parse(savedHistory));
+      } catch {}
     }
   }, []);
 
@@ -211,8 +264,7 @@ export default function DictionaryPage() {
     });
   }, []);
 
-  // ─── VIEW PREFS ────────────────────────────────────────────
-
+  // ─── VIEW PREFS ───
   useEffect(() => {
     const saved = safeStorage.get(STORAGE_KEYS.VIEW_PREFERENCES);
     if (saved) {
@@ -232,8 +284,7 @@ export default function DictionaryPage() {
     );
   }, [viewMode, sortOption, filterOption]);
 
-  // ─── WAV INIT ──────────────────────────────────────────────
-
+  // ─── WAV INIT ───
   useEffect(() => {
     const initWAV = async () => {
       try {
@@ -244,11 +295,15 @@ export default function DictionaryPage() {
           const voices = client.getAvailableVoices();
           if (voices.length > 0) {
             const savedVoice = safeStorage.get(STORAGE_KEYS.SELECTED_VOICE);
-            setSelectedVoice(savedVoice && voices.includes(savedVoice) ? savedVoice : voices[0]);
+            setSelectedVoice(
+              savedVoice && voices.includes(savedVoice) ? savedVoice : voices[0]
+            );
           }
           const stored = safeStorage.get(STORAGE_KEYS.WAV_MANIFEST);
           if (stored) {
-            try { setWavManifest(JSON.parse(stored)); } catch {}
+            try {
+              setWavManifest(JSON.parse(stored));
+            } catch {}
           }
         }
       } catch {
@@ -258,8 +313,7 @@ export default function DictionaryPage() {
     initWAV();
   }, []);
 
-  // ─── LOAD DICTIONARY ──────────────────────────────────────
-
+  // ─── LOAD DICTIONARY ───
   useEffect(() => {
     try {
       const data = baseDict as DictionaryEntry[];
@@ -268,27 +322,32 @@ export default function DictionaryPage() {
         category: entry.category || "general",
         difficulty: entry.difficulty || "intermediate",
         tags: entry.tags || [],
-        popularity: entry.popularity ?? 0, // ✅ No random — use real or 0
+        popularity: entry.popularity ?? 0,
         createdAt: entry.createdAt || new Date().toISOString(),
         updatedAt: entry.updatedAt || new Date().toISOString(),
       }));
 
-      const sortedData = enrichedData.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      const sortedData = enrichedData.sort(
+        (a, b) => parseInt(a.id) - parseInt(b.id)
+      );
       setVocab(sortedData);
 
-      // ✅ Compute stats inline instead of separate function
       const stats: WordStats = {
         total: sortedData.length,
         byType: {},
         byCategory: {},
         byDifficulty: {},
-        withAudio: sortedData.filter((e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)).length,
+        withAudio: sortedData.filter(
+          (e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)
+        ).length,
         withWAV: sortedData.filter((e) => e.hasWAV).length,
       };
       sortedData.forEach((e) => {
         stats.byType[e.type] = (stats.byType[e.type] || 0) + 1;
-        stats.byCategory[e.category || "general"] = (stats.byCategory[e.category || "general"] || 0) + 1;
-        stats.byDifficulty[e.difficulty || "intermediate"] = (stats.byDifficulty[e.difficulty || "intermediate"] || 0) + 1;
+        stats.byCategory[e.category || "general"] =
+          (stats.byCategory[e.category || "general"] || 0) + 1;
+        stats.byDifficulty[e.difficulty || "intermediate"] =
+          (stats.byDifficulty[e.difficulty || "intermediate"] || 0) + 1;
       });
       setWordStats(stats);
 
@@ -300,8 +359,7 @@ export default function DictionaryPage() {
     }
   }, []);
 
-  // ─── SCROLL / EFFECTS ──────────────────────────────────────
-
+  // ─── SCROLL / EFFECTS ───
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener("scroll", onScroll);
@@ -331,8 +389,7 @@ export default function DictionaryPage() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [searchQuery, showFilters, showStats]);
 
-  // ─── FILTERED WORDS ────────────────────────────────────────
-
+  // ─── FILTERED WORDS ───
   const filteredVocab = useMemo(() => {
     let items = [...vocab];
     const q = searchQuery.trim().toLowerCase();
@@ -349,29 +406,68 @@ export default function DictionaryPage() {
     }
 
     switch (filterOption) {
-      case "vocab": items = items.filter((e) => e.type === "vocab"); break;
-      case "phrase": items = items.filter((e) => e.type === "phrase"); break;
-      case "dialogue": items = items.filter((e) => e.type === "dialogue"); break;
-      case "beginner": items = items.filter((e) => e.difficulty === "beginner"); break;
-      case "intermediate": items = items.filter((e) => e.difficulty === "intermediate"); break;
-      case "advanced": items = items.filter((e) => e.difficulty === "advanced"); break;
-      case "has-audio": items = items.filter((e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)); break;
-      case "no-audio": items = items.filter((e) => !e.audio || (!e.audio.hy && !e.audio.en && !e.audio.ru)); break;
+      case "vocab":
+        items = items.filter((e) => e.type === "vocab");
+        break;
+      case "phrase":
+        items = items.filter((e) => e.type === "phrase");
+        break;
+      case "dialogue":
+        items = items.filter((e) => e.type === "dialogue");
+        break;
+      case "beginner":
+        items = items.filter((e) => e.difficulty === "beginner");
+        break;
+      case "intermediate":
+        items = items.filter((e) => e.difficulty === "intermediate");
+        break;
+      case "advanced":
+        items = items.filter((e) => e.difficulty === "advanced");
+        break;
+      case "has-audio":
+        items = items.filter(
+          (e) => e.audio && (e.audio.hy || e.audio.en || e.audio.ru)
+        );
+        break;
+      case "no-audio":
+        items = items.filter(
+          (e) => !e.audio || (!e.audio.hy && !e.audio.en && !e.audio.ru)
+        );
+        break;
     }
 
     switch (sortOption) {
-      case "popular": items.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)); break;
-      case "alphabetical": items.sort((a, b) => a.hy.localeCompare(b.hy)); break;
-      case "reverse-alpha": items.sort((a, b) => b.hy.localeCompare(a.hy)); break;
-      case "newest": items.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()); break;
-      case "oldest": items.sort((a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()); break;
-      default: items.sort((a, b) => parseInt(a.id) - parseInt(b.id)); break;
+      case "popular":
+        items.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+        break;
+      case "alphabetical":
+        items.sort((a, b) => a.hy.localeCompare(b.hy));
+        break;
+      case "reverse-alpha":
+        items.sort((a, b) => b.hy.localeCompare(a.hy));
+        break;
+      case "newest":
+        items.sort(
+          (a, b) =>
+            new Date(b.createdAt || 0).getTime() -
+            new Date(a.createdAt || 0).getTime()
+        );
+        break;
+      case "oldest":
+        items.sort(
+          (a, b) =>
+            new Date(a.createdAt || 0).getTime() -
+            new Date(b.createdAt || 0).getTime()
+        );
+        break;
+      default:
+        items.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        break;
     }
 
     return items;
   }, [vocab, searchQuery, filterOption, sortOption]);
 
-  // ✅ Nuri mood computed via useMemo, not side-effect
   const computedNuriMood: NuriMood = useMemo(() => {
     if (!searchQuery) return "idle";
     return filteredVocab.length === 0 ? "sad" : "happy";
@@ -381,8 +477,7 @@ export default function DictionaryPage() {
     setNuriMood(computedNuriMood);
   }, [computedNuriMood]);
 
-  // ─── TTS FALLBACK ──────────────────────────────────────────
-
+  // ─── TTS FALLBACK ───
   const speakWithFemaleVoice = useCallback(
     (text: string, lang: string): Promise<boolean> => {
       return new Promise((resolve, reject) => {
@@ -400,37 +495,64 @@ export default function DictionaryPage() {
 
         const findAndSpeak = (voices: SpeechSynthesisVoice[]) => {
           const femaleVoiceNames = [
-            "Samantha", "Google UK English Female", "Karen", "Zira",
-            "Alice", "Victoria", "Emma", "Susan", "Tessa",
-            "Google русский", "Anna", "Elena", "Katya", "Marina", "Natalia", "Alena",
-            "Ani", "Google Հայերեն", "Armine", "Lusine",
+            "Samantha",
+            "Google UK English Female",
+            "Karen",
+            "Zira",
+            "Alice",
+            "Victoria",
+            "Emma",
+            "Susan",
+            "Tessa",
+            "Google русский",
+            "Anna",
+            "Elena",
+            "Katya",
+            "Marina",
+            "Natalia",
+            "Alena",
+            "Ani",
+            "Google Հայերեն",
+            "Armine",
+            "Lusine",
           ];
           let picked: SpeechSynthesisVoice | null = null;
 
           for (const name of femaleVoiceNames) {
             const found = voices.find(
-              (v) => v.lang.startsWith(lang) && v.name.toLowerCase() === name.toLowerCase()
+              (v) =>
+                v.lang.startsWith(lang) &&
+                v.name.toLowerCase() === name.toLowerCase()
             );
-            if (found) { picked = found; break; }
+            if (found) {
+              picked = found;
+              break;
+            }
           }
           if (!picked) {
             for (const name of femaleVoiceNames) {
               const found = voices.find(
-                (v) => v.lang.startsWith(lang) && v.name.toLowerCase().includes(name.toLowerCase())
+                (v) =>
+                  v.lang.startsWith(lang) &&
+                  v.name.toLowerCase().includes(name.toLowerCase())
               );
-              if (found) { picked = found; break; }
+              if (found) {
+                picked = found;
+                break;
+              }
             }
           }
           if (!picked) {
-            picked = voices.find(
-              (v) =>
-                v.lang.startsWith(lang) &&
-                (v.name.toLowerCase().includes("female") ||
-                  v.name.toLowerCase().includes("samantha") ||
-                  v.name.toLowerCase().includes("zira") ||
-                  v.name.toLowerCase().includes("karen") ||
-                  v.name.toLowerCase().includes("anna"))
-            ) ?? null;
+            picked =
+              voices.find(
+                (v) =>
+                  v.lang.startsWith(lang) &&
+                  (v.name.toLowerCase().includes("female") ||
+                    v.name.toLowerCase().includes("samantha") ||
+                    v.name.toLowerCase().includes("zira") ||
+                    v.name.toLowerCase().includes("karen") ||
+                    v.name.toLowerCase().includes("anna"))
+              ) ?? null;
           }
 
           if (picked) utterance.voice = picked;
@@ -454,13 +576,11 @@ export default function DictionaryPage() {
     []
   );
 
-  // ─── PLAY VIA API (with cleanup) ───────────────────────────
-
+  // ─── PLAY VIA API ───
   const playAudioViaAPI = useCallback(
     async (text: string, lang: LangCode): Promise<boolean> => {
       if (!text) return false;
 
-      // ✅ Cleanup previous
       if (currentAudioRef.current) {
         try {
           currentAudioRef.current.pause();
@@ -469,7 +589,10 @@ export default function DictionaryPage() {
         currentAudioRef.current = null;
       }
 
-      const tryApiThenTTS = async (endpoint: string, fallbackLang: string): Promise<boolean> => {
+      const tryApiThenTTS = async (
+        endpoint: string,
+        fallbackLang: string
+      ): Promise<boolean> => {
         try {
           const response = await fetch(endpoint, {
             method: "POST",
@@ -483,7 +606,9 @@ export default function DictionaryPage() {
               const audio = new Audio(src);
               currentAudioRef.current = audio;
               await audio.play();
-              audio.onended = () => { currentAudioRef.current = null; };
+              audio.onended = () => {
+                currentAudioRef.current = null;
+              };
               return true;
             }
           }
@@ -493,7 +618,9 @@ export default function DictionaryPage() {
         try {
           await speakWithFemaleVoice(text, fallbackLang);
           return true;
-        } catch { return false; }
+        } catch {
+          return false;
+        }
       };
 
       if (lang === "hy") {
@@ -514,8 +641,7 @@ export default function DictionaryPage() {
     [wavClient, isWAVAvailable, selectedVoice, speakWithFemaleVoice]
   );
 
-  // ─── HANDLE SPEAK ──────────────────────────────────────────
-
+  // ─── HANDLE SPEAK ───
   const handleSpeak = useCallback(
     async (item: DictionaryEntry, lang: LangCode) => {
       const text = item[lang] || "";
@@ -524,7 +650,6 @@ export default function DictionaryPage() {
         return;
       }
 
-      // ✅ Sync lock
       if (speakingLockRef.current) {
         if (typeof window !== "undefined") window.speechSynthesis?.cancel();
         if (currentAudioRef.current) {
@@ -555,7 +680,9 @@ export default function DictionaryPage() {
         play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
       } catch (error) {
         console.error("Playback error:", error);
-        try { play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`); } catch {}
+        try {
+          play(text, lang as LanguageCode, item.id, `${item.id}-${lang}`);
+        } catch {}
       } finally {
         speakingLockRef.current = false;
         setActivePlay(null);
@@ -566,7 +693,9 @@ export default function DictionaryPage() {
 
   const isWordPlaying = useCallback(
     (id: string, lang: LangCode) =>
-      activePlay?.wordId === id && activePlay?.lang === lang && (isPlaying || isLoading),
+      activePlay?.wordId === id &&
+      activePlay?.lang === lang &&
+      (isPlaying || isLoading),
     [activePlay, isPlaying, isLoading]
   );
 
@@ -610,111 +739,150 @@ export default function DictionaryPage() {
   }, []);
 
   const totalWords = vocab.length;
-  const isFiltered = filterOption !== "all" || sortOption !== "default" || searchQuery !== "";
+  const isFiltered =
+    filterOption !== "all" || sortOption !== "default" || searchQuery !== "";
 
-  // ─── RENDER: LOADING ──────────────────────────────────────
-
+  // ─── LOADING ───
   if (isLoadingData) {
     return (
-      <div className="min-h-screen bg-transparent flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="opacity-70">{t("page_loading")}</p>
-        </div>
-      </div>
+      <PageShell
+        title={t("page_dictionary")}
+        icon={<BookOpen size={20} />}
+        maxWidth="4xl"
+        actions={<ThemeToggle />}
+      >
+        <LoadingState message={t("page_loading")} />
+      </PageShell>
     );
   }
 
-  // ─── RENDER: MAIN ─────────────────────────────────────────
-
+  // ─── MAIN ───
   return (
-    <div className="min-h-screen bg-transparent pb-24">
-      <div ref={topRef} className="container-main py-6">
-        <div className="fixed top-20 left-4 z-50 pointer-events-none">
-          <img
-            src="/images/nuri/nuri-listening.png"
-            alt={t("page_listening")}
-            className="w-16 h-16 object-contain animate-pulse"
+    <PageShell
+      title={t("page_dictionary")}
+      subtitle={t("page_words_total", { total: vocab.length })}
+      icon={<BookOpen size={20} />}
+      maxWidth="4xl"
+      actions={
+        <>
+          <StatPill
+            icon={<BookOpen size={13} />}
+            value={filteredVocab.length}
+            color="blue"
           />
+          <ThemeToggle />
+        </>
+      }
+    >
+      <div ref={topRef}>
+
+        {/* ─── NURI HERO ─── */}
+        <div className="flex items-center gap-4 mb-5">
+          <Nuri mood={nuriMood} size={64} glow={nuriMood === "happy"} />
+          <div className="flex-1 min-w-0">
+            <NuriSpeech
+              text={
+                nuriMood === "happy"
+                  ? t("page_nuri_happy", { count: filteredVocab.length })
+                  : searchQuery
+                  ? t("page_nuri_sad")
+                  : t("page_nuri_idle")
+              }
+              mood={nuriMood}
+            />
+          </div>
         </div>
 
-        <header className="mb-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Nuri mood={nuriMood} size={72} glow={nuriMood === "happy"} />
-            <div className="flex-1">
-              <NuriSpeech
-                text={
-                  nuriMood === "happy"
-                    ? t("page_nuri_happy", { count: filteredVocab.length })
-                    : searchQuery
-                    ? t("page_nuri_sad")
-                    : t("page_nuri_idle")
-                }
-                mood={nuriMood}
-              />
-            </div>
-            <ThemeToggle />
+        {/* ─── TOOLBAR ─── */}
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          {/* View mode switcher */}
+          <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10 bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm">
+            <button
+              onClick={() => setViewMode("list")}
+              className={`px-2.5 py-1.5 rounded-lg transition-colors ${
+                viewMode === "list"
+                  ? "bg-blue-500 text-white"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-white/20 dark:hover:bg-white/5"
+              }`}
+              aria-label={t("page_view_list")}
+            >
+              <List size={14} />
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`px-2.5 py-1.5 rounded-lg transition-colors ${
+                viewMode === "grid"
+                  ? "bg-blue-500 text-white"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-white/20 dark:hover:bg-white/5"
+              }`}
+              aria-label={t("page_view_grid")}
+            >
+              <Grid3x3 size={14} />
+            </button>
+            <button
+              onClick={() => setViewMode("compact")}
+              className={`px-2.5 py-1.5 rounded-lg transition-colors ${
+                viewMode === "compact"
+                  ? "bg-blue-500 text-white"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-white/20 dark:hover:bg-white/5"
+              }`}
+              aria-label={t("page_view_compact")}
+            >
+              <ChevronDown size={14} />
+            </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h1 className="text-2xl font-display font-bold flex items-center gap-2">
-                <BookOpen size={24} className="text-primary" />
-                <span className="text-gradient">{t("page_dictionary")}</span>
-              </h1>
-              <p className="text-sm opacity-70">
-                {/* ✅ Fixed broken key */}
-                {t("page_words_total", { total: vocab.length })}
-              </p>
-            </div>
+          <div className="flex gap-2 flex-wrap">
+            <button
+              onClick={() => setShowStats(!showStats)}
+              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors ${
+                showStats
+                  ? "bg-indigo-500 text-white"
+                  : "bg-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+              }`}
+            >
+              <BarChart3 size={14} />
+              <span className="hidden sm:inline">{t("page_stats")}</span>
+            </button>
 
-            <div className="flex gap-2 flex-wrap">
-              <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10">
-                <button
-                  onClick={() => setViewMode("list")}
-                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "list" ? "bg-blue-500 text-white" : ""}`}
-                  aria-label={t("page_view_list")}
-                >
-                  <List size={14} />
-                </button>
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "grid" ? "bg-blue-500 text-white" : ""}`}
-                  aria-label={t("page_view_grid")}
-                >
-                  <Grid3x3 size={14} />
-                </button>
-                <button
-                  onClick={() => setViewMode("compact")}
-                  className={`px-2.5 py-1.5 rounded-lg transition-colors ${viewMode === "compact" ? "bg-blue-500 text-white" : ""}`}
-                  aria-label={t("page_view_compact")}
-                >
-                  <ChevronDown size={14} />
-                </button>
-              </div>
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1 transition-colors ${
+                showFilters
+                  ? "bg-yellow-500/30 text-yellow-600 dark:text-yellow-400"
+                  : "bg-white/40 dark:bg-white/5 text-gray-600 dark:text-gray-400"
+              } ${isFiltered ? "border border-yellow-500/50" : ""}`}
+            >
+              <Filter size={14} />
+              <span className="hidden sm:inline">{t("page_filters")}</span>
+              {isFiltered && (
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
+              )}
+            </button>
 
+            {isFiltered && (
               <button
-                onClick={() => setShowStats(!showStats)}
-                className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 transition-colors ${
-                  showStats ? "bg-indigo-500 text-white" : "bg-indigo-500/20"
-                }`}
+                onClick={resetFilters}
+                className="px-3 py-2 rounded-xl text-xs font-bold bg-red-500/20 text-red-600 dark:text-red-400 flex items-center gap-1 hover:bg-red-500/30 transition-colors"
               >
-                <BarChart3 size={14} />
-                <span className="hidden sm:inline">{t("page_stats")}</span>
+                <FilterX size={14} />
+                <span className="hidden sm:inline">
+                  {t("page_clear_filters")}
+                </span>
               </button>
+            )}
 
-              <Link
-                href="/admin/dictionary"
-                className="px-4 py-2 rounded-xl text-sm font-medium bg-white/10 dark:bg-white/5 border border-white/5 flex items-center gap-2 hover:bg-white/20 transition-colors"
-              >
-                <Sparkles size={16} />
-                <span className="hidden sm:inline">{t("page_edit")}</span>
-              </Link>
-            </div>
+            <Link
+              href="/admin/dictionary"
+              className="px-3 py-2 rounded-xl text-xs font-bold bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/5 flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:bg-white/60 dark:hover:bg-white/10 transition-colors"
+            >
+              <Sparkles size={14} />
+              <span className="hidden sm:inline">{t("page_edit")}</span>
+            </Link>
           </div>
-        </header>
+        </div>
 
-        {/* STATS PANEL */}
+        {/* ─── STATS PANEL (collapsible) ─── */}
         <AnimatePresence>
           {showStats && wordStats && (
             <motion.div
@@ -723,50 +891,78 @@ export default function DictionaryPage() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
-              <div className="rounded-xl p-4 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/5">
+              <div className="rounded-xl p-4 bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/5">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">{wordStats.total}</div>
-                    <div className="text-xs opacity-70">{t("page_total")}</div>
+                    <div className="text-2xl font-bold text-red-500">
+                      {wordStats.total}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_total")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-400">{wordStats.byType.vocab || 0}</div>
-                    <div className="text-xs opacity-70">{t("page_words")}</div>
+                    <div className="text-2xl font-bold text-blue-500">
+                      {wordStats.byType.vocab || 0}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_words")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-400">{wordStats.byType.phrase || 0}</div>
-                    <div className="text-xs opacity-70">{t("page_phrases")}</div>
+                    <div className="text-2xl font-bold text-purple-500">
+                      {wordStats.byType.phrase || 0}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_phrases")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-400">{wordStats.byType.dialogue || 0}</div>
-                    <div className="text-xs opacity-70">{t("page_dialogues")}</div>
+                    <div className="text-2xl font-bold text-green-500">
+                      {wordStats.byType.dialogue || 0}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_dialogues")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-emerald-400">{wordStats.withAudio}</div>
-                    <div className="text-xs opacity-70">{t("page_has_audio")}</div>
+                    <div className="text-2xl font-bold text-emerald-500">
+                      {wordStats.withAudio}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_has_audio")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-400">
+                    <div className="text-2xl font-bold text-yellow-500">
                       {Object.keys(wordStats.byCategory).length}
                     </div>
-                    <div className="text-xs opacity-70">{t("page_categories")}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_categories")}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-indigo-400">{favorites.size}</div>
-                    <div className="text-xs opacity-70">{t("page_favorites")}</div>
+                    <div className="text-2xl font-bold text-indigo-500">
+                      {favorites.size}
+                    </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {t("page_favorites")}
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-3 flex gap-3 justify-center flex-wrap">
-                  <span className="text-xs opacity-70">📊 {t("page_difficulty")}:</span>
-                  <span className="text-xs text-green-400">
+                <div className="mt-3 flex gap-3 justify-center flex-wrap text-xs text-gray-500 dark:text-gray-400">
+                  <span>📊 {t("page_difficulty")}:</span>
+                  <span className="text-green-500">
                     🌱 {t("page_beginner")} {wordStats.byDifficulty.beginner || 0}
                   </span>
-                  <span className="text-xs text-yellow-400">
-                    📈 {t("page_intermediate")} {wordStats.byDifficulty.intermediate || 0}
+                  <span className="text-yellow-500">
+                    📈 {t("page_intermediate")}{" "}
+                    {wordStats.byDifficulty.intermediate || 0}
                   </span>
-                  <span className="text-xs text-red-400">
-                    🔥 {t("page_advanced")} {wordStats.byDifficulty.advanced || 0}
+                  <span className="text-red-500">
+                    🔥 {t("page_advanced")}{" "}
+                    {wordStats.byDifficulty.advanced || 0}
                   </span>
                 </div>
               </div>
@@ -774,22 +970,25 @@ export default function DictionaryPage() {
           )}
         </AnimatePresence>
 
-        {/* SEARCH + FILTER */}
+        {/* ─── SEARCH + LANG FILTER ─── */}
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
-            <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60" />
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
             <input
               ref={searchInputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t("page_search_all_languages")}
-              className="w-full rounded-xl px-10 py-3 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-xl px-10 py-3 bg-white/60 dark:bg-gray-900/50 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-red-500/40 text-gray-900 dark:text-white placeholder-gray-400"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 aria-label={t("page_clear_search")}
               >
                 <X size={16} />
@@ -797,47 +996,31 @@ export default function DictionaryPage() {
             )}
           </div>
 
-          <div className="flex gap-2 flex-wrap">
-            <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10">
-              {LANGS.map(({ code, flagUrl }) => (
-                <button
-                  key={code}
-                  onClick={() => setFilterLang(code)}
-                  className={`px-3 py-2 rounded-lg transition-all ${
-                    filterLang === code ? "bg-primary" : "hover:bg-white/10"
-                  }`}
-                  title={code.toUpperCase()}
-                  aria-label={`Filter by ${code.toUpperCase()}`}
-                >
-                  <img src={flagUrl} alt={code} className="w-5 h-3.5" loading="lazy" />
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-1 transition-colors ${
-                showFilters ? "bg-yellow-500/20" : "bg-white/10 dark:bg-white/5"
-              } ${isFiltered ? "border border-yellow-500/50" : ""}`}
-            >
-              <Filter size={14} />
-              <span className="hidden sm:inline">{t("page_filters")}</span>
-              {isFiltered && <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" />}
-            </button>
-
-            {isFiltered && (
+          <div className="flex gap-1 rounded-xl p-1 border border-white/20 dark:border-white/10 bg-white/40 dark:bg-gray-900/50">
+            {LANGS.map(({ code, flagUrl }) => (
               <button
-                onClick={resetFilters}
-                className="px-3 py-2 rounded-xl text-xs font-medium bg-red-500/20 flex items-center gap-1 hover:bg-red-500/30 transition-colors"
+                key={code}
+                onClick={() => setFilterLang(code)}
+                className={`px-3 py-2 rounded-lg transition-all ${
+                  filterLang === code
+                    ? "bg-red-500"
+                    : "hover:bg-white/20 dark:hover:bg-white/10"
+                }`}
+                title={code.toUpperCase()}
+                aria-label={`Filter by ${code.toUpperCase()}`}
               >
-                <FilterX size={14} />
-                <span className="hidden sm:inline">{t("page_clear_filters")}</span>
+                <img
+                  src={flagUrl}
+                  alt={code}
+                  className="w-5 h-3.5"
+                  loading="lazy"
+                />
               </button>
-            )}
+            ))}
           </div>
         </div>
 
-        {/* FILTERS PANEL */}
+        {/* ─── FILTERS PANEL (collapsible) ─── */}
         <AnimatePresence>
           {showFilters && (
             <motion.div
@@ -846,21 +1029,27 @@ export default function DictionaryPage() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
-              <div className="rounded-xl p-4 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/5">
+              <div className="rounded-xl p-4 bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/5">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs opacity-70 mb-1 block">📝 {t("page_type")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      📝 {t("page_type")}
+                    </label>
                     <select
                       value={filterOption}
-                      onChange={(e) => setFilterOption(e.target.value as FilterOption)}
-                      className="w-full rounded-lg px-3 py-2 text-sm bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10"
+                      onChange={(e) =>
+                        setFilterOption(e.target.value as FilterOption)
+                      }
+                      className="w-full rounded-lg px-3 py-2 text-sm bg-white/60 dark:bg-gray-800/60 border border-white/20 dark:border-white/10 text-gray-900 dark:text-white"
                     >
                       <option value="all">📚 {t("page_all")}</option>
                       <option value="vocab">📖 {t("page_words")}</option>
                       <option value="phrase">💬 {t("page_phrases")}</option>
                       <option value="dialogue">🎭 {t("page_dialogues")}</option>
                       <option value="beginner">🌱 {t("page_beginner")}</option>
-                      <option value="intermediate">📈 {t("page_intermediate")}</option>
+                      <option value="intermediate">
+                        📈 {t("page_intermediate")}
+                      </option>
                       <option value="advanced">🔥 {t("page_advanced")}</option>
                       <option value="has-audio">🎵 {t("page_has_audio")}</option>
                       <option value="no-audio">🔇 {t("page_no_audio")}</option>
@@ -868,24 +1057,34 @@ export default function DictionaryPage() {
                   </div>
 
                   <div>
-                    <label className="text-xs opacity-70 mb-1 block">🔄 {t("page_sort")}</label>
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      🔄 {t("page_sort")}
+                    </label>
                     <select
                       value={sortOption}
-                      onChange={(e) => setSortOption(e.target.value as SortOption)}
-                      className="w-full rounded-lg px-3 py-2 text-sm bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10"
+                      onChange={(e) =>
+                        setSortOption(e.target.value as SortOption)
+                      }
+                      className="w-full rounded-lg px-3 py-2 text-sm bg-white/60 dark:bg-gray-800/60 border border-white/20 dark:border-white/10 text-gray-900 dark:text-white"
                     >
                       <option value="default">📌 {t("page_default")}</option>
                       <option value="popular">⭐ {t("page_popular")}</option>
-                      <option value="alphabetical">🔤 {t("page_alphabetical")}</option>
-                      <option value="reverse-alpha">🔤 {t("page_reverse_alpha")}</option>
+                      <option value="alphabetical">
+                        🔤 {t("page_alphabetical")}
+                      </option>
+                      <option value="reverse-alpha">
+                        🔤 {t("page_reverse_alpha")}
+                      </option>
                       <option value="newest">🆕 {t("page_newest")}</option>
                       <option value="oldest">📅 {t("page_oldest")}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="text-xs opacity-70 mb-1 block">📊 {t("page_stats")}</label>
-                    <div className="flex items-center gap-2 text-xs opacity-70">
+                    <label className="text-xs text-gray-500 dark:text-gray-400 mb-1 block">
+                      📊 {t("page_stats")}
+                    </label>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                       <span>📚 {totalWords}</span>
                       <span>|</span>
                       <span>🎵 {wordStats?.withAudio || 0}</span>
@@ -899,69 +1098,66 @@ export default function DictionaryPage() {
           )}
         </AnimatePresence>
 
-        {/* STATS BAR */}
-        <div className="rounded-xl p-3 mb-4 flex items-center justify-between text-sm flex-wrap gap-2 bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/5">
+        {/* ─── RESULTS BAR ─── */}
+        <div className="rounded-xl p-3 mb-4 flex items-center justify-between text-sm flex-wrap gap-2 bg-white/40 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/5 text-gray-700 dark:text-gray-300">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="opacity-70">📚</span>
-            <span className="font-medium">{filteredVocab.length}</span>
-            <span className="opacity-70">{t("page_shown")}</span>
+            <span>📚</span>
+            <span className="font-bold">{filteredVocab.length}</span>
+            <span className="text-gray-500 dark:text-gray-400">
+              {t("page_shown")}
+            </span>
             {recentlyViewed.length > 0 && (
               <>
                 <span className="w-px h-4 bg-gray-300 dark:bg-gray-600" />
-                <span className="opacity-70 text-xs">
+                <span className="text-gray-500 dark:text-gray-400 text-xs">
                   🕐 {t("page_recently_viewed")}: {recentlyViewed.length}
                 </span>
               </>
             )}
           </div>
-          <div className="flex items-center gap-2 text-xs opacity-70">
-            {/* ✅ Fixed broken key */}
+          <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
             <span>{t("page_id_range")}:</span>
             <span className="font-mono">
-              {vocab.length > 0 ? `${vocab[0]?.id} - ${vocab[vocab.length - 1]?.id}` : "—"}
+              {vocab.length > 0
+                ? `${vocab[0]?.id} - ${vocab[vocab.length - 1]?.id}`
+                : "—"}
             </span>
           </div>
         </div>
 
-        {/* LIST */}
-        <div
-          className={
-            viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 gap-3"
-              : viewMode === "compact"
-              ? "space-y-1"
-              : "space-y-3"
-          }
-        >
-          {filteredVocab.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16 col-span-full"
-            >
-              <div className="text-5xl mb-4">{searchQuery ? "🔍" : "📖"}</div>
-              <p className="font-medium">
-                {searchQuery
-                  ? t("page_no_results_query", { query: searchQuery })
-                  : t("page_no_words_message")}
-              </p>
-              <p className="text-sm opacity-70 mt-1">
-                {searchQuery ? t("page_try_different_search") : t("page_no_vocab")}
-              </p>
-              {isFiltered && (
-                <button
-                  onClick={resetFilters}
-                  className="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 rounded-xl text-white font-bold transition-colors"
-                >
-                  <FilterX size={18} className="inline mr-1" />
-                  {t("page_clear_filters")}
-                </button>
-              )}
-            </motion.div>
-          ) : (
-            filteredVocab.map((item, index) => {
+        {/* ─── LIST / GRID / COMPACT ─── */}
+        {filteredVocab.length === 0 ? (
+          <EmptyState
+            icon={searchQuery ? "🔍" : "📖"}
+            title={
+              searchQuery
+                ? t("page_no_results_query", { query: searchQuery })
+                : t("page_no_words_message")
+            }
+            description={
+              searchQuery ? t("page_try_different_search") : t("page_no_vocab")
+            }
+            action={
+              isFiltered
+                ? { label: t("page_clear_filters"), onClick: resetFilters }
+                : undefined
+            }
+          />
+        ) : (
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid grid-cols-1 md:grid-cols-2 gap-3"
+                : viewMode === "compact"
+                ? "space-y-1"
+                : "space-y-3"
+            }
+          >
+            {filteredVocab.map((item, index) => {
               const isExpanded = expandedItems.has(item.id);
-              const hasAudio = item.audio && (item.audio.hy || item.audio.en || item.audio.ru);
+              const hasAudio =
+                item.audio &&
+                (item.audio.hy || item.audio.en || item.audio.ru);
               const hasWAV = item.hasWAV;
               const isFavorite = favorites.has(item.id);
               const isCompact = viewMode === "compact";
@@ -972,11 +1168,17 @@ export default function DictionaryPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(index * 0.015, 0.3) }}
-                  className={`rounded-xl ${isCompact ? "p-2" : "p-4"} bg-white/10 dark:bg-white/5 border ${
-                    isFavorite ? "border-yellow-500/50" : "border-white/20 dark:border-white/5"
+                  className={`rounded-xl ${isCompact ? "p-2" : "p-4"} bg-white/50 dark:bg-white/5 backdrop-blur-sm border ${
+                    isFavorite
+                      ? "border-yellow-500/50"
+                      : "border-white/20 dark:border-white/5"
                   }`}
                 >
-                  <div className={`flex items-center justify-between ${isCompact ? "mb-1" : "mb-3"}`}>
+                  <div
+                    className={`flex items-center justify-between ${
+                      isCompact ? "mb-1" : "mb-3"
+                    }`}
+                  >
                     <div className="flex items-center gap-2 flex-wrap">
                       <span
                         className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
@@ -987,25 +1189,30 @@ export default function DictionaryPage() {
                       </span>
                       <button
                         onClick={() => copyId(item.id)}
-                        className="text-[10px] font-mono opacity-70 hover:opacity-100 flex items-center gap-0.5"
+                        className="text-[10px] font-mono text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center gap-0.5"
                       >
                         #{item.id}
-                        {copiedId === item.id && <Check size={10} className="text-emerald-500" />}
+                        {copiedId === item.id && (
+                          <Check size={10} className="text-emerald-500" />
+                        )}
                       </button>
                       {item.difficulty && (
                         <span
-                          className={`text-[8px] px-1.5 py-0.5 rounded-full ${getDifficultyColor(item.difficulty)}`}
+                          className={`text-[8px] px-1.5 py-0.5 rounded-full ${getDifficultyColor(
+                            item.difficulty
+                          )}`}
                         >
-                          {getDifficultyEmoji(item.difficulty)} {t(`page_${item.difficulty}`)}
+                          {getDifficultyEmoji(item.difficulty)}{" "}
+                          {t(`page_${item.difficulty}`)}
                         </span>
                       )}
                       {hasAudio && (
-                        <span className="text-[8px] bg-emerald-500/20 px-1.5 py-0.5 rounded-full">
+                        <span className="text-[8px] bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.5 rounded-full">
                           {t("page_mp3")}
                         </span>
                       )}
                       {hasWAV && (
-                        <span className="text-[8px] text-blue-400 bg-blue-500/20 px-1.5 py-0.5 rounded-full">
+                        <span className="text-[8px] text-blue-500 bg-blue-500/20 px-1.5 py-0.5 rounded-full">
                           {t("page_wav")} ✓
                         </span>
                       )}
@@ -1019,15 +1226,20 @@ export default function DictionaryPage() {
                       <button
                         onClick={() => toggleFavorite(item.id)}
                         className={`p-1 rounded-lg transition-colors ${
-                          isFavorite ? "text-yellow-400" : "opacity-60 hover:opacity-100"
+                          isFavorite
+                            ? "text-yellow-400"
+                            : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                         }`}
                         aria-label={t("page_favorites")}
                       >
-                        <Star size={isCompact ? 12 : 14} fill={isFavorite ? "currentColor" : "none"} />
+                        <Star
+                          size={isCompact ? 12 : 14}
+                          fill={isFavorite ? "currentColor" : "none"}
+                        />
                       </button>
                       <button
                         onClick={() => toggleExpand(item.id)}
-                        className="p-1 rounded-lg opacity-60 hover:opacity-100 transition-opacity"
+                        className="p-1 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                         aria-label="Toggle details"
                       >
                         {isExpanded ? (
@@ -1054,17 +1266,23 @@ export default function DictionaryPage() {
                           key={code}
                           className={`flex items-center justify-between gap-3 ${
                             isCompact ? "p-1" : "p-2"
-                          } rounded-xl transition-all ${isCurrentFilter ? "bg-white/5" : ""}`}
+                          } rounded-xl transition-all ${
+                            isCurrentFilter ? "bg-white/40 dark:bg-white/5" : ""
+                          }`}
                         >
                           <div className="flex-1 min-w-0 flex items-center gap-3">
                             <img
                               src={flagUrl}
                               alt={code}
-                              className={`${isCompact ? "w-5 h-3.5" : "w-6 h-4"} flex-shrink-0`}
+                              className={`${
+                                isCompact ? "w-5 h-3.5" : "w-6 h-4"
+                              } flex-shrink-0`}
                               loading="lazy"
                             />
                             <div
-                              className={`${isCompact ? "text-base" : "text-lg"} font-semibold truncate ${
+                              className={`${
+                                isCompact ? "text-base" : "text-lg"
+                              } font-semibold truncate text-gray-900 dark:text-white ${
                                 text === "—" ? "opacity-50" : ""
                               }`}
                             >
@@ -1084,7 +1302,7 @@ export default function DictionaryPage() {
                                 ? "bg-yellow-500/30 animate-pulse"
                                 : text === "—"
                                 ? "bg-white/5 opacity-30 cursor-not-allowed"
-                                : "bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:bg-white/60 dark:hover:bg-white/10"
+                                : "bg-white/60 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:bg-white/80 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300"
                             }`}
                             title={
                               code === "hy"
@@ -1096,7 +1314,7 @@ export default function DictionaryPage() {
                             aria-label={`Play ${code}`}
                           >
                             {loading ? (
-                              <Loader2 size={isCompact ? 14 : 18} className="animate-spin" />
+                              <span className="animate-spin">⟳</span>
                             ) : playing ? (
                               <Volume2 size={isCompact ? 14 : 18} />
                             ) : (
@@ -1122,7 +1340,7 @@ export default function DictionaryPage() {
                               {item.tags.map((tag) => (
                                 <span
                                   key={tag}
-                                  className="text-[8px] bg-white/10 dark:bg-white/5 px-2 py-0.5 rounded-full opacity-70"
+                                  className="text-[8px] bg-white/40 dark:bg-white/5 px-2 py-0.5 rounded-full text-gray-600 dark:text-gray-400"
                                 >
                                   <Tag size={10} className="inline mr-0.5" />
                                   {tag}
@@ -1131,10 +1349,13 @@ export default function DictionaryPage() {
                             </div>
                           )}
 
-                          <div className="text-xs flex items-center gap-2 flex-wrap opacity-70">
+                          <div className="text-xs flex items-center gap-2 flex-wrap text-gray-500 dark:text-gray-400">
                             {item.audio?.hy && (
                               <span className="flex items-center gap-1">
-                                <CheckCircle size={12} className="text-emerald-500" />
+                                <CheckCircle
+                                  size={12}
+                                  className="text-emerald-500"
+                                />
                                 {t("page_mp3")}
                               </span>
                             )}
@@ -1147,7 +1368,7 @@ export default function DictionaryPage() {
                           </div>
 
                           <div className="flex items-center gap-3">
-                            <span className="text-xs opacity-60">🎙️</span>
+                            <span className="text-xs text-gray-400">🎙️</span>
                             <UserRecordingButton
                               wordId={item.id}
                               word={item.hy}
@@ -1160,17 +1381,21 @@ export default function DictionaryPage() {
                   </AnimatePresence>
                 </motion.div>
               );
-            })
-          )}
-        </div>
+            })}
+          </div>
+        )}
 
         {searchQuery && filteredVocab.length > 0 && (
-          <div className="text-center text-sm mt-4 opacity-70">
-            {t("page_showing_count", { count: filteredVocab.length, total: totalWords })}
+          <div className="text-center text-sm mt-4 text-gray-500 dark:text-gray-400">
+            {t("page_showing_count", {
+              count: filteredVocab.length,
+              total: totalWords,
+            })}
           </div>
         )}
       </div>
 
+      {/* ─── TOAST ─── */}
       <AnimatePresence>
         {toastMessage && (
           <motion.div
@@ -1179,10 +1404,10 @@ export default function DictionaryPage() {
             exit={{ opacity: 0, y: -20 }}
             className={`fixed bottom-28 left-1/2 -translate-x-1/2 z-50 px-6 py-3 max-w-sm rounded-xl text-center shadow-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border ${
               toastType === "success"
-                ? "border-emerald-500/30"
+                ? "border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
                 : toastType === "error"
-                ? "border-red-500/30"
-                : "border-blue-500/30"
+                ? "border-red-500/30 text-red-600 dark:text-red-400"
+                : "border-blue-500/30 text-blue-600 dark:text-blue-400"
             }`}
           >
             <p className="text-sm font-medium">{toastMessage}</p>
@@ -1190,6 +1415,7 @@ export default function DictionaryPage() {
         )}
       </AnimatePresence>
 
+      {/* ─── SCROLL TOP ─── */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
@@ -1197,15 +1423,13 @@ export default function DictionaryPage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToTop}
-            className="fixed bottom-24 right-6 z-50 p-3.5 rounded-2xl bg-white/40 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:shadow-lg transition-shadow"
+            className="fixed bottom-24 right-6 z-50 p-3.5 rounded-2xl bg-white/40 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:shadow-lg transition-shadow"
             aria-label={t("page_scroll_top")}
           >
-            <ArrowUp size={20} />
+            <ArrowUp size={20} className="text-gray-900 dark:text-white" />
           </motion.button>
         )}
       </AnimatePresence>
-
-      <BottomNav />
-    </div>
+    </PageShell>
   );
 }

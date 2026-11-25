@@ -67,7 +67,7 @@ export default function CivilProtectionPage() {
                 key={m.code}
                 onClick={() => changeLang(m.code)}
                 aria-pressed={lang === m.code}
-                title={m.label ?? m.code}
+                title={m.code}
                 className={`w-8 h-8 rounded-lg text-base transition-all ${
                   lang === m.code
                     ? "bg-red-500/10 border border-red-500/40 ring-1 ring-red-500/20"
